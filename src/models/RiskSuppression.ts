@@ -102,18 +102,23 @@ export function RiskSuppressionFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function RiskSuppressionToJSON(value?: RiskSuppression | null): any {
+export function RiskSuppressionToJSON(json: any): RiskSuppression {
+    return RiskSuppressionToJSONTyped(json, false);
+}
+
+export function RiskSuppressionToJSONTyped(value?: RiskSuppression | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
-        expires_at: value["expiresAt"] == null ? undefined : value["expiresAt"].toISOString(),
+        expires_at: value["expiresAt"] == null ? value["expiresAt"] : value["expiresAt"].toISOString(),
         id: value["id"],
         suppressed: value["suppressed"],
         suppressed_by: value["suppressedBy"],
         suppressed_crn: value["suppressedCrn"],
         suppressed_reason: value["suppressedReason"],
-        suppression_date: value["suppressionDate"] == null ? undefined : value["suppressionDate"].toISOString(),
+        suppression_date: value["suppressionDate"] == null ? value["suppressionDate"] : value["suppressionDate"].toISOString(),
     };
 }

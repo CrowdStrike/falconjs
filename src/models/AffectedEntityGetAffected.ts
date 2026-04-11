@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { Usage } from "./Usage";
-import { UsageFromJSON, UsageFromJSONTyped, UsageToJSON } from "./Usage";
+import { UsageFromJSON, UsageFromJSONTyped, UsageToJSON, UsageToJSONTyped } from "./Usage";
 
 /**
  *
@@ -111,13 +111,18 @@ export function AffectedEntityGetAffectedFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function AffectedEntityGetAffectedToJSON(value?: AffectedEntityGetAffected | null): any {
+export function AffectedEntityGetAffectedToJSON(json: any): AffectedEntityGetAffected {
+    return AffectedEntityGetAffectedToJSONTyped(json, false);
+}
+
+export function AffectedEntityGetAffectedToJSONTyped(value?: AffectedEntityGetAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
-        dismiss_expiration_date: value["dismissExpirationDate"] == null ? undefined : (value["dismissExpirationDate"] as any).toISOString(),
+        dismiss_expiration_date: value["dismissExpirationDate"] == null ? value["dismissExpirationDate"] : value["dismissExpirationDate"].toISOString(),
         dismissed: value["dismissed"],
         dismissed_reason: value["dismissedReason"],
         entity_name: value["entityName"],

@@ -82,10 +82,15 @@ export function FalconxRegistryFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function FalconxRegistryToJSON(value?: FalconxRegistry | null): any {
+export function FalconxRegistryToJSON(json: any): FalconxRegistry {
+    return FalconxRegistryToJSONTyped(json, false);
+}
+
+export function FalconxRegistryToJSONTyped(value?: FalconxRegistry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         key: value["key"],
         operation: value["operation"],

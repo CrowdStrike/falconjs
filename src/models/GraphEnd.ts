@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { GraphNodePosition } from "./GraphNodePosition";
-import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON, GraphNodePositionToJSONTyped } from "./GraphNodePosition";
 
 /**
  *
@@ -80,10 +80,15 @@ export function GraphEndFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function GraphEndToJSON(value?: GraphEnd | null): any {
+export function GraphEndToJSON(json: any): GraphEnd {
+    return GraphEndToJSONTyped(json, false);
+}
+
+export function GraphEndToJSONTyped(value?: GraphEnd | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         incoming_flows: value["incomingFlows"],
         nodeID: value["nodeID"],

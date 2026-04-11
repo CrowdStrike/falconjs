@@ -14,22 +14,39 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDiscoverAPIApplicationHost } from "./DomainDiscoverAPIApplicationHost";
-import { DomainDiscoverAPIApplicationHostFromJSON, DomainDiscoverAPIApplicationHostFromJSONTyped, DomainDiscoverAPIApplicationHostToJSON } from "./DomainDiscoverAPIApplicationHost";
+import {
+    DomainDiscoverAPIApplicationHostFromJSON,
+    DomainDiscoverAPIApplicationHostFromJSONTyped,
+    DomainDiscoverAPIApplicationHostToJSON,
+    DomainDiscoverAPIApplicationHostToJSONTyped,
+} from "./DomainDiscoverAPIApplicationHost";
 import type { DomainDiscoverAPIApplicationPackage } from "./DomainDiscoverAPIApplicationPackage";
-import { DomainDiscoverAPIApplicationPackageFromJSON, DomainDiscoverAPIApplicationPackageFromJSONTyped, DomainDiscoverAPIApplicationPackageToJSON } from "./DomainDiscoverAPIApplicationPackage";
+import {
+    DomainDiscoverAPIApplicationPackageFromJSON,
+    DomainDiscoverAPIApplicationPackageFromJSONTyped,
+    DomainDiscoverAPIApplicationPackageToJSON,
+    DomainDiscoverAPIApplicationPackageToJSONTyped,
+} from "./DomainDiscoverAPIApplicationPackage";
 import type { DomainDiscoverAPISuspiciousIndicator } from "./DomainDiscoverAPISuspiciousIndicator";
-import { DomainDiscoverAPISuspiciousIndicatorFromJSON, DomainDiscoverAPISuspiciousIndicatorFromJSONTyped, DomainDiscoverAPISuspiciousIndicatorToJSON } from "./DomainDiscoverAPISuspiciousIndicator";
+import {
+    DomainDiscoverAPISuspiciousIndicatorFromJSON,
+    DomainDiscoverAPISuspiciousIndicatorFromJSONTyped,
+    DomainDiscoverAPISuspiciousIndicatorToJSON,
+    DomainDiscoverAPISuspiciousIndicatorToJSONTyped,
+} from "./DomainDiscoverAPISuspiciousIndicator";
 import type { DomainDiscoverAPIApplicationBrowserExtension } from "./DomainDiscoverAPIApplicationBrowserExtension";
 import {
     DomainDiscoverAPIApplicationBrowserExtensionFromJSON,
     DomainDiscoverAPIApplicationBrowserExtensionFromJSONTyped,
     DomainDiscoverAPIApplicationBrowserExtensionToJSON,
+    DomainDiscoverAPIApplicationBrowserExtensionToJSONTyped,
 } from "./DomainDiscoverAPIApplicationBrowserExtension";
 import type { DomainDiscoverAPIApplicationIDEExtension } from "./DomainDiscoverAPIApplicationIDEExtension";
 import {
     DomainDiscoverAPIApplicationIDEExtensionFromJSON,
     DomainDiscoverAPIApplicationIDEExtensionFromJSONTyped,
     DomainDiscoverAPIApplicationIDEExtensionToJSON,
+    DomainDiscoverAPIApplicationIDEExtensionToJSONTyped,
 } from "./DomainDiscoverAPIApplicationIDEExtension";
 
 /**
@@ -292,10 +309,15 @@ export function DomainDiscoverAPIApplicationFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainDiscoverAPIApplicationToJSON(value?: DomainDiscoverAPIApplication | null): any {
+export function DomainDiscoverAPIApplicationToJSON(json: any): DomainDiscoverAPIApplication {
+    return DomainDiscoverAPIApplicationToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationToJSONTyped(value?: DomainDiscoverAPIApplication | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         architectures: value["architectures"],
         browser_extension: DomainDiscoverAPIApplicationBrowserExtensionToJSON(value["browserExtension"]),

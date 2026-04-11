@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExecutionMetadataSummary } from "./DomainExecutionMetadataSummary";
-import { DomainExecutionMetadataSummaryFromJSON, DomainExecutionMetadataSummaryFromJSONTyped, DomainExecutionMetadataSummaryToJSON } from "./DomainExecutionMetadataSummary";
+import {
+    DomainExecutionMetadataSummaryFromJSON,
+    DomainExecutionMetadataSummaryFromJSONTyped,
+    DomainExecutionMetadataSummaryToJSON,
+    DomainExecutionMetadataSummaryToJSONTyped,
+} from "./DomainExecutionMetadataSummary";
 import type { DomainResultMetadata } from "./DomainResultMetadata";
-import { DomainResultMetadataFromJSON, DomainResultMetadataFromJSONTyped, DomainResultMetadataToJSON } from "./DomainResultMetadata";
+import { DomainResultMetadataFromJSON, DomainResultMetadataFromJSONTyped, DomainResultMetadataToJSON, DomainResultMetadataToJSONTyped } from "./DomainResultMetadata";
 import type { DomainReportParams } from "./DomainReportParams";
-import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
+import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON, DomainReportParamsToJSONTyped } from "./DomainReportParams";
 
 /**
  *
@@ -117,10 +122,15 @@ export function DomainReportExecutionSummaryV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainReportExecutionSummaryV1ToJSON(value?: DomainReportExecutionSummaryV1 | null): any {
+export function DomainReportExecutionSummaryV1ToJSON(json: any): DomainReportExecutionSummaryV1 {
+    return DomainReportExecutionSummaryV1ToJSONTyped(json, false);
+}
+
+export function DomainReportExecutionSummaryV1ToJSONTyped(value?: DomainReportExecutionSummaryV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         execution_metadata: DomainExecutionMetadataSummaryToJSON(value["executionMetadata"]),
         id: value["id"],

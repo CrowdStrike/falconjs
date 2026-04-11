@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryExternalHuntOptions } from "./MalqueryExternalHuntOptions";
-import { MalqueryExternalHuntOptionsFromJSON, MalqueryExternalHuntOptionsFromJSONTyped, MalqueryExternalHuntOptionsToJSON } from "./MalqueryExternalHuntOptions";
+import {
+    MalqueryExternalHuntOptionsFromJSON,
+    MalqueryExternalHuntOptionsFromJSONTyped,
+    MalqueryExternalHuntOptionsToJSON,
+    MalqueryExternalHuntOptionsToJSONTyped,
+} from "./MalqueryExternalHuntOptions";
 
 /**
  *
@@ -58,10 +63,15 @@ export function MalqueryExternalHuntParametersV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function MalqueryExternalHuntParametersV1ToJSON(value?: MalqueryExternalHuntParametersV1 | null): any {
+export function MalqueryExternalHuntParametersV1ToJSON(json: any): MalqueryExternalHuntParametersV1 {
+    return MalqueryExternalHuntParametersV1ToJSONTyped(json, false);
+}
+
+export function MalqueryExternalHuntParametersV1ToJSONTyped(value?: MalqueryExternalHuntParametersV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         options: MalqueryExternalHuntOptionsToJSON(value["options"]),
         yara_rule: value["yaraRule"],

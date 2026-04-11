@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { K8sregAccountPermissionsStatus } from "./K8sregAccountPermissionsStatus";
-import { K8sregAccountPermissionsStatusFromJSON, K8sregAccountPermissionsStatusFromJSONTyped, K8sregAccountPermissionsStatusToJSON } from "./K8sregAccountPermissionsStatus";
+import {
+    K8sregAccountPermissionsStatusFromJSON,
+    K8sregAccountPermissionsStatusFromJSONTyped,
+    K8sregAccountPermissionsStatusToJSON,
+    K8sregAccountPermissionsStatusToJSONTyped,
+} from "./K8sregAccountPermissionsStatus";
 
 /**
  *
@@ -99,10 +104,15 @@ export function K8sregAzureSubscriptionRespFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function K8sregAzureSubscriptionRespToJSON(value?: K8sregAzureSubscriptionResp | null): any {
+export function K8sregAzureSubscriptionRespToJSON(json: any): K8sregAzureSubscriptionResp {
+    return K8sregAzureSubscriptionRespToJSONTyped(json, false);
+}
+
+export function K8sregAzureSubscriptionRespToJSONTyped(value?: K8sregAzureSubscriptionResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         azure_permissions_status: (value["azurePermissionsStatus"] as Array<any>).map(K8sregAccountPermissionsStatusToJSON),
         created_at: value["createdAt"].toISOString(),

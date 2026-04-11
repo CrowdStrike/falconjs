@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ItautomationUserGroup } from "./ItautomationUserGroup";
-import { ItautomationUserGroupFromJSON, ItautomationUserGroupFromJSONTyped, ItautomationUserGroupToJSON } from "./ItautomationUserGroup";
+import { ItautomationUserGroupFromJSON, ItautomationUserGroupFromJSONTyped, ItautomationUserGroupToJSON, ItautomationUserGroupToJSONTyped } from "./ItautomationUserGroup";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ItautomationUpdateUserGroupResponseFromJSONTyped(json: any, igno
     };
 }
 
-export function ItautomationUpdateUserGroupResponseToJSON(value?: ItautomationUpdateUserGroupResponse | null): any {
+export function ItautomationUpdateUserGroupResponseToJSON(json: any): ItautomationUpdateUserGroupResponse {
+    return ItautomationUpdateUserGroupResponseToJSONTyped(json, false);
+}
+
+export function ItautomationUpdateUserGroupResponseToJSONTyped(value?: ItautomationUpdateUserGroupResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

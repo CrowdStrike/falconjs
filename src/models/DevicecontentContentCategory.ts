@@ -61,10 +61,15 @@ export function DevicecontentContentCategoryFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DevicecontentContentCategoryToJSON(value?: DevicecontentContentCategory | null): any {
+export function DevicecontentContentCategoryToJSON(json: any): DevicecontentContentCategory {
+    return DevicecontentContentCategoryToJSONTyped(json, false);
+}
+
+export function DevicecontentContentCategoryToJSONTyped(value?: DevicecontentContentCategory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         last_update: value["lastUpdate"],
         override: value["override"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainFileDetailsV1 } from "./DomainFileDetailsV1";
-import { DomainFileDetailsV1FromJSON, DomainFileDetailsV1FromJSONTyped, DomainFileDetailsV1ToJSON } from "./DomainFileDetailsV1";
+import { DomainFileDetailsV1FromJSON, DomainFileDetailsV1FromJSONTyped, DomainFileDetailsV1ToJSON, DomainFileDetailsV1ToJSONTyped } from "./DomainFileDetailsV1";
 
 /**
  *
@@ -166,10 +166,15 @@ export function DomainMatchedBreachSummaryV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainMatchedBreachSummaryV1ToJSON(value?: DomainMatchedBreachSummaryV1 | null): any {
+export function DomainMatchedBreachSummaryV1ToJSON(json: any): DomainMatchedBreachSummaryV1 {
+    return DomainMatchedBreachSummaryV1ToJSONTyped(json, false);
+}
+
+export function DomainMatchedBreachSummaryV1ToJSONTyped(value?: DomainMatchedBreachSummaryV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         community_name: value["communityName"],
         confidence_level: value["confidenceLevel"],
@@ -179,10 +184,10 @@ export function DomainMatchedBreachSummaryV1ToJSON(value?: DomainMatchedBreachSu
         description: value["description"],
         event_date: value["eventDate"],
         event_id: value["eventId"],
-        exposure_date: value["exposureDate"] == null ? undefined : value["exposureDate"].toISOString(),
+        exposure_date: value["exposureDate"] == null ? value["exposureDate"] : value["exposureDate"].toISOString(),
         fields: value["fields"],
         files: value["files"] == null ? undefined : (value["files"] as Array<any>).map(DomainFileDetailsV1ToJSON),
-        idp_send_date: value["idpSendDate"] == null ? undefined : value["idpSendDate"].toISOString(),
+        idp_send_date: value["idpSendDate"] == null ? value["idpSendDate"] : value["idpSendDate"].toISOString(),
         idp_send_status: value["idpSendStatus"],
         is_retroactively_deduped: value["isRetroactivelyDeduped"],
         name: value["name"],

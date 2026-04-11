@@ -18,24 +18,28 @@ import {
     CorrelationrulesapiCreateRuleNotificationsFromJSON,
     CorrelationrulesapiCreateRuleNotificationsFromJSONTyped,
     CorrelationrulesapiCreateRuleNotificationsToJSON,
+    CorrelationrulesapiCreateRuleNotificationsToJSONTyped,
 } from "./CorrelationrulesapiCreateRuleNotifications";
 import type { CorrelationrulesapiCreateRuleOperationV1 } from "./CorrelationrulesapiCreateRuleOperationV1";
 import {
     CorrelationrulesapiCreateRuleOperationV1FromJSON,
     CorrelationrulesapiCreateRuleOperationV1FromJSONTyped,
     CorrelationrulesapiCreateRuleOperationV1ToJSON,
+    CorrelationrulesapiCreateRuleOperationV1ToJSONTyped,
 } from "./CorrelationrulesapiCreateRuleOperationV1";
 import type { CorrelationrulesapiMitreAttackMappingV1 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import {
     CorrelationrulesapiMitreAttackMappingV1FromJSON,
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
+    CorrelationrulesapiMitreAttackMappingV1ToJSONTyped,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import type { CorrelationrulesapiRuleSearchDeployTemplateV1 } from "./CorrelationrulesapiRuleSearchDeployTemplateV1";
 import {
     CorrelationrulesapiRuleSearchDeployTemplateV1FromJSON,
     CorrelationrulesapiRuleSearchDeployTemplateV1FromJSONTyped,
     CorrelationrulesapiRuleSearchDeployTemplateV1ToJSON,
+    CorrelationrulesapiRuleSearchDeployTemplateV1ToJSONTyped,
 } from "./CorrelationrulesapiRuleSearchDeployTemplateV1";
 
 /**
@@ -155,10 +159,15 @@ export function CorrelationrulesapiDeployTemplateFromJSONTyped(json: any, ignore
     };
 }
 
-export function CorrelationrulesapiDeployTemplateToJSON(value?: CorrelationrulesapiDeployTemplate | null): any {
+export function CorrelationrulesapiDeployTemplateToJSON(json: any): CorrelationrulesapiDeployTemplate {
+    return CorrelationrulesapiDeployTemplateToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiDeployTemplateToJSONTyped(value?: CorrelationrulesapiDeployTemplate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         description: value["description"],

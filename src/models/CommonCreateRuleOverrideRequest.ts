@@ -18,6 +18,7 @@ import {
     CommonSingleCreateRuleOverrideRequestFromJSON,
     CommonSingleCreateRuleOverrideRequestFromJSONTyped,
     CommonSingleCreateRuleOverrideRequestToJSON,
+    CommonSingleCreateRuleOverrideRequestToJSONTyped,
 } from "./CommonSingleCreateRuleOverrideRequest";
 
 /**
@@ -55,10 +56,15 @@ export function CommonCreateRuleOverrideRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function CommonCreateRuleOverrideRequestToJSON(value?: CommonCreateRuleOverrideRequest | null): any {
+export function CommonCreateRuleOverrideRequestToJSON(json: any): CommonCreateRuleOverrideRequest {
+    return CommonCreateRuleOverrideRequestToJSONTyped(json, false);
+}
+
+export function CommonCreateRuleOverrideRequestToJSONTyped(value?: CommonCreateRuleOverrideRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         overrides: (value["overrides"] as Array<any>).map(CommonSingleCreateRuleOverrideRequestToJSON),
     };

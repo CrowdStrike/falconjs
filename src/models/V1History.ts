@@ -75,14 +75,19 @@ export function V1HistoryFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function V1HistoryToJSON(value?: V1History | null): any {
+export function V1HistoryToJSON(json: any): V1History {
+    return V1HistoryToJSONTyped(json, false);
+}
+
+export function V1HistoryToJSONTyped(value?: V1History | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         author: value["author"],
         comment: value["comment"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         created_by: value["createdBy"],
         empty_layer: value["emptyLayer"],
     };

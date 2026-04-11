@@ -75,10 +75,15 @@ export function FalconxFileResourceFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function FalconxFileResourceToJSON(value?: FalconxFileResource | null): any {
+export function FalconxFileResourceToJSON(json: any): FalconxFileResource {
+    return FalconxFileResourceToJSONTyped(json, false);
+}
+
+export function FalconxFileResourceToJSONTyped(value?: FalconxFileResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         language: value["language"],
         name: value["name"],

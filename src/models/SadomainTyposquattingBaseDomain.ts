@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { SadomainWhoisRecord } from "./SadomainWhoisRecord";
-import { SadomainWhoisRecordFromJSON, SadomainWhoisRecordFromJSONTyped, SadomainWhoisRecordToJSON } from "./SadomainWhoisRecord";
+import { SadomainWhoisRecordFromJSON, SadomainWhoisRecordFromJSONTyped, SadomainWhoisRecordToJSON, SadomainWhoisRecordToJSONTyped } from "./SadomainWhoisRecord";
 import type { SadomainSubmissionInformation } from "./SadomainSubmissionInformation";
-import { SadomainSubmissionInformationFromJSON, SadomainSubmissionInformationFromJSONTyped, SadomainSubmissionInformationToJSON } from "./SadomainSubmissionInformation";
+import {
+    SadomainSubmissionInformationFromJSON,
+    SadomainSubmissionInformationFromJSONTyped,
+    SadomainSubmissionInformationToJSON,
+    SadomainSubmissionInformationToJSONTyped,
+} from "./SadomainSubmissionInformation";
 
 /**
  *
@@ -105,12 +110,17 @@ export function SadomainTyposquattingBaseDomainFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function SadomainTyposquattingBaseDomainToJSON(value?: SadomainTyposquattingBaseDomain | null): any {
+export function SadomainTyposquattingBaseDomainToJSON(json: any): SadomainTyposquattingBaseDomain {
+    return SadomainTyposquattingBaseDomainToJSONTyped(json, false);
+}
+
+export function SadomainTyposquattingBaseDomainToJSONTyped(value?: SadomainTyposquattingBaseDomain | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        created_date: value["createdDate"] == null ? undefined : value["createdDate"].toISOString(),
+        created_date: value["createdDate"] == null ? value["createdDate"] : value["createdDate"].toISOString(),
         id: value["id"],
         is_registered: value["isRegistered"],
         punycode_format: value["punycodeFormat"],

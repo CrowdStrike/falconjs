@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationAWSAccountScript } from "./RegistrationAWSAccountScript";
-import { RegistrationAWSAccountScriptFromJSON, RegistrationAWSAccountScriptFromJSONTyped, RegistrationAWSAccountScriptToJSON } from "./RegistrationAWSAccountScript";
+import {
+    RegistrationAWSAccountScriptFromJSON,
+    RegistrationAWSAccountScriptFromJSONTyped,
+    RegistrationAWSAccountScriptToJSON,
+    RegistrationAWSAccountScriptToJSONTyped,
+} from "./RegistrationAWSAccountScript";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function RegistrationAWSProvisionGetAccountScriptResponseV2FromJSONTyped(
     };
 }
 
-export function RegistrationAWSProvisionGetAccountScriptResponseV2ToJSON(value?: RegistrationAWSProvisionGetAccountScriptResponseV2 | null): any {
+export function RegistrationAWSProvisionGetAccountScriptResponseV2ToJSON(json: any): RegistrationAWSProvisionGetAccountScriptResponseV2 {
+    return RegistrationAWSProvisionGetAccountScriptResponseV2ToJSONTyped(json, false);
+}
+
+export function RegistrationAWSProvisionGetAccountScriptResponseV2ToJSONTyped(value?: RegistrationAWSProvisionGetAccountScriptResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

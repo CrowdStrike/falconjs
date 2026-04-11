@@ -64,10 +64,15 @@ export function DomainAlertDetailsFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainAlertDetailsToJSON(value?: DomainAlertDetails | null): any {
+export function DomainAlertDetailsToJSON(json: any): DomainAlertDetails {
+    return DomainAlertDetailsToJSONTyped(json, false);
+}
+
+export function DomainAlertDetailsToJSONTyped(value?: DomainAlertDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         severity: value["severity"],

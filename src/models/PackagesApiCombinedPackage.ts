@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIPackageCombined } from "./ModelsAPIPackageCombined";
-import { ModelsAPIPackageCombinedFromJSON, ModelsAPIPackageCombinedFromJSONTyped, ModelsAPIPackageCombinedToJSON } from "./ModelsAPIPackageCombined";
+import { ModelsAPIPackageCombinedFromJSON, ModelsAPIPackageCombinedFromJSONTyped, ModelsAPIPackageCombinedToJSON, ModelsAPIPackageCombinedToJSONTyped } from "./ModelsAPIPackageCombined";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function PackagesApiCombinedPackageFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function PackagesApiCombinedPackageToJSON(value?: PackagesApiCombinedPackage | null): any {
+export function PackagesApiCombinedPackageToJSON(json: any): PackagesApiCombinedPackage {
+    return PackagesApiCombinedPackageToJSONTyped(json, false);
+}
+
+export function PackagesApiCombinedPackageToJSONTyped(value?: PackagesApiCombinedPackage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

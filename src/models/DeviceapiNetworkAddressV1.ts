@@ -61,10 +61,15 @@ export function DeviceapiNetworkAddressV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DeviceapiNetworkAddressV1ToJSON(value?: DeviceapiNetworkAddressV1 | null): any {
+export function DeviceapiNetworkAddressV1ToJSON(json: any): DeviceapiNetworkAddressV1 {
+    return DeviceapiNetworkAddressV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiNetworkAddressV1ToJSONTyped(value?: DeviceapiNetworkAddressV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ip_address: value["ipAddress"],
         mac_address: value["macAddress"],

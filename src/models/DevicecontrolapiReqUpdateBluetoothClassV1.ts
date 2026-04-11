@@ -18,6 +18,7 @@ import {
     DevicecontrolapiReqUpdateBluetoothMinorClassV1FromJSON,
     DevicecontrolapiReqUpdateBluetoothMinorClassV1FromJSONTyped,
     DevicecontrolapiReqUpdateBluetoothMinorClassV1ToJSON,
+    DevicecontrolapiReqUpdateBluetoothMinorClassV1ToJSONTyped,
 } from "./DevicecontrolapiReqUpdateBluetoothMinorClassV1";
 
 /**
@@ -28,7 +29,7 @@ import {
 export interface DevicecontrolapiReqUpdateBluetoothClassV1 {
     /**
      * Action to be taken for devices in this class
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateBluetoothClassV1ActionEnum}
      * @memberof DevicecontrolapiReqUpdateBluetoothClassV1
      */
     action: DevicecontrolapiReqUpdateBluetoothClassV1ActionEnum;
@@ -80,10 +81,15 @@ export function DevicecontrolapiReqUpdateBluetoothClassV1FromJSONTyped(json: any
     };
 }
 
-export function DevicecontrolapiReqUpdateBluetoothClassV1ToJSON(value?: DevicecontrolapiReqUpdateBluetoothClassV1 | null): any {
+export function DevicecontrolapiReqUpdateBluetoothClassV1ToJSON(json: any): DevicecontrolapiReqUpdateBluetoothClassV1 {
+    return DevicecontrolapiReqUpdateBluetoothClassV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateBluetoothClassV1ToJSONTyped(value?: DevicecontrolapiReqUpdateBluetoothClassV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],

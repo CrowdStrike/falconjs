@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { RulegroupsAssignedRule } from "./RulegroupsAssignedRule";
-import { RulegroupsAssignedRuleFromJSON, RulegroupsAssignedRuleFromJSONTyped, RulegroupsAssignedRuleToJSON } from "./RulegroupsAssignedRule";
+import { RulegroupsAssignedRuleFromJSON, RulegroupsAssignedRuleFromJSONTyped, RulegroupsAssignedRuleToJSON, RulegroupsAssignedRuleToJSONTyped } from "./RulegroupsAssignedRule";
 import type { RulegroupsPolicyAssignment } from "./RulegroupsPolicyAssignment";
-import { RulegroupsPolicyAssignmentFromJSON, RulegroupsPolicyAssignmentFromJSONTyped, RulegroupsPolicyAssignmentToJSON } from "./RulegroupsPolicyAssignment";
+import { RulegroupsPolicyAssignmentFromJSON, RulegroupsPolicyAssignmentFromJSONTyped, RulegroupsPolicyAssignmentToJSON, RulegroupsPolicyAssignmentToJSONTyped } from "./RulegroupsPolicyAssignment";
 
 /**
  *
@@ -116,10 +116,15 @@ export function RulegroupsRuleGroupFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function RulegroupsRuleGroupToJSON(value?: RulegroupsRuleGroup | null): any {
+export function RulegroupsRuleGroupToJSON(json: any): RulegroupsRuleGroup {
+    return RulegroupsRuleGroupToJSONTyped(json, false);
+}
+
+export function RulegroupsRuleGroupToJSONTyped(value?: RulegroupsRuleGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assigned_rules: value["assignedRules"] == null ? undefined : (value["assignedRules"] as Array<any>).map(RulegroupsAssignedRuleToJSON),
         created_by: value["createdBy"],

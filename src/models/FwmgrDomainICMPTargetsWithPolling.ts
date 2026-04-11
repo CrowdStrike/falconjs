@@ -55,10 +55,15 @@ export function FwmgrDomainICMPTargetsWithPollingFromJSONTyped(json: any, ignore
     };
 }
 
-export function FwmgrDomainICMPTargetsWithPollingToJSON(value?: FwmgrDomainICMPTargetsWithPolling | null): any {
+export function FwmgrDomainICMPTargetsWithPollingToJSON(json: any): FwmgrDomainICMPTargetsWithPolling {
+    return FwmgrDomainICMPTargetsWithPollingToJSONTyped(json, false);
+}
+
+export function FwmgrDomainICMPTargetsWithPollingToJSONTyped(value?: FwmgrDomainICMPTargetsWithPolling | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         polling_interval: value["pollingInterval"],
         targets: value["targets"],

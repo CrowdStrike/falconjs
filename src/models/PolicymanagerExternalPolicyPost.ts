@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerPolicyProperties } from "./PolicymanagerPolicyProperties";
-import { PolicymanagerPolicyPropertiesFromJSON, PolicymanagerPolicyPropertiesFromJSONTyped, PolicymanagerPolicyPropertiesToJSON } from "./PolicymanagerPolicyProperties";
+import {
+    PolicymanagerPolicyPropertiesFromJSON,
+    PolicymanagerPolicyPropertiesFromJSONTyped,
+    PolicymanagerPolicyPropertiesToJSON,
+    PolicymanagerPolicyPropertiesToJSONTyped,
+} from "./PolicymanagerPolicyProperties";
 
 /**
  *
@@ -74,10 +79,15 @@ export function PolicymanagerExternalPolicyPostFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function PolicymanagerExternalPolicyPostToJSON(value?: PolicymanagerExternalPolicyPost | null): any {
+export function PolicymanagerExternalPolicyPostToJSON(json: any): PolicymanagerExternalPolicyPost {
+    return PolicymanagerExternalPolicyPostToJSONTyped(json, false);
+}
+
+export function PolicymanagerExternalPolicyPostToJSONTyped(value?: PolicymanagerExternalPolicyPost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

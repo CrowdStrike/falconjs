@@ -64,10 +64,15 @@ export function DomainReconAPIErrorDetailFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainReconAPIErrorDetailToJSON(value?: DomainReconAPIErrorDetail | null): any {
+export function DomainReconAPIErrorDetailToJSON(json: any): DomainReconAPIErrorDetail {
+    return DomainReconAPIErrorDetailToJSONTyped(json, false);
+}
+
+export function DomainReconAPIErrorDetailToJSONTyped(value?: DomainReconAPIErrorDetail | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field: value["field"],
         message: value["message"],

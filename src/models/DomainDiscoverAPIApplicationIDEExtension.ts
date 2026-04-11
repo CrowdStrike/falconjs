@@ -103,10 +103,15 @@ export function DomainDiscoverAPIApplicationIDEExtensionFromJSONTyped(json: any,
     };
 }
 
-export function DomainDiscoverAPIApplicationIDEExtensionToJSON(value?: DomainDiscoverAPIApplicationIDEExtension | null): any {
+export function DomainDiscoverAPIApplicationIDEExtensionToJSON(json: any): DomainDiscoverAPIApplicationIDEExtension {
+    return DomainDiscoverAPIApplicationIDEExtensionToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationIDEExtensionToJSONTyped(value?: DomainDiscoverAPIApplicationIDEExtension | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cost_type: value["costType"],
         ide: value["ide"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DefinitionsPlaybookParameter } from "./DefinitionsPlaybookParameter";
-import { DefinitionsPlaybookParameterFromJSON, DefinitionsPlaybookParameterFromJSONTyped, DefinitionsPlaybookParameterToJSON } from "./DefinitionsPlaybookParameter";
+import {
+    DefinitionsPlaybookParameterFromJSON,
+    DefinitionsPlaybookParameterFromJSONTyped,
+    DefinitionsPlaybookParameterToJSON,
+    DefinitionsPlaybookParameterToJSONTyped,
+} from "./DefinitionsPlaybookParameter";
 import type { GraphValidationError } from "./GraphValidationError";
-import { GraphValidationErrorFromJSON, GraphValidationErrorFromJSONTyped, GraphValidationErrorToJSON } from "./GraphValidationError";
+import { GraphValidationErrorFromJSON, GraphValidationErrorFromJSONTyped, GraphValidationErrorToJSON, GraphValidationErrorToJSONTyped } from "./GraphValidationError";
 import type { GraphDefinitionModel } from "./GraphDefinitionModel";
-import { GraphDefinitionModelFromJSON, GraphDefinitionModelFromJSONTyped, GraphDefinitionModelToJSON } from "./GraphDefinitionModel";
+import { GraphDefinitionModelFromJSON, GraphDefinitionModelFromJSONTyped, GraphDefinitionModelToJSON, GraphDefinitionModelToJSONTyped } from "./GraphDefinitionModel";
 
 /**
  *
@@ -90,10 +95,15 @@ export function DefinitionsDefinitionImportResponseEntityFromJSONTyped(json: any
     };
 }
 
-export function DefinitionsDefinitionImportResponseEntityToJSON(value?: DefinitionsDefinitionImportResponseEntity | null): any {
+export function DefinitionsDefinitionImportResponseEntityToJSON(json: any): DefinitionsDefinitionImportResponseEntity {
+    return DefinitionsDefinitionImportResponseEntityToJSONTyped(json, false);
+}
+
+export function DefinitionsDefinitionImportResponseEntityToJSONTyped(value?: DefinitionsDefinitionImportResponseEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

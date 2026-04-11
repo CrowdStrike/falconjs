@@ -72,10 +72,15 @@ export function SchemaSensorEventFieldFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function SchemaSensorEventFieldToJSON(value?: SchemaSensorEventField | null): any {
+export function SchemaSensorEventFieldToJSON(json: any): SchemaSensorEventField {
+    return SchemaSensorEventFieldToJSONTyped(json, false);
+}
+
+export function SchemaSensorEventFieldToJSONTyped(value?: SchemaSensorEventField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

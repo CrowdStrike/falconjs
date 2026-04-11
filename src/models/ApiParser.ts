@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiParserTestCase } from "./ApiParserTestCase";
-import { ApiParserTestCaseFromJSON, ApiParserTestCaseFromJSONTyped, ApiParserTestCaseToJSON } from "./ApiParserTestCase";
+import { ApiParserTestCaseFromJSON, ApiParserTestCaseFromJSONTyped, ApiParserTestCaseToJSON, ApiParserTestCaseToJSONTyped } from "./ApiParserTestCase";
 
 /**
  *
@@ -120,10 +120,15 @@ export function ApiParserFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function ApiParserToJSON(value?: ApiParser | null): any {
+export function ApiParserToJSON(json: any): ApiParser {
+    return ApiParserToJSONTyped(json, false);
+}
+
+export function ApiParserToJSONTyped(value?: ApiParser | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         display_name: value["displayName"],

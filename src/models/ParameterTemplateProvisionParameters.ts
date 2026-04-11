@@ -14,11 +14,26 @@
 
 import { mapValues } from "../runtime";
 import type { ParameterActivityProvisionParameters } from "./ParameterActivityProvisionParameters";
-import { ParameterActivityProvisionParametersFromJSON, ParameterActivityProvisionParametersFromJSONTyped, ParameterActivityProvisionParametersToJSON } from "./ParameterActivityProvisionParameters";
+import {
+    ParameterActivityProvisionParametersFromJSON,
+    ParameterActivityProvisionParametersFromJSONTyped,
+    ParameterActivityProvisionParametersToJSON,
+    ParameterActivityProvisionParametersToJSONTyped,
+} from "./ParameterActivityProvisionParameters";
 import type { ParameterConditionProvisionParameter } from "./ParameterConditionProvisionParameter";
-import { ParameterConditionProvisionParameterFromJSON, ParameterConditionProvisionParameterFromJSONTyped, ParameterConditionProvisionParameterToJSON } from "./ParameterConditionProvisionParameter";
+import {
+    ParameterConditionProvisionParameterFromJSON,
+    ParameterConditionProvisionParameterFromJSONTyped,
+    ParameterConditionProvisionParameterToJSON,
+    ParameterConditionProvisionParameterToJSONTyped,
+} from "./ParameterConditionProvisionParameter";
 import type { ParameterTriggerProvisionParameter } from "./ParameterTriggerProvisionParameter";
-import { ParameterTriggerProvisionParameterFromJSON, ParameterTriggerProvisionParameterFromJSONTyped, ParameterTriggerProvisionParameterToJSON } from "./ParameterTriggerProvisionParameter";
+import {
+    ParameterTriggerProvisionParameterFromJSON,
+    ParameterTriggerProvisionParameterFromJSONTyped,
+    ParameterTriggerProvisionParameterToJSON,
+    ParameterTriggerProvisionParameterToJSONTyped,
+} from "./ParameterTriggerProvisionParameter";
 
 /**
  *
@@ -68,10 +83,15 @@ export function ParameterTemplateProvisionParametersFromJSONTyped(json: any, ign
     };
 }
 
-export function ParameterTemplateProvisionParametersToJSON(value?: ParameterTemplateProvisionParameters | null): any {
+export function ParameterTemplateProvisionParametersToJSON(json: any): ParameterTemplateProvisionParameters {
+    return ParameterTemplateProvisionParametersToJSONTyped(json, false);
+}
+
+export function ParameterTemplateProvisionParametersToJSONTyped(value?: ParameterTemplateProvisionParameters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         activities: ParameterActivityProvisionParametersToJSON(value["activities"]),
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(ParameterConditionProvisionParameterToJSON),

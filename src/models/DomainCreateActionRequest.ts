@@ -80,10 +80,15 @@ export function DomainCreateActionRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainCreateActionRequestToJSON(value?: DomainCreateActionRequest | null): any {
+export function DomainCreateActionRequestToJSON(json: any): DomainCreateActionRequest {
+    return DomainCreateActionRequestToJSONTyped(json, false);
+}
+
+export function DomainCreateActionRequestToJSONTyped(value?: DomainCreateActionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content_format: value["contentFormat"],
         frequency: value["frequency"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sassetsPodEnrichmentEntry } from "./K8sassetsPodEnrichmentEntry";
-import { K8sassetsPodEnrichmentEntryFromJSON, K8sassetsPodEnrichmentEntryFromJSONTyped, K8sassetsPodEnrichmentEntryToJSON } from "./K8sassetsPodEnrichmentEntry";
+import {
+    K8sassetsPodEnrichmentEntryFromJSON,
+    K8sassetsPodEnrichmentEntryFromJSONTyped,
+    K8sassetsPodEnrichmentEntryToJSON,
+    K8sassetsPodEnrichmentEntryToJSONTyped,
+} from "./K8sassetsPodEnrichmentEntry";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function K8sassetsPodEnrichmentResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8sassetsPodEnrichmentResponseToJSON(value?: K8sassetsPodEnrichmentResponse | null): any {
+export function K8sassetsPodEnrichmentResponseToJSON(json: any): K8sassetsPodEnrichmentResponse {
+    return K8sassetsPodEnrichmentResponseToJSONTyped(json, false);
+}
+
+export function K8sassetsPodEnrichmentResponseToJSONTyped(value?: K8sassetsPodEnrichmentResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         EnrichmentData: (value["enrichmentData"] as Array<any>).map(K8sassetsPodEnrichmentEntryToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

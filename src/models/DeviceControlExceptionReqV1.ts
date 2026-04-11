@@ -21,7 +21,7 @@ import { mapValues } from "../runtime";
 export interface DeviceControlExceptionReqV1 {
     /**
      * Action to be taken for devices matching this exception. Note: BLOCK_EXECUTE and BLOCK_WRITE_EXECUTE only valid for MASS_STORAGE class
-     * @type {string}
+     * @type {DeviceControlExceptionReqV1ActionEnum}
      * @memberof DeviceControlExceptionReqV1
      */
     action?: DeviceControlExceptionReqV1ActionEnum;
@@ -142,15 +142,20 @@ export function DeviceControlExceptionReqV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DeviceControlExceptionReqV1ToJSON(value?: DeviceControlExceptionReqV1 | null): any {
+export function DeviceControlExceptionReqV1ToJSON(json: any): DeviceControlExceptionReqV1 {
+    return DeviceControlExceptionReqV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlExceptionReqV1ToJSONTyped(value?: DeviceControlExceptionReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         combined_id: value["combinedId"],
         description: value["description"],
-        expiration_time: value["expirationTime"] == null ? undefined : value["expirationTime"].toISOString(),
+        expiration_time: value["expirationTime"] == null ? value["expirationTime"] : value["expirationTime"].toISOString(),
         id: value["id"],
         product_id: value["productId"],
         product_id_decimal: value["productIdDecimal"],

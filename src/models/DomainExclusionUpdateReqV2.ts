@@ -90,10 +90,15 @@ export function DomainExclusionUpdateReqV2FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainExclusionUpdateReqV2ToJSON(value?: DomainExclusionUpdateReqV2 | null): any {
+export function DomainExclusionUpdateReqV2ToJSON(json: any): DomainExclusionUpdateReqV2 {
+    return DomainExclusionUpdateReqV2ToJSONTyped(json, false);
+}
+
+export function DomainExclusionUpdateReqV2ToJSONTyped(value?: DomainExclusionUpdateReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         excluded_from: value["excludedFrom"],

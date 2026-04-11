@@ -75,10 +75,15 @@ export function PaginationMetaGetSystemUsersFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function PaginationMetaGetSystemUsersToJSON(value?: PaginationMetaGetSystemUsers | null): any {
+export function PaginationMetaGetSystemUsersToJSON(json: any): PaginationMetaGetSystemUsers {
+    return PaginationMetaGetSystemUsersToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetSystemUsersToJSONTyped(value?: PaginationMetaGetSystemUsers | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegrationTask } from "./TypesIntegrationTask";
-import { TypesIntegrationTaskFromJSON, TypesIntegrationTaskFromJSONTyped, TypesIntegrationTaskToJSON } from "./TypesIntegrationTask";
+import { TypesIntegrationTaskFromJSON, TypesIntegrationTaskFromJSONTyped, TypesIntegrationTaskToJSON, TypesIntegrationTaskToJSONTyped } from "./TypesIntegrationTask";
 import type { TypesExecutorNode } from "./TypesExecutorNode";
-import { TypesExecutorNodeFromJSON, TypesExecutorNodeFromJSONTyped, TypesExecutorNodeToJSON } from "./TypesExecutorNode";
+import { TypesExecutorNodeFromJSON, TypesExecutorNodeFromJSONTyped, TypesExecutorNodeToJSON, TypesExecutorNodeToJSONTyped } from "./TypesExecutorNode";
 
 /**
  *
@@ -59,10 +59,15 @@ export function TypesIntegrationTaskResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function TypesIntegrationTaskResponseToJSON(value?: TypesIntegrationTaskResponse | null): any {
+export function TypesIntegrationTaskResponseToJSON(json: any): TypesIntegrationTaskResponse {
+    return TypesIntegrationTaskResponseToJSONTyped(json, false);
+}
+
+export function TypesIntegrationTaskResponseToJSONTyped(value?: TypesIntegrationTaskResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         integrationTask: TypesIntegrationTaskToJSON(value["integrationTask"]),
         newExecutorNode: TypesExecutorNodeToJSON(value["newExecutorNode"]),

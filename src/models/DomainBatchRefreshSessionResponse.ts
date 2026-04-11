@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainMultiPulseSensorResponse } from "./DomainMultiPulseSensorResponse";
-import { DomainMultiPulseSensorResponseFromJSON, DomainMultiPulseSensorResponseFromJSONTyped, DomainMultiPulseSensorResponseToJSON } from "./DomainMultiPulseSensorResponse";
+import {
+    DomainMultiPulseSensorResponseFromJSON,
+    DomainMultiPulseSensorResponseFromJSONTyped,
+    DomainMultiPulseSensorResponseToJSON,
+    DomainMultiPulseSensorResponseToJSONTyped,
+} from "./DomainMultiPulseSensorResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function DomainBatchRefreshSessionResponseFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainBatchRefreshSessionResponseToJSON(value?: DomainBatchRefreshSessionResponse | null): any {
+export function DomainBatchRefreshSessionResponseToJSON(json: any): DomainBatchRefreshSessionResponse {
+    return DomainBatchRefreshSessionResponseToJSONTyped(json, false);
+}
+
+export function DomainBatchRefreshSessionResponseToJSONTyped(value?: DomainBatchRefreshSessionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

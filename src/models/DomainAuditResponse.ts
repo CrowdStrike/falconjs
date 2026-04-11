@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainMetaInfo } from "./DomainMetaInfo";
-import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON } from "./DomainMetaInfo";
+import { DomainMetaInfoFromJSON, DomainMetaInfoFromJSONTyped, DomainMetaInfoToJSON, DomainMetaInfoToJSONTyped } from "./DomainMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { CommonCIDAuditResult } from "./CommonCIDAuditResult";
-import { CommonCIDAuditResultFromJSON, CommonCIDAuditResultFromJSONTyped, CommonCIDAuditResultToJSON } from "./CommonCIDAuditResult";
+import { CommonCIDAuditResultFromJSON, CommonCIDAuditResultFromJSONTyped, CommonCIDAuditResultToJSON, CommonCIDAuditResultToJSONTyped } from "./CommonCIDAuditResult";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainAuditResponseFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainAuditResponseToJSON(value?: DomainAuditResponse | null): any {
+export function DomainAuditResponseToJSON(json: any): DomainAuditResponse {
+    return DomainAuditResponseToJSONTyped(json, false);
+}
+
+export function DomainAuditResponseToJSONTyped(value?: DomainAuditResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainMetaInfoToJSON(value["meta"]),

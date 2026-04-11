@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FielddataFieldSourceOption } from "./FielddataFieldSourceOption";
-import { FielddataFieldSourceOptionFromJSON, FielddataFieldSourceOptionFromJSONTyped, FielddataFieldSourceOptionToJSON } from "./FielddataFieldSourceOption";
+import { FielddataFieldSourceOptionFromJSON, FielddataFieldSourceOptionFromJSONTyped, FielddataFieldSourceOptionToJSON, FielddataFieldSourceOptionToJSONTyped } from "./FielddataFieldSourceOption";
 
 /**
  *
@@ -79,10 +79,15 @@ export function FielddataFieldSourceFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FielddataFieldSourceToJSON(value?: FielddataFieldSource | null): any {
+export function FielddataFieldSourceToJSON(json: any): FielddataFieldSource {
+    return FielddataFieldSourceToJSONTyped(json, false);
+}
+
+export function FielddataFieldSourceToJSONTyped(value?: FielddataFieldSource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         case_sensitive: value["caseSensitive"],
         key: value["key"],

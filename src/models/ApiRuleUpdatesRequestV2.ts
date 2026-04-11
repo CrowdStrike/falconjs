@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiRuleUpdateV2 } from "./ApiRuleUpdateV2";
-import { ApiRuleUpdateV2FromJSON, ApiRuleUpdateV2FromJSONTyped, ApiRuleUpdateV2ToJSON } from "./ApiRuleUpdateV2";
+import { ApiRuleUpdateV2FromJSON, ApiRuleUpdateV2FromJSONTyped, ApiRuleUpdateV2ToJSON, ApiRuleUpdateV2ToJSONTyped } from "./ApiRuleUpdateV2";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ApiRuleUpdatesRequestV2FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiRuleUpdatesRequestV2ToJSON(value?: ApiRuleUpdatesRequestV2 | null): any {
+export function ApiRuleUpdatesRequestV2ToJSON(json: any): ApiRuleUpdatesRequestV2 {
+    return ApiRuleUpdatesRequestV2ToJSONTyped(json, false);
+}
+
+export function ApiRuleUpdatesRequestV2ToJSONTyped(value?: ApiRuleUpdatesRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comment: value["comment"],
         rule_updates: (value["ruleUpdates"] as Array<any>).map(ApiRuleUpdateV2ToJSON),

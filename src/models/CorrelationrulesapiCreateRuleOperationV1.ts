@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { CorrelationrulesapiRuleScheduleV1 } from "./CorrelationrulesapiRuleScheduleV1";
-import { CorrelationrulesapiRuleScheduleV1FromJSON, CorrelationrulesapiRuleScheduleV1FromJSONTyped, CorrelationrulesapiRuleScheduleV1ToJSON } from "./CorrelationrulesapiRuleScheduleV1";
+import {
+    CorrelationrulesapiRuleScheduleV1FromJSON,
+    CorrelationrulesapiRuleScheduleV1FromJSONTyped,
+    CorrelationrulesapiRuleScheduleV1ToJSON,
+    CorrelationrulesapiRuleScheduleV1ToJSONTyped,
+} from "./CorrelationrulesapiRuleScheduleV1";
 import type { CorrelationrulesapiRuleSuppressionV1 } from "./CorrelationrulesapiRuleSuppressionV1";
-import { CorrelationrulesapiRuleSuppressionV1FromJSON, CorrelationrulesapiRuleSuppressionV1FromJSONTyped, CorrelationrulesapiRuleSuppressionV1ToJSON } from "./CorrelationrulesapiRuleSuppressionV1";
+import {
+    CorrelationrulesapiRuleSuppressionV1FromJSON,
+    CorrelationrulesapiRuleSuppressionV1FromJSONTyped,
+    CorrelationrulesapiRuleSuppressionV1ToJSON,
+    CorrelationrulesapiRuleSuppressionV1ToJSONTyped,
+} from "./CorrelationrulesapiRuleSuppressionV1";
 
 /**
  *
@@ -73,14 +83,19 @@ export function CorrelationrulesapiCreateRuleOperationV1FromJSONTyped(json: any,
     };
 }
 
-export function CorrelationrulesapiCreateRuleOperationV1ToJSON(value?: CorrelationrulesapiCreateRuleOperationV1 | null): any {
+export function CorrelationrulesapiCreateRuleOperationV1ToJSON(json: any): CorrelationrulesapiCreateRuleOperationV1 {
+    return CorrelationrulesapiCreateRuleOperationV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiCreateRuleOperationV1ToJSONTyped(value?: CorrelationrulesapiCreateRuleOperationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         schedule: CorrelationrulesapiRuleScheduleV1ToJSON(value["schedule"]),
-        start_on: value["startOn"] == null ? undefined : (value["startOn"] as any).toISOString(),
-        stop_on: value["stopOn"] == null ? undefined : (value["stopOn"] as any).toISOString(),
+        start_on: value["startOn"] == null ? value["startOn"] : value["startOn"].toISOString(),
+        stop_on: value["stopOn"] == null ? value["stopOn"] : value["stopOn"].toISOString(),
         suppression: CorrelationrulesapiRuleSuppressionV1ToJSON(value["suppression"]),
     };
 }

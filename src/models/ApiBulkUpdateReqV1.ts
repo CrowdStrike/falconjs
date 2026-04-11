@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiMetadataReqV1 } from "./ApiMetadataReqV1";
-import { ApiMetadataReqV1FromJSON, ApiMetadataReqV1FromJSONTyped, ApiMetadataReqV1ToJSON } from "./ApiMetadataReqV1";
+import { ApiMetadataReqV1FromJSON, ApiMetadataReqV1FromJSONTyped, ApiMetadataReqV1ToJSON, ApiMetadataReqV1ToJSONTyped } from "./ApiMetadataReqV1";
 
 /**
  *
@@ -134,15 +134,20 @@ export function ApiBulkUpdateReqV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ApiBulkUpdateReqV1ToJSON(value?: ApiBulkUpdateReqV1 | null): any {
+export function ApiBulkUpdateReqV1ToJSON(json: any): ApiBulkUpdateReqV1 {
+    return ApiBulkUpdateReqV1ToJSONTyped(json, false);
+}
+
+export function ApiBulkUpdateReqV1ToJSONTyped(value?: ApiBulkUpdateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         applied_globally: value["appliedGlobally"],
         description: value["description"],
-        expiration: value["expiration"] == null ? undefined : value["expiration"].toISOString(),
+        expiration: value["expiration"] == null ? value["expiration"] : value["expiration"].toISOString(),
         filter: value["filter"],
         from_parent: value["fromParent"],
         host_groups: value["hostGroups"],

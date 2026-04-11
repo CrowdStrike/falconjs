@@ -18,6 +18,7 @@ import {
     DevicecontrolapiUSBCustomNotificationsFromJSON,
     DevicecontrolapiUSBCustomNotificationsFromJSONTyped,
     DevicecontrolapiUSBCustomNotificationsToJSON,
+    DevicecontrolapiUSBCustomNotificationsToJSONTyped,
 } from "./DevicecontrolapiUSBCustomNotifications";
 
 /**
@@ -34,13 +35,13 @@ export interface DevicecontrolapiReqUpdateUSBBaseV1 {
     customNotifications?: DevicecontrolapiUSBCustomNotifications;
     /**
      * Determines if a notification will be shown to the end user (omit to keep current)
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateUSBBaseV1EndUserNotificationEnum}
      * @memberof DevicecontrolapiReqUpdateUSBBaseV1
      */
     endUserNotification?: DevicecontrolapiReqUpdateUSBBaseV1EndUserNotificationEnum;
     /**
      * Enforcement for the USB policy (omit to keep current)
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateUSBBaseV1EnforcementModeEnum}
      * @memberof DevicecontrolapiReqUpdateUSBBaseV1
      */
     enforcementMode?: DevicecontrolapiReqUpdateUSBBaseV1EnforcementModeEnum;
@@ -52,19 +53,19 @@ export interface DevicecontrolapiReqUpdateUSBBaseV1 {
     enhancedFileMetadata?: boolean;
     /**
      * Enforcement for PCIe/SD devices (omit to keep current). Note: OFF only supported for Mac platform
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateUSBBaseV1PcieEnforcementModeEnum}
      * @memberof DevicecontrolapiReqUpdateUSBBaseV1
      */
     pcieEnforcementMode?: DevicecontrolapiReqUpdateUSBBaseV1PcieEnforcementModeEnum;
     /**
      * Enforcement for Windows Storage Spaces (omit to keep current).
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum}
      * @memberof DevicecontrolapiReqUpdateUSBBaseV1
      */
     storageSpaceEnforcementMode?: DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum;
     /**
      * Determines if the policy will include whitelist exceptions
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateUSBBaseV1WhitelistModeEnum}
      * @memberof DevicecontrolapiReqUpdateUSBBaseV1
      */
     whitelistMode?: DevicecontrolapiReqUpdateUSBBaseV1WhitelistModeEnum;
@@ -94,8 +95,8 @@ export type DevicecontrolapiReqUpdateUSBBaseV1EnforcementModeEnum = (typeof Devi
  * @export
  */
 export const DevicecontrolapiReqUpdateUSBBaseV1PcieEnforcementModeEnum = {
-    Only: "MONITOR_ONLY",
-    Enforce: "MONITOR_ENFORCE",
+    MonitorOnly: "MONITOR_ONLY",
+    MonitorEnforce: "MONITOR_ENFORCE",
 } as const;
 export type DevicecontrolapiReqUpdateUSBBaseV1PcieEnforcementModeEnum =
     (typeof DevicecontrolapiReqUpdateUSBBaseV1PcieEnforcementModeEnum)[keyof typeof DevicecontrolapiReqUpdateUSBBaseV1PcieEnforcementModeEnum];
@@ -104,8 +105,8 @@ export type DevicecontrolapiReqUpdateUSBBaseV1PcieEnforcementModeEnum =
  * @export
  */
 export const DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum = {
-    Only: "MONITOR_ONLY",
-    Enforce: "MONITOR_ENFORCE",
+    MonitorOnly: "MONITOR_ONLY",
+    MonitorEnforce: "MONITOR_ENFORCE",
 } as const;
 export type DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum =
     (typeof DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum)[keyof typeof DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum];
@@ -145,10 +146,15 @@ export function DevicecontrolapiReqUpdateUSBBaseV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DevicecontrolapiReqUpdateUSBBaseV1ToJSON(value?: DevicecontrolapiReqUpdateUSBBaseV1 | null): any {
+export function DevicecontrolapiReqUpdateUSBBaseV1ToJSON(json: any): DevicecontrolapiReqUpdateUSBBaseV1 {
+    return DevicecontrolapiReqUpdateUSBBaseV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateUSBBaseV1ToJSONTyped(value?: DevicecontrolapiReqUpdateUSBBaseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_notifications: DevicecontrolapiUSBCustomNotificationsToJSON(value["customNotifications"]),
         end_user_notification: value["endUserNotification"],

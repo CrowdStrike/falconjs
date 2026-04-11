@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ActivitiesActivityExtField } from "./ActivitiesActivityExtField";
-import { ActivitiesActivityExtFieldFromJSON, ActivitiesActivityExtFieldFromJSONTyped, ActivitiesActivityExtFieldToJSON } from "./ActivitiesActivityExtField";
+import { ActivitiesActivityExtFieldFromJSON, ActivitiesActivityExtFieldFromJSONTyped, ActivitiesActivityExtFieldToJSON, ActivitiesActivityExtFieldToJSONTyped } from "./ActivitiesActivityExtField";
 import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
+import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON, JsonschemaSchemaToJSONTyped } from "./JsonschemaSchema";
 import type { ActivitiesDependency } from "./ActivitiesDependency";
-import { ActivitiesDependencyFromJSON, ActivitiesDependencyFromJSONTyped, ActivitiesDependencyToJSON } from "./ActivitiesDependency";
+import { ActivitiesDependencyFromJSON, ActivitiesDependencyFromJSONTyped, ActivitiesDependencyToJSON, ActivitiesDependencyToJSONTyped } from "./ActivitiesDependency";
 
 /**
  *
@@ -207,10 +207,15 @@ export function ActivitiesExternalActivityFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ActivitiesExternalActivityToJSON(value?: ActivitiesExternalActivity | null): any {
+export function ActivitiesExternalActivityToJSON(json: any): ActivitiesExternalActivity {
+    return ActivitiesExternalActivityToJSONTyped(json, false);
+}
+
+export function ActivitiesExternalActivityToJSONTyped(value?: ActivitiesExternalActivity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_scope: value["apiScope"],
         app_id: value["appId"],
@@ -230,7 +235,7 @@ export function ActivitiesExternalActivityToJSON(value?: ActivitiesExternalActiv
         namespace: value["namespace"],
         output_fields: value["outputFields"] == null ? undefined : (value["outputFields"] as Array<any>).map(ActivitiesActivityExtFieldToJSON),
         output_schema: JsonschemaSchemaToJSON(value["outputSchema"]),
-        updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
+        updated: value["updated"] == null ? value["updated"] : value["updated"].toISOString(),
         use_cases: value["useCases"],
         vendor: value["vendor"],
         version: value["version"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesDiffType } from "./ChangesDiffType";
-import { ChangesDiffTypeFromJSON, ChangesDiffTypeFromJSONTyped, ChangesDiffTypeToJSON } from "./ChangesDiffType";
+import { ChangesDiffTypeFromJSON, ChangesDiffTypeFromJSONTyped, ChangesDiffTypeToJSON, ChangesDiffTypeToJSONTyped } from "./ChangesDiffType";
 
 /**
  *
@@ -50,10 +50,15 @@ export function ChangesDiffFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ChangesDiffToJSON(value?: ChangesDiff | null): any {
+export function ChangesDiffToJSON(json: any): ChangesDiff {
+    return ChangesDiffToJSONTyped(json, false);
+}
+
+export function ChangesDiffToJSONTyped(value?: ChangesDiff | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: ChangesDiffTypeToJSON(value["after"]),
     };

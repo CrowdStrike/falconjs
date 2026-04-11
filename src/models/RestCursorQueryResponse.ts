@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RestCursorMetaInfo } from "./RestCursorMetaInfo";
-import { RestCursorMetaInfoFromJSON, RestCursorMetaInfoFromJSONTyped, RestCursorMetaInfoToJSON } from "./RestCursorMetaInfo";
+import { RestCursorMetaInfoFromJSON, RestCursorMetaInfoFromJSONTyped, RestCursorMetaInfoToJSON, RestCursorMetaInfoToJSONTyped } from "./RestCursorMetaInfo";
 
 /**
  *
@@ -68,10 +68,15 @@ export function RestCursorQueryResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function RestCursorQueryResponseToJSON(value?: RestCursorQueryResponse | null): any {
+export function RestCursorQueryResponseToJSON(json: any): RestCursorQueryResponse {
+    return RestCursorQueryResponseToJSONTyped(json, false);
+}
+
+export function RestCursorQueryResponseToJSONTyped(value?: RestCursorQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: RestCursorMetaInfoToJSON(value["meta"]),

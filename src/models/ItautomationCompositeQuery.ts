@@ -55,10 +55,15 @@ export function ItautomationCompositeQueryFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ItautomationCompositeQueryToJSON(value?: ItautomationCompositeQuery | null): any {
+export function ItautomationCompositeQueryToJSON(json: any): ItautomationCompositeQuery {
+    return ItautomationCompositeQueryToJSONTyped(json, false);
+}
+
+export function ItautomationCompositeQueryToJSONTyped(value?: ItautomationCompositeQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         host_attributes: value["hostAttributes"],
         task_ids: value["taskIds"],

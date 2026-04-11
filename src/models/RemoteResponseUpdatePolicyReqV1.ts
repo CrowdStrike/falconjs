@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PreventionSettingReqV1 } from "./PreventionSettingReqV1";
-import { PreventionSettingReqV1FromJSON, PreventionSettingReqV1FromJSONTyped, PreventionSettingReqV1ToJSON } from "./PreventionSettingReqV1";
+import { PreventionSettingReqV1FromJSON, PreventionSettingReqV1FromJSONTyped, PreventionSettingReqV1ToJSON, PreventionSettingReqV1ToJSONTyped } from "./PreventionSettingReqV1";
 
 /**
  * An update for a specific policy
@@ -73,10 +73,15 @@ export function RemoteResponseUpdatePolicyReqV1FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function RemoteResponseUpdatePolicyReqV1ToJSON(value?: RemoteResponseUpdatePolicyReqV1 | null): any {
+export function RemoteResponseUpdatePolicyReqV1ToJSON(json: any): RemoteResponseUpdatePolicyReqV1 {
+    return RemoteResponseUpdatePolicyReqV1ToJSONTyped(json, false);
+}
+
+export function RemoteResponseUpdatePolicyReqV1ToJSONTyped(value?: RemoteResponseUpdatePolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

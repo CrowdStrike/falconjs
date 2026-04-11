@@ -48,10 +48,15 @@ export function DomainDevicePolicyFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainDevicePolicyToJSON(value?: DomainDevicePolicy | null): any {
+export function DomainDevicePolicyToJSON(json: any): DomainDevicePolicy {
+    return DomainDevicePolicyToJSONTyped(json, false);
+}
+
+export function DomainDevicePolicyToJSONTyped(value?: DomainDevicePolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         policy_id: value["policyId"],
     };

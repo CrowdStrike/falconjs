@@ -54,10 +54,15 @@ export function ResourcesAppFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ResourcesAppToJSON(value?: ResourcesApp | null): any {
+export function ResourcesAppToJSON(json: any): ResourcesApp {
+    return ResourcesAppToJSONTyped(json, false);
+}
+
+export function ResourcesAppToJSONTyped(value?: ResourcesApp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         version: value["version"],

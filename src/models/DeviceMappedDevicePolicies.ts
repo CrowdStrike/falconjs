@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
-import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
+import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON, DeviceDevicePolicyToJSONTyped } from "./DeviceDevicePolicy";
 
 /**
  *
@@ -281,10 +281,15 @@ export function DeviceMappedDevicePoliciesFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DeviceMappedDevicePoliciesToJSON(value?: DeviceMappedDevicePolicies | null): any {
+export function DeviceMappedDevicePoliciesToJSON(json: any): DeviceMappedDevicePolicies {
+    return DeviceMappedDevicePoliciesToJSONTyped(json, false);
+}
+
+export function DeviceMappedDevicePoliciesToJSONTyped(value?: DeviceMappedDevicePolicies | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         airlock: DeviceDevicePolicyToJSON(value["airlock"]),
         "application-abuse-prevention": DeviceDevicePolicyToJSON(value["applicationAbusePrevention"]),

@@ -236,12 +236,9 @@ export interface DefaultApiValidateConfigV1Request {
  */
 export class DefaultApi extends runtime.BaseAPI {
     /**
-     * Get installed patches information for hosts
+     * Creates request options for combinedQueryInstalledPatches without sending the request
      */
-    async combinedQueryInstalledPatchesRaw(
-        requestParameters: DefaultApiCombinedQueryInstalledPatchesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSPAPICombinedInstalledPatchesResponse>> {
+    async combinedQueryInstalledPatchesRequestOpts(requestParameters: DefaultApiCombinedQueryInstalledPatchesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["after"] != null) {
@@ -267,15 +264,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["spotlight-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/combined/installed-patches/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/combined/installed-patches/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get installed patches information for hosts
+     */
+    async combinedQueryInstalledPatchesRaw(
+        requestParameters: DefaultApiCombinedQueryInstalledPatchesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSPAPICombinedInstalledPatchesResponse>> {
+        const requestOptions = await this.combinedQueryInstalledPatchesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSPAPICombinedInstalledPatchesResponseFromJSON(jsonValue));
     }
@@ -295,12 +302,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Cancel Collections
+     * Creates request options for deleteCollectionsV1 without sending the request
      */
-    async deleteCollectionsV1Raw(
-        requestParameters: DefaultApiDeleteCollectionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+    async deleteCollectionsV1RequestOpts(requestParameters: DefaultApiDeleteCollectionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -314,15 +318,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collections/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collections/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Cancel Collections
+     */
+    async deleteCollectionsV1Raw(
+        requestParameters: DefaultApiDeleteCollectionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+        const requestOptions = await this.deleteCollectionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectionsResponseV1FromJSON(jsonValue));
     }
@@ -336,12 +350,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retires a custom configuration
+     * Creates request options for deleteConfigsV1 without sending the request
      */
-    async deleteConfigsV1Raw(
-        requestParameters: DefaultApiDeleteConfigsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+    async deleteConfigsV1RequestOpts(requestParameters: DefaultApiDeleteConfigsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteConfigsV1().');
         }
@@ -359,15 +370,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/configurations/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/configurations/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retires a custom configuration
+     */
+    async deleteConfigsV1Raw(
+        requestParameters: DefaultApiDeleteConfigsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+        const requestOptions = await this.deleteConfigsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesConfigurationsResponseV1FromJSON(jsonValue));
     }
@@ -381,21 +402,28 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Creates request options for falconCompleteDashboardsQueriesDetectsV1Get without sending the request
      */
-    async falconCompleteDashboardsQueriesDetectsV1GetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async falconCompleteDashboardsQueriesDetectsV1GetRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        const response = await this.request(
-            {
-                path: `/falcon-complete-dashboards/queries/detects/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/falcon-complete-dashboards/queries/detects/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     */
+    async falconCompleteDashboardsQueriesDetectsV1GetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.falconCompleteDashboardsQueriesDetectsV1GetRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -408,12 +436,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Collection counts by field names: collection_tag and state
+     * Creates request options for getCollectionCountsByV1 without sending the request
      */
-    async getCollectionCountsByV1Raw(
-        requestParameters: DefaultApiGetCollectionCountsByV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAggregateCollectionCountsByResponseV1>> {
+    async getCollectionCountsByV1RequestOpts(requestParameters: DefaultApiGetCollectionCountsByV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -439,15 +464,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/aggregate/collection-counts-by/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/aggregate/collection-counts-by/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Collection counts by field names: collection_tag and state
+     */
+    async getCollectionCountsByV1Raw(
+        requestParameters: DefaultApiGetCollectionCountsByV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAggregateCollectionCountsByResponseV1>> {
+        const requestOptions = await this.getCollectionCountsByV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAggregateCollectionCountsByResponseV1FromJSON(jsonValue));
     }
@@ -467,12 +502,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Collections with given IDs, Platform, Agent/Collector IDs, States
+     * Creates request options for getCollectionsV1 without sending the request
      */
-    async getCollectionsV1Raw(
-        requestParameters: DefaultApiGetCollectionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+    async getCollectionsV1RequestOpts(requestParameters: DefaultApiGetCollectionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -506,15 +538,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Collections with given IDs, Platform, Agent/Collector IDs, States
+     */
+    async getCollectionsV1Raw(
+        requestParameters: DefaultApiGetCollectionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+        const requestOptions = await this.getCollectionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectionsResponseV1FromJSON(jsonValue));
     }
@@ -536,12 +578,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get collectors
+     * Creates request options for getCollectorsV1 without sending the request
      */
-    async getCollectorsV1Raw(
-        requestParameters: DefaultApiGetCollectorsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+    async getCollectorsV1RequestOpts(requestParameters: DefaultApiGetCollectorsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -563,15 +602,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collectors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collectors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get collectors
+     */
+    async getCollectorsV1Raw(
+        requestParameters: DefaultApiGetCollectorsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+        const requestOptions = await this.getCollectorsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectorsResponseV1FromJSON(jsonValue));
     }
@@ -590,12 +639,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Collections with given IDs, Platform, Agent/Collector IDs, States
+     * Creates request options for getCombinedCollectionsV1 without sending the request
      */
-    async getCombinedCollectionsV1Raw(
-        requestParameters: DefaultApiGetCombinedCollectionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+    async getCombinedCollectionsV1RequestOpts(requestParameters: DefaultApiGetCombinedCollectionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -625,15 +671,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/combined/collections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/combined/collections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Collections with given IDs, Platform, Agent/Collector IDs, States
+     */
+    async getCombinedCollectionsV1Raw(
+        requestParameters: DefaultApiGetCombinedCollectionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+        const requestOptions = await this.getCombinedCollectionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectionsResponseV1FromJSON(jsonValue));
     }
@@ -654,12 +710,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get collectors for the given Customer ID
+     * Creates request options for getCombinedCollectorsV1 without sending the request
      */
-    async getCombinedCollectorsV1Raw(
-        requestParameters: DefaultApiGetCombinedCollectorsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+    async getCombinedCollectorsV1RequestOpts(requestParameters: DefaultApiGetCombinedCollectorsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -689,15 +742,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/combined/collectors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/combined/collectors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get collectors for the given Customer ID
+     */
+    async getCombinedCollectorsV1Raw(
+        requestParameters: DefaultApiGetCombinedCollectorsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+        const requestOptions = await this.getCombinedCollectorsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectorsResponseV1FromJSON(jsonValue));
     }
@@ -718,12 +781,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Configurations for the given Customer ID
+     * Creates request options for getCombinedConfigsV1 without sending the request
      */
-    async getCombinedConfigsV1Raw(
-        requestParameters: DefaultApiGetCombinedConfigsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+    async getCombinedConfigsV1RequestOpts(requestParameters: DefaultApiGetCombinedConfigsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -753,15 +813,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/combined/configurations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/combined/configurations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Configurations for the given Customer ID
+     */
+    async getCombinedConfigsV1Raw(
+        requestParameters: DefaultApiGetCombinedConfigsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+        const requestOptions = await this.getCombinedConfigsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesConfigurationsResponseV1FromJSON(jsonValue));
     }
@@ -782,12 +852,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Templates with the given IDs
+     * Creates request options for getCombinedTemplatesV1 without sending the request
      */
-    async getCombinedTemplatesV1Raw(
-        requestParameters: DefaultApiGetCombinedTemplatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesTemplatesResponseV1>> {
+    async getCombinedTemplatesV1RequestOpts(requestParameters: DefaultApiGetCombinedTemplatesV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -817,15 +884,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/combined/templates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/combined/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Templates with the given IDs
+     */
+    async getCombinedTemplatesV1Raw(
+        requestParameters: DefaultApiGetCombinedTemplatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesTemplatesResponseV1>> {
+        const requestOptions = await this.getCombinedTemplatesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesTemplatesResponseV1FromJSON(jsonValue));
     }
@@ -846,9 +923,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download offline Configuration file using ID
+     * Creates request options for getConfigDownloadV1 without sending the request
      */
-    async getConfigDownloadV1Raw(requestParameters: DefaultApiGetConfigDownloadV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
+    async getConfigDownloadV1RequestOpts(requestParameters: DefaultApiGetConfigDownloadV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getConfigDownloadV1().');
         }
@@ -874,15 +951,22 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/configuration-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/configuration-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download offline Configuration file using ID
+     */
+    async getConfigDownloadV1Raw(requestParameters: DefaultApiGetConfigDownloadV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.getConfigDownloadV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -896,12 +980,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Configurations with the given IDs
+     * Creates request options for getConfigsV1 without sending the request
      */
-    async getConfigsV1Raw(
-        requestParameters: DefaultApiGetConfigsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+    async getConfigsV1RequestOpts(requestParameters: DefaultApiGetConfigsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getConfigsV1().');
         }
@@ -919,15 +1000,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/configurations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/configurations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Configurations with the given IDs
+     */
+    async getConfigsV1Raw(
+        requestParameters: DefaultApiGetConfigsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+        const requestOptions = await this.getConfigsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesConfigurationsResponseV1FromJSON(jsonValue));
     }
@@ -941,12 +1032,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Templates with the given IDs
+     * Creates request options for getTemplatesV1 without sending the request
      */
-    async getTemplatesV1Raw(
-        requestParameters: DefaultApiGetTemplatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesTemplatesResponseV1>> {
+    async getTemplatesV1RequestOpts(requestParameters: DefaultApiGetTemplatesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getTemplatesV1().');
         }
@@ -964,15 +1052,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/templates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Templates with the given IDs
+     */
+    async getTemplatesV1Raw(
+        requestParameters: DefaultApiGetTemplatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesTemplatesResponseV1>> {
+        const requestOptions = await this.getTemplatesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesTemplatesResponseV1FromJSON(jsonValue));
     }
@@ -986,12 +1084,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Collections
+     * Creates request options for postCollectionsV1 without sending the request
      */
-    async postCollectionsV1Raw(
-        requestParameters: DefaultApiPostCollectionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+    async postCollectionsV1RequestOpts(requestParameters: DefaultApiPostCollectionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postCollectionsV1().');
         }
@@ -1007,16 +1102,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collections/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainNewCollectionsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collections/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainNewCollectionsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Collections
+     */
+    async postCollectionsV1Raw(
+        requestParameters: DefaultApiPostCollectionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+        const requestOptions = await this.postCollectionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectionsResponseV1FromJSON(jsonValue));
     }
@@ -1030,12 +1135,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * shutdown collectors with self_destruct option
+     * Creates request options for postCollectorsV1 without sending the request
      */
-    async postCollectorsV1Raw(
-        requestParameters: DefaultApiPostCollectorsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+    async postCollectorsV1RequestOpts(requestParameters: DefaultApiPostCollectorsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postCollectorsV1().');
         }
@@ -1051,16 +1153,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collectors-shutdown/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainShutDownAgentsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collectors-shutdown/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainShutDownAgentsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * shutdown collectors with self_destruct option
+     */
+    async postCollectorsV1Raw(
+        requestParameters: DefaultApiPostCollectorsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+        const requestOptions = await this.postCollectorsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectorsResponseV1FromJSON(jsonValue));
     }
@@ -1074,12 +1186,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new custom configuration
+     * Creates request options for postConfigsV1 without sending the request
      */
-    async postConfigsV1Raw(
-        requestParameters: DefaultApiPostConfigsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+    async postConfigsV1RequestOpts(requestParameters: DefaultApiPostConfigsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postConfigsV1().');
         }
@@ -1095,16 +1204,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/configurations/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainSaveConfigRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/configurations/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainSaveConfigRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new custom configuration
+     */
+    async postConfigsV1Raw(
+        requestParameters: DefaultApiPostConfigsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+        const requestOptions = await this.postConfigsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesConfigurationsResponseV1FromJSON(jsonValue));
     }
@@ -1118,12 +1237,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * deploy collector to managed endpoints
+     * Creates request options for postDeployV1 without sending the request
      */
-    async postDeployV1Raw(
-        requestParameters: DefaultApiPostDeployV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+    async postDeployV1RequestOpts(requestParameters: DefaultApiPostDeployV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postDeployV1().');
         }
@@ -1139,16 +1255,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collectors-deploy/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainDeployAgentsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collectors-deploy/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainDeployAgentsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * deploy collector to managed endpoints
+     */
+    async postDeployV1Raw(
+        requestParameters: DefaultApiPostDeployV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectorsResponseV1>> {
+        const requestOptions = await this.postDeployV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectorsResponseV1FromJSON(jsonValue));
     }
@@ -1162,22 +1288,29 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * - request graphql query
+     * Creates request options for postGraphqlQueryMixin0 without sending the request
      */
-    async postGraphqlQueryMixin0Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: any }>> {
+    async postGraphqlQueryMixin0RequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        const response = await this.request(
-            {
-                path: `/cloud-data-protection/entities/schedules/graphql/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-data-protection/entities/schedules/graphql/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * - request graphql query
+     */
+    async postGraphqlQueryMixin0Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: any }>> {
+        const requestOptions = await this.postGraphqlQueryMixin0RequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -1191,12 +1324,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Collections
+     * Creates request options for putCollectionsV1 without sending the request
      */
-    async putCollectionsV1Raw(
-        requestParameters: DefaultApiPutCollectionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+    async putCollectionsV1RequestOpts(requestParameters: DefaultApiPutCollectionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling putCollectionsV1().');
         }
@@ -1212,16 +1342,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collections/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainNewCollectionsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collections/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainNewCollectionsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Collections
+     */
+    async putCollectionsV1Raw(
+        requestParameters: DefaultApiPutCollectionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesCollectionsResponseV1>> {
+        const requestOptions = await this.putCollectionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesCollectionsResponseV1FromJSON(jsonValue));
     }
@@ -1235,12 +1375,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates or replaces an existing custom configuration
+     * Creates request options for putConfigsV1 without sending the request
      */
-    async putConfigsV1Raw(
-        requestParameters: DefaultApiPutConfigsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+    async putConfigsV1RequestOpts(requestParameters: DefaultApiPutConfigsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling putConfigsV1().');
         }
@@ -1256,16 +1393,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/configurations/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainSaveConfigRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/configurations/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainSaveConfigRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates or replaces an existing custom configuration
+     */
+    async putConfigsV1Raw(
+        requestParameters: DefaultApiPutConfigsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainEntitiesConfigurationsResponseV1>> {
+        const requestOptions = await this.putConfigsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainEntitiesConfigurationsResponseV1FromJSON(jsonValue));
     }
@@ -1279,12 +1426,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Collections for the given Customer ID and/or Platform in states
+     * Creates request options for searchCollectionsV1 without sending the request
      */
-    async searchCollectionsV1Raw(
-        requestParameters: DefaultApiSearchCollectionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+    async searchCollectionsV1RequestOpts(requestParameters: DefaultApiSearchCollectionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["platform"] != null) {
@@ -1326,15 +1470,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/queries/collections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/queries/collections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Collections for the given Customer ID and/or Platform in states
+     */
+    async searchCollectionsV1Raw(
+        requestParameters: DefaultApiSearchCollectionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+        const requestOptions = await this.searchCollectionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueriesResponseV1FromJSON(jsonValue));
     }
@@ -1358,12 +1512,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Collectors for the given Customer ID and Platform
+     * Creates request options for searchCollectorsV1 without sending the request
      */
-    async searchCollectorsV1Raw(
-        requestParameters: DefaultApiSearchCollectorsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+    async searchCollectorsV1RequestOpts(requestParameters: DefaultApiSearchCollectorsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["platform"] != null) {
@@ -1393,15 +1544,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/queries/collectors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/queries/collectors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Collectors for the given Customer ID and Platform
+     */
+    async searchCollectorsV1Raw(
+        requestParameters: DefaultApiSearchCollectorsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+        const requestOptions = await this.searchCollectorsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueriesResponseV1FromJSON(jsonValue));
     }
@@ -1422,9 +1583,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Configurations for the given Customer ID
+     * Creates request options for searchConfigsV1 without sending the request
      */
-    async searchConfigsV1Raw(requestParameters: DefaultApiSearchConfigsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+    async searchConfigsV1RequestOpts(requestParameters: DefaultApiSearchConfigsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1450,15 +1611,22 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/queries/configurations/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/queries/configurations/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Configurations for the given Customer ID
+     */
+    async searchConfigsV1Raw(requestParameters: DefaultApiSearchConfigsV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+        const requestOptions = await this.searchConfigsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueriesResponseV1FromJSON(jsonValue));
     }
@@ -1478,12 +1646,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Templates
+     * Creates request options for searchTemplatesV1 without sending the request
      */
-    async searchTemplatesV1Raw(
-        requestParameters: DefaultApiSearchTemplatesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+    async searchTemplatesV1RequestOpts(requestParameters: DefaultApiSearchTemplatesV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1509,15 +1674,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/queries/templates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/queries/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Templates
+     */
+    async searchTemplatesV1Raw(
+        requestParameters: DefaultApiSearchTemplatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueriesResponseV1>> {
+        const requestOptions = await this.searchTemplatesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueriesResponseV1FromJSON(jsonValue));
     }
@@ -1537,12 +1712,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Configures all hosts in the provided host group to be ready to accept an execute API call
+     * Creates request options for v1HostConfigsPost without sending the request
      */
-    async v1HostConfigsPostRaw(
-        requestParameters: DefaultApiV1HostConfigsPostRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PluginsonpremapiOnPremConfigureResponse>> {
+    async v1HostConfigsPostRequestOpts(requestParameters: DefaultApiV1HostConfigsPostRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling v1HostConfigsPost().');
         }
@@ -1558,16 +1730,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["pluginsonprem:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/pluginsonprem/entities/host-configs/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PluginsonpremapiOnPremConfigureRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/pluginsonprem/entities/host-configs/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PluginsonpremapiOnPremConfigureRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Configures all hosts in the provided host group to be ready to accept an execute API call
+     */
+    async v1HostConfigsPostRaw(
+        requestParameters: DefaultApiV1HostConfigsPostRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PluginsonpremapiOnPremConfigureResponse>> {
+        const requestOptions = await this.v1HostConfigsPostRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PluginsonpremapiOnPremConfigureResponseFromJSON(jsonValue));
     }
@@ -1581,12 +1763,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fetches the host configs within the provided host group.
+     * Creates request options for v1StatusGet without sending the request
      */
-    async v1StatusGetRaw(
-        requestParameters: DefaultApiV1StatusGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PluginsonpremapiOnPremGetHostConfigsResponse>> {
+    async v1StatusGetRequestOpts(requestParameters: DefaultApiV1StatusGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling v1StatusGet().');
         }
@@ -1604,15 +1783,25 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["pluginsonprem:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/pluginsonprem/entities/host-configs/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/pluginsonprem/entities/host-configs/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Fetches the host configs within the provided host group.
+     */
+    async v1StatusGetRaw(
+        requestParameters: DefaultApiV1StatusGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PluginsonpremapiOnPremGetHostConfigsResponse>> {
+        const requestOptions = await this.v1StatusGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PluginsonpremapiOnPremGetHostConfigsResponseFromJSON(jsonValue));
     }
@@ -1626,12 +1815,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validates a configuration collection
+     * Creates request options for validateCollectionV1 without sending the request
      */
-    async validateCollectionV1Raw(
-        requestParameters: DefaultApiValidateCollectionV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainResponseV1>> {
+    async validateCollectionV1RequestOpts(requestParameters: DefaultApiValidateCollectionV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling validateCollectionV1().');
         }
@@ -1647,16 +1833,26 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/collections-validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainValidateCollectionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/collections-validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainValidateCollectionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Validates a configuration collection
+     */
+    async validateCollectionV1Raw(
+        requestParameters: DefaultApiValidateCollectionV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainResponseV1>> {
+        const requestOptions = await this.validateCollectionV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainResponseV1FromJSON(jsonValue));
     }
@@ -1670,9 +1866,9 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validates a custom configuration
+     * Creates request options for validateConfigV1 without sending the request
      */
-    async validateConfigV1Raw(requestParameters: DefaultApiValidateConfigV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainResponseV1>> {
+    async validateConfigV1RequestOpts(requestParameters: DefaultApiValidateConfigV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling validateConfigV1().');
         }
@@ -1688,16 +1884,23 @@ export class DefaultApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["forensics-configs:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/forensics/entities/configurations-validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainSaveConfigRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/forensics/entities/configurations-validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainSaveConfigRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Validates a custom configuration
+     */
+    async validateConfigV1Raw(requestParameters: DefaultApiValidateConfigV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainResponseV1>> {
+        const requestOptions = await this.validateConfigV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainResponseV1FromJSON(jsonValue));
     }

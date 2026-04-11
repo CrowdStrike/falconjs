@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegration } from "./TypesIntegration";
-import { TypesIntegrationFromJSON, TypesIntegrationFromJSONTyped, TypesIntegrationToJSON } from "./TypesIntegration";
+import { TypesIntegrationFromJSON, TypesIntegrationFromJSONTyped, TypesIntegrationToJSON, TypesIntegrationToJSONTyped } from "./TypesIntegration";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesUpdateIntegrationRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesUpdateIntegrationRequestToJSON(value?: TypesUpdateIntegrationRequest | null): any {
+export function TypesUpdateIntegrationRequestToJSON(json: any): TypesUpdateIntegrationRequest {
+    return TypesUpdateIntegrationRequestToJSONTyped(json, false);
+}
+
+export function TypesUpdateIntegrationRequestToJSONTyped(value?: TypesUpdateIntegrationRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         integration: TypesIntegrationToJSON(value["integration"]),
         overwriteFields: value["overwriteFields"],

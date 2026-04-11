@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON, FwmgrMsaspecErrorToJSONTyped } from "./FwmgrMsaspecError";
 import type { FwmgrApiFilepathTestResult } from "./FwmgrApiFilepathTestResult";
-import { FwmgrApiFilepathTestResultFromJSON, FwmgrApiFilepathTestResultFromJSONTyped, FwmgrApiFilepathTestResultToJSON } from "./FwmgrApiFilepathTestResult";
+import { FwmgrApiFilepathTestResultFromJSON, FwmgrApiFilepathTestResultFromJSONTyped, FwmgrApiFilepathTestResultToJSON, FwmgrApiFilepathTestResultToJSONTyped } from "./FwmgrApiFilepathTestResult";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON, FwmgrMsaspecMetaInfoToJSONTyped } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FwmgrApiValidateFilepathResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FwmgrApiValidateFilepathResponseToJSON(value?: FwmgrApiValidateFilepathResponse | null): any {
+export function FwmgrApiValidateFilepathResponseToJSON(json: any): FwmgrApiValidateFilepathResponse {
+    return FwmgrApiValidateFilepathResponseToJSONTyped(json, false);
+}
+
+export function FwmgrApiValidateFilepathResponseToJSONTyped(value?: FwmgrApiValidateFilepathResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value["meta"]),

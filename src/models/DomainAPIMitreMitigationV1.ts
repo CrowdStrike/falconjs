@@ -55,10 +55,15 @@ export function DomainAPIMitreMitigationV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainAPIMitreMitigationV1ToJSON(value?: DomainAPIMitreMitigationV1 | null): any {
+export function DomainAPIMitreMitigationV1ToJSON(json: any): DomainAPIMitreMitigationV1 {
+    return DomainAPIMitreMitigationV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIMitreMitigationV1ToJSONTyped(value?: DomainAPIMitreMitigationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         link: value["link"],

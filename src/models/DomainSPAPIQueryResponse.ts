@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainSPAPIQueryMeta } from "./DomainSPAPIQueryMeta";
-import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON } from "./DomainSPAPIQueryMeta";
+import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON, DomainSPAPIQueryMetaToJSONTyped } from "./DomainSPAPIQueryMeta";
 
 /**
  *
@@ -68,10 +68,15 @@ export function DomainSPAPIQueryResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainSPAPIQueryResponseToJSON(value?: DomainSPAPIQueryResponse | null): any {
+export function DomainSPAPIQueryResponseToJSON(json: any): DomainSPAPIQueryResponse {
+    return DomainSPAPIQueryResponseToJSONTyped(json, false);
+}
+
+export function DomainSPAPIQueryResponseToJSONTyped(value?: DomainSPAPIQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainSPAPIQueryMetaToJSON(value["meta"]),

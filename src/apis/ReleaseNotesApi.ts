@@ -64,12 +64,9 @@ export interface ReleaseNotesApiQueryReleaseNotesV1Request {
  */
 export class ReleaseNotesApi extends runtime.BaseAPI {
     /**
-     * Queries for release-notes resources and returns details
+     * Creates request options for combinedReleaseNotesV1 without sending the request
      */
-    async combinedReleaseNotesV1Raw(
-        requestParameters: ReleaseNotesApiCombinedReleaseNotesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ReleasenotesReleaseNoteWrapperV1>> {
+    async combinedReleaseNotesV1RequestOpts(requestParameters: ReleaseNotesApiCombinedReleaseNotesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["authorization"] == null) {
             throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling combinedReleaseNotesV1().');
         }
@@ -107,15 +104,25 @@ export class ReleaseNotesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["deploymentcoordinator:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/deployment-coordinator/combined/release-notes/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/deployment-coordinator/combined/release-notes/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Queries for release-notes resources and returns details
+     */
+    async combinedReleaseNotesV1Raw(
+        requestParameters: ReleaseNotesApiCombinedReleaseNotesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ReleasenotesReleaseNoteWrapperV1>> {
+        const requestOptions = await this.combinedReleaseNotesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReleasenotesReleaseNoteWrapperV1FromJSON(jsonValue));
     }
@@ -137,12 +144,9 @@ export class ReleaseNotesApi extends runtime.BaseAPI {
     }
 
     /**
-     * returns the release notes for the IDs in the request
+     * Creates request options for getEntityIDsByQueryPOST without sending the request
      */
-    async getEntityIDsByQueryPOSTRaw(
-        requestParameters: ReleaseNotesApiGetEntityIDsByQueryPOSTRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ReleasenotesReleaseNoteWrapperV1>> {
+    async getEntityIDsByQueryPOSTRequestOpts(requestParameters: ReleaseNotesApiGetEntityIDsByQueryPOSTRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["authorization"] == null) {
             throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling getEntityIDsByQueryPOST().');
         }
@@ -170,16 +174,26 @@ export class ReleaseNotesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["deploymentcoordinator:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/deployment-coordinator/entities/release-notes/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ReleasenotesEntitiesGetRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/deployment-coordinator/entities/release-notes/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReleasenotesEntitiesGetRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * returns the release notes for the IDs in the request
+     */
+    async getEntityIDsByQueryPOSTRaw(
+        requestParameters: ReleaseNotesApiGetEntityIDsByQueryPOSTRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ReleasenotesReleaseNoteWrapperV1>> {
+        const requestOptions = await this.getEntityIDsByQueryPOSTRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReleasenotesReleaseNoteWrapperV1FromJSON(jsonValue));
     }
@@ -198,12 +212,9 @@ export class ReleaseNotesApi extends runtime.BaseAPI {
     }
 
     /**
-     * returns the release notes for the IDs in the request with EA and GA dates in ISO 8601 format
+     * Creates request options for getEntityIDsByQueryPOSTV2 without sending the request
      */
-    async getEntityIDsByQueryPOSTV2Raw(
-        requestParameters: ReleaseNotesApiGetEntityIDsByQueryPOSTV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ReleasenotesReleaseNoteWrapperV2>> {
+    async getEntityIDsByQueryPOSTV2RequestOpts(requestParameters: ReleaseNotesApiGetEntityIDsByQueryPOSTV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["authorization"] == null) {
             throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling getEntityIDsByQueryPOSTV2().');
         }
@@ -231,16 +242,26 @@ export class ReleaseNotesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["deploymentcoordinator:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/deployment-coordinator/entities/release-notes/GET/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ReleasenotesEntitiesGetRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/deployment-coordinator/entities/release-notes/GET/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReleasenotesEntitiesGetRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * returns the release notes for the IDs in the request with EA and GA dates in ISO 8601 format
+     */
+    async getEntityIDsByQueryPOSTV2Raw(
+        requestParameters: ReleaseNotesApiGetEntityIDsByQueryPOSTV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ReleasenotesReleaseNoteWrapperV2>> {
+        const requestOptions = await this.getEntityIDsByQueryPOSTV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReleasenotesReleaseNoteWrapperV2FromJSON(jsonValue));
     }
@@ -259,12 +280,9 @@ export class ReleaseNotesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Queries for release-notes resources and returns ids
+     * Creates request options for queryReleaseNotesV1 without sending the request
      */
-    async queryReleaseNotesV1Raw(
-        requestParameters: ReleaseNotesApiQueryReleaseNotesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<StringWrapper>> {
+    async queryReleaseNotesV1RequestOpts(requestParameters: ReleaseNotesApiQueryReleaseNotesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["authorization"] == null) {
             throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling queryReleaseNotesV1().');
         }
@@ -302,15 +320,25 @@ export class ReleaseNotesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["deploymentcoordinator:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/deployment-coordinator/queries/release-notes/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/deployment-coordinator/queries/release-notes/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Queries for release-notes resources and returns ids
+     */
+    async queryReleaseNotesV1Raw(
+        requestParameters: ReleaseNotesApiQueryReleaseNotesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<StringWrapper>> {
+        const requestOptions = await this.queryReleaseNotesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => StringWrapperFromJSON(jsonValue));
     }

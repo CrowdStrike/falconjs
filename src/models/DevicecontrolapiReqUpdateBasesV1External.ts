@@ -18,6 +18,7 @@ import {
     DevicecontrolapiReqUpdateBaseV1ExternalFromJSON,
     DevicecontrolapiReqUpdateBaseV1ExternalFromJSONTyped,
     DevicecontrolapiReqUpdateBaseV1ExternalToJSON,
+    DevicecontrolapiReqUpdateBaseV1ExternalToJSONTyped,
 } from "./DevicecontrolapiReqUpdateBaseV1External";
 
 /**
@@ -55,10 +56,15 @@ export function DevicecontrolapiReqUpdateBasesV1ExternalFromJSONTyped(json: any,
     };
 }
 
-export function DevicecontrolapiReqUpdateBasesV1ExternalToJSON(value?: DevicecontrolapiReqUpdateBasesV1External | null): any {
+export function DevicecontrolapiReqUpdateBasesV1ExternalToJSON(json: any): DevicecontrolapiReqUpdateBasesV1External {
+    return DevicecontrolapiReqUpdateBasesV1ExternalToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateBasesV1ExternalToJSONTyped(value?: DevicecontrolapiReqUpdateBasesV1External | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         policies: (value["policies"] as Array<any>).map(DevicecontrolapiReqUpdateBaseV1ExternalToJSON),
     };

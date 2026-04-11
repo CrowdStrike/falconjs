@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIQueryPagingV1 } from "./DomainAPIQueryPagingV1";
-import { DomainAPIQueryPagingV1FromJSON, DomainAPIQueryPagingV1FromJSONTyped, DomainAPIQueryPagingV1ToJSON } from "./DomainAPIQueryPagingV1";
+import { DomainAPIQueryPagingV1FromJSON, DomainAPIQueryPagingV1FromJSONTyped, DomainAPIQueryPagingV1ToJSON, DomainAPIQueryPagingV1ToJSONTyped } from "./DomainAPIQueryPagingV1";
 
 /**
  *
@@ -73,10 +73,15 @@ export function DomainAPIQueryMetaV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainAPIQueryMetaV1ToJSON(value?: DomainAPIQueryMetaV1 | null): any {
+export function DomainAPIQueryMetaV1ToJSON(json: any): DomainAPIQueryMetaV1 {
+    return DomainAPIQueryMetaV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIQueryMetaV1ToJSONTyped(value?: DomainAPIQueryMetaV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DomainAPIQueryPagingV1ToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

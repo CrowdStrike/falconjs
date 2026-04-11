@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PolicyframeworkBenchmark } from "./PolicyframeworkBenchmark";
-import { PolicyframeworkBenchmarkFromJSON, PolicyframeworkBenchmarkFromJSONTyped, PolicyframeworkBenchmarkToJSON } from "./PolicyframeworkBenchmark";
+import { PolicyframeworkBenchmarkFromJSON, PolicyframeworkBenchmarkFromJSONTyped, PolicyframeworkBenchmarkToJSON, PolicyframeworkBenchmarkToJSONTyped } from "./PolicyframeworkBenchmark";
 
 /**
  *
@@ -127,10 +127,15 @@ export function PolicyframeworkControlFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function PolicyframeworkControlToJSON(value?: PolicyframeworkControl | null): any {
+export function PolicyframeworkControlToJSON(json: any): PolicyframeworkControl {
+    return PolicyframeworkControlToJSONTyped(json, false);
+}
+
+export function PolicyframeworkControlToJSONTyped(value?: PolicyframeworkControl | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applicableProfiles: value["applicableProfiles"],
         benchmarks: value["benchmarks"] == null ? undefined : (value["benchmarks"] as Array<any>).map(PolicyframeworkBenchmarkToJSON),

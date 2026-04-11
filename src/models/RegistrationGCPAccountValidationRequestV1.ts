@@ -18,6 +18,7 @@ import {
     RegistrationGCPAccountValidationReqObjV1FromJSON,
     RegistrationGCPAccountValidationReqObjV1FromJSONTyped,
     RegistrationGCPAccountValidationReqObjV1ToJSON,
+    RegistrationGCPAccountValidationReqObjV1ToJSONTyped,
 } from "./RegistrationGCPAccountValidationReqObjV1";
 
 /**
@@ -55,10 +56,15 @@ export function RegistrationGCPAccountValidationRequestV1FromJSONTyped(json: any
     };
 }
 
-export function RegistrationGCPAccountValidationRequestV1ToJSON(value?: RegistrationGCPAccountValidationRequestV1 | null): any {
+export function RegistrationGCPAccountValidationRequestV1ToJSON(json: any): RegistrationGCPAccountValidationRequestV1 {
+    return RegistrationGCPAccountValidationRequestV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountValidationRequestV1ToJSONTyped(value?: RegistrationGCPAccountValidationRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationGCPAccountValidationReqObjV1ToJSON),
     };

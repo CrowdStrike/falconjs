@@ -180,10 +180,15 @@ export function DomainIotImportedHostFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainIotImportedHostToJSON(value?: DomainIotImportedHost | null): any {
+export function DomainIotImportedHostToJSON(json: any): DomainIotImportedHost {
+    return DomainIotImportedHostToJSONTyped(json, false);
+}
+
+export function DomainIotImportedHostToJSONTyped(value?: DomainIotImportedHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         field_1: value["field1"],
         field_10: value["field10"],

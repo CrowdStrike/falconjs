@@ -14,13 +14,33 @@
 
 import { mapValues } from "../runtime";
 import type { SadomainTyposquattingParentDomain } from "./SadomainTyposquattingParentDomain";
-import { SadomainTyposquattingParentDomainFromJSON, SadomainTyposquattingParentDomainFromJSONTyped, SadomainTyposquattingParentDomainToJSON } from "./SadomainTyposquattingParentDomain";
+import {
+    SadomainTyposquattingParentDomainFromJSON,
+    SadomainTyposquattingParentDomainFromJSONTyped,
+    SadomainTyposquattingParentDomainToJSON,
+    SadomainTyposquattingParentDomainToJSONTyped,
+} from "./SadomainTyposquattingParentDomain";
 import type { SadomainTyposquattingSubdomain } from "./SadomainTyposquattingSubdomain";
-import { SadomainTyposquattingSubdomainFromJSON, SadomainTyposquattingSubdomainFromJSONTyped, SadomainTyposquattingSubdomainToJSON } from "./SadomainTyposquattingSubdomain";
+import {
+    SadomainTyposquattingSubdomainFromJSON,
+    SadomainTyposquattingSubdomainFromJSONTyped,
+    SadomainTyposquattingSubdomainToJSON,
+    SadomainTyposquattingSubdomainToJSONTyped,
+} from "./SadomainTyposquattingSubdomain";
 import type { SadomainSubmissionInformation } from "./SadomainSubmissionInformation";
-import { SadomainSubmissionInformationFromJSON, SadomainSubmissionInformationFromJSONTyped, SadomainSubmissionInformationToJSON } from "./SadomainSubmissionInformation";
+import {
+    SadomainSubmissionInformationFromJSON,
+    SadomainSubmissionInformationFromJSONTyped,
+    SadomainSubmissionInformationToJSON,
+    SadomainSubmissionInformationToJSONTyped,
+} from "./SadomainSubmissionInformation";
 import type { SadomainTyposquattingBaseDomain } from "./SadomainTyposquattingBaseDomain";
-import { SadomainTyposquattingBaseDomainFromJSON, SadomainTyposquattingBaseDomainFromJSONTyped, SadomainTyposquattingBaseDomainToJSON } from "./SadomainTyposquattingBaseDomain";
+import {
+    SadomainTyposquattingBaseDomainFromJSON,
+    SadomainTyposquattingBaseDomainFromJSONTyped,
+    SadomainTyposquattingBaseDomainToJSON,
+    SadomainTyposquattingBaseDomainToJSONTyped,
+} from "./SadomainTyposquattingBaseDomain";
 
 /**
  *
@@ -110,10 +130,15 @@ export function SadomainTyposquattingComponentFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function SadomainTyposquattingComponentToJSON(value?: SadomainTyposquattingComponent | null): any {
+export function SadomainTyposquattingComponentToJSON(json: any): SadomainTyposquattingComponent {
+    return SadomainTyposquattingComponentToJSONTyped(json, false);
+}
+
+export function SadomainTyposquattingComponentToJSONTyped(value?: SadomainTyposquattingComponent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_domain: SadomainTyposquattingBaseDomainToJSON(value["baseDomain"]),
         id: value["id"],

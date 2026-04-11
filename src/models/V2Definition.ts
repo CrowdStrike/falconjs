@@ -14,17 +14,17 @@
 
 import { mapValues } from "../runtime";
 import type { V2Parameters } from "./V2Parameters";
-import { V2ParametersFromJSON, V2ParametersFromJSONTyped, V2ParametersToJSON } from "./V2Parameters";
+import { V2ParametersFromJSON, V2ParametersFromJSONTyped, V2ParametersToJSON, V2ParametersToJSONTyped } from "./V2Parameters";
 import type { V2Loop } from "./V2Loop";
-import { V2LoopFromJSON, V2LoopFromJSONTyped, V2LoopToJSON } from "./V2Loop";
+import { V2LoopFromJSON, V2LoopFromJSONTyped, V2LoopToJSON, V2LoopToJSONTyped } from "./V2Loop";
 import type { V2Model } from "./V2Model";
-import { V2ModelFromJSON, V2ModelFromJSONTyped, V2ModelToJSON } from "./V2Model";
+import { V2ModelFromJSON, V2ModelFromJSONTyped, V2ModelToJSON, V2ModelToJSONTyped } from "./V2Model";
 import type { V2Condition } from "./V2Condition";
-import { V2ConditionFromJSON, V2ConditionFromJSONTyped, V2ConditionToJSON } from "./V2Condition";
+import { V2ConditionFromJSON, V2ConditionFromJSONTyped, V2ConditionToJSON, V2ConditionToJSONTyped } from "./V2Condition";
 import type { V2Activity } from "./V2Activity";
-import { V2ActivityFromJSON, V2ActivityFromJSONTyped, V2ActivityToJSON } from "./V2Activity";
+import { V2ActivityFromJSON, V2ActivityFromJSONTyped, V2ActivityToJSON, V2ActivityToJSONTyped } from "./V2Activity";
 import type { V2Trigger } from "./V2Trigger";
-import { V2TriggerFromJSON, V2TriggerFromJSONTyped, V2TriggerToJSON } from "./V2Trigger";
+import { V2TriggerFromJSON, V2TriggerFromJSONTyped, V2TriggerToJSON, V2TriggerToJSONTyped } from "./V2Trigger";
 
 /**
  *
@@ -191,10 +191,15 @@ export function V2DefinitionFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function V2DefinitionToJSON(value?: V2Definition | null): any {
+export function V2DefinitionToJSON(json: any): V2Definition {
+    return V2DefinitionToJSONTyped(json, false);
+}
+
+export function V2DefinitionToJSONTyped(value?: V2Definition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actions: value["actions"] == null ? undefined : mapValues(value["actions"], V2ActivityToJSON),
         conditions: value["conditions"] == null ? undefined : mapValues(value["conditions"], V2ConditionToJSON),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegrationTask } from "./TypesIntegrationTask";
-import { TypesIntegrationTaskFromJSON, TypesIntegrationTaskFromJSONTyped, TypesIntegrationTaskToJSON } from "./TypesIntegrationTask";
+import { TypesIntegrationTaskFromJSON, TypesIntegrationTaskFromJSONTyped, TypesIntegrationTaskToJSON, TypesIntegrationTaskToJSONTyped } from "./TypesIntegrationTask";
 
 /**
  *
@@ -50,10 +50,15 @@ export function TypesCreateIntegrationTaskRequestFromJSONTyped(json: any, ignore
     };
 }
 
-export function TypesCreateIntegrationTaskRequestToJSON(value?: TypesCreateIntegrationTaskRequest | null): any {
+export function TypesCreateIntegrationTaskRequestToJSON(json: any): TypesCreateIntegrationTaskRequest {
+    return TypesCreateIntegrationTaskRequestToJSONTyped(json, false);
+}
+
+export function TypesCreateIntegrationTaskRequestToJSONTyped(value?: TypesCreateIntegrationTaskRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         integration_task: TypesIntegrationTaskToJSON(value["integrationTask"]),
     };

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesUserGroup } from "./TypesUserGroup";
-import { TypesUserGroupFromJSON, TypesUserGroupFromJSONTyped, TypesUserGroupToJSON } from "./TypesUserGroup";
+import { TypesUserGroupFromJSON, TypesUserGroupFromJSONTyped, TypesUserGroupToJSON, TypesUserGroupToJSONTyped } from "./TypesUserGroup";
 
 /**
  *
@@ -131,10 +131,15 @@ export function TypesUserFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function TypesUserToJSON(value?: TypesUser | null): any {
+export function TypesUserToJSON(json: any): TypesUser {
+    return TypesUserToJSONTyped(json, false);
+}
+
+export function TypesUserToJSONTyped(value?: TypesUser | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         acceptedTerms: value["acceptedTerms"],
         email: value["email"],

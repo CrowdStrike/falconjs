@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { ErrorGetSecurityCompliance } from "./ErrorGetSecurityCompliance";
-import { ErrorGetSecurityComplianceFromJSON, ErrorGetSecurityComplianceFromJSONTyped, ErrorGetSecurityComplianceToJSON } from "./ErrorGetSecurityCompliance";
+import { ErrorGetSecurityComplianceFromJSON, ErrorGetSecurityComplianceFromJSONTyped, ErrorGetSecurityComplianceToJSON, ErrorGetSecurityComplianceToJSONTyped } from "./ErrorGetSecurityCompliance";
 import type { MetaGetSecurityCompliance } from "./MetaGetSecurityCompliance";
-import { MetaGetSecurityComplianceFromJSON, MetaGetSecurityComplianceFromJSONTyped, MetaGetSecurityComplianceToJSON } from "./MetaGetSecurityCompliance";
+import { MetaGetSecurityComplianceFromJSON, MetaGetSecurityComplianceFromJSONTyped, MetaGetSecurityComplianceToJSON, MetaGetSecurityComplianceToJSONTyped } from "./MetaGetSecurityCompliance";
 import type { CriteriaGetSecurityCompliance } from "./CriteriaGetSecurityCompliance";
-import { CriteriaGetSecurityComplianceFromJSON, CriteriaGetSecurityComplianceFromJSONTyped, CriteriaGetSecurityComplianceToJSON } from "./CriteriaGetSecurityCompliance";
+import {
+    CriteriaGetSecurityComplianceFromJSON,
+    CriteriaGetSecurityComplianceFromJSONTyped,
+    CriteriaGetSecurityComplianceToJSON,
+    CriteriaGetSecurityComplianceToJSONTyped,
+} from "./CriteriaGetSecurityCompliance";
 
 /**
  *
@@ -68,10 +73,15 @@ export function GetSecurityComplianceFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function GetSecurityComplianceToJSON(value?: GetSecurityCompliance | null): any {
+export function GetSecurityComplianceToJSON(json: any): GetSecurityCompliance {
+    return GetSecurityComplianceToJSONTyped(json, false);
+}
+
+export function GetSecurityComplianceToJSONTyped(value?: GetSecurityCompliance | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetSecurityComplianceToJSON),
         meta: MetaGetSecurityComplianceToJSON(value["meta"]),

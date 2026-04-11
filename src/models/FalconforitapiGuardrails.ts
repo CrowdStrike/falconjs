@@ -47,10 +47,15 @@ export function FalconforitapiGuardrailsFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function FalconforitapiGuardrailsToJSON(value?: FalconforitapiGuardrails | null): any {
+export function FalconforitapiGuardrailsToJSON(json: any): FalconforitapiGuardrails {
+    return FalconforitapiGuardrailsToJSONTyped(json, false);
+}
+
+export function FalconforitapiGuardrailsToJSONTyped(value?: FalconforitapiGuardrails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         run_time_limit_millis: value["runTimeLimitMillis"],
     };

@@ -54,10 +54,15 @@ export function FigapiEmailAddressDetailsFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function FigapiEmailAddressDetailsToJSON(value?: FigapiEmailAddressDetails | null): any {
+export function FigapiEmailAddressDetailsToJSON(json: any): FigapiEmailAddressDetails {
+    return FigapiEmailAddressDetailsToJSONTyped(json, false);
+}
+
+export function FigapiEmailAddressDetailsToJSONTyped(value?: FigapiEmailAddressDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Address: value["address"],
         Properties: value["properties"],

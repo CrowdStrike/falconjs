@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiMetadataReqV1 } from "./ApiMetadataReqV1";
-import { ApiMetadataReqV1FromJSON, ApiMetadataReqV1FromJSONTyped, ApiMetadataReqV1ToJSON } from "./ApiMetadataReqV1";
+import { ApiMetadataReqV1FromJSON, ApiMetadataReqV1FromJSONTyped, ApiMetadataReqV1ToJSON, ApiMetadataReqV1ToJSONTyped } from "./ApiMetadataReqV1";
 
 /**
  *
@@ -127,15 +127,20 @@ export function ApiIndicatorUpdateReqV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiIndicatorUpdateReqV1ToJSON(value?: ApiIndicatorUpdateReqV1 | null): any {
+export function ApiIndicatorUpdateReqV1ToJSON(json: any): ApiIndicatorUpdateReqV1 {
+    return ApiIndicatorUpdateReqV1ToJSONTyped(json, false);
+}
+
+export function ApiIndicatorUpdateReqV1ToJSONTyped(value?: ApiIndicatorUpdateReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         applied_globally: value["appliedGlobally"],
         description: value["description"],
-        expiration: value["expiration"] == null ? undefined : value["expiration"].toISOString(),
+        expiration: value["expiration"] == null ? value["expiration"] : value["expiration"].toISOString(),
         host_groups: value["hostGroups"],
         id: value["id"],
         metadata: ApiMetadataReqV1ToJSON(value["metadata"]),

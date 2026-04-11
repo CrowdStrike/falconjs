@@ -54,10 +54,15 @@ export function DtoFolderFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function DtoFolderToJSON(value?: DtoFolder | null): any {
+export function DtoFolderToJSON(json: any): DtoFolder {
+    return DtoFolderToJSONTyped(json, false);
+}
+
+export function DtoFolderToJSONTyped(value?: DtoFolder | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         folder_id: value["folderId"],
         folder_name: value["folderName"],

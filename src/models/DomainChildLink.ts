@@ -92,10 +92,15 @@ export function DomainChildLinkFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainChildLinkToJSON(value?: DomainChildLink | null): any {
+export function DomainChildLinkToJSON(json: any): DomainChildLink {
+    return DomainChildLinkToJSONTyped(json, false);
+}
+
+export function DomainChildLinkToJSONTyped(value?: DomainChildLink | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         checksum: value["checksum"],
         child_cid: value["childCid"],

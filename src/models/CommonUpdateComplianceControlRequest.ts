@@ -55,10 +55,15 @@ export function CommonUpdateComplianceControlRequestFromJSONTyped(json: any, ign
     };
 }
 
-export function CommonUpdateComplianceControlRequestToJSON(value?: CommonUpdateComplianceControlRequest | null): any {
+export function CommonUpdateComplianceControlRequestToJSON(json: any): CommonUpdateComplianceControlRequest {
+    return CommonUpdateComplianceControlRequestToJSONTyped(json, false);
+}
+
+export function CommonUpdateComplianceControlRequestToJSONTyped(value?: CommonUpdateComplianceControlRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

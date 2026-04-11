@@ -45,7 +45,7 @@ export interface HostGroupsHostGroupV1 {
     description: string;
     /**
      * The method by which this host group is managed
-     * @type {string}
+     * @type {HostGroupsHostGroupV1GroupTypeEnum}
      * @memberof HostGroupsHostGroupV1
      */
     groupType?: HostGroupsHostGroupV1GroupTypeEnum;
@@ -120,10 +120,15 @@ export function HostGroupsHostGroupV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function HostGroupsHostGroupV1ToJSON(value?: HostGroupsHostGroupV1 | null): any {
+export function HostGroupsHostGroupV1ToJSON(json: any): HostGroupsHostGroupV1 {
+    return HostGroupsHostGroupV1ToJSONTyped(json, false);
+}
+
+export function HostGroupsHostGroupV1ToJSONTyped(value?: HostGroupsHostGroupV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assignment_rule: value["assignmentRule"],
         created_by: value["createdBy"],

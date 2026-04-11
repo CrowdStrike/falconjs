@@ -103,10 +103,15 @@ export function ApiMetadataV1FromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ApiMetadataV1ToJSON(value?: ApiMetadataV1 | null): any {
+export function ApiMetadataV1ToJSON(json: any): ApiMetadataV1 {
+    return ApiMetadataV1ToJSONTyped(json, false);
+}
+
+export function ApiMetadataV1ToJSONTyped(value?: ApiMetadataV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         av_hits: value["avHits"],
         company_name: value["companyName"],

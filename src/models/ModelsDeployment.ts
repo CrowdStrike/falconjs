@@ -112,10 +112,15 @@ export function ModelsDeploymentFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ModelsDeploymentToJSON(value?: ModelsDeployment | null): any {
+export function ModelsDeploymentToJSON(json: any): ModelsDeployment {
+    return ModelsDeploymentToJSONTyped(json, false);
+}
+
+export function ModelsDeploymentToJSONTyped(value?: ModelsDeployment | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         asset_identifier: value["assetIdentifier"],

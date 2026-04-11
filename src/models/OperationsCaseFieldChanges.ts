@@ -14,15 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { SdkCustomField } from "./SdkCustomField";
-import { SdkCustomFieldFromJSON, SdkCustomFieldFromJSONTyped, SdkCustomFieldToJSON } from "./SdkCustomField";
+import { SdkCustomFieldFromJSON, SdkCustomFieldFromJSONTyped, SdkCustomFieldToJSON, SdkCustomFieldToJSONTyped } from "./SdkCustomField";
 import type { SdkCaseAccessTag } from "./SdkCaseAccessTag";
-import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON } from "./SdkCaseAccessTag";
+import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON, SdkCaseAccessTagToJSONTyped } from "./SdkCaseAccessTag";
 import type { SdkTemplateSelector } from "./SdkTemplateSelector";
-import { SdkTemplateSelectorFromJSON, SdkTemplateSelectorFromJSONTyped, SdkTemplateSelectorToJSON } from "./SdkTemplateSelector";
+import { SdkTemplateSelectorFromJSON, SdkTemplateSelectorFromJSONTyped, SdkTemplateSelectorToJSON, SdkTemplateSelectorToJSONTyped } from "./SdkTemplateSelector";
 import type { SdkCaseSeverityInfoUpdate } from "./SdkCaseSeverityInfoUpdate";
-import { SdkCaseSeverityInfoUpdateFromJSON, SdkCaseSeverityInfoUpdateFromJSONTyped, SdkCaseSeverityInfoUpdateToJSON } from "./SdkCaseSeverityInfoUpdate";
+import { SdkCaseSeverityInfoUpdateFromJSON, SdkCaseSeverityInfoUpdateFromJSONTyped, SdkCaseSeverityInfoUpdateToJSON, SdkCaseSeverityInfoUpdateToJSONTyped } from "./SdkCaseSeverityInfoUpdate";
 import type { SdkWorkflow } from "./SdkWorkflow";
-import { SdkWorkflowFromJSON, SdkWorkflowFromJSONTyped, SdkWorkflowToJSON } from "./SdkWorkflow";
+import { SdkWorkflowFromJSON, SdkWorkflowFromJSONTyped, SdkWorkflowToJSON, SdkWorkflowToJSONTyped } from "./SdkWorkflow";
 
 /**
  *
@@ -144,10 +144,15 @@ export function OperationsCaseFieldChangesFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function OperationsCaseFieldChangesToJSON(value?: OperationsCaseFieldChanges | null): any {
+export function OperationsCaseFieldChangesToJSON(json: any): OperationsCaseFieldChanges {
+    return OperationsCaseFieldChangesToJSONTyped(json, false);
+}
+
+export function OperationsCaseFieldChangesToJSONTyped(value?: OperationsCaseFieldChanges | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(SdkCaseAccessTagToJSON),
         assigned_to_user_uuid: value["assignedToUserUuid"],

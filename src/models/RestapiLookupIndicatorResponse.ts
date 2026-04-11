@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { FigapiLookupIndicator } from "./FigapiLookupIndicator";
-import { FigapiLookupIndicatorFromJSON, FigapiLookupIndicatorFromJSONTyped, FigapiLookupIndicatorToJSON } from "./FigapiLookupIndicator";
+import { FigapiLookupIndicatorFromJSON, FigapiLookupIndicatorFromJSONTyped, FigapiLookupIndicatorToJSON, FigapiLookupIndicatorToJSONTyped } from "./FigapiLookupIndicator";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RestapiLookupIndicatorResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RestapiLookupIndicatorResponseToJSON(value?: RestapiLookupIndicatorResponse | null): any {
+export function RestapiLookupIndicatorResponseToJSON(json: any): RestapiLookupIndicatorResponse {
+    return RestapiLookupIndicatorResponseToJSONTyped(json, false);
+}
+
+export function RestapiLookupIndicatorResponseToJSONTyped(value?: RestapiLookupIndicatorResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

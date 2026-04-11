@@ -56,10 +56,15 @@ export function K8sregAzureSubEntityFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function K8sregAzureSubEntityToJSON(value?: K8sregAzureSubEntity | null): any {
+export function K8sregAzureSubEntityToJSON(json: any): K8sregAzureSubEntity {
+    return K8sregAzureSubEntityToJSONTyped(json, false);
+}
+
+export function K8sregAzureSubEntityToJSONTyped(value?: K8sregAzureSubEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         subscription_id: value["subscriptionId"],
         tenant_id: value["tenantId"],

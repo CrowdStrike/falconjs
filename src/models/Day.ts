@@ -64,10 +64,15 @@ export function DayFromJSONTyped(json: any, ignoreDiscriminator: boolean): Day {
     };
 }
 
-export function DayToJSON(value?: Day | null): any {
+export function DayToJSON(json: any): Day {
+    return DayToJSONTyped(json, false);
+}
+
+export function DayToJSONTyped(value?: Day | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         liveCost: value["liveCost"],
         queryCount: value["queryCount"],

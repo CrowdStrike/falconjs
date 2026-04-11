@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { RegexpOnePassProg } from "./RegexpOnePassProg";
-import { RegexpOnePassProgFromJSON, RegexpOnePassProgFromJSONTyped, RegexpOnePassProgToJSON } from "./RegexpOnePassProg";
+import { RegexpOnePassProgFromJSON, RegexpOnePassProgFromJSONTyped, RegexpOnePassProgToJSON, RegexpOnePassProgToJSONTyped } from "./RegexpOnePassProg";
 import type { SyntaxProg } from "./SyntaxProg";
-import { SyntaxProgFromJSON, SyntaxProgFromJSONTyped, SyntaxProgToJSON } from "./SyntaxProg";
+import { SyntaxProgFromJSON, SyntaxProgFromJSONTyped, SyntaxProgToJSON, SyntaxProgToJSONTyped } from "./SyntaxProg";
 
 /**
  *
@@ -173,10 +173,15 @@ export function RegexpRegexpFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function RegexpRegexpToJSON(value?: RegexpRegexp | null): any {
+export function RegexpRegexpToJSON(json: any): RegexpRegexp {
+    return RegexpRegexpToJSONTyped(json, false);
+}
+
+export function RegexpRegexpToJSONTyped(value?: RegexpRegexp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cond: value["cond"],
         expr: value["expr"],

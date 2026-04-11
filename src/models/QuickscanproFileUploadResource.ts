@@ -55,10 +55,15 @@ export function QuickscanproFileUploadResourceFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function QuickscanproFileUploadResourceToJSON(value?: QuickscanproFileUploadResource | null): any {
+export function QuickscanproFileUploadResourceToJSON(json: any): QuickscanproFileUploadResource {
+    return QuickscanproFileUploadResourceToJSONTyped(json, false);
+}
+
+export function QuickscanproFileUploadResourceToJSONTyped(value?: QuickscanproFileUploadResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         scan_id: value["scanId"],
         sha256: value["sha256"],

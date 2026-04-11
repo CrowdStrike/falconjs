@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxMITREAttackParent } from "./FalconxMITREAttackParent";
-import { FalconxMITREAttackParentFromJSON, FalconxMITREAttackParentFromJSONTyped, FalconxMITREAttackParentToJSON } from "./FalconxMITREAttackParent";
+import { FalconxMITREAttackParentFromJSON, FalconxMITREAttackParentFromJSONTyped, FalconxMITREAttackParentToJSON, FalconxMITREAttackParentToJSONTyped } from "./FalconxMITREAttackParent";
 
 /**
  *
@@ -99,10 +99,15 @@ export function FalconxMITREAttackFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FalconxMITREAttackToJSON(value?: FalconxMITREAttack | null): any {
+export function FalconxMITREAttackToJSON(json: any): FalconxMITREAttack {
+    return FalconxMITREAttackToJSONTyped(json, false);
+}
+
+export function FalconxMITREAttackToJSONTyped(value?: FalconxMITREAttack | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attack_id: value["attackId"],
         attack_id_wiki: value["attackIdWiki"],

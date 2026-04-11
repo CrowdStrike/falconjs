@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ClientRepository } from "./ClientRepository";
-import { ClientRepositoryFromJSON, ClientRepositoryFromJSONTyped, ClientRepositoryToJSON } from "./ClientRepository";
+import { ClientRepositoryFromJSON, ClientRepositoryFromJSONTyped, ClientRepositoryToJSON, ClientRepositoryToJSONTyped } from "./ClientRepository";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ClientDataIngestResponseV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ClientDataIngestResponseV1ToJSON(value?: ClientDataIngestResponseV1 | null): any {
+export function ClientDataIngestResponseV1ToJSON(json: any): ClientDataIngestResponseV1 {
+    return ClientDataIngestResponseV1ToJSONTyped(json, false);
+}
+
+export function ClientDataIngestResponseV1ToJSONTyped(value?: ClientDataIngestResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         repo: ClientRepositoryToJSON(value["repo"]),
         rows_written: value["rowsWritten"],

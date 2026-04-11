@@ -56,10 +56,15 @@ export function DomainBotnetInjectFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainBotnetInjectToJSON(value?: DomainBotnetInject | null): any {
+export function DomainBotnetInjectToJSON(json: any): DomainBotnetInject {
+    return DomainBotnetInjectToJSONTyped(json, false);
+}
+
+export function DomainBotnetInjectToJSONTyped(value?: DomainBotnetInject | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         inject: value["inject"],
         pattern: value["pattern"],

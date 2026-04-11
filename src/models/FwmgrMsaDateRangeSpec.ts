@@ -56,10 +56,15 @@ export function FwmgrMsaDateRangeSpecFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function FwmgrMsaDateRangeSpecToJSON(value?: FwmgrMsaDateRangeSpec | null): any {
+export function FwmgrMsaDateRangeSpecToJSON(json: any): FwmgrMsaDateRangeSpec {
+    return FwmgrMsaDateRangeSpecToJSONTyped(json, false);
+}
+
+export function FwmgrMsaDateRangeSpecToJSONTyped(value?: FwmgrMsaDateRangeSpec | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         from: value["from"],
         to: value["to"],

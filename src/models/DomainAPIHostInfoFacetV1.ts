@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAssetCriticalityInfoV1 } from "./DomainAssetCriticalityInfoV1";
-import { DomainAssetCriticalityInfoV1FromJSON, DomainAssetCriticalityInfoV1FromJSONTyped, DomainAssetCriticalityInfoV1ToJSON } from "./DomainAssetCriticalityInfoV1";
+import {
+    DomainAssetCriticalityInfoV1FromJSON,
+    DomainAssetCriticalityInfoV1FromJSONTyped,
+    DomainAssetCriticalityInfoV1ToJSON,
+    DomainAssetCriticalityInfoV1ToJSONTyped,
+} from "./DomainAssetCriticalityInfoV1";
 import type { DomainAPIHostGroup } from "./DomainAPIHostGroup";
-import { DomainAPIHostGroupFromJSON, DomainAPIHostGroupFromJSONTyped, DomainAPIHostGroupToJSON } from "./DomainAPIHostGroup";
+import { DomainAPIHostGroupFromJSON, DomainAPIHostGroupFromJSONTyped, DomainAPIHostGroupToJSON, DomainAPIHostGroupToJSONTyped } from "./DomainAPIHostGroup";
 
 /**
  *
@@ -187,10 +192,15 @@ export function DomainAPIHostInfoFacetV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainAPIHostInfoFacetV1ToJSON(value?: DomainAPIHostInfoFacetV1 | null): any {
+export function DomainAPIHostInfoFacetV1ToJSON(json: any): DomainAPIHostInfoFacetV1 {
+    return DomainAPIHostInfoFacetV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIHostInfoFacetV1ToJSONTyped(value?: DomainAPIHostInfoFacetV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_version: value["agentVersion"],
         asset_criticality: DomainAssetCriticalityInfoV1ToJSON(value["assetCriticality"]),

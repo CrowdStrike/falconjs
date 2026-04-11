@@ -61,10 +61,15 @@ export function DomainDiscoverAPIScanDetailsHostFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainDiscoverAPIScanDetailsHostToJSON(value?: DomainDiscoverAPIScanDetailsHost | null): any {
+export function DomainDiscoverAPIScanDetailsHostToJSON(json: any): DomainDiscoverAPIScanDetailsHost {
+    return DomainDiscoverAPIScanDetailsHostToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIScanDetailsHostToJSONTyped(value?: DomainDiscoverAPIScanDetailsHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         scan_date: value["scanDate"],
         scan_id: value["scanId"],

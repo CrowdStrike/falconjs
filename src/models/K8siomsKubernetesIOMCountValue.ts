@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { CommonCountAsResource } from "./CommonCountAsResource";
-import { CommonCountAsResourceFromJSON, CommonCountAsResourceFromJSONTyped, CommonCountAsResourceToJSON } from "./CommonCountAsResource";
+import { CommonCountAsResourceFromJSON, CommonCountAsResourceFromJSONTyped, CommonCountAsResourceToJSON, CommonCountAsResourceToJSONTyped } from "./CommonCountAsResource";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function K8siomsKubernetesIOMCountValueFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8siomsKubernetesIOMCountValueToJSON(value?: K8siomsKubernetesIOMCountValue | null): any {
+export function K8siomsKubernetesIOMCountValueToJSON(json: any): K8siomsKubernetesIOMCountValue {
+    return K8siomsKubernetesIOMCountValueToJSONTyped(json, false);
+}
+
+export function K8siomsKubernetesIOMCountValueToJSONTyped(value?: K8siomsKubernetesIOMCountValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

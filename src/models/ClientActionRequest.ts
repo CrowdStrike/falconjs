@@ -48,10 +48,15 @@ export function ClientActionRequestFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ClientActionRequestToJSON(value?: ClientActionRequest | null): any {
+export function ClientActionRequestToJSON(json: any): ClientActionRequest {
+    return ClientActionRequestToJSONTyped(json, false);
+}
+
+export function ClientActionRequestToJSONTyped(value?: ClientActionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

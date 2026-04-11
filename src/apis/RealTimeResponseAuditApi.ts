@@ -36,12 +36,9 @@ export interface RealTimeResponseAuditApiRTRAuditSessionsRequest {
  */
 export class RealTimeResponseAuditApi extends runtime.BaseAPI {
     /**
-     * Get all the RTR sessions created for a customer in a specified duration
+     * Creates request options for rTRAuditSessions without sending the request
      */
-    async rTRAuditSessionsRaw(
-        requestParameters: RealTimeResponseAuditApiRTRAuditSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSessionResponseWrapper>> {
+    async rTRAuditSessionsRequestOpts(requestParameters: RealTimeResponseAuditApiRTRAuditSessionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -71,15 +68,25 @@ export class RealTimeResponseAuditApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response-audit:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response-audit/combined/sessions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response-audit/combined/sessions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all the RTR sessions created for a customer in a specified duration
+     */
+    async rTRAuditSessionsRaw(
+        requestParameters: RealTimeResponseAuditApiRTRAuditSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSessionResponseWrapper>> {
+        const requestOptions = await this.rTRAuditSessionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSessionResponseWrapperFromJSON(jsonValue));
     }

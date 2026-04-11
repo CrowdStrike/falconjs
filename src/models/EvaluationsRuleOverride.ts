@@ -126,14 +126,19 @@ export function EvaluationsRuleOverrideFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function EvaluationsRuleOverrideToJSON(value?: EvaluationsRuleOverride | null): any {
+export function EvaluationsRuleOverrideToJSON(json: any): EvaluationsRuleOverride {
+    return EvaluationsRuleOverrideToJSONTyped(json, false);
+}
+
+export function EvaluationsRuleOverrideToJSONTyped(value?: EvaluationsRuleOverride | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
-        deleted_at: value["deletedAt"] == null ? undefined : value["deletedAt"].toISOString(),
-        expiration_timestamp: value["expirationTimestamp"] == null ? undefined : value["expirationTimestamp"].toISOString(),
+        created_at: value["createdAt"] == null ? value["createdAt"] : value["createdAt"].toISOString(),
+        deleted_at: value["deletedAt"] == null ? value["deletedAt"] : value["deletedAt"].toISOString(),
+        expiration_timestamp: value["expirationTimestamp"] == null ? value["expirationTimestamp"] : value["expirationTimestamp"].toISOString(),
         override_type: value["overrideType"],
         severity: value["severity"],
         suppressed: value["suppressed"],
@@ -142,6 +147,6 @@ export function EvaluationsRuleOverrideToJSON(value?: EvaluationsRuleOverride | 
         suppression_reason: value["suppressionReason"],
         suppression_rule_id: value["suppressionRuleId"],
         update_reason: value["updateReason"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
     };
 }

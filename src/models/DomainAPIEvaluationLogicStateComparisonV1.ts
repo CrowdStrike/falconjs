@@ -18,6 +18,7 @@ import {
     DomainAPIEvaluationLogicEntityComparisonV1FromJSON,
     DomainAPIEvaluationLogicEntityComparisonV1FromJSONTyped,
     DomainAPIEvaluationLogicEntityComparisonV1ToJSON,
+    DomainAPIEvaluationLogicEntityComparisonV1ToJSONTyped,
 } from "./DomainAPIEvaluationLogicEntityComparisonV1";
 
 /**
@@ -63,10 +64,15 @@ export function DomainAPIEvaluationLogicStateComparisonV1FromJSONTyped(json: any
     };
 }
 
-export function DomainAPIEvaluationLogicStateComparisonV1ToJSON(value?: DomainAPIEvaluationLogicStateComparisonV1 | null): any {
+export function DomainAPIEvaluationLogicStateComparisonV1ToJSON(json: any): DomainAPIEvaluationLogicStateComparisonV1 {
+    return DomainAPIEvaluationLogicStateComparisonV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIEvaluationLogicStateComparisonV1ToJSONTyped(value?: DomainAPIEvaluationLogicStateComparisonV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entity_comparisons: (value["entityComparisons"] as Array<any>).map(DomainAPIEvaluationLogicEntityComparisonV1ToJSON),
         entity_operator: value["entityOperator"],

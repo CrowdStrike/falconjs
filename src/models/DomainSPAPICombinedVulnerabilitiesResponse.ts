@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainSPAPIQueryMeta } from "./DomainSPAPIQueryMeta";
-import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON } from "./DomainSPAPIQueryMeta";
+import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON, DomainSPAPIQueryMetaToJSONTyped } from "./DomainSPAPIQueryMeta";
 import type { DomainBaseAPIVulnerabilityV2 } from "./DomainBaseAPIVulnerabilityV2";
-import { DomainBaseAPIVulnerabilityV2FromJSON, DomainBaseAPIVulnerabilityV2FromJSONTyped, DomainBaseAPIVulnerabilityV2ToJSON } from "./DomainBaseAPIVulnerabilityV2";
+import {
+    DomainBaseAPIVulnerabilityV2FromJSON,
+    DomainBaseAPIVulnerabilityV2FromJSONTyped,
+    DomainBaseAPIVulnerabilityV2ToJSON,
+    DomainBaseAPIVulnerabilityV2ToJSONTyped,
+} from "./DomainBaseAPIVulnerabilityV2";
 
 /**
  *
@@ -70,10 +75,15 @@ export function DomainSPAPICombinedVulnerabilitiesResponseFromJSONTyped(json: an
     };
 }
 
-export function DomainSPAPICombinedVulnerabilitiesResponseToJSON(value?: DomainSPAPICombinedVulnerabilitiesResponse | null): any {
+export function DomainSPAPICombinedVulnerabilitiesResponseToJSON(json: any): DomainSPAPICombinedVulnerabilitiesResponse {
+    return DomainSPAPICombinedVulnerabilitiesResponseToJSONTyped(json, false);
+}
+
+export function DomainSPAPICombinedVulnerabilitiesResponseToJSONTyped(value?: DomainSPAPICombinedVulnerabilitiesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainSPAPIQueryMetaToJSON(value["meta"]),

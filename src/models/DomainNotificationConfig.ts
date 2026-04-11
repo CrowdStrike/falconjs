@@ -96,10 +96,15 @@ export function DomainNotificationConfigFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainNotificationConfigToJSON(value?: DomainNotificationConfig | null): any {
+export function DomainNotificationConfigToJSON(json: any): DomainNotificationConfig {
+    return DomainNotificationConfigToJSONTyped(json, false);
+}
+
+export function DomainNotificationConfigToJSONTyped(value?: DomainNotificationConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         channel_id: value["channelId"],
         cid: value["cid"],

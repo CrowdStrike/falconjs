@@ -14,17 +14,17 @@
 
 import { mapValues } from "../runtime";
 import type { GraphConfiguredActivity } from "./GraphConfiguredActivity";
-import { GraphConfiguredActivityFromJSON, GraphConfiguredActivityFromJSONTyped, GraphConfiguredActivityToJSON } from "./GraphConfiguredActivity";
+import { GraphConfiguredActivityFromJSON, GraphConfiguredActivityFromJSONTyped, GraphConfiguredActivityToJSON, GraphConfiguredActivityToJSONTyped } from "./GraphConfiguredActivity";
 import type { GraphEnd } from "./GraphEnd";
-import { GraphEndFromJSON, GraphEndFromJSONTyped, GraphEndToJSON } from "./GraphEnd";
+import { GraphEndFromJSON, GraphEndFromJSONTyped, GraphEndToJSON, GraphEndToJSONTyped } from "./GraphEnd";
 import type { GraphSubModel } from "./GraphSubModel";
-import { GraphSubModelFromJSON, GraphSubModelFromJSONTyped, GraphSubModelToJSON } from "./GraphSubModel";
+import { GraphSubModelFromJSON, GraphSubModelFromJSONTyped, GraphSubModelToJSON, GraphSubModelToJSONTyped } from "./GraphSubModel";
 import type { GraphFlow } from "./GraphFlow";
-import { GraphFlowFromJSON, GraphFlowFromJSONTyped, GraphFlowToJSON } from "./GraphFlow";
+import { GraphFlowFromJSON, GraphFlowFromJSONTyped, GraphFlowToJSON, GraphFlowToJSONTyped } from "./GraphFlow";
 import type { GraphGateway } from "./GraphGateway";
-import { GraphGatewayFromJSON, GraphGatewayFromJSONTyped, GraphGatewayToJSON } from "./GraphGateway";
+import { GraphGatewayFromJSON, GraphGatewayFromJSONTyped, GraphGatewayToJSON, GraphGatewayToJSONTyped } from "./GraphGateway";
 import type { GraphConfiguredTrigger } from "./GraphConfiguredTrigger";
-import { GraphConfiguredTriggerFromJSON, GraphConfiguredTriggerFromJSONTyped, GraphConfiguredTriggerToJSON } from "./GraphConfiguredTrigger";
+import { GraphConfiguredTriggerFromJSON, GraphConfiguredTriggerFromJSONTyped, GraphConfiguredTriggerToJSON, GraphConfiguredTriggerToJSONTyped } from "./GraphConfiguredTrigger";
 
 /**
  *
@@ -105,10 +105,15 @@ export function GraphDefinitionModelFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function GraphDefinitionModelToJSON(value?: GraphDefinitionModel | null): any {
+export function GraphDefinitionModelToJSON(json: any): GraphDefinitionModel {
+    return GraphDefinitionModelToJSONTyped(json, false);
+}
+
+export function GraphDefinitionModelToJSONTyped(value?: GraphDefinitionModel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         activities: value["activities"] == null ? undefined : mapValues(value["activities"], GraphConfiguredActivityToJSON),
         end: GraphEndToJSON(value["end"]),

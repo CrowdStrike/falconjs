@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsClusterInfo } from "./ModelsClusterInfo";
-import { ModelsClusterInfoFromJSON, ModelsClusterInfoFromJSONTyped, ModelsClusterInfoToJSON } from "./ModelsClusterInfo";
+import { ModelsClusterInfoFromJSON, ModelsClusterInfoFromJSONTyped, ModelsClusterInfoToJSON, ModelsClusterInfoToJSONTyped } from "./ModelsClusterInfo";
 
 /**
  *
@@ -179,10 +179,15 @@ export function ModelsContainerImageFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ModelsContainerImageToJSON(value?: ModelsContainerImage | null): any {
+export function ModelsContainerImageToJSON(json: any): ModelsContainerImage {
+    return ModelsContainerImageToJSONTyped(json, false);
+}
+
+export function ModelsContainerImageToJSONTyped(value?: ModelsContainerImage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cluster_info: (value["clusterInfo"] as Array<any>).map(ModelsClusterInfoToJSON),

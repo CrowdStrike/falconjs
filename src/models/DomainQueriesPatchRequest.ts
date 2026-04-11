@@ -68,10 +68,15 @@ export function DomainQueriesPatchRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainQueriesPatchRequestToJSON(value?: DomainQueriesPatchRequest | null): any {
+export function DomainQueriesPatchRequestToJSON(json: any): DomainQueriesPatchRequest {
+    return DomainQueriesPatchRequestToJSONTyped(json, false);
+}
+
+export function DomainQueriesPatchRequestToJSONTyped(value?: DomainQueriesPatchRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         comment: value["comment"],

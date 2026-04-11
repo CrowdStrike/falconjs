@@ -48,10 +48,15 @@ export function UploadDataRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function UploadDataRequestToJSON(value?: UploadDataRequest | null): any {
+export function UploadDataRequestToJSON(json: any): UploadDataRequest {
+    return UploadDataRequestToJSONTyped(json, false);
+}
+
+export function UploadDataRequestToJSONTyped(value?: UploadDataRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: value["data"],
     };

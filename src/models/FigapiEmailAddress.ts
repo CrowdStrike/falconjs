@@ -61,10 +61,15 @@ export function FigapiEmailAddressFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FigapiEmailAddressToJSON(value?: FigapiEmailAddress | null): any {
+export function FigapiEmailAddressToJSON(json: any): FigapiEmailAddress {
+    return FigapiEmailAddressToJSONTyped(json, false);
+}
+
+export function FigapiEmailAddressToJSONTyped(value?: FigapiEmailAddress | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Address: value["address"],
         ContactRole: value["contactRole"],

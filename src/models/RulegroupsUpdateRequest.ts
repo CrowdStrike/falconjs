@@ -63,10 +63,15 @@ export function RulegroupsUpdateRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function RulegroupsUpdateRequestToJSON(value?: RulegroupsUpdateRequest | null): any {
+export function RulegroupsUpdateRequestToJSON(json: any): RulegroupsUpdateRequest {
+    return RulegroupsUpdateRequestToJSONTyped(json, false);
+}
+
+export function RulegroupsUpdateRequestToJSONTyped(value?: RulegroupsUpdateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         id: value["id"],

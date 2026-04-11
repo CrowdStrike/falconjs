@@ -88,10 +88,15 @@ export function ExportsExportJobFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ExportsExportJobToJSON(value?: ExportsExportJob | null): any {
+export function ExportsExportJobToJSON(json: any): ExportsExportJob {
+    return ExportsExportJobToJSONTyped(json, false);
+}
+
+export function ExportsExportJobToJSONTyped(value?: ExportsExportJob | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"],
         id: value["id"],

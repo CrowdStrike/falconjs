@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrDomainDNSTarget } from "./FwmgrDomainDNSTarget";
-import { FwmgrDomainDNSTargetFromJSON, FwmgrDomainDNSTargetFromJSONTyped, FwmgrDomainDNSTargetToJSON } from "./FwmgrDomainDNSTarget";
+import { FwmgrDomainDNSTargetFromJSON, FwmgrDomainDNSTargetFromJSONTyped, FwmgrDomainDNSTargetToJSON, FwmgrDomainDNSTargetToJSONTyped } from "./FwmgrDomainDNSTarget";
 
 /**
  *
@@ -58,10 +58,15 @@ export function FwmgrDomainDNSResolutionTargetsWithPollingFromJSONTyped(json: an
     };
 }
 
-export function FwmgrDomainDNSResolutionTargetsWithPollingToJSON(value?: FwmgrDomainDNSResolutionTargetsWithPolling | null): any {
+export function FwmgrDomainDNSResolutionTargetsWithPollingToJSON(json: any): FwmgrDomainDNSResolutionTargetsWithPolling {
+    return FwmgrDomainDNSResolutionTargetsWithPollingToJSONTyped(json, false);
+}
+
+export function FwmgrDomainDNSResolutionTargetsWithPollingToJSONTyped(value?: FwmgrDomainDNSResolutionTargetsWithPolling | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         polling_interval: value["pollingInterval"],
         targets: value["targets"] == null ? undefined : (value["targets"] as Array<any>).map(FwmgrDomainDNSTargetToJSON),

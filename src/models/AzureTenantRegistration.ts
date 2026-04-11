@@ -14,17 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
-import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON, DomainProductFeaturesToJSONTyped } from "./DomainProductFeatures";
 import type { AzureAdditionalFeature } from "./AzureAdditionalFeature";
-import { AzureAdditionalFeatureFromJSON, AzureAdditionalFeatureFromJSONTyped, AzureAdditionalFeatureToJSON } from "./AzureAdditionalFeature";
+import { AzureAdditionalFeatureFromJSON, AzureAdditionalFeatureFromJSONTyped, AzureAdditionalFeatureToJSON, AzureAdditionalFeatureToJSONTyped } from "./AzureAdditionalFeature";
 import type { AzureDSPMRegionCustomNetworkConfiguration } from "./AzureDSPMRegionCustomNetworkConfiguration";
 import {
     AzureDSPMRegionCustomNetworkConfigurationFromJSON,
     AzureDSPMRegionCustomNetworkConfigurationFromJSONTyped,
     AzureDSPMRegionCustomNetworkConfigurationToJSON,
+    AzureDSPMRegionCustomNetworkConfigurationToJSONTyped,
 } from "./AzureDSPMRegionCustomNetworkConfiguration";
 import type { AzureEventHubSettings } from "./AzureEventHubSettings";
-import { AzureEventHubSettingsFromJSON, AzureEventHubSettingsFromJSONTyped, AzureEventHubSettingsToJSON } from "./AzureEventHubSettings";
+import { AzureEventHubSettingsFromJSON, AzureEventHubSettingsFromJSONTyped, AzureEventHubSettingsToJSON, AzureEventHubSettingsToJSONTyped } from "./AzureEventHubSettings";
 
 /**
  *
@@ -154,7 +155,7 @@ export interface AzureTenantRegistration {
     dspmHostSubscriptionId?: string;
     /**
      * Network configuration type for DSPM
-     * @type {string}
+     * @type {AzureTenantRegistrationDspmNetworkConfigurationTypeEnum}
      * @memberof AzureTenantRegistration
      */
     dspmNetworkConfigurationType?: AzureTenantRegistrationDspmNetworkConfigurationTypeEnum;
@@ -339,10 +340,15 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | null): any {
+export function AzureTenantRegistrationToJSON(json: any): AzureTenantRegistration {
+    return AzureTenantRegistrationToJSONTyped(json, false);
+}
+
+export function AzureTenantRegistrationToJSONTyped(value?: AzureTenantRegistration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_type: value["accountType"],
         additional_features: (value["additionalFeatures"] as Array<any>).map(AzureAdditionalFeatureToJSON),
@@ -352,10 +358,10 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         api_client_key_type: value["apiClientKeyType"],
         app_registration_id: value["appRegistrationId"],
         cid: value["cid"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         cs_infra_region: value["csInfraRegion"],
         cs_infra_subscription_id: value["csInfraSubscriptionId"],
-        deleted: value["deleted"] == null ? undefined : value["deleted"].toISOString(),
+        deleted: value["deleted"] == null ? value["deleted"] : value["deleted"].toISOString(),
         deployment_method: value["deploymentMethod"],
         deployment_stack_host_id: value["deploymentStackHostId"],
         deployment_stack_host_region: value["deploymentStackHostRegion"],
@@ -381,6 +387,6 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         template_version: value["templateVersion"],
         tenant_id: value["tenantId"],
         tenant_name: value["tenantName"],
-        updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
+        updated: value["updated"] == null ? value["updated"] : value["updated"].toISOString(),
     };
 }

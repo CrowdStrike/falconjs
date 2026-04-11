@@ -68,10 +68,15 @@ export function TypesAwsLambdaApiGatewayReasonTagFromJSONTyped(json: any, ignore
     };
 }
 
-export function TypesAwsLambdaApiGatewayReasonTagToJSON(value?: TypesAwsLambdaApiGatewayReasonTag | null): any {
+export function TypesAwsLambdaApiGatewayReasonTagToJSON(json: any): TypesAwsLambdaApiGatewayReasonTag {
+    return TypesAwsLambdaApiGatewayReasonTagToJSONTyped(json, false);
+}
+
+export function TypesAwsLambdaApiGatewayReasonTagToJSONTyped(value?: TypesAwsLambdaApiGatewayReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         apiType: value["apiType"],
         lambdaArn: value["lambdaArn"],

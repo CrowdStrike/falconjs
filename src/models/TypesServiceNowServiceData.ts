@@ -14,21 +14,46 @@
 
 import { mapValues } from "../runtime";
 import type { TypesServiceNowService } from "./TypesServiceNowService";
-import { TypesServiceNowServiceFromJSON, TypesServiceNowServiceFromJSONTyped, TypesServiceNowServiceToJSON } from "./TypesServiceNowService";
+import { TypesServiceNowServiceFromJSON, TypesServiceNowServiceFromJSONTyped, TypesServiceNowServiceToJSON, TypesServiceNowServiceToJSONTyped } from "./TypesServiceNowService";
 import type { TypesServiceServiceArtifact } from "./TypesServiceServiceArtifact";
-import { TypesServiceServiceArtifactFromJSON, TypesServiceServiceArtifactFromJSONTyped, TypesServiceServiceArtifactToJSON } from "./TypesServiceServiceArtifact";
+import {
+    TypesServiceServiceArtifactFromJSON,
+    TypesServiceServiceArtifactFromJSONTyped,
+    TypesServiceServiceArtifactToJSON,
+    TypesServiceServiceArtifactToJSONTyped,
+} from "./TypesServiceServiceArtifact";
 import type { TypesServiceServiceConfiguration } from "./TypesServiceServiceConfiguration";
-import { TypesServiceServiceConfigurationFromJSON, TypesServiceServiceConfigurationFromJSONTyped, TypesServiceServiceConfigurationToJSON } from "./TypesServiceServiceConfiguration";
+import {
+    TypesServiceServiceConfigurationFromJSON,
+    TypesServiceServiceConfigurationFromJSONTyped,
+    TypesServiceServiceConfigurationToJSON,
+    TypesServiceServiceConfigurationToJSONTyped,
+} from "./TypesServiceServiceConfiguration";
 import type { TypesServiceServiceLibrary } from "./TypesServiceServiceLibrary";
-import { TypesServiceServiceLibraryFromJSON, TypesServiceServiceLibraryFromJSONTyped, TypesServiceServiceLibraryToJSON } from "./TypesServiceServiceLibrary";
+import { TypesServiceServiceLibraryFromJSON, TypesServiceServiceLibraryFromJSONTyped, TypesServiceServiceLibraryToJSON, TypesServiceServiceLibraryToJSONTyped } from "./TypesServiceServiceLibrary";
 import type { TypesInterface } from "./TypesInterface";
-import { TypesInterfaceFromJSON, TypesInterfaceFromJSONTyped, TypesInterfaceToJSON } from "./TypesInterface";
+import { TypesInterfaceFromJSON, TypesInterfaceFromJSONTyped, TypesInterfaceToJSON, TypesInterfaceToJSONTyped } from "./TypesInterface";
 import type { TypesServiceServiceFramework } from "./TypesServiceServiceFramework";
-import { TypesServiceServiceFrameworkFromJSON, TypesServiceServiceFrameworkFromJSONTyped, TypesServiceServiceFrameworkToJSON } from "./TypesServiceServiceFramework";
+import {
+    TypesServiceServiceFrameworkFromJSON,
+    TypesServiceServiceFrameworkFromJSONTyped,
+    TypesServiceServiceFrameworkToJSON,
+    TypesServiceServiceFrameworkToJSONTyped,
+} from "./TypesServiceServiceFramework";
 import type { TypesServiceServiceDependency } from "./TypesServiceServiceDependency";
-import { TypesServiceServiceDependencyFromJSON, TypesServiceServiceDependencyFromJSONTyped, TypesServiceServiceDependencyToJSON } from "./TypesServiceServiceDependency";
+import {
+    TypesServiceServiceDependencyFromJSON,
+    TypesServiceServiceDependencyFromJSONTyped,
+    TypesServiceServiceDependencyToJSON,
+    TypesServiceServiceDependencyToJSONTyped,
+} from "./TypesServiceServiceDependency";
 import type { TypesServiceServiceInterface } from "./TypesServiceServiceInterface";
-import { TypesServiceServiceInterfaceFromJSON, TypesServiceServiceInterfaceFromJSONTyped, TypesServiceServiceInterfaceToJSON } from "./TypesServiceServiceInterface";
+import {
+    TypesServiceServiceInterfaceFromJSON,
+    TypesServiceServiceInterfaceFromJSONTyped,
+    TypesServiceServiceInterfaceToJSON,
+    TypesServiceServiceInterfaceToJSONTyped,
+} from "./TypesServiceServiceInterface";
 
 /**
  *
@@ -129,10 +154,15 @@ export function TypesServiceNowServiceDataFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function TypesServiceNowServiceDataToJSON(value?: TypesServiceNowServiceData | null): any {
+export function TypesServiceNowServiceDataToJSON(json: any): TypesServiceNowServiceData {
+    return TypesServiceNowServiceDataToJSONTyped(json, false);
+}
+
+export function TypesServiceNowServiceDataToJSONTyped(value?: TypesServiceNowServiceData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ServiceNowService: TypesServiceNowServiceToJSON(value["serviceNowService"]),
         apis: TypesServiceServiceInterfaceToJSON(value["apis"]),

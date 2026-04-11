@@ -18,6 +18,7 @@ import {
     DomainAPIEvaluationLogicStateComparisonV1FromJSON,
     DomainAPIEvaluationLogicStateComparisonV1FromJSONTyped,
     DomainAPIEvaluationLogicStateComparisonV1ToJSON,
+    DomainAPIEvaluationLogicStateComparisonV1ToJSONTyped,
 } from "./DomainAPIEvaluationLogicStateComparisonV1";
 
 /**
@@ -63,10 +64,15 @@ export function DomainAPIEvaluationLogicComparisonsV1FromJSONTyped(json: any, ig
     };
 }
 
-export function DomainAPIEvaluationLogicComparisonsV1ToJSON(value?: DomainAPIEvaluationLogicComparisonsV1 | null): any {
+export function DomainAPIEvaluationLogicComparisonsV1ToJSON(json: any): DomainAPIEvaluationLogicComparisonsV1 {
+    return DomainAPIEvaluationLogicComparisonsV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIEvaluationLogicComparisonsV1ToJSONTyped(value?: DomainAPIEvaluationLogicComparisonsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         state_comparisons: (value["stateComparisons"] as Array<any>).map(DomainAPIEvaluationLogicStateComparisonV1ToJSON),
         state_operator: value["stateOperator"],

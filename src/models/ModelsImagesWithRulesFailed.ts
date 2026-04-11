@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsImageWithRulesFailed } from "./ModelsImageWithRulesFailed";
-import { ModelsImageWithRulesFailedFromJSON, ModelsImageWithRulesFailedFromJSONTyped, ModelsImageWithRulesFailedToJSON } from "./ModelsImageWithRulesFailed";
+import { ModelsImageWithRulesFailedFromJSON, ModelsImageWithRulesFailedFromJSONTyped, ModelsImageWithRulesFailedToJSON, ModelsImageWithRulesFailedToJSONTyped } from "./ModelsImageWithRulesFailed";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ModelsImagesWithRulesFailedFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsImagesWithRulesFailedToJSON(value?: ModelsImagesWithRulesFailed | null): any {
+export function ModelsImagesWithRulesFailedToJSON(json: any): ModelsImagesWithRulesFailed {
+    return ModelsImagesWithRulesFailedToJSONTyped(json, false);
+}
+
+export function ModelsImagesWithRulesFailedToJSONTyped(value?: ModelsImagesWithRulesFailed | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         images: (value["images"] as Array<any>).map(ModelsImageWithRulesFailedToJSON),
         not_applicable_filters: value["notApplicableFilters"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDevicePolicy } from "./DomainDevicePolicy";
-import { DomainDevicePolicyFromJSON, DomainDevicePolicyFromJSONTyped, DomainDevicePolicyToJSON } from "./DomainDevicePolicy";
+import { DomainDevicePolicyFromJSON, DomainDevicePolicyFromJSONTyped, DomainDevicePolicyToJSON, DomainDevicePolicyToJSONTyped } from "./DomainDevicePolicy";
 
 /**
  *
@@ -50,10 +50,15 @@ export function DomainMappedDevicePoliciesFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainMappedDevicePoliciesToJSON(value?: DomainMappedDevicePolicies | null): any {
+export function DomainMappedDevicePoliciesToJSON(json: any): DomainMappedDevicePolicies {
+    return DomainMappedDevicePoliciesToJSONTyped(json, false);
+}
+
+export function DomainMappedDevicePoliciesToJSONTyped(value?: DomainMappedDevicePolicies | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         remote_response: DomainDevicePolicyToJSON(value["remoteResponse"]),
     };

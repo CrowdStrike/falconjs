@@ -55,10 +55,15 @@ export function ModelsUpdatePolicyPrecedenceRequestFromJSONTyped(json: any, igno
     };
 }
 
-export function ModelsUpdatePolicyPrecedenceRequestToJSON(value?: ModelsUpdatePolicyPrecedenceRequest | null): any {
+export function ModelsUpdatePolicyPrecedenceRequestToJSON(json: any): ModelsUpdatePolicyPrecedenceRequest {
+    return ModelsUpdatePolicyPrecedenceRequestToJSONTyped(json, false);
+}
+
+export function ModelsUpdatePolicyPrecedenceRequestToJSONTyped(value?: ModelsUpdatePolicyPrecedenceRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         precedence: value["precedence"],

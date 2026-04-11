@@ -68,10 +68,15 @@ export function ResourcesRelationshipFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ResourcesRelationshipToJSON(value?: ResourcesRelationship | null): any {
+export function ResourcesRelationshipToJSON(json: any): ResourcesRelationship {
+    return ResourcesRelationshipToJSONTyped(json, false);
+}
+
+export function ResourcesRelationshipToJSONTyped(value?: ResourcesRelationship | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         crn: value["crn"],
         relationship_name: value["relationshipName"],

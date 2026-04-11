@@ -14,15 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDDOSAttackSource } from "./DomainDDOSAttackSource";
-import { DomainDDOSAttackSourceFromJSON, DomainDDOSAttackSourceFromJSONTyped, DomainDDOSAttackSourceToJSON } from "./DomainDDOSAttackSource";
+import { DomainDDOSAttackSourceFromJSON, DomainDDOSAttackSourceFromJSONTyped, DomainDDOSAttackSourceToJSON, DomainDDOSAttackSourceToJSONTyped } from "./DomainDDOSAttackSource";
 import type { DomainPastebinTextSource } from "./DomainPastebinTextSource";
-import { DomainPastebinTextSourceFromJSON, DomainPastebinTextSourceFromJSONTyped, DomainPastebinTextSourceToJSON } from "./DomainPastebinTextSource";
+import { DomainPastebinTextSourceFromJSON, DomainPastebinTextSourceFromJSONTyped, DomainPastebinTextSourceToJSON, DomainPastebinTextSourceToJSONTyped } from "./DomainPastebinTextSource";
 import type { DomainMatchedRule } from "./DomainMatchedRule";
-import { DomainMatchedRuleFromJSON, DomainMatchedRuleFromJSONTyped, DomainMatchedRuleToJSON } from "./DomainMatchedRule";
+import { DomainMatchedRuleFromJSON, DomainMatchedRuleFromJSONTyped, DomainMatchedRuleToJSON, DomainMatchedRuleToJSONTyped } from "./DomainMatchedRule";
 import type { DomainTweetSource } from "./DomainTweetSource";
-import { DomainTweetSourceFromJSON, DomainTweetSourceFromJSONTyped, DomainTweetSourceToJSON } from "./DomainTweetSource";
+import { DomainTweetSourceFromJSON, DomainTweetSourceFromJSONTyped, DomainTweetSourceToJSON, DomainTweetSourceToJSONTyped } from "./DomainTweetSource";
 import type { DomainBotnetConfigSource } from "./DomainBotnetConfigSource";
-import { DomainBotnetConfigSourceFromJSON, DomainBotnetConfigSourceFromJSONTyped, DomainBotnetConfigSourceToJSON } from "./DomainBotnetConfigSource";
+import { DomainBotnetConfigSourceFromJSON, DomainBotnetConfigSourceFromJSONTyped, DomainBotnetConfigSourceToJSON, DomainBotnetConfigSourceToJSONTyped } from "./DomainBotnetConfigSource";
 
 /**
  *
@@ -156,10 +156,15 @@ export function DomainEventFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function DomainEventToJSON(value?: DomainEvent | null): any {
+export function DomainEventToJSON(json: any): DomainEvent {
+    return DomainEventToJSONTyped(json, false);
+}
+
+export function DomainEventToJSONTyped(value?: DomainEvent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         body: value["body"],
         body_is_truncated: value["bodyIsTruncated"],

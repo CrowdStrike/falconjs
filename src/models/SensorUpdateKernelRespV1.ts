@@ -144,10 +144,15 @@ export function SensorUpdateKernelRespV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function SensorUpdateKernelRespV1ToJSON(value?: SensorUpdateKernelRespV1 | null): any {
+export function SensorUpdateKernelRespV1ToJSON(json: any): SensorUpdateKernelRespV1 {
+    return SensorUpdateKernelRespV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateKernelRespV1ToJSONTyped(value?: SensorUpdateKernelRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         architecture: value["architecture"],
         base_package_supported_sensor_versions: value["basePackageSupportedSensorVersions"],

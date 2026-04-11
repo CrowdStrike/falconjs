@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ApiWarningJSON } from "./ApiWarningJSON";
-import { ApiWarningJSONFromJSON, ApiWarningJSONFromJSONTyped, ApiWarningJSONToJSON } from "./ApiWarningJSON";
+import { ApiWarningJSONFromJSON, ApiWarningJSONFromJSONTyped, ApiWarningJSONToJSON, ApiWarningJSONToJSONTyped } from "./ApiWarningJSON";
 import type { ApiQueryEventDistribution } from "./ApiQueryEventDistribution";
-import { ApiQueryEventDistributionFromJSON, ApiQueryEventDistributionFromJSONTyped, ApiQueryEventDistributionToJSON } from "./ApiQueryEventDistribution";
+import { ApiQueryEventDistributionFromJSON, ApiQueryEventDistributionFromJSONTyped, ApiQueryEventDistributionToJSON, ApiQueryEventDistributionToJSONTyped } from "./ApiQueryEventDistribution";
 import type { ApiQueryMetadataJSON } from "./ApiQueryMetadataJSON";
-import { ApiQueryMetadataJSONFromJSON, ApiQueryMetadataJSONFromJSONTyped, ApiQueryMetadataJSONToJSON } from "./ApiQueryMetadataJSON";
+import { ApiQueryMetadataJSONFromJSON, ApiQueryMetadataJSONFromJSONTyped, ApiQueryMetadataJSONToJSON, ApiQueryMetadataJSONToJSONTyped } from "./ApiQueryMetadataJSON";
 
 /**
  *
@@ -111,10 +111,15 @@ export function ApiQueryJobsResultsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiQueryJobsResultsToJSON(value?: ApiQueryJobsResults | null): any {
+export function ApiQueryJobsResultsToJSON(json: any): ApiQueryJobsResults {
+    return ApiQueryJobsResultsToJSONTyped(json, false);
+}
+
+export function ApiQueryJobsResultsToJSONTyped(value?: ApiQueryJobsResults | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cancelled: value["cancelled"],
         done: value["done"],

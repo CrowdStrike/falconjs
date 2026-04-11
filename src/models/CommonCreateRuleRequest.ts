@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DbmodelsControlReference } from "./DbmodelsControlReference";
-import { DbmodelsControlReferenceFromJSON, DbmodelsControlReferenceFromJSONTyped, DbmodelsControlReferenceToJSON } from "./DbmodelsControlReference";
+import { DbmodelsControlReferenceFromJSON, DbmodelsControlReferenceFromJSONTyped, DbmodelsControlReferenceToJSON, DbmodelsControlReferenceToJSONTyped } from "./DbmodelsControlReference";
 
 /**
  *
@@ -171,10 +171,15 @@ export function CommonCreateRuleRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function CommonCreateRuleRequestToJSON(value?: CommonCreateRuleRequest | null): any {
+export function CommonCreateRuleRequestToJSON(json: any): CommonCreateRuleRequest {
+    return CommonCreateRuleRequestToJSONTyped(json, false);
+}
+
+export function CommonCreateRuleRequestToJSONTyped(value?: CommonCreateRuleRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alert_info: value["alertInfo"],
         attack_types: value["attackTypes"],

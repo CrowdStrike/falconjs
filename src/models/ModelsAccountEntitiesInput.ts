@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAWSAccountInput } from "./DomainAWSAccountInput";
-import { DomainAWSAccountInputFromJSON, DomainAWSAccountInputFromJSONTyped, DomainAWSAccountInputToJSON } from "./DomainAWSAccountInput";
+import { DomainAWSAccountInputFromJSON, DomainAWSAccountInputFromJSONTyped, DomainAWSAccountInputToJSON, DomainAWSAccountInputToJSONTyped } from "./DomainAWSAccountInput";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ModelsAccountEntitiesInputFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsAccountEntitiesInputToJSON(value?: ModelsAccountEntitiesInput | null): any {
+export function ModelsAccountEntitiesInputToJSON(json: any): ModelsAccountEntitiesInput {
+    return ModelsAccountEntitiesInputToJSONTyped(json, false);
+}
+
+export function ModelsAccountEntitiesInputToJSONTyped(value?: ModelsAccountEntitiesInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aws_accounts: (value["awsAccounts"] as Array<any>).map(DomainAWSAccountInputToJSON),
     };

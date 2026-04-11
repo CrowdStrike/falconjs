@@ -89,10 +89,15 @@ export function DomainFragmentInfoFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainFragmentInfoToJSON(value?: DomainFragmentInfo | null): any {
+export function DomainFragmentInfoToJSON(json: any): DomainFragmentInfo {
+    return DomainFragmentInfoToJSONTyped(json, false);
+}
+
+export function DomainFragmentInfoToJSONTyped(value?: DomainFragmentInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content_offset: value["contentOffset"],
         count: value["count"],

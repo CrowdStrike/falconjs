@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { IoaCloudAccountID } from "./IoaCloudAccountID";
-import { IoaCloudAccountIDFromJSON, IoaCloudAccountIDFromJSONTyped, IoaCloudAccountIDToJSON } from "./IoaCloudAccountID";
+import { IoaCloudAccountIDFromJSON, IoaCloudAccountIDFromJSONTyped, IoaCloudAccountIDToJSON, IoaCloudAccountIDToJSONTyped } from "./IoaCloudAccountID";
 import type { IoaEnrichments } from "./IoaEnrichments";
-import { IoaEnrichmentsFromJSON, IoaEnrichmentsFromJSONTyped, IoaEnrichmentsToJSON } from "./IoaEnrichments";
+import { IoaEnrichmentsFromJSON, IoaEnrichmentsFromJSONTyped, IoaEnrichmentsToJSON, IoaEnrichmentsToJSONTyped } from "./IoaEnrichments";
 import type { IoaEventAggregate } from "./IoaEventAggregate";
-import { IoaEventAggregateFromJSON, IoaEventAggregateFromJSONTyped, IoaEventAggregateToJSON } from "./IoaEventAggregate";
+import { IoaEventAggregateFromJSON, IoaEventAggregateFromJSONTyped, IoaEventAggregateToJSON, IoaEventAggregateToJSONTyped } from "./IoaEventAggregate";
 
 /**
  *
@@ -322,10 +322,15 @@ export function RegistrationIOAEventFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function RegistrationIOAEventToJSON(value?: RegistrationIOAEvent | null): any {
+export function RegistrationIOAEventToJSON(json: any): RegistrationIOAEvent {
+    return RegistrationIOAEventToJSONTyped(json, false);
+}
+
+export function RegistrationIOAEventToJSONTyped(value?: RegistrationIOAEvent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         additional_event_data: value["additionalEventData"],
         aggregate: IoaEventAggregateToJSON(value["aggregate"]),

@@ -14,27 +14,72 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDiscoverAPIDiskSize } from "./DomainDiscoverAPIDiskSize";
-import { DomainDiscoverAPIDiskSizeFromJSON, DomainDiscoverAPIDiskSizeFromJSONTyped, DomainDiscoverAPIDiskSizeToJSON } from "./DomainDiscoverAPIDiskSize";
+import { DomainDiscoverAPIDiskSizeFromJSON, DomainDiscoverAPIDiskSizeFromJSONTyped, DomainDiscoverAPIDiskSizeToJSON, DomainDiscoverAPIDiskSizeToJSONTyped } from "./DomainDiscoverAPIDiskSize";
 import type { DomainDiscoverAPIActiveDiscoveryHost } from "./DomainDiscoverAPIActiveDiscoveryHost";
-import { DomainDiscoverAPIActiveDiscoveryHostFromJSON, DomainDiscoverAPIActiveDiscoveryHostFromJSONTyped, DomainDiscoverAPIActiveDiscoveryHostToJSON } from "./DomainDiscoverAPIActiveDiscoveryHost";
+import {
+    DomainDiscoverAPIActiveDiscoveryHostFromJSON,
+    DomainDiscoverAPIActiveDiscoveryHostFromJSONTyped,
+    DomainDiscoverAPIActiveDiscoveryHostToJSON,
+    DomainDiscoverAPIActiveDiscoveryHostToJSONTyped,
+} from "./DomainDiscoverAPIActiveDiscoveryHost";
 import type { DomainDiscoverAPIMountStorageInfo } from "./DomainDiscoverAPIMountStorageInfo";
-import { DomainDiscoverAPIMountStorageInfoFromJSON, DomainDiscoverAPIMountStorageInfoFromJSONTyped, DomainDiscoverAPIMountStorageInfoToJSON } from "./DomainDiscoverAPIMountStorageInfo";
+import {
+    DomainDiscoverAPIMountStorageInfoFromJSON,
+    DomainDiscoverAPIMountStorageInfoFromJSONTyped,
+    DomainDiscoverAPIMountStorageInfoToJSON,
+    DomainDiscoverAPIMountStorageInfoToJSONTyped,
+} from "./DomainDiscoverAPIMountStorageInfo";
 import type { DomainDiscoverAPINetworkInterface } from "./DomainDiscoverAPINetworkInterface";
-import { DomainDiscoverAPINetworkInterfaceFromJSON, DomainDiscoverAPINetworkInterfaceFromJSONTyped, DomainDiscoverAPINetworkInterfaceToJSON } from "./DomainDiscoverAPINetworkInterface";
+import {
+    DomainDiscoverAPINetworkInterfaceFromJSON,
+    DomainDiscoverAPINetworkInterfaceFromJSONTyped,
+    DomainDiscoverAPINetworkInterfaceToJSON,
+    DomainDiscoverAPINetworkInterfaceToJSONTyped,
+} from "./DomainDiscoverAPINetworkInterface";
 import type { DomainDiscoverAPIScanDetailsHost } from "./DomainDiscoverAPIScanDetailsHost";
-import { DomainDiscoverAPIScanDetailsHostFromJSON, DomainDiscoverAPIScanDetailsHostFromJSONTyped, DomainDiscoverAPIScanDetailsHostToJSON } from "./DomainDiscoverAPIScanDetailsHost";
+import {
+    DomainDiscoverAPIScanDetailsHostFromJSON,
+    DomainDiscoverAPIScanDetailsHostFromJSONTyped,
+    DomainDiscoverAPIScanDetailsHostToJSON,
+    DomainDiscoverAPIScanDetailsHostToJSONTyped,
+} from "./DomainDiscoverAPIScanDetailsHost";
 import type { DomainDiscoverAPIBiosHashesData } from "./DomainDiscoverAPIBiosHashesData";
-import { DomainDiscoverAPIBiosHashesDataFromJSON, DomainDiscoverAPIBiosHashesDataFromJSONTyped, DomainDiscoverAPIBiosHashesDataToJSON } from "./DomainDiscoverAPIBiosHashesData";
+import {
+    DomainDiscoverAPIBiosHashesDataFromJSON,
+    DomainDiscoverAPIBiosHashesDataFromJSONTyped,
+    DomainDiscoverAPIBiosHashesDataToJSON,
+    DomainDiscoverAPIBiosHashesDataToJSONTyped,
+} from "./DomainDiscoverAPIBiosHashesData";
 import type { DomainDiscoverAPIFieldMetadata } from "./DomainDiscoverAPIFieldMetadata";
-import { DomainDiscoverAPIFieldMetadataFromJSON, DomainDiscoverAPIFieldMetadataFromJSONTyped, DomainDiscoverAPIFieldMetadataToJSON } from "./DomainDiscoverAPIFieldMetadata";
+import {
+    DomainDiscoverAPIFieldMetadataFromJSON,
+    DomainDiscoverAPIFieldMetadataFromJSONTyped,
+    DomainDiscoverAPIFieldMetadataToJSON,
+    DomainDiscoverAPIFieldMetadataToJSONTyped,
+} from "./DomainDiscoverAPIFieldMetadata";
 import type { DomainDiscoverAPIDeviceSlot } from "./DomainDiscoverAPIDeviceSlot";
-import { DomainDiscoverAPIDeviceSlotFromJSON, DomainDiscoverAPIDeviceSlotFromJSONTyped, DomainDiscoverAPIDeviceSlotToJSON } from "./DomainDiscoverAPIDeviceSlot";
+import {
+    DomainDiscoverAPIDeviceSlotFromJSON,
+    DomainDiscoverAPIDeviceSlotFromJSONTyped,
+    DomainDiscoverAPIDeviceSlotToJSON,
+    DomainDiscoverAPIDeviceSlotToJSONTyped,
+} from "./DomainDiscoverAPIDeviceSlot";
 import type { DomainIotImportedHost } from "./DomainIotImportedHost";
-import { DomainIotImportedHostFromJSON, DomainIotImportedHostFromJSONTyped, DomainIotImportedHostToJSON } from "./DomainIotImportedHost";
+import { DomainIotImportedHostFromJSON, DomainIotImportedHostFromJSONTyped, DomainIotImportedHostToJSON, DomainIotImportedHostToJSONTyped } from "./DomainIotImportedHost";
 import type { DomainDiscoverAPIHostTriage } from "./DomainDiscoverAPIHostTriage";
-import { DomainDiscoverAPIHostTriageFromJSON, DomainDiscoverAPIHostTriageFromJSONTyped, DomainDiscoverAPIHostTriageToJSON } from "./DomainDiscoverAPIHostTriage";
+import {
+    DomainDiscoverAPIHostTriageFromJSON,
+    DomainDiscoverAPIHostTriageFromJSONTyped,
+    DomainDiscoverAPIHostTriageToJSON,
+    DomainDiscoverAPIHostTriageToJSONTyped,
+} from "./DomainDiscoverAPIHostTriage";
 import type { DomainDiscoverAPIOsSecurity } from "./DomainDiscoverAPIOsSecurity";
-import { DomainDiscoverAPIOsSecurityFromJSON, DomainDiscoverAPIOsSecurityFromJSONTyped, DomainDiscoverAPIOsSecurityToJSON } from "./DomainDiscoverAPIOsSecurity";
+import {
+    DomainDiscoverAPIOsSecurityFromJSON,
+    DomainDiscoverAPIOsSecurityFromJSONTyped,
+    DomainDiscoverAPIOsSecurityToJSON,
+    DomainDiscoverAPIOsSecurityToJSONTyped,
+} from "./DomainDiscoverAPIOsSecurity";
 
 /**
  *
@@ -1192,10 +1237,15 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null): any {
+export function DomainDiscoverAPIHostToJSON(json: any): DomainDiscoverAPIHost {
+    return DomainDiscoverAPIHostToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIHostToJSONTyped(value?: DomainDiscoverAPIHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_enabled: value["accountEnabled"],
         active_discovery: DomainDiscoverAPIActiveDiscoveryHostToJSON(value["activeDiscovery"]),

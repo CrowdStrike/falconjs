@@ -14,17 +14,17 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCloudGroup } from "./DomainCloudGroup";
-import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
+import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON, DomainCloudGroupToJSONTyped } from "./DomainCloudGroup";
 import type { ClassificationLabel } from "./ClassificationLabel";
-import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
+import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON, ClassificationLabelToJSONTyped } from "./ClassificationLabel";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 import type { ResourceCounts } from "./ResourceCounts";
-import { ResourceCountsFromJSON, ResourceCountsFromJSONTyped, ResourceCountsToJSON } from "./ResourceCounts";
+import { ResourceCountsFromJSON, ResourceCountsFromJSONTyped, ResourceCountsToJSON, ResourceCountsToJSONTyped } from "./ResourceCounts";
 import type { ResourcesControlInfo } from "./ResourcesControlInfo";
-import { ResourcesControlInfoFromJSON, ResourcesControlInfoFromJSONTyped, ResourcesControlInfoToJSON } from "./ResourcesControlInfo";
+import { ResourcesControlInfoFromJSON, ResourcesControlInfoFromJSONTyped, ResourcesControlInfoToJSON, ResourcesControlInfoToJSONTyped } from "./ResourcesControlInfo";
 import type { ResourcesRule } from "./ResourcesRule";
-import { ResourcesRuleFromJSON, ResourcesRuleFromJSONTyped, ResourcesRuleToJSON } from "./ResourcesRule";
+import { ResourcesRuleFromJSON, ResourcesRuleFromJSONTyped, ResourcesRuleToJSON, ResourcesRuleToJSONTyped } from "./ResourcesRule";
 
 /**
  *
@@ -215,10 +215,15 @@ export function ResourcesComplianceControlFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ResourcesComplianceControlToJSON(value?: ResourcesComplianceControl | null): any {
+export function ResourcesComplianceControlToJSON(json: any): ResourcesComplianceControl {
+    return ResourcesComplianceControlToJSONTyped(json, false);
+}
+
+export function ResourcesComplianceControlToJSONTyped(value?: ResourcesComplianceControl | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],

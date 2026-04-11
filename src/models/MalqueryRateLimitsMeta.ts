@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MalqueryUserRequestCount } from "./MalqueryUserRequestCount";
-import { MalqueryUserRequestCountFromJSON, MalqueryUserRequestCountFromJSONTyped, MalqueryUserRequestCountToJSON } from "./MalqueryUserRequestCount";
+import { MalqueryUserRequestCountFromJSON, MalqueryUserRequestCountFromJSONTyped, MalqueryUserRequestCountToJSON, MalqueryUserRequestCountToJSONTyped } from "./MalqueryUserRequestCount";
 
 /**
  *
@@ -121,10 +121,15 @@ export function MalqueryRateLimitsMetaFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function MalqueryRateLimitsMetaToJSON(value?: MalqueryRateLimitsMeta | null): any {
+export function MalqueryRateLimitsMetaToJSON(json: any): MalqueryRateLimitsMeta {
+    return MalqueryRateLimitsMetaToJSONTyped(json, false);
+}
+
+export function MalqueryRateLimitsMetaToJSONTyped(value?: MalqueryRateLimitsMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         days_left: value["daysLeft"],
         download_count: value["downloadCount"],

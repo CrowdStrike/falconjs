@@ -208,10 +208,15 @@ export function DomainAPIAggregateGroupByClustersV2FromJSONTyped(json: any, igno
     };
 }
 
-export function DomainAPIAggregateGroupByClustersV2ToJSON(value?: DomainAPIAggregateGroupByClustersV2 | null): any {
+export function DomainAPIAggregateGroupByClustersV2ToJSON(json: any): DomainAPIAggregateGroupByClustersV2 {
+    return DomainAPIAggregateGroupByClustersV2ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateGroupByClustersV2ToJSONTyped(value?: DomainAPIAggregateGroupByClustersV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cloud_account_id: value["cloudAccountId"],

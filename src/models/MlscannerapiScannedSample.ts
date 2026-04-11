@@ -62,10 +62,15 @@ export function MlscannerapiScannedSampleFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function MlscannerapiScannedSampleToJSON(value?: MlscannerapiScannedSample | null): any {
+export function MlscannerapiScannedSampleToJSON(json: any): MlscannerapiScannedSample {
+    return MlscannerapiScannedSampleToJSONTyped(json, false);
+}
+
+export function MlscannerapiScannedSampleToJSONTyped(value?: MlscannerapiScannedSample | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: value["error"],
         sha256: value["sha256"],

@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { GraphInlineActivityConfig } from "./GraphInlineActivityConfig";
-import { GraphInlineActivityConfigFromJSON, GraphInlineActivityConfigFromJSONTyped, GraphInlineActivityConfigToJSON } from "./GraphInlineActivityConfig";
+import { GraphInlineActivityConfigFromJSON, GraphInlineActivityConfigFromJSONTyped, GraphInlineActivityConfigToJSON, GraphInlineActivityConfigToJSONTyped } from "./GraphInlineActivityConfig";
 import type { GraphNodePosition } from "./GraphNodePosition";
-import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON, GraphNodePositionToJSONTyped } from "./GraphNodePosition";
 import type { Flows } from "./Flows";
-import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON } from "./Flows";
+import { FlowsFromJSON, FlowsFromJSONTyped, FlowsToJSON, FlowsToJSONTyped } from "./Flows";
 import type { NodemocksReference } from "./NodemocksReference";
-import { NodemocksReferenceFromJSON, NodemocksReferenceFromJSONTyped, NodemocksReferenceToJSON } from "./NodemocksReference";
+import { NodemocksReferenceFromJSON, NodemocksReferenceFromJSONTyped, NodemocksReferenceToJSON, NodemocksReferenceToJSONTyped } from "./NodemocksReference";
 
 /**
  *
@@ -145,10 +145,15 @@ export function GraphConfiguredActivityFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function GraphConfiguredActivityToJSON(value?: GraphConfiguredActivity | null): any {
+export function GraphConfiguredActivityToJSON(json: any): GraphConfiguredActivity {
+    return GraphConfiguredActivityToJSONTyped(json, false);
+}
+
+export function GraphConfiguredActivityToJSONTyped(value?: GraphConfiguredActivity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         class: value["_class"],
         continue_on_error: value["continueOnError"],

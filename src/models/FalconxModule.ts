@@ -54,10 +54,15 @@ export function FalconxModuleFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function FalconxModuleToJSON(value?: FalconxModule | null): any {
+export function FalconxModuleToJSON(json: any): FalconxModule {
+    return FalconxModuleToJSONTyped(json, false);
+}
+
+export function FalconxModuleToJSONTyped(value?: FalconxModule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base: value["base"],
         path: value["path"],

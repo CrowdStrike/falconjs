@@ -48,10 +48,15 @@ export function EntitiesODSCancelScanRequestFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function EntitiesODSCancelScanRequestToJSON(value?: EntitiesODSCancelScanRequest | null): any {
+export function EntitiesODSCancelScanRequestToJSON(json: any): EntitiesODSCancelScanRequest {
+    return EntitiesODSCancelScanRequestToJSONTyped(json, false);
+}
+
+export function EntitiesODSCancelScanRequestToJSONTyped(value?: EntitiesODSCancelScanRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ids: value["ids"],
     };

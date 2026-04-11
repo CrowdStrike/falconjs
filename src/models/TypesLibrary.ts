@@ -89,10 +89,15 @@ export function TypesLibraryFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function TypesLibraryToJSON(value?: TypesLibrary | null): any {
+export function TypesLibraryToJSON(json: any): TypesLibrary {
+    return TypesLibraryToJSONTyped(json, false);
+}
+
+export function TypesLibraryToJSONTyped(value?: TypesLibrary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fullPaths: value["fullPaths"],
         group: value["group"],

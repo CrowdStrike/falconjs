@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { VulnerabilitymetadataapiSupportedEvaluation } from "./VulnerabilitymetadataapiSupportedEvaluation";
 import {
     VulnerabilitymetadataapiSupportedEvaluationFromJSON,
     VulnerabilitymetadataapiSupportedEvaluationFromJSONTyped,
     VulnerabilitymetadataapiSupportedEvaluationToJSON,
+    VulnerabilitymetadataapiSupportedEvaluationToJSONTyped,
 } from "./VulnerabilitymetadataapiSupportedEvaluation";
 import type { DomainVulnMetadataAPIMeta } from "./DomainVulnMetadataAPIMeta";
-import { DomainVulnMetadataAPIMetaFromJSON, DomainVulnMetadataAPIMetaFromJSONTyped, DomainVulnMetadataAPIMetaToJSON } from "./DomainVulnMetadataAPIMeta";
+import { DomainVulnMetadataAPIMetaFromJSON, DomainVulnMetadataAPIMetaFromJSONTyped, DomainVulnMetadataAPIMetaToJSON, DomainVulnMetadataAPIMetaToJSONTyped } from "./DomainVulnMetadataAPIMeta";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainSupportedEvaluationAPICombineResponseV1FromJSONTyped(json:
     };
 }
 
-export function DomainSupportedEvaluationAPICombineResponseV1ToJSON(value?: DomainSupportedEvaluationAPICombineResponseV1 | null): any {
+export function DomainSupportedEvaluationAPICombineResponseV1ToJSON(json: any): DomainSupportedEvaluationAPICombineResponseV1 {
+    return DomainSupportedEvaluationAPICombineResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainSupportedEvaluationAPICombineResponseV1ToJSONTyped(value?: DomainSupportedEvaluationAPICombineResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainVulnMetadataAPIMetaToJSON(value["meta"]),

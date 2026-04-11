@@ -55,10 +55,15 @@ export function FwmgrFirewallAddressRangeFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function FwmgrFirewallAddressRangeToJSON(value?: FwmgrFirewallAddressRange | null): any {
+export function FwmgrFirewallAddressRangeToJSON(json: any): FwmgrFirewallAddressRange {
+    return FwmgrFirewallAddressRangeToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallAddressRangeToJSONTyped(value?: FwmgrFirewallAddressRange | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         address: value["address"],
         netmask: value["netmask"],

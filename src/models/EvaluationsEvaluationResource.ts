@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { ClassificationCloudScopeRule } from "./ClassificationCloudScopeRule";
-import { ClassificationCloudScopeRuleFromJSON, ClassificationCloudScopeRuleFromJSONTyped, ClassificationCloudScopeRuleToJSON } from "./ClassificationCloudScopeRule";
+import {
+    ClassificationCloudScopeRuleFromJSON,
+    ClassificationCloudScopeRuleFromJSONTyped,
+    ClassificationCloudScopeRuleToJSON,
+    ClassificationCloudScopeRuleToJSONTyped,
+} from "./ClassificationCloudScopeRule";
 import type { ClassificationLabel } from "./ClassificationLabel";
-import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
+import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON, ClassificationLabelToJSONTyped } from "./ClassificationLabel";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 
 /**
  *
@@ -159,16 +164,21 @@ export function EvaluationsEvaluationResourceFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function EvaluationsEvaluationResourceToJSON(value?: EvaluationsEvaluationResource | null): any {
+export function EvaluationsEvaluationResourceToJSON(json: any): EvaluationsEvaluationResource {
+    return EvaluationsEvaluationResourceToJSONTyped(json, false);
+}
+
+export function EvaluationsEvaluationResourceToJSONTyped(value?: EvaluationsEvaluationResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        captured: value["captured"] == null ? undefined : value["captured"].toISOString(),
+        captured: value["captured"] == null ? value["captured"] : value["captured"].toISOString(),
         cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(DomainCloudScopeToJSON),
         cloud_labels: value["cloudLabels"] == null ? undefined : (value["cloudLabels"] as Array<any>).map(ClassificationLabelToJSON),
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(ClassificationCloudScopeRuleToJSON),
-        creation_time: value["creationTime"] == null ? undefined : value["creationTime"].toISOString(),
+        creation_time: value["creationTime"] == null ? value["creationTime"] : value["creationTime"].toISOString(),
         gcrn: value["gcrn"],
         id: value["id"],
         resource_id: value["resourceId"],

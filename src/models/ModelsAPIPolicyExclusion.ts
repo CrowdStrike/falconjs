@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsExclusionCondition } from "./ModelsExclusionCondition";
-import { ModelsExclusionConditionFromJSON, ModelsExclusionConditionFromJSONTyped, ModelsExclusionConditionToJSON } from "./ModelsExclusionCondition";
+import { ModelsExclusionConditionFromJSON, ModelsExclusionConditionFromJSONTyped, ModelsExclusionConditionToJSON, ModelsExclusionConditionToJSONTyped } from "./ModelsExclusionCondition";
 
 /**
  *
@@ -89,10 +89,15 @@ export function ModelsAPIPolicyExclusionFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsAPIPolicyExclusionToJSON(value?: ModelsAPIPolicyExclusion | null): any {
+export function ModelsAPIPolicyExclusionToJSON(json: any): ModelsAPIPolicyExclusion {
+    return ModelsAPIPolicyExclusionToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyExclusionToJSONTyped(value?: ModelsAPIPolicyExclusion | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         conditions: (value["conditions"] as Array<any>).map(ModelsExclusionConditionToJSON),
         created_at: value["createdAt"],

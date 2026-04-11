@@ -54,10 +54,15 @@ export function FigapiCountryFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function FigapiCountryToJSON(value?: FigapiCountry | null): any {
+export function FigapiCountryToJSON(json: any): FigapiCountry {
+    return FigapiCountryToJSONTyped(json, false);
+}
+
+export function FigapiCountryToJSONTyped(value?: FigapiCountry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CountryCode: value["countryCode"],
         Name: value["name"],

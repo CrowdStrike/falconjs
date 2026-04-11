@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { TypesQueryResponse } from "./TypesQueryResponse";
-import { TypesQueryResponseFromJSON, TypesQueryResponseFromJSONTyped, TypesQueryResponseToJSON } from "./TypesQueryResponse";
+import { TypesQueryResponseFromJSON, TypesQueryResponseFromJSONTyped, TypesQueryResponseToJSON, TypesQueryResponseToJSONTyped } from "./TypesQueryResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function TypesGeneralQueryResponseFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function TypesGeneralQueryResponseToJSON(value?: TypesGeneralQueryResponse | null): any {
+export function TypesGeneralQueryResponseToJSON(json: any): TypesGeneralQueryResponse {
+    return TypesGeneralQueryResponseToJSONTyped(json, false);
+}
+
+export function TypesGeneralQueryResponseToJSONTyped(value?: TypesGeneralQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

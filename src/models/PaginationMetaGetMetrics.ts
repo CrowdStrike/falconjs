@@ -75,10 +75,15 @@ export function PaginationMetaGetMetricsFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function PaginationMetaGetMetricsToJSON(value?: PaginationMetaGetMetrics | null): any {
+export function PaginationMetaGetMetricsToJSON(json: any): PaginationMetaGetMetrics {
+    return PaginationMetaGetMetricsToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetMetricsToJSONTyped(value?: PaginationMetaGetMetrics | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

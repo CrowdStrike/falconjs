@@ -61,10 +61,15 @@ export function GraphConditionFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function GraphConditionToJSON(value?: GraphCondition | null): any {
+export function GraphConditionToJSON(json: any): GraphCondition {
+    return GraphConditionToJSONTyped(json, false);
+}
+
+export function GraphConditionToJSONTyped(value?: GraphCondition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cel_expression: value["celExpression"],
         display: value["display"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { HostGroupsCreateGroupReqV1 } from "./HostGroupsCreateGroupReqV1";
-import { HostGroupsCreateGroupReqV1FromJSON, HostGroupsCreateGroupReqV1FromJSONTyped, HostGroupsCreateGroupReqV1ToJSON } from "./HostGroupsCreateGroupReqV1";
+import { HostGroupsCreateGroupReqV1FromJSON, HostGroupsCreateGroupReqV1FromJSONTyped, HostGroupsCreateGroupReqV1ToJSON, HostGroupsCreateGroupReqV1ToJSONTyped } from "./HostGroupsCreateGroupReqV1";
 
 /**
  * A request to create device groups
@@ -51,10 +51,15 @@ export function HostGroupsCreateGroupsReqV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function HostGroupsCreateGroupsReqV1ToJSON(value?: HostGroupsCreateGroupsReqV1 | null): any {
+export function HostGroupsCreateGroupsReqV1ToJSON(json: any): HostGroupsCreateGroupsReqV1 {
+    return HostGroupsCreateGroupsReqV1ToJSONTyped(json, false);
+}
+
+export function HostGroupsCreateGroupsReqV1ToJSONTyped(value?: HostGroupsCreateGroupsReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(HostGroupsCreateGroupReqV1ToJSON),
     };

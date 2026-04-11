@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationPolicyConfig } from "./ItautomationPolicyConfig";
-import { ItautomationPolicyConfigFromJSON, ItautomationPolicyConfigFromJSONTyped, ItautomationPolicyConfigToJSON } from "./ItautomationPolicyConfig";
+import { ItautomationPolicyConfigFromJSON, ItautomationPolicyConfigFromJSONTyped, ItautomationPolicyConfigToJSON, ItautomationPolicyConfigToJSONTyped } from "./ItautomationPolicyConfig";
 
 /**
  *
@@ -78,10 +78,15 @@ export function ItautomationUpdatePolicyRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ItautomationUpdatePolicyRequestToJSON(value?: ItautomationUpdatePolicyRequest | null): any {
+export function ItautomationUpdatePolicyRequestToJSON(json: any): ItautomationUpdatePolicyRequest {
+    return ItautomationUpdatePolicyRequestToJSONTyped(json, false);
+}
+
+export function ItautomationUpdatePolicyRequestToJSONTyped(value?: ItautomationUpdatePolicyRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: ItautomationPolicyConfigToJSON(value["config"]),
         description: value["description"],

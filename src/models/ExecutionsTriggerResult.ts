@@ -75,7 +75,7 @@ export interface ExecutionsTriggerResult {
     startTimestamp?: Date;
     /**
      * Current status of execution for the activity.
-     * @type {string}
+     * @type {ExecutionsTriggerResultStatusEnum}
      * @memberof ExecutionsTriggerResult
      */
     status: ExecutionsTriggerResultStatusEnum;
@@ -87,7 +87,7 @@ export interface ExecutionsTriggerResult {
     type?: string;
     /**
      * Current status of execution for the activity rendered in the UI.
-     * @type {string}
+     * @type {ExecutionsTriggerResultUiStatusEnum}
      * @memberof ExecutionsTriggerResult
      */
     uiStatus: ExecutionsTriggerResultUiStatusEnum;
@@ -152,12 +152,17 @@ export function ExecutionsTriggerResultFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ExecutionsTriggerResultToJSON(value?: ExecutionsTriggerResult | null): any {
+export function ExecutionsTriggerResultToJSON(json: any): ExecutionsTriggerResult {
+    return ExecutionsTriggerResultToJSONTyped(json, false);
+}
+
+export function ExecutionsTriggerResultToJSONTyped(value?: ExecutionsTriggerResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
+        end_timestamp: value["endTimestamp"] == null ? value["endTimestamp"] : value["endTimestamp"].toISOString(),
         error_code: value["errorCode"],
         error_message: value["errorMessage"],
         id: value["id"],
@@ -165,7 +170,7 @@ export function ExecutionsTriggerResultToJSON(value?: ExecutionsTriggerResult | 
         name: value["name"],
         node_id: value["nodeId"],
         result: value["result"],
-        start_timestamp: value["startTimestamp"] == null ? undefined : value["startTimestamp"].toISOString(),
+        start_timestamp: value["startTimestamp"] == null ? value["startTimestamp"] : value["startTimestamp"].toISOString(),
         status: value["status"],
         type: value["type"],
         ui_status: value["uiStatus"],

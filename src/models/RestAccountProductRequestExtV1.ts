@@ -56,10 +56,15 @@ export function RestAccountProductRequestExtV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RestAccountProductRequestExtV1ToJSON(value?: RestAccountProductRequestExtV1 | null): any {
+export function RestAccountProductRequestExtV1ToJSON(json: any): RestAccountProductRequestExtV1 {
+    return RestAccountProductRequestExtV1ToJSONTyped(json, false);
+}
+
+export function RestAccountProductRequestExtV1ToJSONTyped(value?: RestAccountProductRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         features: value["features"],
         product: value["product"],

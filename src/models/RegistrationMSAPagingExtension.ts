@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 
 /**
  *
@@ -58,10 +58,15 @@ export function RegistrationMSAPagingExtensionFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RegistrationMSAPagingExtensionToJSON(value?: RegistrationMSAPagingExtension | null): any {
+export function RegistrationMSAPagingExtensionToJSON(json: any): RegistrationMSAPagingExtension {
+    return RegistrationMSAPagingExtensionToJSONTyped(json, false);
+}
+
+export function RegistrationMSAPagingExtensionToJSONTyped(value?: RegistrationMSAPagingExtension | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Paging: MsaPagingToJSON(value["paging"]),
         next_token: value["nextToken"],

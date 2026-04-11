@@ -98,10 +98,15 @@ export function V2ForLoopFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function V2ForLoopToJSON(value?: V2ForLoop | null): any {
+export function V2ForLoopToJSON(json: any): V2ForLoop {
+    return V2ForLoopToJSONTyped(json, false);
+}
+
+export function V2ForLoopToJSONTyped(value?: V2ForLoop | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cel_condition: value["celCondition"],
         condition: value["condition"],

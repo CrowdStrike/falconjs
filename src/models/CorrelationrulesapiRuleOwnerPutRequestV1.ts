@@ -69,10 +69,15 @@ export function CorrelationrulesapiRuleOwnerPutRequestV1FromJSONTyped(json: any,
     };
 }
 
-export function CorrelationrulesapiRuleOwnerPutRequestV1ToJSON(value?: CorrelationrulesapiRuleOwnerPutRequestV1 | null): any {
+export function CorrelationrulesapiRuleOwnerPutRequestV1ToJSON(json: any): CorrelationrulesapiRuleOwnerPutRequestV1 {
+    return CorrelationrulesapiRuleOwnerPutRequestV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleOwnerPutRequestV1ToJSONTyped(value?: CorrelationrulesapiRuleOwnerPutRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_client_id: value["apiClientId"],
         id: value["id"],

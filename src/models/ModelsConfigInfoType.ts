@@ -112,10 +112,15 @@ export function ModelsConfigInfoTypeFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ModelsConfigInfoTypeToJSON(value?: ModelsConfigInfoType | null): any {
+export function ModelsConfigInfoTypeToJSON(json: any): ModelsConfigInfoType {
+    return ModelsConfigInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsConfigInfoTypeToJSONTyped(value?: ModelsConfigInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Cmd: value["cmd"],
         Entrypoint: value["entrypoint"],

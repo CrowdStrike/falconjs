@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ContentUpdatePolicyV1 } from "./ContentUpdatePolicyV1";
-import { ContentUpdatePolicyV1FromJSON, ContentUpdatePolicyV1FromJSONTyped, ContentUpdatePolicyV1ToJSON } from "./ContentUpdatePolicyV1";
+import { ContentUpdatePolicyV1FromJSON, ContentUpdatePolicyV1FromJSONTyped, ContentUpdatePolicyV1ToJSON, ContentUpdatePolicyV1ToJSONTyped } from "./ContentUpdatePolicyV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ContentUpdateRespV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ContentUpdateRespV1ToJSON(value?: ContentUpdateRespV1 | null): any {
+export function ContentUpdateRespV1ToJSON(json: any): ContentUpdateRespV1 {
+    return ContentUpdateRespV1ToJSONTyped(json, false);
+}
+
+export function ContentUpdateRespV1ToJSONTyped(value?: ContentUpdateRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAggregationResultItem } from "./DomainAggregationResultItem";
-import { DomainAggregationResultItemFromJSON, DomainAggregationResultItemFromJSONTyped, DomainAggregationResultItemToJSON } from "./DomainAggregationResultItem";
+import {
+    DomainAggregationResultItemFromJSON,
+    DomainAggregationResultItemFromJSONTyped,
+    DomainAggregationResultItemToJSON,
+    DomainAggregationResultItemToJSONTyped,
+} from "./DomainAggregationResultItem";
 
 /**
  *
@@ -66,10 +71,15 @@ export function DomainAggregationResultFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainAggregationResultToJSON(value?: DomainAggregationResult | null): any {
+export function DomainAggregationResultToJSON(json: any): DomainAggregationResult {
+    return DomainAggregationResultToJSONTyped(json, false);
+}
+
+export function DomainAggregationResultToJSONTyped(value?: DomainAggregationResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(DomainAggregationResultItemToJSON),
         name: value["name"],

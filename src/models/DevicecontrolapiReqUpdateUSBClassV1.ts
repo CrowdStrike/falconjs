@@ -21,13 +21,13 @@ import { mapValues } from "../runtime";
 export interface DevicecontrolapiReqUpdateUSBClassV1 {
     /**
      * Action to be taken for devices in this class
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateUSBClassV1ActionEnum}
      * @memberof DevicecontrolapiReqUpdateUSBClassV1
      */
     action: DevicecontrolapiReqUpdateUSBClassV1ActionEnum;
     /**
      * USB Device class
-     * @type {string}
+     * @type {DevicecontrolapiReqUpdateUSBClassV1ClassEnum}
      * @memberof DevicecontrolapiReqUpdateUSBClassV1
      */
     _class: DevicecontrolapiReqUpdateUSBClassV1ClassEnum;
@@ -82,10 +82,15 @@ export function DevicecontrolapiReqUpdateUSBClassV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DevicecontrolapiReqUpdateUSBClassV1ToJSON(value?: DevicecontrolapiReqUpdateUSBClassV1 | null): any {
+export function DevicecontrolapiReqUpdateUSBClassV1ToJSON(json: any): DevicecontrolapiReqUpdateUSBClassV1 {
+    return DevicecontrolapiReqUpdateUSBClassV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqUpdateUSBClassV1ToJSONTyped(value?: DevicecontrolapiReqUpdateUSBClassV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],

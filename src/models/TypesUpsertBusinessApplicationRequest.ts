@@ -56,10 +56,15 @@ export function TypesUpsertBusinessApplicationRequestFromJSONTyped(json: any, ig
     };
 }
 
-export function TypesUpsertBusinessApplicationRequestToJSON(value?: TypesUpsertBusinessApplicationRequest | null): any {
+export function TypesUpsertBusinessApplicationRequestToJSON(json: any): TypesUpsertBusinessApplicationRequest {
+    return TypesUpsertBusinessApplicationRequestToJSONTyped(json, false);
+}
+
+export function TypesUpsertBusinessApplicationRequestToJSONTyped(value?: TypesUpsertBusinessApplicationRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         persistentSignatures: value["persistentSignatures"],

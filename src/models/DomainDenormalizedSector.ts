@@ -56,10 +56,15 @@ export function DomainDenormalizedSectorFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainDenormalizedSectorToJSON(value?: DomainDenormalizedSector | null): any {
+export function DomainDenormalizedSectorToJSON(json: any): DomainDenormalizedSector {
+    return DomainDenormalizedSectorToJSONTyped(json, false);
+}
+
+export function DomainDenormalizedSectorToJSONTyped(value?: DomainDenormalizedSector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

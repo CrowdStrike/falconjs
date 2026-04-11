@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIImageVulnerabilitiesSummary } from "./ModelsAPIImageVulnerabilitiesSummary";
-import { ModelsAPIImageVulnerabilitiesSummaryFromJSON, ModelsAPIImageVulnerabilitiesSummaryFromJSONTyped, ModelsAPIImageVulnerabilitiesSummaryToJSON } from "./ModelsAPIImageVulnerabilitiesSummary";
+import {
+    ModelsAPIImageVulnerabilitiesSummaryFromJSON,
+    ModelsAPIImageVulnerabilitiesSummaryFromJSONTyped,
+    ModelsAPIImageVulnerabilitiesSummaryToJSON,
+    ModelsAPIImageVulnerabilitiesSummaryToJSONTyped,
+} from "./ModelsAPIImageVulnerabilitiesSummary";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ImagesApiImageVulnerabilitiesSummaryFromJSONTyped(json: any, ign
     };
 }
 
-export function ImagesApiImageVulnerabilitiesSummaryToJSON(value?: ImagesApiImageVulnerabilitiesSummary | null): any {
+export function ImagesApiImageVulnerabilitiesSummaryToJSON(json: any): ImagesApiImageVulnerabilitiesSummary {
+    return ImagesApiImageVulnerabilitiesSummaryToJSONTyped(json, false);
+}
+
+export function ImagesApiImageVulnerabilitiesSummaryToJSONTyped(value?: ImagesApiImageVulnerabilitiesSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

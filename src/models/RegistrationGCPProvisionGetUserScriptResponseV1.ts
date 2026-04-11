@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationGCPUserScript } from "./RegistrationGCPUserScript";
-import { RegistrationGCPUserScriptFromJSON, RegistrationGCPUserScriptFromJSONTyped, RegistrationGCPUserScriptToJSON } from "./RegistrationGCPUserScript";
+import { RegistrationGCPUserScriptFromJSON, RegistrationGCPUserScriptFromJSONTyped, RegistrationGCPUserScriptToJSON, RegistrationGCPUserScriptToJSONTyped } from "./RegistrationGCPUserScript";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RegistrationGCPProvisionGetUserScriptResponseV1FromJSONTyped(jso
     };
 }
 
-export function RegistrationGCPProvisionGetUserScriptResponseV1ToJSON(value?: RegistrationGCPProvisionGetUserScriptResponseV1 | null): any {
+export function RegistrationGCPProvisionGetUserScriptResponseV1ToJSON(json: any): RegistrationGCPProvisionGetUserScriptResponseV1 {
+    return RegistrationGCPProvisionGetUserScriptResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPProvisionGetUserScriptResponseV1ToJSONTyped(value?: RegistrationGCPProvisionGetUserScriptResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

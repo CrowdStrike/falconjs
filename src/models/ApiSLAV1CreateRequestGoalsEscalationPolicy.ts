@@ -18,6 +18,7 @@ import {
     ApiSLAV1CreateRequestGoalsEscalationPolicyStepsFromJSON,
     ApiSLAV1CreateRequestGoalsEscalationPolicyStepsFromJSONTyped,
     ApiSLAV1CreateRequestGoalsEscalationPolicyStepsToJSON,
+    ApiSLAV1CreateRequestGoalsEscalationPolicyStepsToJSONTyped,
 } from "./ApiSLAV1CreateRequestGoalsEscalationPolicySteps";
 
 /**
@@ -55,10 +56,15 @@ export function ApiSLAV1CreateRequestGoalsEscalationPolicyFromJSONTyped(json: an
     };
 }
 
-export function ApiSLAV1CreateRequestGoalsEscalationPolicyToJSON(value?: ApiSLAV1CreateRequestGoalsEscalationPolicy | null): any {
+export function ApiSLAV1CreateRequestGoalsEscalationPolicyToJSON(json: any): ApiSLAV1CreateRequestGoalsEscalationPolicy {
+    return ApiSLAV1CreateRequestGoalsEscalationPolicyToJSONTyped(json, false);
+}
+
+export function ApiSLAV1CreateRequestGoalsEscalationPolicyToJSONTyped(value?: ApiSLAV1CreateRequestGoalsEscalationPolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         steps: (value["steps"] as Array<any>).map(ApiSLAV1CreateRequestGoalsEscalationPolicyStepsToJSON),
     };

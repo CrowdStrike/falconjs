@@ -62,10 +62,15 @@ export function ModelsAccessHealthDetailsFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsAccessHealthDetailsToJSON(value?: ModelsAccessHealthDetails | null): any {
+export function ModelsAccessHealthDetailsToJSON(json: any): ModelsAccessHealthDetails {
+    return ModelsAccessHealthDetailsToJSONTyped(json, false);
+}
+
+export function ModelsAccessHealthDetailsToJSONTyped(value?: ModelsAccessHealthDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         last_checked: value["lastChecked"],
         reason: value["reason"],

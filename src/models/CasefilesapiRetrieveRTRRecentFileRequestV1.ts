@@ -78,10 +78,15 @@ export function CasefilesapiRetrieveRTRRecentFileRequestV1FromJSONTyped(json: an
     };
 }
 
-export function CasefilesapiRetrieveRTRRecentFileRequestV1ToJSON(value?: CasefilesapiRetrieveRTRRecentFileRequestV1 | null): any {
+export function CasefilesapiRetrieveRTRRecentFileRequestV1ToJSON(json: any): CasefilesapiRetrieveRTRRecentFileRequestV1 {
+    return CasefilesapiRetrieveRTRRecentFileRequestV1ToJSONTyped(json, false);
+}
+
+export function CasefilesapiRetrieveRTRRecentFileRequestV1ToJSONTyped(value?: CasefilesapiRetrieveRTRRecentFileRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         case_id: value["caseId"],

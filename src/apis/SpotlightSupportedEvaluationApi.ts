@@ -30,12 +30,9 @@ export interface SpotlightSupportedEvaluationApiCombinedSupportedEvaluationExtRe
  */
 export class SpotlightSupportedEvaluationApi extends runtime.BaseAPI {
     /**
-     * Performs a combined query and get operation for retrieving RiskSupportedEvaluation entities.
+     * Creates request options for combinedSupportedEvaluationExt without sending the request
      */
-    async combinedSupportedEvaluationExtRaw(
-        requestParameters: SpotlightSupportedEvaluationApiCombinedSupportedEvaluationExtRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSupportedEvaluationAPICombineResponseV1>> {
+    async combinedSupportedEvaluationExtRequestOpts(requestParameters: SpotlightSupportedEvaluationApiCombinedSupportedEvaluationExtRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling combinedSupportedEvaluationExt().');
         }
@@ -73,15 +70,25 @@ export class SpotlightSupportedEvaluationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["risk-platform-risk:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/spotlight/combined/supported-evaluation-external/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/spotlight/combined/supported-evaluation-external/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Performs a combined query and get operation for retrieving RiskSupportedEvaluation entities.
+     */
+    async combinedSupportedEvaluationExtRaw(
+        requestParameters: SpotlightSupportedEvaluationApiCombinedSupportedEvaluationExtRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSupportedEvaluationAPICombineResponseV1>> {
+        const requestOptions = await this.combinedSupportedEvaluationExtRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSupportedEvaluationAPICombineResponseV1FromJSON(jsonValue));
     }

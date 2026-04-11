@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { AzureAzureScript } from "./AzureAzureScript";
-import { AzureAzureScriptFromJSON, AzureAzureScriptFromJSONTyped, AzureAzureScriptToJSON } from "./AzureAzureScript";
+import { AzureAzureScriptFromJSON, AzureAzureScriptFromJSONTyped, AzureAzureScriptToJSON, AzureAzureScriptToJSONTyped } from "./AzureAzureScript";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function AzureAzureProvisionGetAccountScriptResponseV1FromJSONTyped(json:
     };
 }
 
-export function AzureAzureProvisionGetAccountScriptResponseV1ToJSON(value?: AzureAzureProvisionGetAccountScriptResponseV1 | null): any {
+export function AzureAzureProvisionGetAccountScriptResponseV1ToJSON(json: any): AzureAzureProvisionGetAccountScriptResponseV1 {
+    return AzureAzureProvisionGetAccountScriptResponseV1ToJSONTyped(json, false);
+}
+
+export function AzureAzureProvisionGetAccountScriptResponseV1ToJSONTyped(value?: AzureAzureProvisionGetAccountScriptResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

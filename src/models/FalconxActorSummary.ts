@@ -61,10 +61,15 @@ export function FalconxActorSummaryFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function FalconxActorSummaryToJSON(value?: FalconxActorSummary | null): any {
+export function FalconxActorSummaryToJSON(json: any): FalconxActorSummary {
+    return FalconxActorSummaryToJSONTyped(json, false);
+}
+
+export function FalconxActorSummaryToJSONTyped(value?: FalconxActorSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

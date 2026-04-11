@@ -82,10 +82,15 @@ export function ModelsImageMetadataTypeFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsImageMetadataTypeToJSON(value?: ModelsImageMetadataType | null): any {
+export function ModelsImageMetadataTypeToJSON(json: any): ModelsImageMetadataType {
+    return ModelsImageMetadataTypeToJSONTyped(json, false);
+}
+
+export function ModelsImageMetadataTypeToJSONTyped(value?: ModelsImageMetadataType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         image_metadata_config_s3_key: value["imageMetadataConfigS3Key"],
         image_metadata_high_entropy_strings_s3_key: value["imageMetadataHighEntropyStringsS3Key"],

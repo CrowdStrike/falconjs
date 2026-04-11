@@ -118,15 +118,20 @@ export function DevicecontrolapiBluetoothExceptionBaseFromJSONTyped(json: any, i
     };
 }
 
-export function DevicecontrolapiBluetoothExceptionBaseToJSON(value?: DevicecontrolapiBluetoothExceptionBase | null): any {
+export function DevicecontrolapiBluetoothExceptionBaseToJSON(json: any): DevicecontrolapiBluetoothExceptionBase {
+    return DevicecontrolapiBluetoothExceptionBaseToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiBluetoothExceptionBaseToJSONTyped(value?: DevicecontrolapiBluetoothExceptionBase | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],
         description: value["description"],
-        expiration_time: value["expirationTime"] == null ? undefined : value["expirationTime"].toISOString(),
+        expiration_time: value["expirationTime"] == null ? value["expirationTime"] : value["expirationTime"].toISOString(),
         id: value["id"],
         minor_classes: value["minorClasses"],
         product_id: value["productId"],

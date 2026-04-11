@@ -47,10 +47,15 @@ export function ChangesTagFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ChangesTagToJSON(value?: ChangesTag | null): any {
+export function ChangesTagToJSON(json: any): ChangesTag {
+    return ChangesTagToJSONTyped(json, false);
+}
+
+export function ChangesTagToJSONTyped(value?: ChangesTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
     };

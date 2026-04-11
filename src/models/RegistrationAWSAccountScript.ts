@@ -47,10 +47,15 @@ export function RegistrationAWSAccountScriptFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function RegistrationAWSAccountScriptToJSON(value?: RegistrationAWSAccountScript | null): any {
+export function RegistrationAWSAccountScriptToJSON(json: any): RegistrationAWSAccountScript {
+    return RegistrationAWSAccountScriptToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountScriptToJSONTyped(value?: RegistrationAWSAccountScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bash: value["bash"],
     };

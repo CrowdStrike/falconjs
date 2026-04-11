@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxIntelSummaryReportV1 } from "./FalconxIntelSummaryReportV1";
-import { FalconxIntelSummaryReportV1FromJSON, FalconxIntelSummaryReportV1FromJSONTyped, FalconxIntelSummaryReportV1ToJSON } from "./FalconxIntelSummaryReportV1";
+import {
+    FalconxIntelSummaryReportV1FromJSON,
+    FalconxIntelSummaryReportV1FromJSONTyped,
+    FalconxIntelSummaryReportV1ToJSON,
+    FalconxIntelSummaryReportV1ToJSONTyped,
+} from "./FalconxIntelSummaryReportV1";
 import type { FalconxSandboxSummaryReportV1 } from "./FalconxSandboxSummaryReportV1";
-import { FalconxSandboxSummaryReportV1FromJSON, FalconxSandboxSummaryReportV1FromJSONTyped, FalconxSandboxSummaryReportV1ToJSON } from "./FalconxSandboxSummaryReportV1";
+import {
+    FalconxSandboxSummaryReportV1FromJSON,
+    FalconxSandboxSummaryReportV1FromJSONTyped,
+    FalconxSandboxSummaryReportV1ToJSON,
+    FalconxSandboxSummaryReportV1ToJSONTyped,
+} from "./FalconxSandboxSummaryReportV1";
 
 /**
  *
@@ -185,10 +195,15 @@ export function FalconxSummaryReportV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function FalconxSummaryReportV1ToJSON(value?: FalconxSummaryReportV1 | null): any {
+export function FalconxSummaryReportV1ToJSON(json: any): FalconxSummaryReportV1 {
+    return FalconxSummaryReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxSummaryReportV1ToJSONTyped(value?: FalconxSummaryReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_timestamp: value["createdTimestamp"],

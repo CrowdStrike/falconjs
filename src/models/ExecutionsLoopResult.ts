@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { ExecutionsIterations } from "./ExecutionsIterations";
-import { ExecutionsIterationsFromJSON, ExecutionsIterationsFromJSONTyped, ExecutionsIterationsToJSON } from "./ExecutionsIterations";
+import { ExecutionsIterationsFromJSON, ExecutionsIterationsFromJSONTyped, ExecutionsIterationsToJSON, ExecutionsIterationsToJSONTyped } from "./ExecutionsIterations";
 import type { ExecutionsChildExecutionResult } from "./ExecutionsChildExecutionResult";
-import { ExecutionsChildExecutionResultFromJSON, ExecutionsChildExecutionResultFromJSONTyped, ExecutionsChildExecutionResultToJSON } from "./ExecutionsChildExecutionResult";
+import {
+    ExecutionsChildExecutionResultFromJSON,
+    ExecutionsChildExecutionResultFromJSONTyped,
+    ExecutionsChildExecutionResultToJSON,
+    ExecutionsChildExecutionResultToJSONTyped,
+} from "./ExecutionsChildExecutionResult";
 
 /**
  *
@@ -128,13 +133,18 @@ export function ExecutionsLoopResultFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ExecutionsLoopResultToJSON(value?: ExecutionsLoopResult | null): any {
+export function ExecutionsLoopResultToJSON(json: any): ExecutionsLoopResult {
+    return ExecutionsLoopResultToJSONTyped(json, false);
+}
+
+export function ExecutionsLoopResultToJSONTyped(value?: ExecutionsLoopResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         child_executions: (value["childExecutions"] as Array<any>).map(ExecutionsChildExecutionResultToJSON),
-        end_timestamp: value["endTimestamp"] == null ? undefined : value["endTimestamp"].toISOString(),
+        end_timestamp: value["endTimestamp"] == null ? value["endTimestamp"] : value["endTimestamp"].toISOString(),
         error_code: value["errorCode"],
         error_message: value["errorMessage"],
         input_field: value["inputField"],

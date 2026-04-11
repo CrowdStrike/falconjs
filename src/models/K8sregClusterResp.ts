@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { K8sregVersionResp } from "./K8sregVersionResp";
-import { K8sregVersionRespFromJSON, K8sregVersionRespFromJSONTyped, K8sregVersionRespToJSON } from "./K8sregVersionResp";
+import { K8sregVersionRespFromJSON, K8sregVersionRespFromJSONTyped, K8sregVersionRespToJSON, K8sregVersionRespToJSONTyped } from "./K8sregVersionResp";
 
 /**
  *
@@ -147,10 +147,15 @@ export function K8sregClusterRespFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function K8sregClusterRespToJSON(value?: K8sregClusterResp | null): any {
+export function K8sregClusterRespToJSON(json: any): K8sregClusterResp {
+    return K8sregClusterRespToJSONTyped(json, false);
+}
+
+export function K8sregClusterRespToJSONTyped(value?: K8sregClusterResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         agent_version: K8sregVersionRespToJSON(value["agentVersion"]),

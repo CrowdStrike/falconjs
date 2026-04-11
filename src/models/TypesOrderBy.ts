@@ -54,10 +54,15 @@ export function TypesOrderByFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function TypesOrderByToJSON(value?: TypesOrderBy | null): any {
+export function TypesOrderByToJSON(json: any): TypesOrderBy {
+    return TypesOrderByToJSONTyped(json, false);
+}
+
+export function TypesOrderByToJSONTyped(value?: TypesOrderBy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         by_field: value["byField"],
         direction: value["direction"],

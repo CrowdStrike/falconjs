@@ -37,12 +37,9 @@ export interface ReleasesApiCombinedReleasesV1Mixin0Request {
  */
 export class ReleasesApi extends runtime.BaseAPI {
     /**
-     * Queries for releases resources and returns details
+     * Creates request options for combinedReleasesV1Mixin0 without sending the request
      */
-    async combinedReleasesV1Mixin0Raw(
-        requestParameters: ReleasesApiCombinedReleasesV1Mixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ReleasesReleaseResponseWrapperV1>> {
+    async combinedReleasesV1Mixin0RequestOpts(requestParameters: ReleasesApiCombinedReleasesV1Mixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["authorization"] == null) {
             throw new runtime.RequiredError("authorization", 'Required parameter "authorization" was null or undefined when calling combinedReleasesV1Mixin0().');
         }
@@ -80,15 +77,25 @@ export class ReleasesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["deploymentcoordinator:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/deployment-coordinator/combined/releases/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/deployment-coordinator/combined/releases/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Queries for releases resources and returns details
+     */
+    async combinedReleasesV1Mixin0Raw(
+        requestParameters: ReleasesApiCombinedReleasesV1Mixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ReleasesReleaseResponseWrapperV1>> {
+        const requestOptions = await this.combinedReleasesV1Mixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReleasesReleaseResponseWrapperV1FromJSON(jsonValue));
     }

@@ -101,10 +101,15 @@ export function ModelsAPIPolicyConfigFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ModelsAPIPolicyConfigToJSON(value?: ModelsAPIPolicyConfig | null): any {
+export function ModelsAPIPolicyConfigToJSON(json: any): ModelsAPIPolicyConfig {
+    return ModelsAPIPolicyConfigToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyConfigToJSONTyped(value?: ModelsAPIPolicyConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_at: value["createdAt"],
         description: value["description"],

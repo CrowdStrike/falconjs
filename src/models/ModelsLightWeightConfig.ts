@@ -104,10 +104,15 @@ export function ModelsLightWeightConfigFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsLightWeightConfigToJSON(value?: ModelsLightWeightConfig | null): any {
+export function ModelsLightWeightConfigToJSON(json: any): ModelsLightWeightConfig {
+    return ModelsLightWeightConfigToJSONTyped(json, false);
+}
+
+export function ModelsLightWeightConfigToJSONTyped(value?: ModelsLightWeightConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         architecture: value["architecture"],
         cmd: value["cmd"],

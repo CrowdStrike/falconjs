@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiIndexedFields } from "./ApiIndexedFields";
-import { ApiIndexedFieldsFromJSON, ApiIndexedFieldsFromJSONTyped, ApiIndexedFieldsToJSON } from "./ApiIndexedFields";
+import { ApiIndexedFieldsFromJSON, ApiIndexedFieldsFromJSONTyped, ApiIndexedFieldsToJSON, ApiIndexedFieldsToJSONTyped } from "./ApiIndexedFields";
 import type { ApiUserMetadata } from "./ApiUserMetadata";
-import { ApiUserMetadataFromJSON, ApiUserMetadataFromJSONTyped, ApiUserMetadataToJSON } from "./ApiUserMetadata";
+import { ApiUserMetadataFromJSON, ApiUserMetadataFromJSONTyped, ApiUserMetadataToJSON, ApiUserMetadataToJSONTyped } from "./ApiUserMetadata";
 
 /**
  *
@@ -130,10 +130,15 @@ export function ApiSchemaMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ApiSchemaMetadataToJSON(value?: ApiSchemaMetadata | null): any {
+export function ApiSchemaMetadataToJSON(json: any): ApiSchemaMetadata {
+    return ApiSchemaMetadataToJSONTyped(json, false);
+}
+
+export function ApiSchemaMetadataToJSONTyped(value?: ApiSchemaMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collection_name: value["collectionName"],
         collection_version: value["collectionVersion"],

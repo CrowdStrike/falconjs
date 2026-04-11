@@ -72,10 +72,15 @@ export function PolicymanagerEUJOptionFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function PolicymanagerEUJOptionToJSON(value?: PolicymanagerEUJOption | null): any {
+export function PolicymanagerEUJOptionToJSON(json: any): PolicymanagerEUJOption {
+    return PolicymanagerEUJOptionToJSONTyped(json, false);
+}
+
+export function PolicymanagerEUJOptionToJSONTyped(value?: PolicymanagerEUJOption | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default: value["_default"],
         id: value["id"],

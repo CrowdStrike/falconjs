@@ -490,10 +490,15 @@ export function ModelsContainerFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ModelsContainerToJSON(value?: ModelsContainer | null): any {
+export function ModelsContainerToJSON(json: any): ModelsContainer {
+    return ModelsContainerToJSONTyped(json, false);
+}
+
+export function ModelsContainerToJSONTyped(value?: ModelsContainer | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agents: value["agents"],
         allow_privilege_escalation: value["allowPrivilegeEscalation"],

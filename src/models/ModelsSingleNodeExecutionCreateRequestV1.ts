@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsDefinitionCreateRequestV2 } from "./ModelsDefinitionCreateRequestV2";
-import { ModelsDefinitionCreateRequestV2FromJSON, ModelsDefinitionCreateRequestV2FromJSONTyped, ModelsDefinitionCreateRequestV2ToJSON } from "./ModelsDefinitionCreateRequestV2";
+import {
+    ModelsDefinitionCreateRequestV2FromJSON,
+    ModelsDefinitionCreateRequestV2FromJSONTyped,
+    ModelsDefinitionCreateRequestV2ToJSON,
+    ModelsDefinitionCreateRequestV2ToJSONTyped,
+} from "./ModelsDefinitionCreateRequestV2";
 
 /**
  *
@@ -58,10 +63,15 @@ export function ModelsSingleNodeExecutionCreateRequestV1FromJSONTyped(json: any,
     };
 }
 
-export function ModelsSingleNodeExecutionCreateRequestV1ToJSON(value?: ModelsSingleNodeExecutionCreateRequestV1 | null): any {
+export function ModelsSingleNodeExecutionCreateRequestV1ToJSON(json: any): ModelsSingleNodeExecutionCreateRequestV1 {
+    return ModelsSingleNodeExecutionCreateRequestV1ToJSONTyped(json, false);
+}
+
+export function ModelsSingleNodeExecutionCreateRequestV1ToJSONTyped(value?: ModelsSingleNodeExecutionCreateRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         definition: ModelsDefinitionCreateRequestV2ToJSON(value["definition"]),
         mocks: value["mocks"],

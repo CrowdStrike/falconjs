@@ -56,10 +56,15 @@ export function DomainCPSRatingHistoryEntryFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainCPSRatingHistoryEntryToJSON(value?: DomainCPSRatingHistoryEntry | null): any {
+export function DomainCPSRatingHistoryEntryToJSON(json: any): DomainCPSRatingHistoryEntry {
+    return DomainCPSRatingHistoryEntryToJSONTyped(json, false);
+}
+
+export function DomainCPSRatingHistoryEntryToJSONTyped(value?: DomainCPSRatingHistoryEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         DateRecorded: value["dateRecorded"].toISOString(),
         Rating: value["rating"],

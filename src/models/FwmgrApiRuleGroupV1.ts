@@ -152,10 +152,15 @@ export function FwmgrApiRuleGroupV1FromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function FwmgrApiRuleGroupV1ToJSON(value?: FwmgrApiRuleGroupV1 | null): any {
+export function FwmgrApiRuleGroupV1ToJSON(json: any): FwmgrApiRuleGroupV1 {
+    return FwmgrApiRuleGroupV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiRuleGroupV1ToJSONTyped(value?: FwmgrApiRuleGroupV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: value["createdBy"],
         created_on: value["createdOn"],

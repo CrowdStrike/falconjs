@@ -18,6 +18,7 @@ import {
     ModelsContentDownloadEntitiesResourceFromJSON,
     ModelsContentDownloadEntitiesResourceFromJSONTyped,
     ModelsContentDownloadEntitiesResourceToJSON,
+    ModelsContentDownloadEntitiesResourceToJSONTyped,
 } from "./ModelsContentDownloadEntitiesResource";
 
 /**
@@ -113,10 +114,15 @@ export function ModelsCombinedFileDownloadResourceFromJSONTyped(json: any, ignor
     };
 }
 
-export function ModelsCombinedFileDownloadResourceToJSON(value?: ModelsCombinedFileDownloadResource | null): any {
+export function ModelsCombinedFileDownloadResourceToJSON(json: any): ModelsCombinedFileDownloadResource {
+    return ModelsCombinedFileDownloadResourceToJSONTyped(json, false);
+}
+
+export function ModelsCombinedFileDownloadResourceToJSONTyped(value?: ModelsCombinedFileDownloadResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         arch: value["arch"],
         category: value["category"],

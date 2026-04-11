@@ -56,10 +56,15 @@ export function CorrelationrulesapiLicenseDetailsFromJSONTyped(json: any, ignore
     };
 }
 
-export function CorrelationrulesapiLicenseDetailsToJSON(value?: CorrelationrulesapiLicenseDetails | null): any {
+export function CorrelationrulesapiLicenseDetailsToJSON(json: any): CorrelationrulesapiLicenseDetails {
+    return CorrelationrulesapiLicenseDetailsToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiLicenseDetailsToJSONTyped(value?: CorrelationrulesapiLicenseDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         url: value["url"],

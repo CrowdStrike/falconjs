@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiWorkflowMetadata } from "./ApiWorkflowMetadata";
-import { ApiWorkflowMetadataFromJSON, ApiWorkflowMetadataFromJSONTyped, ApiWorkflowMetadataToJSON } from "./ApiWorkflowMetadata";
+import { ApiWorkflowMetadataFromJSON, ApiWorkflowMetadataFromJSONTyped, ApiWorkflowMetadataToJSON, ApiWorkflowMetadataToJSONTyped } from "./ApiWorkflowMetadata";
 import type { ApiUserMetadata } from "./ApiUserMetadata";
-import { ApiUserMetadataFromJSON, ApiUserMetadataFromJSONTyped, ApiUserMetadataToJSON } from "./ApiUserMetadata";
+import { ApiUserMetadataFromJSON, ApiUserMetadataFromJSONTyped, ApiUserMetadataToJSON, ApiUserMetadataToJSONTyped } from "./ApiUserMetadata";
 
 /**
  *
@@ -157,10 +157,15 @@ export function ApiCollectionMetadataFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiCollectionMetadataToJSON(value?: ApiCollectionMetadata | null): any {
+export function ApiCollectionMetadataToJSON(json: any): ApiCollectionMetadata {
+    return ApiCollectionMetadataToJSONTyped(json, false);
+}
+
+export function ApiCollectionMetadataToJSONTyped(value?: ApiCollectionMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: ApiUserMetadataToJSON(value["createdBy"]),
         created_timestamp: value["createdTimestamp"].toISOString(),

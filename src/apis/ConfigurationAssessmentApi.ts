@@ -40,12 +40,9 @@ export interface ConfigurationAssessmentApiGetRuleDetailsRequest {
  */
 export class ConfigurationAssessmentApi extends runtime.BaseAPI {
     /**
-     * Search for assessments in your environment by providing an FQL filter and paging details. Returns a set of HostFinding entities which match the filter criteria
+     * Creates request options for getCombinedAssessmentsQuery without sending the request
      */
-    async getCombinedAssessmentsQueryRaw(
-        requestParameters: ConfigurationAssessmentApiGetCombinedAssessmentsQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPICombinedFindingsResponseV1>> {
+    async getCombinedAssessmentsQueryRequestOpts(requestParameters: ConfigurationAssessmentApiGetCombinedAssessmentsQueryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling getCombinedAssessmentsQuery().');
         }
@@ -79,15 +76,25 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["configvantage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/configuration-assessment/combined/assessments/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/configuration-assessment/combined/assessments/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for assessments in your environment by providing an FQL filter and paging details. Returns a set of HostFinding entities which match the filter criteria
+     */
+    async getCombinedAssessmentsQueryRaw(
+        requestParameters: ConfigurationAssessmentApiGetCombinedAssessmentsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPICombinedFindingsResponseV1>> {
+        const requestOptions = await this.getCombinedAssessmentsQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPICombinedFindingsResponseV1FromJSON(jsonValue));
     }
@@ -108,12 +115,9 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules details for provided one or more rule IDs
+     * Creates request options for getRuleDetails without sending the request
      */
-    async getRuleDetailsRaw(
-        requestParameters: ConfigurationAssessmentApiGetRuleDetailsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIRuleDetailsResponseV1>> {
+    async getRuleDetailsRequestOpts(requestParameters: ConfigurationAssessmentApiGetRuleDetailsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleDetails().');
         }
@@ -131,15 +135,25 @@ export class ConfigurationAssessmentApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["configvantage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/configuration-assessment/entities/rule-details/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/configuration-assessment/entities/rule-details/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get rules details for provided one or more rule IDs
+     */
+    async getRuleDetailsRaw(
+        requestParameters: ConfigurationAssessmentApiGetRuleDetailsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIRuleDetailsResponseV1>> {
+        const requestOptions = await this.getRuleDetailsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIRuleDetailsResponseV1FromJSON(jsonValue));
     }

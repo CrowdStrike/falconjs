@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainConfigV1 } from "./DomainConfigV1";
-import { DomainConfigV1FromJSON, DomainConfigV1FromJSONTyped, DomainConfigV1ToJSON } from "./DomainConfigV1";
+import { DomainConfigV1FromJSON, DomainConfigV1FromJSONTyped, DomainConfigV1ToJSON, DomainConfigV1ToJSONTyped } from "./DomainConfigV1";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainConfigsV1FromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainConfigsV1ToJSON(value?: DomainConfigsV1 | null): any {
+export function DomainConfigsV1ToJSON(json: any): DomainConfigsV1 {
+    return DomainConfigsV1ToJSONTyped(json, false);
+}
+
+export function DomainConfigsV1ToJSONTyped(value?: DomainConfigsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

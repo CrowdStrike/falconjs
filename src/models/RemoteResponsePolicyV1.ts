@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { PreventionCategoryRespV1 } from "./PreventionCategoryRespV1";
-import { PreventionCategoryRespV1FromJSON, PreventionCategoryRespV1FromJSONTyped, PreventionCategoryRespV1ToJSON } from "./PreventionCategoryRespV1";
+import { PreventionCategoryRespV1FromJSON, PreventionCategoryRespV1FromJSONTyped, PreventionCategoryRespV1ToJSON, PreventionCategoryRespV1ToJSONTyped } from "./PreventionCategoryRespV1";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  * A fully formed RTR policy
@@ -86,7 +86,7 @@ export interface RemoteResponsePolicyV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {RemoteResponsePolicyV1PlatformNameEnum}
      * @memberof RemoteResponsePolicyV1
      */
     platformName: RemoteResponsePolicyV1PlatformNameEnum;
@@ -151,10 +151,15 @@ export function RemoteResponsePolicyV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function RemoteResponsePolicyV1ToJSON(value?: RemoteResponsePolicyV1 | null): any {
+export function RemoteResponsePolicyV1ToJSON(json: any): RemoteResponsePolicyV1 {
+    return RemoteResponsePolicyV1ToJSONTyped(json, false);
+}
+
+export function RemoteResponsePolicyV1ToJSONTyped(value?: RemoteResponsePolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: value["createdBy"],

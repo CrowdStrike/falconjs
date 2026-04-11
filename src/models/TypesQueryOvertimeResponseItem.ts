@@ -54,10 +54,15 @@ export function TypesQueryOvertimeResponseItemFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function TypesQueryOvertimeResponseItemToJSON(value?: TypesQueryOvertimeResponseItem | null): any {
+export function TypesQueryOvertimeResponseItemToJSON(json: any): TypesQueryOvertimeResponseItem {
+    return TypesQueryOvertimeResponseItemToJSONTyped(json, false);
+}
+
+export function TypesQueryOvertimeResponseItemToJSONTyped(value?: TypesQueryOvertimeResponseItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         result: value["result"],
         timestamp: value["timestamp"],

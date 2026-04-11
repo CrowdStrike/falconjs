@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PreventionSettingRespV1 } from "./PreventionSettingRespV1";
-import { PreventionSettingRespV1FromJSON, PreventionSettingRespV1FromJSONTyped, PreventionSettingRespV1ToJSON } from "./PreventionSettingRespV1";
+import { PreventionSettingRespV1FromJSON, PreventionSettingRespV1FromJSONTyped, PreventionSettingRespV1ToJSON, PreventionSettingRespV1ToJSONTyped } from "./PreventionSettingRespV1";
 
 /**
  * A prevention policy category
@@ -59,10 +59,15 @@ export function PreventionCategoryRespV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function PreventionCategoryRespV1ToJSON(value?: PreventionCategoryRespV1 | null): any {
+export function PreventionCategoryRespV1ToJSON(json: any): PreventionCategoryRespV1 {
+    return PreventionCategoryRespV1ToJSONTyped(json, false);
+}
+
+export function PreventionCategoryRespV1ToJSONTyped(value?: PreventionCategoryRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         settings: (value["settings"] as Array<any>).map(PreventionSettingRespV1ToJSON),

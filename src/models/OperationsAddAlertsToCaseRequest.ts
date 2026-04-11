@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkAlertEvidenceSelector } from "./SdkAlertEvidenceSelector";
-import { SdkAlertEvidenceSelectorFromJSON, SdkAlertEvidenceSelectorFromJSONTyped, SdkAlertEvidenceSelectorToJSON } from "./SdkAlertEvidenceSelector";
+import { SdkAlertEvidenceSelectorFromJSON, SdkAlertEvidenceSelectorFromJSONTyped, SdkAlertEvidenceSelectorToJSON, SdkAlertEvidenceSelectorToJSONTyped } from "./SdkAlertEvidenceSelector";
 
 /**
  *
@@ -59,10 +59,15 @@ export function OperationsAddAlertsToCaseRequestFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function OperationsAddAlertsToCaseRequestToJSON(value?: OperationsAddAlertsToCaseRequest | null): any {
+export function OperationsAddAlertsToCaseRequestToJSON(json: any): OperationsAddAlertsToCaseRequest {
+    return OperationsAddAlertsToCaseRequestToJSONTyped(json, false);
+}
+
+export function OperationsAddAlertsToCaseRequestToJSONTyped(value?: OperationsAddAlertsToCaseRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alerts: (value["alerts"] as Array<any>).map(SdkAlertEvidenceSelectorToJSON),
         id: value["id"],

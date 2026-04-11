@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { CorrelationrulesapiRuleV1 } from "./CorrelationrulesapiRuleV1";
-import { CorrelationrulesapiRuleV1FromJSON, CorrelationrulesapiRuleV1FromJSONTyped, CorrelationrulesapiRuleV1ToJSON } from "./CorrelationrulesapiRuleV1";
+import { CorrelationrulesapiRuleV1FromJSON, CorrelationrulesapiRuleV1FromJSONTyped, CorrelationrulesapiRuleV1ToJSON, CorrelationrulesapiRuleV1ToJSONTyped } from "./CorrelationrulesapiRuleV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function CorrelationrulesapiGetEntitiesRulesResponseV1FromJSONTyped(json:
     };
 }
 
-export function CorrelationrulesapiGetEntitiesRulesResponseV1ToJSON(value?: CorrelationrulesapiGetEntitiesRulesResponseV1 | null): any {
+export function CorrelationrulesapiGetEntitiesRulesResponseV1ToJSON(json: any): CorrelationrulesapiGetEntitiesRulesResponseV1 {
+    return CorrelationrulesapiGetEntitiesRulesResponseV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiGetEntitiesRulesResponseV1ToJSONTyped(value?: CorrelationrulesapiGetEntitiesRulesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

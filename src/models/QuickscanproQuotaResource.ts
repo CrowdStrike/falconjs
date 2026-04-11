@@ -63,10 +63,15 @@ export function QuickscanproQuotaResourceFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function QuickscanproQuotaResourceToJSON(value?: QuickscanproQuotaResource | null): any {
+export function QuickscanproQuotaResourceToJSON(json: any): QuickscanproQuotaResource {
+    return QuickscanproQuotaResourceToJSONTyped(json, false);
+}
+
+export function QuickscanproQuotaResourceToJSONTyped(value?: QuickscanproQuotaResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         in_progress: value["inProgress"],
         total: value["total"],

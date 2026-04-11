@@ -18,6 +18,7 @@ import {
     CorrelationrulesapiRuleVersionSortedSearchFromJSON,
     CorrelationrulesapiRuleVersionSortedSearchFromJSONTyped,
     CorrelationrulesapiRuleVersionSortedSearchToJSON,
+    CorrelationrulesapiRuleVersionSortedSearchToJSONTyped,
 } from "./CorrelationrulesapiRuleVersionSortedSearch";
 
 /**
@@ -70,10 +71,15 @@ export function CorrelationrulesapiRuleVersionReportRequestFromJSONTyped(json: a
     };
 }
 
-export function CorrelationrulesapiRuleVersionReportRequestToJSON(value?: CorrelationrulesapiRuleVersionReportRequest | null): any {
+export function CorrelationrulesapiRuleVersionReportRequestToJSON(json: any): CorrelationrulesapiRuleVersionReportRequest {
+    return CorrelationrulesapiRuleVersionReportRequestToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleVersionReportRequestToJSONTyped(value?: CorrelationrulesapiRuleVersionReportRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         get_latest: value["getLatest"],
         report_format: value["reportFormat"],

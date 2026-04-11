@@ -72,10 +72,15 @@ export function ActivitiesDependencyFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ActivitiesDependencyToJSON(value?: ActivitiesDependency | null): any {
+export function ActivitiesDependencyToJSON(json: any): ActivitiesDependency {
+    return ActivitiesDependencyToJSONTyped(json, false);
+}
+
+export function ActivitiesDependencyToJSONTyped(value?: ActivitiesDependency | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         app_id: value["appId"],
         app_name: value["appName"],

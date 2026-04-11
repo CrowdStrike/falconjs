@@ -56,10 +56,15 @@ export function DomainDiscoverAPIActiveDiscoveryNetworkFromJSONTyped(json: any, 
     };
 }
 
-export function DomainDiscoverAPIActiveDiscoveryNetworkToJSON(value?: DomainDiscoverAPIActiveDiscoveryNetwork | null): any {
+export function DomainDiscoverAPIActiveDiscoveryNetworkToJSON(json: any): DomainDiscoverAPIActiveDiscoveryNetwork {
+    return DomainDiscoverAPIActiveDiscoveryNetworkToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIActiveDiscoveryNetworkToJSONTyped(value?: DomainDiscoverAPIActiveDiscoveryNetwork | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         site_id: value["siteId"],

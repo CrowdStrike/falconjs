@@ -39,7 +39,7 @@ export interface ApiNotificationChannelV2CreateRequest {
     params: object;
     /**
      *
-     * @type {string}
+     * @type {ApiNotificationChannelV2CreateRequestTypeEnum}
      * @memberof ApiNotificationChannelV2CreateRequest
      */
     type: ApiNotificationChannelV2CreateRequestTypeEnum;
@@ -83,10 +83,15 @@ export function ApiNotificationChannelV2CreateRequestFromJSONTyped(json: any, ig
     };
 }
 
-export function ApiNotificationChannelV2CreateRequestToJSON(value?: ApiNotificationChannelV2CreateRequest | null): any {
+export function ApiNotificationChannelV2CreateRequestToJSON(json: any): ApiNotificationChannelV2CreateRequest {
+    return ApiNotificationChannelV2CreateRequestToJSONTyped(json, false);
+}
+
+export function ApiNotificationChannelV2CreateRequestToJSONTyped(value?: ApiNotificationChannelV2CreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config_id: value["configId"],
         config_name: value["configName"],

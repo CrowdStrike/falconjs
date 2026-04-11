@@ -82,16 +82,21 @@ export function CorrelationrulesapiRuleResultMetadataV1FromJSONTyped(json: any, 
     };
 }
 
-export function CorrelationrulesapiRuleResultMetadataV1ToJSON(value?: CorrelationrulesapiRuleResultMetadataV1 | null): any {
+export function CorrelationrulesapiRuleResultMetadataV1ToJSON(json: any): CorrelationrulesapiRuleResultMetadataV1 {
+    return CorrelationrulesapiRuleResultMetadataV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleResultMetadataV1ToJSONTyped(value?: CorrelationrulesapiRuleResultMetadataV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         execution_duration: value["executionDuration"],
-        execution_finish: value["executionFinish"] == null ? undefined : value["executionFinish"].toISOString(),
-        execution_start: value["executionStart"] == null ? undefined : value["executionStart"].toISOString(),
+        execution_finish: value["executionFinish"] == null ? value["executionFinish"] : value["executionFinish"].toISOString(),
+        execution_start: value["executionStart"] == null ? value["executionStart"] : value["executionStart"].toISOString(),
         result_count: value["resultCount"],
-        search_window_end: value["searchWindowEnd"] == null ? undefined : value["searchWindowEnd"].toISOString(),
+        search_window_end: value["searchWindowEnd"] == null ? value["searchWindowEnd"] : value["searchWindowEnd"].toISOString(),
         use_ingest_time: value["useIngestTime"],
     };
 }

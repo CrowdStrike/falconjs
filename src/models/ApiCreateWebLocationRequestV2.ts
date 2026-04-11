@@ -99,10 +99,15 @@ export function ApiCreateWebLocationRequestV2FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ApiCreateWebLocationRequestV2ToJSON(value?: ApiCreateWebLocationRequestV2 | null): any {
+export function ApiCreateWebLocationRequestV2ToJSON(json: any): ApiCreateWebLocationRequestV2 {
+    return ApiCreateWebLocationRequestV2ToJSONTyped(json, false);
+}
+
+export function ApiCreateWebLocationRequestV2ToJSONTyped(value?: ApiCreateWebLocationRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         application_id: value["applicationId"],
         deleted: value["deleted"],

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { AssetgroupmanagerV1Error } from "./AssetgroupmanagerV1Error";
-import { AssetgroupmanagerV1ErrorFromJSON, AssetgroupmanagerV1ErrorFromJSONTyped, AssetgroupmanagerV1ErrorToJSON } from "./AssetgroupmanagerV1Error";
+import { AssetgroupmanagerV1ErrorFromJSON, AssetgroupmanagerV1ErrorFromJSONTyped, AssetgroupmanagerV1ErrorToJSON, AssetgroupmanagerV1ErrorToJSONTyped } from "./AssetgroupmanagerV1Error";
 import type { AssetgroupmanagerV1Meta } from "./AssetgroupmanagerV1Meta";
-import { AssetgroupmanagerV1MetaFromJSON, AssetgroupmanagerV1MetaFromJSONTyped, AssetgroupmanagerV1MetaToJSON } from "./AssetgroupmanagerV1Meta";
+import { AssetgroupmanagerV1MetaFromJSON, AssetgroupmanagerV1MetaFromJSONTyped, AssetgroupmanagerV1MetaToJSON, AssetgroupmanagerV1MetaToJSONTyped } from "./AssetgroupmanagerV1Meta";
 
 /**
  *
@@ -66,10 +66,15 @@ export function AssetgroupmanagerV1CreateCloudGroupResponseFromJSONTyped(json: a
     };
 }
 
-export function AssetgroupmanagerV1CreateCloudGroupResponseToJSON(value?: AssetgroupmanagerV1CreateCloudGroupResponse | null): any {
+export function AssetgroupmanagerV1CreateCloudGroupResponseToJSON(json: any): AssetgroupmanagerV1CreateCloudGroupResponse {
+    return AssetgroupmanagerV1CreateCloudGroupResponseToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1CreateCloudGroupResponseToJSONTyped(value?: AssetgroupmanagerV1CreateCloudGroupResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: AssetgroupmanagerV1ErrorToJSON(value["error"]),
         meta: AssetgroupmanagerV1MetaToJSON(value["meta"]),

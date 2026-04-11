@@ -75,10 +75,15 @@ export function DomainComplianceFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainComplianceToJSON(value?: DomainCompliance | null): any {
+export function DomainComplianceToJSON(json: any): DomainCompliance {
+    return DomainComplianceToJSONTyped(json, false);
+}
+
+export function DomainComplianceToJSONTyped(value?: DomainCompliance | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         benchmarks: value["benchmarks"],
         frameworks: value["frameworks"],

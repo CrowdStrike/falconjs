@@ -72,10 +72,15 @@ export function ApiQueryEventDistributionFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ApiQueryEventDistributionToJSON(value?: ApiQueryEventDistribution | null): any {
+export function ApiQueryEventDistributionToJSON(json: any): ApiQueryEventDistribution {
+    return ApiQueryEventDistributionToJSONTyped(json, false);
+}
+
+export function ApiQueryEventDistributionToJSONTyped(value?: ApiQueryEventDistribution | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bucket_first_bucket: value["bucketFirstBucket"],
         bucket_last_bucket: value["bucketLastBucket"],

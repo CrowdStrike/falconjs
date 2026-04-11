@@ -61,10 +61,15 @@ export function DevicecontrolapiBluetoothMinorClassFromJSONTyped(json: any, igno
     };
 }
 
-export function DevicecontrolapiBluetoothMinorClassToJSON(value?: DevicecontrolapiBluetoothMinorClass | null): any {
+export function DevicecontrolapiBluetoothMinorClassToJSON(json: any): DevicecontrolapiBluetoothMinorClass {
+    return DevicecontrolapiBluetoothMinorClassToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiBluetoothMinorClassToJSONTyped(value?: DevicecontrolapiBluetoothMinorClass | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         id: value["id"],

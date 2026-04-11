@@ -56,10 +56,15 @@ export function ApiPatternV1FromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ApiPatternV1ToJSON(value?: ApiPatternV1 | null): any {
+export function ApiPatternV1ToJSON(json: any): ApiPatternV1 {
+    return ApiPatternV1ToJSONTyped(json, false);
+}
+
+export function ApiPatternV1ToJSONTyped(value?: ApiPatternV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         severity: value["severity"],

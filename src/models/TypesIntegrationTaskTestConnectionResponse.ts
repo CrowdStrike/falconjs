@@ -47,10 +47,15 @@ export function TypesIntegrationTaskTestConnectionResponseFromJSONTyped(json: an
     };
 }
 
-export function TypesIntegrationTaskTestConnectionResponseToJSON(value?: TypesIntegrationTaskTestConnectionResponse | null): any {
+export function TypesIntegrationTaskTestConnectionResponseToJSON(json: any): TypesIntegrationTaskTestConnectionResponse {
+    return TypesIntegrationTaskTestConnectionResponseToJSONTyped(json, false);
+}
+
+export function TypesIntegrationTaskTestConnectionResponseToJSONTyped(value?: TypesIntegrationTaskTestConnectionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_run_id: value["actionRunId"],
     };

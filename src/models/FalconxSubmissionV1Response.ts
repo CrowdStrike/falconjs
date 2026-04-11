@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxMetaInfo } from "./FalconxMetaInfo";
-import { FalconxMetaInfoFromJSON, FalconxMetaInfoFromJSONTyped, FalconxMetaInfoToJSON } from "./FalconxMetaInfo";
+import { FalconxMetaInfoFromJSON, FalconxMetaInfoFromJSONTyped, FalconxMetaInfoToJSON, FalconxMetaInfoToJSONTyped } from "./FalconxMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { FalconxSubmissionV1 } from "./FalconxSubmissionV1";
-import { FalconxSubmissionV1FromJSON, FalconxSubmissionV1FromJSONTyped, FalconxSubmissionV1ToJSON } from "./FalconxSubmissionV1";
+import { FalconxSubmissionV1FromJSON, FalconxSubmissionV1FromJSONTyped, FalconxSubmissionV1ToJSON, FalconxSubmissionV1ToJSONTyped } from "./FalconxSubmissionV1";
 
 /**
  *
@@ -71,10 +71,15 @@ export function FalconxSubmissionV1ResponseFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function FalconxSubmissionV1ResponseToJSON(value?: FalconxSubmissionV1Response | null): any {
+export function FalconxSubmissionV1ResponseToJSON(json: any): FalconxSubmissionV1Response {
+    return FalconxSubmissionV1ResponseToJSONTyped(json, false);
+}
+
+export function FalconxSubmissionV1ResponseToJSONTyped(value?: FalconxSubmissionV1Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: FalconxMetaInfoToJSON(value["meta"]),

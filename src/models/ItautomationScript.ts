@@ -21,7 +21,7 @@ import { mapValues } from "../runtime";
 export interface ItautomationScript {
     /**
      * The type of action to perform
-     * @type {string}
+     * @type {ItautomationScriptActionTypeEnum}
      * @memberof ItautomationScript
      */
     actionType?: ItautomationScriptActionTypeEnum;
@@ -39,7 +39,7 @@ export interface ItautomationScript {
     fileIds?: Array<string>;
     /**
      * The scripting language to use
-     * @type {string}
+     * @type {ItautomationScriptLanguageEnum}
      * @memberof ItautomationScript
      */
     language?: ItautomationScriptLanguageEnum;
@@ -103,10 +103,15 @@ export function ItautomationScriptFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ItautomationScriptToJSON(value?: ItautomationScript | null): any {
+export function ItautomationScriptToJSON(json: any): ItautomationScript {
+    return ItautomationScriptToJSONTyped(json, false);
+}
+
+export function ItautomationScriptToJSONTyped(value?: ItautomationScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_type: value["actionType"],
         content: value["content"],

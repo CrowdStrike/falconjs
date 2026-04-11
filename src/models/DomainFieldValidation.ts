@@ -93,10 +93,15 @@ export function DomainFieldValidationFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainFieldValidationToJSON(value?: DomainFieldValidation | null): any {
+export function DomainFieldValidationToJSON(json: any): DomainFieldValidation {
+    return DomainFieldValidationToJSONTyped(json, false);
+}
+
+export function DomainFieldValidationToJSONTyped(value?: DomainFieldValidation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bytes: value["bytes"],
         error: value["error"],

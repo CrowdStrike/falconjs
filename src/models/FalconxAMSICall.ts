@@ -61,10 +61,15 @@ export function FalconxAMSICallFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function FalconxAMSICallToJSON(value?: FalconxAMSICall | null): any {
+export function FalconxAMSICallToJSON(json: any): FalconxAMSICall {
+    return FalconxAMSICallToJSONTyped(json, false);
+}
+
+export function FalconxAMSICallToJSONTyped(value?: FalconxAMSICall | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         app_name: value["appName"],
         filename: value["filename"],

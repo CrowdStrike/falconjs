@@ -56,10 +56,15 @@ export function MsaDateRangeSpecFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MsaDateRangeSpecToJSON(value?: MsaDateRangeSpec | null): any {
+export function MsaDateRangeSpecToJSON(json: any): MsaDateRangeSpec {
+    return MsaDateRangeSpecToJSONTyped(json, false);
+}
+
+export function MsaDateRangeSpecToJSONTyped(value?: MsaDateRangeSpec | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         from: value["from"],
         to: value["to"],

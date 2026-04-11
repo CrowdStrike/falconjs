@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxThreatGraphIndicatorV1 } from "./FalconxThreatGraphIndicatorV1";
-import { FalconxThreatGraphIndicatorV1FromJSON, FalconxThreatGraphIndicatorV1FromJSONTyped, FalconxThreatGraphIndicatorV1ToJSON } from "./FalconxThreatGraphIndicatorV1";
+import {
+    FalconxThreatGraphIndicatorV1FromJSON,
+    FalconxThreatGraphIndicatorV1FromJSONTyped,
+    FalconxThreatGraphIndicatorV1ToJSON,
+    FalconxThreatGraphIndicatorV1ToJSONTyped,
+} from "./FalconxThreatGraphIndicatorV1";
 
 /**
  *
@@ -50,10 +55,15 @@ export function FalconxThreatGraphReportV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function FalconxThreatGraphReportV1ToJSON(value?: FalconxThreatGraphReportV1 | null): any {
+export function FalconxThreatGraphReportV1ToJSON(json: any): FalconxThreatGraphReportV1 {
+    return FalconxThreatGraphReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxThreatGraphReportV1ToJSONTyped(value?: FalconxThreatGraphReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         indicators: value["indicators"] == null ? undefined : (value["indicators"] as Array<any>).map(FalconxThreatGraphIndicatorV1ToJSON),
     };

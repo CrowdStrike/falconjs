@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { ApiParserTestCaseAssertionsForOutput } from "./ApiParserTestCaseAssertionsForOutput";
-import { ApiParserTestCaseAssertionsForOutputFromJSON, ApiParserTestCaseAssertionsForOutputFromJSONTyped, ApiParserTestCaseAssertionsForOutputToJSON } from "./ApiParserTestCaseAssertionsForOutput";
+import {
+    ApiParserTestCaseAssertionsForOutputFromJSON,
+    ApiParserTestCaseAssertionsForOutputFromJSONTyped,
+    ApiParserTestCaseAssertionsForOutputToJSON,
+    ApiParserTestCaseAssertionsForOutputToJSONTyped,
+} from "./ApiParserTestCaseAssertionsForOutput";
 import type { ApiParserTestEvent } from "./ApiParserTestEvent";
-import { ApiParserTestEventFromJSON, ApiParserTestEventFromJSONTyped, ApiParserTestEventToJSON } from "./ApiParserTestEvent";
+import { ApiParserTestEventFromJSON, ApiParserTestEventFromJSONTyped, ApiParserTestEventToJSON, ApiParserTestEventToJSONTyped } from "./ApiParserTestEvent";
 
 /**
  *
@@ -61,10 +66,15 @@ export function ApiParserTestCaseFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ApiParserTestCaseToJSON(value?: ApiParserTestCase | null): any {
+export function ApiParserTestCaseToJSON(json: any): ApiParserTestCase {
+    return ApiParserTestCaseToJSONTyped(json, false);
+}
+
+export function ApiParserTestCaseToJSONTyped(value?: ApiParserTestCase | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         event: ApiParserTestEventToJSON(value["event"]),
         output_assertions: (value["outputAssertions"] as Array<any>).map(ApiParserTestCaseAssertionsForOutputToJSON),

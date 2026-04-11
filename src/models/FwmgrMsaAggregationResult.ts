@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaHits } from "./FwmgrMsaHits";
-import { FwmgrMsaHitsFromJSON, FwmgrMsaHitsFromJSONTyped, FwmgrMsaHitsToJSON } from "./FwmgrMsaHits";
+import { FwmgrMsaHitsFromJSON, FwmgrMsaHitsFromJSONTyped, FwmgrMsaHitsToJSON, FwmgrMsaHitsToJSONTyped } from "./FwmgrMsaHits";
 import type { FwmgrMsaAggregationResultItem } from "./FwmgrMsaAggregationResultItem";
-import { FwmgrMsaAggregationResultItemFromJSON, FwmgrMsaAggregationResultItemFromJSONTyped, FwmgrMsaAggregationResultItemToJSON } from "./FwmgrMsaAggregationResultItem";
+import {
+    FwmgrMsaAggregationResultItemFromJSON,
+    FwmgrMsaAggregationResultItemFromJSONTyped,
+    FwmgrMsaAggregationResultItemToJSON,
+    FwmgrMsaAggregationResultItemToJSONTyped,
+} from "./FwmgrMsaAggregationResultItem";
 
 /**
  *
@@ -82,10 +87,15 @@ export function FwmgrMsaAggregationResultFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function FwmgrMsaAggregationResultToJSON(value?: FwmgrMsaAggregationResult | null): any {
+export function FwmgrMsaAggregationResultToJSON(json: any): FwmgrMsaAggregationResult {
+    return FwmgrMsaAggregationResultToJSONTyped(json, false);
+}
+
+export function FwmgrMsaAggregationResultToJSONTyped(value?: FwmgrMsaAggregationResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(FwmgrMsaAggregationResultItemToJSON),
         doc_count_error_upper_bound: value["docCountErrorUpperBound"],

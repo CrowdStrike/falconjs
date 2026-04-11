@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON, FwmgrMsaspecErrorToJSONTyped } from "./FwmgrMsaspecError";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON, FwmgrMsaspecMetaInfoToJSONTyped } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -68,10 +68,15 @@ export function FwmgrMsaspecQueryResponseFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function FwmgrMsaspecQueryResponseToJSON(value?: FwmgrMsaspecQueryResponse | null): any {
+export function FwmgrMsaspecQueryResponseToJSON(json: any): FwmgrMsaspecQueryResponse {
+    return FwmgrMsaspecQueryResponseToJSONTyped(json, false);
+}
+
+export function FwmgrMsaspecQueryResponseToJSONTyped(value?: FwmgrMsaspecQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value["meta"]),

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainImage } from "./DomainImage";
-import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON } from "./DomainImage";
+import { DomainImageFromJSON, DomainImageFromJSONTyped, DomainImageToJSON, DomainImageToJSONTyped } from "./DomainImage";
 import type { DomainEntity } from "./DomainEntity";
-import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON, DomainEntityToJSONTyped } from "./DomainEntity";
 
 /**
  *
@@ -95,10 +95,15 @@ export function DomainSimpleActorFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainSimpleActorToJSON(value?: DomainSimpleActor | null): any {
+export function DomainSimpleActorToJSON(json: any): DomainSimpleActor {
+    return DomainSimpleActorToJSONTyped(json, false);
+}
+
+export function DomainSimpleActorToJSONTyped(value?: DomainSimpleActor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         animal_classifier: value["animalClassifier"],
         entitlements: value["entitlements"] == null ? undefined : (value["entitlements"] as Array<any>).map(DomainEntityToJSON),

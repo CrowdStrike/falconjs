@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON, DomainReconAPIErrorToJSONTyped } from "./DomainReconAPIError";
 import type { DomainNotificationV1 } from "./DomainNotificationV1";
-import { DomainNotificationV1FromJSON, DomainNotificationV1FromJSONTyped, DomainNotificationV1ToJSON } from "./DomainNotificationV1";
+import { DomainNotificationV1FromJSON, DomainNotificationV1FromJSONTyped, DomainNotificationV1ToJSON, DomainNotificationV1ToJSONTyped } from "./DomainNotificationV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainNotificationEntitiesResponseV1FromJSONTyped(json: any, ign
     };
 }
 
-export function DomainNotificationEntitiesResponseV1ToJSON(value?: DomainNotificationEntitiesResponseV1 | null): any {
+export function DomainNotificationEntitiesResponseV1ToJSON(json: any): DomainNotificationEntitiesResponseV1 {
+    return DomainNotificationEntitiesResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainNotificationEntitiesResponseV1ToJSONTyped(value?: DomainNotificationEntitiesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -32,12 +32,9 @@ export interface CorrelationRulesAdminApiEntitiesRulesOwnershipPutV1Request {
  */
 export class CorrelationRulesAdminApi extends runtime.BaseAPI {
     /**
-     * Change the owner of an existing Correlation Rule
+     * Creates request options for entitiesRulesOwnershipPutV1 without sending the request
      */
-    async entitiesRulesOwnershipPutV1Raw(
-        requestParameters: CorrelationRulesAdminApiEntitiesRulesOwnershipPutV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+    async entitiesRulesOwnershipPutV1RequestOpts(requestParameters: CorrelationRulesAdminApiEntitiesRulesOwnershipPutV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRulesOwnershipPutV1().');
         }
@@ -53,16 +50,26 @@ export class CorrelationRulesAdminApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules-admin:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/correlation-rules/entities/rules/ownership/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CorrelationrulesapiRuleOwnerPutRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/correlation-rules/entities/rules/ownership/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CorrelationrulesapiRuleOwnerPutRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Change the owner of an existing Correlation Rule
+     */
+    async entitiesRulesOwnershipPutV1Raw(
+        requestParameters: CorrelationRulesAdminApiEntitiesRulesOwnershipPutV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CorrelationrulesapiGetEntitiesRulesResponseV1>> {
+        const requestOptions = await this.entitiesRulesOwnershipPutV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON(jsonValue));
     }

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { CaohuntingapiTranslation } from "./CaohuntingapiTranslation";
-import { CaohuntingapiTranslationFromJSON, CaohuntingapiTranslationFromJSONTyped, CaohuntingapiTranslationToJSON } from "./CaohuntingapiTranslation";
+import { CaohuntingapiTranslationFromJSON, CaohuntingapiTranslationFromJSONTyped, CaohuntingapiTranslationToJSON, CaohuntingapiTranslationToJSONTyped } from "./CaohuntingapiTranslation";
 import type { CaohuntingapiMitreData } from "./CaohuntingapiMitreData";
-import { CaohuntingapiMitreDataFromJSON, CaohuntingapiMitreDataFromJSONTyped, CaohuntingapiMitreDataToJSON } from "./CaohuntingapiMitreData";
+import { CaohuntingapiMitreDataFromJSON, CaohuntingapiMitreDataFromJSONTyped, CaohuntingapiMitreDataToJSON, CaohuntingapiMitreDataToJSONTyped } from "./CaohuntingapiMitreData";
 
 /**
  *
@@ -245,10 +245,15 @@ export function CaohuntingapiIntelligenceQueryEntityFromJSONTyped(json: any, ign
     };
 }
 
-export function CaohuntingapiIntelligenceQueryEntityToJSON(value?: CaohuntingapiIntelligenceQueryEntity | null): any {
+export function CaohuntingapiIntelligenceQueryEntityToJSON(json: any): CaohuntingapiIntelligenceQueryEntity {
+    return CaohuntingapiIntelligenceQueryEntityToJSONTyped(json, false);
+}
+
+export function CaohuntingapiIntelligenceQueryEntityToJSONTyped(value?: CaohuntingapiIntelligenceQueryEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         adversaries: value["adversaries"],
         content: value["content"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIFindingRuleV1 } from "./DomainAPIFindingRuleV1";
-import { DomainAPIFindingRuleV1FromJSON, DomainAPIFindingRuleV1FromJSONTyped, DomainAPIFindingRuleV1ToJSON } from "./DomainAPIFindingRuleV1";
+import { DomainAPIFindingRuleV1FromJSON, DomainAPIFindingRuleV1FromJSONTyped, DomainAPIFindingRuleV1ToJSON, DomainAPIFindingRuleV1ToJSONTyped } from "./DomainAPIFindingRuleV1";
 
 /**
  *
@@ -92,10 +92,15 @@ export function DomainAPIFindingWithRuleV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainAPIFindingWithRuleV1ToJSON(value?: DomainAPIFindingWithRuleV1 | null): any {
+export function DomainAPIFindingWithRuleV1ToJSON(json: any): DomainAPIFindingWithRuleV1 {
+    return DomainAPIFindingWithRuleV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIFindingWithRuleV1ToJSONTyped(value?: DomainAPIFindingWithRuleV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         evaluation_logic_type: value["evaluationLogicType"],
         evaluation_reason: value["evaluationReason"],

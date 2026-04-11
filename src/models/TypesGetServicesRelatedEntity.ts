@@ -18,9 +18,15 @@ import {
     TypesGetServicesRelatedEntityGroupByFieldsFromJSON,
     TypesGetServicesRelatedEntityGroupByFieldsFromJSONTyped,
     TypesGetServicesRelatedEntityGroupByFieldsToJSON,
+    TypesGetServicesRelatedEntityGroupByFieldsToJSONTyped,
 } from "./TypesGetServicesRelatedEntityGroupByFields";
 import type { TypesGetServicesRelatedEntityFilters } from "./TypesGetServicesRelatedEntityFilters";
-import { TypesGetServicesRelatedEntityFiltersFromJSON, TypesGetServicesRelatedEntityFiltersFromJSONTyped, TypesGetServicesRelatedEntityFiltersToJSON } from "./TypesGetServicesRelatedEntityFilters";
+import {
+    TypesGetServicesRelatedEntityFiltersFromJSON,
+    TypesGetServicesRelatedEntityFiltersFromJSONTyped,
+    TypesGetServicesRelatedEntityFiltersToJSON,
+    TypesGetServicesRelatedEntityFiltersToJSONTyped,
+} from "./TypesGetServicesRelatedEntityFilters";
 
 /**
  *
@@ -77,10 +83,15 @@ export function TypesGetServicesRelatedEntityFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesGetServicesRelatedEntityToJSON(value?: TypesGetServicesRelatedEntity | null): any {
+export function TypesGetServicesRelatedEntityToJSON(json: any): TypesGetServicesRelatedEntity {
+    return TypesGetServicesRelatedEntityToJSONTyped(json, false);
+}
+
+export function TypesGetServicesRelatedEntityToJSONTyped(value?: TypesGetServicesRelatedEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aggregation_type: value["aggregationType"],
         entity_type: value["entityType"],

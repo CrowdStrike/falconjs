@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { V2ActivityParameters } from "./V2ActivityParameters";
-import { V2ActivityParametersFromJSON, V2ActivityParametersFromJSONTyped, V2ActivityParametersToJSON } from "./V2ActivityParameters";
+import { V2ActivityParametersFromJSON, V2ActivityParametersFromJSONTyped, V2ActivityParametersToJSON, V2ActivityParametersToJSONTyped } from "./V2ActivityParameters";
 import type { ParameterTriggerParameter } from "./ParameterTriggerParameter";
-import { ParameterTriggerParameterFromJSON, ParameterTriggerParameterFromJSONTyped, ParameterTriggerParameterToJSON } from "./ParameterTriggerParameter";
+import { ParameterTriggerParameterFromJSON, ParameterTriggerParameterFromJSONTyped, ParameterTriggerParameterToJSON, ParameterTriggerParameterToJSONTyped } from "./ParameterTriggerParameter";
 import type { V2ConditionGroups } from "./V2ConditionGroups";
-import { V2ConditionGroupsFromJSON, V2ConditionGroupsFromJSONTyped, V2ConditionGroupsToJSON } from "./V2ConditionGroups";
+import { V2ConditionGroupsFromJSON, V2ConditionGroupsFromJSONTyped, V2ConditionGroupsToJSON, V2ConditionGroupsToJSONTyped } from "./V2ConditionGroups";
 
 /**
  *
@@ -75,10 +75,15 @@ export function V2ParametersFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function V2ParametersToJSON(value?: V2Parameters | null): any {
+export function V2ParametersToJSON(json: any): V2Parameters {
+    return V2ParametersToJSONTyped(json, false);
+}
+
+export function V2ParametersToJSONTyped(value?: V2Parameters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actions: V2ActivityParametersToJSON(value["actions"]),
         conditions: value["conditions"],

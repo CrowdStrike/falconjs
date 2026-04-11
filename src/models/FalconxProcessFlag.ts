@@ -54,10 +54,15 @@ export function FalconxProcessFlagFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FalconxProcessFlagToJSON(value?: FalconxProcessFlag | null): any {
+export function FalconxProcessFlagToJSON(json: any): FalconxProcessFlag {
+    return FalconxProcessFlagToJSONTyped(json, false);
+}
+
+export function FalconxProcessFlagToJSONTyped(value?: FalconxProcessFlag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: value["data"],
         name: value["name"],

@@ -90,12 +90,9 @@ export interface ImageAssessmentPoliciesApiUpdatePolicyPrecedenceRequest {
  */
 export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     /**
-     * Create Image Assessment policies
+     * Creates request options for createPolicies without sending the request
      */
-    async createPoliciesRaw(
-        requestParameters: ImageAssessmentPoliciesApiCreatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+    async createPoliciesRequestOpts(requestParameters: ImageAssessmentPoliciesApiCreatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPolicies().');
         }
@@ -111,16 +108,26 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policies/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsCreatePolicyRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsCreatePolicyRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Image Assessment policies
+     */
+    async createPoliciesRaw(
+        requestParameters: ImageAssessmentPoliciesApiCreatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+        const requestOptions = await this.createPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));
     }
@@ -134,12 +141,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create Image Assessment Policy Group entities
+     * Creates request options for createPolicyGroups without sending the request
      */
-    async createPolicyGroupsRaw(
-        requestParameters: ImageAssessmentPoliciesApiCreatePolicyGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
+    async createPolicyGroupsRequestOpts(requestParameters: ImageAssessmentPoliciesApiCreatePolicyGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPolicyGroups().');
         }
@@ -155,16 +159,26 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policy-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsCreateImageGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policy-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsCreateImageGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Image Assessment Policy Group entities
+     */
+    async createPolicyGroupsRaw(
+        requestParameters: ImageAssessmentPoliciesApiCreatePolicyGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
+        const requestOptions = await this.createPolicyGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyGroupEntityResponseFromJSON(jsonValue));
     }
@@ -178,12 +192,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Image Assessment Policy by policy UUID
+     * Creates request options for deletePolicy without sending the request
      */
-    async deletePolicyRaw(
-        requestParameters: ImageAssessmentPoliciesApiDeletePolicyRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async deletePolicyRequestOpts(requestParameters: ImageAssessmentPoliciesApiDeletePolicyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling deletePolicy().');
         }
@@ -201,15 +212,25 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policies/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Image Assessment Policy by policy UUID
+     */
+    async deletePolicyRaw(
+        requestParameters: ImageAssessmentPoliciesApiDeletePolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.deletePolicyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }
@@ -223,12 +244,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Image Assessment Policy Group entities
+     * Creates request options for deletePolicyGroup without sending the request
      */
-    async deletePolicyGroupRaw(
-        requestParameters: ImageAssessmentPoliciesApiDeletePolicyGroupRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+    async deletePolicyGroupRequestOpts(requestParameters: ImageAssessmentPoliciesApiDeletePolicyGroupRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling deletePolicyGroup().');
         }
@@ -246,15 +264,25 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policy-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policy-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Image Assessment Policy Group entities
+     */
+    async deletePolicyGroupRaw(
+        requestParameters: ImageAssessmentPoliciesApiDeletePolicyGroupRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CoreEntitiesResponse>> {
+        const requestOptions = await this.deletePolicyGroupRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CoreEntitiesResponseFromJSON(jsonValue));
     }
@@ -268,9 +296,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all Image Assessment policies
+     * Creates request options for readPolicies without sending the request
      */
-    async readPoliciesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+    async readPoliciesRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -280,15 +308,22 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policies/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all Image Assessment policies
+     */
+    async readPoliciesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+        const requestOptions = await this.readPoliciesRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));
     }
@@ -302,9 +337,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Image Assessment Policy Exclusion entities
+     * Creates request options for readPolicyExclusions without sending the request
      */
-    async readPolicyExclusionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsPolicyExclusionEntityResponse>> {
+    async readPolicyExclusionsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -314,15 +349,22 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policy-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policy-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Image Assessment Policy Exclusion entities
+     */
+    async readPolicyExclusionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsPolicyExclusionEntityResponse>> {
+        const requestOptions = await this.readPolicyExclusionsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyExclusionEntityResponseFromJSON(jsonValue));
     }
@@ -336,9 +378,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Image Assessment Policy Group entities
+     * Creates request options for readPolicyGroups without sending the request
      */
-    async readPolicyGroupsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
+    async readPolicyGroupsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -348,15 +390,22 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policy-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policy-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve Image Assessment Policy Group entities
+     */
+    async readPolicyGroupsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
+        const requestOptions = await this.readPolicyGroupsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyGroupEntityResponseFromJSON(jsonValue));
     }
@@ -370,12 +419,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Image Assessment Policy entities
+     * Creates request options for updatePolicies without sending the request
      */
-    async updatePoliciesRaw(
-        requestParameters: ImageAssessmentPoliciesApiUpdatePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+    async updatePoliciesRequestOpts(requestParameters: ImageAssessmentPoliciesApiUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updatePolicies().');
         }
@@ -399,16 +445,26 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policies/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsPatchPolicyRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsPatchPolicyRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Image Assessment Policy entities
+     */
+    async updatePoliciesRaw(
+        requestParameters: ImageAssessmentPoliciesApiUpdatePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+        const requestOptions = await this.updatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));
     }
@@ -422,12 +478,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Image Assessment Policy Exclusion entities
+     * Creates request options for updatePolicyExclusions without sending the request
      */
-    async updatePolicyExclusionsRaw(
-        requestParameters: ImageAssessmentPoliciesApiUpdatePolicyExclusionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsPolicyExclusionEntityResponse>> {
+    async updatePolicyExclusionsRequestOpts(requestParameters: ImageAssessmentPoliciesApiUpdatePolicyExclusionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePolicyExclusions().');
         }
@@ -443,16 +496,26 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policy-exclusions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsUpdateExclusionsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policy-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsUpdateExclusionsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Image Assessment Policy Exclusion entities
+     */
+    async updatePolicyExclusionsRaw(
+        requestParameters: ImageAssessmentPoliciesApiUpdatePolicyExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsPolicyExclusionEntityResponse>> {
+        const requestOptions = await this.updatePolicyExclusionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyExclusionEntityResponseFromJSON(jsonValue));
     }
@@ -466,12 +529,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Image Assessment Policy Group entities
+     * Creates request options for updatePolicyGroups without sending the request
      */
-    async updatePolicyGroupsRaw(
-        requestParameters: ImageAssessmentPoliciesApiUpdatePolicyGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
+    async updatePolicyGroupsRequestOpts(requestParameters: ImageAssessmentPoliciesApiUpdatePolicyGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling updatePolicyGroups().');
         }
@@ -495,16 +555,26 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policy-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsPatchImageGroupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policy-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsPatchImageGroupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Image Assessment Policy Group entities
+     */
+    async updatePolicyGroupsRaw(
+        requestParameters: ImageAssessmentPoliciesApiUpdatePolicyGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsPolicyGroupEntityResponse>> {
+        const requestOptions = await this.updatePolicyGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyGroupEntityResponseFromJSON(jsonValue));
     }
@@ -518,12 +588,9 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Image Assessment Policy precedence
+     * Creates request options for updatePolicyPrecedence without sending the request
      */
-    async updatePolicyPrecedenceRaw(
-        requestParameters: ImageAssessmentPoliciesApiUpdatePolicyPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+    async updatePolicyPrecedenceRequestOpts(requestParameters: ImageAssessmentPoliciesApiUpdatePolicyPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePolicyPrecedence().');
         }
@@ -539,16 +606,26 @@ export class ImageAssessmentPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-assessment-policy-precedence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsAPIPrecedenceRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-assessment-policy-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsAPIPrecedenceRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Image Assessment Policy precedence
+     */
+    async updatePolicyPrecedenceRaw(
+        requestParameters: ImageAssessmentPoliciesApiUpdatePolicyPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsPolicyEntityResponse>> {
+        const requestOptions = await this.updatePolicyPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsPolicyEntityResponseFromJSON(jsonValue));
     }

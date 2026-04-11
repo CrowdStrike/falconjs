@@ -14,15 +14,25 @@
 
 import { mapValues } from "../runtime";
 import type { FalconforitapiGuardrails } from "./FalconforitapiGuardrails";
-import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON } from "./FalconforitapiGuardrails";
+import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON, FalconforitapiGuardrailsToJSONTyped } from "./FalconforitapiGuardrails";
 import type { ItautomationScripts } from "./ItautomationScripts";
-import { ItautomationScriptsFromJSON, ItautomationScriptsFromJSONTyped, ItautomationScriptsToJSON } from "./ItautomationScripts";
+import { ItautomationScriptsFromJSON, ItautomationScriptsFromJSONTyped, ItautomationScriptsToJSON, ItautomationScriptsToJSONTyped } from "./ItautomationScripts";
 import type { ItautomationOutputParserConfig } from "./ItautomationOutputParserConfig";
-import { ItautomationOutputParserConfigFromJSON, ItautomationOutputParserConfigFromJSONTyped, ItautomationOutputParserConfigToJSON } from "./ItautomationOutputParserConfig";
+import {
+    ItautomationOutputParserConfigFromJSON,
+    ItautomationOutputParserConfigFromJSONTyped,
+    ItautomationOutputParserConfigToJSON,
+    ItautomationOutputParserConfigToJSONTyped,
+} from "./ItautomationOutputParserConfig";
 import type { ItautomationCompositeQuery } from "./ItautomationCompositeQuery";
-import { ItautomationCompositeQueryFromJSON, ItautomationCompositeQueryFromJSONTyped, ItautomationCompositeQueryToJSON } from "./ItautomationCompositeQuery";
+import { ItautomationCompositeQueryFromJSON, ItautomationCompositeQueryFromJSONTyped, ItautomationCompositeQueryToJSON, ItautomationCompositeQueryToJSONTyped } from "./ItautomationCompositeQuery";
 import type { ItautomationRowsParserConfig } from "./ItautomationRowsParserConfig";
-import { ItautomationRowsParserConfigFromJSON, ItautomationRowsParserConfigFromJSONTyped, ItautomationRowsParserConfigToJSON } from "./ItautomationRowsParserConfig";
+import {
+    ItautomationRowsParserConfigFromJSON,
+    ItautomationRowsParserConfigFromJSONTyped,
+    ItautomationRowsParserConfigToJSON,
+    ItautomationRowsParserConfigToJSONTyped,
+} from "./ItautomationRowsParserConfig";
 
 /**
  *
@@ -129,10 +139,15 @@ export function ItautomationRunLiveQueryRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ItautomationRunLiveQueryRequestToJSON(value?: ItautomationRunLiveQueryRequest | null): any {
+export function ItautomationRunLiveQueryRequestToJSON(json: any): ItautomationRunLiveQueryRequest {
+    return ItautomationRunLiveQueryRequestToJSONTyped(json, false);
+}
+
+export function ItautomationRunLiveQueryRequestToJSONTyped(value?: ItautomationRunLiveQueryRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         composite_query: ItautomationCompositeQueryToJSON(value["compositeQuery"]),
         discover_new_hosts: value["discoverNewHosts"],

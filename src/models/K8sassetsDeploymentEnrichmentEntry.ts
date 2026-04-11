@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { K8sassetsDeploymentEnrichmentData } from "./K8sassetsDeploymentEnrichmentData";
-import { K8sassetsDeploymentEnrichmentDataFromJSON, K8sassetsDeploymentEnrichmentDataFromJSONTyped, K8sassetsDeploymentEnrichmentDataToJSON } from "./K8sassetsDeploymentEnrichmentData";
+import {
+    K8sassetsDeploymentEnrichmentDataFromJSON,
+    K8sassetsDeploymentEnrichmentDataFromJSONTyped,
+    K8sassetsDeploymentEnrichmentDataToJSON,
+    K8sassetsDeploymentEnrichmentDataToJSONTyped,
+} from "./K8sassetsDeploymentEnrichmentData";
 
 /**
  *
@@ -59,10 +64,15 @@ export function K8sassetsDeploymentEnrichmentEntryFromJSONTyped(json: any, ignor
     };
 }
 
-export function K8sassetsDeploymentEnrichmentEntryToJSON(value?: K8sassetsDeploymentEnrichmentEntry | null): any {
+export function K8sassetsDeploymentEnrichmentEntryToJSON(json: any): K8sassetsDeploymentEnrichmentEntry {
+    return K8sassetsDeploymentEnrichmentEntryToJSONTyped(json, false);
+}
+
+export function K8sassetsDeploymentEnrichmentEntryToJSONTyped(value?: K8sassetsDeploymentEnrichmentEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         deployment_id: value["deploymentId"],
         enrichment_data: K8sassetsDeploymentEnrichmentDataToJSON(value["enrichmentData"]),

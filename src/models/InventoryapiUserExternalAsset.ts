@@ -56,10 +56,15 @@ export function InventoryapiUserExternalAssetFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function InventoryapiUserExternalAssetToJSON(value?: InventoryapiUserExternalAsset | null): any {
+export function InventoryapiUserExternalAssetToJSON(json: any): InventoryapiUserExternalAsset {
+    return InventoryapiUserExternalAssetToJSONTyped(json, false);
+}
+
+export function InventoryapiUserExternalAssetToJSONTyped(value?: InventoryapiUserExternalAsset | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         value: value["value"],

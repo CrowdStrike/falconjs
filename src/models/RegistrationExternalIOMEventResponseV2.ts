@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationIOMEventV2 } from "./RegistrationIOMEventV2";
-import { RegistrationIOMEventV2FromJSON, RegistrationIOMEventV2FromJSONTyped, RegistrationIOMEventV2ToJSON } from "./RegistrationIOMEventV2";
+import { RegistrationIOMEventV2FromJSON, RegistrationIOMEventV2FromJSONTyped, RegistrationIOMEventV2ToJSON, RegistrationIOMEventV2ToJSONTyped } from "./RegistrationIOMEventV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function RegistrationExternalIOMEventResponseV2FromJSONTyped(json: any, i
     };
 }
 
-export function RegistrationExternalIOMEventResponseV2ToJSON(value?: RegistrationExternalIOMEventResponseV2 | null): any {
+export function RegistrationExternalIOMEventResponseV2ToJSON(json: any): RegistrationExternalIOMEventResponseV2 {
+    return RegistrationExternalIOMEventResponseV2ToJSONTyped(json, false);
+}
+
+export function RegistrationExternalIOMEventResponseV2ToJSONTyped(value?: RegistrationExternalIOMEventResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

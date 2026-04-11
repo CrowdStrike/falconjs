@@ -18,6 +18,7 @@ import {
     SourceDataTransactionResponseDtoUploadDataResponseFromJSON,
     SourceDataTransactionResponseDtoUploadDataResponseFromJSONTyped,
     SourceDataTransactionResponseDtoUploadDataResponseToJSON,
+    SourceDataTransactionResponseDtoUploadDataResponseToJSONTyped,
 } from "./SourceDataTransactionResponseDtoUploadDataResponse";
 
 /**
@@ -52,7 +53,7 @@ export interface DataTransactionResponseDtoUploadDataResponse {
     sources: Array<SourceDataTransactionResponseDtoUploadDataResponse>;
     /**
      *
-     * @type {string}
+     * @type {DataTransactionResponseDtoUploadDataResponseStatusEnum}
      * @memberof DataTransactionResponseDtoUploadDataResponse
      */
     status: DataTransactionResponseDtoUploadDataResponseStatusEnum;
@@ -100,14 +101,19 @@ export function DataTransactionResponseDtoUploadDataResponseFromJSONTyped(json: 
     };
 }
 
-export function DataTransactionResponseDtoUploadDataResponseToJSON(value?: DataTransactionResponseDtoUploadDataResponse | null): any {
+export function DataTransactionResponseDtoUploadDataResponseToJSON(json: any): DataTransactionResponseDtoUploadDataResponse {
+    return DataTransactionResponseDtoUploadDataResponseToJSONTyped(json, false);
+}
+
+export function DataTransactionResponseDtoUploadDataResponseToJSONTyped(value?: DataTransactionResponseDtoUploadDataResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_integration_id: value["accountIntegrationId"],
-        last_update: value["lastUpdate"] == null ? null : (value["lastUpdate"] as any).toISOString(),
+        last_update: value["lastUpdate"] == null ? value["lastUpdate"] : value["lastUpdate"].toISOString(),
         sources: (value["sources"] as Array<any>).map(SourceDataTransactionResponseDtoUploadDataResponseToJSON),
         status: value["status"],
     };

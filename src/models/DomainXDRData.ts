@@ -48,10 +48,15 @@ export function DomainXDRDataFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function DomainXDRDataToJSON(value?: DomainXDRData | null): any {
+export function DomainXDRDataToJSON(json: any): DomainXDRData {
+    return DomainXDRDataToJSONTyped(json, false);
+}
+
+export function DomainXDRDataToJSONTyped(value?: DomainXDRData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         detection_id: value["detectionId"],
     };

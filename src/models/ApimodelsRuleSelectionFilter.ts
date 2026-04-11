@@ -82,10 +82,15 @@ export function ApimodelsRuleSelectionFilterFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ApimodelsRuleSelectionFilterToJSON(value?: ApimodelsRuleSelectionFilter | null): any {
+export function ApimodelsRuleSelectionFilterToJSON(json: any): ApimodelsRuleSelectionFilter {
+    return ApimodelsRuleSelectionFilterToJSONTyped(json, false);
+}
+
+export function ApimodelsRuleSelectionFilterToJSONTyped(value?: ApimodelsRuleSelectionFilter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         rule_ids: value["ruleIds"],
         rule_names: value["ruleNames"],

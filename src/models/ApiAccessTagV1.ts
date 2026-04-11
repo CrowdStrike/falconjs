@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApiAccessTagTemplateBindingV1 } from "./ApiAccessTagTemplateBindingV1";
-import { ApiAccessTagTemplateBindingV1FromJSON, ApiAccessTagTemplateBindingV1FromJSONTyped, ApiAccessTagTemplateBindingV1ToJSON } from "./ApiAccessTagTemplateBindingV1";
+import {
+    ApiAccessTagTemplateBindingV1FromJSON,
+    ApiAccessTagTemplateBindingV1FromJSONTyped,
+    ApiAccessTagTemplateBindingV1ToJSON,
+    ApiAccessTagTemplateBindingV1ToJSONTyped,
+} from "./ApiAccessTagTemplateBindingV1";
 
 /**
  *
@@ -73,10 +78,15 @@ export function ApiAccessTagV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ApiAccessTagV1ToJSON(value?: ApiAccessTagV1 | null): any {
+export function ApiAccessTagV1ToJSON(json: any): ApiAccessTagV1 {
+    return ApiAccessTagV1ToJSONTyped(json, false);
+}
+
+export function ApiAccessTagV1ToJSONTyped(value?: ApiAccessTagV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         id: value["id"],

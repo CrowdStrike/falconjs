@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { TypesPaginate } from "./TypesPaginate";
-import { TypesPaginateFromJSON, TypesPaginateFromJSONTyped, TypesPaginateToJSON } from "./TypesPaginate";
+import { TypesPaginateFromJSON, TypesPaginateFromJSONTyped, TypesPaginateToJSON, TypesPaginateToJSONTyped } from "./TypesPaginate";
 import type { TypesQueryRequestSelectFields } from "./TypesQueryRequestSelectFields";
-import { TypesQueryRequestSelectFieldsFromJSON, TypesQueryRequestSelectFieldsFromJSONTyped, TypesQueryRequestSelectFieldsToJSON } from "./TypesQueryRequestSelectFields";
+import {
+    TypesQueryRequestSelectFieldsFromJSON,
+    TypesQueryRequestSelectFieldsFromJSONTyped,
+    TypesQueryRequestSelectFieldsToJSON,
+    TypesQueryRequestSelectFieldsToJSONTyped,
+} from "./TypesQueryRequestSelectFields";
 
 /**
  *
@@ -81,10 +86,15 @@ export function TypesQueryRequestFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function TypesQueryRequestToJSON(value?: TypesQueryRequest | null): any {
+export function TypesQueryRequestToJSON(json: any): TypesQueryRequest {
+    return TypesQueryRequestToJSONTyped(json, false);
+}
+
+export function TypesQueryRequestToJSONTyped(value?: TypesQueryRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         paginate: TypesPaginateToJSON(value["paginate"]),
         query: value["query"],

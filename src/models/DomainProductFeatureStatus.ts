@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { DomainOCIPermission } from "./DomainOCIPermission";
-import { DomainOCIPermissionFromJSON, DomainOCIPermissionFromJSONTyped, DomainOCIPermissionToJSON } from "./DomainOCIPermission";
+import { DomainOCIPermissionFromJSON, DomainOCIPermissionFromJSONTyped, DomainOCIPermissionToJSON, DomainOCIPermissionToJSONTyped } from "./DomainOCIPermission";
 import type { DomainProductFeatureStatusConditions } from "./DomainProductFeatureStatusConditions";
-import { DomainProductFeatureStatusConditionsFromJSON, DomainProductFeatureStatusConditionsFromJSONTyped, DomainProductFeatureStatusConditionsToJSON } from "./DomainProductFeatureStatusConditions";
+import {
+    DomainProductFeatureStatusConditionsFromJSON,
+    DomainProductFeatureStatusConditionsFromJSONTyped,
+    DomainProductFeatureStatusConditionsToJSON,
+    DomainProductFeatureStatusConditionsToJSONTyped,
+} from "./DomainProductFeatureStatusConditions";
 import type { DomainOCIIssue } from "./DomainOCIIssue";
-import { DomainOCIIssueFromJSON, DomainOCIIssueFromJSONTyped, DomainOCIIssueToJSON } from "./DomainOCIIssue";
+import { DomainOCIIssueFromJSON, DomainOCIIssueFromJSONTyped, DomainOCIIssueToJSON, DomainOCIIssueToJSONTyped } from "./DomainOCIIssue";
 
 /**
  *
@@ -110,10 +115,15 @@ export function DomainProductFeatureStatusFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainProductFeatureStatusToJSON(value?: DomainProductFeatureStatus | null): any {
+export function DomainProductFeatureStatusToJSON(json: any): DomainProductFeatureStatus {
+    return DomainProductFeatureStatusToJSONTyped(json, false);
+}
+
+export function DomainProductFeatureStatusToJSONTyped(value?: DomainProductFeatureStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         conditions: (value["conditions"] as Array<any>).map(DomainProductFeatureStatusConditionsToJSON),
         deployment_method: value["deploymentMethod"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAWSD4COrganizationAccountV1 } from "./DomainAWSD4COrganizationAccountV1";
-import { DomainAWSD4COrganizationAccountV1FromJSON, DomainAWSD4COrganizationAccountV1FromJSONTyped, DomainAWSD4COrganizationAccountV1ToJSON } from "./DomainAWSD4COrganizationAccountV1";
+import {
+    DomainAWSD4COrganizationAccountV1FromJSON,
+    DomainAWSD4COrganizationAccountV1FromJSONTyped,
+    DomainAWSD4COrganizationAccountV1ToJSON,
+    DomainAWSD4COrganizationAccountV1ToJSONTyped,
+} from "./DomainAWSD4COrganizationAccountV1";
 
 /**
  *
@@ -86,10 +91,15 @@ export function DomainAWSD4CAccountV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainAWSD4CAccountV1ToJSON(value?: DomainAWSD4CAccountV1 | null): any {
+export function DomainAWSD4CAccountV1ToJSON(json: any): DomainAWSD4CAccountV1 {
+    return DomainAWSD4CAccountV1ToJSONTyped(json, false);
+}
+
+export function DomainAWSD4CAccountV1ToJSONTyped(value?: DomainAWSD4CAccountV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         cid: value["cid"],

@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { PluginsonpremapiOnPremConfigureResponseResource } from "./PluginsonpremapiOnPremConfigureResponseResource";
 import {
     PluginsonpremapiOnPremConfigureResponseResourceFromJSON,
     PluginsonpremapiOnPremConfigureResponseResourceFromJSONTyped,
     PluginsonpremapiOnPremConfigureResponseResourceToJSON,
+    PluginsonpremapiOnPremConfigureResponseResourceToJSONTyped,
 } from "./PluginsonpremapiOnPremConfigureResponseResource";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function PluginsonpremapiOnPremConfigureResponseFromJSONTyped(json: any, 
     };
 }
 
-export function PluginsonpremapiOnPremConfigureResponseToJSON(value?: PluginsonpremapiOnPremConfigureResponse | null): any {
+export function PluginsonpremapiOnPremConfigureResponseToJSON(json: any): PluginsonpremapiOnPremConfigureResponse {
+    return PluginsonpremapiOnPremConfigureResponseToJSONTyped(json, false);
+}
+
+export function PluginsonpremapiOnPremConfigureResponseToJSONTyped(value?: PluginsonpremapiOnPremConfigureResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

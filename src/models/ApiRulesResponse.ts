@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiRuleV1 } from "./ApiRuleV1";
-import { ApiRuleV1FromJSON, ApiRuleV1FromJSONTyped, ApiRuleV1ToJSON } from "./ApiRuleV1";
+import { ApiRuleV1FromJSON, ApiRuleV1FromJSONTyped, ApiRuleV1ToJSON, ApiRuleV1ToJSONTyped } from "./ApiRuleV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiRulesResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiRulesResponseToJSON(value?: ApiRulesResponse | null): any {
+export function ApiRulesResponseToJSON(json: any): ApiRulesResponse {
+    return ApiRulesResponseToJSONTyped(json, false);
+}
+
+export function ApiRulesResponseToJSONTyped(value?: ApiRulesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

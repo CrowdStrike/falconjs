@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecPaging } from "./FwmgrMsaspecPaging";
-import { FwmgrMsaspecPagingFromJSON, FwmgrMsaspecPagingFromJSONTyped, FwmgrMsaspecPagingToJSON } from "./FwmgrMsaspecPaging";
+import { FwmgrMsaspecPagingFromJSON, FwmgrMsaspecPagingFromJSONTyped, FwmgrMsaspecPagingToJSON, FwmgrMsaspecPagingToJSONTyped } from "./FwmgrMsaspecPaging";
 import type { FwmgrMsaspecWrites } from "./FwmgrMsaspecWrites";
-import { FwmgrMsaspecWritesFromJSON, FwmgrMsaspecWritesFromJSONTyped, FwmgrMsaspecWritesToJSON } from "./FwmgrMsaspecWrites";
+import { FwmgrMsaspecWritesFromJSON, FwmgrMsaspecWritesFromJSONTyped, FwmgrMsaspecWritesToJSON, FwmgrMsaspecWritesToJSONTyped } from "./FwmgrMsaspecWrites";
 
 /**
  *
@@ -82,10 +82,15 @@ export function FwmgrMsaspecMetaInfoFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FwmgrMsaspecMetaInfoToJSON(value?: FwmgrMsaspecMetaInfo | null): any {
+export function FwmgrMsaspecMetaInfoToJSON(json: any): FwmgrMsaspecMetaInfo {
+    return FwmgrMsaspecMetaInfoToJSONTyped(json, false);
+}
+
+export function FwmgrMsaspecMetaInfoToJSONTyped(value?: FwmgrMsaspecMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: FwmgrMsaspecPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

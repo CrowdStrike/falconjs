@@ -56,10 +56,15 @@ export function NodemocksReferenceFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function NodemocksReferenceToJSON(value?: NodemocksReference | null): any {
+export function NodemocksReferenceToJSON(json: any): NodemocksReference {
+    return NodemocksReferenceToJSONTyped(json, false);
+}
+
+export function NodemocksReferenceToJSONTyped(value?: NodemocksReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enabled: value["enabled"],
         node_mock_id: value["nodeMockId"],

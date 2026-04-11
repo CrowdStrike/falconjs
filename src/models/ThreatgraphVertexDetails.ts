@@ -102,10 +102,15 @@ export function ThreatgraphVertexDetailsFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ThreatgraphVertexDetailsToJSON(value?: ThreatgraphVertexDetails | null): any {
+export function ThreatgraphVertexDetailsToJSON(json: any): ThreatgraphVertexDetails {
+    return ThreatgraphVertexDetailsToJSONTyped(json, false);
+}
+
+export function ThreatgraphVertexDetailsToJSONTyped(value?: ThreatgraphVertexDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer_id: value["customerId"],
         device_id: value["deviceId"],

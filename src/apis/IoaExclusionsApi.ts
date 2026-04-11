@@ -149,12 +149,9 @@ export interface IoaExclusionsApiUpdateIOAExclusionsV1Request {
  */
 export class IoaExclusionsApi extends runtime.BaseAPI {
     /**
-     * Create the IOA exclusions
+     * Creates request options for createIOAExclusionsV1 without sending the request
      */
-    async createIOAExclusionsV1Raw(
-        requestParameters: IoaExclusionsApiCreateIOAExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+    async createIOAExclusionsV1RequestOpts(requestParameters: IoaExclusionsApiCreateIOAExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createIOAExclusionsV1().');
         }
@@ -170,16 +167,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ioa-exclusions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: IoaExclusionsIoaExclusionCreateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ioa-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: IoaExclusionsIoaExclusionCreateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create the IOA exclusions
+     */
+    async createIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiCreateIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+        const requestOptions = await this.createIOAExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IoaExclusionsIoaExclusionsRespV1FromJSON(jsonValue));
     }
@@ -193,12 +200,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the IOA exclusions by id
+     * Creates request options for deleteIOAExclusionsV1 without sending the request
      */
-    async deleteIOAExclusionsV1Raw(
-        requestParameters: IoaExclusionsApiDeleteIOAExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteIOAExclusionsV1RequestOpts(requestParameters: IoaExclusionsApiDeleteIOAExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteIOAExclusionsV1().');
         }
@@ -220,15 +224,25 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ioa-exclusions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ioa-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the IOA exclusions by id
+     */
+    async deleteIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiDeleteIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deleteIOAExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -242,12 +256,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a set of IOA Exclusions by specifying their IDs
+     * Creates request options for getIOAExclusionsV1 without sending the request
      */
-    async getIOAExclusionsV1Raw(
-        requestParameters: IoaExclusionsApiGetIOAExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+    async getIOAExclusionsV1RequestOpts(requestParameters: IoaExclusionsApiGetIOAExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIOAExclusionsV1().');
         }
@@ -265,15 +276,25 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ioa-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ioa-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a set of IOA Exclusions by specifying their IDs
+     */
+    async getIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiGetIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+        const requestOptions = await this.getIOAExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IoaExclusionsIoaExclusionsRespV1FromJSON(jsonValue));
     }
@@ -287,12 +308,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for IOA exclusions.
+     * Creates request options for queryIOAExclusionsV1 without sending the request
      */
-    async queryIOAExclusionsV1Raw(
-        requestParameters: IoaExclusionsApiQueryIOAExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIOAExclusionsV1RequestOpts(requestParameters: IoaExclusionsApiQueryIOAExclusionsV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -326,15 +344,25 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/ioa-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/ioa-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for IOA exclusions.
+     */
+    async queryIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiQueryIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryIOAExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -356,12 +384,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Self Service IOA Exclusion aggregates as specified via json in the request body.
+     * Creates request options for ssIoaExclusionsAggregatesV2 without sending the request
      */
-    async ssIoaExclusionsAggregatesV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsAggregatesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async ssIoaExclusionsAggregatesV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsAggregatesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsAggregatesV2().');
         }
@@ -401,16 +426,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/aggregates/ss-ioa-exclusions/GET/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/aggregates/ss-ioa-exclusions/GET/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaAggregateQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get Self Service IOA Exclusion aggregates as specified via json in the request body.
+     */
+    async ssIoaExclusionsAggregatesV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsAggregatesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.ssIoaExclusionsAggregatesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -444,12 +479,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create new Self Service IOA Exclusions.
+     * Creates request options for ssIoaExclusionsCreateV2 without sending the request
      */
-    async ssIoaExclusionsCreateV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsCreateV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+    async ssIoaExclusionsCreateV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsCreateV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsCreateV2().');
         }
@@ -465,16 +497,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainSsIoaExclusionsCreateReqV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/ss-ioa-exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainSsIoaExclusionsCreateReqV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create new Self Service IOA Exclusions.
+     */
+    async ssIoaExclusionsCreateV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsCreateV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        const requestOptions = await this.ssIoaExclusionsCreateV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
     }
@@ -488,12 +530,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete the Self Service IOA Exclusions rule by id.
+     * Creates request options for ssIoaExclusionsDeleteV2 without sending the request
      */
-    async ssIoaExclusionsDeleteV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsDeleteV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+    async ssIoaExclusionsDeleteV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsDeleteV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling ssIoaExclusionsDeleteV2().');
         }
@@ -515,15 +554,25 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/ss-ioa-exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete the Self Service IOA Exclusions rule by id.
+     */
+    async ssIoaExclusionsDeleteV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsDeleteV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        const requestOptions = await this.ssIoaExclusionsDeleteV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
     }
@@ -537,12 +586,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a report of Self Service IOA Exclusions scoped by the given filters
+     * Creates request options for ssIoaExclusionsGetReportsV2 without sending the request
      */
-    async ssIoaExclusionsGetReportsV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsGetReportsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
+    async ssIoaExclusionsGetReportsV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsGetReportsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsGetReportsV2().');
         }
@@ -558,16 +604,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/ss-ioa-exclusions/reports/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainExclusionsReportRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/ss-ioa-exclusions/reports/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainExclusionsReportRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a report of Self Service IOA Exclusions scoped by the given filters
+     */
+    async ssIoaExclusionsGetReportsV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsGetReportsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.ssIoaExclusionsGetReportsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -580,12 +636,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the Self Service IOA Exclusions rules by id.
+     * Creates request options for ssIoaExclusionsGetV2 without sending the request
      */
-    async ssIoaExclusionsGetV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+    async ssIoaExclusionsGetV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling ssIoaExclusionsGetV2().');
         }
@@ -603,15 +656,25 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/ss-ioa-exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the Self Service IOA Exclusions rules by id.
+     */
+    async ssIoaExclusionsGetV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        const requestOptions = await this.ssIoaExclusionsGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
     }
@@ -625,12 +688,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Self Service IOA Exclusions rules for matched IFN/CLI for child, parent and grandparent
+     * Creates request options for ssIoaExclusionsMatchedRuleV2 without sending the request
      */
-    async ssIoaExclusionsMatchedRuleV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsMatchedRuleV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+    async ssIoaExclusionsMatchedRuleV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsMatchedRuleV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsMatchedRuleV2().');
         }
@@ -646,16 +706,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/ss-ioa-matched-rules/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainSsIoaExclusionsMatchedRuleReqV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/ss-ioa-matched-rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainSsIoaExclusionsMatchedRuleReqV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get Self Service IOA Exclusions rules for matched IFN/CLI for child, parent and grandparent
+     */
+    async ssIoaExclusionsMatchedRuleV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsMatchedRuleV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        const requestOptions = await this.ssIoaExclusionsMatchedRuleV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
     }
@@ -669,12 +739,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get defaults for Self Service IOA Exclusions based on provided IFN/CLI for child, parent and grandparent.
+     * Creates request options for ssIoaExclusionsNewRulesV2 without sending the request
      */
-    async ssIoaExclusionsNewRulesV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsNewRulesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsNewRuleRespV2>> {
+    async ssIoaExclusionsNewRulesV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsNewRulesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsNewRulesV2().');
         }
@@ -690,16 +757,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/ss-ioa-new-rules/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainSsIoaExclusionsNewRuleReqV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/ss-ioa-new-rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainSsIoaExclusionsNewRuleReqV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get defaults for Self Service IOA Exclusions based on provided IFN/CLI for child, parent and grandparent.
+     */
+    async ssIoaExclusionsNewRulesV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsNewRulesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsNewRuleRespV2>> {
+        const requestOptions = await this.ssIoaExclusionsNewRulesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsNewRuleRespV2FromJSON(jsonValue));
     }
@@ -713,12 +790,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Self Service IOA Exclusions.
+     * Creates request options for ssIoaExclusionsSearchV2 without sending the request
      */
-    async ssIoaExclusionsSearchV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsSearchV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async ssIoaExclusionsSearchV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsSearchV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -768,15 +842,25 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/queries/ss-ioa-exclusions/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/queries/ss-ioa-exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Self Service IOA Exclusions.
+     */
+    async ssIoaExclusionsSearchV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsSearchV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.ssIoaExclusionsSearchV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -816,12 +900,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the Self Service IOA Exclusions rule by id.
+     * Creates request options for ssIoaExclusionsUpdateV2 without sending the request
      */
-    async ssIoaExclusionsUpdateV2Raw(
-        requestParameters: IoaExclusionsApiSsIoaExclusionsUpdateV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+    async ssIoaExclusionsUpdateV2RequestOpts(requestParameters: IoaExclusionsApiSsIoaExclusionsUpdateV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling ssIoaExclusionsUpdateV2().');
         }
@@ -837,16 +918,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/exclusions/entities/ss-ioa-exclusions/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainSsIoaExclusionsUpdateReqV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/exclusions/entities/ss-ioa-exclusions/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainSsIoaExclusionsUpdateReqV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the Self Service IOA Exclusions rule by id.
+     */
+    async ssIoaExclusionsUpdateV2Raw(
+        requestParameters: IoaExclusionsApiSsIoaExclusionsUpdateV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSsIoaExclusionsRespV2>> {
+        const requestOptions = await this.ssIoaExclusionsUpdateV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSsIoaExclusionsRespV2FromJSON(jsonValue));
     }
@@ -860,12 +951,9 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update the IOA exclusions
+     * Creates request options for updateIOAExclusionsV1 without sending the request
      */
-    async updateIOAExclusionsV1Raw(
-        requestParameters: IoaExclusionsApiUpdateIOAExclusionsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+    async updateIOAExclusionsV1RequestOpts(requestParameters: IoaExclusionsApiUpdateIOAExclusionsV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateIOAExclusionsV1().');
         }
@@ -881,16 +969,26 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/ioa-exclusions/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: IoaExclusionsIoaExclusionUpdateReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/ioa-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: IoaExclusionsIoaExclusionUpdateReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update the IOA exclusions
+     */
+    async updateIOAExclusionsV1Raw(
+        requestParameters: IoaExclusionsApiUpdateIOAExclusionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<IoaExclusionsIoaExclusionsRespV1>> {
+        const requestOptions = await this.updateIOAExclusionsV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => IoaExclusionsIoaExclusionsRespV1FromJSON(jsonValue));
     }

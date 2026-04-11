@@ -64,10 +64,15 @@ export function DomainSpotlightParamsFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainSpotlightParamsToJSON(value?: DomainSpotlightParams | null): any {
+export function DomainSpotlightParamsToJSON(json: any): DomainSpotlightParams {
+    return DomainSpotlightParamsToJSONTyped(json, false);
+}
+
+export function DomainSpotlightParamsToJSONTyped(value?: DomainSpotlightParams | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         template_fields: value["templateFields"],
         template_name: value["templateName"],

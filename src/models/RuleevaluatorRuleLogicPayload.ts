@@ -55,10 +55,15 @@ export function RuleevaluatorRuleLogicPayloadFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function RuleevaluatorRuleLogicPayloadToJSON(value?: RuleevaluatorRuleLogicPayload | null): any {
+export function RuleevaluatorRuleLogicPayloadToJSON(json: any): RuleevaluatorRuleLogicPayload {
+    return RuleevaluatorRuleLogicPayloadToJSONTyped(json, false);
+}
+
+export function RuleevaluatorRuleLogicPayloadToJSONTyped(value?: RuleevaluatorRuleLogicPayload | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         input: value["input"],
         logic: value["logic"],

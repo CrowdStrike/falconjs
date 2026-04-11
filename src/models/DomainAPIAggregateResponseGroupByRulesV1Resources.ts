@@ -18,6 +18,7 @@ import {
     DomainAPIAggregationGroupByRulesResultV1FromJSON,
     DomainAPIAggregationGroupByRulesResultV1FromJSONTyped,
     DomainAPIAggregationGroupByRulesResultV1ToJSON,
+    DomainAPIAggregationGroupByRulesResultV1ToJSONTyped,
 } from "./DomainAPIAggregationGroupByRulesResultV1";
 
 /**
@@ -63,10 +64,15 @@ export function DomainAPIAggregateResponseGroupByRulesV1ResourcesFromJSONTyped(j
     };
 }
 
-export function DomainAPIAggregateResponseGroupByRulesV1ResourcesToJSON(value?: DomainAPIAggregateResponseGroupByRulesV1Resources | null): any {
+export function DomainAPIAggregateResponseGroupByRulesV1ResourcesToJSON(json: any): DomainAPIAggregateResponseGroupByRulesV1Resources {
+    return DomainAPIAggregateResponseGroupByRulesV1ResourcesToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseGroupByRulesV1ResourcesToJSONTyped(value?: DomainAPIAggregateResponseGroupByRulesV1Resources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(DomainAPIAggregationGroupByRulesResultV1ToJSON),
         name: value["name"],

@@ -55,10 +55,15 @@ export function ErrorGetActivityMonitorFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ErrorGetActivityMonitorToJSON(value?: ErrorGetActivityMonitor | null): any {
+export function ErrorGetActivityMonitorToJSON(json: any): ErrorGetActivityMonitor {
+    return ErrorGetActivityMonitorToJSONTyped(json, false);
+}
+
+export function ErrorGetActivityMonitorToJSONTyped(value?: ErrorGetActivityMonitor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

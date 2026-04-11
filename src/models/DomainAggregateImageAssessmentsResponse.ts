@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainComplianceFindingsGroupedByImagesWithScroll } from "./DomainComplianceFindingsGroupedByImagesWithScroll";
 import {
     DomainComplianceFindingsGroupedByImagesWithScrollFromJSON,
     DomainComplianceFindingsGroupedByImagesWithScrollFromJSONTyped,
     DomainComplianceFindingsGroupedByImagesWithScrollToJSON,
+    DomainComplianceFindingsGroupedByImagesWithScrollToJSONTyped,
 } from "./DomainComplianceFindingsGroupedByImagesWithScroll";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainAggregateImageAssessmentsResponseFromJSONTyped(json: any, 
     };
 }
 
-export function DomainAggregateImageAssessmentsResponseToJSON(value?: DomainAggregateImageAssessmentsResponse | null): any {
+export function DomainAggregateImageAssessmentsResponseToJSON(json: any): DomainAggregateImageAssessmentsResponse {
+    return DomainAggregateImageAssessmentsResponseToJSONTyped(json, false);
+}
+
+export function DomainAggregateImageAssessmentsResponseToJSONTyped(value?: DomainAggregateImageAssessmentsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

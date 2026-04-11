@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MsaPaging } from "./MsaPaging";
-import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON } from "./MsaPaging";
+import { MsaPagingFromJSON, MsaPagingFromJSONTyped, MsaPagingToJSON, MsaPagingToJSONTyped } from "./MsaPaging";
 
 /**
  *
@@ -50,10 +50,15 @@ export function DomainMsaMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainMsaMetaInfoToJSON(value?: DomainMsaMetaInfo | null): any {
+export function DomainMsaMetaInfoToJSON(json: any): DomainMsaMetaInfo {
+    return DomainMsaMetaInfoToJSONTyped(json, false);
+}
+
+export function DomainMsaMetaInfoToJSONTyped(value?: DomainMsaMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: MsaPagingToJSON(value["pagination"]),
     };

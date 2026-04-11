@@ -14,13 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { QuickscanproFileUploadResource } from "./QuickscanproFileUploadResource";
-import { QuickscanproFileUploadResourceFromJSON, QuickscanproFileUploadResourceFromJSONTyped, QuickscanproFileUploadResourceToJSON } from "./QuickscanproFileUploadResource";
+import {
+    QuickscanproFileUploadResourceFromJSON,
+    QuickscanproFileUploadResourceFromJSONTyped,
+    QuickscanproFileUploadResourceToJSON,
+    QuickscanproFileUploadResourceToJSONTyped,
+} from "./QuickscanproFileUploadResource";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { QuickscanproQuotaResource } from "./QuickscanproQuotaResource";
-import { QuickscanproQuotaResourceFromJSON, QuickscanproQuotaResourceFromJSONTyped, QuickscanproQuotaResourceToJSON } from "./QuickscanproQuotaResource";
+import { QuickscanproQuotaResourceFromJSON, QuickscanproQuotaResourceFromJSONTyped, QuickscanproQuotaResourceToJSON, QuickscanproQuotaResourceToJSONTyped } from "./QuickscanproQuotaResource";
 import type { QuickscanproMetaInfo } from "./QuickscanproMetaInfo";
-import { QuickscanproMetaInfoFromJSON, QuickscanproMetaInfoFromJSONTyped, QuickscanproMetaInfoToJSON } from "./QuickscanproMetaInfo";
+import { QuickscanproMetaInfoFromJSON, QuickscanproMetaInfoFromJSONTyped, QuickscanproMetaInfoToJSON, QuickscanproMetaInfoToJSONTyped } from "./QuickscanproMetaInfo";
 
 /**
  *
@@ -79,10 +84,15 @@ export function QuickscanproFileUploadResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function QuickscanproFileUploadResponseToJSON(value?: QuickscanproFileUploadResponse | null): any {
+export function QuickscanproFileUploadResponseToJSON(json: any): QuickscanproFileUploadResponse {
+    return QuickscanproFileUploadResponseToJSONTyped(json, false);
+}
+
+export function QuickscanproFileUploadResponseToJSONTyped(value?: QuickscanproFileUploadResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: QuickscanproMetaInfoToJSON(value["meta"]),

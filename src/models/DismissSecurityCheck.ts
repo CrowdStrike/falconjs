@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ErrorDismissSecurityCheck } from "./ErrorDismissSecurityCheck";
-import { ErrorDismissSecurityCheckFromJSON, ErrorDismissSecurityCheckFromJSONTyped, ErrorDismissSecurityCheckToJSON } from "./ErrorDismissSecurityCheck";
+import { ErrorDismissSecurityCheckFromJSON, ErrorDismissSecurityCheckFromJSONTyped, ErrorDismissSecurityCheckToJSON, ErrorDismissSecurityCheckToJSONTyped } from "./ErrorDismissSecurityCheck";
 import type { MetaDismissSecurityCheck } from "./MetaDismissSecurityCheck";
-import { MetaDismissSecurityCheckFromJSON, MetaDismissSecurityCheckFromJSONTyped, MetaDismissSecurityCheckToJSON } from "./MetaDismissSecurityCheck";
+import { MetaDismissSecurityCheckFromJSON, MetaDismissSecurityCheckFromJSONTyped, MetaDismissSecurityCheckToJSON, MetaDismissSecurityCheckToJSONTyped } from "./MetaDismissSecurityCheck";
 
 /**
  *
@@ -66,10 +66,15 @@ export function DismissSecurityCheckFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DismissSecurityCheckToJSON(value?: DismissSecurityCheck | null): any {
+export function DismissSecurityCheckToJSON(json: any): DismissSecurityCheck {
+    return DismissSecurityCheckToJSONTyped(json, false);
+}
+
+export function DismissSecurityCheckToJSONTyped(value?: DismissSecurityCheck | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorDismissSecurityCheckToJSON),
         meta: MetaDismissSecurityCheckToJSON(value["meta"]),

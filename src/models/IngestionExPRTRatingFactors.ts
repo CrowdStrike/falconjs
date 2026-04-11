@@ -72,10 +72,15 @@ export function IngestionExPRTRatingFactorsFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function IngestionExPRTRatingFactorsToJSON(value?: IngestionExPRTRatingFactors | null): any {
+export function IngestionExPRTRatingFactorsToJSON(json: any): IngestionExPRTRatingFactors {
+    return IngestionExPRTRatingFactorsToJSONTyped(json, false);
+}
+
+export function IngestionExPRTRatingFactorsToJSONTyped(value?: IngestionExPRTRatingFactors | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         factor: value["factor"],

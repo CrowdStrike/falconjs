@@ -72,10 +72,15 @@ export function ApiQueryJobAroundInputFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ApiQueryJobAroundInputToJSON(value?: ApiQueryJobAroundInput | null): any {
+export function ApiQueryJobAroundInputToJSON(json: any): ApiQueryJobAroundInput {
+    return ApiQueryJobAroundInputToJSONTyped(json, false);
+}
+
+export function ApiQueryJobAroundInputToJSONTyped(value?: ApiQueryJobAroundInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         eventId: value["eventId"],
         numberOfEventsAfter: value["numberOfEventsAfter"],

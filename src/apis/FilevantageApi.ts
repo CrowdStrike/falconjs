@@ -248,10 +248,9 @@ export interface FilevantageApiUpdateScheduledExclusionsRequest {
  */
 export class FilevantageApi extends runtime.BaseAPI {
     /**
-     * After they are created, host and rule groups can be assigned, scheduled exclusions can be defined, and policy precedence can be set.
-     * Creates a new policy of the specified type. New policies are always added at the end of the precedence list for the provided policy type.
+     * Creates request options for createPolicies without sending the request
      */
-    async createPoliciesRaw(requestParameters: FilevantageApiCreatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+    async createPoliciesRequestOpts(requestParameters: FilevantageApiCreatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPolicies().');
         }
@@ -267,16 +266,24 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policies/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PoliciesCreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PoliciesCreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * After they are created, host and rule groups can be assigned, scheduled exclusions can be defined, and policy precedence can be set.
+     * Creates a new policy of the specified type. New policies are always added at the end of the precedence list for the provided policy type.
+     */
+    async createPoliciesRaw(requestParameters: FilevantageApiCreatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        const requestOptions = await this.createPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
     }
@@ -291,10 +298,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Individual rules can be assigned to a rule group after it has been created.
-     * Creates a new rule group of the specified type.
+     * Creates request options for createRuleGroups without sending the request
      */
-    async createRuleGroupsRaw(requestParameters: FilevantageApiCreateRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+    async createRuleGroupsRequestOpts(requestParameters: FilevantageApiCreateRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRuleGroups().');
         }
@@ -310,16 +316,24 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RulegroupsCreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RulegroupsCreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Individual rules can be assigned to a rule group after it has been created.
+     * Creates a new rule group of the specified type.
+     */
+    async createRuleGroupsRaw(requestParameters: FilevantageApiCreateRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        const requestOptions = await this.createRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
     }
@@ -334,10 +348,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new rule configuration within the specified rule group.
-     * Creates a new rule configuration within the specified rule group.
+     * Creates request options for createRules without sending the request
      */
-    async createRulesRaw(requestParameters: FilevantageApiCreateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+    async createRulesRequestOpts(requestParameters: FilevantageApiCreateRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRules().');
         }
@@ -353,16 +366,24 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups-rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RulegroupsRuleToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RulegroupsRuleToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new rule configuration within the specified rule group.
+     * Creates a new rule configuration within the specified rule group.
+     */
+    async createRulesRaw(requestParameters: FilevantageApiCreateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+        const requestOptions = await this.createRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsRulesResponseFromJSON(jsonValue));
     }
@@ -377,13 +398,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a new scheduled exclusion configuration for the provided policy id.
-     * Creates a new scheduled exclusion configuration for the provided policy id.
+     * Creates request options for createScheduledExclusions without sending the request
      */
-    async createScheduledExclusionsRaw(
-        requestParameters: FilevantageApiCreateScheduledExclusionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+    async createScheduledExclusionsRequestOpts(requestParameters: FilevantageApiCreateScheduledExclusionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createScheduledExclusions().');
         }
@@ -399,16 +416,27 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ScheduledexclusionsCreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policy-scheduled-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ScheduledexclusionsCreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new scheduled exclusion configuration for the provided policy id.
+     * Creates a new scheduled exclusion configuration for the provided policy id.
+     */
+    async createScheduledExclusionsRaw(
+        requestParameters: FilevantageApiCreateScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+        const requestOptions = await this.createScheduledExclusionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScheduledexclusionsResponseFromJSON(jsonValue));
     }
@@ -423,10 +451,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Only disabled policies are allowed to be deleted.
-     * Deletes 1 or more policies.
+     * Creates request options for deletePolicies without sending the request
      */
-    async deletePoliciesRaw(requestParameters: FilevantageApiDeletePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesDeleteResponse>> {
+    async deletePoliciesRequestOpts(requestParameters: FilevantageApiDeletePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deletePolicies().');
         }
@@ -444,15 +471,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policies/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Only disabled policies are allowed to be deleted.
+     * Deletes 1 or more policies.
+     */
+    async deletePoliciesRaw(requestParameters: FilevantageApiDeletePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesDeleteResponse>> {
+        const requestOptions = await this.deletePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesDeleteResponseFromJSON(jsonValue));
     }
@@ -467,13 +502,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * The rule groups represented by the provided ids and all rules that they contain will be deleted.   Rule groups can only be deleted if they are not assigned to a policy.
-     * Deletes 1 or more rule groups
+     * Creates request options for deleteRuleGroups without sending the request
      */
-    async deleteRuleGroupsRaw(
-        requestParameters: FilevantageApiDeleteRuleGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RulegroupsDeleteResponse>> {
+    async deleteRuleGroupsRequestOpts(requestParameters: FilevantageApiDeleteRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRuleGroups().');
         }
@@ -491,15 +522,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The rule groups represented by the provided ids and all rules that they contain will be deleted.   Rule groups can only be deleted if they are not assigned to a policy.
+     * Deletes 1 or more rule groups
+     */
+    async deleteRuleGroupsRaw(
+        requestParameters: FilevantageApiDeleteRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RulegroupsDeleteResponse>> {
+        const requestOptions = await this.deleteRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsDeleteResponseFromJSON(jsonValue));
     }
@@ -514,10 +556,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rules that match a provided id will be deleted from the provided rule group id.
-     * Deletes 1 or more rules from the specified rule group.
+     * Creates request options for deleteRules without sending the request
      */
-    async deleteRulesRaw(requestParameters: FilevantageApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async deleteRulesRequestOpts(requestParameters: FilevantageApiDeleteRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ruleGroupId"] == null) {
             throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling deleteRules().');
         }
@@ -543,15 +584,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups-rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Rules that match a provided id will be deleted from the provided rule group id.
+     * Deletes 1 or more rules from the specified rule group.
+     */
+    async deleteRulesRaw(requestParameters: FilevantageApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.deleteRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -566,13 +615,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Scheduled exclusions that match a provided id will be deleted from the provided policy id.
-     * Deletes 1 or more scheduled exclusions from the provided policy id.
+     * Creates request options for deleteScheduledExclusions without sending the request
      */
-    async deleteScheduledExclusionsRaw(
-        requestParameters: FilevantageApiDeleteScheduledExclusionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async deleteScheduledExclusionsRequestOpts(requestParameters: FilevantageApiDeleteScheduledExclusionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling deleteScheduledExclusions().');
         }
@@ -598,15 +643,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policy-scheduled-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Scheduled exclusions that match a provided id will be deleted from the provided policy id.
+     * Deletes 1 or more scheduled exclusions from the provided policy id.
+     */
+    async deleteScheduledExclusionsRaw(
+        requestParameters: FilevantageApiDeleteScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.deleteScheduledExclusionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -621,13 +677,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * The processing results of each action that match the provided ids will be returned.
-     * Retrieves the processing results for 1 or more actions.
+     * Creates request options for getActionsMixin0 without sending the request
      */
-    async getActionsMixin0Raw(
-        requestParameters: FilevantageApiGetActionsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ActionsGetActionResponse>> {
+    async getActionsMixin0RequestOpts(requestParameters: FilevantageApiGetActionsMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getActionsMixin0().');
         }
@@ -645,15 +697,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/actions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The processing results of each action that match the provided ids will be returned.
+     * Retrieves the processing results for 1 or more actions.
+     */
+    async getActionsMixin0Raw(
+        requestParameters: FilevantageApiGetActionsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ActionsGetActionResponse>> {
+        const requestOptions = await this.getActionsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActionsGetActionResponseFromJSON(jsonValue));
     }
@@ -668,10 +731,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve key attributes of Falcon FileVantage changes for the specified ids.
-     * Retrieve information on changes
+     * Creates request options for getChanges without sending the request
      */
-    async getChangesRaw(requestParameters: FilevantageApiGetChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PublicGetChangesResponse>> {
+    async getChangesRequestOpts(requestParameters: FilevantageApiGetChangesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getChanges().');
         }
@@ -689,15 +751,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/changes/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/changes/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve key attributes of Falcon FileVantage changes for the specified ids.
+     * Retrieve information on changes
+     */
+    async getChangesRaw(requestParameters: FilevantageApiGetChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PublicGetChangesResponse>> {
+        const requestOptions = await this.getChangesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PublicGetChangesResponseFromJSON(jsonValue));
     }
@@ -712,13 +782,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the before and after change content for the provided change id.
-     * Retrieves the content captured for the provided change id
+     * Creates request options for getContents without sending the request
      */
-    async getContentsRaw(
-        requestParameters: FilevantageApiGetContentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ContentchangesChangeContentsResponse>> {
+    async getContentsRequestOpts(requestParameters: FilevantageApiGetContentsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getContents().');
         }
@@ -740,15 +806,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim-content:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/change-content/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/change-content/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the before and after change content for the provided change id.
+     * Retrieves the content captured for the provided change id
+     */
+    async getContentsRaw(
+        requestParameters: FilevantageApiGetContentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ContentchangesChangeContentsResponse>> {
+        const requestOptions = await this.getContentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContentchangesChangeContentsResponseFromJSON(jsonValue));
     }
@@ -763,10 +840,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * The configuration of each policy that match the provided id will be returned.
-     * Retrieves the configuration for 1 or more policies.
+     * Creates request options for getPolicies without sending the request
      */
-    async getPoliciesRaw(requestParameters: FilevantageApiGetPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+    async getPoliciesRequestOpts(requestParameters: FilevantageApiGetPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPolicies().');
         }
@@ -784,15 +860,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policies/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The configuration of each policy that match the provided id will be returned.
+     * Retrieves the configuration for 1 or more policies.
+     */
+    async getPoliciesRaw(requestParameters: FilevantageApiGetPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        const requestOptions = await this.getPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
     }
@@ -807,10 +891,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Full details of each rule group that matches a provided id will be returned in the response
-     * Retrieves the rule group details for 1 or more rule groups.
+     * Creates request options for getRuleGroups without sending the request
      */
-    async getRuleGroupsRaw(requestParameters: FilevantageApiGetRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+    async getRuleGroupsRequestOpts(requestParameters: FilevantageApiGetRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleGroups().');
         }
@@ -828,15 +911,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Full details of each rule group that matches a provided id will be returned in the response
+     * Retrieves the rule group details for 1 or more rule groups.
+     */
+    async getRuleGroupsRaw(requestParameters: FilevantageApiGetRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        const requestOptions = await this.getRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
     }
@@ -851,10 +942,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rules within the provided rule group id that match a provided id will be returned within the response.
-     * Retrieves the configuration for 1 or more rules.
+     * Creates request options for getRules without sending the request
      */
-    async getRulesRaw(requestParameters: FilevantageApiGetRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+    async getRulesRequestOpts(requestParameters: FilevantageApiGetRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ruleGroupId"] == null) {
             throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling getRules().');
         }
@@ -880,15 +970,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups-rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Rules within the provided rule group id that match a provided id will be returned within the response.
+     * Retrieves the configuration for 1 or more rules.
+     */
+    async getRulesRaw(requestParameters: FilevantageApiGetRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+        const requestOptions = await this.getRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsRulesResponseFromJSON(jsonValue));
     }
@@ -903,13 +1001,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Full details of each each scheduled exclusion that match a provided id will be returned in the response.
-     * Retrieves the configuration of 1 or more scheduled exclusions from the provided policy id.
+     * Creates request options for getScheduledExclusions without sending the request
      */
-    async getScheduledExclusionsRaw(
-        requestParameters: FilevantageApiGetScheduledExclusionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+    async getScheduledExclusionsRequestOpts(requestParameters: FilevantageApiGetScheduledExclusionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling getScheduledExclusions().');
         }
@@ -935,15 +1029,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policy-scheduled-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Full details of each each scheduled exclusion that match a provided id will be returned in the response.
+     * Retrieves the configuration of 1 or more scheduled exclusions from the provided policy id.
+     */
+    async getScheduledExclusionsRaw(
+        requestParameters: FilevantageApiGetScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+        const requestOptions = await this.getScheduledExclusionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScheduledexclusionsResponseFromJSON(jsonValue));
     }
@@ -958,13 +1063,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. It can retrieve an unlimited number of results using multiple requests.
-     * Returns 1 or more change ids
+     * Creates request options for highVolumeQueryChanges without sending the request
      */
-    async highVolumeQueryChangesRaw(
-        requestParameters: FilevantageApiHighVolumeQueryChangesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ChangesHighVolumeQueryResponse>> {
+    async highVolumeQueryChangesRequestOpts(requestParameters: FilevantageApiHighVolumeQueryChangesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["after"] != null) {
@@ -990,15 +1091,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/queries/changes/v3`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/queries/changes/v3`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. It can retrieve an unlimited number of results using multiple requests.
+     * Returns 1 or more change ids
+     */
+    async highVolumeQueryChangesRaw(
+        requestParameters: FilevantageApiHighVolumeQueryChangesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ChangesHighVolumeQueryResponse>> {
+        const requestOptions = await this.highVolumeQueryChangesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ChangesHighVolumeQueryResponseFromJSON(jsonValue));
     }
@@ -1013,13 +1125,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the list of action ids filtered, sorted, and limited to the query parameters provided.
-     * Returns one or more action ids
+     * Creates request options for queryActionsMixin0 without sending the request
      */
-    async queryActionsMixin0Raw(
-        requestParameters: FilevantageApiQueryActionsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryActionsMixin0RequestOpts(requestParameters: FilevantageApiQueryActionsMixin0Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1045,15 +1153,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/queries/actions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/queries/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the list of action ids filtered, sorted, and limited to the query parameters provided.
+     * Returns one or more action ids
+     */
+    async queryActionsMixin0Raw(
+        requestParameters: FilevantageApiQueryActionsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryActionsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1068,10 +1187,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. Using this endpoint you can retrieve up to `10000` results by using pagination with multiple requests. If you need to retrieve more than `10000` results consider using the `/queries/changes/v3` endpoint
-     * Returns 1 or more change ids
+     * Creates request options for queryChanges without sending the request
      */
-    async queryChangesRaw(requestParameters: FilevantageApiQueryChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryChangesRequestOpts(requestParameters: FilevantageApiQueryChangesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1097,15 +1215,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/queries/changes/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/queries/changes/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns a list of Falcon FileVantage change ids filtered, sorted and limited by the query parameters provided. Using this endpoint you can retrieve up to `10000` results by using pagination with multiple requests. If you need to retrieve more than `10000` results consider using the `/queries/changes/v3` endpoint
+     * Returns 1 or more change ids
+     */
+    async queryChangesRaw(requestParameters: FilevantageApiQueryChangesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryChangesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1120,10 +1246,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Policy ids will be returned sorted by a `precedence` order of ascending when a `sort` parameter is not provided.
-     * Retrieve the ids of all policies that are assigned the provided policy type.
+     * Creates request options for queryPolicies without sending the request
      */
-    async queryPoliciesRaw(requestParameters: FilevantageApiQueryPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryPoliciesRequestOpts(requestParameters: FilevantageApiQueryPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling queryPolicies().');
         }
@@ -1153,15 +1278,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/queries/policies/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/queries/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Policy ids will be returned sorted by a `precedence` order of ascending when a `sort` parameter is not provided.
+     * Retrieve the ids of all policies that are assigned the provided policy type.
+     */
+    async queryPoliciesRaw(requestParameters: FilevantageApiQueryPoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1176,10 +1309,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rule group ids will be returned sorted by `created_timestamp` order if a `sort` parameter is not provided
-     * Retrieve the ids of all rule groups that are of the provided rule group type.
+     * Creates request options for queryRuleGroups without sending the request
      */
-    async queryRuleGroupsRaw(requestParameters: FilevantageApiQueryRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryRuleGroupsRequestOpts(requestParameters: FilevantageApiQueryRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling queryRuleGroups().');
         }
@@ -1209,15 +1341,23 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/queries/rule-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/queries/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Rule group ids will be returned sorted by `created_timestamp` order if a `sort` parameter is not provided
+     * Retrieve the ids of all rule groups that are of the provided rule group type.
+     */
+    async queryRuleGroupsRaw(requestParameters: FilevantageApiQueryRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1232,13 +1372,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve the ids of all scheduled exclusions contained within the provided policy id
-     * Retrieve the ids of all scheduled exclusions contained within the provided policy id.
+     * Creates request options for queryScheduledExclusions without sending the request
      */
-    async queryScheduledExclusionsRaw(
-        requestParameters: FilevantageApiQueryScheduledExclusionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryScheduledExclusionsRequestOpts(requestParameters: FilevantageApiQueryScheduledExclusionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling queryScheduledExclusions().');
         }
@@ -1256,15 +1392,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/queries/policy-scheduled-exclusions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/queries/policy-scheduled-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve the ids of all scheduled exclusions contained within the provided policy id
+     * Retrieve the ids of all scheduled exclusions contained within the provided policy id.
+     */
+    async queryScheduledExclusionsRaw(
+        requestParameters: FilevantageApiQueryScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryScheduledExclusionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1279,13 +1426,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Provides the ability to initiate workflows for the specified change ids. Only 100 change ids can be provided per workflow request.
-     * Initiates workflows for the provided change ids
+     * Creates request options for signalChangesExternal without sending the request
      */
-    async signalChangesExternalRaw(
-        requestParameters: FilevantageApiSignalChangesExternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<WorkflowResponse>> {
+    async signalChangesExternalRequestOpts(requestParameters: FilevantageApiSignalChangesExternalRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling signalChangesExternal().');
         }
@@ -1301,16 +1444,27 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/workflow/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: WorkflowRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/workflow/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: WorkflowRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Provides the ability to initiate workflows for the specified change ids. Only 100 change ids can be provided per workflow request.
+     * Initiates workflows for the provided change ids
+     */
+    async signalChangesExternalRaw(
+        requestParameters: FilevantageApiSignalChangesExternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<WorkflowResponse>> {
+        const requestOptions = await this.signalChangesExternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkflowResponseFromJSON(jsonValue));
     }
@@ -1325,10 +1479,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Initiates the suppression, unsuppression, or purging of the provided change ids. Note that only 1 action may be initiated and active at a time.
-     * Initiates the specified action on the provided change ids
+     * Creates request options for startActions without sending the request
      */
-    async startActionsRaw(requestParameters: FilevantageApiStartActionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ActionsActionResponse>> {
+    async startActionsRequestOpts(requestParameters: FilevantageApiStartActionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling startActions().');
         }
@@ -1344,16 +1497,24 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ActionsCreateActionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ActionsCreateActionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Initiates the suppression, unsuppression, or purging of the provided change ids. Note that only 1 action may be initiated and active at a time.
+     * Initiates the specified action on the provided change ids
+     */
+    async startActionsRaw(requestParameters: FilevantageApiStartActionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ActionsActionResponse>> {
+        const requestOptions = await this.startActionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActionsActionResponseFromJSON(jsonValue));
     }
@@ -1368,10 +1529,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Only name, description, and enabled status of the policy is allowed to be update. Rule and host group assignment is performed via their respective patch end points.
-     * Updates the general information of the provided policy.
+     * Creates request options for updatePolicies without sending the request
      */
-    async updatePoliciesRaw(requestParameters: FilevantageApiUpdatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+    async updatePoliciesRequestOpts(requestParameters: FilevantageApiUpdatePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePolicies().');
         }
@@ -1387,16 +1547,24 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policies/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: PoliciesUpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policies/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: PoliciesUpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Only name, description, and enabled status of the policy is allowed to be update. Rule and host group assignment is performed via their respective patch end points.
+     * Updates the general information of the provided policy.
+     */
+    async updatePoliciesRaw(requestParameters: FilevantageApiUpdatePoliciesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        const requestOptions = await this.updatePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
     }
@@ -1411,13 +1579,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Manage host groups assigned to a policy.
-     * Manage host groups assigned to a policy.
+     * Creates request options for updatePolicyHostGroups without sending the request
      */
-    async updatePolicyHostGroupsRaw(
-        requestParameters: FilevantageApiUpdatePolicyHostGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PoliciesResponse>> {
+    async updatePolicyHostGroupsRequestOpts(requestParameters: FilevantageApiUpdatePolicyHostGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling updatePolicyHostGroups().');
         }
@@ -1451,15 +1615,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policies-host-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policies-host-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Manage host groups assigned to a policy.
+     * Manage host groups assigned to a policy.
+     */
+    async updatePolicyHostGroupsRaw(
+        requestParameters: FilevantageApiUpdatePolicyHostGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        const requestOptions = await this.updatePolicyHostGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
     }
@@ -1474,13 +1649,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requests that do not represent all ids of the provided policy type will not be processed.
-     * Updates the policy precedence for all policies of a specific type.
+     * Creates request options for updatePolicyPrecedence without sending the request
      */
-    async updatePolicyPrecedenceRaw(
-        requestParameters: FilevantageApiUpdatePolicyPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PoliciesPrecedenceResponse>> {
+    async updatePolicyPrecedenceRequestOpts(requestParameters: FilevantageApiUpdatePolicyPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updatePolicyPrecedence().');
         }
@@ -1506,15 +1677,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policies-precedence/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policies-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Requests that do not represent all ids of the provided policy type will not be processed.
+     * Updates the policy precedence for all policies of a specific type.
+     */
+    async updatePolicyPrecedenceRaw(
+        requestParameters: FilevantageApiUpdatePolicyPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PoliciesPrecedenceResponse>> {
+        const requestOptions = await this.updatePolicyPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesPrecedenceResponseFromJSON(jsonValue));
     }
@@ -1529,13 +1711,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Manage the rule groups assigned to the policy.   Rule groups must be of the same type as the policy they are being added:   * `WindowsRegistry` and `WindowsFiles` groups can only be added to a `Windows` policy.   * `LinuxFiles` groups can only be added to a `Linux` policy.   * `MacFiles` groups can only be added to a `Mac` policy.  When setting rule group precedence, the precedence for `all` rule group ids within the policy must be provided.
-     * Manage the rule groups assigned to the policy or set the rule group precedence for all rule groups within the policy.
+     * Creates request options for updatePolicyRuleGroups without sending the request
      */
-    async updatePolicyRuleGroupsRaw(
-        requestParameters: FilevantageApiUpdatePolicyRuleGroupsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<PoliciesResponse>> {
+    async updatePolicyRuleGroupsRequestOpts(requestParameters: FilevantageApiUpdatePolicyRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["policyId"] == null) {
             throw new runtime.RequiredError("policyId", 'Required parameter "policyId" was null or undefined when calling updatePolicyRuleGroups().');
         }
@@ -1569,15 +1747,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policies-rule-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policies-rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Manage the rule groups assigned to the policy.   Rule groups must be of the same type as the policy they are being added:   * `WindowsRegistry` and `WindowsFiles` groups can only be added to a `Windows` policy.   * `LinuxFiles` groups can only be added to a `Linux` policy.   * `MacFiles` groups can only be added to a `Mac` policy.  When setting rule group precedence, the precedence for `all` rule group ids within the policy must be provided.
+     * Manage the rule groups assigned to the policy or set the rule group precedence for all rule groups within the policy.
+     */
+    async updatePolicyRuleGroupsRaw(
+        requestParameters: FilevantageApiUpdatePolicyRuleGroupsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<PoliciesResponse>> {
+        const requestOptions = await this.updatePolicyRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PoliciesResponseFromJSON(jsonValue));
     }
@@ -1592,13 +1781,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * The ids for `all` rules contained within the rule group must be specified in the desired precedence order. Requests that do not represent all ids will not be processed.
-     * Updates the rule precedence for all rules in the identified rule group.
+     * Creates request options for updateRuleGroupPrecedence without sending the request
      */
-    async updateRuleGroupPrecedenceRaw(
-        requestParameters: FilevantageApiUpdateRuleGroupPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+    async updateRuleGroupPrecedenceRequestOpts(requestParameters: FilevantageApiUpdateRuleGroupPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ruleGroupId"] == null) {
             throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling updateRuleGroupPrecedence().');
         }
@@ -1624,15 +1809,26 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups-rule-precedence/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups-rule-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * The ids for `all` rules contained within the rule group must be specified in the desired precedence order. Requests that do not represent all ids will not be processed.
+     * Updates the rule precedence for all rules in the identified rule group.
+     */
+    async updateRuleGroupPrecedenceRaw(
+        requestParameters: FilevantageApiUpdateRuleGroupPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        const requestOptions = await this.updateRuleGroupPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
     }
@@ -1647,10 +1843,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Provides the ability to update the name and description of the rule group.
-     * Updates the provided rule group.
+     * Creates request options for updateRuleGroups without sending the request
      */
-    async updateRuleGroupsRaw(requestParameters: FilevantageApiUpdateRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+    async updateRuleGroupsRequestOpts(requestParameters: FilevantageApiUpdateRuleGroupsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRuleGroups().');
         }
@@ -1666,16 +1861,24 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RulegroupsUpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RulegroupsUpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Provides the ability to update the name and description of the rule group.
+     * Updates the provided rule group.
+     */
+    async updateRuleGroupsRaw(requestParameters: FilevantageApiUpdateRuleGroupsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsResponse>> {
+        const requestOptions = await this.updateRuleGroupsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsResponseFromJSON(jsonValue));
     }
@@ -1690,10 +1893,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * The rule must currently exist within the specified rule group.
-     * Updates the provided rule configuration within the specified rule group.
+     * Creates request options for updateRules without sending the request
      */
-    async updateRulesRaw(requestParameters: FilevantageApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+    async updateRulesRequestOpts(requestParameters: FilevantageApiUpdateRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRules().');
         }
@@ -1709,16 +1911,24 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/rule-groups-rules/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RulegroupsRuleToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/rule-groups-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RulegroupsRuleToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * The rule must currently exist within the specified rule group.
+     * Updates the provided rule configuration within the specified rule group.
+     */
+    async updateRulesRaw(requestParameters: FilevantageApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<RulegroupsRulesResponse>> {
+        const requestOptions = await this.updateRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RulegroupsRulesResponseFromJSON(jsonValue));
     }
@@ -1733,13 +1943,9 @@ export class FilevantageApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates the provided scheduled exclusion configuration within the provided policy.
-     * Updates the provided scheduled exclusion configuration within the provided policy.
+     * Creates request options for updateScheduledExclusions without sending the request
      */
-    async updateScheduledExclusionsRaw(
-        requestParameters: FilevantageApiUpdateScheduledExclusionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+    async updateScheduledExclusionsRequestOpts(requestParameters: FilevantageApiUpdateScheduledExclusionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateScheduledExclusions().');
         }
@@ -1755,16 +1961,27 @@ export class FilevantageApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["fim:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/filevantage/entities/policy-scheduled-exclusions/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ScheduledexclusionsUpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/filevantage/entities/policy-scheduled-exclusions/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ScheduledexclusionsUpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates the provided scheduled exclusion configuration within the provided policy.
+     * Updates the provided scheduled exclusion configuration within the provided policy.
+     */
+    async updateScheduledExclusionsRaw(
+        requestParameters: FilevantageApiUpdateScheduledExclusionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ScheduledexclusionsResponse>> {
+        const requestOptions = await this.updateScheduledExclusionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ScheduledexclusionsResponseFromJSON(jsonValue));
     }

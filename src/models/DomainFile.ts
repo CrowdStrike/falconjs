@@ -56,10 +56,15 @@ export function DomainFileFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainFileToJSON(value?: DomainFile | null): any {
+export function DomainFileToJSON(json: any): DomainFile {
+    return DomainFileToJSONTyped(json, false);
+}
+
+export function DomainFileToJSONTyped(value?: DomainFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         url: value["url"],

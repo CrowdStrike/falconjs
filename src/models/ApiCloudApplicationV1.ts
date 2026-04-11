@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiWebAppURL } from "./ApiWebAppURL";
-import { ApiWebAppURLFromJSON, ApiWebAppURLFromJSONTyped, ApiWebAppURLToJSON } from "./ApiWebAppURL";
+import { ApiWebAppURLFromJSON, ApiWebAppURLFromJSONTyped, ApiWebAppURLToJSON, ApiWebAppURLToJSONTyped } from "./ApiWebAppURL";
 
 /**
  *
@@ -124,19 +124,24 @@ export function ApiCloudApplicationV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiCloudApplicationV1ToJSON(value?: ApiCloudApplicationV1 | null): any {
+export function ApiCloudApplicationV1ToJSON(json: any): ApiCloudApplicationV1 {
+    return ApiCloudApplicationV1ToJSONTyped(json, false);
+}
+
+export function ApiCloudApplicationV1ToJSONTyped(value?: ApiCloudApplicationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         app_group_id: value["appGroupId"],
         app_tier: value["appTier"],
         cid: value["cid"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         deleted: value["deleted"],
         description: value["description"],
         id: value["id"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         name: value["name"],
         plugin_definition_id: value["pluginDefinitionId"],
         urls: (value["urls"] as Array<any>).map(ApiWebAppURLToJSON),

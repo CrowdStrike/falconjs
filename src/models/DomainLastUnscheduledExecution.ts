@@ -72,10 +72,15 @@ export function DomainLastUnscheduledExecutionFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainLastUnscheduledExecutionToJSON(value?: DomainLastUnscheduledExecution | null): any {
+export function DomainLastUnscheduledExecutionToJSON(json: any): DomainLastUnscheduledExecution {
+    return DomainLastUnscheduledExecutionToJSONTyped(json, false);
+}
+
+export function DomainLastUnscheduledExecutionToJSONTyped(value?: DomainLastUnscheduledExecution | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         activity_status: value["activityStatus"],
         id: value["id"],

@@ -89,16 +89,21 @@ export function DetectionAggregateIndicatorFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DetectionAggregateIndicatorToJSON(value?: DetectionAggregateIndicator | null): any {
+export function DetectionAggregateIndicatorToJSON(json: any): DetectionAggregateIndicator {
+    return DetectionAggregateIndicatorToJSONTyped(json, false);
+}
+
+export function DetectionAggregateIndicatorToJSONTyped(value?: DetectionAggregateIndicator | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actors: value["actors"],
-        first_seen: value["firstSeen"] == null ? undefined : value["firstSeen"].toISOString(),
+        first_seen: value["firstSeen"] == null ? value["firstSeen"] : value["firstSeen"].toISOString(),
         malicious_ip: value["maliciousIp"],
         malware_families: value["malwareFamilies"],
-        modified_at: value["modifiedAt"] == null ? undefined : value["modifiedAt"].toISOString(),
+        modified_at: value["modifiedAt"] == null ? value["modifiedAt"] : value["modifiedAt"].toISOString(),
         type: value["type"],
         value: value["value"],
     };

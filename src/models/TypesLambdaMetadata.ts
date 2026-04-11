@@ -54,10 +54,15 @@ export function TypesLambdaMetadataFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function TypesLambdaMetadataToJSON(value?: TypesLambdaMetadata | null): any {
+export function TypesLambdaMetadataToJSON(json: any): TypesLambdaMetadata {
+    return TypesLambdaMetadataToJSONTyped(json, false);
+}
+
+export function TypesLambdaMetadataToJSONTyped(value?: TypesLambdaMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         lambdaArn: value["lambdaArn"],
         lambdaName: value["lambdaName"],

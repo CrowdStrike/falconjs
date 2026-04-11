@@ -82,10 +82,15 @@ export function TypesConfigurationFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TypesConfigurationToJSON(value?: TypesConfiguration | null): any {
+export function TypesConfigurationToJSON(json: any): TypesConfiguration {
+    return TypesConfigurationToJSONTyped(json, false);
+}
+
+export function TypesConfigurationToJSONTyped(value?: TypesConfiguration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         address: value["address"],
         id: value["id"],

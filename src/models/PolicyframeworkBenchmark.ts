@@ -63,10 +63,15 @@ export function PolicyframeworkBenchmarkFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function PolicyframeworkBenchmarkToJSON(value?: PolicyframeworkBenchmark | null): any {
+export function PolicyframeworkBenchmarkToJSON(json: any): PolicyframeworkBenchmark {
+    return PolicyframeworkBenchmarkToJSONTyped(json, false);
+}
+
+export function PolicyframeworkBenchmarkToJSONTyped(value?: PolicyframeworkBenchmark | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

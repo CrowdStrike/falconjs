@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceapiNetworkAddressV1 } from "./DeviceapiNetworkAddressV1";
-import { DeviceapiNetworkAddressV1FromJSON, DeviceapiNetworkAddressV1FromJSONTyped, DeviceapiNetworkAddressV1ToJSON } from "./DeviceapiNetworkAddressV1";
+import { DeviceapiNetworkAddressV1FromJSON, DeviceapiNetworkAddressV1FromJSONTyped, DeviceapiNetworkAddressV1ToJSON, DeviceapiNetworkAddressV1ToJSONTyped } from "./DeviceapiNetworkAddressV1";
 
 /**
  *
@@ -67,10 +67,15 @@ export function DeviceapiNetworkAddressHistoryV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DeviceapiNetworkAddressHistoryV1ToJSON(value?: DeviceapiNetworkAddressHistoryV1 | null): any {
+export function DeviceapiNetworkAddressHistoryV1ToJSON(json: any): DeviceapiNetworkAddressHistoryV1 {
+    return DeviceapiNetworkAddressHistoryV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiNetworkAddressHistoryV1ToJSONTyped(value?: DeviceapiNetworkAddressHistoryV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         device_id: value["deviceId"],

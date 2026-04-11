@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ErrorGetAffected } from "./ErrorGetAffected";
-import { ErrorGetAffectedFromJSON, ErrorGetAffectedFromJSONTyped, ErrorGetAffectedToJSON } from "./ErrorGetAffected";
+import { ErrorGetAffectedFromJSON, ErrorGetAffectedFromJSONTyped, ErrorGetAffectedToJSON, ErrorGetAffectedToJSONTyped } from "./ErrorGetAffected";
 import type { AffectedEntityGetAffected } from "./AffectedEntityGetAffected";
-import { AffectedEntityGetAffectedFromJSON, AffectedEntityGetAffectedFromJSONTyped, AffectedEntityGetAffectedToJSON } from "./AffectedEntityGetAffected";
+import { AffectedEntityGetAffectedFromJSON, AffectedEntityGetAffectedFromJSONTyped, AffectedEntityGetAffectedToJSON, AffectedEntityGetAffectedToJSONTyped } from "./AffectedEntityGetAffected";
 import type { MetaGetAffected } from "./MetaGetAffected";
-import { MetaGetAffectedFromJSON, MetaGetAffectedFromJSONTyped, MetaGetAffectedToJSON } from "./MetaGetAffected";
+import { MetaGetAffectedFromJSON, MetaGetAffectedFromJSONTyped, MetaGetAffectedToJSON, MetaGetAffectedToJSONTyped } from "./MetaGetAffected";
 
 /**
  *
@@ -68,10 +68,15 @@ export function GetAffectedFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function GetAffectedToJSON(value?: GetAffected | null): any {
+export function GetAffectedToJSON(json: any): GetAffected {
+    return GetAffectedToJSONTyped(json, false);
+}
+
+export function GetAffectedToJSONTyped(value?: GetAffected | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetAffectedToJSON),
         meta: MetaGetAffectedToJSON(value["meta"]),

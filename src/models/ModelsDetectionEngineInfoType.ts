@@ -64,10 +64,15 @@ export function ModelsDetectionEngineInfoTypeFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsDetectionEngineInfoTypeToJSON(value?: ModelsDetectionEngineInfoType | null): any {
+export function ModelsDetectionEngineInfoTypeToJSON(json: any): ModelsDetectionEngineInfoType {
+    return ModelsDetectionEngineInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsDetectionEngineInfoTypeToJSONTyped(value?: ModelsDetectionEngineInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ApkStaticVersion: value["apkStaticVersion"],
         EngineVersion: value["engineVersion"],

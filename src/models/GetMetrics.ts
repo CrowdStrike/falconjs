@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { ErrorGetMetrics } from "./ErrorGetMetrics";
-import { ErrorGetMetricsFromJSON, ErrorGetMetricsFromJSONTyped, ErrorGetMetricsToJSON } from "./ErrorGetMetrics";
+import { ErrorGetMetricsFromJSON, ErrorGetMetricsFromJSONTyped, ErrorGetMetricsToJSON, ErrorGetMetricsToJSONTyped } from "./ErrorGetMetrics";
 import type { MetaGetMetrics } from "./MetaGetMetrics";
-import { MetaGetMetricsFromJSON, MetaGetMetricsFromJSONTyped, MetaGetMetricsToJSON } from "./MetaGetMetrics";
+import { MetaGetMetricsFromJSON, MetaGetMetricsFromJSONTyped, MetaGetMetricsToJSON, MetaGetMetricsToJSONTyped } from "./MetaGetMetrics";
 import type { SecurityCheckMetricsGetMetrics } from "./SecurityCheckMetricsGetMetrics";
-import { SecurityCheckMetricsGetMetricsFromJSON, SecurityCheckMetricsGetMetricsFromJSONTyped, SecurityCheckMetricsGetMetricsToJSON } from "./SecurityCheckMetricsGetMetrics";
+import {
+    SecurityCheckMetricsGetMetricsFromJSON,
+    SecurityCheckMetricsGetMetricsFromJSONTyped,
+    SecurityCheckMetricsGetMetricsToJSON,
+    SecurityCheckMetricsGetMetricsToJSONTyped,
+} from "./SecurityCheckMetricsGetMetrics";
 
 /**
  *
@@ -68,10 +73,15 @@ export function GetMetricsFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function GetMetricsToJSON(value?: GetMetrics | null): any {
+export function GetMetricsToJSON(json: any): GetMetrics {
+    return GetMetricsToJSONTyped(json, false);
+}
+
+export function GetMetricsToJSONTyped(value?: GetMetrics | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetMetricsToJSON),
         meta: MetaGetMetricsToJSON(value["meta"]),

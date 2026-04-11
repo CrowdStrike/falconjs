@@ -56,10 +56,15 @@ export function DomainBatchRefreshSessionRequestFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainBatchRefreshSessionRequestToJSON(value?: DomainBatchRefreshSessionRequest | null): any {
+export function DomainBatchRefreshSessionRequestToJSON(json: any): DomainBatchRefreshSessionRequest {
+    return DomainBatchRefreshSessionRequestToJSONTyped(json, false);
+}
+
+export function DomainBatchRefreshSessionRequestToJSONTyped(value?: DomainBatchRefreshSessionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         batch_id: value["batchId"],
         hosts_to_remove: value["hostsToRemove"],

@@ -54,10 +54,15 @@ export function TypesQueryResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TypesQueryResponseToJSON(value?: TypesQueryResponse | null): any {
+export function TypesQueryResponseToJSON(json: any): TypesQueryResponse {
+    return TypesQueryResponseToJSONTyped(json, false);
+}
+
+export function TypesQueryResponseToJSONTyped(value?: TypesQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resultJSON: value["resultJSON"],
         resultType: value["resultType"],

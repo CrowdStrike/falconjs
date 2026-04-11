@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MetaGetUserInventory } from "./MetaGetUserInventory";
-import { MetaGetUserInventoryFromJSON, MetaGetUserInventoryFromJSONTyped, MetaGetUserInventoryToJSON } from "./MetaGetUserInventory";
+import { MetaGetUserInventoryFromJSON, MetaGetUserInventoryFromJSONTyped, MetaGetUserInventoryToJSON, MetaGetUserInventoryToJSONTyped } from "./MetaGetUserInventory";
 import type { ErrorGetUserInventory } from "./ErrorGetUserInventory";
-import { ErrorGetUserInventoryFromJSON, ErrorGetUserInventoryFromJSONTyped, ErrorGetUserInventoryToJSON } from "./ErrorGetUserInventory";
+import { ErrorGetUserInventoryFromJSON, ErrorGetUserInventoryFromJSONTyped, ErrorGetUserInventoryToJSON, ErrorGetUserInventoryToJSONTyped } from "./ErrorGetUserInventory";
 import type { UserGetUserInventory } from "./UserGetUserInventory";
-import { UserGetUserInventoryFromJSON, UserGetUserInventoryFromJSONTyped, UserGetUserInventoryToJSON } from "./UserGetUserInventory";
+import { UserGetUserInventoryFromJSON, UserGetUserInventoryFromJSONTyped, UserGetUserInventoryToJSON, UserGetUserInventoryToJSONTyped } from "./UserGetUserInventory";
 
 /**
  *
@@ -68,10 +68,15 @@ export function GetUserInventoryFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function GetUserInventoryToJSON(value?: GetUserInventory | null): any {
+export function GetUserInventoryToJSON(json: any): GetUserInventory {
+    return GetUserInventoryToJSONTyped(json, false);
+}
+
+export function GetUserInventoryToJSONTyped(value?: GetUserInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetUserInventoryToJSON),
         meta: MetaGetUserInventoryToJSON(value["meta"]),

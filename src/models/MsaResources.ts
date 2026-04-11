@@ -48,10 +48,15 @@ export function MsaResourcesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function MsaResourcesToJSON(value?: MsaResources | null): any {
+export function MsaResourcesToJSON(json: any): MsaResources {
+    return MsaResourcesToJSONTyped(json, false);
+}
+
+export function MsaResourcesToJSONTyped(value?: MsaResources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources_affected: value["resourcesAffected"],
     };

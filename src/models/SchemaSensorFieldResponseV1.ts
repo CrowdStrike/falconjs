@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { SchemaSensorField } from "./SchemaSensorField";
-import { SchemaSensorFieldFromJSON, SchemaSensorFieldFromJSONTyped, SchemaSensorFieldToJSON } from "./SchemaSensorField";
+import { SchemaSensorFieldFromJSON, SchemaSensorFieldFromJSONTyped, SchemaSensorFieldToJSON, SchemaSensorFieldToJSONTyped } from "./SchemaSensorField";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function SchemaSensorFieldResponseV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function SchemaSensorFieldResponseV1ToJSON(value?: SchemaSensorFieldResponseV1 | null): any {
+export function SchemaSensorFieldResponseV1ToJSON(json: any): SchemaSensorFieldResponseV1 {
+    return SchemaSensorFieldResponseV1ToJSONTyped(json, false);
+}
+
+export function SchemaSensorFieldResponseV1ToJSONTyped(value?: SchemaSensorFieldResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

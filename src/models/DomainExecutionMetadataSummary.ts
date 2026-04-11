@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainXDRData } from "./DomainXDRData";
-import { DomainXDRDataFromJSON, DomainXDRDataFromJSONTyped, DomainXDRDataToJSON } from "./DomainXDRData";
+import { DomainXDRDataFromJSON, DomainXDRDataFromJSONTyped, DomainXDRDataToJSON, DomainXDRDataToJSONTyped } from "./DomainXDRData";
 import type { DomainXDRParams } from "./DomainXDRParams";
-import { DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON } from "./DomainXDRParams";
+import { DomainXDRParamsFromJSON, DomainXDRParamsFromJSONTyped, DomainXDRParamsToJSON, DomainXDRParamsToJSONTyped } from "./DomainXDRParams";
 import type { DomainReportParams } from "./DomainReportParams";
-import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
+import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON, DomainReportParamsToJSONTyped } from "./DomainReportParams";
 
 /**
  *
@@ -87,10 +87,15 @@ export function DomainExecutionMetadataSummaryFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainExecutionMetadataSummaryToJSON(value?: DomainExecutionMetadataSummary | null): any {
+export function DomainExecutionMetadataSummaryToJSON(json: any): DomainExecutionMetadataSummary {
+    return DomainExecutionMetadataSummaryToJSONTyped(json, false);
+}
+
+export function DomainExecutionMetadataSummaryToJSONTyped(value?: DomainExecutionMetadataSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         report_params: DomainReportParamsToJSON(value["reportParams"]),
         subtype: value["subtype"],

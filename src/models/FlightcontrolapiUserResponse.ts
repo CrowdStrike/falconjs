@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainUser } from "./DomainUser";
-import { DomainUserFromJSON, DomainUserFromJSONTyped, DomainUserToJSON } from "./DomainUser";
+import { DomainUserFromJSON, DomainUserFromJSONTyped, DomainUserToJSON, DomainUserToJSONTyped } from "./DomainUser";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FlightcontrolapiUserResponseFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function FlightcontrolapiUserResponseToJSON(value?: FlightcontrolapiUserResponse | null): any {
+export function FlightcontrolapiUserResponseToJSON(json: any): FlightcontrolapiUserResponse {
+    return FlightcontrolapiUserResponseToJSONTyped(json, false);
+}
+
+export function FlightcontrolapiUserResponseToJSONTyped(value?: FlightcontrolapiUserResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

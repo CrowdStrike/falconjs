@@ -53,12 +53,9 @@ export interface UnidentifiedContainersApiSearchRequest {
  */
 export class UnidentifiedContainersApi extends runtime.BaseAPI {
     /**
-     * Returns the total count of Unidentified Containers over a time period
+     * Creates request options for count without sending the request
      */
-    async countRaw(
-        requestParameters: UnidentifiedContainersApiCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<UnidentifiedcontainersUnidentifiedContainersCountValue>> {
+    async countRequestOpts(requestParameters: UnidentifiedContainersApiCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -72,15 +69,25 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/unidentified-containers/count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/unidentified-containers/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the total count of Unidentified Containers over a time period
+     */
+    async countRaw(
+        requestParameters: UnidentifiedContainersApiCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<UnidentifiedcontainersUnidentifiedContainersCountValue>> {
+        const requestOptions = await this.countRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UnidentifiedcontainersUnidentifiedContainersCountValueFromJSON(jsonValue));
     }
@@ -94,12 +101,9 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Returns the count of Unidentified Containers over the last 7 days
+     * Creates request options for countByDateRange without sending the request
      */
-    async countByDateRangeRaw(
-        requestParameters: UnidentifiedContainersApiCountByDateRangeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+    async countByDateRangeRequestOpts(requestParameters: UnidentifiedContainersApiCountByDateRangeRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -113,15 +117,25 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/unidentified-containers/count-by-date/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/unidentified-containers/count-by-date/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Returns the count of Unidentified Containers over the last 7 days
+     */
+    async countByDateRangeRaw(
+        requestParameters: UnidentifiedContainersApiCountByDateRangeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsAggregateValuesByFieldResponse>> {
+        const requestOptions = await this.countByDateRangeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsAggregateValuesByFieldResponseFromJSON(jsonValue));
     }
@@ -135,12 +149,9 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Unidentified Containers by the provided search criteria
+     * Creates request options for search without sending the request
      */
-    async searchRaw(
-        requestParameters: UnidentifiedContainersApiSearchRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<UnidentifiedcontainersUnidentifiedContainerAPIResponse>> {
+    async searchRequestOpts(requestParameters: UnidentifiedContainersApiSearchRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -166,15 +177,25 @@ export class UnidentifiedContainersApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/unidentified-containers/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/unidentified-containers/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Unidentified Containers by the provided search criteria
+     */
+    async searchRaw(
+        requestParameters: UnidentifiedContainersApiSearchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<UnidentifiedcontainersUnidentifiedContainerAPIResponse>> {
+        const requestOptions = await this.searchRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UnidentifiedcontainersUnidentifiedContainerAPIResponseFromJSON(jsonValue));
     }

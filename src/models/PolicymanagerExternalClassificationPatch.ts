@@ -18,6 +18,7 @@ import {
     PolicymanagerExternalClassificationPropertiesFromJSON,
     PolicymanagerExternalClassificationPropertiesFromJSONTyped,
     PolicymanagerExternalClassificationPropertiesToJSON,
+    PolicymanagerExternalClassificationPropertiesToJSONTyped,
 } from "./PolicymanagerExternalClassificationProperties";
 
 /**
@@ -70,10 +71,15 @@ export function PolicymanagerExternalClassificationPatchFromJSONTyped(json: any,
     };
 }
 
-export function PolicymanagerExternalClassificationPatchToJSON(value?: PolicymanagerExternalClassificationPatch | null): any {
+export function PolicymanagerExternalClassificationPatchToJSON(json: any): PolicymanagerExternalClassificationPatch {
+    return PolicymanagerExternalClassificationPatchToJSONTyped(json, false);
+}
+
+export function PolicymanagerExternalClassificationPatchToJSONTyped(value?: PolicymanagerExternalClassificationPatch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classification_properties: PolicymanagerExternalClassificationPropertiesToJSON(value["classificationProperties"]),
         id: value["id"],

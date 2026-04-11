@@ -212,10 +212,15 @@ export function EmpowerapiFalconScriptFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function EmpowerapiFalconScriptToJSON(value?: EmpowerapiFalconScript | null): any {
+export function EmpowerapiFalconScriptToJSON(json: any): EmpowerapiFalconScript {
+    return EmpowerapiFalconScriptToJSONTyped(json, false);
+}
+
+export function EmpowerapiFalconScriptToJSONTyped(value?: EmpowerapiFalconScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_roles: value["accessRoles"],
         categories: value["categories"],

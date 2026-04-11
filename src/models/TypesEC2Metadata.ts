@@ -54,10 +54,15 @@ export function TypesEC2MetadataFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function TypesEC2MetadataToJSON(value?: TypesEC2Metadata | null): any {
+export function TypesEC2MetadataToJSON(json: any): TypesEC2Metadata {
+    return TypesEC2MetadataToJSONTyped(json, false);
+}
+
+export function TypesEC2MetadataToJSONTyped(value?: TypesEC2Metadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         instance_id: value["instanceId"],
         instance_name: value["instanceName"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIAggregateTopFailedImagesV1 } from "./DomainAPIAggregateTopFailedImagesV1";
-import { DomainAPIAggregateTopFailedImagesV1FromJSON, DomainAPIAggregateTopFailedImagesV1FromJSONTyped, DomainAPIAggregateTopFailedImagesV1ToJSON } from "./DomainAPIAggregateTopFailedImagesV1";
+import {
+    DomainAPIAggregateTopFailedImagesV1FromJSON,
+    DomainAPIAggregateTopFailedImagesV1FromJSONTyped,
+    DomainAPIAggregateTopFailedImagesV1ToJSON,
+    DomainAPIAggregateTopFailedImagesV1ToJSONTyped,
+} from "./DomainAPIAggregateTopFailedImagesV1";
 
 /**
  *
@@ -59,10 +64,15 @@ export function DomainAPIAggregateResponseTopFailedImagesV1ResourcesFromJSONType
     };
 }
 
-export function DomainAPIAggregateResponseTopFailedImagesV1ResourcesToJSON(value?: DomainAPIAggregateResponseTopFailedImagesV1Resources | null): any {
+export function DomainAPIAggregateResponseTopFailedImagesV1ResourcesToJSON(json: any): DomainAPIAggregateResponseTopFailedImagesV1Resources {
+    return DomainAPIAggregateResponseTopFailedImagesV1ResourcesToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseTopFailedImagesV1ResourcesToJSONTyped(value?: DomainAPIAggregateResponseTopFailedImagesV1Resources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(DomainAPIAggregateTopFailedImagesV1ToJSON),
         name: value["name"],

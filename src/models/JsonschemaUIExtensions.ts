@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaDurationOption } from "./JsonschemaDurationOption";
-import { JsonschemaDurationOptionFromJSON, JsonschemaDurationOptionFromJSONTyped, JsonschemaDurationOptionToJSON } from "./JsonschemaDurationOption";
+import { JsonschemaDurationOptionFromJSON, JsonschemaDurationOptionFromJSONTyped, JsonschemaDurationOptionToJSON, JsonschemaDurationOptionToJSONTyped } from "./JsonschemaDurationOption";
 import type { JsonschemaStatement } from "./JsonschemaStatement";
-import { JsonschemaStatementFromJSON, JsonschemaStatementFromJSONTyped, JsonschemaStatementToJSON } from "./JsonschemaStatement";
+import { JsonschemaStatementFromJSON, JsonschemaStatementFromJSONTyped, JsonschemaStatementToJSON, JsonschemaStatementToJSONTyped } from "./JsonschemaStatement";
 import type { JsonschemaMeta } from "./JsonschemaMeta";
-import { JsonschemaMetaFromJSON, JsonschemaMetaFromJSONTyped, JsonschemaMetaToJSON } from "./JsonschemaMeta";
+import { JsonschemaMetaFromJSON, JsonschemaMetaFromJSONTyped, JsonschemaMetaToJSON, JsonschemaMetaToJSONTyped } from "./JsonschemaMeta";
 
 /**
  *
@@ -152,10 +152,15 @@ export function JsonschemaUIExtensionsFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function JsonschemaUIExtensionsToJSON(value?: JsonschemaUIExtensions | null): any {
+export function JsonschemaUIExtensionsToJSON(json: any): JsonschemaUIExtensions {
+    return JsonschemaUIExtensionsToJSONTyped(json, false);
+}
+
+export function JsonschemaUIExtensionsToJSONTyped(value?: JsonschemaUIExtensions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accept: value["accept"],
         component: value["component"],

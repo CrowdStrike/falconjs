@@ -97,10 +97,15 @@ export function ModelsApplicationLibraryFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ModelsApplicationLibraryToJSON(value?: ModelsApplicationLibrary | null): any {
+export function ModelsApplicationLibraryToJSON(json: any): ModelsApplicationLibrary {
+    return ModelsApplicationLibraryToJSONTyped(json, false);
+}
+
+export function ModelsApplicationLibraryToJSONTyped(value?: ModelsApplicationLibrary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Hash: value["hash"],
         LayerHash: value["layerHash"],

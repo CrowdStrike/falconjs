@@ -224,12 +224,9 @@ export interface IntelApiQueryVulnerabilitiesRequest {
  */
 export class IntelApi extends runtime.BaseAPI {
     /**
-     * Retrieve specific actors using their actor IDs.
+     * Creates request options for getIntelActorEntities without sending the request
      */
-    async getIntelActorEntitiesRaw(
-        requestParameters: IntelApiGetIntelActorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+    async getIntelActorEntitiesRequestOpts(requestParameters: IntelApiGetIntelActorEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelActorEntities().');
         }
@@ -251,15 +248,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/actors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/actors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve specific actors using their actor IDs.
+     */
+    async getIntelActorEntitiesRaw(
+        requestParameters: IntelApiGetIntelActorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+        const requestOptions = await this.getIntelActorEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActorsResponseFromJSON(jsonValue));
     }
@@ -273,12 +280,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve specific indicators using their indicator IDs.
+     * Creates request options for getIntelIndicatorEntities without sending the request
      */
-    async getIntelIndicatorEntitiesRaw(
-        requestParameters: IntelApiGetIntelIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
+    async getIntelIndicatorEntitiesRequestOpts(requestParameters: IntelApiGetIntelIndicatorEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getIntelIndicatorEntities().');
         }
@@ -294,16 +298,26 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/indicators/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/indicators/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve specific indicators using their indicator IDs.
+     */
+    async getIntelIndicatorEntitiesRaw(
+        requestParameters: IntelApiGetIntelIndicatorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
+        const requestOptions = await this.getIntelIndicatorEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainPublicIndicatorsV3ResponseFromJSON(jsonValue));
     }
@@ -317,12 +331,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve specific reports using their report IDs.
+     * Creates request options for getIntelReportEntities without sending the request
      */
-    async getIntelReportEntitiesRaw(
-        requestParameters: IntelApiGetIntelReportEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
+    async getIntelReportEntitiesRequestOpts(requestParameters: IntelApiGetIntelReportEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelReportEntities().');
         }
@@ -344,15 +355,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve specific reports using their report IDs.
+     */
+    async getIntelReportEntitiesRaw(
+        requestParameters: IntelApiGetIntelReportEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
+        const requestOptions = await this.getIntelReportEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNewsResponseFromJSON(jsonValue));
     }
@@ -366,9 +387,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Return a Report PDF attachment
+     * Creates request options for getIntelReportPDF without sending the request
      */
-    async getIntelReportPDFRaw(requestParameters: IntelApiGetIntelReportPDFRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getIntelReportPDFRequestOpts(requestParameters: IntelApiGetIntelReportPDFRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -386,15 +407,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/report-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/report-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Return a Report PDF attachment
+     */
+    async getIntelReportPDFRaw(requestParameters: IntelApiGetIntelReportPDFRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.getIntelReportPDFRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -408,12 +436,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve details for rule sets for the specified ids.
+     * Creates request options for getIntelRuleEntities without sending the request
      */
-    async getIntelRuleEntitiesRaw(
-        requestParameters: IntelApiGetIntelRuleEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainRulesResponse>> {
+    async getIntelRuleEntitiesRequestOpts(requestParameters: IntelApiGetIntelRuleEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelRuleEntities().');
         }
@@ -431,15 +456,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve details for rule sets for the specified ids.
+     */
+    async getIntelRuleEntitiesRaw(
+        requestParameters: IntelApiGetIntelRuleEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainRulesResponse>> {
+        const requestOptions = await this.getIntelRuleEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRulesResponseFromJSON(jsonValue));
     }
@@ -453,9 +488,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download earlier rule sets.
+     * Creates request options for getIntelRuleFile without sending the request
      */
-    async getIntelRuleFileRaw(requestParameters: IntelApiGetIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getIntelRuleFileRequestOpts(requestParameters: IntelApiGetIntelRuleFileRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getIntelRuleFile().');
         }
@@ -481,15 +516,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/rules-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/rules-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download earlier rule sets.
+     */
+    async getIntelRuleFileRaw(requestParameters: IntelApiGetIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.getIntelRuleFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -503,9 +545,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Download the latest rule set.
+     * Creates request options for getLatestIntelRuleFile without sending the request
      */
-    async getLatestIntelRuleFileRaw(requestParameters: IntelApiGetLatestIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async getLatestIntelRuleFileRequestOpts(requestParameters: IntelApiGetLatestIntelRuleFileRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling getLatestIntelRuleFile().');
         }
@@ -543,15 +585,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/rules-latest-files/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/rules-latest-files/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Download the latest rule set.
+     */
+    async getLatestIntelRuleFileRaw(requestParameters: IntelApiGetLatestIntelRuleFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.getLatestIntelRuleFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -576,9 +625,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get malware entities for specified ids.
+     * Creates request options for getMalwareEntities without sending the request
      */
-    async getMalwareEntitiesRaw(requestParameters: IntelApiGetMalwareEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMalwareResponse>> {
+    async getMalwareEntitiesRequestOpts(requestParameters: IntelApiGetMalwareEntitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getMalwareEntities().');
         }
@@ -596,15 +645,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-malware:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/malware/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/malware/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get malware entities for specified ids.
+     */
+    async getMalwareEntitiesRaw(requestParameters: IntelApiGetMalwareEntitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainMalwareResponse>> {
+        const requestOptions = await this.getMalwareEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMalwareResponseFromJSON(jsonValue));
     }
@@ -618,9 +674,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Export Mitre ATT&CK information for a given malware family.
+     * Creates request options for getMalwareMitreReport without sending the request
      */
-    async getMalwareMitreReportRaw(requestParameters: IntelApiGetMalwareMitreReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getMalwareMitreReportRequestOpts(requestParameters: IntelApiGetMalwareMitreReportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getMalwareMitreReport().');
         }
@@ -650,15 +706,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-malware:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/malware-mitre-reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/malware-mitre-reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Export Mitre ATT&CK information for a given malware family.
+     */
+    async getMalwareMitreReportRaw(requestParameters: IntelApiGetMalwareMitreReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getMalwareMitreReportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -671,9 +734,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Export Mitre ATT&CK information for a given actor.
+     * Creates request options for getMitreReport without sending the request
      */
-    async getMitreReportRaw(requestParameters: IntelApiGetMitreReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async getMitreReportRequestOpts(requestParameters: IntelApiGetMitreReportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actorId"] == null) {
             throw new runtime.RequiredError("actorId", 'Required parameter "actorId" was null or undefined when calling getMitreReport().');
         }
@@ -699,15 +762,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/mitre-reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/mitre-reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Export Mitre ATT&CK information for a given actor.
+     */
+    async getMitreReportRaw(requestParameters: IntelApiGetMitreReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.getMitreReportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -720,12 +790,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get vulnerabilities
+     * Creates request options for getVulnerabilities without sending the request
      */
-    async getVulnerabilitiesRaw(
-        requestParameters: IntelApiGetVulnerabilitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
+    async getVulnerabilitiesRequestOpts(requestParameters: IntelApiGetVulnerabilitiesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getVulnerabilities().');
         }
@@ -741,16 +808,26 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/vulnerabilities/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/vulnerabilities/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get vulnerabilities
+     */
+    async getVulnerabilitiesRaw(
+        requestParameters: IntelApiGetVulnerabilitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainVulnerabilityResponse>> {
+        const requestOptions = await this.getVulnerabilitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainVulnerabilityResponseFromJSON(jsonValue));
     }
@@ -764,9 +841,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves report and observable IDs associated with the given actor and attacks
+     * Creates request options for postMitreAttacks without sending the request
      */
-    async postMitreAttacksRaw(requestParameters: IntelApiPostMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async postMitreAttacksRequestOpts(requestParameters: IntelApiPostMitreAttacksRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postMitreAttacks().');
         }
@@ -782,16 +859,23 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/entities/mitre/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/entities/mitre/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieves report and observable IDs associated with the given actor and attacks
+     */
+    async postMitreAttacksRaw(requestParameters: IntelApiPostMitreAttacksRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.postMitreAttacksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -804,12 +888,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about actors that match provided FQL filters.
+     * Creates request options for queryIntelActorEntities without sending the request
      */
-    async queryIntelActorEntitiesRaw(
-        requestParameters: IntelApiQueryIntelActorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+    async queryIntelActorEntitiesRequestOpts(requestParameters: IntelApiQueryIntelActorEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -843,15 +924,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/combined/actors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/combined/actors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get info about actors that match provided FQL filters.
+     */
+    async queryIntelActorEntitiesRaw(
+        requestParameters: IntelApiQueryIntelActorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+        const requestOptions = await this.queryIntelActorEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainActorsResponseFromJSON(jsonValue));
     }
@@ -873,9 +964,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get actor IDs that match provided FQL filters.
+     * Creates request options for queryIntelActorIds without sending the request
      */
-    async queryIntelActorIdsRaw(requestParameters: IntelApiQueryIntelActorIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelActorIdsRequestOpts(requestParameters: IntelApiQueryIntelActorIdsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -905,15 +996,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/actors/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/actors/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get actor IDs that match provided FQL filters.
+     */
+    async queryIntelActorIdsRaw(requestParameters: IntelApiQueryIntelActorIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryIntelActorIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -927,12 +1025,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about indicators that match provided FQL filters.
+     * Creates request options for queryIntelIndicatorEntities without sending the request
      */
-    async queryIntelIndicatorEntitiesRaw(
-        requestParameters: IntelApiQueryIntelIndicatorEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
+    async queryIntelIndicatorEntitiesRequestOpts(requestParameters: IntelApiQueryIntelIndicatorEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -970,15 +1065,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/combined/indicators/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/combined/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get info about indicators that match provided FQL filters.
+     */
+    async queryIntelIndicatorEntitiesRaw(
+        requestParameters: IntelApiQueryIntelIndicatorEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainPublicIndicatorsV3Response>> {
+        const requestOptions = await this.queryIntelIndicatorEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainPublicIndicatorsV3ResponseFromJSON(jsonValue));
     }
@@ -1004,12 +1109,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get indicators IDs that match provided FQL filters.
+     * Creates request options for queryIntelIndicatorIds without sending the request
      */
-    async queryIntelIndicatorIdsRaw(
-        requestParameters: IntelApiQueryIntelIndicatorIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelIndicatorIdsRequestOpts(requestParameters: IntelApiQueryIntelIndicatorIdsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1047,15 +1149,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-indicators:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/indicators/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get indicators IDs that match provided FQL filters.
+     */
+    async queryIntelIndicatorIdsRaw(
+        requestParameters: IntelApiQueryIntelIndicatorIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryIntelIndicatorIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -1081,12 +1193,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about reports that match provided FQL filters.
+     * Creates request options for queryIntelReportEntities without sending the request
      */
-    async queryIntelReportEntitiesRaw(
-        requestParameters: IntelApiQueryIntelReportEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
+    async queryIntelReportEntitiesRequestOpts(requestParameters: IntelApiQueryIntelReportEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1120,15 +1229,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/combined/reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/combined/reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get info about reports that match provided FQL filters.
+     */
+    async queryIntelReportEntitiesRaw(
+        requestParameters: IntelApiQueryIntelReportEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainNewsResponse>> {
+        const requestOptions = await this.queryIntelReportEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainNewsResponseFromJSON(jsonValue));
     }
@@ -1150,9 +1269,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get report IDs that match provided FQL filters.
+     * Creates request options for queryIntelReportIds without sending the request
      */
-    async queryIntelReportIdsRaw(requestParameters: IntelApiQueryIntelReportIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelReportIdsRequestOpts(requestParameters: IntelApiQueryIntelReportIdsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1182,15 +1301,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-reports:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/reports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/reports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get report IDs that match provided FQL filters.
+     */
+    async queryIntelReportIdsRaw(requestParameters: IntelApiQueryIntelReportIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryIntelReportIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -1204,9 +1330,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for rule IDs that match provided filter criteria.
+     * Creates request options for queryIntelRuleIds without sending the request
      */
-    async queryIntelRuleIdsRaw(requestParameters: IntelApiQueryIntelRuleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryIntelRuleIdsRequestOpts(requestParameters: IntelApiQueryIntelRuleIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling queryIntelRuleIds().');
         }
@@ -1260,15 +1386,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-rules:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for rule IDs that match provided filter criteria.
+     */
+    async queryIntelRuleIdsRaw(requestParameters: IntelApiQueryIntelRuleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryIntelRuleIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -1297,9 +1430,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get malware family names that match provided FQL filters.
+     * Creates request options for queryMalware without sending the request
      */
-    async queryMalwareRaw(requestParameters: IntelApiQueryMalwareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryMalwareRequestOpts(requestParameters: IntelApiQueryMalwareRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1329,15 +1462,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-malware:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/malware/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/malware/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get malware family names that match provided FQL filters.
+     */
+    async queryMalwareRaw(requestParameters: IntelApiQueryMalwareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.queryMalwareRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }
@@ -1351,12 +1491,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get malware entities that match provided FQL filters.
+     * Creates request options for queryMalwareEntities without sending the request
      */
-    async queryMalwareEntitiesRaw(
-        requestParameters: IntelApiQueryMalwareEntitiesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMalwareResponse>> {
+    async queryMalwareEntitiesRequestOpts(requestParameters: IntelApiQueryMalwareEntitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1390,15 +1527,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-malware:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/combined/malware/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/combined/malware/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get malware entities that match provided FQL filters.
+     */
+    async queryMalwareEntitiesRaw(
+        requestParameters: IntelApiQueryMalwareEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMalwareResponse>> {
+        const requestOptions = await this.queryMalwareEntitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMalwareResponseFromJSON(jsonValue));
     }
@@ -1420,12 +1567,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets MITRE tactics and techniques for the given actor, returning concatenation of id and tactic and technique ids, example: fancy-bear_TA0011_T1071
+     * Creates request options for queryMitreAttacks without sending the request
      */
-    async queryMitreAttacksRaw(
-        requestParameters: IntelApiQueryMitreAttacksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueryMitreAttacksResponse>> {
+    async queryMitreAttacksRequestOpts(requestParameters: IntelApiQueryMitreAttacksRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -1443,15 +1587,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-actors:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/mitre/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/mitre/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets MITRE tactics and techniques for the given actor, returning concatenation of id and tactic and technique ids, example: fancy-bear_TA0011_T1071
+     */
+    async queryMitreAttacksRaw(
+        requestParameters: IntelApiQueryMitreAttacksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueryMitreAttacksResponse>> {
+        const requestOptions = await this.queryMitreAttacksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryMitreAttacksResponseFromJSON(jsonValue));
     }
@@ -1465,12 +1619,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets MITRE tactics and techniques for the given malware
+     * Creates request options for queryMitreAttacksForMalware without sending the request
      */
-    async queryMitreAttacksForMalwareRaw(
-        requestParameters: IntelApiQueryMitreAttacksForMalwareRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+    async queryMitreAttacksForMalwareRequestOpts(requestParameters: IntelApiQueryMitreAttacksForMalwareRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling queryMitreAttacksForMalware().');
         }
@@ -1488,15 +1639,25 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconx-malware:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/mitre-malware/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/mitre-malware/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets MITRE tactics and techniques for the given malware
+     */
+    async queryMitreAttacksForMalwareRaw(
+        requestParameters: IntelApiQueryMitreAttacksForMalwareRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueryResponse>> {
+        const requestOptions = await this.queryMitreAttacksForMalwareRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueryResponseFromJSON(jsonValue));
     }
@@ -1510,9 +1671,9 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get vulnerabilities IDs
+     * Creates request options for queryVulnerabilities without sending the request
      */
-    async queryVulnerabilitiesRaw(requestParameters: IntelApiQueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryVulnerabilitiesRequestOpts(requestParameters: IntelApiQueryVulnerabilitiesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1542,15 +1703,22 @@ export class IntelApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["intel-vulnerabilities:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intel/queries/vulnerabilities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/intel/queries/vulnerabilities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get vulnerabilities IDs
+     */
+    async queryVulnerabilitiesRaw(requestParameters: IntelApiQueryVulnerabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryVulnerabilitiesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }

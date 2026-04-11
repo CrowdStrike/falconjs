@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON, FwmgrMsaspecErrorToJSONTyped } from "./FwmgrMsaspecError";
 import type { FwmgrDomainPlatform } from "./FwmgrDomainPlatform";
-import { FwmgrDomainPlatformFromJSON, FwmgrDomainPlatformFromJSONTyped, FwmgrDomainPlatformToJSON } from "./FwmgrDomainPlatform";
+import { FwmgrDomainPlatformFromJSON, FwmgrDomainPlatformFromJSONTyped, FwmgrDomainPlatformToJSON, FwmgrDomainPlatformToJSONTyped } from "./FwmgrDomainPlatform";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON, FwmgrMsaspecMetaInfoToJSONTyped } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FwmgrApiPlatformsResponseFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function FwmgrApiPlatformsResponseToJSON(value?: FwmgrApiPlatformsResponse | null): any {
+export function FwmgrApiPlatformsResponseToJSON(json: any): FwmgrApiPlatformsResponse {
+    return FwmgrApiPlatformsResponseToJSONTyped(json, false);
+}
+
+export function FwmgrApiPlatformsResponseToJSONTyped(value?: FwmgrApiPlatformsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value["meta"]),

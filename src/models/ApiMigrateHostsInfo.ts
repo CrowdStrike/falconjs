@@ -64,10 +64,15 @@ export function ApiMigrateHostsInfoFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiMigrateHostsInfoToJSON(value?: ApiMigrateHostsInfo | null): any {
+export function ApiMigrateHostsInfoToJSON(json: any): ApiMigrateHostsInfo {
+    return ApiMigrateHostsInfoToJSONTyped(json, false);
+}
+
+export function ApiMigrateHostsInfoToJSONTyped(value?: ApiMigrateHostsInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         hosts_errored: value["hostsErrored"],
         hosts_queued: value["hostsQueued"],

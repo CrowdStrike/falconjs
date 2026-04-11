@@ -55,10 +55,15 @@ export function ErrorGetMetricsFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ErrorGetMetricsToJSON(value?: ErrorGetMetrics | null): any {
+export function ErrorGetMetricsToJSON(json: any): ErrorGetMetrics {
+    return ErrorGetMetricsToJSONTyped(json, false);
+}
+
+export function ErrorGetMetricsToJSONTyped(value?: ErrorGetMetrics | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

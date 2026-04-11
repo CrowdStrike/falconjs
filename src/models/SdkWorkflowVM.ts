@@ -80,10 +80,15 @@ export function SdkWorkflowVMFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function SdkWorkflowVMToJSON(value?: SdkWorkflowVM | null): any {
+export function SdkWorkflowVMToJSON(json: any): SdkWorkflowVM {
+    return SdkWorkflowVMToJSONTyped(json, false);
+}
+
+export function SdkWorkflowVMToJSONTyped(value?: SdkWorkflowVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         display_order: value["displayOrder"],
         execution_id: value["executionId"],

@@ -56,10 +56,15 @@ export function DomainOCIPermissionFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainOCIPermissionToJSON(value?: DomainOCIPermission | null): any {
+export function DomainOCIPermissionToJSON(json: any): DomainOCIPermission {
+    return DomainOCIPermissionToJSONTyped(json, false);
+}
+
+export function DomainOCIPermissionToJSONTyped(value?: DomainOCIPermission | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         status: value["status"],

@@ -69,13 +69,18 @@ export function DomainScanScheduleDataV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainScanScheduleDataV1ToJSON(value?: DomainScanScheduleDataV1 | null): any {
+export function DomainScanScheduleDataV1ToJSON(json: any): DomainScanScheduleDataV1 {
+    return DomainScanScheduleDataV1ToJSONTyped(json, false);
+}
+
+export function DomainScanScheduleDataV1ToJSONTyped(value?: DomainScanScheduleDataV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_platform: value["cloudPlatform"],
-        next_scan_timestamp: value["nextScanTimestamp"] == null ? undefined : value["nextScanTimestamp"].toISOString(),
+        next_scan_timestamp: value["nextScanTimestamp"] == null ? value["nextScanTimestamp"] : value["nextScanTimestamp"].toISOString(),
         scan_interval: value["scanInterval"],
         scan_schedule: value["scanSchedule"],
     };

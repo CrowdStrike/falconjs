@@ -47,10 +47,15 @@ export function TypesGetServicesRelatedEntityGroupByFieldsFromJSONTyped(json: an
     };
 }
 
-export function TypesGetServicesRelatedEntityGroupByFieldsToJSON(value?: TypesGetServicesRelatedEntityGroupByFields | null): any {
+export function TypesGetServicesRelatedEntityGroupByFieldsToJSON(json: any): TypesGetServicesRelatedEntityGroupByFields {
+    return TypesGetServicesRelatedEntityGroupByFieldsToJSONTyped(json, false);
+}
+
+export function TypesGetServicesRelatedEntityGroupByFieldsToJSONTyped(value?: TypesGetServicesRelatedEntityGroupByFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: value["fields"],
     };

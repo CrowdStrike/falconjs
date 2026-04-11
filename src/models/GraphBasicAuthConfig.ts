@@ -54,10 +54,15 @@ export function GraphBasicAuthConfigFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function GraphBasicAuthConfigToJSON(value?: GraphBasicAuthConfig | null): any {
+export function GraphBasicAuthConfigToJSON(json: any): GraphBasicAuthConfig {
+    return GraphBasicAuthConfigToJSONTyped(json, false);
+}
+
+export function GraphBasicAuthConfigToJSONTyped(value?: GraphBasicAuthConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         password: value["password"],
         username: value["username"],

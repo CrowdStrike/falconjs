@@ -72,10 +72,15 @@ export function CostsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Cos
     };
 }
 
-export function CostsToJSON(value?: Costs | null): any {
+export function CostsToJSON(json: any): Costs {
+    return CostsToJSONTyped(json, false);
+}
+
+export function CostsToJSONTyped(value?: Costs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         liveCost: value["liveCost"],
         liveCostRate: value["liveCostRate"],

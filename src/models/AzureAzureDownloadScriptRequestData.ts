@@ -48,10 +48,15 @@ export function AzureAzureDownloadScriptRequestDataFromJSONTyped(json: any, igno
     };
 }
 
-export function AzureAzureDownloadScriptRequestDataToJSON(value?: AzureAzureDownloadScriptRequestData | null): any {
+export function AzureAzureDownloadScriptRequestDataToJSON(json: any): AzureAzureDownloadScriptRequestData {
+    return AzureAzureDownloadScriptRequestDataToJSONTyped(json, false);
+}
+
+export function AzureAzureDownloadScriptRequestDataToJSONTyped(value?: AzureAzureDownloadScriptRequestData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tenantId: value["tenantId"],
     };

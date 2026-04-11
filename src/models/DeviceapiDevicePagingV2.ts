@@ -84,10 +84,15 @@ export function DeviceapiDevicePagingV2FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DeviceapiDevicePagingV2ToJSON(value?: DeviceapiDevicePagingV2 | null): any {
+export function DeviceapiDevicePagingV2ToJSON(json: any): DeviceapiDevicePagingV2 {
+    return DeviceapiDevicePagingV2ToJSONTyped(json, false);
+}
+
+export function DeviceapiDevicePagingV2ToJSONTyped(value?: DeviceapiDevicePagingV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         expires_at: value["expiresAt"],
         limit: value["limit"],

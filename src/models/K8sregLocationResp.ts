@@ -56,10 +56,15 @@ export function K8sregLocationRespFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function K8sregLocationRespToJSON(value?: K8sregLocationResp | null): any {
+export function K8sregLocationRespToJSON(json: any): K8sregLocationResp {
+    return K8sregLocationRespToJSONTyped(json, false);
+}
+
+export function K8sregLocationRespToJSONTyped(value?: K8sregLocationResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud: value["cloud"],
         location: value["location"],

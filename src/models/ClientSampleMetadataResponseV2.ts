@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ClientSampleMetadataV2 } from "./ClientSampleMetadataV2";
-import { ClientSampleMetadataV2FromJSON, ClientSampleMetadataV2FromJSONTyped, ClientSampleMetadataV2ToJSON } from "./ClientSampleMetadataV2";
+import { ClientSampleMetadataV2FromJSON, ClientSampleMetadataV2FromJSONTyped, ClientSampleMetadataV2ToJSON, ClientSampleMetadataV2ToJSONTyped } from "./ClientSampleMetadataV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ClientSampleMetadataResponseV2FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ClientSampleMetadataResponseV2ToJSON(value?: ClientSampleMetadataResponseV2 | null): any {
+export function ClientSampleMetadataResponseV2ToJSON(json: any): ClientSampleMetadataResponseV2 {
+    return ClientSampleMetadataResponseV2ToJSONTyped(json, false);
+}
+
+export function ClientSampleMetadataResponseV2ToJSONTyped(value?: ClientSampleMetadataResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

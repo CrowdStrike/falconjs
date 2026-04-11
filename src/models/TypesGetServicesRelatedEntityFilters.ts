@@ -61,10 +61,15 @@ export function TypesGetServicesRelatedEntityFiltersFromJSONTyped(json: any, ign
     };
 }
 
-export function TypesGetServicesRelatedEntityFiltersToJSON(value?: TypesGetServicesRelatedEntityFilters | null): any {
+export function TypesGetServicesRelatedEntityFiltersToJSON(json: any): TypesGetServicesRelatedEntityFilters {
+    return TypesGetServicesRelatedEntityFiltersToJSONTyped(json, false);
+}
+
+export function TypesGetServicesRelatedEntityFiltersToJSONTyped(value?: TypesGetServicesRelatedEntityFilters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         include_du_services: value["includeDuServices"],
         only_du_types: value["onlyDuTypes"],

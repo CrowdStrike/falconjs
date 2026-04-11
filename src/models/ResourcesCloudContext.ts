@@ -14,17 +14,22 @@
 
 import { mapValues } from "../runtime";
 import type { DataclassificationsResponse } from "./DataclassificationsResponse";
-import { DataclassificationsResponseFromJSON, DataclassificationsResponseFromJSONTyped, DataclassificationsResponseToJSON } from "./DataclassificationsResponse";
+import {
+    DataclassificationsResponseFromJSON,
+    DataclassificationsResponseFromJSONTyped,
+    DataclassificationsResponseToJSON,
+    DataclassificationsResponseToJSONTyped,
+} from "./DataclassificationsResponse";
 import type { ResourcesCloudRisks } from "./ResourcesCloudRisks";
-import { ResourcesCloudRisksFromJSON, ResourcesCloudRisksFromJSONTyped, ResourcesCloudRisksToJSON } from "./ResourcesCloudRisks";
+import { ResourcesCloudRisksFromJSON, ResourcesCloudRisksFromJSONTyped, ResourcesCloudRisksToJSON, ResourcesCloudRisksToJSONTyped } from "./ResourcesCloudRisks";
 import type { ResourcesHost } from "./ResourcesHost";
-import { ResourcesHostFromJSON, ResourcesHostFromJSONTyped, ResourcesHostToJSON } from "./ResourcesHost";
+import { ResourcesHostFromJSON, ResourcesHostFromJSONTyped, ResourcesHostToJSON, ResourcesHostToJSONTyped } from "./ResourcesHost";
 import type { InsightsInsight } from "./InsightsInsight";
-import { InsightsInsightFromJSON, InsightsInsightFromJSONTyped, InsightsInsightToJSON } from "./InsightsInsight";
+import { InsightsInsightFromJSON, InsightsInsightFromJSONTyped, InsightsInsightToJSON, InsightsInsightToJSONTyped } from "./InsightsInsight";
 import type { ResourcesAssetGraph } from "./ResourcesAssetGraph";
-import { ResourcesAssetGraphFromJSON, ResourcesAssetGraphFromJSONTyped, ResourcesAssetGraphToJSON } from "./ResourcesAssetGraph";
+import { ResourcesAssetGraphFromJSON, ResourcesAssetGraphFromJSONTyped, ResourcesAssetGraphToJSON, ResourcesAssetGraphToJSONTyped } from "./ResourcesAssetGraph";
 import type { ResourcesDetections } from "./ResourcesDetections";
-import { ResourcesDetectionsFromJSON, ResourcesDetectionsFromJSONTyped, ResourcesDetectionsToJSON } from "./ResourcesDetections";
+import { ResourcesDetectionsFromJSON, ResourcesDetectionsFromJSONTyped, ResourcesDetectionsToJSON, ResourcesDetectionsToJSONTyped } from "./ResourcesDetections";
 
 /**
  *
@@ -193,10 +198,15 @@ export function ResourcesCloudContextFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ResourcesCloudContextToJSON(value?: ResourcesCloudContext | null): any {
+export function ResourcesCloudContextToJSON(json: any): ResourcesCloudContext {
+    return ResourcesCloudContextToJSONTyped(json, false);
+}
+
+export function ResourcesCloudContextToJSONTyped(value?: ResourcesCloudContext | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_name: value["accountName"],
         allows_public_access: value["allowsPublicAccess"],

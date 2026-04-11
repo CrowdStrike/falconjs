@@ -64,10 +64,15 @@ export function HourFromJSONTyped(json: any, ignoreDiscriminator: boolean): Hour
     };
 }
 
-export function HourToJSON(value?: Hour | null): any {
+export function HourToJSON(json: any): Hour {
+    return HourToJSONTyped(json, false);
+}
+
+export function HourToJSONTyped(value?: Hour | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         liveCost: value["liveCost"],
         queryCount: value["queryCount"],

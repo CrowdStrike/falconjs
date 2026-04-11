@@ -56,10 +56,15 @@ export function K8sregAzureBashScriptFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function K8sregAzureBashScriptToJSON(value?: K8sregAzureBashScript | null): any {
+export function K8sregAzureBashScriptToJSON(json: any): K8sregAzureBashScript {
+    return K8sregAzureBashScriptToJSONTyped(json, false);
+}
+
+export function K8sregAzureBashScriptToJSONTyped(value?: K8sregAzureBashScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         script: value["script"],
         service_account_public_keys: value["serviceAccountPublicKeys"],

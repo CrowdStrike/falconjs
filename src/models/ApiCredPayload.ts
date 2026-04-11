@@ -56,10 +56,15 @@ export function ApiCredPayloadFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ApiCredPayloadToJSON(value?: ApiCredPayload | null): any {
+export function ApiCredPayloadToJSON(json: any): ApiCredPayload {
+    return ApiCredPayloadToJSONTyped(json, false);
+}
+
+export function ApiCredPayloadToJSONTyped(value?: ApiCredPayload | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         details: value["details"],
         type: value["type"],

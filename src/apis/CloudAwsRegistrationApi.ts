@@ -86,12 +86,9 @@ export interface CloudAwsRegistrationApiCloudRegistrationAwsValidateAccountsRequ
  */
 export class CloudAwsRegistrationApi extends runtime.BaseAPI {
     /**
-     * Creates a new account in our system for a customer.
+     * Creates request options for cloudRegistrationAwsCreateAccount without sending the request
      */
-    async cloudRegistrationAwsCreateAccountRaw(
-        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsCreateAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestAWSAccountCreateResponseExtV1>> {
+    async cloudRegistrationAwsCreateAccountRequestOpts(requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsCreateAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAwsCreateAccount().');
         }
@@ -107,16 +104,26 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-aws-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-aws/entities/account/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RestAWSAccountCreateRequestExtv1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RestAWSAccountCreateRequestExtv1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Creates a new account in our system for a customer.
+     */
+    async cloudRegistrationAwsCreateAccountRaw(
+        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsCreateAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestAWSAccountCreateResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAwsCreateAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestAWSAccountCreateResponseExtV1FromJSON(jsonValue));
     }
@@ -130,12 +137,9 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes an existing AWS account or organization in our system.
+     * Creates request options for cloudRegistrationAwsDeleteAccount without sending the request
      */
-    async cloudRegistrationAwsDeleteAccountRaw(
-        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsDeleteAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async cloudRegistrationAwsDeleteAccountRequestOpts(requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsDeleteAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -153,15 +157,25 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-aws-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-aws/entities/account/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes an existing AWS account or organization in our system.
+     */
+    async cloudRegistrationAwsDeleteAccountRaw(
+        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsDeleteAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.cloudRegistrationAwsDeleteAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -175,12 +189,9 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve existing AWS accounts by account IDs or organization IDs
+     * Creates request options for cloudRegistrationAwsGetAccounts without sending the request
      */
-    async cloudRegistrationAwsGetAccountsRaw(
-        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsGetAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestAWSAccountCreateResponseExtV1>> {
+    async cloudRegistrationAwsGetAccountsRequestOpts(requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsGetAccountsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -198,15 +209,25 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-aws-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-aws/entities/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve existing AWS accounts by account IDs or organization IDs
+     */
+    async cloudRegistrationAwsGetAccountsRaw(
+        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsGetAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestAWSAccountCreateResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAwsGetAccountsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestAWSAccountCreateResponseExtV1FromJSON(jsonValue));
     }
@@ -224,12 +245,9 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve existing AWS accounts by account IDs
+     * Creates request options for cloudRegistrationAwsQueryAccounts without sending the request
      */
-    async cloudRegistrationAwsQueryAccountsRaw(
-        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsQueryAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestAWSAccountQueryResponseExtV1>> {
+    async cloudRegistrationAwsQueryAccountsRequestOpts(requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsQueryAccountsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["products"] == null) {
             throw new runtime.RequiredError("products", 'Required parameter "products" was null or undefined when calling cloudRegistrationAwsQueryAccounts().');
         }
@@ -275,15 +293,25 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-aws-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-aws/queries/account/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-aws/queries/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve existing AWS accounts by account IDs
+     */
+    async cloudRegistrationAwsQueryAccountsRaw(
+        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsQueryAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestAWSAccountQueryResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAwsQueryAccountsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestAWSAccountQueryResponseExtV1FromJSON(jsonValue));
     }
@@ -309,12 +337,9 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Trigger health check scan for AWS accounts
+     * Creates request options for cloudRegistrationAwsTriggerHealthCheck without sending the request
      */
-    async cloudRegistrationAwsTriggerHealthCheckRaw(
-        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsTriggerHealthCheckRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestAWSHealthCheckTriggerResponseExtV1>> {
+    async cloudRegistrationAwsTriggerHealthCheckRequestOpts(requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsTriggerHealthCheckRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["accountIds"] != null) {
@@ -332,15 +357,25 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-aws-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-aws/entities/account-scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-aws/entities/account-scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Trigger health check scan for AWS accounts
+     */
+    async cloudRegistrationAwsTriggerHealthCheckRaw(
+        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsTriggerHealthCheckRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestAWSHealthCheckTriggerResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAwsTriggerHealthCheckRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestAWSHealthCheckTriggerResponseExtV1FromJSON(jsonValue));
     }
@@ -358,12 +393,9 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Patches a existing account in our system for a customer.
+     * Creates request options for cloudRegistrationAwsUpdateAccount without sending the request
      */
-    async cloudRegistrationAwsUpdateAccountRaw(
-        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsUpdateAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestAWSAccountCreateResponseExtV1>> {
+    async cloudRegistrationAwsUpdateAccountRequestOpts(requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsUpdateAccountRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAwsUpdateAccount().');
         }
@@ -379,16 +411,26 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-aws-registration:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-aws/entities/account/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RestAWSAccountPatchRequestExtV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-aws/entities/account/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RestAWSAccountPatchRequestExtV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Patches a existing account in our system for a customer.
+     */
+    async cloudRegistrationAwsUpdateAccountRaw(
+        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsUpdateAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestAWSAccountCreateResponseExtV1>> {
+        const requestOptions = await this.cloudRegistrationAwsUpdateAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestAWSAccountCreateResponseExtV1FromJSON(jsonValue));
     }
@@ -402,12 +444,9 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validates the AWS account registration status, and discover organization child accounts if organization is specified
+     * Creates request options for cloudRegistrationAwsValidateAccounts without sending the request
      */
-    async cloudRegistrationAwsValidateAccountsRaw(
-        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsValidateAccountsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestAWSAccountValidationResponse>> {
+    async cloudRegistrationAwsValidateAccountsRequestOpts(requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsValidateAccountsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["accountId"] != null) {
@@ -429,15 +468,25 @@ export class CloudAwsRegistrationApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-aws-registration:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-aws/entities/account/validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-registration-aws/entities/account/validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Validates the AWS account registration status, and discover organization child accounts if organization is specified
+     */
+    async cloudRegistrationAwsValidateAccountsRaw(
+        requestParameters: CloudAwsRegistrationApiCloudRegistrationAwsValidateAccountsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestAWSAccountValidationResponse>> {
+        const requestOptions = await this.cloudRegistrationAwsValidateAccountsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestAWSAccountValidationResponseFromJSON(jsonValue));
     }

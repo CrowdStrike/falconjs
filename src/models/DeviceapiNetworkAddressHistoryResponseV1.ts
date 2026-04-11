@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DeviceapiNetworkAddressHistoryV1 } from "./DeviceapiNetworkAddressHistoryV1";
-import { DeviceapiNetworkAddressHistoryV1FromJSON, DeviceapiNetworkAddressHistoryV1FromJSONTyped, DeviceapiNetworkAddressHistoryV1ToJSON } from "./DeviceapiNetworkAddressHistoryV1";
+import {
+    DeviceapiNetworkAddressHistoryV1FromJSON,
+    DeviceapiNetworkAddressHistoryV1FromJSONTyped,
+    DeviceapiNetworkAddressHistoryV1ToJSON,
+    DeviceapiNetworkAddressHistoryV1ToJSONTyped,
+} from "./DeviceapiNetworkAddressHistoryV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function DeviceapiNetworkAddressHistoryResponseV1FromJSONTyped(json: any,
     };
 }
 
-export function DeviceapiNetworkAddressHistoryResponseV1ToJSON(value?: DeviceapiNetworkAddressHistoryResponseV1 | null): any {
+export function DeviceapiNetworkAddressHistoryResponseV1ToJSON(json: any): DeviceapiNetworkAddressHistoryResponseV1 {
+    return DeviceapiNetworkAddressHistoryResponseV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiNetworkAddressHistoryResponseV1ToJSONTyped(value?: DeviceapiNetworkAddressHistoryResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

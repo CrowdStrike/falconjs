@@ -61,10 +61,15 @@ export function DomainDiscoverAPIMountStorageInfoFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainDiscoverAPIMountStorageInfoToJSON(value?: DomainDiscoverAPIMountStorageInfo | null): any {
+export function DomainDiscoverAPIMountStorageInfoToJSON(json: any): DomainDiscoverAPIMountStorageInfo {
+    return DomainDiscoverAPIMountStorageInfoToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIMountStorageInfoToJSONTyped(value?: DomainDiscoverAPIMountStorageInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         available_space: value["availableSpace"],
         mount_path: value["mountPath"],

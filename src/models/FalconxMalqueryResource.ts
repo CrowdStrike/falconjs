@@ -96,10 +96,15 @@ export function FalconxMalqueryResourceFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function FalconxMalqueryResourceToJSON(value?: FalconxMalqueryResource | null): any {
+export function FalconxMalqueryResourceToJSON(json: any): FalconxMalqueryResource {
+    return FalconxMalqueryResourceToJSONTyped(json, false);
+}
+
+export function FalconxMalqueryResourceToJSONTyped(value?: FalconxMalqueryResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         family: value["family"],
         file_size: value["fileSize"],

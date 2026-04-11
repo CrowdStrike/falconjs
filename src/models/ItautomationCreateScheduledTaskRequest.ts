@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { FalconforitapiSchedule } from "./FalconforitapiSchedule";
-import { FalconforitapiScheduleFromJSON, FalconforitapiScheduleFromJSONTyped, FalconforitapiScheduleToJSON } from "./FalconforitapiSchedule";
+import { FalconforitapiScheduleFromJSON, FalconforitapiScheduleFromJSONTyped, FalconforitapiScheduleToJSON, FalconforitapiScheduleToJSONTyped } from "./FalconforitapiSchedule";
 import type { FalconforitapiConditionGroup } from "./FalconforitapiConditionGroup";
-import { FalconforitapiConditionGroupFromJSON, FalconforitapiConditionGroupFromJSONTyped, FalconforitapiConditionGroupToJSON } from "./FalconforitapiConditionGroup";
+import {
+    FalconforitapiConditionGroupFromJSON,
+    FalconforitapiConditionGroupFromJSONTyped,
+    FalconforitapiConditionGroupToJSON,
+    FalconforitapiConditionGroupToJSONTyped,
+} from "./FalconforitapiConditionGroup";
 import type { FalconforitapiGuardrails } from "./FalconforitapiGuardrails";
-import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON } from "./FalconforitapiGuardrails";
+import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON, FalconforitapiGuardrailsToJSONTyped } from "./FalconforitapiGuardrails";
 
 /**
  *
@@ -135,10 +140,15 @@ export function ItautomationCreateScheduledTaskRequestFromJSONTyped(json: any, i
     };
 }
 
-export function ItautomationCreateScheduledTaskRequestToJSON(value?: ItautomationCreateScheduledTaskRequest | null): any {
+export function ItautomationCreateScheduledTaskRequestToJSON(json: any): ItautomationCreateScheduledTaskRequest {
+    return ItautomationCreateScheduledTaskRequestToJSONTyped(json, false);
+}
+
+export function ItautomationCreateScheduledTaskRequestToJSONTyped(value?: ItautomationCreateScheduledTaskRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         discover_new_hosts: value["discoverNewHosts"],
         discover_offline_hosts: value["discoverOfflineHosts"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { K8sregClusterResp } from "./K8sregClusterResp";
-import { K8sregClusterRespFromJSON, K8sregClusterRespFromJSONTyped, K8sregClusterRespToJSON } from "./K8sregClusterResp";
+import { K8sregClusterRespFromJSON, K8sregClusterRespFromJSONTyped, K8sregClusterRespToJSON, K8sregClusterRespToJSONTyped } from "./K8sregClusterResp";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function K8sregGetClustersRespFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function K8sregGetClustersRespToJSON(value?: K8sregGetClustersResp | null): any {
+export function K8sregGetClustersRespToJSON(json: any): K8sregGetClustersResp {
+    return K8sregGetClustersRespToJSONTyped(json, false);
+}
+
+export function K8sregGetClustersRespToJSONTyped(value?: K8sregGetClustersResp | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

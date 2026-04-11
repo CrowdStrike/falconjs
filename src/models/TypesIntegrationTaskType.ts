@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegrationType } from "./TypesIntegrationType";
-import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON } from "./TypesIntegrationType";
+import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON, TypesIntegrationTypeToJSONTyped } from "./TypesIntegrationType";
 
 /**
  *
@@ -85,10 +85,15 @@ export function TypesIntegrationTaskTypeFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function TypesIntegrationTaskTypeToJSON(value?: TypesIntegrationTaskType | null): any {
+export function TypesIntegrationTaskTypeToJSON(json: any): TypesIntegrationTaskType {
+    return TypesIntegrationTaskTypeToJSONTyped(json, false);
+}
+
+export function TypesIntegrationTaskTypeToJSONTyped(value?: TypesIntegrationTaskType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         category: value["category"],
         display_name: value["displayName"],

@@ -56,10 +56,15 @@ export function MalquerySearchParameterFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function MalquerySearchParameterToJSON(value?: MalquerySearchParameter | null): any {
+export function MalquerySearchParameterToJSON(json: any): MalquerySearchParameter {
+    return MalquerySearchParameterToJSONTyped(json, false);
+}
+
+export function MalquerySearchParameterToJSONTyped(value?: MalquerySearchParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         type: value["type"],
         value: value["value"],

@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { SuppressionrulesRuleSelectionFilter } from "./SuppressionrulesRuleSelectionFilter";
-import { SuppressionrulesRuleSelectionFilterFromJSON, SuppressionrulesRuleSelectionFilterFromJSONTyped, SuppressionrulesRuleSelectionFilterToJSON } from "./SuppressionrulesRuleSelectionFilter";
+import {
+    SuppressionrulesRuleSelectionFilterFromJSON,
+    SuppressionrulesRuleSelectionFilterFromJSONTyped,
+    SuppressionrulesRuleSelectionFilterToJSON,
+    SuppressionrulesRuleSelectionFilterToJSONTyped,
+} from "./SuppressionrulesRuleSelectionFilter";
 import type { SuppressionrulesScopeAssetFilter } from "./SuppressionrulesScopeAssetFilter";
-import { SuppressionrulesScopeAssetFilterFromJSON, SuppressionrulesScopeAssetFilterFromJSONTyped, SuppressionrulesScopeAssetFilterToJSON } from "./SuppressionrulesScopeAssetFilter";
+import {
+    SuppressionrulesScopeAssetFilterFromJSON,
+    SuppressionrulesScopeAssetFilterFromJSONTyped,
+    SuppressionrulesScopeAssetFilterToJSON,
+    SuppressionrulesScopeAssetFilterToJSONTyped,
+} from "./SuppressionrulesScopeAssetFilter";
 
 /**
  *
@@ -128,10 +138,15 @@ export function SuppressionrulesCreateSuppressionRuleRequestFromJSONTyped(json: 
     };
 }
 
-export function SuppressionrulesCreateSuppressionRuleRequestToJSON(value?: SuppressionrulesCreateSuppressionRuleRequest | null): any {
+export function SuppressionrulesCreateSuppressionRuleRequestToJSON(json: any): SuppressionrulesCreateSuppressionRuleRequest {
+    return SuppressionrulesCreateSuppressionRuleRequestToJSONTyped(json, false);
+}
+
+export function SuppressionrulesCreateSuppressionRuleRequestToJSONTyped(value?: SuppressionrulesCreateSuppressionRuleRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         domain: value["domain"],

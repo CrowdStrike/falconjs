@@ -39,7 +39,7 @@ export interface FalconforitapiSchedule {
     endTime?: Date;
     /**
      * Frequency of runs
-     * @type {string}
+     * @type {FalconforitapiScheduleFrequencyEnum}
      * @memberof FalconforitapiSchedule
      */
     frequency: FalconforitapiScheduleFrequencyEnum;
@@ -111,17 +111,22 @@ export function FalconforitapiScheduleFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function FalconforitapiScheduleToJSON(value?: FalconforitapiSchedule | null): any {
+export function FalconforitapiScheduleToJSON(json: any): FalconforitapiSchedule {
+    return FalconforitapiScheduleToJSONTyped(json, false);
+}
+
+export function FalconforitapiScheduleToJSONTyped(value?: FalconforitapiSchedule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         day_of_month: value["dayOfMonth"],
         days_of_week: value["daysOfWeek"],
-        end_time: value["endTime"] == null ? undefined : value["endTime"].toISOString(),
+        end_time: value["endTime"] == null ? value["endTime"] : value["endTime"].toISOString(),
         frequency: value["frequency"],
         interval: value["interval"],
-        start_time: value["startTime"] == null ? undefined : value["startTime"].toISOString(),
+        start_time: value["startTime"] == null ? value["startTime"] : value["startTime"].toISOString(),
         time: value["time"],
         timezone: value["timezone"],
     };

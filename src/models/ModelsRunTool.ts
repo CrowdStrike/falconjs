@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsRunToolDriver } from "./ModelsRunToolDriver";
-import { ModelsRunToolDriverFromJSON, ModelsRunToolDriverFromJSONTyped, ModelsRunToolDriverToJSON } from "./ModelsRunToolDriver";
+import { ModelsRunToolDriverFromJSON, ModelsRunToolDriverFromJSONTyped, ModelsRunToolDriverToJSON, ModelsRunToolDriverToJSONTyped } from "./ModelsRunToolDriver";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ModelsRunToolFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ModelsRunToolToJSON(value?: ModelsRunTool | null): any {
+export function ModelsRunToolToJSON(json: any): ModelsRunTool {
+    return ModelsRunToolToJSONTyped(json, false);
+}
+
+export function ModelsRunToolToJSONTyped(value?: ModelsRunTool | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         driver: ModelsRunToolDriverToJSON(value["driver"]),
     };

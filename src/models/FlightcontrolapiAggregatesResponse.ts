@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaAggregationResult } from "./MsaAggregationResult";
-import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON } from "./MsaAggregationResult";
+import { MsaAggregationResultFromJSON, MsaAggregationResultFromJSONTyped, MsaAggregationResultToJSON, MsaAggregationResultToJSONTyped } from "./MsaAggregationResult";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function FlightcontrolapiAggregatesResponseFromJSONTyped(json: any, ignor
     };
 }
 
-export function FlightcontrolapiAggregatesResponseToJSON(value?: FlightcontrolapiAggregatesResponse | null): any {
+export function FlightcontrolapiAggregatesResponseToJSON(json: any): FlightcontrolapiAggregatesResponse {
+    return FlightcontrolapiAggregatesResponseToJSONTyped(json, false);
+}
+
+export function FlightcontrolapiAggregatesResponseToJSONTyped(value?: FlightcontrolapiAggregatesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

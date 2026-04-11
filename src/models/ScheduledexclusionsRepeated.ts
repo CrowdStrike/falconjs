@@ -89,10 +89,15 @@ export function ScheduledexclusionsRepeatedFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ScheduledexclusionsRepeatedToJSON(value?: ScheduledexclusionsRepeated | null): any {
+export function ScheduledexclusionsRepeatedToJSON(json: any): ScheduledexclusionsRepeated {
+    return ScheduledexclusionsRepeatedToJSONTyped(json, false);
+}
+
+export function ScheduledexclusionsRepeatedToJSONTyped(value?: ScheduledexclusionsRepeated | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         all_day: value["allDay"],
         end_time: value["endTime"],

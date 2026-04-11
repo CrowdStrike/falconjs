@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiFieldHasValue } from "./ApiFieldHasValue";
-import { ApiFieldHasValueFromJSON, ApiFieldHasValueFromJSONTyped, ApiFieldHasValueToJSON } from "./ApiFieldHasValue";
+import { ApiFieldHasValueFromJSON, ApiFieldHasValueFromJSONTyped, ApiFieldHasValueToJSON, ApiFieldHasValueToJSONTyped } from "./ApiFieldHasValue";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ApiParserTestCaseOutputAssertionsFromJSONTyped(json: any, ignore
     };
 }
 
-export function ApiParserTestCaseOutputAssertionsToJSON(value?: ApiParserTestCaseOutputAssertions | null): any {
+export function ApiParserTestCaseOutputAssertionsToJSON(json: any): ApiParserTestCaseOutputAssertions {
+    return ApiParserTestCaseOutputAssertionsToJSONTyped(json, false);
+}
+
+export function ApiParserTestCaseOutputAssertionsToJSONTyped(value?: ApiParserTestCaseOutputAssertions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields_have_values: (value["fieldsHaveValues"] as Array<any>).map(ApiFieldHasValueToJSON),
         fields_not_present: value["fieldsNotPresent"],

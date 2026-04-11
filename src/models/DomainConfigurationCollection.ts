@@ -64,10 +64,15 @@ export function DomainConfigurationCollectionFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainConfigurationCollectionToJSON(value?: DomainConfigurationCollection | null): any {
+export function DomainConfigurationCollectionToJSON(json: any): DomainConfigurationCollection {
+    return DomainConfigurationCollectionToJSONTyped(json, false);
+}
+
+export function DomainConfigurationCollectionToJSONTyped(value?: DomainConfigurationCollection | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collector: value["collector"],
         name: value["name"],

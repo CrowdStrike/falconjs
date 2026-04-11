@@ -56,10 +56,15 @@ export function DomainExternalAssetSubsidiaryFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainExternalAssetSubsidiaryToJSON(value?: DomainExternalAssetSubsidiary | null): any {
+export function DomainExternalAssetSubsidiaryToJSON(json: any): DomainExternalAssetSubsidiary {
+    return DomainExternalAssetSubsidiaryToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetSubsidiaryToJSONTyped(value?: DomainExternalAssetSubsidiary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

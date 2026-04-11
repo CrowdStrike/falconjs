@@ -64,10 +64,15 @@ export function ApiSavedQueryFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ApiSavedQueryToJSON(value?: ApiSavedQuery | null): any {
+export function ApiSavedQueryToJSON(json: any): ApiSavedQuery {
+    return ApiSavedQueryToJSONTyped(json, false);
+}
+
+export function ApiSavedQueryToJSONTyped(value?: ApiSavedQuery | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

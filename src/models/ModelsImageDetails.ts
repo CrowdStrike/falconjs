@@ -72,10 +72,15 @@ export function ModelsImageDetailsFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ModelsImageDetailsToJSON(value?: ModelsImageDetails | null): any {
+export function ModelsImageDetailsToJSON(json: any): ModelsImageDetails {
+    return ModelsImageDetailsToJSONTyped(json, false);
+}
+
+export function ModelsImageDetailsToJSONTyped(value?: ModelsImageDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         digest: value["digest"],
         registry: value["registry"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { SupportedIntegrationGetSupportedSaas } from "./SupportedIntegrationGetSupportedSaas";
-import { SupportedIntegrationGetSupportedSaasFromJSON, SupportedIntegrationGetSupportedSaasFromJSONTyped, SupportedIntegrationGetSupportedSaasToJSON } from "./SupportedIntegrationGetSupportedSaas";
+import {
+    SupportedIntegrationGetSupportedSaasFromJSON,
+    SupportedIntegrationGetSupportedSaasFromJSONTyped,
+    SupportedIntegrationGetSupportedSaasToJSON,
+    SupportedIntegrationGetSupportedSaasToJSONTyped,
+} from "./SupportedIntegrationGetSupportedSaas";
 import type { ErrorGetSupportedSaas } from "./ErrorGetSupportedSaas";
-import { ErrorGetSupportedSaasFromJSON, ErrorGetSupportedSaasFromJSONTyped, ErrorGetSupportedSaasToJSON } from "./ErrorGetSupportedSaas";
+import { ErrorGetSupportedSaasFromJSON, ErrorGetSupportedSaasFromJSONTyped, ErrorGetSupportedSaasToJSON, ErrorGetSupportedSaasToJSONTyped } from "./ErrorGetSupportedSaas";
 import type { MetaGetSupportedSaas } from "./MetaGetSupportedSaas";
-import { MetaGetSupportedSaasFromJSON, MetaGetSupportedSaasFromJSONTyped, MetaGetSupportedSaasToJSON } from "./MetaGetSupportedSaas";
+import { MetaGetSupportedSaasFromJSON, MetaGetSupportedSaasFromJSONTyped, MetaGetSupportedSaasToJSON, MetaGetSupportedSaasToJSONTyped } from "./MetaGetSupportedSaas";
 
 /**
  *
@@ -68,10 +73,15 @@ export function GetSupportedSaasFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function GetSupportedSaasToJSON(value?: GetSupportedSaas | null): any {
+export function GetSupportedSaasToJSON(json: any): GetSupportedSaas {
+    return GetSupportedSaasToJSONTyped(json, false);
+}
+
+export function GetSupportedSaasToJSONTyped(value?: GetSupportedSaas | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetSupportedSaasToJSON),
         meta: MetaGetSupportedSaasToJSON(value["meta"]),

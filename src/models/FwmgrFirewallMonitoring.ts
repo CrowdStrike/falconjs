@@ -56,10 +56,15 @@ export function FwmgrFirewallMonitoringFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function FwmgrFirewallMonitoringToJSON(value?: FwmgrFirewallMonitoring | null): any {
+export function FwmgrFirewallMonitoringToJSON(json: any): FwmgrFirewallMonitoring {
+    return FwmgrFirewallMonitoringToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallMonitoringToJSONTyped(value?: FwmgrFirewallMonitoring | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         period_ms: value["periodMs"],

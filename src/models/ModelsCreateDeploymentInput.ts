@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsDeploymentResource } from "./ModelsDeploymentResource";
-import { ModelsDeploymentResourceFromJSON, ModelsDeploymentResourceFromJSONTyped, ModelsDeploymentResourceToJSON } from "./ModelsDeploymentResource";
+import { ModelsDeploymentResourceFromJSON, ModelsDeploymentResourceFromJSONTyped, ModelsDeploymentResourceToJSON, ModelsDeploymentResourceToJSONTyped } from "./ModelsDeploymentResource";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ModelsCreateDeploymentInputFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsCreateDeploymentInputToJSON(value?: ModelsCreateDeploymentInput | null): any {
+export function ModelsCreateDeploymentInputToJSON(json: any): ModelsCreateDeploymentInput {
+    return ModelsCreateDeploymentInputToJSONTyped(json, false);
+}
+
+export function ModelsCreateDeploymentInputToJSONTyped(value?: ModelsCreateDeploymentInput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(ModelsDeploymentResourceToJSON),
     };

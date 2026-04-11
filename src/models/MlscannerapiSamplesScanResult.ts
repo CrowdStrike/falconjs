@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { MlscannerapiScannedSample } from "./MlscannerapiScannedSample";
-import { MlscannerapiScannedSampleFromJSON, MlscannerapiScannedSampleFromJSONTyped, MlscannerapiScannedSampleToJSON } from "./MlscannerapiScannedSample";
+import { MlscannerapiScannedSampleFromJSON, MlscannerapiScannedSampleFromJSONTyped, MlscannerapiScannedSampleToJSON, MlscannerapiScannedSampleToJSONTyped } from "./MlscannerapiScannedSample";
 
 /**
  *
@@ -82,10 +82,15 @@ export function MlscannerapiSamplesScanResultFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function MlscannerapiSamplesScanResultToJSON(value?: MlscannerapiSamplesScanResult | null): any {
+export function MlscannerapiSamplesScanResultToJSON(json: any): MlscannerapiSamplesScanResult {
+    return MlscannerapiSamplesScanResultToJSONTyped(json, false);
+}
+
+export function MlscannerapiSamplesScanResultToJSONTyped(value?: MlscannerapiSamplesScanResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_timestamp: value["createdTimestamp"],

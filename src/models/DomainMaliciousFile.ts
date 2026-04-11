@@ -125,10 +125,15 @@ export function DomainMaliciousFileFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainMaliciousFileToJSON(value?: DomainMaliciousFile | null): any {
+export function DomainMaliciousFileToJSON(json: any): DomainMaliciousFile {
+    return DomainMaliciousFileToJSONTyped(json, false);
+}
+
+export function DomainMaliciousFileToJSONTyped(value?: DomainMaliciousFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         filename: value["filename"],
@@ -137,7 +142,7 @@ export function DomainMaliciousFileToJSON(value?: DomainMaliciousFile | null): a
         host_id: value["hostId"],
         host_scan_id: value["hostScanId"],
         id: value["id"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         pattern_id: value["patternId"],
         quarantined: value["quarantined"],
         scan_id: value["scanId"],

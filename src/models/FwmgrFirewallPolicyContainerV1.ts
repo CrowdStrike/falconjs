@@ -153,10 +153,15 @@ export function FwmgrFirewallPolicyContainerV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function FwmgrFirewallPolicyContainerV1ToJSON(value?: FwmgrFirewallPolicyContainerV1 | null): any {
+export function FwmgrFirewallPolicyContainerV1ToJSON(json: any): FwmgrFirewallPolicyContainerV1 {
+    return FwmgrFirewallPolicyContainerV1ToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallPolicyContainerV1ToJSONTyped(value?: FwmgrFirewallPolicyContainerV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: value["createdBy"],
         created_on: value["createdOn"],

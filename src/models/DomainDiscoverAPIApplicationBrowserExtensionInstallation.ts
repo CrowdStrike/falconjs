@@ -104,10 +104,18 @@ export function DomainDiscoverAPIApplicationBrowserExtensionInstallationFromJSON
     };
 }
 
-export function DomainDiscoverAPIApplicationBrowserExtensionInstallationToJSON(value?: DomainDiscoverAPIApplicationBrowserExtensionInstallation | null): any {
+export function DomainDiscoverAPIApplicationBrowserExtensionInstallationToJSON(json: any): DomainDiscoverAPIApplicationBrowserExtensionInstallation {
+    return DomainDiscoverAPIApplicationBrowserExtensionInstallationToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIApplicationBrowserExtensionInstallationToJSONTyped(
+    value?: DomainDiscoverAPIApplicationBrowserExtensionInstallation | null,
+    ignoreDiscriminator: boolean = false,
+): any {
     if (value == null) {
         return value;
     }
+
     return {
         browser_profile_id: value["browserProfileId"],
         browser_profile_name: value["browserProfileName"],

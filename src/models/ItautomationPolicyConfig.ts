@@ -14,11 +14,21 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationConcurrencyConfig } from "./ItautomationConcurrencyConfig";
-import { ItautomationConcurrencyConfigFromJSON, ItautomationConcurrencyConfigFromJSONTyped, ItautomationConcurrencyConfigToJSON } from "./ItautomationConcurrencyConfig";
+import {
+    ItautomationConcurrencyConfigFromJSON,
+    ItautomationConcurrencyConfigFromJSONTyped,
+    ItautomationConcurrencyConfigToJSON,
+    ItautomationConcurrencyConfigToJSONTyped,
+} from "./ItautomationConcurrencyConfig";
 import type { ItautomationResourceConfig } from "./ItautomationResourceConfig";
-import { ItautomationResourceConfigFromJSON, ItautomationResourceConfigFromJSONTyped, ItautomationResourceConfigToJSON } from "./ItautomationResourceConfig";
+import { ItautomationResourceConfigFromJSON, ItautomationResourceConfigFromJSONTyped, ItautomationResourceConfigToJSON, ItautomationResourceConfigToJSONTyped } from "./ItautomationResourceConfig";
 import type { ItautomationExecutionConfig } from "./ItautomationExecutionConfig";
-import { ItautomationExecutionConfigFromJSON, ItautomationExecutionConfigFromJSONTyped, ItautomationExecutionConfigToJSON } from "./ItautomationExecutionConfig";
+import {
+    ItautomationExecutionConfigFromJSON,
+    ItautomationExecutionConfigFromJSONTyped,
+    ItautomationExecutionConfigToJSON,
+    ItautomationExecutionConfigToJSONTyped,
+} from "./ItautomationExecutionConfig";
 
 /**
  *
@@ -68,10 +78,15 @@ export function ItautomationPolicyConfigFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ItautomationPolicyConfigToJSON(value?: ItautomationPolicyConfig | null): any {
+export function ItautomationPolicyConfigToJSON(json: any): ItautomationPolicyConfig {
+    return ItautomationPolicyConfigToJSONTyped(json, false);
+}
+
+export function ItautomationPolicyConfigToJSONTyped(value?: ItautomationPolicyConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         concurrency: ItautomationConcurrencyConfigToJSON(value["concurrency"]),
         execution: ItautomationExecutionConfigToJSON(value["execution"]),

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -68,10 +68,15 @@ export function RestAWSAccountQueryResponseExtV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function RestAWSAccountQueryResponseExtV1ToJSON(value?: RestAWSAccountQueryResponseExtV1 | null): any {
+export function RestAWSAccountQueryResponseExtV1ToJSON(json: any): RestAWSAccountQueryResponseExtV1 {
+    return RestAWSAccountQueryResponseExtV1ToJSONTyped(json, false);
+}
+
+export function RestAWSAccountQueryResponseExtV1ToJSONTyped(value?: RestAWSAccountQueryResponseExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -72,10 +72,15 @@ export function ApiRuleDetailsV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiRuleDetailsV1ToJSON(value?: ApiRuleDetailsV1 | null): any {
+export function ApiRuleDetailsV1ToJSON(json: any): ApiRuleDetailsV1 {
+    return ApiRuleDetailsV1ToJSONTyped(json, false);
+}
+
+export function ApiRuleDetailsV1ToJSONTyped(value?: ApiRuleDetailsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

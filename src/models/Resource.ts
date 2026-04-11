@@ -54,10 +54,15 @@ export function ResourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function ResourceToJSON(value?: Resource | null): any {
+export function ResourceToJSON(json: any): Resource {
+    return ResourceToJSONTyped(json, false);
+}
+
+export function ResourceToJSONTyped(value?: Resource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         uuid: value["uuid"],

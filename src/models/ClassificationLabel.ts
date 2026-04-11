@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ClassificationCriteria } from "./ClassificationCriteria";
-import { ClassificationCriteriaFromJSON, ClassificationCriteriaFromJSONTyped, ClassificationCriteriaToJSON } from "./ClassificationCriteria";
+import { ClassificationCriteriaFromJSON, ClassificationCriteriaFromJSONTyped, ClassificationCriteriaToJSON, ClassificationCriteriaToJSONTyped } from "./ClassificationCriteria";
 
 /**
  *
@@ -85,10 +85,15 @@ export function ClassificationLabelFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ClassificationLabelToJSON(value?: ClassificationLabel | null): any {
+export function ClassificationLabelToJSON(json: any): ClassificationLabel {
+    return ClassificationLabelToJSONTyped(json, false);
+}
+
+export function ClassificationLabelToJSONTyped(value?: ClassificationLabel | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         criteria: value["criteria"] == null ? undefined : (value["criteria"] as Array<any>).map(ClassificationCriteriaToJSON),
         dynamic: value["dynamic"],

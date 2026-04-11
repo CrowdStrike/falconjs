@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainMSSPRoles } from "./DomainMSSPRoles";
-import { DomainMSSPRolesFromJSON, DomainMSSPRolesFromJSONTyped, DomainMSSPRolesToJSON } from "./DomainMSSPRoles";
+import { DomainMSSPRolesFromJSON, DomainMSSPRolesFromJSONTyped, DomainMSSPRolesToJSON, DomainMSSPRolesToJSONTyped } from "./DomainMSSPRoles";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainMSSPRoleResponseV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainMSSPRoleResponseV1ToJSON(value?: DomainMSSPRoleResponseV1 | null): any {
+export function DomainMSSPRoleResponseV1ToJSON(json: any): DomainMSSPRoleResponseV1 {
+    return DomainMSSPRoleResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainMSSPRoleResponseV1ToJSONTyped(value?: DomainMSSPRoleResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

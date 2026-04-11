@@ -80,10 +80,15 @@ export function DomainBatchExecuteCommandRequestFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainBatchExecuteCommandRequestToJSON(value?: DomainBatchExecuteCommandRequest | null): any {
+export function DomainBatchExecuteCommandRequestToJSON(json: any): DomainBatchExecuteCommandRequest {
+    return DomainBatchExecuteCommandRequestToJSONTyped(json, false);
+}
+
+export function DomainBatchExecuteCommandRequestToJSONTyped(value?: DomainBatchExecuteCommandRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_command: value["baseCommand"],
         batch_id: value["batchId"],

@@ -14,17 +14,17 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxIntelReportV1 } from "./FalconxIntelReportV1";
-import { FalconxIntelReportV1FromJSON, FalconxIntelReportV1FromJSONTyped, FalconxIntelReportV1ToJSON } from "./FalconxIntelReportV1";
+import { FalconxIntelReportV1FromJSON, FalconxIntelReportV1FromJSONTyped, FalconxIntelReportV1ToJSON, FalconxIntelReportV1ToJSONTyped } from "./FalconxIntelReportV1";
 import type { FalconxIntelXReportV1 } from "./FalconxIntelXReportV1";
-import { FalconxIntelXReportV1FromJSON, FalconxIntelXReportV1FromJSONTyped, FalconxIntelXReportV1ToJSON } from "./FalconxIntelXReportV1";
+import { FalconxIntelXReportV1FromJSON, FalconxIntelXReportV1FromJSONTyped, FalconxIntelXReportV1ToJSON, FalconxIntelXReportV1ToJSONTyped } from "./FalconxIntelXReportV1";
 import type { FalconxSandboxReportV1 } from "./FalconxSandboxReportV1";
-import { FalconxSandboxReportV1FromJSON, FalconxSandboxReportV1FromJSONTyped, FalconxSandboxReportV1ToJSON } from "./FalconxSandboxReportV1";
+import { FalconxSandboxReportV1FromJSON, FalconxSandboxReportV1FromJSONTyped, FalconxSandboxReportV1ToJSON, FalconxSandboxReportV1ToJSONTyped } from "./FalconxSandboxReportV1";
 import type { FalconxMalqueryReportV1 } from "./FalconxMalqueryReportV1";
-import { FalconxMalqueryReportV1FromJSON, FalconxMalqueryReportV1FromJSONTyped, FalconxMalqueryReportV1ToJSON } from "./FalconxMalqueryReportV1";
+import { FalconxMalqueryReportV1FromJSON, FalconxMalqueryReportV1FromJSONTyped, FalconxMalqueryReportV1ToJSON, FalconxMalqueryReportV1ToJSONTyped } from "./FalconxMalqueryReportV1";
 import type { FalconxAISummary } from "./FalconxAISummary";
-import { FalconxAISummaryFromJSON, FalconxAISummaryFromJSONTyped, FalconxAISummaryToJSON } from "./FalconxAISummary";
+import { FalconxAISummaryFromJSON, FalconxAISummaryFromJSONTyped, FalconxAISummaryToJSON, FalconxAISummaryToJSONTyped } from "./FalconxAISummary";
 import type { FalconxThreatGraphReportV1 } from "./FalconxThreatGraphReportV1";
-import { FalconxThreatGraphReportV1FromJSON, FalconxThreatGraphReportV1FromJSONTyped, FalconxThreatGraphReportV1ToJSON } from "./FalconxThreatGraphReportV1";
+import { FalconxThreatGraphReportV1FromJSON, FalconxThreatGraphReportV1FromJSONTyped, FalconxThreatGraphReportV1ToJSON, FalconxThreatGraphReportV1ToJSONTyped } from "./FalconxThreatGraphReportV1";
 
 /**
  *
@@ -249,10 +249,15 @@ export function FalconxReportV1FromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function FalconxReportV1ToJSON(value?: FalconxReportV1 | null): any {
+export function FalconxReportV1ToJSON(json: any): FalconxReportV1 {
+    return FalconxReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxReportV1ToJSONTyped(value?: FalconxReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ai_summary: FalconxAISummaryToJSON(value["aiSummary"]),
         aid: value["aid"],

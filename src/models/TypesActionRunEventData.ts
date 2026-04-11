@@ -14,37 +14,38 @@
 
 import { mapValues } from "../runtime";
 import type { TypesCloudFunctionMetadata } from "./TypesCloudFunctionMetadata";
-import { TypesCloudFunctionMetadataFromJSON, TypesCloudFunctionMetadataFromJSONTyped, TypesCloudFunctionMetadataToJSON } from "./TypesCloudFunctionMetadata";
+import { TypesCloudFunctionMetadataFromJSON, TypesCloudFunctionMetadataFromJSONTyped, TypesCloudFunctionMetadataToJSON, TypesCloudFunctionMetadataToJSONTyped } from "./TypesCloudFunctionMetadata";
 import type { TypesHostMetadata } from "./TypesHostMetadata";
-import { TypesHostMetadataFromJSON, TypesHostMetadataFromJSONTyped, TypesHostMetadataToJSON } from "./TypesHostMetadata";
+import { TypesHostMetadataFromJSON, TypesHostMetadataFromJSONTyped, TypesHostMetadataToJSON, TypesHostMetadataToJSONTyped } from "./TypesHostMetadata";
 import type { TypesGCPMetadata } from "./TypesGCPMetadata";
-import { TypesGCPMetadataFromJSON, TypesGCPMetadataFromJSONTyped, TypesGCPMetadataToJSON } from "./TypesGCPMetadata";
+import { TypesGCPMetadataFromJSON, TypesGCPMetadataFromJSONTyped, TypesGCPMetadataToJSON, TypesGCPMetadataToJSONTyped } from "./TypesGCPMetadata";
 import type { TypesAWSMetadata } from "./TypesAWSMetadata";
-import { TypesAWSMetadataFromJSON, TypesAWSMetadataFromJSONTyped, TypesAWSMetadataToJSON } from "./TypesAWSMetadata";
+import { TypesAWSMetadataFromJSON, TypesAWSMetadataFromJSONTyped, TypesAWSMetadataToJSON, TypesAWSMetadataToJSONTyped } from "./TypesAWSMetadata";
 import type { TypesAzureVmMetadata } from "./TypesAzureVmMetadata";
-import { TypesAzureVmMetadataFromJSON, TypesAzureVmMetadataFromJSONTyped, TypesAzureVmMetadataToJSON } from "./TypesAzureVmMetadata";
+import { TypesAzureVmMetadataFromJSON, TypesAzureVmMetadataFromJSONTyped, TypesAzureVmMetadataToJSON, TypesAzureVmMetadataToJSONTyped } from "./TypesAzureVmMetadata";
 import type { TypesCrowdStrikeCloudSecurityMetadata } from "./TypesCrowdStrikeCloudSecurityMetadata";
 import {
     TypesCrowdStrikeCloudSecurityMetadataFromJSON,
     TypesCrowdStrikeCloudSecurityMetadataFromJSONTyped,
     TypesCrowdStrikeCloudSecurityMetadataToJSON,
+    TypesCrowdStrikeCloudSecurityMetadataToJSONTyped,
 } from "./TypesCrowdStrikeCloudSecurityMetadata";
 import type { TypesECSMetadata } from "./TypesECSMetadata";
-import { TypesECSMetadataFromJSON, TypesECSMetadataFromJSONTyped, TypesECSMetadataToJSON } from "./TypesECSMetadata";
+import { TypesECSMetadataFromJSON, TypesECSMetadataFromJSONTyped, TypesECSMetadataToJSON, TypesECSMetadataToJSONTyped } from "./TypesECSMetadata";
 import type { TypesSonatypeMetadata } from "./TypesSonatypeMetadata";
-import { TypesSonatypeMetadataFromJSON, TypesSonatypeMetadataFromJSONTyped, TypesSonatypeMetadataToJSON } from "./TypesSonatypeMetadata";
+import { TypesSonatypeMetadataFromJSON, TypesSonatypeMetadataFromJSONTyped, TypesSonatypeMetadataToJSON, TypesSonatypeMetadataToJSONTyped } from "./TypesSonatypeMetadata";
 import type { TypesSnykMetadata } from "./TypesSnykMetadata";
-import { TypesSnykMetadataFromJSON, TypesSnykMetadataFromJSONTyped, TypesSnykMetadataToJSON } from "./TypesSnykMetadata";
+import { TypesSnykMetadataFromJSON, TypesSnykMetadataFromJSONTyped, TypesSnykMetadataToJSON, TypesSnykMetadataToJSONTyped } from "./TypesSnykMetadata";
 import type { TypesEC2Metadata } from "./TypesEC2Metadata";
-import { TypesEC2MetadataFromJSON, TypesEC2MetadataFromJSONTyped, TypesEC2MetadataToJSON } from "./TypesEC2Metadata";
+import { TypesEC2MetadataFromJSON, TypesEC2MetadataFromJSONTyped, TypesEC2MetadataToJSON, TypesEC2MetadataToJSONTyped } from "./TypesEC2Metadata";
 import type { TypesLambdaMetadata } from "./TypesLambdaMetadata";
-import { TypesLambdaMetadataFromJSON, TypesLambdaMetadataFromJSONTyped, TypesLambdaMetadataToJSON } from "./TypesLambdaMetadata";
+import { TypesLambdaMetadataFromJSON, TypesLambdaMetadataFromJSONTyped, TypesLambdaMetadataToJSON, TypesLambdaMetadataToJSONTyped } from "./TypesLambdaMetadata";
 import type { TypesRemediation } from "./TypesRemediation";
-import { TypesRemediationFromJSON, TypesRemediationFromJSONTyped, TypesRemediationToJSON } from "./TypesRemediation";
+import { TypesRemediationFromJSON, TypesRemediationFromJSONTyped, TypesRemediationToJSON, TypesRemediationToJSONTyped } from "./TypesRemediation";
 import type { TypesK8SMetadata } from "./TypesK8SMetadata";
-import { TypesK8SMetadataFromJSON, TypesK8SMetadataFromJSONTyped, TypesK8SMetadataToJSON } from "./TypesK8SMetadata";
+import { TypesK8SMetadataFromJSON, TypesK8SMetadataFromJSONTyped, TypesK8SMetadataToJSON, TypesK8SMetadataToJSONTyped } from "./TypesK8SMetadata";
 import type { TypesAzureSiteMetadata } from "./TypesAzureSiteMetadata";
-import { TypesAzureSiteMetadataFromJSON, TypesAzureSiteMetadataFromJSONTyped, TypesAzureSiteMetadataToJSON } from "./TypesAzureSiteMetadata";
+import { TypesAzureSiteMetadataFromJSON, TypesAzureSiteMetadataFromJSONTyped, TypesAzureSiteMetadataToJSON, TypesAzureSiteMetadataToJSONTyped } from "./TypesAzureSiteMetadata";
 
 /**
  *
@@ -178,10 +179,15 @@ export function TypesActionRunEventDataFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function TypesActionRunEventDataToJSON(value?: TypesActionRunEventData | null): any {
+export function TypesActionRunEventDataToJSON(json: any): TypesActionRunEventData {
+    return TypesActionRunEventDataToJSONTyped(json, false);
+}
+
+export function TypesActionRunEventDataToJSONTyped(value?: TypesActionRunEventData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         additionalInfo: value["additionalInfo"],
         aws: TypesAWSMetadataToJSON(value["aws"]),

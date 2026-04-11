@@ -14,17 +14,42 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIDetectionCountByType } from "./ModelsAPIDetectionCountByType";
-import { ModelsAPIDetectionCountByTypeFromJSON, ModelsAPIDetectionCountByTypeFromJSONTyped, ModelsAPIDetectionCountByTypeToJSON } from "./ModelsAPIDetectionCountByType";
+import {
+    ModelsAPIDetectionCountByTypeFromJSON,
+    ModelsAPIDetectionCountByTypeFromJSONTyped,
+    ModelsAPIDetectionCountByTypeToJSON,
+    ModelsAPIDetectionCountByTypeToJSONTyped,
+} from "./ModelsAPIDetectionCountByType";
 import type { ModelsAPIFilterLabel } from "./ModelsAPIFilterLabel";
-import { ModelsAPIFilterLabelFromJSON, ModelsAPIFilterLabelFromJSONTyped, ModelsAPIFilterLabelToJSON } from "./ModelsAPIFilterLabel";
+import { ModelsAPIFilterLabelFromJSON, ModelsAPIFilterLabelFromJSONTyped, ModelsAPIFilterLabelToJSON, ModelsAPIFilterLabelToJSONTyped } from "./ModelsAPIFilterLabel";
 import type { ModelsImageSummaryPackagesInfo } from "./ModelsImageSummaryPackagesInfo";
-import { ModelsImageSummaryPackagesInfoFromJSON, ModelsImageSummaryPackagesInfoFromJSONTyped, ModelsImageSummaryPackagesInfoToJSON } from "./ModelsImageSummaryPackagesInfo";
+import {
+    ModelsImageSummaryPackagesInfoFromJSON,
+    ModelsImageSummaryPackagesInfoFromJSONTyped,
+    ModelsImageSummaryPackagesInfoToJSON,
+    ModelsImageSummaryPackagesInfoToJSONTyped,
+} from "./ModelsImageSummaryPackagesInfo";
 import type { ModelsIssuesSummaryContainerInfo } from "./ModelsIssuesSummaryContainerInfo";
-import { ModelsIssuesSummaryContainerInfoFromJSON, ModelsIssuesSummaryContainerInfoFromJSONTyped, ModelsIssuesSummaryContainerInfoToJSON } from "./ModelsIssuesSummaryContainerInfo";
+import {
+    ModelsIssuesSummaryContainerInfoFromJSON,
+    ModelsIssuesSummaryContainerInfoFromJSONTyped,
+    ModelsIssuesSummaryContainerInfoToJSON,
+    ModelsIssuesSummaryContainerInfoToJSONTyped,
+} from "./ModelsIssuesSummaryContainerInfo";
 import type { ModelsAPIVulnCountBySeverity } from "./ModelsAPIVulnCountBySeverity";
-import { ModelsAPIVulnCountBySeverityFromJSON, ModelsAPIVulnCountBySeverityFromJSONTyped, ModelsAPIVulnCountBySeverityToJSON } from "./ModelsAPIVulnCountBySeverity";
+import {
+    ModelsAPIVulnCountBySeverityFromJSON,
+    ModelsAPIVulnCountBySeverityFromJSONTyped,
+    ModelsAPIVulnCountBySeverityToJSON,
+    ModelsAPIVulnCountBySeverityToJSONTyped,
+} from "./ModelsAPIVulnCountBySeverity";
 import type { ModelsAPIPolicyCountByAction } from "./ModelsAPIPolicyCountByAction";
-import { ModelsAPIPolicyCountByActionFromJSON, ModelsAPIPolicyCountByActionFromJSONTyped, ModelsAPIPolicyCountByActionToJSON } from "./ModelsAPIPolicyCountByAction";
+import {
+    ModelsAPIPolicyCountByActionFromJSON,
+    ModelsAPIPolicyCountByActionFromJSONTyped,
+    ModelsAPIPolicyCountByActionToJSON,
+    ModelsAPIPolicyCountByActionToJSONTyped,
+} from "./ModelsAPIPolicyCountByAction";
 
 /**
  *
@@ -125,10 +150,15 @@ export function ModelsAPIImageIssuesSummaryFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsAPIImageIssuesSummaryToJSON(value?: ModelsAPIImageIssuesSummary | null): any {
+export function ModelsAPIImageIssuesSummaryToJSON(json: any): ModelsAPIImageIssuesSummary {
+    return ModelsAPIImageIssuesSummaryToJSONTyped(json, false);
+}
+
+export function ModelsAPIImageIssuesSummaryToJSONTyped(value?: ModelsAPIImageIssuesSummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         image_container_info: ModelsIssuesSummaryContainerInfoToJSON(value["imageContainerInfo"]),
         image_detections: (value["imageDetections"] as Array<any>).map(ModelsAPIDetectionCountByTypeToJSON),

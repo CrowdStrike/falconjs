@@ -218,12 +218,9 @@ export interface WorkflowsApiWorkflowUpdateHumanInputV1Request {
  */
 export class WorkflowsApi extends runtime.BaseAPI {
     /**
-     * Deprovisions a system definition that was previously provisioned on the target CID
+     * Creates request options for deprovision without sending the request
      */
-    async deprovisionRaw(
-        requestParameters: WorkflowsApiDeprovisionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
+    async deprovisionRequestOpts(requestParameters: WorkflowsApiDeprovisionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling deprovision().');
         }
@@ -239,16 +236,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/system-definitions/deprovision/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ClientSystemDefinitionDeProvisionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/system-definitions/deprovision/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ClientSystemDefinitionDeProvisionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Deprovisions a system definition that was previously provisioned on the target CID
+     */
+    async deprovisionRaw(
+        requestParameters: WorkflowsApiDeprovisionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
+        const requestOptions = await this.deprovisionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSystemDefinitionCreateResponseFromJSON(jsonValue));
     }
@@ -262,9 +269,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Executes an on-demand Workflow, the body is JSON used to trigger the execution, the response the execution ID(s)
+     * Creates request options for execute without sending the request
      */
-    async executeRaw(requestParameters: WorkflowsApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+    async executeRequestOpts(requestParameters: WorkflowsApiExecuteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling execute().');
         }
@@ -304,16 +311,23 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/execute/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"] as any,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/execute/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"] as any,
+        };
+    }
+
+    /**
+     * Executes an on-demand Workflow, the body is JSON used to trigger the execution, the response the execution ID(s)
+     */
+    async executeRaw(requestParameters: WorkflowsApiExecuteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+        const requestOptions = await this.executeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
     }
@@ -339,12 +353,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Allows a user to resume/retry a failed workflow execution, or cancel/stop a currently running workflow execution
+     * Creates request options for executionAction without sending the request
      */
-    async executionActionRaw(
-        requestParameters: WorkflowsApiExecutionActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DefinitionsDefinitionEntitiesResponse>> {
+    async executionActionRequestOpts(requestParameters: WorkflowsApiExecutionActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling executionAction().');
         }
@@ -368,16 +379,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/execution-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ClientActionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/execution-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ClientActionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Allows a user to resume/retry a failed workflow execution, or cancel/stop a currently running workflow execution
+     */
+    async executionActionRaw(
+        requestParameters: WorkflowsApiExecutionActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DefinitionsDefinitionEntitiesResponse>> {
+        const requestOptions = await this.executionActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionEntitiesResponseFromJSON(jsonValue));
     }
@@ -395,12 +416,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get execution result of a given execution
+     * Creates request options for executionResults without sending the request
      */
-    async executionResultsRaw(
-        requestParameters: WorkflowsApiExecutionResultsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiExecutionResultsResponse>> {
+    async executionResultsRequestOpts(requestParameters: WorkflowsApiExecutionResultsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling executionResults().');
         }
@@ -418,15 +436,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/execution-results/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/execution-results/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get execution result of a given execution
+     */
+    async executionResultsRaw(
+        requestParameters: WorkflowsApiExecutionResultsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiExecutionResultsResponse>> {
+        const requestOptions = await this.executionResultsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiExecutionResultsResponseFromJSON(jsonValue));
     }
@@ -440,9 +468,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Promotes a version of a system definition for a customer. The customer must already have been provisioned. This allows the caller to apply an updated template version to a specific cid and expects all parameters to be supplied. If the template supports multi-instance the customer scope definition ID must be supplied to determine which customer workflow should be updated.
+     * Creates request options for promote without sending the request
      */
-    async promoteRaw(requestParameters: WorkflowsApiPromoteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
+    async promoteRequestOpts(requestParameters: WorkflowsApiPromoteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling promote().');
         }
@@ -458,16 +486,23 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/system-definitions/promote/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ClientSystemDefinitionPromoteRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/system-definitions/promote/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ClientSystemDefinitionPromoteRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Promotes a version of a system definition for a customer. The customer must already have been provisioned. This allows the caller to apply an updated template version to a specific cid and expects all parameters to be supplied. If the template supports multi-instance the customer scope definition ID must be supplied to determine which customer workflow should be updated.
+     */
+    async promoteRaw(requestParameters: WorkflowsApiPromoteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
+        const requestOptions = await this.promoteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSystemDefinitionCreateResponseFromJSON(jsonValue));
     }
@@ -481,12 +516,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Provisions a system definition onto the target CID by using the template and provided parameters
+     * Creates request options for provision without sending the request
      */
-    async provisionRaw(
-        requestParameters: WorkflowsApiProvisionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
+    async provisionRequestOpts(requestParameters: WorkflowsApiProvisionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling provision().');
         }
@@ -502,16 +534,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/system-definitions/provision/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ClientSystemDefinitionProvisionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/system-definitions/provision/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ClientSystemDefinitionProvisionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Provisions a system definition onto the target CID by using the template and provided parameters
+     */
+    async provisionRaw(
+        requestParameters: WorkflowsApiProvisionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ClientSystemDefinitionCreateResponse>> {
+        const requestOptions = await this.provisionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientSystemDefinitionCreateResponseFromJSON(jsonValue));
     }
@@ -525,12 +567,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for child executions by providing a FQL filter and paging details. Returns the set of child workflow execution IDs which match the filter criteria
+     * Creates request options for v1ChildExecutionsQuery without sending the request
      */
-    async v1ChildExecutionsQueryRaw(
-        requestParameters: WorkflowsApiV1ChildExecutionsQueryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async v1ChildExecutionsQueryRequestOpts(requestParameters: WorkflowsApiV1ChildExecutionsQueryRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -556,15 +595,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/queries/child-executions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/queries/child-executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for child executions by providing a FQL filter and paging details. Returns the set of child workflow execution IDs which match the filter criteria
+     */
+    async v1ChildExecutionsQueryRaw(
+        requestParameters: WorkflowsApiV1ChildExecutionsQueryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.v1ChildExecutionsQueryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -578,12 +627,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for activities by name. Returns all supported activities if no filter specified
+     * Creates request options for workflowActivitiesCombined without sending the request
      */
-    async workflowActivitiesCombinedRaw(
-        requestParameters: WorkflowsApiWorkflowActivitiesCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ActivitiesActivityExternalResponse>> {
+    async workflowActivitiesCombinedRequestOpts(requestParameters: WorkflowsApiWorkflowActivitiesCombinedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -609,15 +655,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/combined/activities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/combined/activities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for activities by name. Returns all supported activities if no filter specified
+     */
+    async workflowActivitiesCombinedRaw(
+        requestParameters: WorkflowsApiWorkflowActivitiesCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ActivitiesActivityExternalResponse>> {
+        const requestOptions = await this.workflowActivitiesCombinedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivitiesActivityExternalResponseFromJSON(jsonValue));
     }
@@ -637,12 +693,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for activities by name. Returns all supported activities if no filter specified
+     * Creates request options for workflowActivitiesContentCombined without sending the request
      */
-    async workflowActivitiesContentCombinedRaw(
-        requestParameters: WorkflowsApiWorkflowActivitiesContentCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ActivitiesActivityExternalResponse>> {
+    async workflowActivitiesContentCombinedRequestOpts(requestParameters: WorkflowsApiWorkflowActivitiesContentCombinedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -668,15 +721,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/combined/activity-content/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/combined/activity-content/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for activities by name. Returns all supported activities if no filter specified
+     */
+    async workflowActivitiesContentCombinedRaw(
+        requestParameters: WorkflowsApiWorkflowActivitiesContentCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ActivitiesActivityExternalResponse>> {
+        const requestOptions = await this.workflowActivitiesContentCombinedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivitiesActivityExternalResponseFromJSON(jsonValue));
     }
@@ -696,12 +759,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Enable or disable a workflow definition, or stop all executions for a definition. When a definition is disabled it will not execute against any new trigger events.
+     * Creates request options for workflowDefinitionsAction without sending the request
      */
-    async workflowDefinitionsActionRaw(
-        requestParameters: WorkflowsApiWorkflowDefinitionsActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DefinitionsDefinitionEntitiesResponse>> {
+    async workflowDefinitionsActionRequestOpts(requestParameters: WorkflowsApiWorkflowDefinitionsActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling workflowDefinitionsAction().');
         }
@@ -725,16 +785,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/definition-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ClientActionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/definition-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ClientActionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Enable or disable a workflow definition, or stop all executions for a definition. When a definition is disabled it will not execute against any new trigger events.
+     */
+    async workflowDefinitionsActionRaw(
+        requestParameters: WorkflowsApiWorkflowDefinitionsActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DefinitionsDefinitionEntitiesResponse>> {
+        const requestOptions = await this.workflowDefinitionsActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionEntitiesResponseFromJSON(jsonValue));
     }
@@ -748,12 +818,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search workflow definitions based on the provided filter. NOTE: this API has a large response payload. Click on `Wait` if the page is unresponsive during loading
+     * Creates request options for workflowDefinitionsCombined without sending the request
      */
-    async workflowDefinitionsCombinedRaw(
-        requestParameters: WorkflowsApiWorkflowDefinitionsCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DefinitionsDefinitionExternalResponse>> {
+    async workflowDefinitionsCombinedRequestOpts(requestParameters: WorkflowsApiWorkflowDefinitionsCombinedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -779,15 +846,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/combined/definitions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/combined/definitions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search workflow definitions based on the provided filter. NOTE: this API has a large response payload. Click on `Wait` if the page is unresponsive during loading
+     */
+    async workflowDefinitionsCombinedRaw(
+        requestParameters: WorkflowsApiWorkflowDefinitionsCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DefinitionsDefinitionExternalResponse>> {
+        const requestOptions = await this.workflowDefinitionsCombinedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionExternalResponseFromJSON(jsonValue));
     }
@@ -807,12 +884,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Exports a workflow definition for the given definition ID
+     * Creates request options for workflowDefinitionsExport without sending the request
      */
-    async workflowDefinitionsExportRaw(
-        requestParameters: WorkflowsApiWorkflowDefinitionsExportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Array<number>>> {
+    async workflowDefinitionsExportRequestOpts(requestParameters: WorkflowsApiWorkflowDefinitionsExportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling workflowDefinitionsExport().');
         }
@@ -834,15 +908,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/definitions/export/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/definitions/export/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Exports a workflow definition for the given definition ID
+     */
+    async workflowDefinitionsExportRaw(
+        requestParameters: WorkflowsApiWorkflowDefinitionsExportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.workflowDefinitionsExportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -856,12 +940,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Imports a workflow definition based on the provided model
+     * Creates request options for workflowDefinitionsImport without sending the request
      */
-    async workflowDefinitionsImportRaw(
-        requestParameters: WorkflowsApiWorkflowDefinitionsImportRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DefinitionsDefinitionImportResponse>> {
+    async workflowDefinitionsImportRequestOpts(requestParameters: WorkflowsApiWorkflowDefinitionsImportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["dataFile"] == null) {
             throw new runtime.RequiredError("dataFile", 'Required parameter "dataFile" was null or undefined when calling workflowDefinitionsImport().');
         }
@@ -901,16 +982,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             formParams.append("data_file", requestParameters["dataFile"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/definitions/import/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/definitions/import/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Imports a workflow definition based on the provided model
+     */
+    async workflowDefinitionsImportRaw(
+        requestParameters: WorkflowsApiWorkflowDefinitionsImportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DefinitionsDefinitionImportResponse>> {
+        const requestOptions = await this.workflowDefinitionsImportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionImportResponseFromJSON(jsonValue));
     }
@@ -924,12 +1015,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Updates a workflow definition based on the provided model
+     * Creates request options for workflowDefinitionsUpdate without sending the request
      */
-    async workflowDefinitionsUpdateRaw(
-        requestParameters: WorkflowsApiWorkflowDefinitionsUpdateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+    async workflowDefinitionsUpdateRequestOpts(requestParameters: WorkflowsApiWorkflowDefinitionsUpdateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowDefinitionsUpdate().');
         }
@@ -949,16 +1037,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/definitions/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsDefinitionUpdateRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/definitions/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsDefinitionUpdateRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Updates a workflow definition based on the provided model
+     */
+    async workflowDefinitionsUpdateRaw(
+        requestParameters: WorkflowsApiWorkflowDefinitionsUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+        const requestOptions = await this.workflowDefinitionsUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
     }
@@ -972,12 +1070,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Executes an on-demand Workflow - internal workflows permitted, the body is JSON used to trigger the execution, the response the execution ID(s)
+     * Creates request options for workflowExecuteInternal without sending the request
      */
-    async workflowExecuteInternalRaw(
-        requestParameters: WorkflowsApiWorkflowExecuteInternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+    async workflowExecuteInternalRequestOpts(requestParameters: WorkflowsApiWorkflowExecuteInternalRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowExecuteInternal().');
         }
@@ -1021,16 +1116,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/execute/internal/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"] as any,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/execute/internal/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"] as any,
+        };
+    }
+
+    /**
+     * Executes an on-demand Workflow - internal workflows permitted, the body is JSON used to trigger the execution, the response the execution ID(s)
+     */
+    async workflowExecuteInternalRaw(
+        requestParameters: WorkflowsApiWorkflowExecuteInternalRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+        const requestOptions = await this.workflowExecuteInternalRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
     }
@@ -1057,12 +1162,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Executes a single activity node, resulting in an execution where test_mode=true and single_node_execution=true, associated with a definition ID if provided
+     * Creates request options for workflowExecuteSingleNodeV1 without sending the request
      */
-    async workflowExecuteSingleNodeV1Raw(
-        requestParameters: WorkflowsApiWorkflowExecuteSingleNodeV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+    async workflowExecuteSingleNodeV1RequestOpts(requestParameters: WorkflowsApiWorkflowExecuteSingleNodeV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowExecuteSingleNodeV1().');
         }
@@ -1098,16 +1200,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/single-node-executions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsSingleNodeExecutionCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/single-node-executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsSingleNodeExecutionCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Executes a single activity node, resulting in an execution where test_mode=true and single_node_execution=true, associated with a definition ID if provided
+     */
+    async workflowExecuteSingleNodeV1Raw(
+        requestParameters: WorkflowsApiWorkflowExecuteSingleNodeV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+        const requestOptions = await this.workflowExecuteSingleNodeV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
     }
@@ -1129,12 +1241,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search workflow executions based on the provided filter
+     * Creates request options for workflowExecutionsCombined without sending the request
      */
-    async workflowExecutionsCombinedRaw(
-        requestParameters: WorkflowsApiWorkflowExecutionsCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiExecutionResultsResponse>> {
+    async workflowExecutionsCombinedRequestOpts(requestParameters: WorkflowsApiWorkflowExecutionsCombinedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1160,15 +1269,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/combined/executions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/combined/executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search workflow executions based on the provided filter
+     */
+    async workflowExecutionsCombinedRaw(
+        requestParameters: WorkflowsApiWorkflowExecutionsCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiExecutionResultsResponse>> {
+        const requestOptions = await this.workflowExecutionsCombinedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiExecutionResultsResponseFromJSON(jsonValue));
     }
@@ -1188,12 +1307,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets one or more specific human inputs by their IDs.
+     * Creates request options for workflowGetHumanInputV1 without sending the request
      */
-    async workflowGetHumanInputV1Raw(
-        requestParameters: WorkflowsApiWorkflowGetHumanInputV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelUserInputReadResponse>> {
+    async workflowGetHumanInputV1RequestOpts(requestParameters: WorkflowsApiWorkflowGetHumanInputV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling workflowGetHumanInputV1().');
         }
@@ -1211,15 +1327,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/human-inputs/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/human-inputs/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets one or more specific human inputs by their IDs.
+     */
+    async workflowGetHumanInputV1Raw(
+        requestParameters: WorkflowsApiWorkflowGetHumanInputV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelUserInputReadResponse>> {
+        const requestOptions = await this.workflowGetHumanInputV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelUserInputReadResponseFromJSON(jsonValue));
     }
@@ -1233,12 +1359,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Executes a workflow definition with mocks
+     * Creates request options for workflowMockExecute without sending the request
      */
-    async workflowMockExecuteRaw(
-        requestParameters: WorkflowsApiWorkflowMockExecuteRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+    async workflowMockExecuteRequestOpts(requestParameters: WorkflowsApiWorkflowMockExecuteRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowMockExecute().');
         }
@@ -1290,16 +1413,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/mock-executions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelsMockExecutionCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/mock-executions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelsMockExecutionCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Executes a workflow definition with mocks
+     */
+    async workflowMockExecuteRaw(
+        requestParameters: WorkflowsApiWorkflowMockExecuteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+        const requestOptions = await this.workflowMockExecuteRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
     }
@@ -1339,12 +1472,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for triggers by namespaced identifier, i.e. FalconAudit, Detection, or FalconAudit/Detection/Status. Returns all triggers if no filter specified
+     * Creates request options for workflowTriggersCombined without sending the request
      */
-    async workflowTriggersCombinedRaw(
-        requestParameters: WorkflowsApiWorkflowTriggersCombinedRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<TriggersTriggerExternalResponse>> {
+    async workflowTriggersCombinedRequestOpts(requestParameters: WorkflowsApiWorkflowTriggersCombinedRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1366,15 +1496,25 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/combined/triggers/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/combined/triggers/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for triggers by namespaced identifier, i.e. FalconAudit, Detection, or FalconAudit/Detection/Status. Returns all triggers if no filter specified
+     */
+    async workflowTriggersCombinedRaw(
+        requestParameters: WorkflowsApiWorkflowTriggersCombinedRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<TriggersTriggerExternalResponse>> {
+        const requestOptions = await this.workflowTriggersCombinedRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TriggersTriggerExternalResponseFromJSON(jsonValue));
     }
@@ -1388,12 +1528,9 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Provides an input in response to a human input action. Depending on action configuration, one or more of Approve, Decline, and/or Escalate are permitted.
+     * Creates request options for workflowUpdateHumanInputV1 without sending the request
      */
-    async workflowUpdateHumanInputV1Raw(
-        requestParameters: WorkflowsApiWorkflowUpdateHumanInputV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+    async workflowUpdateHumanInputV1RequestOpts(requestParameters: WorkflowsApiWorkflowUpdateHumanInputV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling workflowUpdateHumanInputV1().');
         }
@@ -1417,16 +1554,26 @@ export class WorkflowsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/workflows/entities/human-inputs/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ModelUserInputUpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/workflows/entities/human-inputs/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelUserInputUpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Provides an input in response to a human input action. Depending on action configuration, one or more of Approve, Decline, and/or Escalate are permitted.
+     */
+    async workflowUpdateHumanInputV1Raw(
+        requestParameters: WorkflowsApiWorkflowUpdateHumanInputV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
+        const requestOptions = await this.workflowUpdateHumanInputV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
     }

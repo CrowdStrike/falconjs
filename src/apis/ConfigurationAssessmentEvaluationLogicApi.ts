@@ -25,12 +25,9 @@ export interface ConfigurationAssessmentEvaluationLogicApiGetEvaluationLogicMixi
  */
 export class ConfigurationAssessmentEvaluationLogicApi extends runtime.BaseAPI {
     /**
-     * Get details on evaluation logic items by providing one or more finding IDs.
+     * Creates request options for getEvaluationLogicMixin0 without sending the request
      */
-    async getEvaluationLogicMixin0Raw(
-        requestParameters: ConfigurationAssessmentEvaluationLogicApiGetEvaluationLogicMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainAPIEvaluationLogicEntitiesResponseV1>> {
+    async getEvaluationLogicMixin0RequestOpts(requestParameters: ConfigurationAssessmentEvaluationLogicApiGetEvaluationLogicMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getEvaluationLogicMixin0().');
         }
@@ -48,15 +45,25 @@ export class ConfigurationAssessmentEvaluationLogicApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["configvantage:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/configuration-assessment/entities/evaluation-logic/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/configuration-assessment/entities/evaluation-logic/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get details on evaluation logic items by providing one or more finding IDs.
+     */
+    async getEvaluationLogicMixin0Raw(
+        requestParameters: ConfigurationAssessmentEvaluationLogicApiGetEvaluationLogicMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainAPIEvaluationLogicEntitiesResponseV1>> {
+        const requestOptions = await this.getEvaluationLogicMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainAPIEvaluationLogicEntitiesResponseV1FromJSON(jsonValue));
     }

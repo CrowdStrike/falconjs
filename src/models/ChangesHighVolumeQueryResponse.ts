@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ChangesHighVolumeQueryMeta } from "./ChangesHighVolumeQueryMeta";
-import { ChangesHighVolumeQueryMetaFromJSON, ChangesHighVolumeQueryMetaFromJSONTyped, ChangesHighVolumeQueryMetaToJSON } from "./ChangesHighVolumeQueryMeta";
+import { ChangesHighVolumeQueryMetaFromJSON, ChangesHighVolumeQueryMetaFromJSONTyped, ChangesHighVolumeQueryMetaToJSON, ChangesHighVolumeQueryMetaToJSONTyped } from "./ChangesHighVolumeQueryMeta";
 
 /**
  *
@@ -68,10 +68,15 @@ export function ChangesHighVolumeQueryResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ChangesHighVolumeQueryResponseToJSON(value?: ChangesHighVolumeQueryResponse | null): any {
+export function ChangesHighVolumeQueryResponseToJSON(json: any): ChangesHighVolumeQueryResponse {
+    return ChangesHighVolumeQueryResponseToJSONTyped(json, false);
+}
+
+export function ChangesHighVolumeQueryResponseToJSONTyped(value?: ChangesHighVolumeQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ChangesHighVolumeQueryMetaToJSON(value["meta"]),

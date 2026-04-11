@@ -72,10 +72,15 @@ export function ModelsELFBinaryFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ModelsELFBinaryToJSON(value?: ModelsELFBinary | null): any {
+export function ModelsELFBinaryToJSON(json: any): ModelsELFBinary {
+    return ModelsELFBinaryToJSONTyped(json, false);
+}
+
+export function ModelsELFBinaryToJSONTyped(value?: ModelsELFBinary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         hash: value["hash"],
         path: value["path"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationPolicy } from "./ItautomationPolicy";
-import { ItautomationPolicyFromJSON, ItautomationPolicyFromJSONTyped, ItautomationPolicyToJSON } from "./ItautomationPolicy";
+import { ItautomationPolicyFromJSON, ItautomationPolicyFromJSONTyped, ItautomationPolicyToJSON, ItautomationPolicyToJSONTyped } from "./ItautomationPolicy";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ItautomationPoliciesAPIResponseFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ItautomationPoliciesAPIResponseToJSON(value?: ItautomationPoliciesAPIResponse | null): any {
+export function ItautomationPoliciesAPIResponseToJSON(json: any): ItautomationPoliciesAPIResponse {
+    return ItautomationPoliciesAPIResponseToJSONTyped(json, false);
+}
+
+export function ItautomationPoliciesAPIResponseToJSONTyped(value?: ItautomationPoliciesAPIResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

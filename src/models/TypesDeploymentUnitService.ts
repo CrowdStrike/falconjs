@@ -61,10 +61,15 @@ export function TypesDeploymentUnitServiceFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function TypesDeploymentUnitServiceToJSON(value?: TypesDeploymentUnitService | null): any {
+export function TypesDeploymentUnitServiceToJSON(json: any): TypesDeploymentUnitService {
+    return TypesDeploymentUnitServiceToJSONTyped(json, false);
+}
+
+export function TypesDeploymentUnitServiceToJSONTyped(value?: TypesDeploymentUnitService | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

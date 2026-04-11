@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { K8sassetsContainerInfo } from "./K8sassetsContainerInfo";
-import { K8sassetsContainerInfoFromJSON, K8sassetsContainerInfoFromJSONTyped, K8sassetsContainerInfoToJSON } from "./K8sassetsContainerInfo";
+import { K8sassetsContainerInfoFromJSON, K8sassetsContainerInfoFromJSONTyped, K8sassetsContainerInfoToJSON, K8sassetsContainerInfoToJSONTyped } from "./K8sassetsContainerInfo";
 
 /**
  *
@@ -67,10 +67,15 @@ export function K8sassetsPodEnrichmentDataFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function K8sassetsPodEnrichmentDataToJSON(value?: K8sassetsPodEnrichmentData | null): any {
+export function K8sassetsPodEnrichmentDataToJSON(json: any): K8sassetsPodEnrichmentData {
+    return K8sassetsPodEnrichmentDataToJSONTyped(json, false);
+}
+
+export function K8sassetsPodEnrichmentDataToJSONTyped(value?: K8sassetsPodEnrichmentData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         container_count: value["containerCount"],
         container_info: (value["containerInfo"] as Array<any>).map(K8sassetsContainerInfoToJSON),

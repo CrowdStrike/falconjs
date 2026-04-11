@@ -44,13 +44,9 @@ export interface IntelligenceIndicatorGraphApiSearchIndicatorsRequest {
  */
 export class IntelligenceIndicatorGraphApi extends runtime.BaseAPI {
     /**
-     * Look up intelligence data for multiple indicators. Supports various indicator types including domains, IP addresses, and file hashes (MD5, SHA1, SHA256). Provide up to 500 indicators in a single request.
-     * Get indicators based on their value.
+     * Creates request options for lookupIndicators without sending the request
      */
-    async lookupIndicatorsRaw(
-        requestParameters: IntelligenceIndicatorGraphApiLookupIndicatorsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestapiLookupIndicatorResponse>> {
+    async lookupIndicatorsRequestOpts(requestParameters: IntelligenceIndicatorGraphApiLookupIndicatorsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling lookupIndicators().');
         }
@@ -66,16 +62,27 @@ export class IntelligenceIndicatorGraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["indicator-graph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intelligence/combined/lookup-indicators/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RestapiIndicatorsLookupRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/intelligence/combined/lookup-indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RestapiIndicatorsLookupRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Look up intelligence data for multiple indicators. Supports various indicator types including domains, IP addresses, and file hashes (MD5, SHA1, SHA256). Provide up to 500 indicators in a single request.
+     * Get indicators based on their value.
+     */
+    async lookupIndicatorsRaw(
+        requestParameters: IntelligenceIndicatorGraphApiLookupIndicatorsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestapiLookupIndicatorResponse>> {
+        const requestOptions = await this.lookupIndicatorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestapiLookupIndicatorResponseFromJSON(jsonValue));
     }
@@ -90,13 +97,9 @@ export class IntelligenceIndicatorGraphApi extends runtime.BaseAPI {
     }
 
     /**
-     *  This method supports flexible parameter input through both query parameters and JSON request body.  ## Parameter Precedence Rules  | Parameter | Query Param | JSON Body | Precedence Rule | |-----------|-------------|-----------|-----------------| | filter    | ✅          | ✅        | **EXCLUSIVE** - Cannot specify both | | sort      | ✅          | ✅        | **Query param OVERRIDES** JSON body | | limit     | ✅          | ❌        | Query param only | | offset    | ✅          | ❌        | Query param only |  ### Usage Patterns: - **Query-only:** Use query parameters for simple requests - **Body-only:** Use JSON body for complex configurations - **Hybrid:** Combine both, following precedence rules above
-     * Search indicators based on FQL filter.
+     * Creates request options for searchIndicators without sending the request
      */
-    async searchIndicatorsRaw(
-        requestParameters: IntelligenceIndicatorGraphApiSearchIndicatorsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RestapiIndicatorResponse>> {
+    async searchIndicatorsRequestOpts(requestParameters: IntelligenceIndicatorGraphApiSearchIndicatorsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling searchIndicators().');
         }
@@ -128,16 +131,27 @@ export class IntelligenceIndicatorGraphApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["indicator-graph:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/intelligence/combined/indicators/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RestapiIndicatorsQueryRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/intelligence/combined/indicators/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RestapiIndicatorsQueryRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     *  This method supports flexible parameter input through both query parameters and JSON request body.  ## Parameter Precedence Rules  | Parameter | Query Param | JSON Body | Precedence Rule | |-----------|-------------|-----------|-----------------| | filter    | ✅          | ✅        | **EXCLUSIVE** - Cannot specify both | | sort      | ✅          | ✅        | **Query param OVERRIDES** JSON body | | limit     | ✅          | ❌        | Query param only | | offset    | ✅          | ❌        | Query param only |  ### Usage Patterns: - **Query-only:** Use query parameters for simple requests - **Body-only:** Use JSON body for complex configurations - **Hybrid:** Combine both, following precedence rules above
+     * Search indicators based on FQL filter.
+     */
+    async searchIndicatorsRaw(
+        requestParameters: IntelligenceIndicatorGraphApiSearchIndicatorsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestapiIndicatorResponse>> {
+        const requestOptions = await this.searchIndicatorsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RestapiIndicatorResponseFromJSON(jsonValue));
     }

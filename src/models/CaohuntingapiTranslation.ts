@@ -56,10 +56,15 @@ export function CaohuntingapiTranslationFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function CaohuntingapiTranslationToJSON(value?: CaohuntingapiTranslation | null): any {
+export function CaohuntingapiTranslationToJSON(json: any): CaohuntingapiTranslation {
+    return CaohuntingapiTranslationToJSONTyped(json, false);
+}
+
+export function CaohuntingapiTranslationToJSONTyped(value?: CaohuntingapiTranslation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content: value["content"],
         language: value["language"],

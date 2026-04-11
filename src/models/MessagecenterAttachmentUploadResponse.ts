@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MessagesAttachment } from "./MessagesAttachment";
-import { MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON } from "./MessagesAttachment";
+import { MessagesAttachmentFromJSON, MessagesAttachmentFromJSONTyped, MessagesAttachmentToJSON, MessagesAttachmentToJSONTyped } from "./MessagesAttachment";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function MessagecenterAttachmentUploadResponseFromJSONTyped(json: any, ig
     };
 }
 
-export function MessagecenterAttachmentUploadResponseToJSON(value?: MessagecenterAttachmentUploadResponse | null): any {
+export function MessagecenterAttachmentUploadResponseToJSON(json: any): MessagecenterAttachmentUploadResponse {
+    return MessagecenterAttachmentUploadResponseToJSONTyped(json, false);
+}
+
+export function MessagecenterAttachmentUploadResponseToJSONTyped(value?: MessagecenterAttachmentUploadResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

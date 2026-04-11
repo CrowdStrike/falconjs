@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { TypesListIntegrationsExecutorNode } from "./TypesListIntegrationsExecutorNode";
-import { TypesListIntegrationsExecutorNodeFromJSON, TypesListIntegrationsExecutorNodeFromJSONTyped, TypesListIntegrationsExecutorNodeToJSON } from "./TypesListIntegrationsExecutorNode";
+import {
+    TypesListIntegrationsExecutorNodeFromJSON,
+    TypesListIntegrationsExecutorNodeFromJSONTyped,
+    TypesListIntegrationsExecutorNodeToJSON,
+    TypesListIntegrationsExecutorNodeToJSONTyped,
+} from "./TypesListIntegrationsExecutorNode";
 import type { TypesIntegrationType } from "./TypesIntegrationType";
-import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON } from "./TypesIntegrationType";
+import { TypesIntegrationTypeFromJSON, TypesIntegrationTypeFromJSONTyped, TypesIntegrationTypeToJSON, TypesIntegrationTypeToJSONTyped } from "./TypesIntegrationType";
 
 /**
  *
@@ -101,10 +106,15 @@ export function TypesListIntegrationItemFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function TypesListIntegrationItemToJSON(value?: TypesListIntegrationItem | null): any {
+export function TypesListIntegrationItemToJSON(json: any): TypesListIntegrationItem {
+    return TypesListIntegrationItemToJSONTyped(json, false);
+}
+
+export function TypesListIntegrationItemToJSONTyped(value?: TypesListIntegrationItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data: value["data"],
         enabled: value["enabled"],

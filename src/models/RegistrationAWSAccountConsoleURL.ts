@@ -54,10 +54,15 @@ export function RegistrationAWSAccountConsoleURLFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function RegistrationAWSAccountConsoleURLToJSON(value?: RegistrationAWSAccountConsoleURL | null): any {
+export function RegistrationAWSAccountConsoleURLToJSON(json: any): RegistrationAWSAccountConsoleURL {
+    return RegistrationAWSAccountConsoleURLToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountConsoleURLToJSONTyped(value?: RegistrationAWSAccountConsoleURL | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         url: value["url"],

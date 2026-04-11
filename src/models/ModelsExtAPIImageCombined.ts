@@ -208,10 +208,15 @@ export function ModelsExtAPIImageCombinedFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsExtAPIImageCombinedToJSON(value?: ModelsExtAPIImageCombined | null): any {
+export function ModelsExtAPIImageCombinedToJSON(json: any): ModelsExtAPIImageCombined {
+    return ModelsExtAPIImageCombinedToJSONTyped(json, false);
+}
+
+export function ModelsExtAPIImageCombinedToJSONTyped(value?: ModelsExtAPIImageCombined | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ai_related: value["aiRelated"],
         architecture: value["architecture"],

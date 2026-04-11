@@ -82,10 +82,15 @@ export function DomainTelegramRecipientInfoFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainTelegramRecipientInfoToJSON(value?: DomainTelegramRecipientInfo | null): any {
+export function DomainTelegramRecipientInfoToJSON(json: any): DomainTelegramRecipientInfo {
+    return DomainTelegramRecipientInfoToJSONTyped(json, false);
+}
+
+export function DomainTelegramRecipientInfoToJSONTyped(value?: DomainTelegramRecipientInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         first_name: value["firstName"],
         id: value["id"],

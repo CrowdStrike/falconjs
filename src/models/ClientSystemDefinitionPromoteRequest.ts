@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ParameterTemplateProvisionParameters } from "./ParameterTemplateProvisionParameters";
-import { ParameterTemplateProvisionParametersFromJSON, ParameterTemplateProvisionParametersFromJSONTyped, ParameterTemplateProvisionParametersToJSON } from "./ParameterTemplateProvisionParameters";
+import {
+    ParameterTemplateProvisionParametersFromJSON,
+    ParameterTemplateProvisionParametersFromJSONTyped,
+    ParameterTemplateProvisionParametersToJSON,
+    ParameterTemplateProvisionParametersToJSONTyped,
+} from "./ParameterTemplateProvisionParameters";
 
 /**
  *
@@ -91,10 +96,15 @@ export function ClientSystemDefinitionPromoteRequestFromJSONTyped(json: any, ign
     };
 }
 
-export function ClientSystemDefinitionPromoteRequestToJSON(value?: ClientSystemDefinitionPromoteRequest | null): any {
+export function ClientSystemDefinitionPromoteRequestToJSON(json: any): ClientSystemDefinitionPromoteRequest {
+    return ClientSystemDefinitionPromoteRequestToJSONTyped(json, false);
+}
+
+export function ClientSystemDefinitionPromoteRequestToJSONTyped(value?: ClientSystemDefinitionPromoteRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer_definition_id: value["customerDefinitionId"],
         name: value["name"],

@@ -120,10 +120,15 @@ export function DomainDDOSTargetDetailsFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainDDOSTargetDetailsToJSON(value?: DomainDDOSTargetDetails | null): any {
+export function DomainDDOSTargetDetailsToJSON(json: any): DomainDDOSTargetDetails {
+    return DomainDDOSTargetDetailsToJSONTyped(json, false);
+}
+
+export function DomainDDOSTargetDetailsToJSONTyped(value?: DomainDDOSTargetDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asn: value["asn"],
         asn_name: value["asnName"],

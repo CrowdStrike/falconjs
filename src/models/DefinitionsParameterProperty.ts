@@ -48,10 +48,15 @@ export function DefinitionsParameterPropertyFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DefinitionsParameterPropertyToJSON(value?: DefinitionsParameterProperty | null): any {
+export function DefinitionsParameterPropertyToJSON(json: any): DefinitionsParameterProperty {
+    return DefinitionsParameterPropertyToJSONTyped(json, false);
+}
+
+export function DefinitionsParameterPropertyToJSONTyped(value?: DefinitionsParameterProperty | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
     };

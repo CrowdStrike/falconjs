@@ -14,11 +14,21 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPICombinedNodesFindings } from "./DomainAPICombinedNodesFindings";
-import { DomainAPICombinedNodesFindingsFromJSON, DomainAPICombinedNodesFindingsFromJSONTyped, DomainAPICombinedNodesFindingsToJSON } from "./DomainAPICombinedNodesFindings";
+import {
+    DomainAPICombinedNodesFindingsFromJSON,
+    DomainAPICombinedNodesFindingsFromJSONTyped,
+    DomainAPICombinedNodesFindingsToJSON,
+    DomainAPICombinedNodesFindingsToJSONTyped,
+} from "./DomainAPICombinedNodesFindings";
 import type { DomainMsaMetaInfoWithSearchAfter } from "./DomainMsaMetaInfoWithSearchAfter";
-import { DomainMsaMetaInfoWithSearchAfterFromJSON, DomainMsaMetaInfoWithSearchAfterFromJSONTyped, DomainMsaMetaInfoWithSearchAfterToJSON } from "./DomainMsaMetaInfoWithSearchAfter";
+import {
+    DomainMsaMetaInfoWithSearchAfterFromJSON,
+    DomainMsaMetaInfoWithSearchAfterFromJSONTyped,
+    DomainMsaMetaInfoWithSearchAfterToJSON,
+    DomainMsaMetaInfoWithSearchAfterToJSONTyped,
+} from "./DomainMsaMetaInfoWithSearchAfter";
 
 /**
  *
@@ -70,10 +80,15 @@ export function DomainAPIResponseNodesFindingsV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainAPIResponseNodesFindingsV1ToJSON(value?: DomainAPIResponseNodesFindingsV1 | null): any {
+export function DomainAPIResponseNodesFindingsV1ToJSON(json: any): DomainAPIResponseNodesFindingsV1 {
+    return DomainAPIResponseNodesFindingsV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIResponseNodesFindingsV1ToJSONTyped(value?: DomainAPIResponseNodesFindingsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainMsaMetaInfoWithSearchAfterToJSON(value["meta"]),

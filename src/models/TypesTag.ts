@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesReasonTag } from "./TypesReasonTag";
-import { TypesReasonTagFromJSON, TypesReasonTagFromJSONTyped, TypesReasonTagToJSON } from "./TypesReasonTag";
+import { TypesReasonTagFromJSON, TypesReasonTagFromJSONTyped, TypesReasonTagToJSON, TypesReasonTagToJSONTyped } from "./TypesReasonTag";
 
 /**
  *
@@ -106,10 +106,15 @@ export function TypesTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function TypesTagToJSON(value?: TypesTag | null): any {
+export function TypesTagToJSON(json: any): TypesTag {
+    return TypesTagToJSONTyped(json, false);
+}
+
+export function TypesTagToJSONTyped(value?: TypesTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         automated: value["automated"],
         id: value["id"],

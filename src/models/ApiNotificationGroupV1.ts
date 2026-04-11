@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiNotificationChannelV1 } from "./ApiNotificationChannelV1";
-import { ApiNotificationChannelV1FromJSON, ApiNotificationChannelV1FromJSONTyped, ApiNotificationChannelV1ToJSON } from "./ApiNotificationChannelV1";
+import { ApiNotificationChannelV1FromJSON, ApiNotificationChannelV1FromJSONTyped, ApiNotificationChannelV1ToJSON, ApiNotificationChannelV1ToJSONTyped } from "./ApiNotificationChannelV1";
 import type { ApiActorV1 } from "./ApiActorV1";
-import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON } from "./ApiActorV1";
+import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON, ApiActorV1ToJSONTyped } from "./ApiActorV1";
 
 /**
  *
@@ -132,10 +132,15 @@ export function ApiNotificationGroupV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ApiNotificationGroupV1ToJSON(value?: ApiNotificationGroupV1 | null): any {
+export function ApiNotificationGroupV1ToJSON(json: any): ApiNotificationGroupV1 {
+    return ApiNotificationGroupV1ToJSONTyped(json, false);
+}
+
+export function ApiNotificationGroupV1ToJSONTyped(value?: ApiNotificationGroupV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         channels: (value["channels"] as Array<any>).map(ApiNotificationChannelV1ToJSON),
         cid: value["cid"],

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIPolicyGroup } from "./ModelsAPIPolicyGroup";
-import { ModelsAPIPolicyGroupFromJSON, ModelsAPIPolicyGroupFromJSONTyped, ModelsAPIPolicyGroupToJSON } from "./ModelsAPIPolicyGroup";
+import { ModelsAPIPolicyGroupFromJSON, ModelsAPIPolicyGroupFromJSONTyped, ModelsAPIPolicyGroupToJSON, ModelsAPIPolicyGroupToJSONTyped } from "./ModelsAPIPolicyGroup";
 import type { ModelsAPIPolicyRule } from "./ModelsAPIPolicyRule";
-import { ModelsAPIPolicyRuleFromJSON, ModelsAPIPolicyRuleFromJSONTyped, ModelsAPIPolicyRuleToJSON } from "./ModelsAPIPolicyRule";
+import { ModelsAPIPolicyRuleFromJSON, ModelsAPIPolicyRuleFromJSONTyped, ModelsAPIPolicyRuleToJSON, ModelsAPIPolicyRuleToJSONTyped } from "./ModelsAPIPolicyRule";
 
 /**
  *
@@ -61,10 +61,15 @@ export function ModelsAPIPolicyDataFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ModelsAPIPolicyDataToJSON(value?: ModelsAPIPolicyData | null): any {
+export function ModelsAPIPolicyDataToJSON(json: any): ModelsAPIPolicyData {
+    return ModelsAPIPolicyDataToJSONTyped(json, false);
+}
+
+export function ModelsAPIPolicyDataToJSONTyped(value?: ModelsAPIPolicyData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         groups: (value["groups"] as Array<any>).map(ModelsAPIPolicyGroupToJSON),
         rules: (value["rules"] as Array<any>).map(ModelsAPIPolicyRuleToJSON),

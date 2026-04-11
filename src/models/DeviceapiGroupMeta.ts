@@ -54,10 +54,15 @@ export function DeviceapiGroupMetaFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DeviceapiGroupMetaToJSON(value?: DeviceapiGroupMeta | null): any {
+export function DeviceapiGroupMetaToJSON(json: any): DeviceapiGroupMeta {
+    return DeviceapiGroupMetaToJSONTyped(json, false);
+}
+
+export function DeviceapiGroupMetaToJSONTyped(value?: DeviceapiGroupMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         version: value["version"],
         version_string: value["versionString"],

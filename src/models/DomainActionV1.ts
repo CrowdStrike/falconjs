@@ -136,10 +136,15 @@ export function DomainActionV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainActionV1ToJSON(value?: DomainActionV1 | null): any {
+export function DomainActionV1ToJSON(json: any): DomainActionV1 {
+    return DomainActionV1ToJSONTyped(json, false);
+}
+
+export function DomainActionV1ToJSONTyped(value?: DomainActionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         content_format: value["contentFormat"],

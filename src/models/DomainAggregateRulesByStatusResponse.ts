@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsComplianceByRules } from "./ModelsComplianceByRules";
-import { ModelsComplianceByRulesFromJSON, ModelsComplianceByRulesFromJSONTyped, ModelsComplianceByRulesToJSON } from "./ModelsComplianceByRules";
+import { ModelsComplianceByRulesFromJSON, ModelsComplianceByRulesFromJSONTyped, ModelsComplianceByRulesToJSON, ModelsComplianceByRulesToJSONTyped } from "./ModelsComplianceByRules";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainAggregateRulesByStatusResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function DomainAggregateRulesByStatusResponseToJSON(value?: DomainAggregateRulesByStatusResponse | null): any {
+export function DomainAggregateRulesByStatusResponseToJSON(json: any): DomainAggregateRulesByStatusResponse {
+    return DomainAggregateRulesByStatusResponseToJSONTyped(json, false);
+}
+
+export function DomainAggregateRulesByStatusResponseToJSONTyped(value?: DomainAggregateRulesByStatusResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

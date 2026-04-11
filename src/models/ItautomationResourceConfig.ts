@@ -39,7 +39,7 @@ export interface ItautomationResourceConfig {
     memoryAllocation?: number;
     /**
      * Unit for memory allocation
-     * @type {string}
+     * @type {ItautomationResourceConfigMemoryAllocationUnitEnum}
      * @memberof ItautomationResourceConfig
      */
     memoryAllocationUnit?: ItautomationResourceConfigMemoryAllocationUnitEnum;
@@ -84,10 +84,15 @@ export function ItautomationResourceConfigFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ItautomationResourceConfigToJSON(value?: ItautomationResourceConfig | null): any {
+export function ItautomationResourceConfigToJSON(json: any): ItautomationResourceConfig {
+    return ItautomationResourceConfigToJSONTyped(json, false);
+}
+
+export function ItautomationResourceConfigToJSONTyped(value?: ItautomationResourceConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cpu_scheduling: value["cpuScheduling"],
         cpu_throttle: value["cpuThrottle"],

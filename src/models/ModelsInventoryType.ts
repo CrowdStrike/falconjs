@@ -14,29 +14,39 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsHEStringFileInfoType } from "./ModelsHEStringFileInfoType";
-import { ModelsHEStringFileInfoTypeFromJSON, ModelsHEStringFileInfoTypeFromJSONTyped, ModelsHEStringFileInfoTypeToJSON } from "./ModelsHEStringFileInfoType";
+import { ModelsHEStringFileInfoTypeFromJSON, ModelsHEStringFileInfoTypeFromJSONTyped, ModelsHEStringFileInfoTypeToJSON, ModelsHEStringFileInfoTypeToJSONTyped } from "./ModelsHEStringFileInfoType";
 import type { ModelsInventoryEngineInfoType } from "./ModelsInventoryEngineInfoType";
-import { ModelsInventoryEngineInfoTypeFromJSON, ModelsInventoryEngineInfoTypeFromJSONTyped, ModelsInventoryEngineInfoTypeToJSON } from "./ModelsInventoryEngineInfoType";
+import {
+    ModelsInventoryEngineInfoTypeFromJSON,
+    ModelsInventoryEngineInfoTypeFromJSONTyped,
+    ModelsInventoryEngineInfoTypeToJSON,
+    ModelsInventoryEngineInfoTypeToJSONTyped,
+} from "./ModelsInventoryEngineInfoType";
 import type { ModelsConfigInfoType } from "./ModelsConfigInfoType";
-import { ModelsConfigInfoTypeFromJSON, ModelsConfigInfoTypeFromJSONTyped, ModelsConfigInfoTypeToJSON } from "./ModelsConfigInfoType";
+import { ModelsConfigInfoTypeFromJSON, ModelsConfigInfoTypeFromJSONTyped, ModelsConfigInfoTypeToJSON, ModelsConfigInfoTypeToJSONTyped } from "./ModelsConfigInfoType";
 import type { ModelsOSInfoType } from "./ModelsOSInfoType";
-import { ModelsOSInfoTypeFromJSON, ModelsOSInfoTypeFromJSONTyped, ModelsOSInfoTypeToJSON } from "./ModelsOSInfoType";
+import { ModelsOSInfoTypeFromJSON, ModelsOSInfoTypeFromJSONTyped, ModelsOSInfoTypeToJSON, ModelsOSInfoTypeToJSONTyped } from "./ModelsOSInfoType";
 import type { ModelsELFBinaryInfoType } from "./ModelsELFBinaryInfoType";
-import { ModelsELFBinaryInfoTypeFromJSON, ModelsELFBinaryInfoTypeFromJSONTyped, ModelsELFBinaryInfoTypeToJSON } from "./ModelsELFBinaryInfoType";
+import { ModelsELFBinaryInfoTypeFromJSON, ModelsELFBinaryInfoTypeFromJSONTyped, ModelsELFBinaryInfoTypeToJSON, ModelsELFBinaryInfoTypeToJSONTyped } from "./ModelsELFBinaryInfoType";
 import type { ModelsApplicationPackageInfoType } from "./ModelsApplicationPackageInfoType";
-import { ModelsApplicationPackageInfoTypeFromJSON, ModelsApplicationPackageInfoTypeFromJSONTyped, ModelsApplicationPackageInfoTypeToJSON } from "./ModelsApplicationPackageInfoType";
+import {
+    ModelsApplicationPackageInfoTypeFromJSON,
+    ModelsApplicationPackageInfoTypeFromJSONTyped,
+    ModelsApplicationPackageInfoTypeToJSON,
+    ModelsApplicationPackageInfoTypeToJSONTyped,
+} from "./ModelsApplicationPackageInfoType";
 import type { ModelsMLModelType } from "./ModelsMLModelType";
-import { ModelsMLModelTypeFromJSON, ModelsMLModelTypeFromJSONTyped, ModelsMLModelTypeToJSON } from "./ModelsMLModelType";
+import { ModelsMLModelTypeFromJSON, ModelsMLModelTypeFromJSONTyped, ModelsMLModelTypeToJSON, ModelsMLModelTypeToJSONTyped } from "./ModelsMLModelType";
 import type { ModelsImageInfoType } from "./ModelsImageInfoType";
-import { ModelsImageInfoTypeFromJSON, ModelsImageInfoTypeFromJSONTyped, ModelsImageInfoTypeToJSON } from "./ModelsImageInfoType";
+import { ModelsImageInfoTypeFromJSON, ModelsImageInfoTypeFromJSONTyped, ModelsImageInfoTypeToJSON, ModelsImageInfoTypeToJSONTyped } from "./ModelsImageInfoType";
 import type { V1Image } from "./V1Image";
-import { V1ImageFromJSON, V1ImageFromJSONTyped, V1ImageToJSON } from "./V1Image";
+import { V1ImageFromJSON, V1ImageFromJSONTyped, V1ImageToJSON, V1ImageToJSONTyped } from "./V1Image";
 import type { ModelsLayerInfoType } from "./ModelsLayerInfoType";
-import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON } from "./ModelsLayerInfoType";
+import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON, ModelsLayerInfoTypeToJSONTyped } from "./ModelsLayerInfoType";
 import type { ModelsPackageInfoType } from "./ModelsPackageInfoType";
-import { ModelsPackageInfoTypeFromJSON, ModelsPackageInfoTypeFromJSONTyped, ModelsPackageInfoTypeToJSON } from "./ModelsPackageInfoType";
+import { ModelsPackageInfoTypeFromJSON, ModelsPackageInfoTypeFromJSONTyped, ModelsPackageInfoTypeToJSON, ModelsPackageInfoTypeToJSONTyped } from "./ModelsPackageInfoType";
 import type { Schema2Manifest } from "./Schema2Manifest";
-import { Schema2ManifestFromJSON, Schema2ManifestFromJSONTyped, Schema2ManifestToJSON } from "./Schema2Manifest";
+import { Schema2ManifestFromJSON, Schema2ManifestFromJSONTyped, Schema2ManifestToJSON, Schema2ManifestToJSONTyped } from "./Schema2Manifest";
 
 /**
  *
@@ -179,10 +189,15 @@ export function ModelsInventoryTypeFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ModelsInventoryTypeToJSON(value?: ModelsInventoryType | null): any {
+export function ModelsInventoryTypeToJSON(json: any): ModelsInventoryType {
+    return ModelsInventoryTypeToJSONTyped(json, false);
+}
+
+export function ModelsInventoryTypeToJSONTyped(value?: ModelsInventoryType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ApplicationPackages: value["applicationPackages"] == null ? undefined : (value["applicationPackages"] as Array<any>).map(ModelsApplicationPackageInfoTypeToJSON),
         Config: V1ImageToJSON(value["config"]),

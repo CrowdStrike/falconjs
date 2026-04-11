@@ -48,10 +48,15 @@ export function FwmgrMsaspecWritesFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FwmgrMsaspecWritesToJSON(value?: FwmgrMsaspecWrites | null): any {
+export function FwmgrMsaspecWritesToJSON(json: any): FwmgrMsaspecWrites {
+    return FwmgrMsaspecWritesToJSONTyped(json, false);
+}
+
+export function FwmgrMsaspecWritesToJSONTyped(value?: FwmgrMsaspecWrites | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources_affected: value["resourcesAffected"],
     };

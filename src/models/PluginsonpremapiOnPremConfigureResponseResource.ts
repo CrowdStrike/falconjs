@@ -14,9 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { PluginsonpremapiIneligibleDevice } from "./PluginsonpremapiIneligibleDevice";
-import { PluginsonpremapiIneligibleDeviceFromJSON, PluginsonpremapiIneligibleDeviceFromJSONTyped, PluginsonpremapiIneligibleDeviceToJSON } from "./PluginsonpremapiIneligibleDevice";
+import {
+    PluginsonpremapiIneligibleDeviceFromJSON,
+    PluginsonpremapiIneligibleDeviceFromJSONTyped,
+    PluginsonpremapiIneligibleDeviceToJSON,
+    PluginsonpremapiIneligibleDeviceToJSONTyped,
+} from "./PluginsonpremapiIneligibleDevice";
 import type { PluginsonpremapiEligibleDevice } from "./PluginsonpremapiEligibleDevice";
-import { PluginsonpremapiEligibleDeviceFromJSON, PluginsonpremapiEligibleDeviceFromJSONTyped, PluginsonpremapiEligibleDeviceToJSON } from "./PluginsonpremapiEligibleDevice";
+import {
+    PluginsonpremapiEligibleDeviceFromJSON,
+    PluginsonpremapiEligibleDeviceFromJSONTyped,
+    PluginsonpremapiEligibleDeviceToJSON,
+    PluginsonpremapiEligibleDeviceToJSONTyped,
+} from "./PluginsonpremapiEligibleDevice";
 
 /**
  *
@@ -77,10 +87,15 @@ export function PluginsonpremapiOnPremConfigureResponseResourceFromJSONTyped(jso
     };
 }
 
-export function PluginsonpremapiOnPremConfigureResponseResourceToJSON(value?: PluginsonpremapiOnPremConfigureResponseResource | null): any {
+export function PluginsonpremapiOnPremConfigureResponseResourceToJSON(json: any): PluginsonpremapiOnPremConfigureResponseResource {
+    return PluginsonpremapiOnPremConfigureResponseResourceToJSONTyped(json, false);
+}
+
+export function PluginsonpremapiOnPremConfigureResponseResourceToJSONTyped(value?: PluginsonpremapiOnPremConfigureResponseResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         eligible_devices: (value["eligibleDevices"] as Array<any>).map(PluginsonpremapiEligibleDeviceToJSON),
         host_group_id: value["hostGroupId"],

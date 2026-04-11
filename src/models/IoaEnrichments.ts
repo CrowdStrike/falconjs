@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DetectionEnrichment } from "./DetectionEnrichment";
-import { DetectionEnrichmentFromJSON, DetectionEnrichmentFromJSONTyped, DetectionEnrichmentToJSON } from "./DetectionEnrichment";
+import { DetectionEnrichmentFromJSON, DetectionEnrichmentFromJSONTyped, DetectionEnrichmentToJSON, DetectionEnrichmentToJSONTyped } from "./DetectionEnrichment";
 import type { DetectionInventoryEnrichment } from "./DetectionInventoryEnrichment";
-import { DetectionInventoryEnrichmentFromJSON, DetectionInventoryEnrichmentFromJSONTyped, DetectionInventoryEnrichmentToJSON } from "./DetectionInventoryEnrichment";
+import {
+    DetectionInventoryEnrichmentFromJSON,
+    DetectionInventoryEnrichmentFromJSONTyped,
+    DetectionInventoryEnrichmentToJSON,
+    DetectionInventoryEnrichmentToJSONTyped,
+} from "./DetectionInventoryEnrichment";
 
 /**
  *
@@ -59,10 +64,15 @@ export function IoaEnrichmentsFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function IoaEnrichmentsToJSON(value?: IoaEnrichments | null): any {
+export function IoaEnrichmentsToJSON(json: any): IoaEnrichments {
+    return IoaEnrichmentsToJSONTyped(json, false);
+}
+
+export function IoaEnrichmentsToJSONTyped(value?: IoaEnrichments | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         inventory: DetectionInventoryEnrichmentToJSON(value["inventory"]),
         sensor_events: DetectionEnrichmentToJSON(value["sensorEvents"]),

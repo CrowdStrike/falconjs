@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceControlSettingsReqV1 } from "./DeviceControlSettingsReqV1";
-import { DeviceControlSettingsReqV1FromJSON, DeviceControlSettingsReqV1FromJSONTyped, DeviceControlSettingsReqV1ToJSON } from "./DeviceControlSettingsReqV1";
+import { DeviceControlSettingsReqV1FromJSON, DeviceControlSettingsReqV1FromJSONTyped, DeviceControlSettingsReqV1ToJSON, DeviceControlSettingsReqV1ToJSONTyped } from "./DeviceControlSettingsReqV1";
 
 /**
  *
@@ -42,7 +42,7 @@ export interface DeviceControlCreatePolicyReqV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {DeviceControlCreatePolicyReqV1PlatformNameEnum}
      * @memberof DeviceControlCreatePolicyReqV1
      */
     platformName: DeviceControlCreatePolicyReqV1PlatformNameEnum;
@@ -90,10 +90,15 @@ export function DeviceControlCreatePolicyReqV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DeviceControlCreatePolicyReqV1ToJSON(value?: DeviceControlCreatePolicyReqV1 | null): any {
+export function DeviceControlCreatePolicyReqV1ToJSON(json: any): DeviceControlCreatePolicyReqV1 {
+    return DeviceControlCreatePolicyReqV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlCreatePolicyReqV1ToJSONTyped(value?: DeviceControlCreatePolicyReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clone_id: value["cloneId"],
         description: value["description"],

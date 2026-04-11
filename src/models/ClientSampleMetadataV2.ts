@@ -55,10 +55,15 @@ export function ClientSampleMetadataV2FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ClientSampleMetadataV2ToJSON(value?: ClientSampleMetadataV2 | null): any {
+export function ClientSampleMetadataV2ToJSON(json: any): ClientSampleMetadataV2 {
+    return ClientSampleMetadataV2ToJSONTyped(json, false);
+}
+
+export function ClientSampleMetadataV2ToJSONTyped(value?: ClientSampleMetadataV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         file_name: value["fileName"],
         sha256: value["sha256"],

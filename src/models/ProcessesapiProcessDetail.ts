@@ -112,10 +112,15 @@ export function ProcessesapiProcessDetailFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ProcessesapiProcessDetailToJSON(value?: ProcessesapiProcessDetail | null): any {
+export function ProcessesapiProcessDetailToJSON(json: any): ProcessesapiProcessDetail {
+    return ProcessesapiProcessDetailToJSONTyped(json, false);
+}
+
+export function ProcessesapiProcessDetailToJSONTyped(value?: ProcessesapiProcessDetail | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         command_line: value["commandLine"],
         device_id: value["deviceId"],

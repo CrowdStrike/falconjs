@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApiParserTestCaseOutputAssertions } from "./ApiParserTestCaseOutputAssertions";
-import { ApiParserTestCaseOutputAssertionsFromJSON, ApiParserTestCaseOutputAssertionsFromJSONTyped, ApiParserTestCaseOutputAssertionsToJSON } from "./ApiParserTestCaseOutputAssertions";
+import {
+    ApiParserTestCaseOutputAssertionsFromJSON,
+    ApiParserTestCaseOutputAssertionsFromJSONTyped,
+    ApiParserTestCaseOutputAssertionsToJSON,
+    ApiParserTestCaseOutputAssertionsToJSONTyped,
+} from "./ApiParserTestCaseOutputAssertions";
 
 /**
  *
@@ -59,10 +64,15 @@ export function ApiParserTestCaseAssertionsForOutputFromJSONTyped(json: any, ign
     };
 }
 
-export function ApiParserTestCaseAssertionsForOutputToJSON(value?: ApiParserTestCaseAssertionsForOutput | null): any {
+export function ApiParserTestCaseAssertionsForOutputToJSON(json: any): ApiParserTestCaseAssertionsForOutput {
+    return ApiParserTestCaseAssertionsForOutputToJSONTyped(json, false);
+}
+
+export function ApiParserTestCaseAssertionsForOutputToJSONTyped(value?: ApiParserTestCaseAssertionsForOutput | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assertions: ApiParserTestCaseOutputAssertionsToJSON(value["assertions"]),
         output_event_index: value["outputEventIndex"],

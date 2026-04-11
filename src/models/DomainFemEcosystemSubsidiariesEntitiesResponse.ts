@@ -18,9 +18,15 @@ import {
     DomainFemEcosystemSubsidiariesResponseFieldsFromJSON,
     DomainFemEcosystemSubsidiariesResponseFieldsFromJSONTyped,
     DomainFemEcosystemSubsidiariesResponseFieldsToJSON,
+    DomainFemEcosystemSubsidiariesResponseFieldsToJSONTyped,
 } from "./DomainFemEcosystemSubsidiariesResponseFields";
 import type { DomainFemEcosystemSubsidiary } from "./DomainFemEcosystemSubsidiary";
-import { DomainFemEcosystemSubsidiaryFromJSON, DomainFemEcosystemSubsidiaryFromJSONTyped, DomainFemEcosystemSubsidiaryToJSON } from "./DomainFemEcosystemSubsidiary";
+import {
+    DomainFemEcosystemSubsidiaryFromJSON,
+    DomainFemEcosystemSubsidiaryFromJSONTyped,
+    DomainFemEcosystemSubsidiaryToJSON,
+    DomainFemEcosystemSubsidiaryToJSONTyped,
+} from "./DomainFemEcosystemSubsidiary";
 
 /**
  *
@@ -65,10 +71,15 @@ export function DomainFemEcosystemSubsidiariesEntitiesResponseFromJSONTyped(json
     };
 }
 
-export function DomainFemEcosystemSubsidiariesEntitiesResponseToJSON(value?: DomainFemEcosystemSubsidiariesEntitiesResponse | null): any {
+export function DomainFemEcosystemSubsidiariesEntitiesResponseToJSON(json: any): DomainFemEcosystemSubsidiariesEntitiesResponse {
+    return DomainFemEcosystemSubsidiariesEntitiesResponseToJSONTyped(json, false);
+}
+
+export function DomainFemEcosystemSubsidiariesEntitiesResponseToJSONTyped(value?: DomainFemEcosystemSubsidiariesEntitiesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         FemEcosystemSubsidiariesResponseFields: DomainFemEcosystemSubsidiariesResponseFieldsToJSON(value["femEcosystemSubsidiariesResponseFields"]),
         resources: (value["resources"] as Array<any>).map(DomainFemEcosystemSubsidiaryToJSON),

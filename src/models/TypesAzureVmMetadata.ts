@@ -75,10 +75,15 @@ export function TypesAzureVmMetadataFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function TypesAzureVmMetadataToJSON(value?: TypesAzureVmMetadata | null): any {
+export function TypesAzureVmMetadataToJSON(json: any): TypesAzureVmMetadata {
+    return TypesAzureVmMetadataToJSONTyped(json, false);
+}
+
+export function TypesAzureVmMetadataToJSONTyped(value?: TypesAzureVmMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         region: value["region"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIPolicyExclusion } from "./ModelsAPIPolicyExclusion";
-import { ModelsAPIPolicyExclusionFromJSON, ModelsAPIPolicyExclusionFromJSONTyped, ModelsAPIPolicyExclusionToJSON } from "./ModelsAPIPolicyExclusion";
+import { ModelsAPIPolicyExclusionFromJSON, ModelsAPIPolicyExclusionFromJSONTyped, ModelsAPIPolicyExclusionToJSON, ModelsAPIPolicyExclusionToJSONTyped } from "./ModelsAPIPolicyExclusion";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ModelsPolicyExclusionEntityResponseFromJSONTyped(json: any, igno
     };
 }
 
-export function ModelsPolicyExclusionEntityResponseToJSON(value?: ModelsPolicyExclusionEntityResponse | null): any {
+export function ModelsPolicyExclusionEntityResponseToJSON(json: any): ModelsPolicyExclusionEntityResponse {
+    return ModelsPolicyExclusionEntityResponseToJSONTyped(json, false);
+}
+
+export function ModelsPolicyExclusionEntityResponseToJSONTyped(value?: ModelsPolicyExclusionEntityResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

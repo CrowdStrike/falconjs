@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ChangesChange } from "./ChangesChange";
-import { ChangesChangeFromJSON, ChangesChangeFromJSONTyped, ChangesChangeToJSON } from "./ChangesChange";
+import { ChangesChangeFromJSON, ChangesChangeFromJSONTyped, ChangesChangeToJSON, ChangesChangeToJSONTyped } from "./ChangesChange";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function PublicGetChangesResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function PublicGetChangesResponseToJSON(value?: PublicGetChangesResponse | null): any {
+export function PublicGetChangesResponseToJSON(json: any): PublicGetChangesResponse {
+    return PublicGetChangesResponseToJSONTyped(json, false);
+}
+
+export function PublicGetChangesResponseToJSONTyped(value?: PublicGetChangesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

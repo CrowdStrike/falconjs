@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesBusinessApplication } from "./TypesBusinessApplication";
-import { TypesBusinessApplicationFromJSON, TypesBusinessApplicationFromJSONTyped, TypesBusinessApplicationToJSON } from "./TypesBusinessApplication";
+import { TypesBusinessApplicationFromJSON, TypesBusinessApplicationFromJSONTyped, TypesBusinessApplicationToJSON, TypesBusinessApplicationToJSONTyped } from "./TypesBusinessApplication";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceBusinessApplicationFromJSONTyped(json: any, i
     };
 }
 
-export function TypesServiceServiceBusinessApplicationToJSON(value?: TypesServiceServiceBusinessApplication | null): any {
+export function TypesServiceServiceBusinessApplicationToJSON(json: any): TypesServiceServiceBusinessApplication {
+    return TypesServiceServiceBusinessApplicationToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceBusinessApplicationToJSONTyped(value?: TypesServiceServiceBusinessApplication | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesBusinessApplicationToJSON),

@@ -64,10 +64,15 @@ export function OneMinuteFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function OneMinuteToJSON(value?: OneMinute | null): any {
+export function OneMinuteToJSON(json: any): OneMinute {
+    return OneMinuteToJSONTyped(json, false);
+}
+
+export function OneMinuteToJSONTyped(value?: OneMinute | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         liveCost: value["liveCost"],
         queryCount: value["queryCount"],

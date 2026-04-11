@@ -48,10 +48,15 @@ export function ModelsVulnerabilitiesTypeFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsVulnerabilitiesTypeToJSON(value?: ModelsVulnerabilitiesType | null): any {
+export function ModelsVulnerabilitiesTypeToJSON(json: any): ModelsVulnerabilitiesType {
+    return ModelsVulnerabilitiesTypeToJSONTyped(json, false);
+}
+
+export function ModelsVulnerabilitiesTypeToJSONTyped(value?: ModelsVulnerabilitiesType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CVEMapping: value["cVEMapping"],
     };

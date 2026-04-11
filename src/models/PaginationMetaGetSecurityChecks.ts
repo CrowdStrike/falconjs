@@ -75,10 +75,15 @@ export function PaginationMetaGetSecurityChecksFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function PaginationMetaGetSecurityChecksToJSON(value?: PaginationMetaGetSecurityChecks | null): any {
+export function PaginationMetaGetSecurityChecksToJSON(json: any): PaginationMetaGetSecurityChecks {
+    return PaginationMetaGetSecurityChecksToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetSecurityChecksToJSONTyped(value?: PaginationMetaGetSecurityChecks | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

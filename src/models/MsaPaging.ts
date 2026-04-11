@@ -64,10 +64,15 @@ export function MsaPagingFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function MsaPagingToJSON(value?: MsaPaging | null): any {
+export function MsaPagingToJSON(json: any): MsaPaging {
+    return MsaPagingToJSONTyped(json, false);
+}
+
+export function MsaPagingToJSONTyped(value?: MsaPaging | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         offset: value["offset"],

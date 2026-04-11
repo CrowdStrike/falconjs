@@ -89,17 +89,22 @@ export function DomainCardFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function DomainCardToJSON(value?: DomainCard | null): any {
+export function DomainCardToJSON(json: any): DomainCard {
+    return DomainCardToJSONTyped(json, false);
+}
+
+export function DomainCardToJSONTyped(value?: DomainCard | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bin_code: value["binCode"],
         cardholder_name: value["cardholderName"],
         description: value["description"],
         expiration: value["expiration"],
         issuing_bank: value["issuingBank"],
-        last_transaction_at: value["lastTransactionAt"] == null ? undefined : value["lastTransactionAt"].toISOString(),
+        last_transaction_at: value["lastTransactionAt"] == null ? value["lastTransactionAt"] : value["lastTransactionAt"].toISOString(),
         servicecode: value["servicecode"],
     };
 }

@@ -28,9 +28,9 @@ import {
  */
 export class FalconContainerApi extends runtime.BaseAPI {
     /**
-     * Gets the registry credentials
+     * Creates request options for getCredentials without sending the request
      */
-    async getCredentialsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRegistryCredentialsResponse>> {
+    async getCredentialsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -40,15 +40,22 @@ export class FalconContainerApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/image-registry-credentials/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/image-registry-credentials/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets the registry credentials
+     */
+    async getCredentialsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainRegistryCredentialsResponse>> {
+        const requestOptions = await this.getCredentialsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainRegistryCredentialsResponseFromJSON(jsonValue));
     }

@@ -56,10 +56,15 @@ export function DomainJobWithLinkFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainJobWithLinkToJSON(value?: DomainJobWithLink | null): any {
+export function DomainJobWithLinkToJSON(json: any): DomainJobWithLink {
+    return DomainJobWithLinkToJSONTyped(json, false);
+}
+
+export function DomainJobWithLinkToJSONTyped(value?: DomainJobWithLink | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         href: value["href"],
         id: value["id"],

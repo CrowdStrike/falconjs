@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExecutionMetadataV1 } from "./DomainExecutionMetadataV1";
-import { DomainExecutionMetadataV1FromJSON, DomainExecutionMetadataV1FromJSONTyped, DomainExecutionMetadataV1ToJSON } from "./DomainExecutionMetadataV1";
+import { DomainExecutionMetadataV1FromJSON, DomainExecutionMetadataV1FromJSONTyped, DomainExecutionMetadataV1ToJSON, DomainExecutionMetadataV1ToJSONTyped } from "./DomainExecutionMetadataV1";
 import type { DomainResultMetadata } from "./DomainResultMetadata";
-import { DomainResultMetadataFromJSON, DomainResultMetadataFromJSONTyped, DomainResultMetadataToJSON } from "./DomainResultMetadata";
+import { DomainResultMetadataFromJSON, DomainResultMetadataFromJSONTyped, DomainResultMetadataToJSON, DomainResultMetadataToJSONTyped } from "./DomainResultMetadata";
 import type { DomainSecretReferencesV1 } from "./DomainSecretReferencesV1";
-import { DomainSecretReferencesV1FromJSON, DomainSecretReferencesV1FromJSONTyped, DomainSecretReferencesV1ToJSON } from "./DomainSecretReferencesV1";
+import { DomainSecretReferencesV1FromJSON, DomainSecretReferencesV1FromJSONTyped, DomainSecretReferencesV1ToJSON, DomainSecretReferencesV1ToJSONTyped } from "./DomainSecretReferencesV1";
 import type { DomainReportParams } from "./DomainReportParams";
-import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON } from "./DomainReportParams";
+import { DomainReportParamsFromJSON, DomainReportParamsFromJSONTyped, DomainReportParamsToJSON, DomainReportParamsToJSONTyped } from "./DomainReportParams";
 
 /**
  *
@@ -217,10 +217,15 @@ export function DomainReportExecutionV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainReportExecutionV1ToJSON(value?: DomainReportExecutionV1 | null): any {
+export function DomainReportExecutionV1ToJSON(json: any): DomainReportExecutionV1 {
+    return DomainReportExecutionV1ToJSONTyped(json, false);
+}
+
+export function DomainReportExecutionV1ToJSONTyped(value?: DomainReportExecutionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         can_write: value["canWrite"],
         created_on: value["createdOn"].toISOString(),

@@ -137,22 +137,27 @@ export function ModelsDeliverySettingsFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ModelsDeliverySettingsToJSON(value?: ModelsDeliverySettings | null): any {
+export function ModelsDeliverySettingsToJSON(json: any): ModelsDeliverySettings {
+    return ModelsDeliverySettingsToJSONTyped(json, false);
+}
+
+export function ModelsDeliverySettingsToJSONTyped(value?: ModelsDeliverySettings | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_created_by: value["apiCreatedBy"],
-        api_updated_at: value["apiUpdatedAt"] == null ? undefined : value["apiUpdatedAt"].toISOString(),
+        api_updated_at: value["apiUpdatedAt"] == null ? value["apiUpdatedAt"] : value["apiUpdatedAt"].toISOString(),
         api_updated_by: value["apiUpdatedBy"],
         cid: value["cid"],
         created_at: value["createdAt"].toISOString(),
         created_by: value["createdBy"],
-        deleted_at: value["deletedAt"] == null ? undefined : value["deletedAt"].toISOString(),
+        deleted_at: value["deletedAt"] == null ? value["deletedAt"] : value["deletedAt"].toISOString(),
         deleted_by: value["deletedBy"],
         delivery_cadence: value["deliveryCadence"],
         delivery_type: value["deliveryType"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
         updated_by: value["updatedBy"],
         uuid: value["uuid"],
     };

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -68,10 +68,15 @@ export function ApiUpdateLookupFileEntriesResponseV1FromJSONTyped(json: any, ign
     };
 }
 
-export function ApiUpdateLookupFileEntriesResponseV1ToJSON(value?: ApiUpdateLookupFileEntriesResponseV1 | null): any {
+export function ApiUpdateLookupFileEntriesResponseV1ToJSON(json: any): ApiUpdateLookupFileEntriesResponseV1 {
+    return ApiUpdateLookupFileEntriesResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiUpdateLookupFileEntriesResponseV1ToJSONTyped(value?: ApiUpdateLookupFileEntriesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

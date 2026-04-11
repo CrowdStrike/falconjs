@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { CaohuntingapiGuideCategory } from "./CaohuntingapiGuideCategory";
-import { CaohuntingapiGuideCategoryFromJSON, CaohuntingapiGuideCategoryFromJSONTyped, CaohuntingapiGuideCategoryToJSON } from "./CaohuntingapiGuideCategory";
+import { CaohuntingapiGuideCategoryFromJSON, CaohuntingapiGuideCategoryFromJSONTyped, CaohuntingapiGuideCategoryToJSON, CaohuntingapiGuideCategoryToJSONTyped } from "./CaohuntingapiGuideCategory";
 import type { CaohuntingapiMitreData } from "./CaohuntingapiMitreData";
-import { CaohuntingapiMitreDataFromJSON, CaohuntingapiMitreDataFromJSONTyped, CaohuntingapiMitreDataToJSON } from "./CaohuntingapiMitreData";
+import { CaohuntingapiMitreDataFromJSON, CaohuntingapiMitreDataFromJSONTyped, CaohuntingapiMitreDataToJSON, CaohuntingapiMitreDataToJSONTyped } from "./CaohuntingapiMitreData";
 
 /**
  *
@@ -156,10 +156,15 @@ export function CaohuntingapiHuntingGuideEntityFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function CaohuntingapiHuntingGuideEntityToJSON(value?: CaohuntingapiHuntingGuideEntity | null): any {
+export function CaohuntingapiHuntingGuideEntityToJSON(json: any): CaohuntingapiHuntingGuideEntity {
+    return CaohuntingapiHuntingGuideEntityToJSONTyped(json, false);
+}
+
+export function CaohuntingapiHuntingGuideEntityToJSONTyped(value?: CaohuntingapiHuntingGuideEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         adversaries: value["adversaries"],
         ai_description: value["aiDescription"],

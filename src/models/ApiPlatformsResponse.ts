@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainPlatform } from "./DomainPlatform";
-import { DomainPlatformFromJSON, DomainPlatformFromJSONTyped, DomainPlatformToJSON } from "./DomainPlatform";
+import { DomainPlatformFromJSON, DomainPlatformFromJSONTyped, DomainPlatformToJSON, DomainPlatformToJSONTyped } from "./DomainPlatform";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiPlatformsResponseFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ApiPlatformsResponseToJSON(value?: ApiPlatformsResponse | null): any {
+export function ApiPlatformsResponseToJSON(json: any): ApiPlatformsResponse {
+    return ApiPlatformsResponseToJSONTyped(json, false);
+}
+
+export function ApiPlatformsResponseToJSONTyped(value?: ApiPlatformsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainRole } from "./DomainRole";
-import { DomainRoleFromJSON, DomainRoleFromJSONTyped, DomainRoleToJSON } from "./DomainRole";
+import { DomainRoleFromJSON, DomainRoleFromJSONTyped, DomainRoleToJSON, DomainRoleToJSONTyped } from "./DomainRole";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FlightcontrolapiGetRolesResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FlightcontrolapiGetRolesResponseToJSON(value?: FlightcontrolapiGetRolesResponse | null): any {
+export function FlightcontrolapiGetRolesResponseToJSON(json: any): FlightcontrolapiGetRolesResponse {
+    return FlightcontrolapiGetRolesResponseToJSONTyped(json, false);
+}
+
+export function FlightcontrolapiGetRolesResponseToJSONTyped(value?: FlightcontrolapiGetRolesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

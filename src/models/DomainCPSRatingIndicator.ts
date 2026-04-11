@@ -64,10 +64,15 @@ export function DomainCPSRatingIndicatorFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainCPSRatingIndicatorToJSON(value?: DomainCPSRatingIndicator | null): any {
+export function DomainCPSRatingIndicatorToJSON(json: any): DomainCPSRatingIndicator {
+    return DomainCPSRatingIndicatorToJSONTyped(json, false);
+}
+
+export function DomainCPSRatingIndicatorToJSONTyped(value?: DomainCPSRatingIndicator | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Description: value["description"],
         Name: value["name"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAddRuleGroupRule } from "./ModelsAddRuleGroupRule";
-import { ModelsAddRuleGroupRuleFromJSON, ModelsAddRuleGroupRuleFromJSONTyped, ModelsAddRuleGroupRuleToJSON } from "./ModelsAddRuleGroupRule";
+import { ModelsAddRuleGroupRuleFromJSON, ModelsAddRuleGroupRuleFromJSONTyped, ModelsAddRuleGroupRuleToJSON, ModelsAddRuleGroupRuleToJSONTyped } from "./ModelsAddRuleGroupRule";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ModelsAddPolicyRuleGroupCustomRuleRequestFromJSONTyped(json: any
     };
 }
 
-export function ModelsAddPolicyRuleGroupCustomRuleRequestToJSON(value?: ModelsAddPolicyRuleGroupCustomRuleRequest | null): any {
+export function ModelsAddPolicyRuleGroupCustomRuleRequestToJSON(json: any): ModelsAddPolicyRuleGroupCustomRuleRequest {
+    return ModelsAddPolicyRuleGroupCustomRuleRequestToJSONTyped(json, false);
+}
+
+export function ModelsAddPolicyRuleGroupCustomRuleRequestToJSONTyped(value?: ModelsAddPolicyRuleGroupCustomRuleRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         rule_groups: (value["ruleGroups"] as Array<any>).map(ModelsAddRuleGroupRuleToJSON),

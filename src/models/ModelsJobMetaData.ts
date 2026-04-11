@@ -104,10 +104,15 @@ export function ModelsJobMetaDataFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ModelsJobMetaDataToJSON(value?: ModelsJobMetaData | null): any {
+export function ModelsJobMetaDataToJSON(json: any): ModelsJobMetaData {
+    return ModelsJobMetaDataToJSONTyped(json, false);
+}
+
+export function ModelsJobMetaDataToJSONTyped(value?: ModelsJobMetaData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloud_provider: value["cloudProvider"],
         instance_id: value["instanceId"],

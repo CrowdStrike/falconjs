@@ -56,10 +56,15 @@ export function ModelsResultLocationPropertiesFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ModelsResultLocationPropertiesToJSON(value?: ModelsResultLocationProperties | null): any {
+export function ModelsResultLocationPropertiesToJSON(json: any): ModelsResultLocationProperties {
+    return ModelsResultLocationPropertiesToJSONTyped(json, false);
+}
+
+export function ModelsResultLocationPropertiesToJSONTyped(value?: ModelsResultLocationProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         layer: value["layer"],
         path: value["path"],

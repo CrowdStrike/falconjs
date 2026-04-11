@@ -103,10 +103,15 @@ export function ApiExposedDataRecordSocialV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function ApiExposedDataRecordSocialV1ToJSON(value?: ApiExposedDataRecordSocialV1 | null): any {
+export function ApiExposedDataRecordSocialV1ToJSON(json: any): ApiExposedDataRecordSocialV1 {
+    return ApiExposedDataRecordSocialV1ToJSONTyped(json, false);
+}
+
+export function ApiExposedDataRecordSocialV1ToJSONTyped(value?: ApiExposedDataRecordSocialV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aim_id: value["aimId"],
         facebook_id: value["facebookId"],

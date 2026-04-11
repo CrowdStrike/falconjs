@@ -18,12 +18,14 @@ import {
     DevicecontrolapiBluetoothCustomNotificationsFromJSON,
     DevicecontrolapiBluetoothCustomNotificationsFromJSONTyped,
     DevicecontrolapiBluetoothCustomNotificationsToJSON,
+    DevicecontrolapiBluetoothCustomNotificationsToJSONTyped,
 } from "./DevicecontrolapiBluetoothCustomNotifications";
 import type { DevicecontrolapiUSBCustomNotifications } from "./DevicecontrolapiUSBCustomNotifications";
 import {
     DevicecontrolapiUSBCustomNotificationsFromJSON,
     DevicecontrolapiUSBCustomNotificationsFromJSONTyped,
     DevicecontrolapiUSBCustomNotificationsToJSON,
+    DevicecontrolapiUSBCustomNotificationsToJSONTyped,
 } from "./DevicecontrolapiUSBCustomNotifications";
 
 /**
@@ -67,10 +69,15 @@ export function DeviceControlReqUpdateDefaultSettingsV1FromJSONTyped(json: any, 
     };
 }
 
-export function DeviceControlReqUpdateDefaultSettingsV1ToJSON(value?: DeviceControlReqUpdateDefaultSettingsV1 | null): any {
+export function DeviceControlReqUpdateDefaultSettingsV1ToJSON(json: any): DeviceControlReqUpdateDefaultSettingsV1 {
+    return DeviceControlReqUpdateDefaultSettingsV1ToJSONTyped(json, false);
+}
+
+export function DeviceControlReqUpdateDefaultSettingsV1ToJSONTyped(value?: DeviceControlReqUpdateDefaultSettingsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bluetooth_custom_notifications: DevicecontrolapiBluetoothCustomNotificationsToJSON(value["bluetoothCustomNotifications"]),
         usb_custom_notifications: DevicecontrolapiUSBCustomNotificationsToJSON(value["usbCustomNotifications"]),

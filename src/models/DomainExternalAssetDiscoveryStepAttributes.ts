@@ -18,6 +18,7 @@ import {
     DomainExternalAssetRedirectStepAttributesFromJSON,
     DomainExternalAssetRedirectStepAttributesFromJSONTyped,
     DomainExternalAssetRedirectStepAttributesToJSON,
+    DomainExternalAssetRedirectStepAttributesToJSONTyped,
 } from "./DomainExternalAssetRedirectStepAttributes";
 
 /**
@@ -85,10 +86,15 @@ export function DomainExternalAssetDiscoveryStepAttributesFromJSONTyped(json: an
     };
 }
 
-export function DomainExternalAssetDiscoveryStepAttributesToJSON(value?: DomainExternalAssetDiscoveryStepAttributes | null): any {
+export function DomainExternalAssetDiscoveryStepAttributesToJSON(json: any): DomainExternalAssetDiscoveryStepAttributes {
+    return DomainExternalAssetDiscoveryStepAttributesToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetDiscoveryStepAttributesToJSONTyped(value?: DomainExternalAssetDiscoveryStepAttributes | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         clue: value["clue"],
         entity: value["entity"],

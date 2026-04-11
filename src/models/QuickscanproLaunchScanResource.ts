@@ -64,10 +64,15 @@ export function QuickscanproLaunchScanResourceFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function QuickscanproLaunchScanResourceToJSON(value?: QuickscanproLaunchScanResource | null): any {
+export function QuickscanproLaunchScanResourceToJSON(json: any): QuickscanproLaunchScanResource {
+    return QuickscanproLaunchScanResourceToJSONTyped(json, false);
+}
+
+export function QuickscanproLaunchScanResourceToJSONTyped(value?: QuickscanproLaunchScanResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_timestamp: value["createdTimestamp"].toISOString(),
         id: value["id"],

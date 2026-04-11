@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetMetrics } from "./PaginationMetaGetMetrics";
-import { PaginationMetaGetMetricsFromJSON, PaginationMetaGetMetricsFromJSONTyped, PaginationMetaGetMetricsToJSON } from "./PaginationMetaGetMetrics";
+import { PaginationMetaGetMetricsFromJSON, PaginationMetaGetMetricsFromJSONTyped, PaginationMetaGetMetricsToJSON, PaginationMetaGetMetricsToJSONTyped } from "./PaginationMetaGetMetrics";
 
 /**
  *
@@ -64,10 +64,15 @@ export function MetaGetMetricsFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function MetaGetMetricsToJSON(value?: MetaGetMetrics | null): any {
+export function MetaGetMetricsToJSON(json: any): MetaGetMetrics {
+    return MetaGetMetricsToJSONTyped(json, false);
+}
+
+export function MetaGetMetricsToJSONTyped(value?: MetaGetMetrics | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetMetricsToJSON(value["pagination"]),
         query_time: value["queryTime"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiCloudApplicationV1 } from "./ApiCloudApplicationV1";
-import { ApiCloudApplicationV1FromJSON, ApiCloudApplicationV1FromJSONTyped, ApiCloudApplicationV1ToJSON } from "./ApiCloudApplicationV1";
+import { ApiCloudApplicationV1FromJSON, ApiCloudApplicationV1FromJSONTyped, ApiCloudApplicationV1ToJSON, ApiCloudApplicationV1ToJSONTyped } from "./ApiCloudApplicationV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ApiCloudApplicationMSAResponseV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ApiCloudApplicationMSAResponseV1ToJSON(value?: ApiCloudApplicationMSAResponseV1 | null): any {
+export function ApiCloudApplicationMSAResponseV1ToJSON(json: any): ApiCloudApplicationMSAResponseV1 {
+    return ApiCloudApplicationMSAResponseV1ToJSONTyped(json, false);
+}
+
+export function ApiCloudApplicationMSAResponseV1ToJSONTyped(value?: ApiCloudApplicationMSAResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

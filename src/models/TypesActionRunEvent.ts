@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesActionRunEventData } from "./TypesActionRunEventData";
-import { TypesActionRunEventDataFromJSON, TypesActionRunEventDataFromJSONTyped, TypesActionRunEventDataToJSON } from "./TypesActionRunEventData";
+import { TypesActionRunEventDataFromJSON, TypesActionRunEventDataFromJSONTyped, TypesActionRunEventDataToJSON, TypesActionRunEventDataToJSONTyped } from "./TypesActionRunEventData";
 
 /**
  *
@@ -113,10 +113,15 @@ export function TypesActionRunEventFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function TypesActionRunEventToJSON(value?: TypesActionRunEvent | null): any {
+export function TypesActionRunEventToJSON(json: any): TypesActionRunEvent {
+    return TypesActionRunEventToJSONTyped(json, false);
+}
+
+export function TypesActionRunEventToJSONTyped(value?: TypesActionRunEvent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         additionalData: value["additionalData"],
         data: TypesActionRunEventDataToJSON(value["data"]),

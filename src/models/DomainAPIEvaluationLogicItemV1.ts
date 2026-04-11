@@ -18,6 +18,7 @@ import {
     DomainAPIEvaluationLogicComparisonsV1FromJSON,
     DomainAPIEvaluationLogicComparisonsV1FromJSONTyped,
     DomainAPIEvaluationLogicComparisonsV1ToJSON,
+    DomainAPIEvaluationLogicComparisonsV1ToJSONTyped,
 } from "./DomainAPIEvaluationLogicComparisonsV1";
 
 /**
@@ -119,10 +120,15 @@ export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluationLogicItemV1 | null): any {
+export function DomainAPIEvaluationLogicItemV1ToJSON(json: any): DomainAPIEvaluationLogicItemV1 {
+    return DomainAPIEvaluationLogicItemV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIEvaluationLogicItemV1ToJSONTyped(value?: DomainAPIEvaluationLogicItemV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comparison_check: value["comparisonCheck"],
         comparisons: DomainAPIEvaluationLogicComparisonsV1ToJSON(value["comparisons"]),

@@ -201,12 +201,9 @@ export interface UserManagementApiUserRolesActionV1Request {
  */
 export class UserManagementApi extends runtime.BaseAPI {
     /**
-     * Get host aggregates as specified via json in request body.
+     * Creates request options for aggregateUsersV1 without sending the request
      */
-    async aggregateUsersV1Raw(
-        requestParameters: UserManagementApiAggregateUsersV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiAggregatesResponse>> {
+    async aggregateUsersV1RequestOpts(requestParameters: UserManagementApiAggregateUsersV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateUsersV1().');
         }
@@ -222,16 +219,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/aggregates/users/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/aggregates/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get host aggregates as specified via json in request body.
+     */
+    async aggregateUsersV1Raw(
+        requestParameters: UserManagementApiAggregateUsersV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiAggregatesResponse>> {
+        const requestOptions = await this.aggregateUsersV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiAggregatesResponseFromJSON(jsonValue));
     }
@@ -245,13 +252,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use GET /user-management/combined/user-roles/v2. Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.
+     * Creates request options for combinedUserRolesV1 without sending the request
      * @deprecated
      */
-    async combinedUserRolesV1Raw(
-        requestParameters: UserManagementApiCombinedUserRolesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiCombinedUserRolesResponseV1>> {
+    async combinedUserRolesV1RequestOpts(requestParameters: UserManagementApiCombinedUserRolesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling combinedUserRolesV1().');
         }
@@ -293,15 +297,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/combined/user-roles/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/combined/user-roles/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use GET /user-management/combined/user-roles/v2. Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.
+     * @deprecated
+     */
+    async combinedUserRolesV1Raw(
+        requestParameters: UserManagementApiCombinedUserRolesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiCombinedUserRolesResponseV1>> {
+        const requestOptions = await this.combinedUserRolesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiCombinedUserRolesResponseV1FromJSON(jsonValue));
     }
@@ -325,12 +340,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.
+     * Creates request options for combinedUserRolesV2 without sending the request
      */
-    async combinedUserRolesV2Raw(
-        requestParameters: UserManagementApiCombinedUserRolesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiCombinedUserRolesResponseV2>> {
+    async combinedUserRolesV2RequestOpts(requestParameters: UserManagementApiCombinedUserRolesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling combinedUserRolesV2().');
         }
@@ -372,15 +384,25 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/combined/user-roles/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/combined/user-roles/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get User Grant(s). This endpoint lists both direct as well as flight control grants between a User and a Customer.
+     */
+    async combinedUserRolesV2Raw(
+        requestParameters: UserManagementApiCombinedUserRolesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiCombinedUserRolesResponseV2>> {
+        const requestOptions = await this.combinedUserRolesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiCombinedUserRolesResponseV2FromJSON(jsonValue));
     }
@@ -403,10 +425,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use POST /user-management/entities/users/v1. Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
+     * Creates request options for createUser without sending the request
      * @deprecated
      */
-    async createUserRaw(requestParameters: UserManagementApiCreateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
+    async createUserRequestOpts(requestParameters: UserManagementApiCreateUserRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createUser().');
         }
@@ -422,16 +444,24 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/users/entities/users/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainUserCreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/users/entities/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainUserCreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Deprecated : Please use POST /user-management/entities/users/v1. Create a new user. After creating a user, assign one or more roles with POST /user-roles/entities/user-roles/v1
+     * @deprecated
+     */
+    async createUserRaw(requestParameters: UserManagementApiCreateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
+        const requestOptions = await this.createUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
     }
@@ -446,12 +476,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new user. After creating a user, assign one or more roles with POST \'/user-management/entities/user-role-actions/v1\'
+     * Creates request options for createUserV1 without sending the request
      */
-    async createUserV1Raw(
-        requestParameters: UserManagementApiCreateUserV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
+    async createUserV1RequestOpts(requestParameters: UserManagementApiCreateUserV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createUserV1().');
         }
@@ -471,16 +498,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/users/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainCreateUserRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainCreateUserRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new user. After creating a user, assign one or more roles with POST \'/user-management/entities/user-role-actions/v1\'
+     */
+    async createUserV1Raw(
+        requestParameters: UserManagementApiCreateUserV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
+        const requestOptions = await this.createUserV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
     }
@@ -494,10 +531,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use DELETE /user-management/entities/users/v1. Delete a user permanently
+     * Creates request options for deleteUser without sending the request
      * @deprecated
      */
-    async deleteUserRaw(requestParameters: UserManagementApiDeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteUserRequestOpts(requestParameters: UserManagementApiDeleteUserRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling deleteUser().');
         }
@@ -515,15 +552,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/users/entities/users/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/users/entities/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use DELETE /user-management/entities/users/v1. Delete a user permanently
+     * @deprecated
+     */
+    async deleteUserRaw(requestParameters: UserManagementApiDeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.deleteUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -538,9 +583,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a user permanently.
+     * Creates request options for deleteUserV1 without sending the request
      */
-    async deleteUserV1Raw(requestParameters: UserManagementApiDeleteUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async deleteUserV1RequestOpts(requestParameters: UserManagementApiDeleteUserV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling deleteUserV1().');
         }
@@ -558,15 +603,22 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/users/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a user permanently.
+     */
+    async deleteUserV1Raw(requestParameters: UserManagementApiDeleteUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.deleteUserV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -580,12 +632,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about a role
+     * Creates request options for entitiesRolesGETV2 without sending the request
      */
-    async entitiesRolesGETV2Raw(
-        requestParameters: UserManagementApiEntitiesRolesGETV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiGetRolesResponse>> {
+    async entitiesRolesGETV2RequestOpts(requestParameters: UserManagementApiEntitiesRolesGETV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRolesGETV2().');
         }
@@ -605,16 +654,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/roles/GET/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaspecIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/roles/GET/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaspecIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get info about a role
+     */
+    async entitiesRolesGETV2Raw(
+        requestParameters: UserManagementApiEntitiesRolesGETV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiGetRolesResponse>> {
+        const requestOptions = await this.entitiesRolesGETV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiGetRolesResponseFromJSON(jsonValue));
     }
@@ -628,13 +687,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about a role
+     * Creates request options for entitiesRolesV1 without sending the request
      * @deprecated
      */
-    async entitiesRolesV1Raw(
-        requestParameters: UserManagementApiEntitiesRolesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiGetRolesResponse>> {
+    async entitiesRolesV1RequestOpts(requestParameters: UserManagementApiEntitiesRolesV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesRolesV1().');
         }
@@ -656,15 +712,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/roles/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/roles/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get info about a role
+     * @deprecated
+     */
+    async entitiesRolesV1Raw(
+        requestParameters: UserManagementApiEntitiesRolesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiGetRolesResponse>> {
+        const requestOptions = await this.entitiesRolesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiGetRolesResponseFromJSON(jsonValue));
     }
@@ -679,10 +746,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use GET /user-management/queries/roles/v1. Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * Creates request options for getAvailableRoleIds without sending the request
      * @deprecated
      */
-    async getAvailableRoleIdsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async getAvailableRoleIdsRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -692,15 +759,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-roles/queries/user-role-ids-by-cid/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-roles/queries/user-role-ids-by-cid/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use GET /user-management/queries/roles/v1. Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * @deprecated
+     */
+    async getAvailableRoleIdsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.getAvailableRoleIdsRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -715,10 +790,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use GET /user-management/entities/roles/v1. Get info about a role
+     * Creates request options for getRoles without sending the request
      * @deprecated
      */
-    async getRolesRaw(requestParameters: UserManagementApiGetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleResponse>> {
+    async getRolesRequestOpts(requestParameters: UserManagementApiGetRolesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRoles().');
         }
@@ -736,15 +811,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-roles/entities/user-roles/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-roles/entities/user-roles/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use GET /user-management/entities/roles/v1. Get info about a role
+     * @deprecated
+     */
+    async getRolesRaw(requestParameters: UserManagementApiGetRolesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserRoleResponse>> {
+        const requestOptions = await this.getRolesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleResponseFromJSON(jsonValue));
     }
@@ -759,10 +842,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use GET /user-management/combined/user-roles/v1. Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * Creates request options for getUserRoleIds without sending the request
      * @deprecated
      */
-    async getUserRoleIdsRaw(requestParameters: UserManagementApiGetUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async getUserRoleIdsRequestOpts(requestParameters: UserManagementApiGetUserRoleIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling getUserRoleIds().');
         }
@@ -780,15 +863,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-roles/queries/user-role-ids-by-user-uuid/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-roles/queries/user-role-ids-by-user-uuid/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use GET /user-management/combined/user-roles/v1. Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
+     * @deprecated
+     */
+    async getUserRoleIdsRaw(requestParameters: UserManagementApiGetUserRoleIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.getUserRoleIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -803,13 +894,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Assign one or more roles to a user
+     * Creates request options for grantUserRoleIds without sending the request
      * @deprecated
      */
-    async grantUserRoleIdsRaw(
-        requestParameters: UserManagementApiGrantUserRoleIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
+    async grantUserRoleIdsRequestOpts(requestParameters: UserManagementApiGrantUserRoleIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling grantUserRoleIds().');
         }
@@ -833,16 +921,27 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-roles/entities/user-roles/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainRoleIDsToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-roles/entities/user-roles/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainRoleIDsToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Assign one or more roles to a user
+     * @deprecated
+     */
+    async grantUserRoleIdsRaw(
+        requestParameters: UserManagementApiGrantUserRoleIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
+        const requestOptions = await this.grantUserRoleIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleIDsResponseFromJSON(jsonValue));
     }
@@ -857,9 +956,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/user-management/entities/roles/v1`.
+     * Creates request options for queriesRolesV1 without sending the request
      */
-    async queriesRolesV1Raw(requestParameters: UserManagementApiQueriesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesRolesV1RequestOpts(requestParameters: UserManagementApiQueriesRolesV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["cid"] != null) {
@@ -881,15 +980,22 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/queries/roles/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/queries/roles/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/user-management/entities/roles/v1`.
+     */
+    async queriesRolesV1Raw(requestParameters: UserManagementApiQueriesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesRolesV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -903,9 +1009,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
+     * Creates request options for queryUserV1 without sending the request
      */
-    async queryUserV1Raw(requestParameters: UserManagementApiQueryUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queryUserV1RequestOpts(requestParameters: UserManagementApiQueryUserV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -931,15 +1037,22 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/queries/users/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/queries/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
+     */
+    async queryUserV1Raw(requestParameters: UserManagementApiQueryUserV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queryUserV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -953,10 +1066,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use POST /user-management/entities/users/GET/v1. List the usernames (usually an email address) for all users in your customer account
+     * Creates request options for retrieveEmailsByCID without sending the request
      * @deprecated
      */
-    async retrieveEmailsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async retrieveEmailsByCIDRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -966,15 +1079,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/users/queries/emails-by-cid/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/users/queries/emails-by-cid/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use POST /user-management/entities/users/GET/v1. List the usernames (usually an email address) for all users in your customer account
+     * @deprecated
+     */
+    async retrieveEmailsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.retrieveEmailsByCIDRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -989,10 +1110,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use POST /user-management/entities/users/GET/v1. Get info about a user
+     * Creates request options for retrieveUser without sending the request
      * @deprecated
      */
-    async retrieveUserRaw(requestParameters: UserManagementApiRetrieveUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
+    async retrieveUserRequestOpts(requestParameters: UserManagementApiRetrieveUserRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling retrieveUser().');
         }
@@ -1010,15 +1131,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/users/entities/users/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/users/entities/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use POST /user-management/entities/users/GET/v1. Get info about a user
+     * @deprecated
+     */
+    async retrieveUserRaw(requestParameters: UserManagementApiRetrieveUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
+        const requestOptions = await this.retrieveUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
     }
@@ -1033,10 +1162,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use GET /user-management/queries/users/v1. Get a user\'s ID by providing a username (usually an email address)
+     * Creates request options for retrieveUserUUID without sending the request
      * @deprecated
      */
-    async retrieveUserUUIDRaw(requestParameters: UserManagementApiRetrieveUserUUIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async retrieveUserUUIDRequestOpts(requestParameters: UserManagementApiRetrieveUserUUIDRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["uid"] == null) {
             throw new runtime.RequiredError("uid", 'Required parameter "uid" was null or undefined when calling retrieveUserUUID().');
         }
@@ -1054,15 +1183,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/users/queries/user-uuids-by-email/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/users/queries/user-uuids-by-email/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use GET /user-management/queries/users/v1. Get a user\'s ID by providing a username (usually an email address)
+     * @deprecated
+     */
+    async retrieveUserUUIDRaw(requestParameters: UserManagementApiRetrieveUserUUIDRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.retrieveUserUUIDRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -1077,10 +1214,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use GET /user-management/queries/users/v1. List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
+     * Creates request options for retrieveUserUUIDsByCID without sending the request
      * @deprecated
      */
-    async retrieveUserUUIDsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async retrieveUserUUIDsByCIDRequestOpts(): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1090,15 +1227,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/users/queries/user-uuids-by-cid/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/users/queries/user-uuids-by-cid/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use GET /user-management/queries/users/v1. List user IDs for all users in your customer account. For more information on each user, provide the user ID to `/users/entities/user/v1`.
+     * @deprecated
+     */
+    async retrieveUserUUIDsByCIDRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.retrieveUserUUIDsByCIDRequestOpts();
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -1113,12 +1258,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get info about users including their name, UID and CID by providing user UUIDs
+     * Creates request options for retrieveUsersGETV1 without sending the request
      */
-    async retrieveUsersGETV1Raw(
-        requestParameters: UserManagementApiRetrieveUsersGETV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
+    async retrieveUsersGETV1RequestOpts(requestParameters: UserManagementApiRetrieveUsersGETV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling retrieveUsersGETV1().');
         }
@@ -1134,16 +1276,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/users/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaspecIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/users/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaspecIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get info about users including their name, UID and CID by providing user UUIDs
+     */
+    async retrieveUsersGETV1Raw(
+        requestParameters: UserManagementApiRetrieveUsersGETV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
+        const requestOptions = await this.retrieveUsersGETV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
     }
@@ -1157,13 +1309,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Revoke one or more roles from a user
+     * Creates request options for revokeUserRoleIds without sending the request
      * @deprecated
      */
-    async revokeUserRoleIdsRaw(
-        requestParameters: UserManagementApiRevokeUserRoleIdsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
+    async revokeUserRoleIdsRequestOpts(requestParameters: UserManagementApiRevokeUserRoleIdsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling revokeUserRoleIds().');
         }
@@ -1189,15 +1338,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-roles/entities/user-roles/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-roles/entities/user-roles/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Revoke one or more roles from a user
+     * @deprecated
+     */
+    async revokeUserRoleIdsRaw(
+        requestParameters: UserManagementApiRevokeUserRoleIdsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUserRoleIDsResponse>> {
+        const requestOptions = await this.revokeUserRoleIdsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserRoleIDsResponseFromJSON(jsonValue));
     }
@@ -1212,10 +1372,10 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deprecated : Please use PATCH /user-management/entities/users/v1. Modify an existing user\'s first or last name
+     * Creates request options for updateUser without sending the request
      * @deprecated
      */
-    async updateUserRaw(requestParameters: UserManagementApiUpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
+    async updateUserRequestOpts(requestParameters: UserManagementApiUpdateUserRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling updateUser().');
         }
@@ -1239,16 +1399,24 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/users/entities/users/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainUpdateUserFieldsToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/users/entities/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainUpdateUserFieldsToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Deprecated : Please use PATCH /user-management/entities/users/v1. Modify an existing user\'s first or last name
+     * @deprecated
+     */
+    async updateUserRaw(requestParameters: UserManagementApiUpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiUserMetadataResponse>> {
+        const requestOptions = await this.updateUserRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiUserMetadataResponseFromJSON(jsonValue));
     }
@@ -1263,12 +1431,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Modify an existing user\'s first or last name.
+     * Creates request options for updateUserV1 without sending the request
      */
-    async updateUserV1Raw(
-        requestParameters: UserManagementApiUpdateUserV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
+    async updateUserV1RequestOpts(requestParameters: UserManagementApiUpdateUserV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["userUuid"] == null) {
             throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling updateUserV1().');
         }
@@ -1292,16 +1457,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/users/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainUpdateUserRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/users/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainUpdateUserRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Modify an existing user\'s first or last name.
+     */
+    async updateUserV1Raw(
+        requestParameters: UserManagementApiUpdateUserV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiUserResponse>> {
+        const requestOptions = await this.updateUserV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserResponseFromJSON(jsonValue));
     }
@@ -1315,9 +1490,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Apply actions to one or more User. Available action names: reset_2fa, reset_password. User UUIDs can be provided in `ids` param as part of request payload.
+     * Creates request options for userActionV1 without sending the request
      */
-    async userActionV1Raw(requestParameters: UserManagementApiUserActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async userActionV1RequestOpts(requestParameters: UserManagementApiUserActionV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling userActionV1().');
         }
@@ -1333,16 +1508,23 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/user-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainUserActionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/user-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainUserActionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Apply actions to one or more User. Available action names: reset_2fa, reset_password. User UUIDs can be provided in `ids` param as part of request payload.
+     */
+    async userActionV1Raw(requestParameters: UserManagementApiUserActionV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.userActionV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }
@@ -1356,12 +1538,9 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Grant or Revoke one or more role(s) to a user against a CID. User UUID, CID and Role ID(s) can be provided in request payload. Available Action(s) : grant, revoke
+     * Creates request options for userRolesActionV1 without sending the request
      */
-    async userRolesActionV1Raw(
-        requestParameters: UserManagementApiUserRolesActionV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+    async userRolesActionV1RequestOpts(requestParameters: UserManagementApiUserRolesActionV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling userRolesActionV1().');
         }
@@ -1377,16 +1556,26 @@ export class UserManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/user-management/entities/user-role-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: FlightcontrolapiGrantInputToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/user-management/entities/user-role-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: FlightcontrolapiGrantInputToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Grant or Revoke one or more role(s) to a user against a CID. User UUID, CID and Role ID(s) can be provided in request payload. Available Action(s) : grant, revoke
+     */
+    async userRolesActionV1Raw(
+        requestParameters: UserManagementApiUserRolesActionV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        const requestOptions = await this.userRolesActionV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
     }

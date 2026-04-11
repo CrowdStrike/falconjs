@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIFilterLabel } from "./ModelsAPIFilterLabel";
-import { ModelsAPIFilterLabelFromJSON, ModelsAPIFilterLabelFromJSONTyped, ModelsAPIFilterLabelToJSON } from "./ModelsAPIFilterLabel";
+import { ModelsAPIFilterLabelFromJSON, ModelsAPIFilterLabelFromJSONTyped, ModelsAPIFilterLabelToJSON, ModelsAPIFilterLabelToJSONTyped } from "./ModelsAPIFilterLabel";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ModelsAPIFilterResponseFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsAPIFilterResponseToJSON(value?: ModelsAPIFilterResponse | null): any {
+export function ModelsAPIFilterResponseToJSON(json: any): ModelsAPIFilterResponse {
+    return ModelsAPIFilterResponseToJSONTyped(json, false);
+}
+
+export function ModelsAPIFilterResponseToJSONTyped(value?: ModelsAPIFilterResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(ModelsAPIFilterLabelToJSON),
         name: value["name"],

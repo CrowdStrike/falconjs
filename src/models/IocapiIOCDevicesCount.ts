@@ -79,10 +79,15 @@ export function IocapiIOCDevicesCountFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function IocapiIOCDevicesCountToJSON(value?: IocapiIOCDevicesCount | null): any {
+export function IocapiIOCDevicesCountToJSON(json: any): IocapiIOCDevicesCount {
+    return IocapiIOCDevicesCountToJSONTyped(json, false);
+}
+
+export function IocapiIOCDevicesCountToJSONTyped(value?: IocapiIOCDevicesCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_count: value["deviceCount"],
         id: value["id"],

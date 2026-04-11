@@ -74,12 +74,9 @@ export interface CloudSecurityAssetsApiCloudSecurityAssetsQueriesRequest {
  */
 export class CloudSecurityAssetsApi extends runtime.BaseAPI {
     /**
-     * Get findings for an application resource with pagination
+     * Creates request options for cloudSecurityAssetsCombinedApplicationFindings without sending the request
      */
-    async cloudSecurityAssetsCombinedApplicationFindingsRaw(
-        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsCombinedApplicationFindingsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetsGetResourceApplicationFindingsResponse>> {
+    async cloudSecurityAssetsCombinedApplicationFindingsRequestOpts(requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsCombinedApplicationFindingsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["type"] == null) {
             throw new runtime.RequiredError("type", 'Required parameter "type" was null or undefined when calling cloudSecurityAssetsCombinedApplicationFindings().');
         }
@@ -117,15 +114,25 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-assets:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-assets/combined/application-findings/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-assets/combined/application-findings/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get findings for an application resource with pagination
+     */
+    async cloudSecurityAssetsCombinedApplicationFindingsRaw(
+        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsCombinedApplicationFindingsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetsGetResourceApplicationFindingsResponse>> {
+        const requestOptions = await this.cloudSecurityAssetsCombinedApplicationFindingsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsGetResourceApplicationFindingsResponseFromJSON(jsonValue));
     }
@@ -147,12 +154,9 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets combined compliance data aggregated by account and region. Results can be filtered and sorted.
+     * Creates request options for cloudSecurityAssetsCombinedComplianceByAccount without sending the request
      */
-    async cloudSecurityAssetsCombinedComplianceByAccountRaw(
-        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsCombinedComplianceByAccountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetsComplianceResponse>> {
+    async cloudSecurityAssetsCombinedComplianceByAccountRequestOpts(requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsCombinedComplianceByAccountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -186,15 +190,25 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-assets:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-assets/combined/compliance-controls/by-account-region-and-resource-type/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-assets/combined/compliance-controls/by-account-region-and-resource-type/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets combined compliance data aggregated by account and region. Results can be filtered and sorted.
+     */
+    async cloudSecurityAssetsCombinedComplianceByAccountRaw(
+        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsCombinedComplianceByAccountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetsComplianceResponse>> {
+        const requestOptions = await this.cloudSecurityAssetsCombinedComplianceByAccountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsComplianceResponseFromJSON(jsonValue));
     }
@@ -219,12 +233,9 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets raw resources based on the provided IDs param.  Maximum of 100 resources can be requested with this method.  Use POST method with same path if more are required.
+     * Creates request options for cloudSecurityAssetsEntitiesGet without sending the request
      */
-    async cloudSecurityAssetsEntitiesGetRaw(
-        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsEntitiesGetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetsGetResourcesResponse>> {
+    async cloudSecurityAssetsEntitiesGetRequestOpts(requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsEntitiesGetRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -238,15 +249,25 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-assets:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-assets/entities/resources/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-assets/entities/resources/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets raw resources based on the provided IDs param.  Maximum of 100 resources can be requested with this method.  Use POST method with same path if more are required.
+     */
+    async cloudSecurityAssetsEntitiesGetRaw(
+        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsEntitiesGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetsGetResourcesResponse>> {
+        const requestOptions = await this.cloudSecurityAssetsEntitiesGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsGetResourcesResponseFromJSON(jsonValue));
     }
@@ -260,12 +281,9 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets a list of resource IDs for the given parameters, filters and sort criteria
+     * Creates request options for cloudSecurityAssetsQueries without sending the request
      */
-    async cloudSecurityAssetsQueriesRaw(
-        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsQueriesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AssetsGetResourceIDsResponse>> {
+    async cloudSecurityAssetsQueriesRequestOpts(requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsQueriesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["after"] != null) {
@@ -295,15 +313,25 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-assets:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-assets/queries/resources/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-assets/queries/resources/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets a list of resource IDs for the given parameters, filters and sort criteria
+     */
+    async cloudSecurityAssetsQueriesRaw(
+        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsQueriesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetsGetResourceIDsResponse>> {
+        const requestOptions = await this.cloudSecurityAssetsQueriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsGetResourceIDsResponseFromJSON(jsonValue));
     }

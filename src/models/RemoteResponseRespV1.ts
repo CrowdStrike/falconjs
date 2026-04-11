@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RemoteResponsePolicyV1 } from "./RemoteResponsePolicyV1";
-import { RemoteResponsePolicyV1FromJSON, RemoteResponsePolicyV1FromJSONTyped, RemoteResponsePolicyV1ToJSON } from "./RemoteResponsePolicyV1";
+import { RemoteResponsePolicyV1FromJSON, RemoteResponsePolicyV1FromJSONTyped, RemoteResponsePolicyV1ToJSON, RemoteResponsePolicyV1ToJSONTyped } from "./RemoteResponsePolicyV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RemoteResponseRespV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function RemoteResponseRespV1ToJSON(value?: RemoteResponseRespV1 | null): any {
+export function RemoteResponseRespV1ToJSON(json: any): RemoteResponseRespV1 {
+    return RemoteResponseRespV1ToJSONTyped(json, false);
+}
+
+export function RemoteResponseRespV1ToJSONTyped(value?: RemoteResponseRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

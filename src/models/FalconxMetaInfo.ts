@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxQuota } from "./FalconxQuota";
-import { FalconxQuotaFromJSON, FalconxQuotaFromJSONTyped, FalconxQuotaToJSON } from "./FalconxQuota";
+import { FalconxQuotaFromJSON, FalconxQuotaFromJSONTyped, FalconxQuotaToJSON, FalconxQuotaToJSONTyped } from "./FalconxQuota";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -60,10 +60,15 @@ export function FalconxMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function FalconxMetaInfoToJSON(value?: FalconxMetaInfo | null): any {
+export function FalconxMetaInfoToJSON(json: any): FalconxMetaInfo {
+    return FalconxMetaInfoToJSONTyped(json, false);
+}
+
+export function FalconxMetaInfoToJSONTyped(value?: FalconxMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         MetaInfo: MsaMetaInfoToJSON(value["metaInfo"]),
         quota: FalconxQuotaToJSON(value["quota"]),

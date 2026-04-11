@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainPublicIndicatorV3 } from "./DomainPublicIndicatorV3";
-import { DomainPublicIndicatorV3FromJSON, DomainPublicIndicatorV3FromJSONTyped, DomainPublicIndicatorV3ToJSON } from "./DomainPublicIndicatorV3";
+import { DomainPublicIndicatorV3FromJSON, DomainPublicIndicatorV3FromJSONTyped, DomainPublicIndicatorV3ToJSON, DomainPublicIndicatorV3ToJSONTyped } from "./DomainPublicIndicatorV3";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainPublicIndicatorsV3ResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainPublicIndicatorsV3ResponseToJSON(value?: DomainPublicIndicatorsV3Response | null): any {
+export function DomainPublicIndicatorsV3ResponseToJSON(json: any): DomainPublicIndicatorsV3Response {
+    return DomainPublicIndicatorsV3ResponseToJSONTyped(json, false);
+}
+
+export function DomainPublicIndicatorsV3ResponseToJSONTyped(value?: DomainPublicIndicatorsV3Response | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

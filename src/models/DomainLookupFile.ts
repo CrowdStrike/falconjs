@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainUser } from "./DomainUser";
-import { DomainUserFromJSON, DomainUserFromJSONTyped, DomainUserToJSON } from "./DomainUser";
+import { DomainUserFromJSON, DomainUserFromJSONTyped, DomainUserToJSON, DomainUserToJSONTyped } from "./DomainUser";
 
 /**
  *
@@ -177,10 +177,15 @@ export function DomainLookupFileFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainLookupFileToJSON(value?: DomainLookupFile | null): any {
+export function DomainLookupFileToJSON(json: any): DomainLookupFile {
+    return DomainLookupFileToJSONTyped(json, false);
+}
+
+export function DomainLookupFileToJSONTyped(value?: DomainLookupFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         app_id: value["appId"],
         cid: value["cid"],

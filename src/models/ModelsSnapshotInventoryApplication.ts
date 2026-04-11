@@ -112,10 +112,15 @@ export function ModelsSnapshotInventoryApplicationFromJSONTyped(json: any, ignor
     };
 }
 
-export function ModelsSnapshotInventoryApplicationToJSON(value?: ModelsSnapshotInventoryApplication | null): any {
+export function ModelsSnapshotInventoryApplicationToJSON(json: any): ModelsSnapshotInventoryApplication {
+    return ModelsSnapshotInventoryApplicationToJSONTyped(json, false);
+}
+
+export function ModelsSnapshotInventoryApplicationToJSONTyped(value?: ModelsSnapshotInventoryApplication | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         major_version: value["majorVersion"],
         package_hash: value["packageHash"],

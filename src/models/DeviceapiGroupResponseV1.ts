@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceapiGroupMeta } from "./DeviceapiGroupMeta";
-import { DeviceapiGroupMetaFromJSON, DeviceapiGroupMetaFromJSONTyped, DeviceapiGroupMetaToJSON } from "./DeviceapiGroupMeta";
+import { DeviceapiGroupMetaFromJSON, DeviceapiGroupMetaFromJSONTyped, DeviceapiGroupMetaToJSON, DeviceapiGroupMetaToJSONTyped } from "./DeviceapiGroupMeta";
 
 /**
  *
@@ -129,10 +129,15 @@ export function DeviceapiGroupResponseV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DeviceapiGroupResponseV1ToJSON(value?: DeviceapiGroupResponseV1 | null): any {
+export function DeviceapiGroupResponseV1ToJSON(json: any): DeviceapiGroupResponseV1 {
+    return DeviceapiGroupResponseV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiGroupResponseV1ToJSONTyped(value?: DeviceapiGroupResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assignment_rule: value["assignmentRule"],
         cid: value["cid"],

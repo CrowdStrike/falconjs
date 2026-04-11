@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { EmpowerapiRemoteCommandPutFileV2 } from "./EmpowerapiRemoteCommandPutFileV2";
-import { EmpowerapiRemoteCommandPutFileV2FromJSON, EmpowerapiRemoteCommandPutFileV2FromJSONTyped, EmpowerapiRemoteCommandPutFileV2ToJSON } from "./EmpowerapiRemoteCommandPutFileV2";
+import {
+    EmpowerapiRemoteCommandPutFileV2FromJSON,
+    EmpowerapiRemoteCommandPutFileV2FromJSONTyped,
+    EmpowerapiRemoteCommandPutFileV2ToJSON,
+    EmpowerapiRemoteCommandPutFileV2ToJSONTyped,
+} from "./EmpowerapiRemoteCommandPutFileV2";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function EmpowerapiMsaPFResponseV2FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function EmpowerapiMsaPFResponseV2ToJSON(value?: EmpowerapiMsaPFResponseV2 | null): any {
+export function EmpowerapiMsaPFResponseV2ToJSON(json: any): EmpowerapiMsaPFResponseV2 {
+    return EmpowerapiMsaPFResponseV2ToJSONTyped(json, false);
+}
+
+export function EmpowerapiMsaPFResponseV2ToJSONTyped(value?: EmpowerapiMsaPFResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainFeaturePermission } from "./DomainFeaturePermission";
-import { DomainFeaturePermissionFromJSON, DomainFeaturePermissionFromJSONTyped, DomainFeaturePermissionToJSON } from "./DomainFeaturePermission";
+import { DomainFeaturePermissionFromJSON, DomainFeaturePermissionFromJSONTyped, DomainFeaturePermissionToJSON, DomainFeaturePermissionToJSONTyped } from "./DomainFeaturePermission";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainProductPermissionFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainProductPermissionToJSON(value?: DomainProductPermission | null): any {
+export function DomainProductPermissionToJSON(json: any): DomainProductPermission {
+    return DomainProductPermissionToJSONTyped(json, false);
+}
+
+export function DomainProductPermissionToJSONTyped(value?: DomainProductPermission | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         features: (value["features"] as Array<any>).map(DomainFeaturePermissionToJSON),
         product: value["product"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ItautomationScheduledTask } from "./ItautomationScheduledTask";
-import { ItautomationScheduledTaskFromJSON, ItautomationScheduledTaskFromJSONTyped, ItautomationScheduledTaskToJSON } from "./ItautomationScheduledTask";
+import { ItautomationScheduledTaskFromJSON, ItautomationScheduledTaskFromJSONTyped, ItautomationScheduledTaskToJSON, ItautomationScheduledTaskToJSONTyped } from "./ItautomationScheduledTask";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ItautomationUpdateScheduledTasksResponseFromJSONTyped(json: any,
     };
 }
 
-export function ItautomationUpdateScheduledTasksResponseToJSON(value?: ItautomationUpdateScheduledTasksResponse | null): any {
+export function ItautomationUpdateScheduledTasksResponseToJSON(json: any): ItautomationUpdateScheduledTasksResponse {
+    return ItautomationUpdateScheduledTasksResponseToJSONTyped(json, false);
+}
+
+export function ItautomationUpdateScheduledTasksResponseToJSONTyped(value?: ItautomationUpdateScheduledTasksResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

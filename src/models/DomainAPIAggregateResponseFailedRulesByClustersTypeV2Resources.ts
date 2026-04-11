@@ -18,6 +18,7 @@ import {
     DomainAPIAggregateFailedRulesByClustersV3FromJSON,
     DomainAPIAggregateFailedRulesByClustersV3FromJSONTyped,
     DomainAPIAggregateFailedRulesByClustersV3ToJSON,
+    DomainAPIAggregateFailedRulesByClustersV3ToJSONTyped,
 } from "./DomainAPIAggregateFailedRulesByClustersV3";
 
 /**
@@ -63,10 +64,18 @@ export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesFr
     };
 }
 
-export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesToJSON(value?: DomainAPIAggregateResponseFailedRulesByClustersTypeV2Resources | null): any {
+export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesToJSON(json: any): DomainAPIAggregateResponseFailedRulesByClustersTypeV2Resources {
+    return DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseFailedRulesByClustersTypeV2ResourcesToJSONTyped(
+    value?: DomainAPIAggregateResponseFailedRulesByClustersTypeV2Resources | null,
+    ignoreDiscriminator: boolean = false,
+): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(DomainAPIAggregateFailedRulesByClustersV3ToJSON),
         name: value["name"],

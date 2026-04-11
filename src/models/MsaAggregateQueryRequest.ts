@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIFiltersSpec } from "./MsaAPIFiltersSpec";
-import { MsaAPIFiltersSpecFromJSON, MsaAPIFiltersSpecFromJSONTyped, MsaAPIFiltersSpecToJSON } from "./MsaAPIFiltersSpec";
+import { MsaAPIFiltersSpecFromJSON, MsaAPIFiltersSpecFromJSONTyped, MsaAPIFiltersSpecToJSON, MsaAPIFiltersSpecToJSONTyped } from "./MsaAPIFiltersSpec";
 import type { MsaDateRangeSpec } from "./MsaDateRangeSpec";
-import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON } from "./MsaDateRangeSpec";
+import { MsaDateRangeSpecFromJSON, MsaDateRangeSpecFromJSONTyped, MsaDateRangeSpecToJSON, MsaDateRangeSpecToJSONTyped } from "./MsaDateRangeSpec";
 import type { MsaExtendedBoundsSpec } from "./MsaExtendedBoundsSpec";
-import { MsaExtendedBoundsSpecFromJSON, MsaExtendedBoundsSpecFromJSONTyped, MsaExtendedBoundsSpecToJSON } from "./MsaExtendedBoundsSpec";
+import { MsaExtendedBoundsSpecFromJSON, MsaExtendedBoundsSpecFromJSONTyped, MsaExtendedBoundsSpecToJSON, MsaExtendedBoundsSpecToJSONTyped } from "./MsaExtendedBoundsSpec";
 import type { MsaRangeSpec } from "./MsaRangeSpec";
-import { MsaRangeSpecFromJSON, MsaRangeSpecFromJSONTyped, MsaRangeSpecToJSON } from "./MsaRangeSpec";
+import { MsaRangeSpecFromJSON, MsaRangeSpecFromJSONTyped, MsaRangeSpecToJSON, MsaRangeSpecToJSONTyped } from "./MsaRangeSpec";
 
 /**
  *
@@ -214,10 +214,15 @@ export function MsaAggregateQueryRequestFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function MsaAggregateQueryRequestToJSON(value?: MsaAggregateQueryRequest | null): any {
+export function MsaAggregateQueryRequestToJSON(json: any): MsaAggregateQueryRequest {
+    return MsaAggregateQueryRequestToJSONTyped(json, false);
+}
+
+export function MsaAggregateQueryRequestToJSONTyped(value?: MsaAggregateQueryRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         date_ranges: (value["dateRanges"] as Array<any>).map(MsaDateRangeSpecToJSON),
         exclude: value["exclude"],

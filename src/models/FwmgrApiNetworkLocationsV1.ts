@@ -18,15 +18,31 @@ import {
     FwmgrDomainDNSResolutionTargetsWithPollingFromJSON,
     FwmgrDomainDNSResolutionTargetsWithPollingFromJSONTyped,
     FwmgrDomainDNSResolutionTargetsWithPollingToJSON,
+    FwmgrDomainDNSResolutionTargetsWithPollingToJSONTyped,
 } from "./FwmgrDomainDNSResolutionTargetsWithPolling";
 import type { FwmgrDomainICMPTargetsWithPolling } from "./FwmgrDomainICMPTargetsWithPolling";
-import { FwmgrDomainICMPTargetsWithPollingFromJSON, FwmgrDomainICMPTargetsWithPollingFromJSONTyped, FwmgrDomainICMPTargetsWithPollingToJSON } from "./FwmgrDomainICMPTargetsWithPolling";
+import {
+    FwmgrDomainICMPTargetsWithPollingFromJSON,
+    FwmgrDomainICMPTargetsWithPollingFromJSONTyped,
+    FwmgrDomainICMPTargetsWithPollingToJSON,
+    FwmgrDomainICMPTargetsWithPollingToJSONTyped,
+} from "./FwmgrDomainICMPTargetsWithPolling";
 import type { FwmgrDomainConnectionType } from "./FwmgrDomainConnectionType";
-import { FwmgrDomainConnectionTypeFromJSON, FwmgrDomainConnectionTypeFromJSONTyped, FwmgrDomainConnectionTypeToJSON } from "./FwmgrDomainConnectionType";
+import { FwmgrDomainConnectionTypeFromJSON, FwmgrDomainConnectionTypeFromJSONTyped, FwmgrDomainConnectionTypeToJSON, FwmgrDomainConnectionTypeToJSONTyped } from "./FwmgrDomainConnectionType";
 import type { FwmgrApiNetworkLocationsMetadataV1 } from "./FwmgrApiNetworkLocationsMetadataV1";
-import { FwmgrApiNetworkLocationsMetadataV1FromJSON, FwmgrApiNetworkLocationsMetadataV1FromJSONTyped, FwmgrApiNetworkLocationsMetadataV1ToJSON } from "./FwmgrApiNetworkLocationsMetadataV1";
+import {
+    FwmgrApiNetworkLocationsMetadataV1FromJSON,
+    FwmgrApiNetworkLocationsMetadataV1FromJSONTyped,
+    FwmgrApiNetworkLocationsMetadataV1ToJSON,
+    FwmgrApiNetworkLocationsMetadataV1ToJSONTyped,
+} from "./FwmgrApiNetworkLocationsMetadataV1";
 import type { FwmgrDomainHTTPSHostsWithPolling } from "./FwmgrDomainHTTPSHostsWithPolling";
-import { FwmgrDomainHTTPSHostsWithPollingFromJSON, FwmgrDomainHTTPSHostsWithPollingFromJSONTyped, FwmgrDomainHTTPSHostsWithPollingToJSON } from "./FwmgrDomainHTTPSHostsWithPolling";
+import {
+    FwmgrDomainHTTPSHostsWithPollingFromJSON,
+    FwmgrDomainHTTPSHostsWithPollingFromJSONTyped,
+    FwmgrDomainHTTPSHostsWithPollingToJSON,
+    FwmgrDomainHTTPSHostsWithPollingToJSONTyped,
+} from "./FwmgrDomainHTTPSHostsWithPolling";
 
 /**
  *
@@ -202,10 +218,15 @@ export function FwmgrApiNetworkLocationsV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function FwmgrApiNetworkLocationsV1ToJSON(value?: FwmgrApiNetworkLocationsV1 | null): any {
+export function FwmgrApiNetworkLocationsV1ToJSON(json: any): FwmgrApiNetworkLocationsV1 {
+    return FwmgrApiNetworkLocationsV1ToJSONTyped(json, false);
+}
+
+export function FwmgrApiNetworkLocationsV1ToJSONTyped(value?: FwmgrApiNetworkLocationsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         connection_types: FwmgrDomainConnectionTypeToJSON(value["connectionTypes"]),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxActorSummary } from "./FalconxActorSummary";
-import { FalconxActorSummaryFromJSON, FalconxActorSummaryFromJSONTyped, FalconxActorSummaryToJSON } from "./FalconxActorSummary";
+import { FalconxActorSummaryFromJSON, FalconxActorSummaryFromJSONTyped, FalconxActorSummaryToJSON, FalconxActorSummaryToJSONTyped } from "./FalconxActorSummary";
 
 /**
  *
@@ -50,10 +50,15 @@ export function FalconxIntelSummaryReportV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function FalconxIntelSummaryReportV1ToJSON(value?: FalconxIntelSummaryReportV1 | null): any {
+export function FalconxIntelSummaryReportV1ToJSON(json: any): FalconxIntelSummaryReportV1 {
+    return FalconxIntelSummaryReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxIntelSummaryReportV1ToJSONTyped(value?: FalconxIntelSummaryReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actors: value["actors"] == null ? undefined : (value["actors"] as Array<any>).map(FalconxActorSummaryToJSON),
     };

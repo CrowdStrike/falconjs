@@ -75,10 +75,15 @@ export function TypesAzureApplicationGatewayReasonTagFromJSONTyped(json: any, ig
     };
 }
 
-export function TypesAzureApplicationGatewayReasonTagToJSON(value?: TypesAzureApplicationGatewayReasonTag | null): any {
+export function TypesAzureApplicationGatewayReasonTagToJSON(json: any): TypesAzureApplicationGatewayReasonTag {
+    return TypesAzureApplicationGatewayReasonTagToJSONTyped(json, false);
+}
+
+export function TypesAzureApplicationGatewayReasonTagToJSONTyped(value?: TypesAzureApplicationGatewayReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         appGwAddress: value["appGwAddress"],
         appGwName: value["appGwName"],

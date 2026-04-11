@@ -14,13 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceManagedApps } from "./DeviceManagedApps";
-import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON } from "./DeviceManagedApps";
+import { DeviceManagedAppsFromJSON, DeviceManagedAppsFromJSONTyped, DeviceManagedAppsToJSON, DeviceManagedAppsToJSONTyped } from "./DeviceManagedApps";
 import type { DeviceapiMappedDevicePoliciesSwagger } from "./DeviceapiMappedDevicePoliciesSwagger";
-import { DeviceapiMappedDevicePoliciesSwaggerFromJSON, DeviceapiMappedDevicePoliciesSwaggerFromJSONTyped, DeviceapiMappedDevicePoliciesSwaggerToJSON } from "./DeviceapiMappedDevicePoliciesSwagger";
+import {
+    DeviceapiMappedDevicePoliciesSwaggerFromJSON,
+    DeviceapiMappedDevicePoliciesSwaggerFromJSONTyped,
+    DeviceapiMappedDevicePoliciesSwaggerToJSON,
+    DeviceapiMappedDevicePoliciesSwaggerToJSONTyped,
+} from "./DeviceapiMappedDevicePoliciesSwagger";
 import type { DeviceDeviceMeta } from "./DeviceDeviceMeta";
-import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON } from "./DeviceDeviceMeta";
+import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON, DeviceDeviceMetaToJSONTyped } from "./DeviceDeviceMeta";
 import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
-import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
+import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON, DeviceDevicePolicyToJSONTyped } from "./DeviceDevicePolicy";
 
 /**
  *
@@ -695,10 +700,15 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | null): any {
+export function DeviceapiDeviceSwaggerToJSON(json: any): DeviceapiDeviceSwagger {
+    return DeviceapiDeviceSwaggerToJSONTyped(json, false);
+}
+
+export function DeviceapiDeviceSwaggerToJSONTyped(value?: DeviceapiDeviceSwagger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_load_flags: value["agentLoadFlags"],
         agent_local_time: value["agentLocalTime"],

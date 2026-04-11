@@ -14,25 +14,50 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaSemanticData } from "./JsonschemaSemanticData";
-import { JsonschemaSemanticDataFromJSON, JsonschemaSemanticDataFromJSONTyped, JsonschemaSemanticDataToJSON } from "./JsonschemaSemanticData";
+import { JsonschemaSemanticDataFromJSON, JsonschemaSemanticDataFromJSONTyped, JsonschemaSemanticDataToJSON, JsonschemaSemanticDataToJSONTyped } from "./JsonschemaSemanticData";
 import type { JsonschemaQueryConfig } from "./JsonschemaQueryConfig";
-import { JsonschemaQueryConfigFromJSON, JsonschemaQueryConfigFromJSONTyped, JsonschemaQueryConfigToJSON } from "./JsonschemaQueryConfig";
+import { JsonschemaQueryConfigFromJSON, JsonschemaQueryConfigFromJSONTyped, JsonschemaQueryConfigToJSON, JsonschemaQueryConfigToJSONTyped } from "./JsonschemaQueryConfig";
 import type { JsonschemaAuthorization } from "./JsonschemaAuthorization";
-import { JsonschemaAuthorizationFromJSON, JsonschemaAuthorizationFromJSONTyped, JsonschemaAuthorizationToJSON } from "./JsonschemaAuthorization";
+import { JsonschemaAuthorizationFromJSON, JsonschemaAuthorizationFromJSONTyped, JsonschemaAuthorizationToJSON, JsonschemaAuthorizationToJSONTyped } from "./JsonschemaAuthorization";
 import type { JsonschemaOpenAPIExtensions } from "./JsonschemaOpenAPIExtensions";
-import { JsonschemaOpenAPIExtensionsFromJSON, JsonschemaOpenAPIExtensionsFromJSONTyped, JsonschemaOpenAPIExtensionsToJSON } from "./JsonschemaOpenAPIExtensions";
+import {
+    JsonschemaOpenAPIExtensionsFromJSON,
+    JsonschemaOpenAPIExtensionsFromJSONTyped,
+    JsonschemaOpenAPIExtensionsToJSON,
+    JsonschemaOpenAPIExtensionsToJSONTyped,
+} from "./JsonschemaOpenAPIExtensions";
 import type { JsonschemaSignalsExtensions } from "./JsonschemaSignalsExtensions";
-import { JsonschemaSignalsExtensionsFromJSON, JsonschemaSignalsExtensionsFromJSONTyped, JsonschemaSignalsExtensionsToJSON } from "./JsonschemaSignalsExtensions";
+import {
+    JsonschemaSignalsExtensionsFromJSON,
+    JsonschemaSignalsExtensionsFromJSONTyped,
+    JsonschemaSignalsExtensionsToJSON,
+    JsonschemaSignalsExtensionsToJSONTyped,
+} from "./JsonschemaSignalsExtensions";
 import type { JsonschemaPivot } from "./JsonschemaPivot";
-import { JsonschemaPivotFromJSON, JsonschemaPivotFromJSONTyped, JsonschemaPivotToJSON } from "./JsonschemaPivot";
+import { JsonschemaPivotFromJSON, JsonschemaPivotFromJSONTyped, JsonschemaPivotToJSON, JsonschemaPivotToJSONTyped } from "./JsonschemaPivot";
 import type { JsonschemaWorkflowExtensions } from "./JsonschemaWorkflowExtensions";
-import { JsonschemaWorkflowExtensionsFromJSON, JsonschemaWorkflowExtensionsFromJSONTyped, JsonschemaWorkflowExtensionsToJSON } from "./JsonschemaWorkflowExtensions";
+import {
+    JsonschemaWorkflowExtensionsFromJSON,
+    JsonschemaWorkflowExtensionsFromJSONTyped,
+    JsonschemaWorkflowExtensionsToJSON,
+    JsonschemaWorkflowExtensionsToJSONTyped,
+} from "./JsonschemaWorkflowExtensions";
 import type { JsonschemaUIExtensions } from "./JsonschemaUIExtensions";
-import { JsonschemaUIExtensionsFromJSON, JsonschemaUIExtensionsFromJSONTyped, JsonschemaUIExtensionsToJSON } from "./JsonschemaUIExtensions";
+import { JsonschemaUIExtensionsFromJSON, JsonschemaUIExtensionsFromJSONTyped, JsonschemaUIExtensionsToJSON, JsonschemaUIExtensionsToJSONTyped } from "./JsonschemaUIExtensions";
 import type { JsonschemaCollectionIndexField } from "./JsonschemaCollectionIndexField";
-import { JsonschemaCollectionIndexFieldFromJSON, JsonschemaCollectionIndexFieldFromJSONTyped, JsonschemaCollectionIndexFieldToJSON } from "./JsonschemaCollectionIndexField";
+import {
+    JsonschemaCollectionIndexFieldFromJSON,
+    JsonschemaCollectionIndexFieldFromJSONTyped,
+    JsonschemaCollectionIndexFieldToJSON,
+    JsonschemaCollectionIndexFieldToJSONTyped,
+} from "./JsonschemaCollectionIndexField";
 import type { JsonschemaConditionGroupFields } from "./JsonschemaConditionGroupFields";
-import { JsonschemaConditionGroupFieldsFromJSON, JsonschemaConditionGroupFieldsFromJSONTyped, JsonschemaConditionGroupFieldsToJSON } from "./JsonschemaConditionGroupFields";
+import {
+    JsonschemaConditionGroupFieldsFromJSON,
+    JsonschemaConditionGroupFieldsFromJSONTyped,
+    JsonschemaConditionGroupFieldsToJSON,
+    JsonschemaConditionGroupFieldsToJSONTyped,
+} from "./JsonschemaConditionGroupFields";
 
 /**
  *
@@ -285,7 +310,7 @@ export interface JsonschemaSubSchema {
      * @type {string}
      * @memberof JsonschemaSubSchema
      */
-    uicomponent?: string;
+    uiComponent?: string;
     /**
      *
      * @type {boolean}
@@ -488,7 +513,7 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
         then: json["then"] == null ? undefined : JsonschemaSubSchemaFromJSON(json["then"]),
         title: json["title"] == null ? undefined : json["title"],
         type: json["type"] == null ? undefined : json["type"],
-        uicomponent: json["ui:component"] == null ? undefined : json["ui:component"],
+        uiComponent: json["ui:component"] == null ? undefined : json["ui:component"],
         uniqueItems: json["uniqueItems"] == null ? undefined : json["uniqueItems"],
         xCsAuthorization: json["x-cs-authorization"] == null ? undefined : JsonschemaAuthorizationFromJSON(json["x-cs-authorization"]),
         xCsCanCreate: json["x-cs-can-create"] == null ? undefined : json["x-cs-can-create"],
@@ -516,10 +541,15 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): any {
+export function JsonschemaSubSchemaToJSON(json: any): JsonschemaSubSchema {
+    return JsonschemaSubSchemaToJSONTyped(json, false);
+}
+
+export function JsonschemaSubSchemaToJSONTyped(value?: JsonschemaSubSchema | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         $ref: value["$ref"],
         $schema: value["$schema"],
@@ -561,7 +591,7 @@ export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): a
         then: JsonschemaSubSchemaToJSON(value["then"]),
         title: value["title"],
         type: value["type"],
-        "ui:component": value["uicomponent"],
+        "ui:component": value["uiComponent"],
         uniqueItems: value["uniqueItems"],
         "x-cs-authorization": JsonschemaAuthorizationToJSON(value["xCsAuthorization"]),
         "x-cs-can-create": value["xCsCanCreate"],

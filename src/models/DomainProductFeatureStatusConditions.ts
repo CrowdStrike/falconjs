@@ -96,10 +96,15 @@ export function DomainProductFeatureStatusConditionsFromJSONTyped(json: any, ign
     };
 }
 
-export function DomainProductFeatureStatusConditionsToJSON(value?: DomainProductFeatureStatusConditions | null): any {
+export function DomainProductFeatureStatusConditionsToJSON(json: any): DomainProductFeatureStatusConditions {
+    return DomainProductFeatureStatusConditionsToJSONTyped(json, false);
+}
+
+export function DomainProductFeatureStatusConditionsToJSONTyped(value?: DomainProductFeatureStatusConditions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         feature: value["feature"],
         is_visible: value["isVisible"],

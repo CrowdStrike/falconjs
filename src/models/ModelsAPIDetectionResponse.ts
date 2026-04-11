@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { Remediation } from "./Remediation";
-import { RemediationFromJSON, RemediationFromJSONTyped, RemediationToJSON } from "./Remediation";
+import { RemediationFromJSON, RemediationFromJSONTyped, RemediationToJSON, RemediationToJSONTyped } from "./Remediation";
 import type { Rule } from "./Rule";
-import { RuleFromJSON, RuleFromJSONTyped, RuleToJSON } from "./Rule";
+import { RuleFromJSON, RuleFromJSONTyped, RuleToJSON, RuleToJSONTyped } from "./Rule";
 
 /**
  *
@@ -133,10 +133,15 @@ export function ModelsAPIDetectionResponseFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsAPIDetectionResponseToJSON(value?: ModelsAPIDetectionResponse | null): any {
+export function ModelsAPIDetectionResponseToJSON(json: any): ModelsAPIDetectionResponse {
+    return ModelsAPIDetectionResponseToJSONTyped(json, false);
+}
+
+export function ModelsAPIDetectionResponseToJSONTyped(value?: ModelsAPIDetectionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         detection_uuid: value["detectionUuid"],
         file_name: value["fileName"],

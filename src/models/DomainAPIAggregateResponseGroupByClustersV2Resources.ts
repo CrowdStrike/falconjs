@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIAggregateGroupByClustersV2 } from "./DomainAPIAggregateGroupByClustersV2";
-import { DomainAPIAggregateGroupByClustersV2FromJSON, DomainAPIAggregateGroupByClustersV2FromJSONTyped, DomainAPIAggregateGroupByClustersV2ToJSON } from "./DomainAPIAggregateGroupByClustersV2";
+import {
+    DomainAPIAggregateGroupByClustersV2FromJSON,
+    DomainAPIAggregateGroupByClustersV2FromJSONTyped,
+    DomainAPIAggregateGroupByClustersV2ToJSON,
+    DomainAPIAggregateGroupByClustersV2ToJSONTyped,
+} from "./DomainAPIAggregateGroupByClustersV2";
 
 /**
  *
@@ -59,10 +64,15 @@ export function DomainAPIAggregateResponseGroupByClustersV2ResourcesFromJSONType
     };
 }
 
-export function DomainAPIAggregateResponseGroupByClustersV2ResourcesToJSON(value?: DomainAPIAggregateResponseGroupByClustersV2Resources | null): any {
+export function DomainAPIAggregateResponseGroupByClustersV2ResourcesToJSON(json: any): DomainAPIAggregateResponseGroupByClustersV2Resources {
+    return DomainAPIAggregateResponseGroupByClustersV2ResourcesToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseGroupByClustersV2ResourcesToJSONTyped(value?: DomainAPIAggregateResponseGroupByClustersV2Resources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(DomainAPIAggregateGroupByClustersV2ToJSON),
         name: value["name"],

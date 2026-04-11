@@ -14,13 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { Help } from "./Help";
-import { HelpFromJSON, HelpFromJSONTyped, HelpToJSON } from "./Help";
+import { HelpFromJSON, HelpFromJSONTyped, HelpToJSON, HelpToJSONTyped } from "./Help";
 import type { ModelsMessage } from "./ModelsMessage";
-import { ModelsMessageFromJSON, ModelsMessageFromJSONTyped, ModelsMessageToJSON } from "./ModelsMessage";
+import { ModelsMessageFromJSON, ModelsMessageFromJSONTyped, ModelsMessageToJSON, ModelsMessageToJSONTyped } from "./ModelsMessage";
 import type { ModelsRuleProperties } from "./ModelsRuleProperties";
-import { ModelsRulePropertiesFromJSON, ModelsRulePropertiesFromJSONTyped, ModelsRulePropertiesToJSON } from "./ModelsRuleProperties";
+import { ModelsRulePropertiesFromJSON, ModelsRulePropertiesFromJSONTyped, ModelsRulePropertiesToJSON, ModelsRulePropertiesToJSONTyped } from "./ModelsRuleProperties";
 import type { ModelsRuleDefaultConfiguration } from "./ModelsRuleDefaultConfiguration";
-import { ModelsRuleDefaultConfigurationFromJSON, ModelsRuleDefaultConfigurationFromJSONTyped, ModelsRuleDefaultConfigurationToJSON } from "./ModelsRuleDefaultConfiguration";
+import {
+    ModelsRuleDefaultConfigurationFromJSON,
+    ModelsRuleDefaultConfigurationFromJSONTyped,
+    ModelsRuleDefaultConfigurationToJSON,
+    ModelsRuleDefaultConfigurationToJSONTyped,
+} from "./ModelsRuleDefaultConfiguration";
 
 /**
  *
@@ -113,10 +118,15 @@ export function ModelsRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function ModelsRuleToJSON(value?: ModelsRule | null): any {
+export function ModelsRuleToJSON(json: any): ModelsRule {
+    return ModelsRuleToJSONTyped(json, false);
+}
+
+export function ModelsRuleToJSONTyped(value?: ModelsRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         defaultConfiguration: ModelsRuleDefaultConfigurationToJSON(value["defaultConfiguration"]),
         fullDescription: ModelsMessageToJSON(value["fullDescription"]),

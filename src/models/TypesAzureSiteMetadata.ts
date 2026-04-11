@@ -82,10 +82,15 @@ export function TypesAzureSiteMetadataFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function TypesAzureSiteMetadataToJSON(value?: TypesAzureSiteMetadata | null): any {
+export function TypesAzureSiteMetadataToJSON(json: any): TypesAzureSiteMetadata {
+    return TypesAzureSiteMetadataToJSONTyped(json, false);
+}
+
+export function TypesAzureSiteMetadataToJSONTyped(value?: TypesAzureSiteMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         location: value["location"],
         resourceGroup: value["resourceGroup"],

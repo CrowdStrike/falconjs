@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainConfigurationCollection } from "./DomainConfigurationCollection";
-import { DomainConfigurationCollectionFromJSON, DomainConfigurationCollectionFromJSONTyped, DomainConfigurationCollectionToJSON } from "./DomainConfigurationCollection";
+import {
+    DomainConfigurationCollectionFromJSON,
+    DomainConfigurationCollectionFromJSONTyped,
+    DomainConfigurationCollectionToJSON,
+    DomainConfigurationCollectionToJSONTyped,
+} from "./DomainConfigurationCollection";
 
 /**
  *
@@ -107,10 +112,15 @@ export function DomainSaveConfigRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainSaveConfigRequestToJSON(value?: DomainSaveConfigRequest | null): any {
+export function DomainSaveConfigRequestToJSON(json: any): DomainSaveConfigRequest {
+    return DomainSaveConfigRequestToJSONTyped(json, false);
+}
+
+export function DomainSaveConfigRequestToJSONTyped(value?: DomainSaveConfigRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collections: (value["collections"] as Array<any>).map(DomainConfigurationCollectionToJSON),
         description: value["description"],

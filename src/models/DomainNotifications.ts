@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainNotificationConfig } from "./DomainNotificationConfig";
-import { DomainNotificationConfigFromJSON, DomainNotificationConfigFromJSONTyped, DomainNotificationConfigToJSON } from "./DomainNotificationConfig";
+import { DomainNotificationConfigFromJSON, DomainNotificationConfigFromJSONTyped, DomainNotificationConfigToJSON, DomainNotificationConfigToJSONTyped } from "./DomainNotificationConfig";
 
 /**
  *
@@ -66,10 +66,15 @@ export function DomainNotificationsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainNotificationsToJSON(value?: DomainNotifications | null): any {
+export function DomainNotificationsToJSON(json: any): DomainNotifications {
+    return DomainNotificationsToJSONTyped(json, false);
+}
+
+export function DomainNotificationsToJSONTyped(value?: DomainNotifications | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: DomainNotificationConfigToJSON(value["config"]),
         options: value["options"],

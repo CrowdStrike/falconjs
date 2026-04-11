@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAssetFinding } from "./DomainAssetFinding";
-import { DomainAssetFindingFromJSON, DomainAssetFindingFromJSONTyped, DomainAssetFindingToJSON } from "./DomainAssetFinding";
+import { DomainAssetFindingFromJSON, DomainAssetFindingFromJSONTyped, DomainAssetFindingToJSON, DomainAssetFindingToJSONTyped } from "./DomainAssetFinding";
 
 /**
  *
@@ -99,10 +99,15 @@ export function DomainAPICombinedImagesFindingsFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainAPICombinedImagesFindingsToJSON(value?: DomainAPICombinedImagesFindings | null): any {
+export function DomainAPICombinedImagesFindingsToJSON(json: any): DomainAPICombinedImagesFindings {
+    return DomainAPICombinedImagesFindingsToJSONTyped(json, false);
+}
+
+export function DomainAPICombinedImagesFindingsToJSONTyped(value?: DomainAPICombinedImagesFindings | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assessments: (value["assessments"] as Array<any>).map(DomainAssetFindingToJSON),
         cid: value["cid"],

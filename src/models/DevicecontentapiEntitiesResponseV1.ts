@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DevicecontentState } from "./DevicecontentState";
-import { DevicecontentStateFromJSON, DevicecontentStateFromJSONTyped, DevicecontentStateToJSON } from "./DevicecontentState";
+import { DevicecontentStateFromJSON, DevicecontentStateFromJSONTyped, DevicecontentStateToJSON, DevicecontentStateToJSONTyped } from "./DevicecontentState";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DevicecontentapiEntitiesResponseV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DevicecontentapiEntitiesResponseV1ToJSON(value?: DevicecontentapiEntitiesResponseV1 | null): any {
+export function DevicecontentapiEntitiesResponseV1ToJSON(json: any): DevicecontentapiEntitiesResponseV1 {
+    return DevicecontentapiEntitiesResponseV1ToJSONTyped(json, false);
+}
+
+export function DevicecontentapiEntitiesResponseV1ToJSONTyped(value?: DevicecontentapiEntitiesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

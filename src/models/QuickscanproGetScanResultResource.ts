@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { QuickscanproScanMetadata } from "./QuickscanproScanMetadata";
-import { QuickscanproScanMetadataFromJSON, QuickscanproScanMetadataFromJSONTyped, QuickscanproScanMetadataToJSON } from "./QuickscanproScanMetadata";
+import { QuickscanproScanMetadataFromJSON, QuickscanproScanMetadataFromJSONTyped, QuickscanproScanMetadataToJSON, QuickscanproScanMetadataToJSONTyped } from "./QuickscanproScanMetadata";
 import type { QuickscanproScanResult } from "./QuickscanproScanResult";
-import { QuickscanproScanResultFromJSON, QuickscanproScanResultFromJSONTyped, QuickscanproScanResultToJSON } from "./QuickscanproScanResult";
+import { QuickscanproScanResultFromJSON, QuickscanproScanResultFromJSONTyped, QuickscanproScanResultToJSON, QuickscanproScanResultToJSONTyped } from "./QuickscanproScanResult";
 
 /**
  *
@@ -69,10 +69,15 @@ export function QuickscanproGetScanResultResourceFromJSONTyped(json: any, ignore
     };
 }
 
-export function QuickscanproGetScanResultResourceToJSON(value?: QuickscanproGetScanResultResource | null): any {
+export function QuickscanproGetScanResultResourceToJSON(json: any): QuickscanproGetScanResultResource {
+    return QuickscanproGetScanResultResourceToJSONTyped(json, false);
+}
+
+export function QuickscanproGetScanResultResourceToJSONTyped(value?: QuickscanproGetScanResultResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         result: QuickscanproScanResultToJSON(value["result"]),

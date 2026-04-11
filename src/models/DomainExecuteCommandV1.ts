@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainConfigData } from "./DomainConfigData";
-import { DomainConfigDataFromJSON, DomainConfigDataFromJSONTyped, DomainConfigDataToJSON } from "./DomainConfigData";
+import { DomainConfigDataFromJSON, DomainConfigDataFromJSONTyped, DomainConfigDataToJSON, DomainConfigDataToJSONTyped } from "./DomainConfigData";
 import type { DomainRequest } from "./DomainRequest";
-import { DomainRequestFromJSON, DomainRequestFromJSONTyped, DomainRequestToJSON } from "./DomainRequest";
+import { DomainRequestFromJSON, DomainRequestFromJSONTyped, DomainRequestToJSON, DomainRequestToJSONTyped } from "./DomainRequest";
 
 /**
  *
@@ -108,10 +108,15 @@ export function DomainExecuteCommandV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainExecuteCommandV1ToJSON(value?: DomainExecuteCommandV1 | null): any {
+export function DomainExecuteCommandV1ToJSON(json: any): DomainExecuteCommandV1 {
+    return DomainExecuteCommandV1ToJSONTyped(json, false);
+}
+
+export function DomainExecuteCommandV1ToJSONTyped(value?: DomainExecuteCommandV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config: DomainConfigDataToJSON(value["config"]),
         config_auth_type: value["configAuthType"],

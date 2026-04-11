@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { AzureTenantRegistration } from "./AzureTenantRegistration";
-import { AzureTenantRegistrationFromJSON, AzureTenantRegistrationFromJSONTyped, AzureTenantRegistrationToJSON } from "./AzureTenantRegistration";
+import { AzureTenantRegistrationFromJSON, AzureTenantRegistrationFromJSONTyped, AzureTenantRegistrationToJSON, AzureTenantRegistrationToJSONTyped } from "./AzureTenantRegistration";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function AzureAzureRegistrationResponseExtV1FromJSONTyped(json: any, igno
     };
 }
 
-export function AzureAzureRegistrationResponseExtV1ToJSON(value?: AzureAzureRegistrationResponseExtV1 | null): any {
+export function AzureAzureRegistrationResponseExtV1ToJSON(json: any): AzureAzureRegistrationResponseExtV1 {
+    return AzureAzureRegistrationResponseExtV1ToJSONTyped(json, false);
+}
+
+export function AzureAzureRegistrationResponseExtV1ToJSONTyped(value?: AzureAzureRegistrationResponseExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

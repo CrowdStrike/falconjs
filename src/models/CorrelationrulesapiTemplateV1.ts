@@ -14,16 +14,32 @@
 
 import { mapValues } from "../runtime";
 import type { CorrelationrulesapiRuleSearchV1 } from "./CorrelationrulesapiRuleSearchV1";
-import { CorrelationrulesapiRuleSearchV1FromJSON, CorrelationrulesapiRuleSearchV1FromJSONTyped, CorrelationrulesapiRuleSearchV1ToJSON } from "./CorrelationrulesapiRuleSearchV1";
+import {
+    CorrelationrulesapiRuleSearchV1FromJSON,
+    CorrelationrulesapiRuleSearchV1FromJSONTyped,
+    CorrelationrulesapiRuleSearchV1ToJSON,
+    CorrelationrulesapiRuleSearchV1ToJSONTyped,
+} from "./CorrelationrulesapiRuleSearchV1";
 import type { CorrelationrulesapiLicenseDetails } from "./CorrelationrulesapiLicenseDetails";
-import { CorrelationrulesapiLicenseDetailsFromJSON, CorrelationrulesapiLicenseDetailsFromJSONTyped, CorrelationrulesapiLicenseDetailsToJSON } from "./CorrelationrulesapiLicenseDetails";
+import {
+    CorrelationrulesapiLicenseDetailsFromJSON,
+    CorrelationrulesapiLicenseDetailsFromJSONTyped,
+    CorrelationrulesapiLicenseDetailsToJSON,
+    CorrelationrulesapiLicenseDetailsToJSONTyped,
+} from "./CorrelationrulesapiLicenseDetails";
 import type { CorrelationrulesapiRuleOperationV1 } from "./CorrelationrulesapiRuleOperationV1";
-import { CorrelationrulesapiRuleOperationV1FromJSON, CorrelationrulesapiRuleOperationV1FromJSONTyped, CorrelationrulesapiRuleOperationV1ToJSON } from "./CorrelationrulesapiRuleOperationV1";
+import {
+    CorrelationrulesapiRuleOperationV1FromJSON,
+    CorrelationrulesapiRuleOperationV1FromJSONTyped,
+    CorrelationrulesapiRuleOperationV1ToJSON,
+    CorrelationrulesapiRuleOperationV1ToJSONTyped,
+} from "./CorrelationrulesapiRuleOperationV1";
 import type { CorrelationrulesapiMitreAttackMappingV1 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import {
     CorrelationrulesapiMitreAttackMappingV1FromJSON,
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
+    CorrelationrulesapiMitreAttackMappingV1ToJSONTyped,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
 
 /**
@@ -157,10 +173,15 @@ export function CorrelationrulesapiTemplateV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function CorrelationrulesapiTemplateV1ToJSON(value?: Omit<CorrelationrulesapiTemplateV1, "type"> | null): any {
+export function CorrelationrulesapiTemplateV1ToJSON(json: any): CorrelationrulesapiTemplateV1 {
+    return CorrelationrulesapiTemplateV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiTemplateV1ToJSONTyped(value?: Omit<CorrelationrulesapiTemplateV1, "type"> | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         author: value["author"],
         created_on: value["createdOn"].toISOString(),

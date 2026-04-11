@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainConfigurationCollection } from "./DomainConfigurationCollection";
-import { DomainConfigurationCollectionFromJSON, DomainConfigurationCollectionFromJSONTyped, DomainConfigurationCollectionToJSON } from "./DomainConfigurationCollection";
+import {
+    DomainConfigurationCollectionFromJSON,
+    DomainConfigurationCollectionFromJSONTyped,
+    DomainConfigurationCollectionToJSON,
+    DomainConfigurationCollectionToJSONTyped,
+} from "./DomainConfigurationCollection";
 
 /**
  *
@@ -59,10 +64,15 @@ export function DomainValidateCollectionRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DomainValidateCollectionRequestToJSON(value?: DomainValidateCollectionRequest | null): any {
+export function DomainValidateCollectionRequestToJSON(json: any): DomainValidateCollectionRequest {
+    return DomainValidateCollectionRequestToJSONTyped(json, false);
+}
+
+export function DomainValidateCollectionRequestToJSONTyped(value?: DomainValidateCollectionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collection: DomainConfigurationCollectionToJSON(value["collection"]),
         platform: value["platform"],

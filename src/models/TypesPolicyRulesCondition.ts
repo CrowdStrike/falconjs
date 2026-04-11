@@ -54,10 +54,15 @@ export function TypesPolicyRulesConditionFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function TypesPolicyRulesConditionToJSON(value?: TypesPolicyRulesCondition | null): any {
+export function TypesPolicyRulesConditionToJSON(json: any): TypesPolicyRulesCondition {
+    return TypesPolicyRulesConditionToJSONTyped(json, false);
+}
+
+export function TypesPolicyRulesConditionToJSONTyped(value?: TypesPolicyRulesCondition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         exclude: value["exclude"],
         include: value["include"],

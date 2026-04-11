@@ -148,12 +148,9 @@ export interface HostsApiUpdateDeviceTagsRequest {
  */
 export class HostsApi extends runtime.BaseAPI {
     /**
-     * Search for hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     * Creates request options for combinedDevicesByFilter without sending the request
      */
-    async combinedDevicesByFilterRaw(
-        requestParameters: HostsApiCombinedDevicesByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiDeviceCombinedResponseSwagger>> {
+    async combinedDevicesByFilterRequestOpts(requestParameters: HostsApiCombinedDevicesByFilterRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -183,15 +180,25 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/combined/devices/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/combined/devices/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     */
+    async combinedDevicesByFilterRaw(
+        requestParameters: HostsApiCombinedDevicesByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceCombinedResponseSwagger>> {
+        const requestOptions = await this.combinedDevicesByFilterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceCombinedResponseSwaggerFromJSON(jsonValue));
     }
@@ -212,12 +219,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for hidden hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     * Creates request options for combinedHiddenDevicesByFilter without sending the request
      */
-    async combinedHiddenDevicesByFilterRaw(
-        requestParameters: HostsApiCombinedHiddenDevicesByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiDeviceCombinedResponseSwagger>> {
+    async combinedHiddenDevicesByFilterRequestOpts(requestParameters: HostsApiCombinedHiddenDevicesByFilterRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -247,15 +251,25 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/combined/devices-hidden/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/combined/devices-hidden/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for hidden hosts in your environment by platform, hostname, IP, and other criteria. Returns full device records.
+     */
+    async combinedHiddenDevicesByFilterRaw(
+        requestParameters: HostsApiCombinedHiddenDevicesByFilterRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceCombinedResponseSwagger>> {
+        const requestOptions = await this.combinedHiddenDevicesByFilterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceCombinedResponseSwaggerFromJSON(jsonValue));
     }
@@ -276,12 +290,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Performs the specified action on the provided group IDs.
+     * Creates request options for entitiesPerformAction without sending the request
      */
-    async entitiesPerformActionRaw(
-        requestParameters: HostsApiEntitiesPerformActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiGroupsResponseV1>> {
+    async entitiesPerformActionRequestOpts(requestParameters: HostsApiEntitiesPerformActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesPerformAction().');
         }
@@ -317,16 +328,26 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["host-group:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/entities/group-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/entities/group-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Performs the specified action on the provided group IDs.
+     */
+    async entitiesPerformActionRaw(
+        requestParameters: HostsApiEntitiesPerformActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiGroupsResponseV1>> {
+        const requestOptions = await this.entitiesPerformActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiGroupsResponseV1FromJSON(jsonValue));
     }
@@ -346,12 +367,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on one or more hosts by providing host IDs as a query parameter.  Supports up to a maximum 100 IDs.
+     * Creates request options for getDeviceDetailsV2 without sending the request
      */
-    async getDeviceDetailsV2Raw(
-        requestParameters: HostsApiGetDeviceDetailsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
+    async getDeviceDetailsV2RequestOpts(requestParameters: HostsApiGetDeviceDetailsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getDeviceDetailsV2().');
         }
@@ -369,15 +387,25 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/entities/devices/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/entities/devices/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get details on one or more hosts by providing host IDs as a query parameter.  Supports up to a maximum 100 IDs.
+     */
+    async getDeviceDetailsV2Raw(
+        requestParameters: HostsApiGetDeviceDetailsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
+        const requestOptions = await this.getDeviceDetailsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceDetailsResponseSwaggerFromJSON(jsonValue));
     }
@@ -391,9 +419,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the online status for one or more hosts by specifying each host’s unique ID. Successful requests return an HTTP 200 response and the status for each host identified by a `state` of `online`, `offline`, or `unknown` for each host, identified by host `id`.  Make a `GET` request to `/devices/queries/devices/v1` to get a list of host IDs.
+     * Creates request options for getOnlineStateV1 without sending the request
      */
-    async getOnlineStateV1Raw(requestParameters: HostsApiGetOnlineStateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StateOnlineStateRespV1>> {
+    async getOnlineStateV1RequestOpts(requestParameters: HostsApiGetOnlineStateV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getOnlineStateV1().');
         }
@@ -411,15 +439,22 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/entities/online-state/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/entities/online-state/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get the online status for one or more hosts by specifying each host’s unique ID. Successful requests return an HTTP 200 response and the status for each host identified by a `state` of `online`, `offline`, or `unknown` for each host, identified by host `id`.  Make a `GET` request to `/devices/queries/devices/v1` to get a list of host IDs.
+     */
+    async getOnlineStateV1Raw(requestParameters: HostsApiGetOnlineStateV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StateOnlineStateRespV1>> {
+        const requestOptions = await this.getOnlineStateV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => StateOnlineStateRespV1FromJSON(jsonValue));
     }
@@ -433,9 +468,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Take various actions on the hosts in your environment. Contain or lift containment on a host. Delete or restore a host.
+     * Creates request options for performActionV2 without sending the request
      */
-    async performActionV2Raw(requestParameters: HostsApiPerformActionV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+    async performActionV2RequestOpts(requestParameters: HostsApiPerformActionV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling performActionV2().');
         }
@@ -459,16 +494,23 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/entities/devices-actions/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/entities/devices-actions/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Take various actions on the hosts in your environment. Contain or lift containment on a host. Delete or restore a host.
+     */
+    async performActionV2Raw(requestParameters: HostsApiPerformActionV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+        const requestOptions = await this.performActionV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
     }
@@ -482,12 +524,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get details on one or more hosts by providing host IDs in a POST body.  Supports up to a maximum 5000 IDs.
+     * Creates request options for postDeviceDetailsV2 without sending the request
      */
-    async postDeviceDetailsV2Raw(
-        requestParameters: HostsApiPostDeviceDetailsV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
+    async postDeviceDetailsV2RequestOpts(requestParameters: HostsApiPostDeviceDetailsV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postDeviceDetailsV2().');
         }
@@ -503,16 +542,26 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/entities/devices/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/entities/devices/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get details on one or more hosts by providing host IDs in a POST body.  Supports up to a maximum 5000 IDs.
+     */
+    async postDeviceDetailsV2Raw(
+        requestParameters: HostsApiPostDeviceDetailsV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceDetailsResponseSwagger>> {
+        const requestOptions = await this.postDeviceDetailsV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceDetailsResponseSwaggerFromJSON(jsonValue));
     }
@@ -526,12 +575,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve details about recent login sessions for a set of devices.
+     * Creates request options for queryDeviceLoginHistory without sending the request
      */
-    async queryDeviceLoginHistoryRaw(
-        requestParameters: HostsApiQueryDeviceLoginHistoryRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
+    async queryDeviceLoginHistoryRequestOpts(requestParameters: HostsApiQueryDeviceLoginHistoryRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling queryDeviceLoginHistory().');
         }
@@ -547,16 +593,26 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/combined/devices/login-history/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/combined/devices/login-history/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve details about recent login sessions for a set of devices.
+     */
+    async queryDeviceLoginHistoryRaw(
+        requestParameters: HostsApiQueryDeviceLoginHistoryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
+        const requestOptions = await this.queryDeviceLoginHistoryRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiLoginHistoryResponseV1FromJSON(jsonValue));
     }
@@ -570,12 +626,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve details about recent interactive login sessions for a set of devices powered by the Host Timeline. A max of 10 device ids can be specified
+     * Creates request options for queryDeviceLoginHistoryV2 without sending the request
      */
-    async queryDeviceLoginHistoryV2Raw(
-        requestParameters: HostsApiQueryDeviceLoginHistoryV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
+    async queryDeviceLoginHistoryV2RequestOpts(requestParameters: HostsApiQueryDeviceLoginHistoryV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling queryDeviceLoginHistoryV2().');
         }
@@ -603,16 +656,26 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/combined/devices/login-history/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/combined/devices/login-history/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve details about recent interactive login sessions for a set of devices powered by the Host Timeline. A max of 10 device ids can be specified
+     */
+    async queryDeviceLoginHistoryV2Raw(
+        requestParameters: HostsApiQueryDeviceLoginHistoryV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiLoginHistoryResponseV1>> {
+        const requestOptions = await this.queryDeviceLoginHistoryV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiLoginHistoryResponseV1FromJSON(jsonValue));
     }
@@ -632,9 +695,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for hosts in your environment by platform, hostname, IP, and other criteria.
+     * Creates request options for queryDevicesByFilter without sending the request
      */
-    async queryDevicesByFilterRaw(requestParameters: HostsApiQueryDevicesByFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryDevicesByFilterRequestOpts(requestParameters: HostsApiQueryDevicesByFilterRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -660,15 +723,22 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/queries/devices/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/queries/devices/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for hosts in your environment by platform, hostname, IP, and other criteria.
+     */
+    async queryDevicesByFilterRaw(requestParameters: HostsApiQueryDevicesByFilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryDevicesByFilterRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -682,12 +752,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for hosts in your environment by platform, hostname, IP, and other criteria with continuous pagination capability (based on offset pointer which expires after 2 minutes with no maximum limit)
+     * Creates request options for queryDevicesByFilterScroll without sending the request
      */
-    async queryDevicesByFilterScrollRaw(
-        requestParameters: HostsApiQueryDevicesByFilterScrollRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiDeviceResponse>> {
+    async queryDevicesByFilterScrollRequestOpts(requestParameters: HostsApiQueryDevicesByFilterScrollRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -713,15 +780,25 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/queries/devices-scroll/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/queries/devices-scroll/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for hosts in your environment by platform, hostname, IP, and other criteria with continuous pagination capability (based on offset pointer which expires after 2 minutes with no maximum limit)
+     */
+    async queryDevicesByFilterScrollRaw(
+        requestParameters: HostsApiQueryDevicesByFilterScrollRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiDeviceResponse>> {
+        const requestOptions = await this.queryDevicesByFilterScrollRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiDeviceResponseFromJSON(jsonValue));
     }
@@ -735,12 +812,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve history of IP and MAC addresses of devices.
+     * Creates request options for queryGetNetworkAddressHistoryV1 without sending the request
      */
-    async queryGetNetworkAddressHistoryV1Raw(
-        requestParameters: HostsApiQueryGetNetworkAddressHistoryV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiNetworkAddressHistoryResponseV1>> {
+    async queryGetNetworkAddressHistoryV1RequestOpts(requestParameters: HostsApiQueryGetNetworkAddressHistoryV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling queryGetNetworkAddressHistoryV1().');
         }
@@ -756,16 +830,26 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/combined/devices/network-address-history/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/combined/devices/network-address-history/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Retrieve history of IP and MAC addresses of devices.
+     */
+    async queryGetNetworkAddressHistoryV1Raw(
+        requestParameters: HostsApiQueryGetNetworkAddressHistoryV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiNetworkAddressHistoryResponseV1>> {
+        const requestOptions = await this.queryGetNetworkAddressHistoryV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiNetworkAddressHistoryResponseV1FromJSON(jsonValue));
     }
@@ -779,9 +863,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve hidden hosts that match the provided filter criteria.
+     * Creates request options for queryHiddenDevices without sending the request
      */
-    async queryHiddenDevicesRaw(requestParameters: HostsApiQueryHiddenDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryHiddenDevicesRequestOpts(requestParameters: HostsApiQueryHiddenDevicesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -807,15 +891,22 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/queries/devices-hidden/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/queries/devices-hidden/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve hidden hosts that match the provided filter criteria.
+     */
+    async queryHiddenDevicesRaw(requestParameters: HostsApiQueryHiddenDevicesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryHiddenDevicesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -829,12 +920,9 @@ export class HostsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Append or remove one or more Falcon Grouping Tags on one or more hosts.  Tags must be of the form FalconGroupingTags/
+     * Creates request options for updateDeviceTags without sending the request
      */
-    async updateDeviceTagsRaw(
-        requestParameters: HostsApiUpdateDeviceTagsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DeviceapiUpdateDeviceTagsSwaggerV1>> {
+    async updateDeviceTagsRequestOpts(requestParameters: HostsApiUpdateDeviceTagsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDeviceTags().');
         }
@@ -850,16 +938,26 @@ export class HostsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["devices:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/devices/entities/devices/tags/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DeviceapiUpdateDeviceTagsRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/devices/entities/devices/tags/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DeviceapiUpdateDeviceTagsRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Append or remove one or more Falcon Grouping Tags on one or more hosts.  Tags must be of the form FalconGroupingTags/
+     */
+    async updateDeviceTagsRaw(
+        requestParameters: HostsApiUpdateDeviceTagsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DeviceapiUpdateDeviceTagsSwaggerV1>> {
+        const requestOptions = await this.updateDeviceTagsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeviceapiUpdateDeviceTagsSwaggerV1FromJSON(jsonValue));
     }

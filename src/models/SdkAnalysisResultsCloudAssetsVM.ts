@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { SdkAnalysisResultsCloudAssetRecordVM } from "./SdkAnalysisResultsCloudAssetRecordVM";
-import { SdkAnalysisResultsCloudAssetRecordVMFromJSON, SdkAnalysisResultsCloudAssetRecordVMFromJSONTyped, SdkAnalysisResultsCloudAssetRecordVMToJSON } from "./SdkAnalysisResultsCloudAssetRecordVM";
+import {
+    SdkAnalysisResultsCloudAssetRecordVMFromJSON,
+    SdkAnalysisResultsCloudAssetRecordVMFromJSONTyped,
+    SdkAnalysisResultsCloudAssetRecordVMToJSON,
+    SdkAnalysisResultsCloudAssetRecordVMToJSONTyped,
+} from "./SdkAnalysisResultsCloudAssetRecordVM";
 
 /**
  *
@@ -51,10 +56,15 @@ export function SdkAnalysisResultsCloudAssetsVMFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function SdkAnalysisResultsCloudAssetsVMToJSON(value?: SdkAnalysisResultsCloudAssetsVM | null): any {
+export function SdkAnalysisResultsCloudAssetsVMToJSON(json: any): SdkAnalysisResultsCloudAssetsVM {
+    return SdkAnalysisResultsCloudAssetsVMToJSONTyped(json, false);
+}
+
+export function SdkAnalysisResultsCloudAssetsVMToJSONTyped(value?: SdkAnalysisResultsCloudAssetsVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         records: (value["records"] as Array<any>).map(SdkAnalysisResultsCloudAssetRecordVMToJSON),
     };

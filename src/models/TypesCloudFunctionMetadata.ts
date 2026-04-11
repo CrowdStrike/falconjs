@@ -47,10 +47,15 @@ export function TypesCloudFunctionMetadataFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function TypesCloudFunctionMetadataToJSON(value?: TypesCloudFunctionMetadata | null): any {
+export function TypesCloudFunctionMetadataToJSON(json: any): TypesCloudFunctionMetadata {
+    return TypesCloudFunctionMetadataToJSONTyped(json, false);
+}
+
+export function TypesCloudFunctionMetadataToJSONTyped(value?: TypesCloudFunctionMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         function_name: value["functionName"],
     };

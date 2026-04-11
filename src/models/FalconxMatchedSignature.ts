@@ -54,10 +54,15 @@ export function FalconxMatchedSignatureFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function FalconxMatchedSignatureToJSON(value?: FalconxMatchedSignature | null): any {
+export function FalconxMatchedSignatureToJSON(json: any): FalconxMatchedSignature {
+    return FalconxMatchedSignatureToJSONTyped(json, false);
+}
+
+export function FalconxMatchedSignatureToJSONTyped(value?: FalconxMatchedSignature | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         value: value["value"],

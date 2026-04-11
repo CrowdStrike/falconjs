@@ -102,10 +102,15 @@ export function ModelsELFBinaryInfoTypeFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ModelsELFBinaryInfoTypeToJSON(value?: ModelsELFBinaryInfoType | null): any {
+export function ModelsELFBinaryInfoTypeToJSON(json: any): ModelsELFBinaryInfoType {
+    return ModelsELFBinaryInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsELFBinaryInfoTypeToJSONTyped(value?: ModelsELFBinaryInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Details: value["details"],
         Hash: value["hash"],

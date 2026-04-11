@@ -45,7 +45,7 @@ export interface SensorUpdateBuildRespV1 {
     sensorVersion: string;
     /**
      * The release stage this build is in
-     * @type {string}
+     * @type {SensorUpdateBuildRespV1StageEnum}
      * @memberof SensorUpdateBuildRespV1
      */
     stage: SensorUpdateBuildRespV1StageEnum;
@@ -89,10 +89,15 @@ export function SensorUpdateBuildRespV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SensorUpdateBuildRespV1ToJSON(value?: SensorUpdateBuildRespV1 | null): any {
+export function SensorUpdateBuildRespV1ToJSON(json: any): SensorUpdateBuildRespV1 {
+    return SensorUpdateBuildRespV1ToJSONTyped(json, false);
+}
+
+export function SensorUpdateBuildRespV1ToJSONTyped(value?: SensorUpdateBuildRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         build: value["build"],
         is_lts_build: value["isLtsBuild"],

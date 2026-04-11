@@ -64,10 +64,15 @@ export function FwmgrMsaHitFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function FwmgrMsaHitToJSON(value?: FwmgrMsaHit | null): any {
+export function FwmgrMsaHitToJSON(json: any): FwmgrMsaHit {
+    return FwmgrMsaHitToJSONTyped(json, false);
+}
+
+export function FwmgrMsaHitToJSONTyped(value?: FwmgrMsaHit | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ID: value["iD"],
         Score: value["score"],

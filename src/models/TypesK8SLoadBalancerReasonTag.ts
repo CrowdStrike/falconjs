@@ -68,10 +68,15 @@ export function TypesK8SLoadBalancerReasonTagFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesK8SLoadBalancerReasonTagToJSON(value?: TypesK8SLoadBalancerReasonTag | null): any {
+export function TypesK8SLoadBalancerReasonTagToJSON(json: any): TypesK8SLoadBalancerReasonTag {
+    return TypesK8SLoadBalancerReasonTagToJSONTyped(json, false);
+}
+
+export function TypesK8SLoadBalancerReasonTagToJSONTyped(value?: TypesK8SLoadBalancerReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         lbAddress: value["lbAddress"],
         path: value["path"],

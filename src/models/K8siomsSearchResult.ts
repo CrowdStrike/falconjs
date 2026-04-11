@@ -64,10 +64,15 @@ export function K8siomsSearchResultFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function K8siomsSearchResultToJSON(value?: K8siomsSearchResult | null): any {
+export function K8siomsSearchResultToJSON(json: any): K8siomsSearchResult {
+    return K8siomsSearchResultToJSONTyped(json, false);
+}
+
+export function K8siomsSearchResultToJSONTyped(value?: K8siomsSearchResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pit: value["pit"],
         results: value["results"],

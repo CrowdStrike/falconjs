@@ -56,10 +56,15 @@ export function ClientExtraRenameFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function ClientExtraRenameToJSON(value?: ClientExtraRename | null): any {
+export function ClientExtraRenameToJSON(json: any): ClientExtraRename {
+    return ClientExtraRenameToJSONTyped(json, false);
+}
+
+export function ClientExtraRenameToJSONTyped(value?: ClientExtraRename | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         as: value["as"],
         field: value["field"],

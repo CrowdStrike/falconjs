@@ -45,7 +45,7 @@ export interface ItautomationExecutionConfig {
     executionTimeout?: number;
     /**
      * Unit of time for execution timeout
-     * @type {string}
+     * @type {ItautomationExecutionConfigExecutionTimeoutUnitEnum}
      * @memberof ItautomationExecutionConfig
      */
     executionTimeoutUnit?: ItautomationExecutionConfigExecutionTimeoutUnitEnum;
@@ -84,10 +84,15 @@ export function ItautomationExecutionConfigFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ItautomationExecutionConfigToJSON(value?: ItautomationExecutionConfig | null): any {
+export function ItautomationExecutionConfigToJSON(json: any): ItautomationExecutionConfig {
+    return ItautomationExecutionConfigToJSONTyped(json, false);
+}
+
+export function ItautomationExecutionConfigToJSONTyped(value?: ItautomationExecutionConfig | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         enable_os_query: value["enableOsQuery"],
         enable_python_execution: value["enablePythonExecution"],

@@ -54,10 +54,15 @@ export function DismissAffectedEntityV3RequestFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DismissAffectedEntityV3RequestToJSON(value?: DismissAffectedEntityV3Request | null): any {
+export function DismissAffectedEntityV3RequestToJSON(json: any): DismissAffectedEntityV3Request {
+    return DismissAffectedEntityV3RequestToJSONTyped(json, false);
+}
+
+export function DismissAffectedEntityV3RequestToJSONTyped(value?: DismissAffectedEntityV3Request | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entities: value["entities"],
         reason: value["reason"],

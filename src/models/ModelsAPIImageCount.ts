@@ -48,10 +48,15 @@ export function ModelsAPIImageCountFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ModelsAPIImageCountToJSON(value?: ModelsAPIImageCount | null): any {
+export function ModelsAPIImageCountToJSON(json: any): ModelsAPIImageCount {
+    return ModelsAPIImageCountToJSONTyped(json, false);
+}
+
+export function ModelsAPIImageCountToJSONTyped(value?: ModelsAPIImageCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
     };

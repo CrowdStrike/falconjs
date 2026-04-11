@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceGetDeviceInventory } from "./DeviceGetDeviceInventory";
-import { DeviceGetDeviceInventoryFromJSON, DeviceGetDeviceInventoryFromJSONTyped, DeviceGetDeviceInventoryToJSON } from "./DeviceGetDeviceInventory";
+import { DeviceGetDeviceInventoryFromJSON, DeviceGetDeviceInventoryFromJSONTyped, DeviceGetDeviceInventoryToJSON, DeviceGetDeviceInventoryToJSONTyped } from "./DeviceGetDeviceInventory";
 import type { MetaGetDeviceInventory } from "./MetaGetDeviceInventory";
-import { MetaGetDeviceInventoryFromJSON, MetaGetDeviceInventoryFromJSONTyped, MetaGetDeviceInventoryToJSON } from "./MetaGetDeviceInventory";
+import { MetaGetDeviceInventoryFromJSON, MetaGetDeviceInventoryFromJSONTyped, MetaGetDeviceInventoryToJSON, MetaGetDeviceInventoryToJSONTyped } from "./MetaGetDeviceInventory";
 import type { ErrorGetDeviceInventory } from "./ErrorGetDeviceInventory";
-import { ErrorGetDeviceInventoryFromJSON, ErrorGetDeviceInventoryFromJSONTyped, ErrorGetDeviceInventoryToJSON } from "./ErrorGetDeviceInventory";
+import { ErrorGetDeviceInventoryFromJSON, ErrorGetDeviceInventoryFromJSONTyped, ErrorGetDeviceInventoryToJSON, ErrorGetDeviceInventoryToJSONTyped } from "./ErrorGetDeviceInventory";
 
 /**
  *
@@ -68,10 +68,15 @@ export function GetDeviceInventoryFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function GetDeviceInventoryToJSON(value?: GetDeviceInventory | null): any {
+export function GetDeviceInventoryToJSON(json: any): GetDeviceInventory {
+    return GetDeviceInventoryToJSONTyped(json, false);
+}
+
+export function GetDeviceInventoryToJSONTyped(value?: GetDeviceInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetDeviceInventoryToJSON),
         meta: MetaGetDeviceInventoryToJSON(value["meta"]),

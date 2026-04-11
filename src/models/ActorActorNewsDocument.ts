@@ -72,10 +72,15 @@ export function ActorActorNewsDocumentFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ActorActorNewsDocumentToJSON(value?: ActorActorNewsDocument | null): any {
+export function ActorActorNewsDocumentToJSON(json: any): ActorActorNewsDocument {
+    return ActorActorNewsDocumentToJSONTyped(json, false);
+}
+
+export function ActorActorNewsDocumentToJSONTyped(value?: ActorActorNewsDocument | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_date: value["createdDate"],
         id: value["id"],

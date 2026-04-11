@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationAzureAccountPatch } from "./RegistrationAzureAccountPatch";
-import { RegistrationAzureAccountPatchFromJSON, RegistrationAzureAccountPatchFromJSONTyped, RegistrationAzureAccountPatchToJSON } from "./RegistrationAzureAccountPatch";
+import {
+    RegistrationAzureAccountPatchFromJSON,
+    RegistrationAzureAccountPatchFromJSONTyped,
+    RegistrationAzureAccountPatchToJSON,
+    RegistrationAzureAccountPatchToJSONTyped,
+} from "./RegistrationAzureAccountPatch";
 
 /**
  *
@@ -51,10 +56,15 @@ export function RegistrationAzureAccountPatchRequestFromJSONTyped(json: any, ign
     };
 }
 
-export function RegistrationAzureAccountPatchRequestToJSON(value?: RegistrationAzureAccountPatchRequest | null): any {
+export function RegistrationAzureAccountPatchRequestToJSON(json: any): RegistrationAzureAccountPatchRequest {
+    return RegistrationAzureAccountPatchRequestToJSONTyped(json, false);
+}
+
+export function RegistrationAzureAccountPatchRequestToJSONTyped(value?: RegistrationAzureAccountPatchRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationAzureAccountPatchToJSON),
     };

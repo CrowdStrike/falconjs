@@ -39,7 +39,7 @@ export interface ApiNotificationChannelV2 {
     params?: string;
     /**
      *
-     * @type {string}
+     * @type {ApiNotificationChannelV2TypeEnum}
      * @memberof ApiNotificationChannelV2
      */
     type: ApiNotificationChannelV2TypeEnum;
@@ -82,10 +82,15 @@ export function ApiNotificationChannelV2FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ApiNotificationChannelV2ToJSON(value?: ApiNotificationChannelV2 | null): any {
+export function ApiNotificationChannelV2ToJSON(json: any): ApiNotificationChannelV2 {
+    return ApiNotificationChannelV2ToJSONTyped(json, false);
+}
+
+export function ApiNotificationChannelV2ToJSONTyped(value?: ApiNotificationChannelV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         config_id: value["configId"],
         config_name: value["configName"],

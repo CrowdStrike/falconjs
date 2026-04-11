@@ -56,10 +56,15 @@ export function ChangesAttributeFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ChangesAttributeToJSON(value?: ChangesAttribute | null): any {
+export function ChangesAttributeToJSON(json: any): ChangesAttribute {
+    return ChangesAttributeToJSONTyped(json, false);
+}
+
+export function ChangesAttributeToJSONTyped(value?: ChangesAttribute | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         attribute: value["attribute"],
         change: value["change"],

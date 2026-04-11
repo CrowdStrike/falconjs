@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiEscalationPolicyV1 } from "./ApiEscalationPolicyV1";
-import { ApiEscalationPolicyV1FromJSON, ApiEscalationPolicyV1FromJSONTyped, ApiEscalationPolicyV1ToJSON } from "./ApiEscalationPolicyV1";
+import { ApiEscalationPolicyV1FromJSON, ApiEscalationPolicyV1FromJSONTyped, ApiEscalationPolicyV1ToJSON, ApiEscalationPolicyV1ToJSONTyped } from "./ApiEscalationPolicyV1";
 
 /**
  *
@@ -36,7 +36,7 @@ export interface ApiSLAGoalV1 {
     escalationPolicy?: ApiEscalationPolicyV1;
     /**
      *
-     * @type {string}
+     * @type {ApiSLAGoalV1TypeEnum}
      * @memberof ApiSLAGoalV1
      */
     type: ApiSLAGoalV1TypeEnum;
@@ -75,10 +75,15 @@ export function ApiSLAGoalV1FromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function ApiSLAGoalV1ToJSON(value?: ApiSLAGoalV1 | null): any {
+export function ApiSLAGoalV1ToJSON(json: any): ApiSLAGoalV1 {
+    return ApiSLAGoalV1ToJSONTyped(json, false);
+}
+
+export function ApiSLAGoalV1ToJSONTyped(value?: ApiSLAGoalV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         duration_seconds: value["durationSeconds"],
         escalation_policy: ApiEscalationPolicyV1ToJSON(value["escalationPolicy"]),

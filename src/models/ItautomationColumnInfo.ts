@@ -48,10 +48,15 @@ export function ItautomationColumnInfoFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ItautomationColumnInfoToJSON(value?: ItautomationColumnInfo | null): any {
+export function ItautomationColumnInfoToJSON(json: any): ItautomationColumnInfo {
+    return ItautomationColumnInfoToJSONTyped(json, false);
+}
+
+export function ItautomationColumnInfoToJSONTyped(value?: ItautomationColumnInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
     };

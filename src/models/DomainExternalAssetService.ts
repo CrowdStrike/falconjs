@@ -14,15 +14,40 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExternalAssetSSLRecord } from "./DomainExternalAssetSSLRecord";
-import { DomainExternalAssetSSLRecordFromJSON, DomainExternalAssetSSLRecordFromJSONTyped, DomainExternalAssetSSLRecordToJSON } from "./DomainExternalAssetSSLRecord";
+import {
+    DomainExternalAssetSSLRecordFromJSON,
+    DomainExternalAssetSSLRecordFromJSONTyped,
+    DomainExternalAssetSSLRecordToJSON,
+    DomainExternalAssetSSLRecordToJSONTyped,
+} from "./DomainExternalAssetSSLRecord";
 import type { DomainExternalAssetSubsidiary } from "./DomainExternalAssetSubsidiary";
-import { DomainExternalAssetSubsidiaryFromJSON, DomainExternalAssetSubsidiaryFromJSONTyped, DomainExternalAssetSubsidiaryToJSON } from "./DomainExternalAssetSubsidiary";
+import {
+    DomainExternalAssetSubsidiaryFromJSON,
+    DomainExternalAssetSubsidiaryFromJSONTyped,
+    DomainExternalAssetSubsidiaryToJSON,
+    DomainExternalAssetSubsidiaryToJSONTyped,
+} from "./DomainExternalAssetSubsidiary";
 import type { DomainExternalAssetServiceBlobsLinks } from "./DomainExternalAssetServiceBlobsLinks";
-import { DomainExternalAssetServiceBlobsLinksFromJSON, DomainExternalAssetServiceBlobsLinksFromJSONTyped, DomainExternalAssetServiceBlobsLinksToJSON } from "./DomainExternalAssetServiceBlobsLinks";
+import {
+    DomainExternalAssetServiceBlobsLinksFromJSON,
+    DomainExternalAssetServiceBlobsLinksFromJSONTyped,
+    DomainExternalAssetServiceBlobsLinksToJSON,
+    DomainExternalAssetServiceBlobsLinksToJSONTyped,
+} from "./DomainExternalAssetServiceBlobsLinks";
 import type { DomainExternalAssetApplication } from "./DomainExternalAssetApplication";
-import { DomainExternalAssetApplicationFromJSON, DomainExternalAssetApplicationFromJSONTyped, DomainExternalAssetApplicationToJSON } from "./DomainExternalAssetApplication";
+import {
+    DomainExternalAssetApplicationFromJSON,
+    DomainExternalAssetApplicationFromJSONTyped,
+    DomainExternalAssetApplicationToJSON,
+    DomainExternalAssetApplicationToJSONTyped,
+} from "./DomainExternalAssetApplication";
 import type { DomainExternalAssetHTTPAttributes } from "./DomainExternalAssetHTTPAttributes";
-import { DomainExternalAssetHTTPAttributesFromJSON, DomainExternalAssetHTTPAttributesFromJSONTyped, DomainExternalAssetHTTPAttributesToJSON } from "./DomainExternalAssetHTTPAttributes";
+import {
+    DomainExternalAssetHTTPAttributesFromJSON,
+    DomainExternalAssetHTTPAttributesFromJSONTyped,
+    DomainExternalAssetHTTPAttributesToJSON,
+    DomainExternalAssetHTTPAttributesToJSONTyped,
+} from "./DomainExternalAssetHTTPAttributes";
 
 /**
  *
@@ -184,16 +209,21 @@ export function DomainExternalAssetServiceFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainExternalAssetServiceToJSON(value?: DomainExternalAssetService | null): any {
+export function DomainExternalAssetServiceToJSON(json: any): DomainExternalAssetService {
+    return DomainExternalAssetServiceToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetServiceToJSONTyped(value?: DomainExternalAssetService | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applications: value["applications"] == null ? undefined : (value["applications"] as Array<any>).map(DomainExternalAssetApplicationToJSON),
         blob_links: DomainExternalAssetServiceBlobsLinksToJSON(value["blobLinks"]),
         cloud_provider: value["cloudProvider"],
         cpes: value["cpes"],
-        first_seen: value["firstSeen"] == null ? undefined : value["firstSeen"].toISOString(),
+        first_seen: value["firstSeen"] == null ? value["firstSeen"] : value["firstSeen"].toISOString(),
         hosting_provider: value["hostingProvider"],
         http_attributes: DomainExternalAssetHTTPAttributesToJSON(value["httpAttributes"]),
         id: value["id"],

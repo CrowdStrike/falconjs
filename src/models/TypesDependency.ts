@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesInterfaceService } from "./TypesInterfaceService";
-import { TypesInterfaceServiceFromJSON, TypesInterfaceServiceFromJSONTyped, TypesInterfaceServiceToJSON } from "./TypesInterfaceService";
+import { TypesInterfaceServiceFromJSON, TypesInterfaceServiceFromJSONTyped, TypesInterfaceServiceToJSON, TypesInterfaceServiceToJSONTyped } from "./TypesInterfaceService";
 
 /**
  *
@@ -106,10 +106,15 @@ export function TypesDependencyFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function TypesDependencyToJSON(value?: TypesDependency | null): any {
+export function TypesDependencyToJSON(json: any): TypesDependency {
+    return TypesDependencyToJSONTyped(json, false);
+}
+
+export function TypesDependencyToJSONTyped(value?: TypesDependency | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         connectionType: value["connectionType"],
         direction: value["direction"],

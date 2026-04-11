@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DetectsExternalAlert } from "./DetectsExternalAlert";
-import { DetectsExternalAlertFromJSON, DetectsExternalAlertFromJSONTyped, DetectsExternalAlertToJSON } from "./DetectsExternalAlert";
+import { DetectsExternalAlertFromJSON, DetectsExternalAlertFromJSONTyped, DetectsExternalAlertToJSON, DetectsExternalAlertToJSONTyped } from "./DetectsExternalAlert";
 import type { DetectsapiPostCombinedAlertsV1Meta } from "./DetectsapiPostCombinedAlertsV1Meta";
-import { DetectsapiPostCombinedAlertsV1MetaFromJSON, DetectsapiPostCombinedAlertsV1MetaFromJSONTyped, DetectsapiPostCombinedAlertsV1MetaToJSON } from "./DetectsapiPostCombinedAlertsV1Meta";
+import {
+    DetectsapiPostCombinedAlertsV1MetaFromJSON,
+    DetectsapiPostCombinedAlertsV1MetaFromJSONTyped,
+    DetectsapiPostCombinedAlertsV1MetaToJSON,
+    DetectsapiPostCombinedAlertsV1MetaToJSONTyped,
+} from "./DetectsapiPostCombinedAlertsV1Meta";
 
 /**
  *
@@ -71,10 +76,15 @@ export function DetectsapiPostCombinedAlertsV1ResponseSwaggerFromJSONTyped(json:
     };
 }
 
-export function DetectsapiPostCombinedAlertsV1ResponseSwaggerToJSON(value?: DetectsapiPostCombinedAlertsV1ResponseSwagger | null): any {
+export function DetectsapiPostCombinedAlertsV1ResponseSwaggerToJSON(json: any): DetectsapiPostCombinedAlertsV1ResponseSwagger {
+    return DetectsapiPostCombinedAlertsV1ResponseSwaggerToJSONTyped(json, false);
+}
+
+export function DetectsapiPostCombinedAlertsV1ResponseSwaggerToJSONTyped(value?: DetectsapiPostCombinedAlertsV1ResponseSwagger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DetectsapiPostCombinedAlertsV1MetaToJSON(value["meta"]),

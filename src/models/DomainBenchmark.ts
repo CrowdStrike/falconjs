@@ -71,10 +71,15 @@ export function DomainBenchmarkFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainBenchmarkToJSON(value?: DomainBenchmark | null): any {
+export function DomainBenchmarkToJSON(json: any): DomainBenchmark {
+    return DomainBenchmarkToJSONTyped(json, false);
+}
+
+export function DomainBenchmarkToJSONTyped(value?: DomainBenchmark | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         applicable_profiles: value["applicableProfiles"],
         benchmark_short: value["benchmarkShort"],

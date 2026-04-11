@@ -55,10 +55,15 @@ export function ItautomationCreateUserGroupRequestFromJSONTyped(json: any, ignor
     };
 }
 
-export function ItautomationCreateUserGroupRequestToJSON(value?: ItautomationCreateUserGroupRequest | null): any {
+export function ItautomationCreateUserGroupRequestToJSON(json: any): ItautomationCreateUserGroupRequest {
+    return ItautomationCreateUserGroupRequestToJSONTyped(json, false);
+}
+
+export function ItautomationCreateUserGroupRequestToJSONTyped(value?: ItautomationCreateUserGroupRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         name: value["name"],

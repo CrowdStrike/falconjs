@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ResourcesBenchmark } from "./ResourcesBenchmark";
-import { ResourcesBenchmarkFromJSON, ResourcesBenchmarkFromJSONTyped, ResourcesBenchmarkToJSON } from "./ResourcesBenchmark";
+import { ResourcesBenchmarkFromJSON, ResourcesBenchmarkFromJSONTyped, ResourcesBenchmarkToJSON, ResourcesBenchmarkToJSONTyped } from "./ResourcesBenchmark";
 
 /**
  *
@@ -83,10 +83,15 @@ export function ResourcesControlInfoFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ResourcesControlInfoToJSON(value?: ResourcesControlInfo | null): any {
+export function ResourcesControlInfoToJSON(json: any): ResourcesControlInfo {
+    return ResourcesControlInfoToJSONTyped(json, false);
+}
+
+export function ResourcesControlInfoToJSONTyped(value?: ResourcesControlInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         benchmark: ResourcesBenchmarkToJSON(value["benchmark"]),
         framework: value["framework"],

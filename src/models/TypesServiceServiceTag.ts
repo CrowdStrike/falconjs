@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesTag } from "./TypesTag";
-import { TypesTagFromJSON, TypesTagFromJSONTyped, TypesTagToJSON } from "./TypesTag";
+import { TypesTagFromJSON, TypesTagFromJSONTyped, TypesTagToJSON, TypesTagToJSONTyped } from "./TypesTag";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceTagFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function TypesServiceServiceTagToJSON(value?: TypesServiceServiceTag | null): any {
+export function TypesServiceServiceTagToJSON(json: any): TypesServiceServiceTag {
+    return TypesServiceServiceTagToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceTagToJSONTyped(value?: TypesServiceServiceTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesTagToJSON),

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationUserGroupMember } from "./ItautomationUserGroupMember";
-import { ItautomationUserGroupMemberFromJSON, ItautomationUserGroupMemberFromJSONTyped, ItautomationUserGroupMemberToJSON } from "./ItautomationUserGroupMember";
+import {
+    ItautomationUserGroupMemberFromJSON,
+    ItautomationUserGroupMemberFromJSONTyped,
+    ItautomationUserGroupMemberToJSON,
+    ItautomationUserGroupMemberToJSONTyped,
+} from "./ItautomationUserGroupMember";
 
 /**
  *
@@ -120,10 +125,15 @@ export function ItautomationUserGroupFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ItautomationUserGroupToJSON(value?: ItautomationUserGroup | null): any {
+export function ItautomationUserGroupToJSON(json: any): ItautomationUserGroup {
+    return ItautomationUserGroupToJSONTyped(json, false);
+}
+
+export function ItautomationUserGroupToJSONTyped(value?: ItautomationUserGroup | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_by: value["createdBy"],
         created_time: value["createdTime"].toISOString(),

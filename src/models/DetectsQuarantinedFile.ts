@@ -68,10 +68,15 @@ export function DetectsQuarantinedFileFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DetectsQuarantinedFileToJSON(value?: DetectsQuarantinedFile | null): any {
+export function DetectsQuarantinedFileToJSON(json: any): DetectsQuarantinedFile {
+    return DetectsQuarantinedFileToJSONTyped(json, false);
+}
+
+export function DetectsQuarantinedFileToJSONTyped(value?: DetectsQuarantinedFile | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         paths: value["paths"],

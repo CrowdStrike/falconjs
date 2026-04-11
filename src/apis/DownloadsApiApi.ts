@@ -54,10 +54,10 @@ export interface DownloadsApiApiFetchFilesDownloadInfoV2Request {
  */
 export class DownloadsApiApi extends runtime.BaseAPI {
     /**
-     * Gets pre-signed URL for the file
+     * Creates request options for downloadFile without sending the request
      * @deprecated
      */
-    async downloadFileRaw(requestParameters: DownloadsApiApiDownloadFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsEntitiesResponse>> {
+    async downloadFileRequestOpts(requestParameters: DownloadsApiApiDownloadFileRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["fileName"] == null) {
             throw new runtime.RequiredError("fileName", 'Required parameter "fileName" was null or undefined when calling downloadFile().');
         }
@@ -83,15 +83,23 @@ export class DownloadsApiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iac:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/csdownloads/entities/files/download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/csdownloads/entities/files/download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets pre-signed URL for the file
+     * @deprecated
+     */
+    async downloadFileRaw(requestParameters: DownloadsApiApiDownloadFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsEntitiesResponse>> {
+        const requestOptions = await this.downloadFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsEntitiesResponseFromJSON(jsonValue));
     }
@@ -106,10 +114,10 @@ export class DownloadsApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * Enumerates a list of files available for CID
+     * Creates request options for enumerateFile without sending the request
      * @deprecated
      */
-    async enumerateFileRaw(requestParameters: DownloadsApiApiEnumerateFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsEntitiesResponse>> {
+    async enumerateFileRequestOpts(requestParameters: DownloadsApiApiEnumerateFileRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["fileName"] != null) {
@@ -143,15 +151,23 @@ export class DownloadsApiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iac:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/csdownloads/entities/files/enumerate/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/csdownloads/entities/files/enumerate/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Enumerates a list of files available for CID
+     * @deprecated
+     */
+    async enumerateFileRaw(requestParameters: DownloadsApiApiEnumerateFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelsEntitiesResponse>> {
+        const requestOptions = await this.enumerateFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsEntitiesResponseFromJSON(jsonValue));
     }
@@ -174,13 +190,10 @@ export class DownloadsApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get files info and pre-signed download URLs
+     * Creates request options for fetchFilesDownloadInfo without sending the request
      * @deprecated
      */
-    async fetchFilesDownloadInfoRaw(
-        requestParameters: DownloadsApiApiFetchFilesDownloadInfoRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsEntitiesResponse>> {
+    async fetchFilesDownloadInfoRequestOpts(requestParameters: DownloadsApiApiFetchFilesDownloadInfoRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -198,15 +211,26 @@ export class DownloadsApiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["iac:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/csdownloads/combined/files-download/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/csdownloads/combined/files-download/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get files info and pre-signed download URLs
+     * @deprecated
+     */
+    async fetchFilesDownloadInfoRaw(
+        requestParameters: DownloadsApiApiFetchFilesDownloadInfoRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsEntitiesResponse>> {
+        const requestOptions = await this.fetchFilesDownloadInfoRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsEntitiesResponseFromJSON(jsonValue));
     }
@@ -221,12 +245,9 @@ export class DownloadsApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get cloud security tools info and pre-signed download URLs
+     * Creates request options for fetchFilesDownloadInfoV2 without sending the request
      */
-    async fetchFilesDownloadInfoV2Raw(
-        requestParameters: DownloadsApiApiFetchFilesDownloadInfoV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsCombinedFilesDownloadResponse>> {
+    async fetchFilesDownloadInfoV2RequestOpts(requestParameters: DownloadsApiApiFetchFilesDownloadInfoV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -252,15 +273,25 @@ export class DownloadsApiApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cs-downloads:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/csdownloads/combined/files-download/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/csdownloads/combined/files-download/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get cloud security tools info and pre-signed download URLs
+     */
+    async fetchFilesDownloadInfoV2Raw(
+        requestParameters: DownloadsApiApiFetchFilesDownloadInfoV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelsCombinedFilesDownloadResponse>> {
+        const requestOptions = await this.fetchFilesDownloadInfoV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelsCombinedFilesDownloadResponseFromJSON(jsonValue));
     }

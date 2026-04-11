@@ -21,13 +21,13 @@ import { mapValues } from "../runtime";
 export interface DevicecontrolapiUSBExceptionBase {
     /**
      * Action to be taken when the exception is matched
-     * @type {string}
+     * @type {DevicecontrolapiUSBExceptionBaseActionEnum}
      * @memberof DevicecontrolapiUSBExceptionBase
      */
     action?: DevicecontrolapiUSBExceptionBaseActionEnum;
     /**
      * USB Device class
-     * @type {string}
+     * @type {DevicecontrolapiUSBExceptionBaseClassEnum}
      * @memberof DevicecontrolapiUSBExceptionBase
      */
     _class?: DevicecontrolapiUSBExceptionBaseClassEnum;
@@ -151,16 +151,21 @@ export function DevicecontrolapiUSBExceptionBaseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DevicecontrolapiUSBExceptionBaseToJSON(value?: DevicecontrolapiUSBExceptionBase | null): any {
+export function DevicecontrolapiUSBExceptionBaseToJSON(json: any): DevicecontrolapiUSBExceptionBase {
+    return DevicecontrolapiUSBExceptionBaseToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiUSBExceptionBaseToJSONTyped(value?: DevicecontrolapiUSBExceptionBase | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],
         combined_id: value["combinedId"],
         description: value["description"],
-        expiration_time: value["expirationTime"] == null ? undefined : value["expirationTime"].toISOString(),
+        expiration_time: value["expirationTime"] == null ? value["expirationTime"] : value["expirationTime"].toISOString(),
         id: value["id"],
         product_id: value["productId"],
         product_name: value["productName"],

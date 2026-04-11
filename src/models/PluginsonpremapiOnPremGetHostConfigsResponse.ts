@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { PluginsonpremapiOnPremGetHostConfigResponseResource } from "./PluginsonpremapiOnPremGetHostConfigResponseResource";
 import {
     PluginsonpremapiOnPremGetHostConfigResponseResourceFromJSON,
     PluginsonpremapiOnPremGetHostConfigResponseResourceFromJSONTyped,
     PluginsonpremapiOnPremGetHostConfigResponseResourceToJSON,
+    PluginsonpremapiOnPremGetHostConfigResponseResourceToJSONTyped,
 } from "./PluginsonpremapiOnPremGetHostConfigResponseResource";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function PluginsonpremapiOnPremGetHostConfigsResponseFromJSONTyped(json: 
     };
 }
 
-export function PluginsonpremapiOnPremGetHostConfigsResponseToJSON(value?: PluginsonpremapiOnPremGetHostConfigsResponse | null): any {
+export function PluginsonpremapiOnPremGetHostConfigsResponseToJSON(json: any): PluginsonpremapiOnPremGetHostConfigsResponse {
+    return PluginsonpremapiOnPremGetHostConfigsResponseToJSONTyped(json, false);
+}
+
+export function PluginsonpremapiOnPremGetHostConfigsResponseToJSONTyped(value?: PluginsonpremapiOnPremGetHostConfigsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -248,12 +248,9 @@ export interface CaseManagementApiQueriesTemplatesGetV1Request {
  */
 export class CaseManagementApi extends runtime.BaseAPI {
     /**
-     * Get access tag aggregates
+     * Creates request options for aggregatesAccessTagsPostV1 without sending the request
      */
-    async aggregatesAccessTagsPostV1Raw(
-        requestParameters: CaseManagementApiAggregatesAccessTagsPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+    async aggregatesAccessTagsPostV1RequestOpts(requestParameters: CaseManagementApiAggregatesAccessTagsPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesAccessTagsPostV1().');
         }
@@ -269,16 +266,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/aggregates/access-tags/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/aggregates/access-tags/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get access tag aggregates
+     */
+    async aggregatesAccessTagsPostV1Raw(
+        requestParameters: CaseManagementApiAggregatesAccessTagsPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+        const requestOptions = await this.aggregatesAccessTagsPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiMSAAggregatesResponseFromJSON(jsonValue));
     }
@@ -292,12 +299,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notification groups aggregations
+     * Creates request options for aggregatesNotificationGroupsPostV1 without sending the request
      */
-    async aggregatesNotificationGroupsPostV1Raw(
-        requestParameters: CaseManagementApiAggregatesNotificationGroupsPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+    async aggregatesNotificationGroupsPostV1RequestOpts(requestParameters: CaseManagementApiAggregatesNotificationGroupsPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesNotificationGroupsPostV1().');
         }
@@ -313,16 +317,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/aggregates/notification-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/aggregates/notification-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get notification groups aggregations
+     */
+    async aggregatesNotificationGroupsPostV1Raw(
+        requestParameters: CaseManagementApiAggregatesNotificationGroupsPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+        const requestOptions = await this.aggregatesNotificationGroupsPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiMSAAggregatesResponseFromJSON(jsonValue));
     }
@@ -336,12 +350,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notification groups aggregations
+     * Creates request options for aggregatesNotificationGroupsPostV2 without sending the request
      */
-    async aggregatesNotificationGroupsPostV2Raw(
-        requestParameters: CaseManagementApiAggregatesNotificationGroupsPostV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+    async aggregatesNotificationGroupsPostV2RequestOpts(requestParameters: CaseManagementApiAggregatesNotificationGroupsPostV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesNotificationGroupsPostV2().');
         }
@@ -357,16 +368,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/aggregates/notification-groups/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/aggregates/notification-groups/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get notification groups aggregations
+     */
+    async aggregatesNotificationGroupsPostV2Raw(
+        requestParameters: CaseManagementApiAggregatesNotificationGroupsPostV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+        const requestOptions = await this.aggregatesNotificationGroupsPostV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiMSAAggregatesResponseFromJSON(jsonValue));
     }
@@ -380,12 +401,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get SLA aggregations
+     * Creates request options for aggregatesSlasPostV1 without sending the request
      */
-    async aggregatesSlasPostV1Raw(
-        requestParameters: CaseManagementApiAggregatesSlasPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+    async aggregatesSlasPostV1RequestOpts(requestParameters: CaseManagementApiAggregatesSlasPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesSlasPostV1().');
         }
@@ -401,16 +419,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/aggregates/slas/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/aggregates/slas/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get SLA aggregations
+     */
+    async aggregatesSlasPostV1Raw(
+        requestParameters: CaseManagementApiAggregatesSlasPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+        const requestOptions = await this.aggregatesSlasPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiMSAAggregatesResponseFromJSON(jsonValue));
     }
@@ -424,12 +452,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get templates aggregations
+     * Creates request options for aggregatesTemplatesPostV1 without sending the request
      */
-    async aggregatesTemplatesPostV1Raw(
-        requestParameters: CaseManagementApiAggregatesTemplatesPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+    async aggregatesTemplatesPostV1RequestOpts(requestParameters: CaseManagementApiAggregatesTemplatesPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesTemplatesPostV1().');
         }
@@ -445,16 +470,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/aggregates/templates/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/aggregates/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(ApiMSAAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get templates aggregations
+     */
+    async aggregatesTemplatesPostV1Raw(
+        requestParameters: CaseManagementApiAggregatesTemplatesPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiMSAAggregatesResponse>> {
+        const requestOptions = await this.aggregatesTemplatesPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiMSAAggregatesResponseFromJSON(jsonValue));
     }
@@ -468,12 +503,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get access tags
+     * Creates request options for entitiesAccessTagsGetV1 without sending the request
      */
-    async entitiesAccessTagsGetV1Raw(
-        requestParameters: CaseManagementApiEntitiesAccessTagsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiAccessTagV1Response>> {
+    async entitiesAccessTagsGetV1RequestOpts(requestParameters: CaseManagementApiEntitiesAccessTagsGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesAccessTagsGetV1().');
         }
@@ -491,15 +523,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/access-tags/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/access-tags/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get access tags
+     */
+    async entitiesAccessTagsGetV1Raw(
+        requestParameters: CaseManagementApiEntitiesAccessTagsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiAccessTagV1Response>> {
+        const requestOptions = await this.entitiesAccessTagsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiAccessTagV1ResponseFromJSON(jsonValue));
     }
@@ -513,12 +555,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get fields by ID
+     * Creates request options for entitiesFieldsGetV1 without sending the request
      */
-    async entitiesFieldsGetV1Raw(
-        requestParameters: CaseManagementApiEntitiesFieldsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiFieldV1Response>> {
+    async entitiesFieldsGetV1RequestOpts(requestParameters: CaseManagementApiEntitiesFieldsGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesFieldsGetV1().');
         }
@@ -536,15 +575,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/fields/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/fields/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get fields by ID
+     */
+    async entitiesFieldsGetV1Raw(
+        requestParameters: CaseManagementApiEntitiesFieldsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiFieldV1Response>> {
+        const requestOptions = await this.entitiesFieldsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiFieldV1ResponseFromJSON(jsonValue));
     }
@@ -558,12 +607,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete notification groups by ID
+     * Creates request options for entitiesNotificationGroupsDeleteV1 without sending the request
      */
-    async entitiesNotificationGroupsDeleteV1Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupDeleteV1Response>> {
+    async entitiesNotificationGroupsDeleteV1RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesNotificationGroupsDeleteV1().');
         }
@@ -581,15 +627,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete notification groups by ID
+     */
+    async entitiesNotificationGroupsDeleteV1Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupDeleteV1Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupDeleteV1ResponseFromJSON(jsonValue));
     }
@@ -603,12 +659,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete notification groups by ID
+     * Creates request options for entitiesNotificationGroupsDeleteV2 without sending the request
      */
-    async entitiesNotificationGroupsDeleteV2Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsDeleteV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupDeleteV2Response>> {
+    async entitiesNotificationGroupsDeleteV2RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsDeleteV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesNotificationGroupsDeleteV2().');
         }
@@ -626,15 +679,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete notification groups by ID
+     */
+    async entitiesNotificationGroupsDeleteV2Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsDeleteV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupDeleteV2Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsDeleteV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupDeleteV2ResponseFromJSON(jsonValue));
     }
@@ -648,12 +711,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notification groups by ID
+     * Creates request options for entitiesNotificationGroupsGetV1 without sending the request
      */
-    async entitiesNotificationGroupsGetV1Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupV1Response>> {
+    async entitiesNotificationGroupsGetV1RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesNotificationGroupsGetV1().');
         }
@@ -671,15 +731,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get notification groups by ID
+     */
+    async entitiesNotificationGroupsGetV1Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupV1Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupV1ResponseFromJSON(jsonValue));
     }
@@ -693,12 +763,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notification groups by ID
+     * Creates request options for entitiesNotificationGroupsGetV2 without sending the request
      */
-    async entitiesNotificationGroupsGetV2Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupV2Response>> {
+    async entitiesNotificationGroupsGetV2RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsGetV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesNotificationGroupsGetV2().');
         }
@@ -716,15 +783,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get notification groups by ID
+     */
+    async entitiesNotificationGroupsGetV2Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupV2Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupV2ResponseFromJSON(jsonValue));
     }
@@ -738,12 +815,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update notification group
+     * Creates request options for entitiesNotificationGroupsPatchV1 without sending the request
      */
-    async entitiesNotificationGroupsPatchV1Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsPatchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupV1Response>> {
+    async entitiesNotificationGroupsPatchV1RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsPatchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesNotificationGroupsPatchV1().');
         }
@@ -759,16 +833,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiNotificationGroupV1UpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiNotificationGroupV1UpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update notification group
+     */
+    async entitiesNotificationGroupsPatchV1Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsPatchV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupV1Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsPatchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupV1ResponseFromJSON(jsonValue));
     }
@@ -782,12 +866,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update notification group
+     * Creates request options for entitiesNotificationGroupsPatchV2 without sending the request
      */
-    async entitiesNotificationGroupsPatchV2Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsPatchV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupV2Response>> {
+    async entitiesNotificationGroupsPatchV2RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsPatchV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesNotificationGroupsPatchV2().');
         }
@@ -803,16 +884,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiNotificationGroupV2UpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiNotificationGroupV2UpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update notification group
+     */
+    async entitiesNotificationGroupsPatchV2Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsPatchV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupV2Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsPatchV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupV2ResponseFromJSON(jsonValue));
     }
@@ -826,12 +917,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create notification group
+     * Creates request options for entitiesNotificationGroupsPostV1 without sending the request
      */
-    async entitiesNotificationGroupsPostV1Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupV1Response>> {
+    async entitiesNotificationGroupsPostV1RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesNotificationGroupsPostV1().');
         }
@@ -847,16 +935,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiNotificationGroupV1CreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiNotificationGroupV1CreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create notification group
+     */
+    async entitiesNotificationGroupsPostV1Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupV1Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupV1ResponseFromJSON(jsonValue));
     }
@@ -870,12 +968,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create notification group
+     * Creates request options for entitiesNotificationGroupsPostV2 without sending the request
      */
-    async entitiesNotificationGroupsPostV2Raw(
-        requestParameters: CaseManagementApiEntitiesNotificationGroupsPostV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiNotificationGroupV2Response>> {
+    async entitiesNotificationGroupsPostV2RequestOpts(requestParameters: CaseManagementApiEntitiesNotificationGroupsPostV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesNotificationGroupsPostV2().');
         }
@@ -891,16 +986,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/notification-groups/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiNotificationGroupV2CreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/notification-groups/v2`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiNotificationGroupV2CreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create notification group
+     */
+    async entitiesNotificationGroupsPostV2Raw(
+        requestParameters: CaseManagementApiEntitiesNotificationGroupsPostV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiNotificationGroupV2Response>> {
+        const requestOptions = await this.entitiesNotificationGroupsPostV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiNotificationGroupV2ResponseFromJSON(jsonValue));
     }
@@ -914,12 +1019,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete SLAs
+     * Creates request options for entitiesSlasDeleteV1 without sending the request
      */
-    async entitiesSlasDeleteV1Raw(
-        requestParameters: CaseManagementApiEntitiesSlasDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async entitiesSlasDeleteV1RequestOpts(requestParameters: CaseManagementApiEntitiesSlasDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesSlasDeleteV1().');
         }
@@ -937,15 +1039,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/slas/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/slas/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete SLAs
+     */
+    async entitiesSlasDeleteV1Raw(
+        requestParameters: CaseManagementApiEntitiesSlasDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.entitiesSlasDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -959,12 +1071,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get SLAs by ID
+     * Creates request options for entitiesSlasGetV1 without sending the request
      */
-    async entitiesSlasGetV1Raw(
-        requestParameters: CaseManagementApiEntitiesSlasGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiSLAV1Response>> {
+    async entitiesSlasGetV1RequestOpts(requestParameters: CaseManagementApiEntitiesSlasGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesSlasGetV1().');
         }
@@ -982,15 +1091,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/slas/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/slas/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get SLAs by ID
+     */
+    async entitiesSlasGetV1Raw(
+        requestParameters: CaseManagementApiEntitiesSlasGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSLAV1Response>> {
+        const requestOptions = await this.entitiesSlasGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSLAV1ResponseFromJSON(jsonValue));
     }
@@ -1004,12 +1123,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update SLA
+     * Creates request options for entitiesSlasPatchV1 without sending the request
      */
-    async entitiesSlasPatchV1Raw(
-        requestParameters: CaseManagementApiEntitiesSlasPatchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiSLAV1Response>> {
+    async entitiesSlasPatchV1RequestOpts(requestParameters: CaseManagementApiEntitiesSlasPatchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesSlasPatchV1().');
         }
@@ -1025,16 +1141,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/slas/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiSLAV1UpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/slas/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiSLAV1UpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update SLA
+     */
+    async entitiesSlasPatchV1Raw(
+        requestParameters: CaseManagementApiEntitiesSlasPatchV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSLAV1Response>> {
+        const requestOptions = await this.entitiesSlasPatchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSLAV1ResponseFromJSON(jsonValue));
     }
@@ -1048,12 +1174,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create SLA
+     * Creates request options for entitiesSlasPostV1 without sending the request
      */
-    async entitiesSlasPostV1Raw(
-        requestParameters: CaseManagementApiEntitiesSlasPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiSLAV1Response>> {
+    async entitiesSlasPostV1RequestOpts(requestParameters: CaseManagementApiEntitiesSlasPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesSlasPostV1().');
         }
@@ -1069,16 +1192,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/slas/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiSLAV1CreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/slas/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiSLAV1CreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create SLA
+     */
+    async entitiesSlasPostV1Raw(
+        requestParameters: CaseManagementApiEntitiesSlasPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSLAV1Response>> {
+        const requestOptions = await this.entitiesSlasPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiSLAV1ResponseFromJSON(jsonValue));
     }
@@ -1092,12 +1225,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get template snapshots
+     * Creates request options for entitiesTemplateSnapshotsGetV1 without sending the request
      */
-    async entitiesTemplateSnapshotsGetV1Raw(
-        requestParameters: CaseManagementApiEntitiesTemplateSnapshotsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTemplateSnapshotV1Response>> {
+    async entitiesTemplateSnapshotsGetV1RequestOpts(requestParameters: CaseManagementApiEntitiesTemplateSnapshotsGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1119,15 +1249,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/template-snapshots/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/template-snapshots/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get template snapshots
+     */
+    async entitiesTemplateSnapshotsGetV1Raw(
+        requestParameters: CaseManagementApiEntitiesTemplateSnapshotsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTemplateSnapshotV1Response>> {
+        const requestOptions = await this.entitiesTemplateSnapshotsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTemplateSnapshotV1ResponseFromJSON(jsonValue));
     }
@@ -1146,12 +1286,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete templates
+     * Creates request options for entitiesTemplatesDeleteV1 without sending the request
      */
-    async entitiesTemplatesDeleteV1Raw(
-        requestParameters: CaseManagementApiEntitiesTemplatesDeleteV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<string>> {
+    async entitiesTemplatesDeleteV1RequestOpts(requestParameters: CaseManagementApiEntitiesTemplatesDeleteV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesTemplatesDeleteV1().');
         }
@@ -1169,15 +1306,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/templates/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete templates
+     */
+    async entitiesTemplatesDeleteV1Raw(
+        requestParameters: CaseManagementApiEntitiesTemplatesDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<string>> {
+        const requestOptions = await this.entitiesTemplatesDeleteV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         if (this.isJsonMime(response.headers.get("content-type"))) {
             return new runtime.JSONApiResponse<string>(response);
@@ -1195,12 +1342,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Export templates to files in a zip archive
+     * Creates request options for entitiesTemplatesExportGetV1 without sending the request
      */
-    async entitiesTemplatesExportGetV1Raw(
-        requestParameters: CaseManagementApiEntitiesTemplatesExportGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiDownloadLinkV1>> {
+    async entitiesTemplatesExportGetV1RequestOpts(requestParameters: CaseManagementApiEntitiesTemplatesExportGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -1222,15 +1366,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/templates/export/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/templates/export/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Export templates to files in a zip archive
+     */
+    async entitiesTemplatesExportGetV1Raw(
+        requestParameters: CaseManagementApiEntitiesTemplatesExportGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDownloadLinkV1>> {
+        const requestOptions = await this.entitiesTemplatesExportGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiDownloadLinkV1FromJSON(jsonValue));
     }
@@ -1249,12 +1403,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get templates by ID
+     * Creates request options for entitiesTemplatesGetV1 without sending the request
      */
-    async entitiesTemplatesGetV1Raw(
-        requestParameters: CaseManagementApiEntitiesTemplatesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+    async entitiesTemplatesGetV1RequestOpts(requestParameters: CaseManagementApiEntitiesTemplatesGetV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesTemplatesGetV1().');
         }
@@ -1272,15 +1423,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/templates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get templates by ID
+     */
+    async entitiesTemplatesGetV1Raw(
+        requestParameters: CaseManagementApiEntitiesTemplatesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+        const requestOptions = await this.entitiesTemplatesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTemplateV1ResponseFromJSON(jsonValue));
     }
@@ -1294,12 +1455,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Import a template from a file
+     * Creates request options for entitiesTemplatesImportPostV1 without sending the request
      */
-    async entitiesTemplatesImportPostV1Raw(
-        requestParameters: CaseManagementApiEntitiesTemplatesImportPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+    async entitiesTemplatesImportPostV1RequestOpts(requestParameters: CaseManagementApiEntitiesTemplatesImportPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["file"] == null) {
             throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling entitiesTemplatesImportPostV1().');
         }
@@ -1335,16 +1493,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             formParams.append("dry_run", requestParameters["dryRun"] as any);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/templates/import/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: formParams,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/templates/import/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        };
+    }
+
+    /**
+     * Import a template from a file
+     */
+    async entitiesTemplatesImportPostV1Raw(
+        requestParameters: CaseManagementApiEntitiesTemplatesImportPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+        const requestOptions = await this.entitiesTemplatesImportPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTemplateV1ResponseFromJSON(jsonValue));
     }
@@ -1358,12 +1526,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update template
+     * Creates request options for entitiesTemplatesPatchV1 without sending the request
      */
-    async entitiesTemplatesPatchV1Raw(
-        requestParameters: CaseManagementApiEntitiesTemplatesPatchV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+    async entitiesTemplatesPatchV1RequestOpts(requestParameters: CaseManagementApiEntitiesTemplatesPatchV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesTemplatesPatchV1().');
         }
@@ -1379,16 +1544,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/templates/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiTemplateV1UpdateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiTemplateV1UpdateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update template
+     */
+    async entitiesTemplatesPatchV1Raw(
+        requestParameters: CaseManagementApiEntitiesTemplatesPatchV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+        const requestOptions = await this.entitiesTemplatesPatchV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTemplateV1ResponseFromJSON(jsonValue));
     }
@@ -1402,12 +1577,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create template
+     * Creates request options for entitiesTemplatesPostV1 without sending the request
      */
-    async entitiesTemplatesPostV1Raw(
-        requestParameters: CaseManagementApiEntitiesTemplatesPostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+    async entitiesTemplatesPostV1RequestOpts(requestParameters: CaseManagementApiEntitiesTemplatesPostV1Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesTemplatesPostV1().');
         }
@@ -1423,16 +1595,26 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/entities/templates/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiTemplateV1CreateRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/entities/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiTemplateV1CreateRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create template
+     */
+    async entitiesTemplatesPostV1Raw(
+        requestParameters: CaseManagementApiEntitiesTemplatesPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTemplateV1Response>> {
+        const requestOptions = await this.entitiesTemplatesPostV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiTemplateV1ResponseFromJSON(jsonValue));
     }
@@ -1446,12 +1628,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query access tags
+     * Creates request options for queriesAccessTagsGetV1 without sending the request
      */
-    async queriesAccessTagsGetV1Raw(
-        requestParameters: CaseManagementApiQueriesAccessTagsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesAccessTagsGetV1RequestOpts(requestParameters: CaseManagementApiQueriesAccessTagsGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1477,15 +1656,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/queries/access-tags/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/queries/access-tags/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query access tags
+     */
+    async queriesAccessTagsGetV1Raw(
+        requestParameters: CaseManagementApiQueriesAccessTagsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesAccessTagsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1499,12 +1688,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query fields
+     * Creates request options for queriesFieldsGetV1 without sending the request
      */
-    async queriesFieldsGetV1Raw(
-        requestParameters: CaseManagementApiQueriesFieldsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesFieldsGetV1RequestOpts(requestParameters: CaseManagementApiQueriesFieldsGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1526,15 +1712,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/queries/fields/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/queries/fields/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query fields
+     */
+    async queriesFieldsGetV1Raw(
+        requestParameters: CaseManagementApiQueriesFieldsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesFieldsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1548,12 +1744,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query notification groups
+     * Creates request options for queriesNotificationGroupsGetV1 without sending the request
      */
-    async queriesNotificationGroupsGetV1Raw(
-        requestParameters: CaseManagementApiQueriesNotificationGroupsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesNotificationGroupsGetV1RequestOpts(requestParameters: CaseManagementApiQueriesNotificationGroupsGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1579,15 +1772,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/queries/notification-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/queries/notification-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query notification groups
+     */
+    async queriesNotificationGroupsGetV1Raw(
+        requestParameters: CaseManagementApiQueriesNotificationGroupsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesNotificationGroupsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1601,12 +1804,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query notification groups
+     * Creates request options for queriesNotificationGroupsGetV2 without sending the request
      */
-    async queriesNotificationGroupsGetV2Raw(
-        requestParameters: CaseManagementApiQueriesNotificationGroupsGetV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesNotificationGroupsGetV2RequestOpts(requestParameters: CaseManagementApiQueriesNotificationGroupsGetV2Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1632,15 +1832,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/queries/notification-groups/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/queries/notification-groups/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query notification groups
+     */
+    async queriesNotificationGroupsGetV2Raw(
+        requestParameters: CaseManagementApiQueriesNotificationGroupsGetV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesNotificationGroupsGetV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1654,12 +1864,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query SLAs
+     * Creates request options for queriesSlasGetV1 without sending the request
      */
-    async queriesSlasGetV1Raw(
-        requestParameters: CaseManagementApiQueriesSlasGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesSlasGetV1RequestOpts(requestParameters: CaseManagementApiQueriesSlasGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1685,15 +1892,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/queries/slas/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/queries/slas/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query SLAs
+     */
+    async queriesSlasGetV1Raw(
+        requestParameters: CaseManagementApiQueriesSlasGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesSlasGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1707,12 +1924,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query template snapshots
+     * Creates request options for queriesTemplateSnapshotsGetV1 without sending the request
      */
-    async queriesTemplateSnapshotsGetV1Raw(
-        requestParameters: CaseManagementApiQueriesTemplateSnapshotsGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesTemplateSnapshotsGetV1RequestOpts(requestParameters: CaseManagementApiQueriesTemplateSnapshotsGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1734,15 +1948,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/queries/template-snapshots/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/queries/template-snapshots/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query template snapshots
+     */
+    async queriesTemplateSnapshotsGetV1Raw(
+        requestParameters: CaseManagementApiQueriesTemplateSnapshotsGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesTemplateSnapshotsGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -1756,12 +1980,9 @@ export class CaseManagementApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query templates
+     * Creates request options for queriesTemplatesGetV1 without sending the request
      */
-    async queriesTemplatesGetV1Raw(
-        requestParameters: CaseManagementApiQueriesTemplatesGetV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async queriesTemplatesGetV1RequestOpts(requestParameters: CaseManagementApiQueriesTemplatesGetV1Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1787,15 +2008,25 @@ export class CaseManagementApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["case-templates:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/casemgmt/queries/templates/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/casemgmt/queries/templates/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query templates
+     */
+    async queriesTemplatesGetV1Raw(
+        requestParameters: CaseManagementApiQueriesTemplatesGetV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.queriesTemplatesGetV1RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

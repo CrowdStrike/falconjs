@@ -54,10 +54,15 @@ export function ChangesACLChangeFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ChangesACLChangeToJSON(value?: ChangesACLChange | null): any {
+export function ChangesACLChangeToJSON(json: any): ChangesACLChange {
+    return ChangesACLChangeToJSONTyped(json, false);
+}
+
+export function ChangesACLChangeToJSONTyped(value?: ChangesACLChange | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         operation: value["operation"],
         permissions: value["permissions"],

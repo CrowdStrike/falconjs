@@ -86,12 +86,9 @@ export interface CaoHuntingApiSearchIntelligenceQueriesRequest {
  */
 export class CaoHuntingApi extends runtime.BaseAPI {
     /**
-     * Aggregate Hunting Guides
+     * Creates request options for aggregateHuntingGuides without sending the request
      */
-    async aggregateHuntingGuidesRaw(
-        requestParameters: CaoHuntingApiAggregateHuntingGuidesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CaohuntingapiHuntingGuideAggregatesResponse>> {
+    async aggregateHuntingGuidesRequestOpts(requestParameters: CaoHuntingApiAggregateHuntingGuidesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateHuntingGuides().');
         }
@@ -107,16 +104,26 @@ export class CaoHuntingApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-hunting:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/hunting/aggregates/hunting-guides/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/hunting/aggregates/hunting-guides/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Aggregate Hunting Guides
+     */
+    async aggregateHuntingGuidesRaw(
+        requestParameters: CaoHuntingApiAggregateHuntingGuidesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CaohuntingapiHuntingGuideAggregatesResponse>> {
+        const requestOptions = await this.aggregateHuntingGuidesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CaohuntingapiHuntingGuideAggregatesResponseFromJSON(jsonValue));
     }
@@ -130,12 +137,9 @@ export class CaoHuntingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate intelligence queries
+     * Creates request options for aggregateIntelligenceQueries without sending the request
      */
-    async aggregateIntelligenceQueriesRaw(
-        requestParameters: CaoHuntingApiAggregateIntelligenceQueriesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CaohuntingapiIntelligenceQueryAggregatesResponse>> {
+    async aggregateIntelligenceQueriesRequestOpts(requestParameters: CaoHuntingApiAggregateIntelligenceQueriesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateIntelligenceQueries().');
         }
@@ -151,16 +155,26 @@ export class CaoHuntingApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-hunting:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/hunting/aggregates/intelligence-queries/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/hunting/aggregates/intelligence-queries/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Aggregate intelligence queries
+     */
+    async aggregateIntelligenceQueriesRaw(
+        requestParameters: CaoHuntingApiAggregateIntelligenceQueriesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CaohuntingapiIntelligenceQueryAggregatesResponse>> {
+        const requestOptions = await this.aggregateIntelligenceQueriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CaohuntingapiIntelligenceQueryAggregatesResponseFromJSON(jsonValue));
     }
@@ -174,9 +188,9 @@ export class CaoHuntingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates an Archive Export
+     * Creates request options for getArchiveExport without sending the request
      */
-    async getArchiveExportRaw(requestParameters: CaoHuntingApiGetArchiveExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
+    async getArchiveExportRequestOpts(requestParameters: CaoHuntingApiGetArchiveExportRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["language"] == null) {
             throw new runtime.RequiredError("language", 'Required parameter "language" was null or undefined when calling getArchiveExport().');
         }
@@ -202,15 +216,22 @@ export class CaoHuntingApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-hunting:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/hunting/entities/archive-exports/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/hunting/entities/archive-exports/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Creates an Archive Export
+     */
+    async getArchiveExportRaw(requestParameters: CaoHuntingApiGetArchiveExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<number>>> {
+        const requestOptions = await this.getArchiveExportRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -224,12 +245,9 @@ export class CaoHuntingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves a list of Hunting Guides
+     * Creates request options for getHuntingGuides without sending the request
      */
-    async getHuntingGuidesRaw(
-        requestParameters: CaoHuntingApiGetHuntingGuidesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CaohuntingapiHuntingGuideEntityResponse>> {
+    async getHuntingGuidesRequestOpts(requestParameters: CaoHuntingApiGetHuntingGuidesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getHuntingGuides().');
         }
@@ -247,15 +265,25 @@ export class CaoHuntingApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-hunting:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/hunting/entities/hunting-guides/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/hunting/entities/hunting-guides/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves a list of Hunting Guides
+     */
+    async getHuntingGuidesRaw(
+        requestParameters: CaoHuntingApiGetHuntingGuidesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CaohuntingapiHuntingGuideEntityResponse>> {
+        const requestOptions = await this.getHuntingGuidesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CaohuntingapiHuntingGuideEntityResponseFromJSON(jsonValue));
     }
@@ -269,12 +297,9 @@ export class CaoHuntingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the details of a list of Intelligence queries IDs
+     * Creates request options for getIntelligenceQueries without sending the request
      */
-    async getIntelligenceQueriesRaw(
-        requestParameters: CaoHuntingApiGetIntelligenceQueriesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CaohuntingapiIntelligenceQueryEntityResponse>> {
+    async getIntelligenceQueriesRequestOpts(requestParameters: CaoHuntingApiGetIntelligenceQueriesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelligenceQueries().');
         }
@@ -296,15 +321,25 @@ export class CaoHuntingApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-hunting:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/hunting/entities/intelligence-queries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/hunting/entities/intelligence-queries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the details of a list of Intelligence queries IDs
+     */
+    async getIntelligenceQueriesRaw(
+        requestParameters: CaoHuntingApiGetIntelligenceQueriesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CaohuntingapiIntelligenceQueryEntityResponse>> {
+        const requestOptions = await this.getIntelligenceQueriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CaohuntingapiIntelligenceQueryEntityResponseFromJSON(jsonValue));
     }
@@ -322,12 +357,9 @@ export class CaoHuntingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Hunting Guides that match the provided conditions
+     * Creates request options for searchHuntingGuides without sending the request
      */
-    async searchHuntingGuidesRaw(
-        requestParameters: CaoHuntingApiSearchHuntingGuidesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async searchHuntingGuidesRequestOpts(requestParameters: CaoHuntingApiSearchHuntingGuidesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -357,15 +389,25 @@ export class CaoHuntingApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-hunting:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/hunting/queries/hunting-guides/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/hunting/queries/hunting-guides/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Hunting Guides that match the provided conditions
+     */
+    async searchHuntingGuidesRaw(
+        requestParameters: CaoHuntingApiSearchHuntingGuidesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.searchHuntingGuidesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -379,12 +421,9 @@ export class CaoHuntingApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for a list of intelligence queries IDs that match the provided conditions
+     * Creates request options for searchIntelligenceQueries without sending the request
      */
-    async searchIntelligenceQueriesRaw(
-        requestParameters: CaoHuntingApiSearchIntelligenceQueriesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async searchIntelligenceQueriesRequestOpts(requestParameters: CaoHuntingApiSearchIntelligenceQueriesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -414,15 +453,25 @@ export class CaoHuntingApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-hunting:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/hunting/queries/intelligence-queries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/hunting/queries/intelligence-queries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for a list of intelligence queries IDs that match the provided conditions
+     */
+    async searchIntelligenceQueriesRaw(
+        requestParameters: CaoHuntingApiSearchIntelligenceQueriesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.searchIntelligenceQueriesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }

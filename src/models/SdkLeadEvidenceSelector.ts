@@ -48,10 +48,15 @@ export function SdkLeadEvidenceSelectorFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function SdkLeadEvidenceSelectorToJSON(value?: SdkLeadEvidenceSelector | null): any {
+export function SdkLeadEvidenceSelectorToJSON(json: any): SdkLeadEvidenceSelector {
+    return SdkLeadEvidenceSelectorToJSONTyped(json, false);
+}
+
+export function SdkLeadEvidenceSelectorToJSONTyped(value?: SdkLeadEvidenceSelector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

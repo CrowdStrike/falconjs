@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainRule } from "./DomainRule";
-import { DomainRuleFromJSON, DomainRuleFromJSONTyped, DomainRuleToJSON } from "./DomainRule";
+import { DomainRuleFromJSON, DomainRuleFromJSONTyped, DomainRuleToJSON, DomainRuleToJSONTyped } from "./DomainRule";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainRulesResponseFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainRulesResponseToJSON(value?: DomainRulesResponse | null): any {
+export function DomainRulesResponseToJSON(json: any): DomainRulesResponse {
+    return DomainRulesResponseToJSONTyped(json, false);
+}
+
+export function DomainRulesResponseToJSONTyped(value?: DomainRulesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

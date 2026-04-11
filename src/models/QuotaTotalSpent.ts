@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { Hour } from "./Hour";
-import { HourFromJSON, HourFromJSONTyped, HourToJSON } from "./Hour";
+import { HourFromJSON, HourFromJSONTyped, HourToJSON, HourToJSONTyped } from "./Hour";
 import type { TenMinutes } from "./TenMinutes";
-import { TenMinutesFromJSON, TenMinutesFromJSONTyped, TenMinutesToJSON } from "./TenMinutes";
+import { TenMinutesFromJSON, TenMinutesFromJSONTyped, TenMinutesToJSON, TenMinutesToJSONTyped } from "./TenMinutes";
 import type { Day } from "./Day";
-import { DayFromJSON, DayFromJSONTyped, DayToJSON } from "./Day";
+import { DayFromJSON, DayFromJSONTyped, DayToJSON, DayToJSONTyped } from "./Day";
 import type { OneMinute } from "./OneMinute";
-import { OneMinuteFromJSON, OneMinuteFromJSONTyped, OneMinuteToJSON } from "./OneMinute";
+import { OneMinuteFromJSON, OneMinuteFromJSONTyped, OneMinuteToJSON, OneMinuteToJSONTyped } from "./OneMinute";
 
 /**
  *
@@ -81,10 +81,15 @@ export function QuotaTotalSpentFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function QuotaTotalSpentToJSON(value?: QuotaTotalSpent | null): any {
+export function QuotaTotalSpentToJSON(json: any): QuotaTotalSpent {
+    return QuotaTotalSpentToJSONTyped(json, false);
+}
+
+export function QuotaTotalSpentToJSONTyped(value?: QuotaTotalSpent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         day: DayToJSON(value["day"]),
         hour: HourToJSON(value["hour"]),

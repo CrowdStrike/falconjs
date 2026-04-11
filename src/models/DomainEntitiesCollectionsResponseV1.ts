@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainCollectionV1 } from "./DomainCollectionV1";
-import { DomainCollectionV1FromJSON, DomainCollectionV1FromJSONTyped, DomainCollectionV1ToJSON } from "./DomainCollectionV1";
+import { DomainCollectionV1FromJSON, DomainCollectionV1FromJSONTyped, DomainCollectionV1ToJSON, DomainCollectionV1ToJSONTyped } from "./DomainCollectionV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainEntitiesCollectionsResponseV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DomainEntitiesCollectionsResponseV1ToJSON(value?: DomainEntitiesCollectionsResponseV1 | null): any {
+export function DomainEntitiesCollectionsResponseV1ToJSON(json: any): DomainEntitiesCollectionsResponseV1 {
+    return DomainEntitiesCollectionsResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainEntitiesCollectionsResponseV1ToJSONTyped(value?: DomainEntitiesCollectionsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -136,10 +136,15 @@ export function CasefilesmodelFileDetailsFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function CasefilesmodelFileDetailsToJSON(value?: CasefilesmodelFileDetails | null): any {
+export function CasefilesmodelFileDetailsToJSON(json: any): CasefilesmodelFileDetails {
+    return CasefilesmodelFileDetailsToJSONTyped(json, false);
+}
+
+export function CasefilesmodelFileDetailsToJSONTyped(value?: CasefilesmodelFileDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         case_id: value["caseId"],
         cid: value["cid"],

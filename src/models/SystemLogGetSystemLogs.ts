@@ -120,10 +120,15 @@ export function SystemLogGetSystemLogsFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function SystemLogGetSystemLogsToJSON(value?: SystemLogGetSystemLogs | null): any {
+export function SystemLogGetSystemLogsToJSON(json: any): SystemLogGetSystemLogs {
+    return SystemLogGetSystemLogsToJSONTyped(json, false);
+}
+
+export function SystemLogGetSystemLogsToJSONTyped(value?: SystemLogGetSystemLogs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         action: value["action"],

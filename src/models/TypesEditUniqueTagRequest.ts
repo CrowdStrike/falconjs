@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesUniqueTagEntry } from "./TypesUniqueTagEntry";
-import { TypesUniqueTagEntryFromJSON, TypesUniqueTagEntryFromJSONTyped, TypesUniqueTagEntryToJSON } from "./TypesUniqueTagEntry";
+import { TypesUniqueTagEntryFromJSON, TypesUniqueTagEntryFromJSONTyped, TypesUniqueTagEntryToJSON, TypesUniqueTagEntryToJSONTyped } from "./TypesUniqueTagEntry";
 
 /**
  *
@@ -51,10 +51,15 @@ export function TypesEditUniqueTagRequestFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function TypesEditUniqueTagRequestToJSON(value?: TypesEditUniqueTagRequest | null): any {
+export function TypesEditUniqueTagRequestToJSON(json: any): TypesEditUniqueTagRequest {
+    return TypesEditUniqueTagRequestToJSONTyped(json, false);
+}
+
+export function TypesEditUniqueTagRequestToJSONTyped(value?: TypesEditUniqueTagRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entries: (value["entries"] as Array<any>).map(TypesUniqueTagEntryToJSON),
     };

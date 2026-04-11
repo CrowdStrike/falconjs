@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainScheduledReportV1 } from "./DomainScheduledReportV1";
-import { DomainScheduledReportV1FromJSON, DomainScheduledReportV1FromJSONTyped, DomainScheduledReportV1ToJSON } from "./DomainScheduledReportV1";
+import { DomainScheduledReportV1FromJSON, DomainScheduledReportV1FromJSONTyped, DomainScheduledReportV1ToJSON, DomainScheduledReportV1ToJSONTyped } from "./DomainScheduledReportV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainScheduledReportsResultV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainScheduledReportsResultV1ToJSON(value?: DomainScheduledReportsResultV1 | null): any {
+export function DomainScheduledReportsResultV1ToJSON(json: any): DomainScheduledReportsResultV1 {
+    return DomainScheduledReportsResultV1ToJSONTyped(json, false);
+}
+
+export function DomainScheduledReportsResultV1ToJSONTyped(value?: DomainScheduledReportsResultV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

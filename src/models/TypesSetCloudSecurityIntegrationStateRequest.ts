@@ -48,10 +48,15 @@ export function TypesSetCloudSecurityIntegrationStateRequestFromJSONTyped(json: 
     };
 }
 
-export function TypesSetCloudSecurityIntegrationStateRequestToJSON(value?: TypesSetCloudSecurityIntegrationStateRequest | null): any {
+export function TypesSetCloudSecurityIntegrationStateRequestToJSON(json: any): TypesSetCloudSecurityIntegrationStateRequest {
+    return TypesSetCloudSecurityIntegrationStateRequestToJSONTyped(json, false);
+}
+
+export function TypesSetCloudSecurityIntegrationStateRequestToJSONTyped(value?: TypesSetCloudSecurityIntegrationStateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         isEnabled: value["isEnabled"],
     };

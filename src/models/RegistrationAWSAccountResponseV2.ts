@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAWSAccountV2 } from "./DomainAWSAccountV2";
-import { DomainAWSAccountV2FromJSON, DomainAWSAccountV2FromJSONTyped, DomainAWSAccountV2ToJSON } from "./DomainAWSAccountV2";
+import { DomainAWSAccountV2FromJSON, DomainAWSAccountV2FromJSONTyped, DomainAWSAccountV2ToJSON, DomainAWSAccountV2ToJSONTyped } from "./DomainAWSAccountV2";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function RegistrationAWSAccountResponseV2FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function RegistrationAWSAccountResponseV2ToJSON(value?: RegistrationAWSAccountResponseV2 | null): any {
+export function RegistrationAWSAccountResponseV2ToJSON(json: any): RegistrationAWSAccountResponseV2 {
+    return RegistrationAWSAccountResponseV2ToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountResponseV2ToJSONTyped(value?: RegistrationAWSAccountResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

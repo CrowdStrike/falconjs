@@ -14,17 +14,22 @@
 
 import { mapValues } from "../runtime";
 import type { EvaluationsEvaluationCloud } from "./EvaluationsEvaluationCloud";
-import { EvaluationsEvaluationCloudFromJSON, EvaluationsEvaluationCloudFromJSONTyped, EvaluationsEvaluationCloudToJSON } from "./EvaluationsEvaluationCloud";
+import { EvaluationsEvaluationCloudFromJSON, EvaluationsEvaluationCloudFromJSONTyped, EvaluationsEvaluationCloudToJSON, EvaluationsEvaluationCloudToJSONTyped } from "./EvaluationsEvaluationCloud";
 import type { DomainCloudGroup } from "./DomainCloudGroup";
-import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
+import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON, DomainCloudGroupToJSONTyped } from "./DomainCloudGroup";
 import type { EvaluationsEvaluationResource } from "./EvaluationsEvaluationResource";
-import { EvaluationsEvaluationResourceFromJSON, EvaluationsEvaluationResourceFromJSONTyped, EvaluationsEvaluationResourceToJSON } from "./EvaluationsEvaluationResource";
+import {
+    EvaluationsEvaluationResourceFromJSON,
+    EvaluationsEvaluationResourceFromJSONTyped,
+    EvaluationsEvaluationResourceToJSON,
+    EvaluationsEvaluationResourceToJSONTyped,
+} from "./EvaluationsEvaluationResource";
 import type { ClassificationLabel } from "./ClassificationLabel";
-import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
+import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON, ClassificationLabelToJSONTyped } from "./ClassificationLabel";
 import type { EvaluationsEvaluationDoc } from "./EvaluationsEvaluationDoc";
-import { EvaluationsEvaluationDocFromJSON, EvaluationsEvaluationDocFromJSONTyped, EvaluationsEvaluationDocToJSON } from "./EvaluationsEvaluationDoc";
+import { EvaluationsEvaluationDocFromJSON, EvaluationsEvaluationDocFromJSONTyped, EvaluationsEvaluationDocToJSON, EvaluationsEvaluationDocToJSONTyped } from "./EvaluationsEvaluationDoc";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 
 /**
  *
@@ -130,10 +135,15 @@ export function EvaluationsEvaluationFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function EvaluationsEvaluationToJSON(value?: EvaluationsEvaluation | null): any {
+export function EvaluationsEvaluationToJSON(json: any): EvaluationsEvaluation {
+    return EvaluationsEvaluationToJSONTyped(json, false);
+}
+
+export function EvaluationsEvaluationToJSONTyped(value?: EvaluationsEvaluation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         business_impact: value["businessImpact"],
         cid: value["cid"],

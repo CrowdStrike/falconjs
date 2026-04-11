@@ -218,12 +218,9 @@ export interface RealTimeResponseApiRTRPulseSessionRequest {
  */
 export class RealTimeResponseApi extends runtime.BaseAPI {
     /**
-     * Batch executes a RTR active-responder command across the hosts mapped to the given batch ID.
+     * Creates request options for batchActiveResponderCmd without sending the request
      */
-    async batchActiveResponderCmdRaw(
-        requestParameters: RealTimeResponseApiBatchActiveResponderCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+    async batchActiveResponderCmdRequestOpts(requestParameters: RealTimeResponseApiBatchActiveResponderCmdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchActiveResponderCmd().');
         }
@@ -251,16 +248,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/combined/batch-active-responder-command/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/combined/batch-active-responder-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Batch executes a RTR active-responder command across the hosts mapped to the given batch ID.
+     */
+    async batchActiveResponderCmdRaw(
+        requestParameters: RealTimeResponseApiBatchActiveResponderCmdRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+        const requestOptions = await this.batchActiveResponderCmdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMultiCommandExecuteResponseWrapperFromJSON(jsonValue));
     }
@@ -280,12 +287,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Batch executes a RTR read-only command across the hosts mapped to the given batch ID.
+     * Creates request options for batchCmd without sending the request
      */
-    async batchCmdRaw(
-        requestParameters: RealTimeResponseApiBatchCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+    async batchCmdRequestOpts(requestParameters: RealTimeResponseApiBatchCmdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchCmd().');
         }
@@ -313,16 +317,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/combined/batch-command/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/combined/batch-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainBatchExecuteCommandRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Batch executes a RTR read-only command across the hosts mapped to the given batch ID.
+     */
+    async batchCmdRaw(
+        requestParameters: RealTimeResponseApiBatchCmdRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainMultiCommandExecuteResponseWrapper>> {
+        const requestOptions = await this.batchCmdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainMultiCommandExecuteResponseWrapperFromJSON(jsonValue));
     }
@@ -342,12 +356,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Batch executes `get` command across hosts to retrieve files. After this call is made `GET /real-time-response/combined/batch-get-command/v1` is used to query for the results.
+     * Creates request options for batchGetCmd without sending the request
      */
-    async batchGetCmdRaw(
-        requestParameters: RealTimeResponseApiBatchGetCmdRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainBatchGetCommandResponse>> {
+    async batchGetCmdRequestOpts(requestParameters: RealTimeResponseApiBatchGetCmdRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchGetCmd().');
         }
@@ -375,16 +386,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/combined/batch-get-command/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainBatchGetCommandRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/combined/batch-get-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainBatchGetCommandRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Batch executes `get` command across hosts to retrieve files. After this call is made `GET /real-time-response/combined/batch-get-command/v1` is used to query for the results.
+     */
+    async batchGetCmdRaw(
+        requestParameters: RealTimeResponseApiBatchGetCmdRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainBatchGetCommandResponse>> {
+        const requestOptions = await this.batchGetCmdRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchGetCommandResponseFromJSON(jsonValue));
     }
@@ -404,12 +425,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the status of the specified batch get command.  Will return successful files when they are finished processing.
+     * Creates request options for batchGetCmdStatus without sending the request
      */
-    async batchGetCmdStatusRaw(
-        requestParameters: RealTimeResponseApiBatchGetCmdStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainBatchGetCmdStatusResponse>> {
+    async batchGetCmdStatusRequestOpts(requestParameters: RealTimeResponseApiBatchGetCmdStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["batchGetCmdReqId"] == null) {
             throw new runtime.RequiredError("batchGetCmdReqId", 'Required parameter "batchGetCmdReqId" was null or undefined when calling batchGetCmdStatus().');
         }
@@ -435,15 +453,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/combined/batch-get-command/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/combined/batch-get-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieves the status of the specified batch get command.  Will return successful files when they are finished processing.
+     */
+    async batchGetCmdStatusRaw(
+        requestParameters: RealTimeResponseApiBatchGetCmdStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainBatchGetCmdStatusResponse>> {
+        const requestOptions = await this.batchGetCmdStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchGetCmdStatusResponseFromJSON(jsonValue));
     }
@@ -462,12 +490,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Batch initialize a RTR session on multiple hosts.  Before any RTR commands can be used, an active session is needed on the host.
+     * Creates request options for batchInitSessions without sending the request
      */
-    async batchInitSessionsRaw(
-        requestParameters: RealTimeResponseApiBatchInitSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainBatchInitSessionResponse>> {
+    async batchInitSessionsRequestOpts(requestParameters: RealTimeResponseApiBatchInitSessionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchInitSessions().');
         }
@@ -495,16 +520,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/combined/batch-init-session/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainBatchInitSessionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/combined/batch-init-session/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainBatchInitSessionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Batch initialize a RTR session on multiple hosts.  Before any RTR commands can be used, an active session is needed on the host.
+     */
+    async batchInitSessionsRaw(
+        requestParameters: RealTimeResponseApiBatchInitSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainBatchInitSessionResponse>> {
+        const requestOptions = await this.batchInitSessionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchInitSessionResponseFromJSON(jsonValue));
     }
@@ -524,12 +559,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Batch refresh a RTR session on multiple hosts. RTR sessions will expire after 10 minutes unless refreshed.
+     * Creates request options for batchRefreshSessions without sending the request
      */
-    async batchRefreshSessionsRaw(
-        requestParameters: RealTimeResponseApiBatchRefreshSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainBatchRefreshSessionResponse>> {
+    async batchRefreshSessionsRequestOpts(requestParameters: RealTimeResponseApiBatchRefreshSessionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling batchRefreshSessions().');
         }
@@ -553,16 +585,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/combined/batch-refresh-session/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainBatchRefreshSessionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/combined/batch-refresh-session/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainBatchRefreshSessionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Batch refresh a RTR session on multiple hosts. RTR sessions will expire after 10 minutes unless refreshed.
+     */
+    async batchRefreshSessionsRaw(
+        requestParameters: RealTimeResponseApiBatchRefreshSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainBatchRefreshSessionResponse>> {
+        const requestOptions = await this.batchRefreshSessionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainBatchRefreshSessionResponseFromJSON(jsonValue));
     }
@@ -581,12 +623,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get aggregates on session data.
+     * Creates request options for rTRAggregateSessions without sending the request
      */
-    async rTRAggregateSessionsRaw(
-        requestParameters: RealTimeResponseApiRTRAggregateSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+    async rTRAggregateSessionsRequestOpts(requestParameters: RealTimeResponseApiRTRAggregateSessionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRAggregateSessions().');
         }
@@ -602,16 +641,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/aggregates/sessions/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/aggregates/sessions/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+        };
+    }
+
+    /**
+     * Get aggregates on session data.
+     */
+    async rTRAggregateSessionsRaw(
+        requestParameters: RealTimeResponseApiRTRAggregateSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        const requestOptions = await this.rTRAggregateSessionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
     }
@@ -625,12 +674,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get status of an executed active-responder command on a single host.
+     * Creates request options for rTRCheckActiveResponderCommandStatus without sending the request
      */
-    async rTRCheckActiveResponderCommandStatusRaw(
-        requestParameters: RealTimeResponseApiRTRCheckActiveResponderCommandStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
+    async rTRCheckActiveResponderCommandStatusRequestOpts(requestParameters: RealTimeResponseApiRTRCheckActiveResponderCommandStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["cloudRequestId"] == null) {
             throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckActiveResponderCommandStatus().');
         }
@@ -656,15 +702,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/active-responder-command/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/active-responder-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get status of an executed active-responder command on a single host.
+     */
+    async rTRCheckActiveResponderCommandStatusRaw(
+        requestParameters: RealTimeResponseApiRTRCheckActiveResponderCommandStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
+        const requestOptions = await this.rTRCheckActiveResponderCommandStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainStatusResponseWrapperFromJSON(jsonValue));
     }
@@ -678,12 +734,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get status of an executed command on a single host.
+     * Creates request options for rTRCheckCommandStatus without sending the request
      */
-    async rTRCheckCommandStatusRaw(
-        requestParameters: RealTimeResponseApiRTRCheckCommandStatusRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
+    async rTRCheckCommandStatusRequestOpts(requestParameters: RealTimeResponseApiRTRCheckCommandStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["cloudRequestId"] == null) {
             throw new runtime.RequiredError("cloudRequestId", 'Required parameter "cloudRequestId" was null or undefined when calling rTRCheckCommandStatus().');
         }
@@ -709,15 +762,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/command/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/command/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get status of an executed command on a single host.
+     */
+    async rTRCheckCommandStatusRaw(
+        requestParameters: RealTimeResponseApiRTRCheckCommandStatusRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainStatusResponseWrapper>> {
+        const requestOptions = await this.rTRCheckCommandStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainStatusResponseWrapperFromJSON(jsonValue));
     }
@@ -731,9 +794,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a RTR session file.
+     * Creates request options for rTRDeleteFile without sending the request
      */
-    async rTRDeleteFileRaw(requestParameters: RealTimeResponseApiRTRDeleteFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeleteFileRequestOpts(requestParameters: RealTimeResponseApiRTRDeleteFileRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeleteFile().');
         }
@@ -759,15 +822,22 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/file/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/file/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a RTR session file.
+     */
+    async rTRDeleteFileRaw(requestParameters: RealTimeResponseApiRTRDeleteFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRDeleteFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -781,9 +851,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a RTR session file.
+     * Creates request options for rTRDeleteFileV2 without sending the request
      */
-    async rTRDeleteFileV2Raw(requestParameters: RealTimeResponseApiRTRDeleteFileV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeleteFileV2RequestOpts(requestParameters: RealTimeResponseApiRTRDeleteFileV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling rTRDeleteFileV2().');
         }
@@ -809,15 +879,22 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/file/v2`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/file/v2`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a RTR session file.
+     */
+    async rTRDeleteFileV2Raw(requestParameters: RealTimeResponseApiRTRDeleteFileV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRDeleteFileV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -831,12 +908,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a queued session command
+     * Creates request options for rTRDeleteQueuedSession without sending the request
      */
-    async rTRDeleteQueuedSessionRaw(
-        requestParameters: RealTimeResponseApiRTRDeleteQueuedSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeleteQueuedSessionRequestOpts(requestParameters: RealTimeResponseApiRTRDeleteQueuedSessionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteQueuedSession().');
         }
@@ -862,15 +936,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/queued-sessions/command/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/queued-sessions/command/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a queued session command
+     */
+    async rTRDeleteQueuedSessionRaw(
+        requestParameters: RealTimeResponseApiRTRDeleteQueuedSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRDeleteQueuedSessionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -884,12 +968,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a session.
+     * Creates request options for rTRDeleteSession without sending the request
      */
-    async rTRDeleteSessionRaw(
-        requestParameters: RealTimeResponseApiRTRDeleteSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async rTRDeleteSessionRequestOpts(requestParameters: RealTimeResponseApiRTRDeleteSessionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRDeleteSession().');
         }
@@ -907,15 +988,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/sessions/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/sessions/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a session.
+     */
+    async rTRDeleteSessionRaw(
+        requestParameters: RealTimeResponseApiRTRDeleteSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.rTRDeleteSessionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -929,12 +1020,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute an active responder command on a single host.
+     * Creates request options for rTRExecuteActiveResponderCommand without sending the request
      */
-    async rTRExecuteActiveResponderCommandRaw(
-        requestParameters: RealTimeResponseApiRTRExecuteActiveResponderCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
+    async rTRExecuteActiveResponderCommandRequestOpts(requestParameters: RealTimeResponseApiRTRExecuteActiveResponderCommandRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteActiveResponderCommand().');
         }
@@ -950,16 +1038,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/active-responder-command/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/active-responder-command/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute an active responder command on a single host.
+     */
+    async rTRExecuteActiveResponderCommandRaw(
+        requestParameters: RealTimeResponseApiRTRExecuteActiveResponderCommandRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
+        const requestOptions = await this.rTRExecuteActiveResponderCommandRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCommandExecuteResponseWrapperFromJSON(jsonValue));
     }
@@ -973,12 +1071,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Execute a command on a single host.
+     * Creates request options for rTRExecuteCommand without sending the request
      */
-    async rTRExecuteCommandRaw(
-        requestParameters: RealTimeResponseApiRTRExecuteCommandRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
+    async rTRExecuteCommandRequestOpts(requestParameters: RealTimeResponseApiRTRExecuteCommandRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRExecuteCommand().');
         }
@@ -994,16 +1089,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/command/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/command/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainCommandExecuteRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Execute a command on a single host.
+     */
+    async rTRExecuteCommandRaw(
+        requestParameters: RealTimeResponseApiRTRExecuteCommandRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainCommandExecuteResponseWrapper>> {
+        const requestOptions = await this.rTRExecuteCommandRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainCommandExecuteResponseWrapperFromJSON(jsonValue));
     }
@@ -1017,12 +1122,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get RTR extracted file contents for specified session and sha256.
+     * Creates request options for rTRGetExtractedFileContents without sending the request
      */
-    async rTRGetExtractedFileContentsRaw(
-        requestParameters: RealTimeResponseApiRTRGetExtractedFileContentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<Blob>> {
+    async rTRGetExtractedFileContentsRequestOpts(requestParameters: RealTimeResponseApiRTRGetExtractedFileContentsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRGetExtractedFileContents().');
         }
@@ -1052,15 +1154,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/extracted-file-contents/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/extracted-file-contents/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get RTR extracted file contents for specified session and sha256.
+     */
+    async rTRGetExtractedFileContentsRaw(
+        requestParameters: RealTimeResponseApiRTRGetExtractedFileContentsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<Blob>> {
+        const requestOptions = await this.rTRGetExtractedFileContentsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.BlobApiResponse(response);
     }
@@ -1074,12 +1186,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Initialize a new session with the RTR cloud.
+     * Creates request options for rTRInitSession without sending the request
      */
-    async rTRInitSessionRaw(
-        requestParameters: RealTimeResponseApiRTRInitSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
+    async rTRInitSessionRequestOpts(requestParameters: RealTimeResponseApiRTRInitSessionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRInitSession().');
         }
@@ -1103,16 +1212,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/sessions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainInitRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/sessions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainInitRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Initialize a new session with the RTR cloud.
+     */
+    async rTRInitSessionRaw(
+        requestParameters: RealTimeResponseApiRTRInitSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
+        const requestOptions = await this.rTRInitSessionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainInitResponseWrapperFromJSON(jsonValue));
     }
@@ -1126,12 +1245,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of session_ids.
+     * Creates request options for rTRListAllSessions without sending the request
      */
-    async rTRListAllSessionsRaw(
-        requestParameters: RealTimeResponseApiRTRListAllSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainListSessionsResponseMsa>> {
+    async rTRListAllSessionsRequestOpts(requestParameters: RealTimeResponseApiRTRListAllSessionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1157,15 +1273,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/queries/sessions/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/queries/sessions/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of session_ids.
+     */
+    async rTRListAllSessionsRaw(
+        requestParameters: RealTimeResponseApiRTRListAllSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainListSessionsResponseMsa>> {
+        const requestOptions = await this.rTRListAllSessionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainListSessionsResponseMsaFromJSON(jsonValue));
     }
@@ -1179,12 +1305,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of files for the specified RTR session.
+     * Creates request options for rTRListFiles without sending the request
      */
-    async rTRListFilesRaw(
-        requestParameters: RealTimeResponseApiRTRListFilesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainListFilesResponseWrapper>> {
+    async rTRListFilesRequestOpts(requestParameters: RealTimeResponseApiRTRListFilesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRListFiles().');
         }
@@ -1202,15 +1325,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/file/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/file/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of files for the specified RTR session.
+     */
+    async rTRListFilesRaw(
+        requestParameters: RealTimeResponseApiRTRListFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainListFilesResponseWrapper>> {
+        const requestOptions = await this.rTRListFilesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainListFilesResponseWrapperFromJSON(jsonValue));
     }
@@ -1224,12 +1357,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of files for the specified RTR session.
+     * Creates request options for rTRListFilesV2 without sending the request
      */
-    async rTRListFilesV2Raw(
-        requestParameters: RealTimeResponseApiRTRListFilesV2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainListFilesV2ResponseWrapper>> {
+    async rTRListFilesV2RequestOpts(requestParameters: RealTimeResponseApiRTRListFilesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["sessionId"] == null) {
             throw new runtime.RequiredError("sessionId", 'Required parameter "sessionId" was null or undefined when calling rTRListFilesV2().');
         }
@@ -1247,15 +1377,25 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/file/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/file/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a list of files for the specified RTR session.
+     */
+    async rTRListFilesV2Raw(
+        requestParameters: RealTimeResponseApiRTRListFilesV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainListFilesV2ResponseWrapper>> {
+        const requestOptions = await this.rTRListFilesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainListFilesV2ResponseWrapperFromJSON(jsonValue));
     }
@@ -1269,12 +1409,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get queued session metadata by session ID.
+     * Creates request options for rTRListQueuedSessions without sending the request
      */
-    async rTRListQueuedSessionsRaw(
-        requestParameters: RealTimeResponseApiRTRListQueuedSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainQueuedSessionResponseWrapper>> {
+    async rTRListQueuedSessionsRequestOpts(requestParameters: RealTimeResponseApiRTRListQueuedSessionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRListQueuedSessions().');
         }
@@ -1290,16 +1427,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/queued-sessions/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/queued-sessions/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get queued session metadata by session ID.
+     */
+    async rTRListQueuedSessionsRaw(
+        requestParameters: RealTimeResponseApiRTRListQueuedSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainQueuedSessionResponseWrapper>> {
+        const requestOptions = await this.rTRListQueuedSessionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainQueuedSessionResponseWrapperFromJSON(jsonValue));
     }
@@ -1313,12 +1460,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get session metadata by session id.
+     * Creates request options for rTRListSessions without sending the request
      */
-    async rTRListSessionsRaw(
-        requestParameters: RealTimeResponseApiRTRListSessionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainSessionResponseWrapper>> {
+    async rTRListSessionsRequestOpts(requestParameters: RealTimeResponseApiRTRListSessionsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRListSessions().');
         }
@@ -1334,16 +1478,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/sessions/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaIdsRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/sessions/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaIdsRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get session metadata by session id.
+     */
+    async rTRListSessionsRaw(
+        requestParameters: RealTimeResponseApiRTRListSessionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainSessionResponseWrapper>> {
+        const requestOptions = await this.rTRListSessionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainSessionResponseWrapperFromJSON(jsonValue));
     }
@@ -1357,12 +1511,9 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
     }
 
     /**
-     * Refresh a session timeout on a single host.
+     * Creates request options for rTRPulseSession without sending the request
      */
-    async rTRPulseSessionRaw(
-        requestParameters: RealTimeResponseApiRTRPulseSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
+    async rTRPulseSessionRequestOpts(requestParameters: RealTimeResponseApiRTRPulseSessionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rTRPulseSession().');
         }
@@ -1378,16 +1529,26 @@ export class RealTimeResponseApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["real-time-response:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/real-time-response/entities/refresh-session/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainInitRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/real-time-response/entities/refresh-session/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: DomainInitRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Refresh a session timeout on a single host.
+     */
+    async rTRPulseSessionRaw(
+        requestParameters: RealTimeResponseApiRTRPulseSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainInitResponseWrapper>> {
+        const requestOptions = await this.rTRPulseSessionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DomainInitResponseWrapperFromJSON(jsonValue));
     }

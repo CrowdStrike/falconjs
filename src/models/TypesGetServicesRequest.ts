@@ -14,11 +14,21 @@
 
 import { mapValues } from "../runtime";
 import type { TypesPagination } from "./TypesPagination";
-import { TypesPaginationFromJSON, TypesPaginationFromJSONTyped, TypesPaginationToJSON } from "./TypesPagination";
+import { TypesPaginationFromJSON, TypesPaginationFromJSONTyped, TypesPaginationToJSON, TypesPaginationToJSONTyped } from "./TypesPagination";
 import type { TypesGetServicesRelatedEntity } from "./TypesGetServicesRelatedEntity";
-import { TypesGetServicesRelatedEntityFromJSON, TypesGetServicesRelatedEntityFromJSONTyped, TypesGetServicesRelatedEntityToJSON } from "./TypesGetServicesRelatedEntity";
+import {
+    TypesGetServicesRelatedEntityFromJSON,
+    TypesGetServicesRelatedEntityFromJSONTyped,
+    TypesGetServicesRelatedEntityToJSON,
+    TypesGetServicesRelatedEntityToJSONTyped,
+} from "./TypesGetServicesRelatedEntity";
 import type { TypesDeploymentUnitsTupleFilters } from "./TypesDeploymentUnitsTupleFilters";
-import { TypesDeploymentUnitsTupleFiltersFromJSON, TypesDeploymentUnitsTupleFiltersFromJSONTyped, TypesDeploymentUnitsTupleFiltersToJSON } from "./TypesDeploymentUnitsTupleFilters";
+import {
+    TypesDeploymentUnitsTupleFiltersFromJSON,
+    TypesDeploymentUnitsTupleFiltersFromJSONTyped,
+    TypesDeploymentUnitsTupleFiltersToJSON,
+    TypesDeploymentUnitsTupleFiltersToJSONTyped,
+} from "./TypesDeploymentUnitsTupleFilters";
 
 /**
  *
@@ -124,10 +134,15 @@ export function TypesGetServicesRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function TypesGetServicesRequestToJSON(value?: TypesGetServicesRequest | null): any {
+export function TypesGetServicesRequestToJSON(json: any): TypesGetServicesRequest {
+    return TypesGetServicesRequestToJSONTyped(json, false);
+}
+
+export function TypesGetServicesRequestToJSONTyped(value?: TypesGetServicesRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cids: value["cids"],
         deploymentTupleFilters: value["deploymentTupleFilters"] == null ? undefined : (value["deploymentTupleFilters"] as Array<any>).map(TypesDeploymentUnitsTupleFiltersToJSON),

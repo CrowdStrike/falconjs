@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainDiscoverAPIMetaInfo } from "./DomainDiscoverAPIMetaInfo";
-import { DomainDiscoverAPIMetaInfoFromJSON, DomainDiscoverAPIMetaInfoFromJSONTyped, DomainDiscoverAPIMetaInfoToJSON } from "./DomainDiscoverAPIMetaInfo";
+import { DomainDiscoverAPIMetaInfoFromJSON, DomainDiscoverAPIMetaInfoFromJSONTyped, DomainDiscoverAPIMetaInfoToJSON, DomainDiscoverAPIMetaInfoToJSONTyped } from "./DomainDiscoverAPIMetaInfo";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainDiscoverAPIHost } from "./DomainDiscoverAPIHost";
-import { DomainDiscoverAPIHostFromJSON, DomainDiscoverAPIHostFromJSONTyped, DomainDiscoverAPIHostToJSON } from "./DomainDiscoverAPIHost";
+import { DomainDiscoverAPIHostFromJSON, DomainDiscoverAPIHostFromJSONTyped, DomainDiscoverAPIHostToJSON, DomainDiscoverAPIHostToJSONTyped } from "./DomainDiscoverAPIHost";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainDiscoverAPICombinedHostsResponseFromJSONTyped(json: any, i
     };
 }
 
-export function DomainDiscoverAPICombinedHostsResponseToJSON(value?: DomainDiscoverAPICombinedHostsResponse | null): any {
+export function DomainDiscoverAPICombinedHostsResponseToJSON(json: any): DomainDiscoverAPICombinedHostsResponse {
+    return DomainDiscoverAPICombinedHostsResponseToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPICombinedHostsResponseToJSONTyped(value?: DomainDiscoverAPICombinedHostsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainDiscoverAPIMetaInfoToJSON(value["meta"]),

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkSLATimerVM } from "./SdkSLATimerVM";
-import { SdkSLATimerVMFromJSON, SdkSLATimerVMFromJSONTyped, SdkSLATimerVMToJSON } from "./SdkSLATimerVM";
+import { SdkSLATimerVMFromJSON, SdkSLATimerVMFromJSONTyped, SdkSLATimerVMToJSON, SdkSLATimerVMToJSONTyped } from "./SdkSLATimerVM";
 
 /**
  *
@@ -59,10 +59,15 @@ export function SdkSLATimersVMFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function SdkSLATimersVMToJSON(value?: SdkSLATimersVM | null): any {
+export function SdkSLATimersVMToJSON(json: any): SdkSLATimersVM {
+    return SdkSLATimersVMToJSONTyped(json, false);
+}
+
+export function SdkSLATimersVMToJSONTyped(value?: SdkSLATimersVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         acknowledgement: SdkSLATimerVMToJSON(value["acknowledgement"]),
         resolution: SdkSLATimerVMToJSON(value["resolution"]),

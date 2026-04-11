@@ -56,10 +56,15 @@ export function K8sregAzureTenantInfoFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function K8sregAzureTenantInfoToJSON(value?: K8sregAzureTenantInfo | null): any {
+export function K8sregAzureTenantInfoToJSON(json: any): K8sregAzureTenantInfo {
+    return K8sregAzureTenantInfoToJSONTyped(json, false);
+}
+
+export function K8sregAzureTenantInfoToJSONTyped(value?: K8sregAzureTenantInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         subscription_ids: value["subscriptionIds"],
         tenant_id: value["tenantId"],

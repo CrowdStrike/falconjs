@@ -32,12 +32,9 @@ export interface EventStreamsApiRefreshActiveStreamSessionRequest {
  */
 export class EventStreamsApi extends runtime.BaseAPI {
     /**
-     * Discover all event streams in your environment
+     * Creates request options for listAvailableStreamsOAuth2 without sending the request
      */
-    async listAvailableStreamsOAuth2Raw(
-        requestParameters: EventStreamsApiListAvailableStreamsOAuth2Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MainDiscoveryResponseV2>> {
+    async listAvailableStreamsOAuth2RequestOpts(requestParameters: EventStreamsApiListAvailableStreamsOAuth2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["appId"] == null) {
             throw new runtime.RequiredError("appId", 'Required parameter "appId" was null or undefined when calling listAvailableStreamsOAuth2().');
         }
@@ -59,15 +56,25 @@ export class EventStreamsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["streaming:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/sensors/entities/datafeed/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/sensors/entities/datafeed/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Discover all event streams in your environment
+     */
+    async listAvailableStreamsOAuth2Raw(
+        requestParameters: EventStreamsApiListAvailableStreamsOAuth2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MainDiscoveryResponseV2>> {
+        const requestOptions = await this.listAvailableStreamsOAuth2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MainDiscoveryResponseV2FromJSON(jsonValue));
     }
@@ -81,12 +88,9 @@ export class EventStreamsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Refresh an active event stream. Use the URL shown in a GET /sensors/entities/datafeed/v2 response.
+     * Creates request options for refreshActiveStreamSession without sending the request
      */
-    async refreshActiveStreamSessionRaw(
-        requestParameters: EventStreamsApiRefreshActiveStreamSessionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async refreshActiveStreamSessionRequestOpts(requestParameters: EventStreamsApiRefreshActiveStreamSessionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling refreshActiveStreamSession().');
         }
@@ -116,15 +120,26 @@ export class EventStreamsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["streaming:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/sensors/entities/datafeed-actions/v1/{partition}`.replace(`{${"partition"}}`, encodeURIComponent(String(requestParameters["partition"]))),
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/sensors/entities/datafeed-actions/v1/{partition}`;
+        urlPath = urlPath.replace(`{${"partition"}}`, encodeURIComponent(String(requestParameters["partition"])));
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Refresh an active event stream. Use the URL shown in a GET /sensors/entities/datafeed/v2 response.
+     */
+    async refreshActiveStreamSessionRaw(
+        requestParameters: EventStreamsApiRefreshActiveStreamSessionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.refreshActiveStreamSessionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }

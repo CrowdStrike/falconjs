@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ReconmsaAPIErrorDetail } from "./ReconmsaAPIErrorDetail";
-import { ReconmsaAPIErrorDetailFromJSON, ReconmsaAPIErrorDetailFromJSONTyped, ReconmsaAPIErrorDetailToJSON } from "./ReconmsaAPIErrorDetail";
+import { ReconmsaAPIErrorDetailFromJSON, ReconmsaAPIErrorDetailFromJSONTyped, ReconmsaAPIErrorDetailToJSON, ReconmsaAPIErrorDetailToJSONTyped } from "./ReconmsaAPIErrorDetail";
 
 /**
  *
@@ -80,10 +80,15 @@ export function ReconmsaAPIErrorFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ReconmsaAPIErrorToJSON(value?: ReconmsaAPIError | null): any {
+export function ReconmsaAPIErrorToJSON(json: any): ReconmsaAPIError {
+    return ReconmsaAPIErrorToJSONTyped(json, false);
+}
+
+export function ReconmsaAPIErrorToJSONTyped(value?: ReconmsaAPIError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         details: value["details"] == null ? undefined : (value["details"] as Array<any>).map(ReconmsaAPIErrorDetailToJSON),

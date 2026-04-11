@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsExclusionConditionRequest } from "./ModelsExclusionConditionRequest";
-import { ModelsExclusionConditionRequestFromJSON, ModelsExclusionConditionRequestFromJSONTyped, ModelsExclusionConditionRequestToJSON } from "./ModelsExclusionConditionRequest";
+import {
+    ModelsExclusionConditionRequestFromJSON,
+    ModelsExclusionConditionRequestFromJSONTyped,
+    ModelsExclusionConditionRequestToJSON,
+    ModelsExclusionConditionRequestToJSONTyped,
+} from "./ModelsExclusionConditionRequest";
 
 /**
  *
@@ -51,10 +56,15 @@ export function ModelsUpdateExclusionsRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsUpdateExclusionsRequestToJSON(value?: ModelsUpdateExclusionsRequest | null): any {
+export function ModelsUpdateExclusionsRequestToJSON(json: any): ModelsUpdateExclusionsRequest {
+    return ModelsUpdateExclusionsRequestToJSONTyped(json, false);
+}
+
+export function ModelsUpdateExclusionsRequestToJSONTyped(value?: ModelsUpdateExclusionsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         conditions: (value["conditions"] as Array<any>).map(ModelsExclusionConditionRequestToJSON),
     };

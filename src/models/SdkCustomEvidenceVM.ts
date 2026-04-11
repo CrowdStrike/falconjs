@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { SdkCustomEvidenceRecordVM } from "./SdkCustomEvidenceRecordVM";
-import { SdkCustomEvidenceRecordVMFromJSON, SdkCustomEvidenceRecordVMFromJSONTyped, SdkCustomEvidenceRecordVMToJSON } from "./SdkCustomEvidenceRecordVM";
+import { SdkCustomEvidenceRecordVMFromJSON, SdkCustomEvidenceRecordVMFromJSONTyped, SdkCustomEvidenceRecordVMToJSON, SdkCustomEvidenceRecordVMToJSONTyped } from "./SdkCustomEvidenceRecordVM";
 
 /**
  *
@@ -51,10 +51,15 @@ export function SdkCustomEvidenceVMFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function SdkCustomEvidenceVMToJSON(value?: SdkCustomEvidenceVM | null): any {
+export function SdkCustomEvidenceVMToJSON(json: any): SdkCustomEvidenceVM {
+    return SdkCustomEvidenceVMToJSONTyped(json, false);
+}
+
+export function SdkCustomEvidenceVMToJSONTyped(value?: SdkCustomEvidenceVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         records: (value["records"] as Array<any>).map(SdkCustomEvidenceRecordVMToJSON),
     };

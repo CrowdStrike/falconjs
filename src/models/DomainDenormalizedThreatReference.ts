@@ -55,10 +55,15 @@ export function DomainDenormalizedThreatReferenceFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainDenormalizedThreatReferenceToJSON(value?: DomainDenormalizedThreatReference | null): any {
+export function DomainDenormalizedThreatReferenceToJSON(json: any): DomainDenormalizedThreatReference {
+    return DomainDenormalizedThreatReferenceToJSONTyped(json, false);
+}
+
+export function DomainDenormalizedThreatReferenceToJSONTyped(value?: DomainDenormalizedThreatReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         slug: value["slug"],

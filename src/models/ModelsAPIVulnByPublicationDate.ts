@@ -88,10 +88,15 @@ export function ModelsAPIVulnByPublicationDateFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function ModelsAPIVulnByPublicationDateToJSON(value?: ModelsAPIVulnByPublicationDate | null): any {
+export function ModelsAPIVulnByPublicationDateToJSON(json: any): ModelsAPIVulnByPublicationDate {
+    return ModelsAPIVulnByPublicationDateToJSONTyped(json, false);
+}
+
+export function ModelsAPIVulnByPublicationDateToJSONTyped(value?: ModelsAPIVulnByPublicationDate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         containers_impacted: value["containersImpacted"],
         cve_id: value["cveId"],

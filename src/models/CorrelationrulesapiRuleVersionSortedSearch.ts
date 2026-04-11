@@ -56,10 +56,15 @@ export function CorrelationrulesapiRuleVersionSortedSearchFromJSONTyped(json: an
     };
 }
 
-export function CorrelationrulesapiRuleVersionSortedSearchToJSON(value?: CorrelationrulesapiRuleVersionSortedSearch | null): any {
+export function CorrelationrulesapiRuleVersionSortedSearchToJSON(json: any): CorrelationrulesapiRuleVersionSortedSearch {
+    return CorrelationrulesapiRuleVersionSortedSearchToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleVersionSortedSearchToJSONTyped(value?: CorrelationrulesapiRuleVersionSortedSearch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: value["filter"],
         sort: value["sort"],

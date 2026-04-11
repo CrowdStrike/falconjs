@@ -106,12 +106,9 @@ export interface FirewallPoliciesApiUpdateFirewallPoliciesRequest {
  */
 export class FirewallPoliciesApi extends runtime.BaseAPI {
     /**
-     * Create Firewall Policies by specifying details about the policy to create
+     * Creates request options for createFirewallPolicies without sending the request
      */
-    async createFirewallPoliciesRaw(
-        requestParameters: FirewallPoliciesApiCreateFirewallPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+    async createFirewallPoliciesRequestOpts(requestParameters: FirewallPoliciesApiCreateFirewallPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createFirewallPolicies().');
         }
@@ -131,16 +128,26 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/firewall/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: FirewallCreateFirewallPoliciesReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/firewall/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: FirewallCreateFirewallPoliciesReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Firewall Policies by specifying details about the policy to create
+     */
+    async createFirewallPoliciesRaw(
+        requestParameters: FirewallPoliciesApiCreateFirewallPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+        const requestOptions = await this.createFirewallPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FirewallRespV1FromJSON(jsonValue));
     }
@@ -154,12 +161,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a set of Firewall Policies by specifying their IDs
+     * Creates request options for deleteFirewallPolicies without sending the request
      */
-    async deleteFirewallPoliciesRaw(
-        requestParameters: FirewallPoliciesApiDeleteFirewallPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteFirewallPoliciesRequestOpts(requestParameters: FirewallPoliciesApiDeleteFirewallPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteFirewallPolicies().');
         }
@@ -177,15 +181,25 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/firewall/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/firewall/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a set of Firewall Policies by specifying their IDs
+     */
+    async deleteFirewallPoliciesRaw(
+        requestParameters: FirewallPoliciesApiDeleteFirewallPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deleteFirewallPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -199,12 +213,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve a set of Firewall Policies by specifying their IDs
+     * Creates request options for getFirewallPolicies without sending the request
      */
-    async getFirewallPoliciesRaw(
-        requestParameters: FirewallPoliciesApiGetFirewallPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+    async getFirewallPoliciesRequestOpts(requestParameters: FirewallPoliciesApiGetFirewallPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getFirewallPolicies().');
         }
@@ -222,15 +233,25 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/firewall/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/firewall/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve a set of Firewall Policies by specifying their IDs
+     */
+    async getFirewallPoliciesRaw(
+        requestParameters: FirewallPoliciesApiGetFirewallPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+        const requestOptions = await this.getFirewallPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FirewallRespV1FromJSON(jsonValue));
     }
@@ -244,12 +265,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform the specified action on the Firewall Policies specified in the request
+     * Creates request options for performFirewallPoliciesAction without sending the request
      */
-    async performFirewallPoliciesActionRaw(
-        requestParameters: FirewallPoliciesApiPerformFirewallPoliciesActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+    async performFirewallPoliciesActionRequestOpts(requestParameters: FirewallPoliciesApiPerformFirewallPoliciesActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling performFirewallPoliciesAction().');
         }
@@ -273,16 +291,26 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/firewall-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/firewall-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Perform the specified action on the Firewall Policies specified in the request
+     */
+    async performFirewallPoliciesActionRaw(
+        requestParameters: FirewallPoliciesApiPerformFirewallPoliciesActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+        const requestOptions = await this.performFirewallPoliciesActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FirewallRespV1FromJSON(jsonValue));
     }
@@ -300,12 +328,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Firewall Policies in your environment by providing an FQL filter and paging details. Returns a set of Firewall Policies which match the filter criteria
+     * Creates request options for queryCombinedFirewallPolicies without sending the request
      */
-    async queryCombinedFirewallPoliciesRaw(
-        requestParameters: FirewallPoliciesApiQueryCombinedFirewallPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+    async queryCombinedFirewallPoliciesRequestOpts(requestParameters: FirewallPoliciesApiQueryCombinedFirewallPoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -331,15 +356,25 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/firewall/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/firewall/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Firewall Policies in your environment by providing an FQL filter and paging details. Returns a set of Firewall Policies which match the filter criteria
+     */
+    async queryCombinedFirewallPoliciesRaw(
+        requestParameters: FirewallPoliciesApiQueryCombinedFirewallPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+        const requestOptions = await this.queryCombinedFirewallPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FirewallRespV1FromJSON(jsonValue));
     }
@@ -359,12 +394,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Firewall Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     * Creates request options for queryCombinedFirewallPolicyMembers without sending the request
      */
-    async queryCombinedFirewallPolicyMembersRaw(
-        requestParameters: FirewallPoliciesApiQueryCombinedFirewallPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+    async queryCombinedFirewallPolicyMembersRequestOpts(requestParameters: FirewallPoliciesApiQueryCombinedFirewallPolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -394,15 +426,25 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/firewall-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/firewall-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Firewall Policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     */
+    async queryCombinedFirewallPolicyMembersRaw(
+        requestParameters: FirewallPoliciesApiQueryCombinedFirewallPolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+        const requestOptions = await this.queryCombinedFirewallPolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
     }
@@ -423,12 +465,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Firewall Policies in your environment by providing an FQL filter and paging details. Returns a set of Firewall Policy IDs which match the filter criteria
+     * Creates request options for queryFirewallPolicies without sending the request
      */
-    async queryFirewallPoliciesRaw(
-        requestParameters: FirewallPoliciesApiQueryFirewallPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryFirewallPoliciesRequestOpts(requestParameters: FirewallPoliciesApiQueryFirewallPoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -454,15 +493,25 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/firewall/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/firewall/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Firewall Policies in your environment by providing an FQL filter and paging details. Returns a set of Firewall Policy IDs which match the filter criteria
+     */
+    async queryFirewallPoliciesRaw(
+        requestParameters: FirewallPoliciesApiQueryFirewallPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryFirewallPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -482,12 +531,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Firewall Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     * Creates request options for queryFirewallPolicyMembers without sending the request
      */
-    async queryFirewallPolicyMembersRaw(
-        requestParameters: FirewallPoliciesApiQueryFirewallPolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryFirewallPolicyMembersRequestOpts(requestParameters: FirewallPoliciesApiQueryFirewallPolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -517,15 +563,25 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/firewall-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/firewall-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Firewall Policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     */
+    async queryFirewallPolicyMembersRaw(
+        requestParameters: FirewallPoliciesApiQueryFirewallPolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryFirewallPolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -546,12 +602,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Sets the precedence of Firewall Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
+     * Creates request options for setFirewallPoliciesPrecedence without sending the request
      */
-    async setFirewallPoliciesPrecedenceRaw(
-        requestParameters: FirewallPoliciesApiSetFirewallPoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async setFirewallPoliciesPrecedenceRequestOpts(requestParameters: FirewallPoliciesApiSetFirewallPoliciesPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setFirewallPoliciesPrecedence().');
         }
@@ -567,16 +620,26 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/firewall-precedence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/firewall-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Sets the precedence of Firewall Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
+     */
+    async setFirewallPoliciesPrecedenceRaw(
+        requestParameters: FirewallPoliciesApiSetFirewallPoliciesPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.setFirewallPoliciesPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -590,12 +653,9 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Firewall Policies by specifying the ID of the policy and details to update
+     * Creates request options for updateFirewallPolicies without sending the request
      */
-    async updateFirewallPoliciesRaw(
-        requestParameters: FirewallPoliciesApiUpdateFirewallPoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+    async updateFirewallPoliciesRequestOpts(requestParameters: FirewallPoliciesApiUpdateFirewallPoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateFirewallPolicies().');
         }
@@ -611,16 +671,26 @@ export class FirewallPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["firewall-management:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/firewall/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: FirewallUpdateFirewallPoliciesReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/firewall/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: FirewallUpdateFirewallPoliciesReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Firewall Policies by specifying the ID of the policy and details to update
+     */
+    async updateFirewallPoliciesRaw(
+        requestParameters: FirewallPoliciesApiUpdateFirewallPoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FirewallRespV1>> {
+        const requestOptions = await this.updateFirewallPoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FirewallRespV1FromJSON(jsonValue));
     }

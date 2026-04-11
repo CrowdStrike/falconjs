@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainBreachDetailsV1 } from "./DomainBreachDetailsV1";
-import { DomainBreachDetailsV1FromJSON, DomainBreachDetailsV1FromJSONTyped, DomainBreachDetailsV1ToJSON } from "./DomainBreachDetailsV1";
+import { DomainBreachDetailsV1FromJSON, DomainBreachDetailsV1FromJSONTyped, DomainBreachDetailsV1ToJSON, DomainBreachDetailsV1ToJSONTyped } from "./DomainBreachDetailsV1";
 import type { DomainNotificationV1 } from "./DomainNotificationV1";
-import { DomainNotificationV1FromJSON, DomainNotificationV1FromJSONTyped, DomainNotificationV1ToJSON } from "./DomainNotificationV1";
+import { DomainNotificationV1FromJSON, DomainNotificationV1FromJSONTyped, DomainNotificationV1ToJSON, DomainNotificationV1ToJSONTyped } from "./DomainNotificationV1";
 import type { DomainItemDetailsV1 } from "./DomainItemDetailsV1";
-import { DomainItemDetailsV1FromJSON, DomainItemDetailsV1FromJSONTyped, DomainItemDetailsV1ToJSON } from "./DomainItemDetailsV1";
+import { DomainItemDetailsV1FromJSON, DomainItemDetailsV1FromJSONTyped, DomainItemDetailsV1ToJSON, DomainItemDetailsV1ToJSONTyped } from "./DomainItemDetailsV1";
 
 /**
  *
@@ -84,10 +84,15 @@ export function DomainDetailedNotificationV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainDetailedNotificationV1ToJSON(value?: DomainDetailedNotificationV1 | null): any {
+export function DomainDetailedNotificationV1ToJSON(json: any): DomainDetailedNotificationV1 {
+    return DomainDetailedNotificationV1ToJSONTyped(json, false);
+}
+
+export function DomainDetailedNotificationV1ToJSONTyped(value?: DomainDetailedNotificationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         breach_details: DomainBreachDetailsV1ToJSON(value["breachDetails"]),
         details: DomainItemDetailsV1ToJSON(value["details"]),

@@ -54,10 +54,15 @@ export function TypesTupleToStringFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TypesTupleToStringToJSON(value?: TypesTupleToString | null): any {
+export function TypesTupleToStringToJSON(json: any): TypesTupleToString {
+    return TypesTupleToStringToJSONTyped(json, false);
+}
+
+export function TypesTupleToStringToJSONTyped(value?: TypesTupleToString | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         key: value["key"],
         value: value["value"],

@@ -18,6 +18,7 @@ import {
     ModelsComplianceExportGroupedByImagesReportFromJSON,
     ModelsComplianceExportGroupedByImagesReportFromJSONTyped,
     ModelsComplianceExportGroupedByImagesReportToJSON,
+    ModelsComplianceExportGroupedByImagesReportToJSONTyped,
 } from "./ModelsComplianceExportGroupedByImagesReport";
 
 /**
@@ -63,10 +64,15 @@ export function DomainComplianceFindingsGroupedByImagesWithScrollFromJSONTyped(j
     };
 }
 
-export function DomainComplianceFindingsGroupedByImagesWithScrollToJSON(value?: DomainComplianceFindingsGroupedByImagesWithScroll | null): any {
+export function DomainComplianceFindingsGroupedByImagesWithScrollToJSON(json: any): DomainComplianceFindingsGroupedByImagesWithScroll {
+    return DomainComplianceFindingsGroupedByImagesWithScrollToJSONTyped(json, false);
+}
+
+export function DomainComplianceFindingsGroupedByImagesWithScrollToJSONTyped(value?: DomainComplianceFindingsGroupedByImagesWithScroll | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         after: value["after"],
         results: (value["results"] as Array<any>).map(ModelsComplianceExportGroupedByImagesReportToJSON),

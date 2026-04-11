@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainUserGroup } from "./DomainUserGroup";
-import { DomainUserGroupFromJSON, DomainUserGroupFromJSONTyped, DomainUserGroupToJSON } from "./DomainUserGroup";
+import { DomainUserGroupFromJSON, DomainUserGroupFromJSONTyped, DomainUserGroupToJSON, DomainUserGroupToJSONTyped } from "./DomainUserGroup";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainUserGroupsRequestV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainUserGroupsRequestV1ToJSON(value?: DomainUserGroupsRequestV1 | null): any {
+export function DomainUserGroupsRequestV1ToJSON(json: any): DomainUserGroupsRequestV1 {
+    return DomainUserGroupsRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainUserGroupsRequestV1ToJSONTyped(value?: DomainUserGroupsRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(DomainUserGroupToJSON),
     };

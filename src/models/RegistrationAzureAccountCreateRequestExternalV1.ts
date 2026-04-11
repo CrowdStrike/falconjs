@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationAzureAccountExternalV1 } from "./RegistrationAzureAccountExternalV1";
-import { RegistrationAzureAccountExternalV1FromJSON, RegistrationAzureAccountExternalV1FromJSONTyped, RegistrationAzureAccountExternalV1ToJSON } from "./RegistrationAzureAccountExternalV1";
+import {
+    RegistrationAzureAccountExternalV1FromJSON,
+    RegistrationAzureAccountExternalV1FromJSONTyped,
+    RegistrationAzureAccountExternalV1ToJSON,
+    RegistrationAzureAccountExternalV1ToJSONTyped,
+} from "./RegistrationAzureAccountExternalV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function RegistrationAzureAccountCreateRequestExternalV1FromJSONTyped(jso
     };
 }
 
-export function RegistrationAzureAccountCreateRequestExternalV1ToJSON(value?: RegistrationAzureAccountCreateRequestExternalV1 | null): any {
+export function RegistrationAzureAccountCreateRequestExternalV1ToJSON(json: any): RegistrationAzureAccountCreateRequestExternalV1 {
+    return RegistrationAzureAccountCreateRequestExternalV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureAccountCreateRequestExternalV1ToJSONTyped(value?: RegistrationAzureAccountCreateRequestExternalV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationAzureAccountExternalV1ToJSON),
     };

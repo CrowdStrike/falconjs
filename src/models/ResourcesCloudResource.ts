@@ -14,15 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { ResourcesCloudContext } from "./ResourcesCloudContext";
-import { ResourcesCloudContextFromJSON, ResourcesCloudContextFromJSONTyped, ResourcesCloudContextToJSON } from "./ResourcesCloudContext";
+import { ResourcesCloudContextFromJSON, ResourcesCloudContextFromJSONTyped, ResourcesCloudContextToJSON, ResourcesCloudContextToJSONTyped } from "./ResourcesCloudContext";
 import type { DomainCloudGroup } from "./DomainCloudGroup";
-import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
+import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON, DomainCloudGroupToJSONTyped } from "./DomainCloudGroup";
 import type { ClassificationLabel } from "./ClassificationLabel";
-import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
+import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON, ClassificationLabelToJSONTyped } from "./ClassificationLabel";
 import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON, DomainCloudScopeToJSONTyped } from "./DomainCloudScope";
 import type { ResourcesRelationship } from "./ResourcesRelationship";
-import { ResourcesRelationshipFromJSON, ResourcesRelationshipFromJSONTyped, ResourcesRelationshipToJSON } from "./ResourcesRelationship";
+import { ResourcesRelationshipFromJSON, ResourcesRelationshipFromJSONTyped, ResourcesRelationshipToJSON, ResourcesRelationshipToJSONTyped } from "./ResourcesRelationship";
 
 /**
  *
@@ -415,10 +415,15 @@ export function ResourcesCloudResourceFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ResourcesCloudResourceToJSON(value?: ResourcesCloudResource | null): any {
+export function ResourcesCloudResourceToJSON(json: any): ResourcesCloudResource {
+    return ResourcesCloudResourceToJSONTyped(json, false);
+}
+
+export function ResourcesCloudResourceToJSONTyped(value?: ResourcesCloudResource | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],
@@ -438,8 +443,8 @@ export function ResourcesCloudResourceToJSON(value?: ResourcesCloudResource | nu
         compartment_path: value["compartmentPath"],
         configuration: value["_configuration"],
         configuration_metadata: value["configurationMetadata"],
-        creation_time: value["creationTime"] == null ? undefined : value["creationTime"].toISOString(),
-        first_seen: value["firstSeen"] == null ? undefined : value["firstSeen"].toISOString(),
+        creation_time: value["creationTime"] == null ? value["creationTime"] : value["creationTime"].toISOString(),
+        first_seen: value["firstSeen"] == null ? value["firstSeen"] : value["firstSeen"].toISOString(),
         gcrn: value["gcrn"],
         groups: value["groups"],
         hash: value["hash"],
@@ -469,7 +474,7 @@ export function ResourcesCloudResourceToJSON(value?: ResourcesCloudResource | nu
         tenancy_ocid: value["tenancyOcid"],
         tenancy_type: value["tenancyType"],
         tenant_id: value["tenantId"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
         zone: value["zone"],
         zones: value["zones"],
     };

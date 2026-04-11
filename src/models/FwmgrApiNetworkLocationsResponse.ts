@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecError } from "./FwmgrMsaspecError";
-import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON } from "./FwmgrMsaspecError";
+import { FwmgrMsaspecErrorFromJSON, FwmgrMsaspecErrorFromJSONTyped, FwmgrMsaspecErrorToJSON, FwmgrMsaspecErrorToJSONTyped } from "./FwmgrMsaspecError";
 import type { FwmgrApiNetworkLocationsV1 } from "./FwmgrApiNetworkLocationsV1";
-import { FwmgrApiNetworkLocationsV1FromJSON, FwmgrApiNetworkLocationsV1FromJSONTyped, FwmgrApiNetworkLocationsV1ToJSON } from "./FwmgrApiNetworkLocationsV1";
+import { FwmgrApiNetworkLocationsV1FromJSON, FwmgrApiNetworkLocationsV1FromJSONTyped, FwmgrApiNetworkLocationsV1ToJSON, FwmgrApiNetworkLocationsV1ToJSONTyped } from "./FwmgrApiNetworkLocationsV1";
 import type { FwmgrMsaspecMetaInfo } from "./FwmgrMsaspecMetaInfo";
-import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON } from "./FwmgrMsaspecMetaInfo";
+import { FwmgrMsaspecMetaInfoFromJSON, FwmgrMsaspecMetaInfoFromJSONTyped, FwmgrMsaspecMetaInfoToJSON, FwmgrMsaspecMetaInfoToJSONTyped } from "./FwmgrMsaspecMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FwmgrApiNetworkLocationsResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function FwmgrApiNetworkLocationsResponseToJSON(value?: FwmgrApiNetworkLocationsResponse | null): any {
+export function FwmgrApiNetworkLocationsResponseToJSON(json: any): FwmgrApiNetworkLocationsResponse {
+    return FwmgrApiNetworkLocationsResponseToJSONTyped(json, false);
+}
+
+export function FwmgrApiNetworkLocationsResponseToJSONTyped(value?: FwmgrApiNetworkLocationsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(FwmgrMsaspecErrorToJSON),
         meta: FwmgrMsaspecMetaInfoToJSON(value["meta"]),

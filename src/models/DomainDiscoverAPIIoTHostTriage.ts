@@ -82,10 +82,15 @@ export function DomainDiscoverAPIIoTHostTriageFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainDiscoverAPIIoTHostTriageToJSON(value?: DomainDiscoverAPIIoTHostTriage | null): any {
+export function DomainDiscoverAPIIoTHostTriageToJSON(json: any): DomainDiscoverAPIIoTHostTriage {
+    return DomainDiscoverAPIIoTHostTriageToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIIoTHostTriageToJSONTyped(value?: DomainDiscoverAPIIoTHostTriage | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         assigned_to: value["assignedTo"],

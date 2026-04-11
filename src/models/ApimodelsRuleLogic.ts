@@ -76,10 +76,15 @@ export function ApimodelsRuleLogicFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ApimodelsRuleLogicToJSON(value?: ApimodelsRuleLogic | null): any {
+export function ApimodelsRuleLogicToJSON(json: any): ApimodelsRuleLogic {
+    return ApimodelsRuleLogicToJSONTyped(json, false);
+}
+
+export function ApimodelsRuleLogicToJSONTyped(value?: ApimodelsRuleLogic | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         logic: value["logic"],
         modules: value["modules"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontentContentCategory } from "./DevicecontentContentCategory";
-import { DevicecontentContentCategoryFromJSON, DevicecontentContentCategoryFromJSONTyped, DevicecontentContentCategoryToJSON } from "./DevicecontentContentCategory";
+import {
+    DevicecontentContentCategoryFromJSON,
+    DevicecontentContentCategoryFromJSONTyped,
+    DevicecontentContentCategoryToJSON,
+    DevicecontentContentCategoryToJSONTyped,
+} from "./DevicecontentContentCategory";
 
 /**
  *
@@ -143,10 +148,15 @@ export function DevicecontentStateFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DevicecontentStateToJSON(value?: DevicecontentState | null): any {
+export function DevicecontentStateToJSON(json: any): DevicecontentState {
+    return DevicecontentStateToJSONTyped(json, false);
+}
+
+export function DevicecontentStateToJSONTyped(value?: DevicecontentState | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         content_update_policy_applied_date: value["contentUpdatePolicyAppliedDate"],

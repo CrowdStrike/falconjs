@@ -14,15 +14,20 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
+import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON, JsonschemaSchemaToJSONTyped } from "./JsonschemaSchema";
 import type { GraphNodePosition } from "./GraphNodePosition";
-import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
+import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON, GraphNodePositionToJSONTyped } from "./GraphNodePosition";
 import type { GraphWebhookTriggerDefinition } from "./GraphWebhookTriggerDefinition";
-import { GraphWebhookTriggerDefinitionFromJSON, GraphWebhookTriggerDefinitionFromJSONTyped, GraphWebhookTriggerDefinitionToJSON } from "./GraphWebhookTriggerDefinition";
+import {
+    GraphWebhookTriggerDefinitionFromJSON,
+    GraphWebhookTriggerDefinitionFromJSONTyped,
+    GraphWebhookTriggerDefinitionToJSON,
+    GraphWebhookTriggerDefinitionToJSONTyped,
+} from "./GraphWebhookTriggerDefinition";
 import type { GraphTimerEventDefinition } from "./GraphTimerEventDefinition";
-import { GraphTimerEventDefinitionFromJSON, GraphTimerEventDefinitionFromJSONTyped, GraphTimerEventDefinitionToJSON } from "./GraphTimerEventDefinition";
+import { GraphTimerEventDefinitionFromJSON, GraphTimerEventDefinitionFromJSONTyped, GraphTimerEventDefinitionToJSON, GraphTimerEventDefinitionToJSONTyped } from "./GraphTimerEventDefinition";
 import type { NodemocksReference } from "./NodemocksReference";
-import { NodemocksReferenceFromJSON, NodemocksReferenceFromJSONTyped, NodemocksReferenceToJSON } from "./NodemocksReference";
+import { NodemocksReferenceFromJSON, NodemocksReferenceFromJSONTyped, NodemocksReferenceToJSON, NodemocksReferenceToJSONTyped } from "./NodemocksReference";
 
 /**
  *
@@ -131,10 +136,15 @@ export function GraphConfiguredTriggerFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function GraphConfiguredTriggerToJSON(value?: GraphConfiguredTrigger | null): any {
+export function GraphConfiguredTriggerToJSON(json: any): GraphConfiguredTrigger {
+    return GraphConfiguredTriggerToJSONTyped(json, false);
+}
+
+export function GraphConfiguredTriggerToJSONTyped(value?: GraphConfiguredTrigger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         mock_output: NodemocksReferenceToJSON(value["mockOutput"]),

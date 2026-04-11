@@ -64,10 +64,15 @@ export function AzureDeletedSubscriptionInfoFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function AzureDeletedSubscriptionInfoToJSON(value?: AzureDeletedSubscriptionInfo | null): any {
+export function AzureDeletedSubscriptionInfoToJSON(json: any): AzureDeletedSubscriptionInfo {
+    return AzureDeletedSubscriptionInfoToJSONTyped(json, false);
+}
+
+export function AzureDeletedSubscriptionInfoToJSONTyped(value?: AzureDeletedSubscriptionInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         management_group_id: value["managementGroupId"],
         subscription_id: value["subscriptionId"],

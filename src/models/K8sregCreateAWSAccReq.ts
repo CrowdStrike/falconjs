@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { K8sregCreateAWSAccReqResources } from "./K8sregCreateAWSAccReqResources";
-import { K8sregCreateAWSAccReqResourcesFromJSON, K8sregCreateAWSAccReqResourcesFromJSONTyped, K8sregCreateAWSAccReqResourcesToJSON } from "./K8sregCreateAWSAccReqResources";
+import {
+    K8sregCreateAWSAccReqResourcesFromJSON,
+    K8sregCreateAWSAccReqResourcesFromJSONTyped,
+    K8sregCreateAWSAccReqResourcesToJSON,
+    K8sregCreateAWSAccReqResourcesToJSONTyped,
+} from "./K8sregCreateAWSAccReqResources";
 
 /**
  *
@@ -51,10 +56,15 @@ export function K8sregCreateAWSAccReqFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function K8sregCreateAWSAccReqToJSON(value?: K8sregCreateAWSAccReq | null): any {
+export function K8sregCreateAWSAccReqToJSON(json: any): K8sregCreateAWSAccReq {
+    return K8sregCreateAWSAccReqToJSONTyped(json, false);
+}
+
+export function K8sregCreateAWSAccReqToJSONTyped(value?: K8sregCreateAWSAccReq | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(K8sregCreateAWSAccReqResourcesToJSON),
     };

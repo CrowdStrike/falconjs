@@ -64,10 +64,15 @@ export function MsaAPIFiltersSpecFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function MsaAPIFiltersSpecToJSON(value?: MsaAPIFiltersSpec | null): any {
+export function MsaAPIFiltersSpecToJSON(json: any): MsaAPIFiltersSpec {
+    return MsaAPIFiltersSpecToJSONTyped(json, false);
+}
+
+export function MsaAPIFiltersSpecToJSONTyped(value?: MsaAPIFiltersSpec | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filters: value["filters"],
         other_bucket: value["otherBucket"],

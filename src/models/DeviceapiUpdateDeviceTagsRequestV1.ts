@@ -64,10 +64,15 @@ export function DeviceapiUpdateDeviceTagsRequestV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DeviceapiUpdateDeviceTagsRequestV1ToJSON(value?: DeviceapiUpdateDeviceTagsRequestV1 | null): any {
+export function DeviceapiUpdateDeviceTagsRequestV1ToJSON(json: any): DeviceapiUpdateDeviceTagsRequestV1 {
+    return DeviceapiUpdateDeviceTagsRequestV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiUpdateDeviceTagsRequestV1ToJSONTyped(value?: DeviceapiUpdateDeviceTagsRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         device_ids: value["deviceIds"],

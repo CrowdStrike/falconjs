@@ -55,10 +55,15 @@ export function RegistrationAzureManagementGroupExternalV1FromJSONTyped(json: an
     };
 }
 
-export function RegistrationAzureManagementGroupExternalV1ToJSON(value?: RegistrationAzureManagementGroupExternalV1 | null): any {
+export function RegistrationAzureManagementGroupExternalV1ToJSON(json: any): RegistrationAzureManagementGroupExternalV1 {
+    return RegistrationAzureManagementGroupExternalV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureManagementGroupExternalV1ToJSONTyped(value?: RegistrationAzureManagementGroupExternalV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         default_subscription_id: value["defaultSubscriptionId"],
         tenant_id: value["tenantId"],

@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { FalconxQuota } from "./FalconxQuota";
-import { FalconxQuotaFromJSON, FalconxQuotaFromJSONTyped, FalconxQuotaToJSON } from "./FalconxQuota";
+import { FalconxQuotaFromJSON, FalconxQuotaFromJSONTyped, FalconxQuotaToJSON, FalconxQuotaToJSONTyped } from "./FalconxQuota";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function FalconxErrorsOnlyFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FalconxErrorsOnlyToJSON(value?: FalconxErrorsOnly | null): any {
+export function FalconxErrorsOnlyToJSON(json: any): FalconxErrorsOnly {
+    return FalconxErrorsOnlyToJSONTyped(json, false);
+}
+
+export function FalconxErrorsOnlyToJSONTyped(value?: FalconxErrorsOnly | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         MetaInfo: MsaMetaInfoToJSON(value["metaInfo"]),
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

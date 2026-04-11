@@ -55,10 +55,15 @@ export function RegistrationAzureAccountPatchFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function RegistrationAzureAccountPatchToJSON(value?: RegistrationAzureAccountPatch | null): any {
+export function RegistrationAzureAccountPatchToJSON(json: any): RegistrationAzureAccountPatch {
+    return RegistrationAzureAccountPatchToJSONTyped(json, false);
+}
+
+export function RegistrationAzureAccountPatchToJSONTyped(value?: RegistrationAzureAccountPatch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         environment: value["environment"],
         subscription_id: value["subscriptionId"],

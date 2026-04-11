@@ -64,10 +64,15 @@ export function ParameterActivitySelectionParameterFromJSONTyped(json: any, igno
     };
 }
 
-export function ParameterActivitySelectionParameterToJSON(value?: ParameterActivitySelectionParameter | null): any {
+export function ParameterActivitySelectionParameterToJSON(json: any): ParameterActivitySelectionParameter {
+    return ParameterActivitySelectionParameterToJSONTyped(json, false);
+}
+
+export function ParameterActivitySelectionParameterToJSONTyped(value?: ParameterActivitySelectionParameter | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         properties: value["properties"],

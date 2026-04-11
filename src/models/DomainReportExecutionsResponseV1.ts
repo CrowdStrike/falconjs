@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainReportExecutionV1 } from "./DomainReportExecutionV1";
-import { DomainReportExecutionV1FromJSON, DomainReportExecutionV1FromJSONTyped, DomainReportExecutionV1ToJSON } from "./DomainReportExecutionV1";
+import { DomainReportExecutionV1FromJSON, DomainReportExecutionV1FromJSONTyped, DomainReportExecutionV1ToJSON, DomainReportExecutionV1ToJSONTyped } from "./DomainReportExecutionV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainReportExecutionsResponseV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainReportExecutionsResponseV1ToJSON(value?: DomainReportExecutionsResponseV1 | null): any {
+export function DomainReportExecutionsResponseV1ToJSON(json: any): DomainReportExecutionsResponseV1 {
+    return DomainReportExecutionsResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainReportExecutionsResponseV1ToJSONTyped(value?: DomainReportExecutionsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

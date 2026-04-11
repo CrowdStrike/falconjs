@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSsIoaExclusionCreateReqV2 } from "./DomainSsIoaExclusionCreateReqV2";
-import { DomainSsIoaExclusionCreateReqV2FromJSON, DomainSsIoaExclusionCreateReqV2FromJSONTyped, DomainSsIoaExclusionCreateReqV2ToJSON } from "./DomainSsIoaExclusionCreateReqV2";
+import {
+    DomainSsIoaExclusionCreateReqV2FromJSON,
+    DomainSsIoaExclusionCreateReqV2FromJSONTyped,
+    DomainSsIoaExclusionCreateReqV2ToJSON,
+    DomainSsIoaExclusionCreateReqV2ToJSONTyped,
+} from "./DomainSsIoaExclusionCreateReqV2";
 
 /**
  *
@@ -51,10 +56,15 @@ export function DomainSsIoaExclusionsCreateReqV2FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DomainSsIoaExclusionsCreateReqV2ToJSON(value?: DomainSsIoaExclusionsCreateReqV2 | null): any {
+export function DomainSsIoaExclusionsCreateReqV2ToJSON(json: any): DomainSsIoaExclusionsCreateReqV2 {
+    return DomainSsIoaExclusionsCreateReqV2ToJSONTyped(json, false);
+}
+
+export function DomainSsIoaExclusionsCreateReqV2ToJSONTyped(value?: DomainSsIoaExclusionsCreateReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         exclusions: (value["exclusions"] as Array<any>).map(DomainSsIoaExclusionCreateReqV2ToJSON),
     };

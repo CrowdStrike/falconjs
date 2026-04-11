@@ -56,10 +56,15 @@ export function FwmgrFirewallICMPFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FwmgrFirewallICMPToJSON(value?: FwmgrFirewallICMP | null): any {
+export function FwmgrFirewallICMPToJSON(json: any): FwmgrFirewallICMP {
+    return FwmgrFirewallICMPToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallICMPToJSONTyped(value?: FwmgrFirewallICMP | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         icmp_code: value["icmpCode"],
         icmp_type: value["icmpType"],

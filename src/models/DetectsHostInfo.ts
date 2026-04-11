@@ -55,10 +55,15 @@ export function DetectsHostInfoFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DetectsHostInfoToJSON(value?: DetectsHostInfo | null): any {
+export function DetectsHostInfoToJSON(json: any): DetectsHostInfo {
+    return DetectsHostInfoToJSONTyped(json, false);
+}
+
+export function DetectsHostInfoToJSONTyped(value?: DetectsHostInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active_directory_dn_display: value["activeDirectoryDnDisplay"],
         domain: value["domain"],

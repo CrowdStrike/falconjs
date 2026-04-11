@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationIOMEventIDResponseMeta } from "./RegistrationIOMEventIDResponseMeta";
-import { RegistrationIOMEventIDResponseMetaFromJSON, RegistrationIOMEventIDResponseMetaFromJSONTyped, RegistrationIOMEventIDResponseMetaToJSON } from "./RegistrationIOMEventIDResponseMeta";
+import {
+    RegistrationIOMEventIDResponseMetaFromJSON,
+    RegistrationIOMEventIDResponseMetaFromJSONTyped,
+    RegistrationIOMEventIDResponseMetaToJSON,
+    RegistrationIOMEventIDResponseMetaToJSONTyped,
+} from "./RegistrationIOMEventIDResponseMeta";
 
 /**
  *
@@ -69,10 +74,15 @@ export function RegistrationIOMEventIDsResponseV2FromJSONTyped(json: any, ignore
     };
 }
 
-export function RegistrationIOMEventIDsResponseV2ToJSON(value?: RegistrationIOMEventIDsResponseV2 | null): any {
+export function RegistrationIOMEventIDsResponseV2ToJSON(json: any): RegistrationIOMEventIDsResponseV2 {
+    return RegistrationIOMEventIDsResponseV2ToJSONTyped(json, false);
+}
+
+export function RegistrationIOMEventIDsResponseV2ToJSONTyped(value?: RegistrationIOMEventIDsResponseV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: RegistrationIOMEventIDResponseMetaToJSON(value["meta"]),

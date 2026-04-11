@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PaginationMetaGetAlertsResponse } from "./PaginationMetaGetAlertsResponse";
-import { PaginationMetaGetAlertsResponseFromJSON, PaginationMetaGetAlertsResponseFromJSONTyped, PaginationMetaGetAlertsResponseToJSON } from "./PaginationMetaGetAlertsResponse";
+import {
+    PaginationMetaGetAlertsResponseFromJSON,
+    PaginationMetaGetAlertsResponseFromJSONTyped,
+    PaginationMetaGetAlertsResponseToJSON,
+    PaginationMetaGetAlertsResponseToJSONTyped,
+} from "./PaginationMetaGetAlertsResponse";
 
 /**
  *
@@ -64,10 +69,15 @@ export function MetaGetAlertsResponseFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function MetaGetAlertsResponseToJSON(value?: MetaGetAlertsResponse | null): any {
+export function MetaGetAlertsResponseToJSON(json: any): MetaGetAlertsResponse {
+    return MetaGetAlertsResponseToJSONTyped(json, false);
+}
+
+export function MetaGetAlertsResponseToJSONTyped(value?: MetaGetAlertsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: PaginationMetaGetAlertsResponseToJSON(value["pagination"]),
         query_time: value["queryTime"],

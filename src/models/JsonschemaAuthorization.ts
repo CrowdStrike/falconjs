@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaComplexPermissions } from "./JsonschemaComplexPermissions";
-import { JsonschemaComplexPermissionsFromJSON, JsonschemaComplexPermissionsFromJSONTyped, JsonschemaComplexPermissionsToJSON } from "./JsonschemaComplexPermissions";
+import {
+    JsonschemaComplexPermissionsFromJSON,
+    JsonschemaComplexPermissionsFromJSONTyped,
+    JsonschemaComplexPermissionsToJSON,
+    JsonschemaComplexPermissionsToJSONTyped,
+} from "./JsonschemaComplexPermissions";
 import type { JsonschemaPermission } from "./JsonschemaPermission";
-import { JsonschemaPermissionFromJSON, JsonschemaPermissionFromJSONTyped, JsonschemaPermissionToJSON } from "./JsonschemaPermission";
+import { JsonschemaPermissionFromJSON, JsonschemaPermissionFromJSONTyped, JsonschemaPermissionToJSON, JsonschemaPermissionToJSONTyped } from "./JsonschemaPermission";
 
 /**
  *
@@ -76,10 +81,15 @@ export function JsonschemaAuthorizationFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function JsonschemaAuthorizationToJSON(value?: JsonschemaAuthorization | null): any {
+export function JsonschemaAuthorizationToJSON(json: any): JsonschemaAuthorization {
+    return JsonschemaAuthorizationToJSONTyped(json, false);
+}
+
+export function JsonschemaAuthorizationToJSONTyped(value?: JsonschemaAuthorization | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         apiScope: value["apiScope"],
         complexPermissions: JsonschemaComplexPermissionsToJSON(value["complexPermissions"]),

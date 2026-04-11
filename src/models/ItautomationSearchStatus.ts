@@ -88,10 +88,15 @@ export function ItautomationSearchStatusFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function ItautomationSearchStatusToJSON(value?: ItautomationSearchStatus | null): any {
+export function ItautomationSearchStatusToJSON(json: any): ItautomationSearchStatus {
+    return ItautomationSearchStatusToJSONTyped(json, false);
+}
+
+export function ItautomationSearchStatusToJSONTyped(value?: ItautomationSearchStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         event_count: value["eventCount"],
         is_pending: value["isPending"],

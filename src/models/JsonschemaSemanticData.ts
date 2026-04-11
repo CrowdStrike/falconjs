@@ -61,10 +61,15 @@ export function JsonschemaSemanticDataFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function JsonschemaSemanticDataToJSON(value?: JsonschemaSemanticData | null): any {
+export function JsonschemaSemanticDataToJSON(json: any): JsonschemaSemanticData {
+    return JsonschemaSemanticDataToJSONTyped(json, false);
+}
+
+export function JsonschemaSemanticDataToJSONTyped(value?: JsonschemaSemanticData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data_frame: value["dataFrame"],
         field_name: value["fieldName"],

@@ -14,19 +14,19 @@
 
 import { mapValues } from "../runtime";
 import type { ActorKillChain } from "./ActorKillChain";
-import { ActorKillChainFromJSON, ActorKillChainFromJSONTyped, ActorKillChainToJSON } from "./ActorKillChain";
+import { ActorKillChainFromJSON, ActorKillChainFromJSONTyped, ActorKillChainToJSON, ActorKillChainToJSONTyped } from "./ActorKillChain";
 import type { ActorECrimeKillChain } from "./ActorECrimeKillChain";
-import { ActorECrimeKillChainFromJSON, ActorECrimeKillChainFromJSONTyped, ActorECrimeKillChainToJSON } from "./ActorECrimeKillChain";
+import { ActorECrimeKillChainFromJSON, ActorECrimeKillChainFromJSONTyped, ActorECrimeKillChainToJSON, ActorECrimeKillChainToJSONTyped } from "./ActorECrimeKillChain";
 import type { DomainActorEntity } from "./DomainActorEntity";
-import { DomainActorEntityFromJSON, DomainActorEntityFromJSONTyped, DomainActorEntityToJSON } from "./DomainActorEntity";
+import { DomainActorEntityFromJSON, DomainActorEntityFromJSONTyped, DomainActorEntityToJSON, DomainActorEntityToJSONTyped } from "./DomainActorEntity";
 import type { DomainThreatEntity } from "./DomainThreatEntity";
-import { DomainThreatEntityFromJSON, DomainThreatEntityFromJSONTyped, DomainThreatEntityToJSON } from "./DomainThreatEntity";
+import { DomainThreatEntityFromJSON, DomainThreatEntityFromJSONTyped, DomainThreatEntityToJSON, DomainThreatEntityToJSONTyped } from "./DomainThreatEntity";
 import type { ActorActorNewsDocument } from "./ActorActorNewsDocument";
-import { ActorActorNewsDocumentFromJSON, ActorActorNewsDocumentFromJSONTyped, ActorActorNewsDocumentToJSON } from "./ActorActorNewsDocument";
+import { ActorActorNewsDocumentFromJSON, ActorActorNewsDocumentFromJSONTyped, ActorActorNewsDocumentToJSON, ActorActorNewsDocumentToJSONTyped } from "./ActorActorNewsDocument";
 import type { ActorImage } from "./ActorImage";
-import { ActorImageFromJSON, ActorImageFromJSONTyped, ActorImageToJSON } from "./ActorImage";
+import { ActorImageFromJSON, ActorImageFromJSONTyped, ActorImageToJSON, ActorImageToJSONTyped } from "./ActorImage";
 import type { DomainEntity } from "./DomainEntity";
-import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON } from "./DomainEntity";
+import { DomainEntityFromJSON, DomainEntityFromJSONTyped, DomainEntityToJSON, DomainEntityToJSONTyped } from "./DomainEntity";
 
 /**
  * JSON definition of an Actor, also known as Adversary
@@ -499,10 +499,15 @@ export function ActorActorDocumentFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ActorActorDocumentToJSON(value?: ActorActorDocument | null): any {
+export function ActorActorDocumentToJSON(json: any): ActorActorDocument {
+    return ActorActorDocumentToJSONTyped(json, false);
+}
+
+export function ActorActorDocumentToJSONTyped(value?: ActorActorDocument | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         active: value["active"],
         actor_type: value["actorType"],

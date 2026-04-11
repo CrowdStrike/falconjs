@@ -79,10 +79,15 @@ export function DomainCSIXRelationFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainCSIXRelationToJSON(value?: DomainCSIXRelation | null): any {
+export function DomainCSIXRelationToJSON(json: any): DomainCSIXRelation {
+    return DomainCSIXRelationToJSONTyped(json, false);
+}
+
+export function DomainCSIXRelationToJSONTyped(value?: DomainCSIXRelation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_date: value["createdDate"],
         id: value["id"],

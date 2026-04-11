@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DataconnectionmanagementConfig } from "./DataconnectionmanagementConfig";
-import { DataconnectionmanagementConfigFromJSON, DataconnectionmanagementConfigFromJSONTyped, DataconnectionmanagementConfigToJSON } from "./DataconnectionmanagementConfig";
+import {
+    DataconnectionmanagementConfigFromJSON,
+    DataconnectionmanagementConfigFromJSONTyped,
+    DataconnectionmanagementConfigToJSON,
+    DataconnectionmanagementConfigToJSONTyped,
+} from "./DataconnectionmanagementConfig";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function DataconnectionmanagementConfigResponseFromJSONTyped(json: any, i
     };
 }
 
-export function DataconnectionmanagementConfigResponseToJSON(value?: DataconnectionmanagementConfigResponse | null): any {
+export function DataconnectionmanagementConfigResponseToJSON(json: any): DataconnectionmanagementConfigResponse {
+    return DataconnectionmanagementConfigResponseToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementConfigResponseToJSONTyped(value?: DataconnectionmanagementConfigResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

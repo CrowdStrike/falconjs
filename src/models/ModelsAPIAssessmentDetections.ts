@@ -184,10 +184,15 @@ export function ModelsAPIAssessmentDetectionsFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function ModelsAPIAssessmentDetectionsToJSON(value?: ModelsAPIAssessmentDetections | null): any {
+export function ModelsAPIAssessmentDetectionsToJSON(json: any): ModelsAPIAssessmentDetections {
+    return ModelsAPIAssessmentDetectionsToJSONTyped(json, false);
+}
+
+export function ModelsAPIAssessmentDetectionsToJSONTyped(value?: ModelsAPIAssessmentDetections | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         details: value["details"],

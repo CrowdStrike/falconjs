@@ -56,10 +56,15 @@ export function DomainDiscoverAPISuspiciousIndicatorFromJSONTyped(json: any, ign
     };
 }
 
-export function DomainDiscoverAPISuspiciousIndicatorToJSON(value?: DomainDiscoverAPISuspiciousIndicator | null): any {
+export function DomainDiscoverAPISuspiciousIndicatorToJSON(json: any): DomainDiscoverAPISuspiciousIndicator {
+    return DomainDiscoverAPISuspiciousIndicatorToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPISuspiciousIndicatorToJSONTyped(value?: DomainDiscoverAPISuspiciousIndicator | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         severity: value["severity"],

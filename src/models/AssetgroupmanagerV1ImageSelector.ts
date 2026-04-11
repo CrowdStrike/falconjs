@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { AssetgroupmanagerV1ImageFilters } from "./AssetgroupmanagerV1ImageFilters";
-import { AssetgroupmanagerV1ImageFiltersFromJSON, AssetgroupmanagerV1ImageFiltersFromJSONTyped, AssetgroupmanagerV1ImageFiltersToJSON } from "./AssetgroupmanagerV1ImageFilters";
+import {
+    AssetgroupmanagerV1ImageFiltersFromJSON,
+    AssetgroupmanagerV1ImageFiltersFromJSONTyped,
+    AssetgroupmanagerV1ImageFiltersToJSON,
+    AssetgroupmanagerV1ImageFiltersToJSONTyped,
+} from "./AssetgroupmanagerV1ImageFilters";
 
 /**
  * Select container images based on registry properties.
@@ -60,10 +65,15 @@ export function AssetgroupmanagerV1ImageSelectorFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function AssetgroupmanagerV1ImageSelectorToJSON(value?: AssetgroupmanagerV1ImageSelector | null): any {
+export function AssetgroupmanagerV1ImageSelectorToJSON(json: any): AssetgroupmanagerV1ImageSelector {
+    return AssetgroupmanagerV1ImageSelectorToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1ImageSelectorToJSONTyped(value?: AssetgroupmanagerV1ImageSelector | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filters: AssetgroupmanagerV1ImageFiltersToJSON(value["filters"]),
         registry: value["registry"],

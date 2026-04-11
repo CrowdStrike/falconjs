@@ -54,10 +54,15 @@ export function DtoOrganizationFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DtoOrganizationToJSON(value?: DtoOrganization | null): any {
+export function DtoOrganizationToJSON(json: any): DtoOrganization {
+    return DtoOrganizationToJSONTyped(json, false);
+}
+
+export function DtoOrganizationToJSONTyped(value?: DtoOrganization | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         organization_id: value["organizationId"],
         organization_name: value["organizationName"],

@@ -77,10 +77,15 @@ export function DomainIOACountsFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainIOACountsToJSON(value?: DomainIOACounts | null): any {
+export function DomainIOACountsToJSON(json: any): DomainIOACounts {
+    return DomainIOACountsToJSONTyped(json, false);
+}
+
+export function DomainIOACountsToJSONTyped(value?: DomainIOACounts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         critical: value["critical"],
         high: value["high"],

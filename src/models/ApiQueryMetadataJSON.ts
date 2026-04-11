@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { DigestFlow } from "./DigestFlow";
-import { DigestFlowFromJSON, DigestFlowFromJSONTyped, DigestFlowToJSON } from "./DigestFlow";
+import { DigestFlowFromJSON, DigestFlowFromJSONTyped, DigestFlowToJSON, DigestFlowToJSONTyped } from "./DigestFlow";
 import type { Costs } from "./Costs";
-import { CostsFromJSON, CostsFromJSONTyped, CostsToJSON } from "./Costs";
+import { CostsFromJSON, CostsFromJSONTyped, CostsToJSON, CostsToJSONTyped } from "./Costs";
 import type { QuerySpent } from "./QuerySpent";
-import { QuerySpentFromJSON, QuerySpentFromJSONTyped, QuerySpentToJSON } from "./QuerySpent";
+import { QuerySpentFromJSON, QuerySpentFromJSONTyped, QuerySpentToJSON, QuerySpentToJSONTyped } from "./QuerySpent";
 import type { QuotaTotalSpent } from "./QuotaTotalSpent";
-import { QuotaTotalSpentFromJSON, QuotaTotalSpentFromJSONTyped, QuotaTotalSpentToJSON } from "./QuotaTotalSpent";
+import { QuotaTotalSpentFromJSON, QuotaTotalSpentFromJSONTyped, QuotaTotalSpentToJSON, QuotaTotalSpentToJSONTyped } from "./QuotaTotalSpent";
 
 /**
  *
@@ -225,10 +225,15 @@ export function ApiQueryMetadataJSONFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ApiQueryMetadataJSONToJSON(value?: ApiQueryMetadataJSON | null): any {
+export function ApiQueryMetadataJSONToJSON(json: any): ApiQueryMetadataJSON {
+    return ApiQueryMetadataJSONToJSONTyped(json, false);
+}
+
+export function ApiQueryMetadataJSONToJSONTyped(value?: ApiQueryMetadataJSON | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         costs: CostsToJSON(value["costs"]),
         digestFlow: DigestFlowToJSON(value["digestFlow"]),

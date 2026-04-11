@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiSLAGoalV1 } from "./ApiSLAGoalV1";
-import { ApiSLAGoalV1FromJSON, ApiSLAGoalV1FromJSONTyped, ApiSLAGoalV1ToJSON } from "./ApiSLAGoalV1";
+import { ApiSLAGoalV1FromJSON, ApiSLAGoalV1FromJSONTyped, ApiSLAGoalV1ToJSON, ApiSLAGoalV1ToJSONTyped } from "./ApiSLAGoalV1";
 import type { ApiActorV1 } from "./ApiActorV1";
-import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON } from "./ApiActorV1";
+import { ApiActorV1FromJSON, ApiActorV1FromJSONTyped, ApiActorV1ToJSON, ApiActorV1ToJSONTyped } from "./ApiActorV1";
 
 /**
  *
@@ -131,10 +131,15 @@ export function ApiSLAV1FromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function ApiSLAV1ToJSON(value?: ApiSLAV1 | null): any {
+export function ApiSLAV1ToJSON(json: any): ApiSLAV1 {
+    return ApiSLAV1ToJSONTyped(json, false);
+}
+
+export function ApiSLAV1ToJSONTyped(value?: ApiSLAV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         created_by: ApiActorV1ToJSON(value["createdBy"]),

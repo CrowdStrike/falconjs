@@ -40,12 +40,9 @@ export interface CloudSecurityComplianceApiCloudComplianceRulePostureSummariesRe
  */
 export class CloudSecurityComplianceApi extends runtime.BaseAPI {
     /**
-     * Get sections and requirements with scores for benchmarks.
+     * Creates request options for cloudComplianceFrameworkPostureSummaries without sending the request
      */
-    async cloudComplianceFrameworkPostureSummariesRaw(
-        requestParameters: CloudSecurityComplianceApiCloudComplianceFrameworkPostureSummariesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ComplianceFrameworkPostureSummaryResponse>> {
+    async cloudComplianceFrameworkPostureSummariesRequestOpts(requestParameters: CloudSecurityComplianceApiCloudComplianceFrameworkPostureSummariesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cloudComplianceFrameworkPostureSummaries().');
         }
@@ -67,15 +64,25 @@ export class CloudSecurityComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-assets:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-compliance/entities/framework-posture-summaries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-compliance/entities/framework-posture-summaries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get sections and requirements with scores for benchmarks.
+     */
+    async cloudComplianceFrameworkPostureSummariesRaw(
+        requestParameters: CloudSecurityComplianceApiCloudComplianceFrameworkPostureSummariesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ComplianceFrameworkPostureSummaryResponse>> {
+        const requestOptions = await this.cloudComplianceFrameworkPostureSummariesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ComplianceFrameworkPostureSummaryResponseFromJSON(jsonValue));
     }
@@ -93,12 +100,9 @@ export class CloudSecurityComplianceApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get compliance score and counts for rules.
+     * Creates request options for cloudComplianceRulePostureSummaries without sending the request
      */
-    async cloudComplianceRulePostureSummariesRaw(
-        requestParameters: CloudSecurityComplianceApiCloudComplianceRulePostureSummariesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ComplianceRulePostureSummaryResponse>> {
+    async cloudComplianceRulePostureSummariesRequestOpts(requestParameters: CloudSecurityComplianceApiCloudComplianceRulePostureSummariesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cloudComplianceRulePostureSummaries().');
         }
@@ -120,15 +124,25 @@ export class CloudSecurityComplianceApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-assets:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-security-compliance/entities/rule-posture-summaries/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-security-compliance/entities/rule-posture-summaries/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get compliance score and counts for rules.
+     */
+    async cloudComplianceRulePostureSummariesRaw(
+        requestParameters: CloudSecurityComplianceApiCloudComplianceRulePostureSummariesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ComplianceRulePostureSummaryResponse>> {
+        const requestOptions = await this.cloudComplianceRulePostureSummariesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ComplianceRulePostureSummaryResponseFromJSON(jsonValue));
     }

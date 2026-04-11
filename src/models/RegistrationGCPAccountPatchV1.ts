@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationGCPServiceAccountPatchV1 } from "./RegistrationGCPServiceAccountPatchV1";
-import { RegistrationGCPServiceAccountPatchV1FromJSON, RegistrationGCPServiceAccountPatchV1FromJSONTyped, RegistrationGCPServiceAccountPatchV1ToJSON } from "./RegistrationGCPServiceAccountPatchV1";
+import {
+    RegistrationGCPServiceAccountPatchV1FromJSON,
+    RegistrationGCPServiceAccountPatchV1FromJSONTyped,
+    RegistrationGCPServiceAccountPatchV1ToJSON,
+    RegistrationGCPServiceAccountPatchV1ToJSONTyped,
+} from "./RegistrationGCPServiceAccountPatchV1";
 
 /**
  *
@@ -66,10 +71,15 @@ export function RegistrationGCPAccountPatchV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function RegistrationGCPAccountPatchV1ToJSON(value?: RegistrationGCPAccountPatchV1 | null): any {
+export function RegistrationGCPAccountPatchV1ToJSON(json: any): RegistrationGCPAccountPatchV1 {
+    return RegistrationGCPAccountPatchV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountPatchV1ToJSONTyped(value?: RegistrationGCPAccountPatchV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         environment: value["environment"],
         parent_id: value["parentId"],

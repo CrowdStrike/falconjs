@@ -14,15 +14,15 @@
 
 import { mapValues } from "../runtime";
 import type { TypesComposedSchedule } from "./TypesComposedSchedule";
-import { TypesComposedScheduleFromJSON, TypesComposedScheduleFromJSONTyped, TypesComposedScheduleToJSON } from "./TypesComposedSchedule";
+import { TypesComposedScheduleFromJSON, TypesComposedScheduleFromJSONTyped, TypesComposedScheduleToJSON, TypesComposedScheduleToJSONTyped } from "./TypesComposedSchedule";
 import type { TypesActionRun } from "./TypesActionRun";
-import { TypesActionRunFromJSON, TypesActionRunFromJSONTyped, TypesActionRunToJSON } from "./TypesActionRun";
+import { TypesActionRunFromJSON, TypesActionRunFromJSONTyped, TypesActionRunToJSON, TypesActionRunToJSONTyped } from "./TypesActionRun";
 import type { TypesIntegration } from "./TypesIntegration";
-import { TypesIntegrationFromJSON, TypesIntegrationFromJSONTyped, TypesIntegrationToJSON } from "./TypesIntegration";
+import { TypesIntegrationFromJSON, TypesIntegrationFromJSONTyped, TypesIntegrationToJSON, TypesIntegrationToJSONTyped } from "./TypesIntegration";
 import type { TypesIntegrationTaskType } from "./TypesIntegrationTaskType";
-import { TypesIntegrationTaskTypeFromJSON, TypesIntegrationTaskTypeFromJSONTyped, TypesIntegrationTaskTypeToJSON } from "./TypesIntegrationTaskType";
+import { TypesIntegrationTaskTypeFromJSON, TypesIntegrationTaskTypeFromJSONTyped, TypesIntegrationTaskTypeToJSON, TypesIntegrationTaskTypeToJSONTyped } from "./TypesIntegrationTaskType";
 import type { TypesTimestamp } from "./TypesTimestamp";
-import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON } from "./TypesTimestamp";
+import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON, TypesTimestampToJSONTyped } from "./TypesTimestamp";
 
 /**
  *
@@ -163,10 +163,15 @@ export function TypesIntegrationTaskFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function TypesIntegrationTaskToJSON(value?: TypesIntegrationTask | null): any {
+export function TypesIntegrationTaskToJSON(json: any): TypesIntegrationTask {
+    return TypesIntegrationTaskToJSONTyped(json, false);
+}
+
+export function TypesIntegrationTaskToJSONTyped(value?: TypesIntegrationTask | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accessToken: value["accessToken"],
         additionalHeader: value["additionalHeader"],

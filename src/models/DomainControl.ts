@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainControlBenchmark } from "./DomainControlBenchmark";
-import { DomainControlBenchmarkFromJSON, DomainControlBenchmarkFromJSONTyped, DomainControlBenchmarkToJSON } from "./DomainControlBenchmark";
+import { DomainControlBenchmarkFromJSON, DomainControlBenchmarkFromJSONTyped, DomainControlBenchmarkToJSON, DomainControlBenchmarkToJSONTyped } from "./DomainControlBenchmark";
 
 /**
  *
@@ -85,10 +85,15 @@ export function DomainControlFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function DomainControlToJSON(value?: DomainControl | null): any {
+export function DomainControlToJSON(json: any): DomainControl {
+    return DomainControlToJSONTyped(json, false);
+}
+
+export function DomainControlToJSONTyped(value?: DomainControl | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         benchmarks: value["benchmarks"] == null ? undefined : (value["benchmarks"] as Array<any>).map(DomainControlBenchmarkToJSON),
         description: value["description"],

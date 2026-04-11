@@ -56,10 +56,15 @@ export function QuickscanproErrorFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function QuickscanproErrorToJSON(value?: QuickscanproError | null): any {
+export function QuickscanproErrorToJSON(json: any): QuickscanproError {
+    return QuickscanproErrorToJSONTyped(json, false);
+}
+
+export function QuickscanproErrorToJSONTyped(value?: QuickscanproError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

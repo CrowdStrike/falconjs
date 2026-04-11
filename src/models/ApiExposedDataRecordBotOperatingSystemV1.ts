@@ -124,10 +124,15 @@ export function ApiExposedDataRecordBotOperatingSystemV1FromJSONTyped(json: any,
     };
 }
 
-export function ApiExposedDataRecordBotOperatingSystemV1ToJSON(value?: ApiExposedDataRecordBotOperatingSystemV1 | null): any {
+export function ApiExposedDataRecordBotOperatingSystemV1ToJSON(json: any): ApiExposedDataRecordBotOperatingSystemV1 {
+    return ApiExposedDataRecordBotOperatingSystemV1ToJSONTyped(json, false);
+}
+
+export function ApiExposedDataRecordBotOperatingSystemV1ToJSONTyped(value?: ApiExposedDataRecordBotOperatingSystemV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         antivirus: value["antivirus"],
         computer_name: value["computerName"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxParameter } from "./FalconxParameter";
-import { FalconxParameterFromJSON, FalconxParameterFromJSONTyped, FalconxParameterToJSON } from "./FalconxParameter";
+import { FalconxParameterFromJSON, FalconxParameterFromJSONTyped, FalconxParameterToJSON, FalconxParameterToJSONTyped } from "./FalconxParameter";
 
 /**
  *
@@ -85,10 +85,15 @@ export function FalconxScriptCallFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function FalconxScriptCallToJSON(value?: FalconxScriptCall | null): any {
+export function FalconxScriptCallToJSON(json: any): FalconxScriptCall {
+    return FalconxScriptCallToJSONTyped(json, false);
+}
+
+export function FalconxScriptCallToJSONTyped(value?: FalconxScriptCall | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cls_id: value["clsId"],
         dispatch_id: value["dispatchId"],

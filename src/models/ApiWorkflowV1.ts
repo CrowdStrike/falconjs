@@ -56,10 +56,15 @@ export function ApiWorkflowV1FromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ApiWorkflowV1ToJSON(value?: ApiWorkflowV1 | null): any {
+export function ApiWorkflowV1ToJSON(json: any): ApiWorkflowV1 {
+    return ApiWorkflowV1ToJSONTyped(json, false);
+}
+
+export function ApiWorkflowV1ToJSONTyped(value?: ApiWorkflowV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         display_order: value["displayOrder"],
         id: value["id"],

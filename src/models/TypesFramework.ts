@@ -75,10 +75,15 @@ export function TypesFrameworkFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function TypesFrameworkToJSON(value?: TypesFramework | null): any {
+export function TypesFrameworkToJSON(json: any): TypesFramework {
+    return TypesFrameworkToJSONTyped(json, false);
+}
+
+export function TypesFrameworkToJSONTyped(value?: TypesFramework | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accessingElements: value["accessingElements"],
         domain: value["domain"],

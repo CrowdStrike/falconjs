@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesGroup } from "./ChangesGroup";
-import { ChangesGroupFromJSON, ChangesGroupFromJSONTyped, ChangesGroupToJSON } from "./ChangesGroup";
+import { ChangesGroupFromJSON, ChangesGroupFromJSONTyped, ChangesGroupToJSON, ChangesGroupToJSONTyped } from "./ChangesGroup";
 import type { ChangesDACL } from "./ChangesDACL";
-import { ChangesDACLFromJSON, ChangesDACLFromJSONTyped, ChangesDACLToJSON } from "./ChangesDACL";
+import { ChangesDACLFromJSON, ChangesDACLFromJSONTyped, ChangesDACLToJSON, ChangesDACLToJSONTyped } from "./ChangesDACL";
 import type { ChangesOwner } from "./ChangesOwner";
-import { ChangesOwnerFromJSON, ChangesOwnerFromJSONTyped, ChangesOwnerToJSON } from "./ChangesOwner";
+import { ChangesOwnerFromJSON, ChangesOwnerFromJSONTyped, ChangesOwnerToJSON, ChangesOwnerToJSONTyped } from "./ChangesOwner";
 
 /**
  *
@@ -75,10 +75,15 @@ export function ChangesPermissionsFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ChangesPermissionsToJSON(value?: ChangesPermissions | null): any {
+export function ChangesPermissionsToJSON(json: any): ChangesPermissions {
+    return ChangesPermissionsToJSONTyped(json, false);
+}
+
+export function ChangesPermissionsToJSONTyped(value?: ChangesPermissions | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         dacl: ChangesDACLToJSON(value["dacl"]),
         group: ChangesGroupToJSON(value["group"]),

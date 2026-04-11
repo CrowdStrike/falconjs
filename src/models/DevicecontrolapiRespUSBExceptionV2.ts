@@ -165,20 +165,25 @@ export function DevicecontrolapiRespUSBExceptionV2FromJSONTyped(json: any, ignor
     };
 }
 
-export function DevicecontrolapiRespUSBExceptionV2ToJSON(value?: DevicecontrolapiRespUSBExceptionV2 | null): any {
+export function DevicecontrolapiRespUSBExceptionV2ToJSON(json: any): DevicecontrolapiRespUSBExceptionV2 {
+    return DevicecontrolapiRespUSBExceptionV2ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespUSBExceptionV2ToJSONTyped(value?: DevicecontrolapiRespUSBExceptionV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action: value["action"],
         class: value["_class"],
         combined_id: value["combinedId"],
-        created_timestamp: value["createdTimestamp"] == null ? undefined : value["createdTimestamp"].toISOString(),
+        created_timestamp: value["createdTimestamp"] == null ? value["createdTimestamp"] : value["createdTimestamp"].toISOString(),
         description: value["description"],
-        expiration_time: value["expirationTime"] == null ? undefined : value["expirationTime"].toISOString(),
+        expiration_time: value["expirationTime"] == null ? value["expirationTime"] : value["expirationTime"].toISOString(),
         id: value["id"],
         match_method: value["matchMethod"],
-        modified_timestamp: value["modifiedTimestamp"] == null ? undefined : value["modifiedTimestamp"].toISOString(),
+        modified_timestamp: value["modifiedTimestamp"] == null ? value["modifiedTimestamp"] : value["modifiedTimestamp"].toISOString(),
         product_id: value["productId"],
         product_name: value["productName"],
         serial_number: value["serialNumber"],

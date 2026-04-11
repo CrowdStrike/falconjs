@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 import type { DomainDiscoverAPIPaging } from "./DomainDiscoverAPIPaging";
-import { DomainDiscoverAPIPagingFromJSON, DomainDiscoverAPIPagingFromJSONTyped, DomainDiscoverAPIPagingToJSON } from "./DomainDiscoverAPIPaging";
+import { DomainDiscoverAPIPagingFromJSON, DomainDiscoverAPIPagingFromJSONTyped, DomainDiscoverAPIPagingToJSON, DomainDiscoverAPIPagingToJSONTyped } from "./DomainDiscoverAPIPaging";
 
 /**
  *
@@ -82,10 +82,15 @@ export function DomainDiscoverAPIMetaInfoFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainDiscoverAPIMetaInfoToJSON(value?: DomainDiscoverAPIMetaInfo | null): any {
+export function DomainDiscoverAPIMetaInfoToJSON(json: any): DomainDiscoverAPIMetaInfo {
+    return DomainDiscoverAPIMetaInfoToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIMetaInfoToJSONTyped(value?: DomainDiscoverAPIMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DomainDiscoverAPIPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaSubSchema } from "./JsonschemaSubSchema";
-import { JsonschemaSubSchemaFromJSON, JsonschemaSubSchemaFromJSONTyped, JsonschemaSubSchemaToJSON } from "./JsonschemaSubSchema";
+import { JsonschemaSubSchemaFromJSON, JsonschemaSubSchemaFromJSONTyped, JsonschemaSubSchemaToJSON, JsonschemaSubSchemaToJSONTyped } from "./JsonschemaSubSchema";
 
 /**
  *
@@ -58,10 +58,15 @@ export function JsonschemaSchemaFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function JsonschemaSchemaToJSON(value?: JsonschemaSchema | null): any {
+export function JsonschemaSchemaToJSON(json: any): JsonschemaSchema {
+    return JsonschemaSchemaToJSONTyped(json, false);
+}
+
+export function JsonschemaSchemaToJSONTyped(value?: JsonschemaSchema | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         SubSchema: JsonschemaSubSchemaToJSON(value["subSchema"]),
         definitions: value["definitions"] == null ? undefined : mapValues(value["definitions"], JsonschemaSubSchemaToJSON),

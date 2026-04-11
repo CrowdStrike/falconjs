@@ -54,10 +54,15 @@ export function TypesKeyValueFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function TypesKeyValueToJSON(value?: TypesKeyValue | null): any {
+export function TypesKeyValueToJSON(json: any): TypesKeyValue {
+    return TypesKeyValueToJSONTyped(json, false);
+}
+
+export function TypesKeyValueToJSONTyped(value?: TypesKeyValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         key: value["key"],
         value: value["value"],

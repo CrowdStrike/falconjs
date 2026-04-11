@@ -72,10 +72,15 @@ export function ClientCostsFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ClientCostsToJSON(value?: ClientCosts | null): any {
+export function ClientCostsToJSON(json: any): ClientCosts {
+    return ClientCostsToJSONTyped(json, false);
+}
+
+export function ClientCostsToJSONTyped(value?: ClientCosts | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         liveCost: value["liveCost"],
         liveCostRate: value["liveCostRate"],

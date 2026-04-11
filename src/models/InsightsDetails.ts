@@ -63,10 +63,15 @@ export function InsightsDetailsFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function InsightsDetailsToJSON(value?: InsightsDetails | null): any {
+export function InsightsDetailsToJSON(json: any): InsightsDetails {
+    return InsightsDetailsToJSONTyped(json, false);
+}
+
+export function InsightsDetailsToJSONTyped(value?: InsightsDetails | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         calculatedAt: value["calculatedAt"].toISOString(),
         context: value["context"],

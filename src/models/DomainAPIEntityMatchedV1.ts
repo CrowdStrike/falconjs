@@ -61,10 +61,15 @@ export function DomainAPIEntityMatchedV1FromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function DomainAPIEntityMatchedV1ToJSON(value?: DomainAPIEntityMatchedV1 | null): any {
+export function DomainAPIEntityMatchedV1ToJSON(json: any): DomainAPIEntityMatchedV1 {
+    return DomainAPIEntityMatchedV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIEntityMatchedV1ToJSONTyped(value?: DomainAPIEntityMatchedV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         asset_id: value["assetId"],
         data_provider: value["dataProvider"],

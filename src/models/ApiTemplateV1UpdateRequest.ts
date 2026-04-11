@@ -14,13 +14,18 @@
 
 import { mapValues } from "../runtime";
 import type { ApiFieldV1UpdateRequest } from "./ApiFieldV1UpdateRequest";
-import { ApiFieldV1UpdateRequestFromJSON, ApiFieldV1UpdateRequestFromJSONTyped, ApiFieldV1UpdateRequestToJSON } from "./ApiFieldV1UpdateRequest";
+import { ApiFieldV1UpdateRequestFromJSON, ApiFieldV1UpdateRequestFromJSONTyped, ApiFieldV1UpdateRequestToJSON, ApiFieldV1UpdateRequestToJSONTyped } from "./ApiFieldV1UpdateRequest";
 import type { ApiWorkflowV1 } from "./ApiWorkflowV1";
-import { ApiWorkflowV1FromJSON, ApiWorkflowV1FromJSONTyped, ApiWorkflowV1ToJSON } from "./ApiWorkflowV1";
+import { ApiWorkflowV1FromJSON, ApiWorkflowV1FromJSONTyped, ApiWorkflowV1ToJSON, ApiWorkflowV1ToJSONTyped } from "./ApiWorkflowV1";
 import type { ApiTemplateSLARuleV1UpdateRequest } from "./ApiTemplateSLARuleV1UpdateRequest";
-import { ApiTemplateSLARuleV1UpdateRequestFromJSON, ApiTemplateSLARuleV1UpdateRequestFromJSONTyped, ApiTemplateSLARuleV1UpdateRequestToJSON } from "./ApiTemplateSLARuleV1UpdateRequest";
+import {
+    ApiTemplateSLARuleV1UpdateRequestFromJSON,
+    ApiTemplateSLARuleV1UpdateRequestFromJSONTyped,
+    ApiTemplateSLARuleV1UpdateRequestToJSON,
+    ApiTemplateSLARuleV1UpdateRequestToJSONTyped,
+} from "./ApiTemplateSLARuleV1UpdateRequest";
 import type { ApiAccessTagV1 } from "./ApiAccessTagV1";
-import { ApiAccessTagV1FromJSON, ApiAccessTagV1FromJSONTyped, ApiAccessTagV1ToJSON } from "./ApiAccessTagV1";
+import { ApiAccessTagV1FromJSON, ApiAccessTagV1FromJSONTyped, ApiAccessTagV1ToJSON, ApiAccessTagV1ToJSONTyped } from "./ApiAccessTagV1";
 
 /**
  *
@@ -107,10 +112,15 @@ export function ApiTemplateV1UpdateRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ApiTemplateV1UpdateRequestToJSON(value?: ApiTemplateV1UpdateRequest | null): any {
+export function ApiTemplateV1UpdateRequestToJSON(json: any): ApiTemplateV1UpdateRequest {
+    return ApiTemplateV1UpdateRequestToJSONTyped(json, false);
+}
+
+export function ApiTemplateV1UpdateRequestToJSONTyped(value?: ApiTemplateV1UpdateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(ApiAccessTagV1ToJSON),
         description: value["description"],

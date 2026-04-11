@@ -27,10 +27,10 @@ export interface AlertGetAlertsResponse {
     accountId: string;
     /**
      *
-     * @type {Array<string>}
+     * @type {Array<string | null>}
      * @memberof AlertGetAlertsResponse
      */
-    affectedDiff: Array<string>;
+    affectedDiff: Array<string | null>;
     /**
      *
      * @type {string}
@@ -152,10 +152,15 @@ export function AlertGetAlertsResponseFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function AlertGetAlertsResponseToJSON(value?: AlertGetAlertsResponse | null): any {
+export function AlertGetAlertsResponseToJSON(json: any): AlertGetAlertsResponse {
+    return AlertGetAlertsResponseToJSONTyped(json, false);
+}
+
+export function AlertGetAlertsResponseToJSONTyped(value?: AlertGetAlertsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         affected_diff: value["affectedDiff"],

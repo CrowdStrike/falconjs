@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ExportsExportJob } from "./ExportsExportJob";
-import { ExportsExportJobFromJSON, ExportsExportJobFromJSONTyped, ExportsExportJobToJSON } from "./ExportsExportJob";
+import { ExportsExportJobFromJSON, ExportsExportJobFromJSONTyped, ExportsExportJobToJSON, ExportsExportJobToJSONTyped } from "./ExportsExportJob";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ExportsExportsResponseFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ExportsExportsResponseToJSON(value?: ExportsExportsResponse | null): any {
+export function ExportsExportsResponseToJSON(json: any): ExportsExportsResponse {
+    return ExportsExportsResponseToJSONTyped(json, false);
+}
+
+export function ExportsExportsResponseToJSONTyped(value?: ExportsExportsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

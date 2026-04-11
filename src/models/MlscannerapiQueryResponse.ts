@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MlscannerapiMetaInfo } from "./MlscannerapiMetaInfo";
-import { MlscannerapiMetaInfoFromJSON, MlscannerapiMetaInfoFromJSONTyped, MlscannerapiMetaInfoToJSON } from "./MlscannerapiMetaInfo";
+import { MlscannerapiMetaInfoFromJSON, MlscannerapiMetaInfoFromJSONTyped, MlscannerapiMetaInfoToJSON, MlscannerapiMetaInfoToJSONTyped } from "./MlscannerapiMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function MlscannerapiQueryResponseFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function MlscannerapiQueryResponseToJSON(value?: MlscannerapiQueryResponse | null): any {
+export function MlscannerapiQueryResponseToJSON(json: any): MlscannerapiQueryResponse {
+    return MlscannerapiQueryResponseToJSONTyped(json, false);
+}
+
+export function MlscannerapiQueryResponseToJSONTyped(value?: MlscannerapiQueryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MlscannerapiMetaInfoToJSON(value["meta"]),

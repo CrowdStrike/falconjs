@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiSLAV1CreateRequestGoals } from "./ApiSLAV1CreateRequestGoals";
-import { ApiSLAV1CreateRequestGoalsFromJSON, ApiSLAV1CreateRequestGoalsFromJSONTyped, ApiSLAV1CreateRequestGoalsToJSON } from "./ApiSLAV1CreateRequestGoals";
+import { ApiSLAV1CreateRequestGoalsFromJSON, ApiSLAV1CreateRequestGoalsFromJSONTyped, ApiSLAV1CreateRequestGoalsToJSON, ApiSLAV1CreateRequestGoalsToJSONTyped } from "./ApiSLAV1CreateRequestGoals";
 
 /**
  *
@@ -67,10 +67,15 @@ export function ApiSLAV1CreateRequestFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function ApiSLAV1CreateRequestToJSON(value?: ApiSLAV1CreateRequest | null): any {
+export function ApiSLAV1CreateRequestToJSON(json: any): ApiSLAV1CreateRequest {
+    return ApiSLAV1CreateRequestToJSONTyped(json, false);
+}
+
+export function ApiSLAV1CreateRequestToJSONTyped(value?: ApiSLAV1CreateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         goals: (value["goals"] as Array<any>).map(ApiSLAV1CreateRequestGoalsToJSON),

@@ -62,10 +62,15 @@ export function DomainDenormalizedReportReferenceFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainDenormalizedReportReferenceToJSON(value?: DomainDenormalizedReportReference | null): any {
+export function DomainDenormalizedReportReferenceToJSON(json: any): DomainDenormalizedReportReference {
+    return DomainDenormalizedReportReferenceToJSONTyped(json, false);
+}
+
+export function DomainDenormalizedReportReferenceToJSONTyped(value?: DomainDenormalizedReportReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         publish_date: value["publishDate"],
         report_id: value["reportId"],

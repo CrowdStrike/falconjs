@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApidomainViewConnectionV1 } from "./ApidomainViewConnectionV1";
-import { ApidomainViewConnectionV1FromJSON, ApidomainViewConnectionV1FromJSONTyped, ApidomainViewConnectionV1ToJSON } from "./ApidomainViewConnectionV1";
+import { ApidomainViewConnectionV1FromJSON, ApidomainViewConnectionV1FromJSONTyped, ApidomainViewConnectionV1ToJSON, ApidomainViewConnectionV1ToJSONTyped } from "./ApidomainViewConnectionV1";
 
 /**
  *
@@ -113,10 +113,15 @@ export function ApidomainRepoViewListItemV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApidomainRepoViewListItemV1ToJSON(value?: ApidomainRepoViewListItemV1 | null): any {
+export function ApidomainRepoViewListItemV1ToJSON(json: any): ApidomainRepoViewListItemV1 {
+    return ApidomainRepoViewListItemV1ToJSONTyped(json, false);
+}
+
+export function ApidomainRepoViewListItemV1ToJSONTyped(value?: ApidomainRepoViewListItemV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         connections: value["connections"] == null ? undefined : (value["connections"] as Array<any>).map(ApidomainViewConnectionV1ToJSON),
         description: value["description"],

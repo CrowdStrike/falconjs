@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsHEStringInfoType } from "./ModelsHEStringInfoType";
-import { ModelsHEStringInfoTypeFromJSON, ModelsHEStringInfoTypeFromJSONTyped, ModelsHEStringInfoTypeToJSON } from "./ModelsHEStringInfoType";
+import { ModelsHEStringInfoTypeFromJSON, ModelsHEStringInfoTypeFromJSONTyped, ModelsHEStringInfoTypeToJSON, ModelsHEStringInfoTypeToJSONTyped } from "./ModelsHEStringInfoType";
 
 /**
  *
@@ -73,10 +73,15 @@ export function ModelsHEStringFileInfoTypeFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsHEStringFileInfoTypeToJSON(value?: ModelsHEStringFileInfoType | null): any {
+export function ModelsHEStringFileInfoTypeToJSON(json: any): ModelsHEStringFileInfoType {
+    return ModelsHEStringFileInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsHEStringFileInfoTypeToJSONTyped(value?: ModelsHEStringFileInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         LayerHash: value["layerHash"],
         LayerIndex: value["layerIndex"],

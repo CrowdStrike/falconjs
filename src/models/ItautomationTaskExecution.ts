@@ -14,17 +14,27 @@
 
 import { mapValues } from "../runtime";
 import type { ItautomationTaskStageExecutionStatus } from "./ItautomationTaskStageExecutionStatus";
-import { ItautomationTaskStageExecutionStatusFromJSON, ItautomationTaskStageExecutionStatusFromJSONTyped, ItautomationTaskStageExecutionStatusToJSON } from "./ItautomationTaskStageExecutionStatus";
+import {
+    ItautomationTaskStageExecutionStatusFromJSON,
+    ItautomationTaskStageExecutionStatusFromJSONTyped,
+    ItautomationTaskStageExecutionStatusToJSON,
+    ItautomationTaskStageExecutionStatusToJSONTyped,
+} from "./ItautomationTaskStageExecutionStatus";
 import type { FalconforitapiConditionGroup } from "./FalconforitapiConditionGroup";
-import { FalconforitapiConditionGroupFromJSON, FalconforitapiConditionGroupFromJSONTyped, FalconforitapiConditionGroupToJSON } from "./FalconforitapiConditionGroup";
+import {
+    FalconforitapiConditionGroupFromJSON,
+    FalconforitapiConditionGroupFromJSONTyped,
+    FalconforitapiConditionGroupToJSON,
+    FalconforitapiConditionGroupToJSONTyped,
+} from "./FalconforitapiConditionGroup";
 import type { FalconforitapiGuardrails } from "./FalconforitapiGuardrails";
-import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON } from "./FalconforitapiGuardrails";
+import { FalconforitapiGuardrailsFromJSON, FalconforitapiGuardrailsFromJSONTyped, FalconforitapiGuardrailsToJSON, FalconforitapiGuardrailsToJSONTyped } from "./FalconforitapiGuardrails";
 import type { ItautomationScripts } from "./ItautomationScripts";
-import { ItautomationScriptsFromJSON, ItautomationScriptsFromJSONTyped, ItautomationScriptsToJSON } from "./ItautomationScripts";
+import { ItautomationScriptsFromJSON, ItautomationScriptsFromJSONTyped, ItautomationScriptsToJSON, ItautomationScriptsToJSONTyped } from "./ItautomationScripts";
 import type { ItautomationCompositeQuery } from "./ItautomationCompositeQuery";
-import { ItautomationCompositeQueryFromJSON, ItautomationCompositeQueryFromJSONTyped, ItautomationCompositeQueryToJSON } from "./ItautomationCompositeQuery";
+import { ItautomationCompositeQueryFromJSON, ItautomationCompositeQueryFromJSONTyped, ItautomationCompositeQueryToJSON, ItautomationCompositeQueryToJSONTyped } from "./ItautomationCompositeQuery";
 import type { ItautomationTaskParameter } from "./ItautomationTaskParameter";
-import { ItautomationTaskParameterFromJSON, ItautomationTaskParameterFromJSONTyped, ItautomationTaskParameterToJSON } from "./ItautomationTaskParameter";
+import { ItautomationTaskParameterFromJSON, ItautomationTaskParameterFromJSONTyped, ItautomationTaskParameterToJSON, ItautomationTaskParameterToJSONTyped } from "./ItautomationTaskParameter";
 
 /**
  *
@@ -148,7 +158,7 @@ export interface ItautomationTaskExecution {
     taskParameters?: Array<ItautomationTaskParameter>;
     /**
      * Type of task execution.
-     * @type {string}
+     * @type {ItautomationTaskExecutionTaskTypeEnum}
      * @memberof ItautomationTaskExecution
      */
     taskType: ItautomationTaskExecutionTaskTypeEnum;
@@ -221,10 +231,15 @@ export function ItautomationTaskExecutionFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ItautomationTaskExecutionToJSON(value?: ItautomationTaskExecution | null): any {
+export function ItautomationTaskExecutionToJSON(json: any): ItautomationTaskExecution {
+    return ItautomationTaskExecutionToJSONTyped(json, false);
+}
+
+export function ItautomationTaskExecutionToJSONTyped(value?: ItautomationTaskExecution | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         composite_query: ItautomationCompositeQueryToJSON(value["compositeQuery"]),
         discover_new_hosts: value["discoverNewHosts"],

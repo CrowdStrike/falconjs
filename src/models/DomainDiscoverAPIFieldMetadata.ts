@@ -47,10 +47,15 @@ export function DomainDiscoverAPIFieldMetadataFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainDiscoverAPIFieldMetadataToJSON(value?: DomainDiscoverAPIFieldMetadata | null): any {
+export function DomainDiscoverAPIFieldMetadataToJSON(json: any): DomainDiscoverAPIFieldMetadata {
+    return DomainDiscoverAPIFieldMetadataToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIFieldMetadataToJSONTyped(value?: DomainDiscoverAPIFieldMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         providers: value["providers"],
     };

@@ -55,10 +55,15 @@ export function RegistrationAzureUserScriptFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function RegistrationAzureUserScriptToJSON(value?: RegistrationAzureUserScript | null): any {
+export function RegistrationAzureUserScriptToJSON(json: any): RegistrationAzureUserScript {
+    return RegistrationAzureUserScriptToJSONTyped(json, false);
+}
+
+export function RegistrationAzureUserScriptToJSONTyped(value?: RegistrationAzureUserScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bash: value["bash"],
         service_account_public_keys: value["serviceAccountPublicKeys"],

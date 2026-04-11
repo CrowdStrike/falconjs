@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationAzureTenantIDsResponseV1Resources } from "./RegistrationAzureTenantIDsResponseV1Resources";
 import {
     RegistrationAzureTenantIDsResponseV1ResourcesFromJSON,
     RegistrationAzureTenantIDsResponseV1ResourcesFromJSONTyped,
     RegistrationAzureTenantIDsResponseV1ResourcesToJSON,
+    RegistrationAzureTenantIDsResponseV1ResourcesToJSONTyped,
 } from "./RegistrationAzureTenantIDsResponseV1Resources";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -75,10 +76,15 @@ export function RegistrationAzureTenantIDsResponseV1FromJSONTyped(json: any, ign
     };
 }
 
-export function RegistrationAzureTenantIDsResponseV1ToJSON(value?: RegistrationAzureTenantIDsResponseV1 | null): any {
+export function RegistrationAzureTenantIDsResponseV1ToJSON(json: any): RegistrationAzureTenantIDsResponseV1 {
+    return RegistrationAzureTenantIDsResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationAzureTenantIDsResponseV1ToJSONTyped(value?: RegistrationAzureTenantIDsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

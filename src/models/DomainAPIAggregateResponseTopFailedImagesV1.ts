@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIAggregateResponseTopFailedImagesV1Resources } from "./DomainAPIAggregateResponseTopFailedImagesV1Resources";
 import {
     DomainAPIAggregateResponseTopFailedImagesV1ResourcesFromJSON,
     DomainAPIAggregateResponseTopFailedImagesV1ResourcesFromJSONTyped,
     DomainAPIAggregateResponseTopFailedImagesV1ResourcesToJSON,
+    DomainAPIAggregateResponseTopFailedImagesV1ResourcesToJSONTyped,
 } from "./DomainAPIAggregateResponseTopFailedImagesV1Resources";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainAPIAggregateResponseTopFailedImagesV1FromJSONTyped(json: a
     };
 }
 
-export function DomainAPIAggregateResponseTopFailedImagesV1ToJSON(value?: DomainAPIAggregateResponseTopFailedImagesV1 | null): any {
+export function DomainAPIAggregateResponseTopFailedImagesV1ToJSON(json: any): DomainAPIAggregateResponseTopFailedImagesV1 {
+    return DomainAPIAggregateResponseTopFailedImagesV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseTopFailedImagesV1ToJSONTyped(value?: DomainAPIAggregateResponseTopFailedImagesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

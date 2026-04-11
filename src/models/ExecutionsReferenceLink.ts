@@ -56,10 +56,15 @@ export function ExecutionsReferenceLinkFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ExecutionsReferenceLinkToJSON(value?: ExecutionsReferenceLink | null): any {
+export function ExecutionsReferenceLinkToJSON(json: any): ExecutionsReferenceLink {
+    return ExecutionsReferenceLinkToJSONTyped(json, false);
+}
+
+export function ExecutionsReferenceLinkToJSONTyped(value?: ExecutionsReferenceLink | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         display: value["display"],
         url: value["url"],

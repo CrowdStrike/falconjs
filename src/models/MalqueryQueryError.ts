@@ -70,10 +70,15 @@ export function MalqueryQueryErrorFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function MalqueryQueryErrorToJSON(value?: MalqueryQueryError | null): any {
+export function MalqueryQueryErrorToJSON(json: any): MalqueryQueryError {
+    return MalqueryQueryErrorToJSONTyped(json, false);
+}
+
+export function MalqueryQueryErrorToJSONTyped(value?: MalqueryQueryError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         id: value["id"],

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON, DomainReconAPIErrorToJSONTyped } from "./DomainReconAPIError";
 import type { DomainRuleMetaInfo } from "./DomainRuleMetaInfo";
-import { DomainRuleMetaInfoFromJSON, DomainRuleMetaInfoFromJSONTyped, DomainRuleMetaInfoToJSON } from "./DomainRuleMetaInfo";
+import { DomainRuleMetaInfoFromJSON, DomainRuleMetaInfoFromJSONTyped, DomainRuleMetaInfoToJSON, DomainRuleMetaInfoToJSONTyped } from "./DomainRuleMetaInfo";
 
 /**
  *
@@ -69,10 +69,15 @@ export function DomainRuleQueryResponseV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainRuleQueryResponseV1ToJSON(value?: DomainRuleQueryResponseV1 | null): any {
+export function DomainRuleQueryResponseV1ToJSON(json: any): DomainRuleQueryResponseV1 {
+    return DomainRuleQueryResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainRuleQueryResponseV1ToJSONTyped(value?: DomainRuleQueryResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
         meta: DomainRuleMetaInfoToJSON(value["meta"]),

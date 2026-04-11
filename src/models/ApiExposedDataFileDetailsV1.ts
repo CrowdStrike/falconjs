@@ -71,10 +71,15 @@ export function ApiExposedDataFileDetailsV1FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ApiExposedDataFileDetailsV1ToJSON(value?: ApiExposedDataFileDetailsV1 | null): any {
+export function ApiExposedDataFileDetailsV1ToJSON(json: any): ApiExposedDataFileDetailsV1 {
+    return ApiExposedDataFileDetailsV1ToJSONTyped(json, false);
+}
+
+export function ApiExposedDataFileDetailsV1ToJSONTyped(value?: ApiExposedDataFileDetailsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         complete_data_set: value["completeDataSet"],
         download_urls: value["downloadUrls"],

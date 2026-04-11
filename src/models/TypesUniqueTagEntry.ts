@@ -68,10 +68,15 @@ export function TypesUniqueTagEntryFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function TypesUniqueTagEntryToJSON(value?: TypesUniqueTagEntry | null): any {
+export function TypesUniqueTagEntryToJSON(json: any): TypesUniqueTagEntry {
+    return TypesUniqueTagEntryToJSONTyped(json, false);
+}
+
+export function TypesUniqueTagEntryToJSONTyped(value?: TypesUniqueTagEntry | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         isSensitive: value["isSensitive"],
         name: value["name"],

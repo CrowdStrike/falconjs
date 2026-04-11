@@ -82,10 +82,15 @@ export function DomainDetectsEntitiesPatchRequestFromJSONTyped(json: any, ignore
     };
 }
 
-export function DomainDetectsEntitiesPatchRequestToJSON(value?: DomainDetectsEntitiesPatchRequest | null): any {
+export function DomainDetectsEntitiesPatchRequestToJSON(json: any): DomainDetectsEntitiesPatchRequest {
+    return DomainDetectsEntitiesPatchRequestToJSONTyped(json, false);
+}
+
+export function DomainDetectsEntitiesPatchRequestToJSONTyped(value?: DomainDetectsEntitiesPatchRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assigned_to_uuid: value["assignedToUuid"],
         comment: value["comment"],

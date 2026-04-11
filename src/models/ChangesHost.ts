@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesHostGroup } from "./ChangesHostGroup";
-import { ChangesHostGroupFromJSON, ChangesHostGroupFromJSONTyped, ChangesHostGroupToJSON } from "./ChangesHostGroup";
+import { ChangesHostGroupFromJSON, ChangesHostGroupFromJSONTyped, ChangesHostGroupToJSON, ChangesHostGroupToJSONTyped } from "./ChangesHostGroup";
 
 /**
  *
@@ -99,10 +99,15 @@ export function ChangesHostFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ChangesHostToJSON(value?: ChangesHost | null): any {
+export function ChangesHostToJSON(json: any): ChangesHost {
+    return ChangesHostToJSONTyped(json, false);
+}
+
+export function ChangesHostToJSONTyped(value?: ChangesHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         agent_version: value["agentVersion"],
         containment_status: value["containmentStatus"],

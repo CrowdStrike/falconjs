@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExclusionCreateReqV2 } from "./DomainExclusionCreateReqV2";
-import { DomainExclusionCreateReqV2FromJSON, DomainExclusionCreateReqV2FromJSONTyped, DomainExclusionCreateReqV2ToJSON } from "./DomainExclusionCreateReqV2";
+import { DomainExclusionCreateReqV2FromJSON, DomainExclusionCreateReqV2FromJSONTyped, DomainExclusionCreateReqV2ToJSON, DomainExclusionCreateReqV2ToJSONTyped } from "./DomainExclusionCreateReqV2";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainExclusionsCreateReqV2FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainExclusionsCreateReqV2ToJSON(value?: DomainExclusionsCreateReqV2 | null): any {
+export function DomainExclusionsCreateReqV2ToJSON(json: any): DomainExclusionsCreateReqV2 {
+    return DomainExclusionsCreateReqV2ToJSONTyped(json, false);
+}
+
+export function DomainExclusionsCreateReqV2ToJSONTyped(value?: DomainExclusionsCreateReqV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         exclusions: (value["exclusions"] as Array<any>).map(DomainExclusionCreateReqV2ToJSON),
     };

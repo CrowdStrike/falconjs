@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { TypesQueryCountResponse } from "./TypesQueryCountResponse";
-import { TypesQueryCountResponseFromJSON, TypesQueryCountResponseFromJSONTyped, TypesQueryCountResponseToJSON } from "./TypesQueryCountResponse";
+import { TypesQueryCountResponseFromJSON, TypesQueryCountResponseFromJSONTyped, TypesQueryCountResponseToJSON, TypesQueryCountResponseToJSONTyped } from "./TypesQueryCountResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function TypesCountResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function TypesCountResponseToJSON(value?: TypesCountResponse | null): any {
+export function TypesCountResponseToJSON(json: any): TypesCountResponse {
+    return TypesCountResponseToJSONTyped(json, false);
+}
+
+export function TypesCountResponseToJSONTyped(value?: TypesCountResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -28,9 +28,9 @@ export interface ExecutionApiReadRequestBodyRequest {
  */
 export class ExecutionApi extends runtime.BaseAPI {
     /**
-     * retrieve a large request body, such as a file, that has spilled into object storage
+     * Creates request options for readRequestBody without sending the request
      */
-    async readRequestBodyRaw(requestParameters: ExecutionApiReadRequestBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+    async readRequestBodyRequestOpts(requestParameters: ExecutionApiReadRequestBodyRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling readRequestBody().');
         }
@@ -72,15 +72,22 @@ export class ExecutionApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["functions:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/faas-gateway/entities/execution-request-body/v2`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/faas-gateway/entities/execution-request-body/v2`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * retrieve a large request body, such as a file, that has spilled into object storage
+     */
+    async readRequestBodyRaw(requestParameters: ExecutionApiReadRequestBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+        const requestOptions = await this.readRequestBodyRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }

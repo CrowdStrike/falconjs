@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { SystemLogGetSystemLogs } from "./SystemLogGetSystemLogs";
-import { SystemLogGetSystemLogsFromJSON, SystemLogGetSystemLogsFromJSONTyped, SystemLogGetSystemLogsToJSON } from "./SystemLogGetSystemLogs";
+import { SystemLogGetSystemLogsFromJSON, SystemLogGetSystemLogsFromJSONTyped, SystemLogGetSystemLogsToJSON, SystemLogGetSystemLogsToJSONTyped } from "./SystemLogGetSystemLogs";
 import type { MetaGetSystemLogs } from "./MetaGetSystemLogs";
-import { MetaGetSystemLogsFromJSON, MetaGetSystemLogsFromJSONTyped, MetaGetSystemLogsToJSON } from "./MetaGetSystemLogs";
+import { MetaGetSystemLogsFromJSON, MetaGetSystemLogsFromJSONTyped, MetaGetSystemLogsToJSON, MetaGetSystemLogsToJSONTyped } from "./MetaGetSystemLogs";
 import type { ErrorGetSystemLogs } from "./ErrorGetSystemLogs";
-import { ErrorGetSystemLogsFromJSON, ErrorGetSystemLogsFromJSONTyped, ErrorGetSystemLogsToJSON } from "./ErrorGetSystemLogs";
+import { ErrorGetSystemLogsFromJSON, ErrorGetSystemLogsFromJSONTyped, ErrorGetSystemLogsToJSON, ErrorGetSystemLogsToJSONTyped } from "./ErrorGetSystemLogs";
 
 /**
  *
@@ -68,10 +68,15 @@ export function GetSystemLogsFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function GetSystemLogsToJSON(value?: GetSystemLogs | null): any {
+export function GetSystemLogsToJSON(json: any): GetSystemLogs {
+    return GetSystemLogsToJSONTyped(json, false);
+}
+
+export function GetSystemLogsToJSONTyped(value?: GetSystemLogs | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetSystemLogsToJSON),
         meta: MetaGetSystemLogsToJSON(value["meta"]),

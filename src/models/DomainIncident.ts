@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DetectsDeviceDetailIndexed } from "./DetectsDeviceDetailIndexed";
-import { DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON } from "./DetectsDeviceDetailIndexed";
+import { DetectsDeviceDetailIndexedFromJSON, DetectsDeviceDetailIndexedFromJSONTyped, DetectsDeviceDetailIndexedToJSON, DetectsDeviceDetailIndexedToJSONTyped } from "./DetectsDeviceDetailIndexed";
 import type { DomainEventHistogram } from "./DomainEventHistogram";
-import { DomainEventHistogramFromJSON, DomainEventHistogramFromJSONTyped, DomainEventHistogramToJSON } from "./DomainEventHistogram";
+import { DomainEventHistogramFromJSON, DomainEventHistogramFromJSONTyped, DomainEventHistogramToJSON, DomainEventHistogramToJSONTyped } from "./DomainEventHistogram";
 
 /**
  *
@@ -249,10 +249,15 @@ export function DomainIncidentFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function DomainIncidentToJSON(value?: DomainIncident | null): any {
+export function DomainIncidentToJSON(json: any): DomainIncident {
+    return DomainIncidentToJSONTyped(json, false);
+}
+
+export function DomainIncidentToJSONTyped(value?: DomainIncident | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assigned_to: value["assignedTo"],
         assigned_to_name: value["assignedToName"],
@@ -272,7 +277,7 @@ export function DomainIncidentToJSON(value?: DomainIncident | null): any {
         lm_types: value["lmTypes"],
         lmra_host_ids: value["lmraHostIds"],
         lmra_hosts_capped: value["lmraHostsCapped"],
-        modified_timestamp: value["modifiedTimestamp"] == null ? undefined : value["modifiedTimestamp"].toISOString(),
+        modified_timestamp: value["modifiedTimestamp"] == null ? value["modifiedTimestamp"] : value["modifiedTimestamp"].toISOString(),
         name: value["name"],
         objectives: value["objectives"],
         start: value["start"].toISOString(),

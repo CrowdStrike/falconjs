@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
-import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON, StatemgmtConditionToJSONTyped } from "./StatemgmtCondition";
 
 /**
  *
@@ -107,10 +107,15 @@ export function RegistrationGCPAccountReqObjV2FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RegistrationGCPAccountReqObjV2ToJSON(value?: RegistrationGCPAccountReqObjV2 | null): any {
+export function RegistrationGCPAccountReqObjV2ToJSON(json: any): RegistrationGCPAccountReqObjV2 {
+    return RegistrationGCPAccountReqObjV2ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPAccountReqObjV2ToJSONTyped(value?: RegistrationGCPAccountReqObjV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         client_email: value["clientEmail"],
         client_id: value["clientId"],

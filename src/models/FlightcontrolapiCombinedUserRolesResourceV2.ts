@@ -118,15 +118,20 @@ export function FlightcontrolapiCombinedUserRolesResourceV2FromJSONTyped(json: a
     };
 }
 
-export function FlightcontrolapiCombinedUserRolesResourceV2ToJSON(value?: FlightcontrolapiCombinedUserRolesResourceV2 | null): any {
+export function FlightcontrolapiCombinedUserRolesResourceV2ToJSON(json: any): FlightcontrolapiCombinedUserRolesResourceV2 {
+    return FlightcontrolapiCombinedUserRolesResourceV2ToJSONTyped(json, false);
+}
+
+export function FlightcontrolapiCombinedUserRolesResourceV2ToJSONTyped(value?: FlightcontrolapiCombinedUserRolesResourceV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         cid_group_id: value["cidGroupId"],
         cid_group_name: value["cidGroupName"],
-        expires_at: value["expiresAt"] == null ? undefined : value["expiresAt"].toISOString(),
+        expires_at: value["expiresAt"] == null ? value["expiresAt"] : value["expiresAt"].toISOString(),
         grant_type: value["grantType"],
         parent_cid: value["parentCid"],
         role_id: value["roleId"],

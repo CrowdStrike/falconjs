@@ -31,7 +31,7 @@ typ=typescript-fetch
 build_dir="specs/out/$typ"
 rm -rf "./$build_dir"
 
-BUILD_CONTAINER="openapitools/openapi-generator-cli:v7.7.0"
+BUILD_CONTAINER="openapitools/openapi-generator-cli:v7.20.0"
 $CONTAINER_TOOL pull "$BUILD_CONTAINER"
 
 $CONTAINER_TOOL run --rm \

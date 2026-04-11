@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxAssociatedRuntime } from "./FalconxAssociatedRuntime";
-import { FalconxAssociatedRuntimeFromJSON, FalconxAssociatedRuntimeFromJSONTyped, FalconxAssociatedRuntimeToJSON } from "./FalconxAssociatedRuntime";
+import { FalconxAssociatedRuntimeFromJSON, FalconxAssociatedRuntimeFromJSONTyped, FalconxAssociatedRuntimeToJSON, FalconxAssociatedRuntimeToJSONTyped } from "./FalconxAssociatedRuntime";
 
 /**
  *
@@ -85,10 +85,15 @@ export function FalconxContactedHostFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FalconxContactedHostToJSON(value?: FalconxContactedHost | null): any {
+export function FalconxContactedHostToJSON(json: any): FalconxContactedHost {
+    return FalconxContactedHostToJSONTyped(json, false);
+}
+
+export function FalconxContactedHostToJSONTyped(value?: FalconxContactedHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         address: value["address"],
         associated_runtime: value["associatedRuntime"] == null ? undefined : (value["associatedRuntime"] as Array<any>).map(FalconxAssociatedRuntimeToJSON),

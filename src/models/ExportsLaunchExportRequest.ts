@@ -78,10 +78,15 @@ export function ExportsLaunchExportRequestFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ExportsLaunchExportRequestToJSON(value?: ExportsLaunchExportRequest | null): any {
+export function ExportsLaunchExportRequestToJSON(json: any): ExportsLaunchExportRequest {
+    return ExportsLaunchExportRequestToJSONTyped(json, false);
+}
+
+export function ExportsLaunchExportRequestToJSONTyped(value?: ExportsLaunchExportRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         expand_vulnerabilities: value["expandVulnerabilities"],
         format: value["format"],

@@ -55,10 +55,15 @@ export function FwmgrDomainDNSTargetFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function FwmgrDomainDNSTargetToJSON(value?: FwmgrDomainDNSTarget | null): any {
+export function FwmgrDomainDNSTargetToJSON(json: any): FwmgrDomainDNSTarget {
+    return FwmgrDomainDNSTargetToJSONTyped(json, false);
+}
+
+export function FwmgrDomainDNSTargetToJSONTyped(value?: FwmgrDomainDNSTarget | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         hostname: value["hostname"],
         ip_match: value["ipMatch"],

@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCloudCondition } from "./DomainCloudCondition";
-import { DomainCloudConditionFromJSON, DomainCloudConditionFromJSONTyped, DomainCloudConditionToJSON } from "./DomainCloudCondition";
+import { DomainCloudConditionFromJSON, DomainCloudConditionFromJSONTyped, DomainCloudConditionToJSON, DomainCloudConditionToJSONTyped } from "./DomainCloudCondition";
 import type { DomainProductFeatureStatus } from "./DomainProductFeatureStatus";
-import { DomainProductFeatureStatusFromJSON, DomainProductFeatureStatusFromJSONTyped, DomainProductFeatureStatusToJSON } from "./DomainProductFeatureStatus";
+import { DomainProductFeatureStatusFromJSON, DomainProductFeatureStatusFromJSONTyped, DomainProductFeatureStatusToJSON, DomainProductFeatureStatusToJSONTyped } from "./DomainProductFeatureStatus";
 
 /**
  *
@@ -235,10 +235,15 @@ export function DomainOCITenancyV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function DomainOCITenancyV1ToJSON(value?: DomainOCITenancyV1 | null): any {
+export function DomainOCITenancyV1ToJSON(json: any): DomainOCITenancyV1 {
+    return DomainOCITenancyV1ToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyV1ToJSONTyped(value?: DomainOCITenancyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainCloudConditionToJSON),

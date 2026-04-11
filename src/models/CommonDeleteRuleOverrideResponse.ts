@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ApimodelsRuleOverride } from "./ApimodelsRuleOverride";
-import { ApimodelsRuleOverrideFromJSON, ApimodelsRuleOverrideFromJSONTyped, ApimodelsRuleOverrideToJSON } from "./ApimodelsRuleOverride";
+import { ApimodelsRuleOverrideFromJSON, ApimodelsRuleOverrideFromJSONTyped, ApimodelsRuleOverrideToJSON, ApimodelsRuleOverrideToJSONTyped } from "./ApimodelsRuleOverride";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function CommonDeleteRuleOverrideResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function CommonDeleteRuleOverrideResponseToJSON(value?: CommonDeleteRuleOverrideResponse | null): any {
+export function CommonDeleteRuleOverrideResponseToJSON(json: any): CommonDeleteRuleOverrideResponse {
+    return CommonDeleteRuleOverrideResponseToJSONTyped(json, false);
+}
+
+export function CommonDeleteRuleOverrideResponseToJSONTyped(value?: CommonDeleteRuleOverrideResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

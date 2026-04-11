@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FigapiIPv6 } from "./FigapiIPv6";
-import { FigapiIPv6FromJSON, FigapiIPv6FromJSONTyped, FigapiIPv6ToJSON } from "./FigapiIPv6";
+import { FigapiIPv6FromJSON, FigapiIPv6FromJSONTyped, FigapiIPv6ToJSON, FigapiIPv6ToJSONTyped } from "./FigapiIPv6";
 import type { FigapiIPv4 } from "./FigapiIPv4";
-import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON } from "./FigapiIPv4";
+import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON, FigapiIPv4ToJSONTyped } from "./FigapiIPv4";
 
 /**
  *
@@ -82,10 +82,15 @@ export function FigapiMXRecordFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function FigapiMXRecordToJSON(value?: FigapiMXRecord | null): any {
+export function FigapiMXRecordToJSON(json: any): FigapiMXRecord {
+    return FigapiMXRecordToJSONTyped(json, false);
+}
+
+export function FigapiMXRecordToJSONTyped(value?: FigapiMXRecord | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Domain: value["domain"],
         Hostname: value["hostname"],

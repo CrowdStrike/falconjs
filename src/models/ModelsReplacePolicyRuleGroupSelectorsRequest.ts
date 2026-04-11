@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsReplaceRuleGroupSelectors } from "./ModelsReplaceRuleGroupSelectors";
-import { ModelsReplaceRuleGroupSelectorsFromJSON, ModelsReplaceRuleGroupSelectorsFromJSONTyped, ModelsReplaceRuleGroupSelectorsToJSON } from "./ModelsReplaceRuleGroupSelectors";
+import {
+    ModelsReplaceRuleGroupSelectorsFromJSON,
+    ModelsReplaceRuleGroupSelectorsFromJSONTyped,
+    ModelsReplaceRuleGroupSelectorsToJSON,
+    ModelsReplaceRuleGroupSelectorsToJSONTyped,
+} from "./ModelsReplaceRuleGroupSelectors";
 
 /**
  *
@@ -59,10 +64,15 @@ export function ModelsReplacePolicyRuleGroupSelectorsRequestFromJSONTyped(json: 
     };
 }
 
-export function ModelsReplacePolicyRuleGroupSelectorsRequestToJSON(value?: ModelsReplacePolicyRuleGroupSelectorsRequest | null): any {
+export function ModelsReplacePolicyRuleGroupSelectorsRequestToJSON(json: any): ModelsReplacePolicyRuleGroupSelectorsRequest {
+    return ModelsReplacePolicyRuleGroupSelectorsRequestToJSONTyped(json, false);
+}
+
+export function ModelsReplacePolicyRuleGroupSelectorsRequestToJSONTyped(value?: ModelsReplacePolicyRuleGroupSelectorsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         rule_groups: (value["ruleGroups"] as Array<any>).map(ModelsReplaceRuleGroupSelectorsToJSON),

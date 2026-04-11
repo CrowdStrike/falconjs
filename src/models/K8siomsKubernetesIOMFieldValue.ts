@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIFilterResponse } from "./ModelsAPIFilterResponse";
-import { ModelsAPIFilterResponseFromJSON, ModelsAPIFilterResponseFromJSONTyped, ModelsAPIFilterResponseToJSON } from "./ModelsAPIFilterResponse";
+import { ModelsAPIFilterResponseFromJSON, ModelsAPIFilterResponseFromJSONTyped, ModelsAPIFilterResponseToJSON, ModelsAPIFilterResponseToJSONTyped } from "./ModelsAPIFilterResponse";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function K8siomsKubernetesIOMFieldValueFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function K8siomsKubernetesIOMFieldValueToJSON(value?: K8siomsKubernetesIOMFieldValue | null): any {
+export function K8siomsKubernetesIOMFieldValueToJSON(json: any): K8siomsKubernetesIOMFieldValue {
+    return K8siomsKubernetesIOMFieldValueToJSONTyped(json, false);
+}
+
+export function K8siomsKubernetesIOMFieldValueToJSONTyped(value?: K8siomsKubernetesIOMFieldValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

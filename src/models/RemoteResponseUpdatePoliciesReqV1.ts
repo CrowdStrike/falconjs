@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RemoteResponseUpdatePolicyReqV1 } from "./RemoteResponseUpdatePolicyReqV1";
-import { RemoteResponseUpdatePolicyReqV1FromJSON, RemoteResponseUpdatePolicyReqV1FromJSONTyped, RemoteResponseUpdatePolicyReqV1ToJSON } from "./RemoteResponseUpdatePolicyReqV1";
+import {
+    RemoteResponseUpdatePolicyReqV1FromJSON,
+    RemoteResponseUpdatePolicyReqV1FromJSONTyped,
+    RemoteResponseUpdatePolicyReqV1ToJSON,
+    RemoteResponseUpdatePolicyReqV1ToJSONTyped,
+} from "./RemoteResponseUpdatePolicyReqV1";
 
 /**
  * A req to update realtime response policies
@@ -51,10 +56,15 @@ export function RemoteResponseUpdatePoliciesReqV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function RemoteResponseUpdatePoliciesReqV1ToJSON(value?: RemoteResponseUpdatePoliciesReqV1 | null): any {
+export function RemoteResponseUpdatePoliciesReqV1ToJSON(json: any): RemoteResponseUpdatePoliciesReqV1 {
+    return RemoteResponseUpdatePoliciesReqV1ToJSONTyped(json, false);
+}
+
+export function RemoteResponseUpdatePoliciesReqV1ToJSONTyped(value?: RemoteResponseUpdatePoliciesReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RemoteResponseUpdatePolicyReqV1ToJSON),
     };

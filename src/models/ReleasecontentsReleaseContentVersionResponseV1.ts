@@ -71,10 +71,15 @@ export function ReleasecontentsReleaseContentVersionResponseV1FromJSONTyped(json
     };
 }
 
-export function ReleasecontentsReleaseContentVersionResponseV1ToJSON(value?: ReleasecontentsReleaseContentVersionResponseV1 | null): any {
+export function ReleasecontentsReleaseContentVersionResponseV1ToJSON(json: any): ReleasecontentsReleaseContentVersionResponseV1 {
+    return ReleasecontentsReleaseContentVersionResponseV1ToJSONTyped(json, false);
+}
+
+export function ReleasecontentsReleaseContentVersionResponseV1ToJSONTyped(value?: ReleasecontentsReleaseContentVersionResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer_id: value["customerId"],
         source_id: value["sourceId"],

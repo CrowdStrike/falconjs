@@ -33,7 +33,7 @@ export interface HostGroupsCreateGroupReqV1 {
     description?: string;
     /**
      * The type of device group to create
-     * @type {string}
+     * @type {HostGroupsCreateGroupReqV1GroupTypeEnum}
      * @memberof HostGroupsCreateGroupReqV1
      */
     groupType: HostGroupsCreateGroupReqV1GroupTypeEnum;
@@ -80,10 +80,15 @@ export function HostGroupsCreateGroupReqV1FromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function HostGroupsCreateGroupReqV1ToJSON(value?: HostGroupsCreateGroupReqV1 | null): any {
+export function HostGroupsCreateGroupReqV1ToJSON(json: any): HostGroupsCreateGroupReqV1 {
+    return HostGroupsCreateGroupReqV1ToJSONTyped(json, false);
+}
+
+export function HostGroupsCreateGroupReqV1ToJSONTyped(value?: HostGroupsCreateGroupReqV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assignment_rule: value["assignmentRule"],
         description: value["description"],

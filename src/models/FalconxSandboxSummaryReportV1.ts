@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FalconxIncident } from "./FalconxIncident";
-import { FalconxIncidentFromJSON, FalconxIncidentFromJSONTyped, FalconxIncidentToJSON } from "./FalconxIncident";
+import { FalconxIncidentFromJSON, FalconxIncidentFromJSONTyped, FalconxIncidentToJSON, FalconxIncidentToJSONTyped } from "./FalconxIncident";
 
 /**
  *
@@ -155,10 +155,15 @@ export function FalconxSandboxSummaryReportV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function FalconxSandboxSummaryReportV1ToJSON(value?: FalconxSandboxSummaryReportV1 | null): any {
+export function FalconxSandboxSummaryReportV1ToJSON(json: any): FalconxSandboxSummaryReportV1 {
+    return FalconxSandboxSummaryReportV1ToJSONTyped(json, false);
+}
+
+export function FalconxSandboxSummaryReportV1ToJSONTyped(value?: FalconxSandboxSummaryReportV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classification_tags: value["classificationTags"],
         environment_description: value["environmentDescription"],

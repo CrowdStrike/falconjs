@@ -63,10 +63,15 @@ export function Oauth2AccessTokenRequestFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function Oauth2AccessTokenRequestToJSON(value?: Oauth2AccessTokenRequest | null): any {
+export function Oauth2AccessTokenRequestToJSON(json: any): Oauth2AccessTokenRequest {
+    return Oauth2AccessTokenRequestToJSONTyped(json, false);
+}
+
+export function Oauth2AccessTokenRequestToJSONTyped(value?: Oauth2AccessTokenRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         client_id: value["clientId"],
         client_secret: value["clientSecret"],

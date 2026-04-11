@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FigapiWhoisRecord } from "./FigapiWhoisRecord";
-import { FigapiWhoisRecordFromJSON, FigapiWhoisRecordFromJSONTyped, FigapiWhoisRecordToJSON } from "./FigapiWhoisRecord";
+import { FigapiWhoisRecordFromJSON, FigapiWhoisRecordFromJSONTyped, FigapiWhoisRecordToJSON, FigapiWhoisRecordToJSONTyped } from "./FigapiWhoisRecord";
 
 /**
  *
@@ -71,10 +71,15 @@ export function FigapiWhoISFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function FigapiWhoISToJSON(value?: FigapiWhoIS | null): any {
+export function FigapiWhoISToJSON(json: any): FigapiWhoIS {
+    return FigapiWhoISToJSONTyped(json, false);
+}
+
+export function FigapiWhoISToJSONTyped(value?: FigapiWhoIS | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         AdminContact: FigapiWhoisRecordToJSON(value["adminContact"]),
         BillingContact: FigapiWhoisRecordToJSON(value["billingContact"]),

@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainAPIAggregateResponseComplianceByFrameworkV1Resources } from "./DomainAPIAggregateResponseComplianceByFrameworkV1Resources";
 import {
     DomainAPIAggregateResponseComplianceByFrameworkV1ResourcesFromJSON,
     DomainAPIAggregateResponseComplianceByFrameworkV1ResourcesFromJSONTyped,
     DomainAPIAggregateResponseComplianceByFrameworkV1ResourcesToJSON,
+    DomainAPIAggregateResponseComplianceByFrameworkV1ResourcesToJSONTyped,
 } from "./DomainAPIAggregateResponseComplianceByFrameworkV1Resources";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DomainAPIAggregateResponseComplianceByFrameworkV1FromJSONTyped(j
     };
 }
 
-export function DomainAPIAggregateResponseComplianceByFrameworkV1ToJSON(value?: DomainAPIAggregateResponseComplianceByFrameworkV1 | null): any {
+export function DomainAPIAggregateResponseComplianceByFrameworkV1ToJSON(json: any): DomainAPIAggregateResponseComplianceByFrameworkV1 {
+    return DomainAPIAggregateResponseComplianceByFrameworkV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIAggregateResponseComplianceByFrameworkV1ToJSONTyped(value?: DomainAPIAggregateResponseComplianceByFrameworkV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

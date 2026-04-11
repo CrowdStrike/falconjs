@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAggregationResultItem } from "./MsaAggregationResultItem";
-import { MsaAggregationResultItemFromJSON, MsaAggregationResultItemFromJSONTyped, MsaAggregationResultItemToJSON } from "./MsaAggregationResultItem";
+import { MsaAggregationResultItemFromJSON, MsaAggregationResultItemFromJSONTyped, MsaAggregationResultItemToJSON, MsaAggregationResultItemToJSONTyped } from "./MsaAggregationResultItem";
 import type { MsaHits } from "./MsaHits";
-import { MsaHitsFromJSON, MsaHitsFromJSONTyped, MsaHitsToJSON } from "./MsaHits";
+import { MsaHitsFromJSON, MsaHitsFromJSONTyped, MsaHitsToJSON, MsaHitsToJSONTyped } from "./MsaHits";
 
 /**
  *
@@ -82,10 +82,15 @@ export function MsaAggregationResultFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function MsaAggregationResultToJSON(value?: MsaAggregationResult | null): any {
+export function MsaAggregationResultToJSON(json: any): MsaAggregationResult {
+    return MsaAggregationResultToJSONTyped(json, false);
+}
+
+export function MsaAggregationResultToJSONTyped(value?: MsaAggregationResult | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         buckets: (value["buckets"] as Array<any>).map(MsaAggregationResultItemToJSON),
         doc_count_error_upper_bound: value["docCountErrorUpperBound"],

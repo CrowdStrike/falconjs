@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { DomainReconAPIError } from "./DomainReconAPIError";
-import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON } from "./DomainReconAPIError";
+import { DomainReconAPIErrorFromJSON, DomainReconAPIErrorFromJSONTyped, DomainReconAPIErrorToJSON, DomainReconAPIErrorToJSONTyped } from "./DomainReconAPIError";
 import type { SadomainRule } from "./SadomainRule";
-import { SadomainRuleFromJSON, SadomainRuleFromJSONTyped, SadomainRuleToJSON } from "./SadomainRule";
+import { SadomainRuleFromJSON, SadomainRuleFromJSONTyped, SadomainRuleToJSON, SadomainRuleToJSONTyped } from "./SadomainRule";
 import type { DomainRuleMetaInfo } from "./DomainRuleMetaInfo";
-import { DomainRuleMetaInfoFromJSON, DomainRuleMetaInfoFromJSONTyped, DomainRuleMetaInfoToJSON } from "./DomainRuleMetaInfo";
+import { DomainRuleMetaInfoFromJSON, DomainRuleMetaInfoFromJSONTyped, DomainRuleMetaInfoToJSON, DomainRuleMetaInfoToJSONTyped } from "./DomainRuleMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainRulesEntitiesResponseV1FromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainRulesEntitiesResponseV1ToJSON(value?: DomainRulesEntitiesResponseV1 | null): any {
+export function DomainRulesEntitiesResponseV1ToJSON(json: any): DomainRulesEntitiesResponseV1 {
+    return DomainRulesEntitiesResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainRulesEntitiesResponseV1ToJSONTyped(value?: DomainRulesEntitiesResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(DomainReconAPIErrorToJSON),
         meta: DomainRuleMetaInfoToJSON(value["meta"]),

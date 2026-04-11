@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ThreatgraphMeta } from "./ThreatgraphMeta";
-import { ThreatgraphMetaFromJSON, ThreatgraphMetaFromJSONTyped, ThreatgraphMetaToJSON } from "./ThreatgraphMeta";
+import { ThreatgraphMetaFromJSON, ThreatgraphMetaFromJSONTyped, ThreatgraphMetaToJSON, ThreatgraphMetaToJSONTyped } from "./ThreatgraphMeta";
 import type { ThreatgraphVertexDetails } from "./ThreatgraphVertexDetails";
-import { ThreatgraphVertexDetailsFromJSON, ThreatgraphVertexDetailsFromJSONTyped, ThreatgraphVertexDetailsToJSON } from "./ThreatgraphVertexDetails";
+import { ThreatgraphVertexDetailsFromJSON, ThreatgraphVertexDetailsFromJSONTyped, ThreatgraphVertexDetailsToJSON, ThreatgraphVertexDetailsToJSONTyped } from "./ThreatgraphVertexDetails";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ThreatgraphVertexDetailsResponseFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ThreatgraphVertexDetailsResponseToJSON(value?: ThreatgraphVertexDetailsResponse | null): any {
+export function ThreatgraphVertexDetailsResponseToJSON(json: any): ThreatgraphVertexDetailsResponse {
+    return ThreatgraphVertexDetailsResponseToJSONTyped(json, false);
+}
+
+export function ThreatgraphVertexDetailsResponseToJSONTyped(value?: ThreatgraphVertexDetailsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ThreatgraphMetaToJSON(value["meta"]),

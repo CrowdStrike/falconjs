@@ -18,6 +18,7 @@ import {
     DomainExternalAssetCertificateEntityIdentifiersFromJSON,
     DomainExternalAssetCertificateEntityIdentifiersFromJSONTyped,
     DomainExternalAssetCertificateEntityIdentifiersToJSON,
+    DomainExternalAssetCertificateEntityIdentifiersToJSONTyped,
 } from "./DomainExternalAssetCertificateEntityIdentifiers";
 
 /**
@@ -117,10 +118,15 @@ export function DomainExternalAssetCertificateFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainExternalAssetCertificateToJSON(value?: DomainExternalAssetCertificate | null): any {
+export function DomainExternalAssetCertificateToJSON(json: any): DomainExternalAssetCertificate {
+    return DomainExternalAssetCertificateToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetCertificateToJSONTyped(value?: DomainExternalAssetCertificate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ciphers: value["ciphers"],
         fingerprint_sha256: value["fingerprintSha256"],
@@ -130,7 +136,7 @@ export function DomainExternalAssetCertificateToJSON(value?: DomainExternalAsset
         serial: value["serial"],
         signature_algorithm: value["signatureAlgorithm"],
         subject: DomainExternalAssetCertificateEntityIdentifiersToJSON(value["subject"]),
-        valid_from: value["validFrom"] == null ? undefined : value["validFrom"].toISOString(),
-        valid_to: value["validTo"] == null ? undefined : value["validTo"].toISOString(),
+        valid_from: value["validFrom"] == null ? value["validFrom"] : value["validFrom"].toISOString(),
+        valid_to: value["validTo"] == null ? value["validTo"] : value["validTo"].toISOString(),
     };
 }

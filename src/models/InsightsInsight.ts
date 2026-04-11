@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { InsightsDetails } from "./InsightsDetails";
-import { InsightsDetailsFromJSON, InsightsDetailsFromJSONTyped, InsightsDetailsToJSON } from "./InsightsDetails";
+import { InsightsDetailsFromJSON, InsightsDetailsFromJSONTyped, InsightsDetailsToJSON, InsightsDetailsToJSONTyped } from "./InsightsDetails";
 import type { InsightsExternal } from "./InsightsExternal";
-import { InsightsExternalFromJSON, InsightsExternalFromJSONTyped, InsightsExternalToJSON } from "./InsightsExternal";
+import { InsightsExternalFromJSON, InsightsExternalFromJSONTyped, InsightsExternalToJSON, InsightsExternalToJSONTyped } from "./InsightsExternal";
 
 /**
  *
@@ -68,10 +68,15 @@ export function InsightsInsightFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function InsightsInsightToJSON(value?: InsightsInsight | null): any {
+export function InsightsInsightToJSON(json: any): InsightsInsight {
+    return InsightsInsightToJSONTyped(json, false);
+}
+
+export function InsightsInsightToJSONTyped(value?: InsightsInsight | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         details: mapValues(value["details"], InsightsDetailsToJSON),
         external: (value["external"] as Array<any>).map(InsightsExternalToJSON),

@@ -89,10 +89,15 @@ export function ModelsAWSAccountRequestV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsAWSAccountRequestV1ToJSON(value?: ModelsAWSAccountRequestV1 | null): any {
+export function ModelsAWSAccountRequestV1ToJSON(json: any): ModelsAWSAccountRequestV1 {
+    return ModelsAWSAccountRequestV1ToJSONTyped(json, false);
+}
+
+export function ModelsAWSAccountRequestV1ToJSONTyped(value?: ModelsAWSAccountRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cloudtrail_bucket_owner_id: value["cloudtrailBucketOwnerId"],
         cloudtrail_bucket_region: value["cloudtrailBucketRegion"],

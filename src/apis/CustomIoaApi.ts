@@ -169,9 +169,9 @@ export interface CustomIoaApiValidateRequest {
  */
 export class CustomIoaApi extends runtime.BaseAPI {
     /**
-     * Create a rule within a rule group. Returns the rule.
+     * Creates request options for createRule without sending the request
      */
-    async createRuleRaw(requestParameters: CustomIoaApiCreateRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async createRuleRequestOpts(requestParameters: CustomIoaApiCreateRuleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRule().');
         }
@@ -187,16 +187,23 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiRuleCreateV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiRuleCreateV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a rule within a rule group. Returns the rule.
+     */
+    async createRuleRaw(requestParameters: CustomIoaApiCreateRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        const requestOptions = await this.createRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
     }
@@ -210,12 +217,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a rule group for a platform with a name and an optional description. Returns the rule group.
+     * Creates request options for createRuleGroupMixin0 without sending the request
      */
-    async createRuleGroupMixin0Raw(
-        requestParameters: CustomIoaApiCreateRuleGroupMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async createRuleGroupMixin0RequestOpts(requestParameters: CustomIoaApiCreateRuleGroupMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRuleGroupMixin0().');
         }
@@ -231,16 +235,26 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rule-groups/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiRuleGroupCreateRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiRuleGroupCreateRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a rule group for a platform with a name and an optional description. Returns the rule group.
+     */
+    async createRuleGroupMixin0Raw(
+        requestParameters: CustomIoaApiCreateRuleGroupMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+        const requestOptions = await this.createRuleGroupMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
     }
@@ -254,12 +268,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete rule groups by ID.
+     * Creates request options for deleteRuleGroupsMixin0 without sending the request
      */
-    async deleteRuleGroupsMixin0Raw(
-        requestParameters: CustomIoaApiDeleteRuleGroupsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteRuleGroupsMixin0RequestOpts(requestParameters: CustomIoaApiDeleteRuleGroupsMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRuleGroupsMixin0().');
         }
@@ -281,15 +292,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rule-groups/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete rule groups by ID.
+     */
+    async deleteRuleGroupsMixin0Raw(
+        requestParameters: CustomIoaApiDeleteRuleGroupsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.deleteRuleGroupsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -303,9 +324,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete rules from a rule group by ID.
+     * Creates request options for deleteRules without sending the request
      */
-    async deleteRulesRaw(requestParameters: CustomIoaApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+    async deleteRulesRequestOpts(requestParameters: CustomIoaApiDeleteRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ruleGroupId"] == null) {
             throw new runtime.RequiredError("ruleGroupId", 'Required parameter "ruleGroupId" was null or undefined when calling deleteRules().');
         }
@@ -335,15 +356,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete rules from a rule group by ID.
+     */
+    async deleteRulesRaw(requestParameters: CustomIoaApiDeleteRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaReplyMetaOnly>> {
+        const requestOptions = await this.deleteRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyMetaOnlyFromJSON(jsonValue));
     }
@@ -357,9 +385,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get pattern severities by ID.
+     * Creates request options for getPatterns without sending the request
      */
-    async getPatternsRaw(requestParameters: CustomIoaApiGetPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiPatternsResponse>> {
+    async getPatternsRequestOpts(requestParameters: CustomIoaApiGetPatternsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPatterns().');
         }
@@ -377,15 +405,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/pattern-severities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/pattern-severities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get pattern severities by ID.
+     */
+    async getPatternsRaw(requestParameters: CustomIoaApiGetPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiPatternsResponse>> {
+        const requestOptions = await this.getPatternsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiPatternsResponseFromJSON(jsonValue));
     }
@@ -399,12 +434,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get platforms by ID.
+     * Creates request options for getPlatformsMixin0 without sending the request
      */
-    async getPlatformsMixin0Raw(
-        requestParameters: CustomIoaApiGetPlatformsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiPlatformsResponse>> {
+    async getPlatformsMixin0RequestOpts(requestParameters: CustomIoaApiGetPlatformsMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPlatformsMixin0().');
         }
@@ -422,15 +454,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/platforms/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/platforms/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get platforms by ID.
+     */
+    async getPlatformsMixin0Raw(
+        requestParameters: CustomIoaApiGetPlatformsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiPlatformsResponse>> {
+        const requestOptions = await this.getPlatformsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiPlatformsResponseFromJSON(jsonValue));
     }
@@ -444,12 +486,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rule groups by ID.
+     * Creates request options for getRuleGroupsMixin0 without sending the request
      */
-    async getRuleGroupsMixin0Raw(
-        requestParameters: CustomIoaApiGetRuleGroupsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async getRuleGroupsMixin0RequestOpts(requestParameters: CustomIoaApiGetRuleGroupsMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleGroupsMixin0().');
         }
@@ -467,15 +506,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rule-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get rule groups by ID.
+     */
+    async getRuleGroupsMixin0Raw(
+        requestParameters: CustomIoaApiGetRuleGroupsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+        const requestOptions = await this.getRuleGroupsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
     }
@@ -489,9 +538,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rule types by ID.
+     * Creates request options for getRuleTypes without sending the request
      */
-    async getRuleTypesRaw(requestParameters: CustomIoaApiGetRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleTypesResponse>> {
+    async getRuleTypesRequestOpts(requestParameters: CustomIoaApiGetRuleTypesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleTypes().');
         }
@@ -509,15 +558,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rule-types/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rule-types/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get rule types by ID.
+     */
+    async getRuleTypesRaw(requestParameters: CustomIoaApiGetRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRuleTypesResponse>> {
+        const requestOptions = await this.getRuleTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleTypesResponseFromJSON(jsonValue));
     }
@@ -531,9 +587,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`.
+     * Creates request options for getRulesGet without sending the request
      */
-    async getRulesGetRaw(requestParameters: CustomIoaApiGetRulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async getRulesGetRequestOpts(requestParameters: CustomIoaApiGetRulesGetRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getRulesGet().');
         }
@@ -549,16 +605,23 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rules/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiRulesGetRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rules/GET/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiRulesGetRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`.
+     */
+    async getRulesGetRaw(requestParameters: CustomIoaApiGetRulesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        const requestOptions = await this.getRulesGetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
     }
@@ -572,9 +635,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`. The max number of IDs is constrained by URL size.
+     * Creates request options for getRulesMixin0 without sending the request
      */
-    async getRulesMixin0Raw(requestParameters: CustomIoaApiGetRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async getRulesMixin0RequestOpts(requestParameters: CustomIoaApiGetRulesMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRulesMixin0().');
         }
@@ -592,15 +655,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get rules by ID and optionally with cid and/or version in the following format: `[cid:]ID[:version]`. The max number of IDs is constrained by URL size.
+     */
+    async getRulesMixin0Raw(requestParameters: CustomIoaApiGetRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        const requestOptions = await this.getRulesMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
     }
@@ -614,9 +684,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all pattern severity IDs.
+     * Creates request options for queryPatterns without sending the request
      */
-    async queryPatternsRaw(requestParameters: CustomIoaApiQueryPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPatternsRequestOpts(requestParameters: CustomIoaApiQueryPatternsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -634,15 +704,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/queries/pattern-severities/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/queries/pattern-severities/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all pattern severity IDs.
+     */
+    async queryPatternsRaw(requestParameters: CustomIoaApiQueryPatternsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryPatternsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -656,12 +733,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all platform IDs.
+     * Creates request options for queryPlatformsMixin0 without sending the request
      */
-    async queryPlatformsMixin0Raw(
-        requestParameters: CustomIoaApiQueryPlatformsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryPlatformsMixin0RequestOpts(requestParameters: CustomIoaApiQueryPlatformsMixin0Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -679,15 +753,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/queries/platforms/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/queries/platforms/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all platform IDs.
+     */
+    async queryPlatformsMixin0Raw(
+        requestParameters: CustomIoaApiQueryPlatformsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryPlatformsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -701,12 +785,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all rule groups matching the query with optional filter.
+     * Creates request options for queryRuleGroupsFull without sending the request
      */
-    async queryRuleGroupsFullRaw(
-        requestParameters: CustomIoaApiQueryRuleGroupsFullRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async queryRuleGroupsFullRequestOpts(requestParameters: CustomIoaApiQueryRuleGroupsFullRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["sort"] != null) {
@@ -736,15 +817,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/queries/rule-groups-full/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/queries/rule-groups-full/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Find all rule groups matching the query with optional filter.
+     */
+    async queryRuleGroupsFullRaw(
+        requestParameters: CustomIoaApiQueryRuleGroupsFullRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+        const requestOptions = await this.queryRuleGroupsFullRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
     }
@@ -765,12 +856,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Finds all rule group IDs matching the query with optional filter.
+     * Creates request options for queryRuleGroupsMixin0 without sending the request
      */
-    async queryRuleGroupsMixin0Raw(
-        requestParameters: CustomIoaApiQueryRuleGroupsMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleGroupsMixin0RequestOpts(requestParameters: CustomIoaApiQueryRuleGroupsMixin0Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["sort"] != null) {
@@ -800,15 +888,25 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/queries/rule-groups/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/queries/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Finds all rule group IDs matching the query with optional filter.
+     */
+    async queryRuleGroupsMixin0Raw(
+        requestParameters: CustomIoaApiQueryRuleGroupsMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryRuleGroupsMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -829,9 +927,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get all rule type IDs.
+     * Creates request options for queryRuleTypes without sending the request
      */
-    async queryRuleTypesRaw(requestParameters: CustomIoaApiQueryRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRuleTypesRequestOpts(requestParameters: CustomIoaApiQueryRuleTypesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -849,15 +947,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/queries/rule-types/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/queries/rule-types/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get all rule type IDs.
+     */
+    async queryRuleTypesRaw(requestParameters: CustomIoaApiQueryRuleTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryRuleTypesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -871,9 +976,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Finds all rule IDs matching the query with optional filter.
+     * Creates request options for queryRulesMixin0 without sending the request
      */
-    async queryRulesMixin0Raw(requestParameters: CustomIoaApiQueryRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRulesMixin0RequestOpts(requestParameters: CustomIoaApiQueryRulesMixin0Request): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["sort"] != null) {
@@ -903,15 +1008,22 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/queries/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/queries/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Finds all rule IDs matching the query with optional filter.
+     */
+    async queryRulesMixin0Raw(requestParameters: CustomIoaApiQueryRulesMixin0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryRulesMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -932,12 +1044,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a rule group. The following properties can be modified: name, description, enabled.
+     * Creates request options for updateRuleGroupMixin0 without sending the request
      */
-    async updateRuleGroupMixin0Raw(
-        requestParameters: CustomIoaApiUpdateRuleGroupMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+    async updateRuleGroupMixin0RequestOpts(requestParameters: CustomIoaApiUpdateRuleGroupMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRuleGroupMixin0().');
         }
@@ -953,16 +1062,26 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rule-groups/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiRuleGroupModifyRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rule-groups/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiRuleGroupModifyRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a rule group. The following properties can be modified: name, description, enabled.
+     */
+    async updateRuleGroupMixin0Raw(
+        requestParameters: CustomIoaApiUpdateRuleGroupMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiRuleGroupsResponse>> {
+        const requestOptions = await this.updateRuleGroupMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRuleGroupsResponseFromJSON(jsonValue));
     }
@@ -976,9 +1095,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update rules within a rule group. Return the updated rules.
+     * Creates request options for updateRules without sending the request
      */
-    async updateRulesRaw(requestParameters: CustomIoaApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async updateRulesRequestOpts(requestParameters: CustomIoaApiUpdateRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRules().');
         }
@@ -994,16 +1113,23 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rules/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiRuleUpdatesRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiRuleUpdatesRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update rules within a rule group. Return the updated rules.
+     */
+    async updateRulesRaw(requestParameters: CustomIoaApiUpdateRulesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        const requestOptions = await this.updateRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
     }
@@ -1017,9 +1143,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update name, description, enabled or field_values for individual rules within a rule group. The v1 flavor of this call requires the caller to specify the complete state for all the rules in the rule group, instead the v2 flavor will accept the subset of rules in the rule group and apply the attribute updates to the subset of rules in the rule group.Return the updated rules.
+     * Creates request options for updateRulesV2 without sending the request
      */
-    async updateRulesV2Raw(requestParameters: CustomIoaApiUpdateRulesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+    async updateRulesV2RequestOpts(requestParameters: CustomIoaApiUpdateRulesV2Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRulesV2().');
         }
@@ -1035,16 +1161,23 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rules/v2`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiRuleUpdatesRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rules/v2`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiRuleUpdatesRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update name, description, enabled or field_values for individual rules within a rule group. The v1 flavor of this call requires the caller to specify the complete state for all the rules in the rule group, instead the v2 flavor will accept the subset of rules in the rule group and apply the attribute updates to the subset of rules in the rule group.Return the updated rules.
+     */
+    async updateRulesV2Raw(requestParameters: CustomIoaApiUpdateRulesV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRulesResponse>> {
+        const requestOptions = await this.updateRulesV2RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiRulesResponseFromJSON(jsonValue));
     }
@@ -1058,9 +1191,9 @@ export class CustomIoaApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validates field values and checks for matches if a test string is provided.
+     * Creates request options for validate without sending the request
      */
-    async validateRaw(requestParameters: CustomIoaApiValidateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiValidationResponseV1>> {
+    async validateRequestOpts(requestParameters: CustomIoaApiValidateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling validate().');
         }
@@ -1076,16 +1209,23 @@ export class CustomIoaApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-ioa:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/ioarules/entities/rules/validate/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiValidationRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/ioarules/entities/rules/validate/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiValidationRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Validates field values and checks for matches if a test string is provided.
+     */
+    async validateRaw(requestParameters: CustomIoaApiValidateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiValidationResponseV1>> {
+        const requestOptions = await this.validateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiValidationResponseV1FromJSON(jsonValue));
     }
@@ -1127,15 +1267,15 @@ export type QueryRuleGroupsMixin0SortEnum = (typeof QueryRuleGroupsMixin0SortEnu
  * @export
  */
 export const QueryRulesMixin0SortEnum = {
-    CreatedBy: "rules.created_by",
-    CreatedOn: "rules.created_on",
-    CurrentVersionActionLabel: "rules.current_version.action_label",
-    CurrentVersionDescription: "rules.current_version.description",
-    CurrentVersionModifiedBy: "rules.current_version.modified_by",
-    CurrentVersionModifiedOn: "rules.current_version.modified_on",
-    CurrentVersionName: "rules.current_version.name",
-    CurrentVersionPatternSeverity: "rules.current_version.pattern_severity",
-    Enabled: "rules.enabled",
-    RuletypeName: "rules.ruletype_name",
+    RulesCreatedBy: "rules.created_by",
+    RulesCreatedOn: "rules.created_on",
+    RulesCurrentVersionActionLabel: "rules.current_version.action_label",
+    RulesCurrentVersionDescription: "rules.current_version.description",
+    RulesCurrentVersionModifiedBy: "rules.current_version.modified_by",
+    RulesCurrentVersionModifiedOn: "rules.current_version.modified_on",
+    RulesCurrentVersionName: "rules.current_version.name",
+    RulesCurrentVersionPatternSeverity: "rules.current_version.pattern_severity",
+    RulesEnabled: "rules.enabled",
+    RulesRuletypeName: "rules.ruletype_name",
 } as const;
 export type QueryRulesMixin0SortEnum = (typeof QueryRulesMixin0SortEnum)[keyof typeof QueryRulesMixin0SortEnum];

@@ -96,10 +96,15 @@ export function MalquerySampleMetadataFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function MalquerySampleMetadataToJSON(value?: MalquerySampleMetadata | null): any {
+export function MalquerySampleMetadataToJSON(json: any): MalquerySampleMetadata {
+    return MalquerySampleMetadataToJSONTyped(json, false);
+}
+
+export function MalquerySampleMetadataToJSONTyped(value?: MalquerySampleMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         family: value["family"],
         filesize: value["filesize"],

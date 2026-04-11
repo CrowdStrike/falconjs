@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAssessment } from "./DomainAssessment";
-import { DomainAssessmentFromJSON, DomainAssessmentFromJSONTyped, DomainAssessmentToJSON } from "./DomainAssessment";
+import { DomainAssessmentFromJSON, DomainAssessmentFromJSONTyped, DomainAssessmentToJSON, DomainAssessmentToJSONTyped } from "./DomainAssessment";
 import type { DomainAssessmentItems } from "./DomainAssessmentItems";
-import { DomainAssessmentItemsFromJSON, DomainAssessmentItemsFromJSONTyped, DomainAssessmentItemsToJSON } from "./DomainAssessmentItems";
+import { DomainAssessmentItemsFromJSON, DomainAssessmentItemsFromJSONTyped, DomainAssessmentItemsToJSON, DomainAssessmentItemsToJSONTyped } from "./DomainAssessmentItems";
 
 /**
  *
@@ -117,10 +117,15 @@ export function DomainSignalPropertiesFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainSignalPropertiesToJSON(value?: DomainSignalProperties | null): any {
+export function DomainSignalPropertiesToJSON(json: any): DomainSignalProperties {
+    return DomainSignalPropertiesToJSONTyped(json, false);
+}
+
+export function DomainSignalPropertiesToJSONTyped(value?: DomainSignalProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aid: value["aid"],
         assessment: DomainAssessmentToJSON(value["assessment"]),

@@ -75,10 +75,15 @@ export function PaginationMetaGetActivityMonitorFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function PaginationMetaGetActivityMonitorToJSON(value?: PaginationMetaGetActivityMonitor | null): any {
+export function PaginationMetaGetActivityMonitorToJSON(json: any): PaginationMetaGetActivityMonitor {
+    return PaginationMetaGetActivityMonitorToJSONTyped(json, false);
+}
+
+export function PaginationMetaGetActivityMonitorToJSONTyped(value?: PaginationMetaGetActivityMonitor | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         limit: value["limit"],
         next: value["next"],

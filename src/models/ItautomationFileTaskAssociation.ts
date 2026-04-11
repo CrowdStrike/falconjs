@@ -56,10 +56,15 @@ export function ItautomationFileTaskAssociationFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ItautomationFileTaskAssociationToJSON(value?: ItautomationFileTaskAssociation | null): any {
+export function ItautomationFileTaskAssociationToJSON(json: any): ItautomationFileTaskAssociation {
+    return ItautomationFileTaskAssociationToJSONTyped(json, false);
+}
+
+export function ItautomationFileTaskAssociationToJSONTyped(value?: ItautomationFileTaskAssociation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

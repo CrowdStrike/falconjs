@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { AzureResourcePermission } from "./AzureResourcePermission";
-import { AzureResourcePermissionFromJSON, AzureResourcePermissionFromJSONTyped, AzureResourcePermissionToJSON } from "./AzureResourcePermission";
+import { AzureResourcePermissionFromJSON, AzureResourcePermissionFromJSONTyped, AzureResourcePermissionToJSON, AzureResourcePermissionToJSONTyped } from "./AzureResourcePermission";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
-import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON, StatemgmtConditionToJSONTyped } from "./StatemgmtCondition";
 
 /**
  *
@@ -147,10 +147,15 @@ export function DomainAzureClientServicePrincipalV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DomainAzureClientServicePrincipalV1ToJSON(value?: DomainAzureClientServicePrincipalV1 | null): any {
+export function DomainAzureClientServicePrincipalV1ToJSON(json: any): DomainAzureClientServicePrincipalV1 {
+    return DomainAzureClientServicePrincipalV1ToJSONTyped(json, false);
+}
+
+export function DomainAzureClientServicePrincipalV1ToJSONTyped(value?: DomainAzureClientServicePrincipalV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_type: value["accountType"],
         behavior_assessment_override: value["behaviorAssessmentOverride"],

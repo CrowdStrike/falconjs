@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaspecWrites } from "./MsaspecWrites";
-import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON } from "./MsaspecWrites";
+import { MsaspecWritesFromJSON, MsaspecWritesFromJSONTyped, MsaspecWritesToJSON, MsaspecWritesToJSONTyped } from "./MsaspecWrites";
 import type { DeviceapiDevicePagingV2 } from "./DeviceapiDevicePagingV2";
-import { DeviceapiDevicePagingV2FromJSON, DeviceapiDevicePagingV2FromJSONTyped, DeviceapiDevicePagingV2ToJSON } from "./DeviceapiDevicePagingV2";
+import { DeviceapiDevicePagingV2FromJSON, DeviceapiDevicePagingV2FromJSONTyped, DeviceapiDevicePagingV2ToJSON, DeviceapiDevicePagingV2ToJSONTyped } from "./DeviceapiDevicePagingV2";
 
 /**
  *
@@ -82,10 +82,15 @@ export function DeviceapiMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DeviceapiMetaInfoToJSON(value?: DeviceapiMetaInfo | null): any {
+export function DeviceapiMetaInfoToJSON(json: any): DeviceapiMetaInfo {
+    return DeviceapiMetaInfoToJSONTyped(json, false);
+}
+
+export function DeviceapiMetaInfoToJSONTyped(value?: DeviceapiMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DeviceapiDevicePagingV2ToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

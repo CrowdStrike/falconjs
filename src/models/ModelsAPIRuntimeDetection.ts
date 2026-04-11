@@ -472,10 +472,15 @@ export function ModelsAPIRuntimeDetectionFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function ModelsAPIRuntimeDetectionToJSON(value?: ModelsAPIRuntimeDetection | null): any {
+export function ModelsAPIRuntimeDetectionToJSON(json: any): ModelsAPIRuntimeDetection {
+    return ModelsAPIRuntimeDetectionToJSONTyped(json, false);
+}
+
+export function ModelsAPIRuntimeDetectionToJSONTyped(value?: ModelsAPIRuntimeDetection | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         action_taken: value["actionTaken"],
         agent_type: value["agentType"],

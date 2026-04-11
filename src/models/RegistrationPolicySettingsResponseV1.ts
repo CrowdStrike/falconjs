@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainCIDPolicyAssignments } from "./DomainCIDPolicyAssignments";
-import { DomainCIDPolicyAssignmentsFromJSON, DomainCIDPolicyAssignmentsFromJSONTyped, DomainCIDPolicyAssignmentsToJSON } from "./DomainCIDPolicyAssignments";
+import { DomainCIDPolicyAssignmentsFromJSON, DomainCIDPolicyAssignmentsFromJSONTyped, DomainCIDPolicyAssignmentsToJSON, DomainCIDPolicyAssignmentsToJSONTyped } from "./DomainCIDPolicyAssignments";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function RegistrationPolicySettingsResponseV1FromJSONTyped(json: any, ign
     };
 }
 
-export function RegistrationPolicySettingsResponseV1ToJSON(value?: RegistrationPolicySettingsResponseV1 | null): any {
+export function RegistrationPolicySettingsResponseV1ToJSON(json: any): RegistrationPolicySettingsResponseV1 {
+    return RegistrationPolicySettingsResponseV1ToJSONTyped(json, false);
+}
+
+export function RegistrationPolicySettingsResponseV1ToJSONTyped(value?: RegistrationPolicySettingsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -48,10 +48,15 @@ export function ApiParserTestEventFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ApiParserTestEventToJSON(value?: ApiParserTestEvent | null): any {
+export function ApiParserTestEventToJSON(json: any): ApiParserTestEvent {
+    return ApiParserTestEventToJSONTyped(json, false);
+}
+
+export function ApiParserTestEventToJSONTyped(value?: ApiParserTestEvent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         raw_string: value["rawString"],
     };

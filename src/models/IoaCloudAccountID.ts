@@ -61,10 +61,15 @@ export function IoaCloudAccountIDFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function IoaCloudAccountIDToJSON(value?: IoaCloudAccountID | null): any {
+export function IoaCloudAccountIDToJSON(json: any): IoaCloudAccountID {
+    return IoaCloudAccountIDToJSONTyped(json, false);
+}
+
+export function IoaCloudAccountIDToJSONTyped(value?: IoaCloudAccountID | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aws_account_id: value["awsAccountId"],
         azure_subscription_id: value["azureSubscriptionId"],

@@ -68,10 +68,15 @@ export function TypesAzureLoadBalancerReasonTagFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function TypesAzureLoadBalancerReasonTagToJSON(value?: TypesAzureLoadBalancerReasonTag | null): any {
+export function TypesAzureLoadBalancerReasonTagToJSON(json: any): TypesAzureLoadBalancerReasonTag {
+    return TypesAzureLoadBalancerReasonTagToJSONTyped(json, false);
+}
+
+export function TypesAzureLoadBalancerReasonTagToJSONTyped(value?: TypesAzureLoadBalancerReasonTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         port: value["port"],

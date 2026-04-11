@@ -54,10 +54,15 @@ export function AssetgroupmanagerV1CloudResourceFiltersFromJSONTyped(json: any, 
     };
 }
 
-export function AssetgroupmanagerV1CloudResourceFiltersToJSON(value?: AssetgroupmanagerV1CloudResourceFilters | null): any {
+export function AssetgroupmanagerV1CloudResourceFiltersToJSON(json: any): AssetgroupmanagerV1CloudResourceFilters {
+    return AssetgroupmanagerV1CloudResourceFiltersToJSONTyped(json, false);
+}
+
+export function AssetgroupmanagerV1CloudResourceFiltersToJSONTyped(value?: AssetgroupmanagerV1CloudResourceFilters | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         region: value["region"],
         tags: value["tags"],

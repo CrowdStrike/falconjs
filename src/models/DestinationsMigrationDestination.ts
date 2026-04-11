@@ -56,10 +56,15 @@ export function DestinationsMigrationDestinationFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function DestinationsMigrationDestinationToJSON(value?: DestinationsMigrationDestination | null): any {
+export function DestinationsMigrationDestinationToJSON(json: any): DestinationsMigrationDestination {
+    return DestinationsMigrationDestinationToJSONTyped(json, false);
+}
+
+export function DestinationsMigrationDestinationToJSONTyped(value?: DestinationsMigrationDestination | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         name: value["name"],

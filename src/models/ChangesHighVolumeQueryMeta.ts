@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesHighVolumeQueryPaging } from "./ChangesHighVolumeQueryPaging";
-import { ChangesHighVolumeQueryPagingFromJSON, ChangesHighVolumeQueryPagingFromJSONTyped, ChangesHighVolumeQueryPagingToJSON } from "./ChangesHighVolumeQueryPaging";
+import {
+    ChangesHighVolumeQueryPagingFromJSON,
+    ChangesHighVolumeQueryPagingFromJSONTyped,
+    ChangesHighVolumeQueryPagingToJSON,
+    ChangesHighVolumeQueryPagingToJSONTyped,
+} from "./ChangesHighVolumeQueryPaging";
 
 /**
  *
@@ -73,10 +78,15 @@ export function ChangesHighVolumeQueryMetaFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ChangesHighVolumeQueryMetaToJSON(value?: ChangesHighVolumeQueryMeta | null): any {
+export function ChangesHighVolumeQueryMetaToJSON(json: any): ChangesHighVolumeQueryMeta {
+    return ChangesHighVolumeQueryMetaToJSONTyped(json, false);
+}
+
+export function ChangesHighVolumeQueryMetaToJSONTyped(value?: ChangesHighVolumeQueryMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: ChangesHighVolumeQueryPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

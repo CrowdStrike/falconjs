@@ -54,10 +54,15 @@ export function DomainControlBenchmarkFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainControlBenchmarkToJSON(value?: DomainControlBenchmark | null): any {
+export function DomainControlBenchmarkToJSON(json: any): DomainControlBenchmark {
+    return DomainControlBenchmarkToJSONTyped(json, false);
+}
+
+export function DomainControlBenchmarkToJSONTyped(value?: DomainControlBenchmark | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         version: value["version"],

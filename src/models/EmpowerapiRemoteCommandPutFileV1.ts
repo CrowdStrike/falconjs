@@ -176,22 +176,27 @@ export function EmpowerapiRemoteCommandPutFileV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function EmpowerapiRemoteCommandPutFileV1ToJSON(value?: EmpowerapiRemoteCommandPutFileV1 | null): any {
+export function EmpowerapiRemoteCommandPutFileV1ToJSON(json: any): EmpowerapiRemoteCommandPutFileV1 {
+    return EmpowerapiRemoteCommandPutFileV1ToJSONTyped(json, false);
+}
+
+export function EmpowerapiRemoteCommandPutFileV1ToJSONTyped(value?: EmpowerapiRemoteCommandPutFileV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         comments_for_audit_log: value["commentsForAuditLog"],
         content: value["content"],
         created_by: value["createdBy"],
         created_by_uuid: value["createdByUuid"],
-        created_timestamp: value["createdTimestamp"] == null ? undefined : value["createdTimestamp"].toISOString(),
+        created_timestamp: value["createdTimestamp"] == null ? value["createdTimestamp"] : value["createdTimestamp"].toISOString(),
         description: value["description"],
         file_type: value["fileType"],
         id: value["id"],
         modified_by: value["modifiedBy"],
         modified_by_uuid: value["modifiedByUuid"],
-        modified_timestamp: value["modifiedTimestamp"] == null ? undefined : value["modifiedTimestamp"].toISOString(),
+        modified_timestamp: value["modifiedTimestamp"] == null ? value["modifiedTimestamp"] : value["modifiedTimestamp"].toISOString(),
         name: value["name"],
         permission_type: value["permissionType"],
         platform: value["platform"],

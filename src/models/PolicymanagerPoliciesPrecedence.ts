@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerPolicyPrecedence } from "./PolicymanagerPolicyPrecedence";
-import { PolicymanagerPolicyPrecedenceFromJSON, PolicymanagerPolicyPrecedenceFromJSONTyped, PolicymanagerPolicyPrecedenceToJSON } from "./PolicymanagerPolicyPrecedence";
+import {
+    PolicymanagerPolicyPrecedenceFromJSON,
+    PolicymanagerPolicyPrecedenceFromJSONTyped,
+    PolicymanagerPolicyPrecedenceToJSON,
+    PolicymanagerPolicyPrecedenceToJSONTyped,
+} from "./PolicymanagerPolicyPrecedence";
 
 /**
  *
@@ -51,10 +56,15 @@ export function PolicymanagerPoliciesPrecedenceFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function PolicymanagerPoliciesPrecedenceToJSON(value?: PolicymanagerPoliciesPrecedence | null): any {
+export function PolicymanagerPoliciesPrecedenceToJSON(json: any): PolicymanagerPoliciesPrecedence {
+    return PolicymanagerPoliciesPrecedenceToJSONTyped(json, false);
+}
+
+export function PolicymanagerPoliciesPrecedenceToJSONTyped(value?: PolicymanagerPoliciesPrecedence | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(PolicymanagerPolicyPrecedenceToJSON),
     };

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsKACPolicyRuleGroup } from "./ModelsKACPolicyRuleGroup";
-import { ModelsKACPolicyRuleGroupFromJSON, ModelsKACPolicyRuleGroupFromJSONTyped, ModelsKACPolicyRuleGroupToJSON } from "./ModelsKACPolicyRuleGroup";
+import { ModelsKACPolicyRuleGroupFromJSON, ModelsKACPolicyRuleGroupFromJSONTyped, ModelsKACPolicyRuleGroupToJSON, ModelsKACPolicyRuleGroupToJSONTyped } from "./ModelsKACPolicyRuleGroup";
 
 /**
  *
@@ -115,10 +115,15 @@ export function ModelsKACPolicyFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ModelsKACPolicyToJSON(value?: ModelsKACPolicy | null): any {
+export function ModelsKACPolicyToJSON(json: any): ModelsKACPolicy {
+    return ModelsKACPolicyToJSONTyped(json, false);
+}
+
+export function ModelsKACPolicyToJSONTyped(value?: ModelsKACPolicy | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         description: value["description"],
         host_groups: value["hostGroups"],

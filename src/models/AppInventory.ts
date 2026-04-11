@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ErrorAppInventory } from "./ErrorAppInventory";
-import { ErrorAppInventoryFromJSON, ErrorAppInventoryFromJSONTyped, ErrorAppInventoryToJSON } from "./ErrorAppInventory";
+import { ErrorAppInventoryFromJSON, ErrorAppInventoryFromJSONTyped, ErrorAppInventoryToJSON, ErrorAppInventoryToJSONTyped } from "./ErrorAppInventory";
 import type { AppAppInventory } from "./AppAppInventory";
-import { AppAppInventoryFromJSON, AppAppInventoryFromJSONTyped, AppAppInventoryToJSON } from "./AppAppInventory";
+import { AppAppInventoryFromJSON, AppAppInventoryFromJSONTyped, AppAppInventoryToJSON, AppAppInventoryToJSONTyped } from "./AppAppInventory";
 import type { MetaAppInventory } from "./MetaAppInventory";
-import { MetaAppInventoryFromJSON, MetaAppInventoryFromJSONTyped, MetaAppInventoryToJSON } from "./MetaAppInventory";
+import { MetaAppInventoryFromJSON, MetaAppInventoryFromJSONTyped, MetaAppInventoryToJSON, MetaAppInventoryToJSONTyped } from "./MetaAppInventory";
 
 /**
  *
@@ -68,10 +68,15 @@ export function AppInventoryFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function AppInventoryToJSON(value?: AppInventory | null): any {
+export function AppInventoryToJSON(json: any): AppInventory {
+    return AppInventoryToJSONTyped(json, false);
+}
+
+export function AppInventoryToJSONTyped(value?: AppInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorAppInventoryToJSON),
         meta: MetaAppInventoryToJSON(value["meta"]),

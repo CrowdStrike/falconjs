@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DataclassificationsLabel } from "./DataclassificationsLabel";
-import { DataclassificationsLabelFromJSON, DataclassificationsLabelFromJSONTyped, DataclassificationsLabelToJSON } from "./DataclassificationsLabel";
+import { DataclassificationsLabelFromJSON, DataclassificationsLabelFromJSONTyped, DataclassificationsLabelToJSON, DataclassificationsLabelToJSONTyped } from "./DataclassificationsLabel";
 
 /**
  *
@@ -75,10 +75,15 @@ export function DataclassificationsTagFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DataclassificationsTagToJSON(value?: DataclassificationsTag | null): any {
+export function DataclassificationsTagToJSON(json: any): DataclassificationsTag {
+    return DataclassificationsTagToJSONTyped(json, false);
+}
+
+export function DataclassificationsTagToJSONTyped(value?: DataclassificationsTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         labels: mapValues(value["labels"], DataclassificationsLabelToJSON),
         last_seen: value["lastSeen"].toISOString(),

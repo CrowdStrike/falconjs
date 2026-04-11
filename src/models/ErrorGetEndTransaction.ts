@@ -55,10 +55,15 @@ export function ErrorGetEndTransactionFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ErrorGetEndTransactionToJSON(value?: ErrorGetEndTransaction | null): any {
+export function ErrorGetEndTransactionToJSON(json: any): ErrorGetEndTransaction {
+    return ErrorGetEndTransactionToJSONTyped(json, false);
+}
+
+export function ErrorGetEndTransactionToJSONTyped(value?: ErrorGetEndTransaction | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         message: value["message"],

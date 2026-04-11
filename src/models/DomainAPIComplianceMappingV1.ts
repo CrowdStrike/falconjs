@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIComplianceControlV1 } from "./DomainAPIComplianceControlV1";
-import { DomainAPIComplianceControlV1FromJSON, DomainAPIComplianceControlV1FromJSONTyped, DomainAPIComplianceControlV1ToJSON } from "./DomainAPIComplianceControlV1";
+import {
+    DomainAPIComplianceControlV1FromJSON,
+    DomainAPIComplianceControlV1FromJSONTyped,
+    DomainAPIComplianceControlV1ToJSON,
+    DomainAPIComplianceControlV1ToJSONTyped,
+} from "./DomainAPIComplianceControlV1";
 
 /**
  *
@@ -66,10 +71,15 @@ export function DomainAPIComplianceMappingV1FromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainAPIComplianceMappingV1ToJSON(value?: DomainAPIComplianceMappingV1 | null): any {
+export function DomainAPIComplianceMappingV1ToJSON(json: any): DomainAPIComplianceMappingV1 {
+    return DomainAPIComplianceMappingV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIComplianceMappingV1ToJSONTyped(value?: DomainAPIComplianceMappingV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         controls: value["controls"] == null ? undefined : (value["controls"] as Array<any>).map(DomainAPIComplianceControlV1ToJSON),
         framework: value["framework"],

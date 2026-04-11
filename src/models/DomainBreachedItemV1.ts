@@ -14,13 +14,33 @@
 
 import { mapValues } from "../runtime";
 import type { DomainExposedDataRecordLocationV1 } from "./DomainExposedDataRecordLocationV1";
-import { DomainExposedDataRecordLocationV1FromJSON, DomainExposedDataRecordLocationV1FromJSONTyped, DomainExposedDataRecordLocationV1ToJSON } from "./DomainExposedDataRecordLocationV1";
+import {
+    DomainExposedDataRecordLocationV1FromJSON,
+    DomainExposedDataRecordLocationV1FromJSONTyped,
+    DomainExposedDataRecordLocationV1ToJSON,
+    DomainExposedDataRecordLocationV1ToJSONTyped,
+} from "./DomainExposedDataRecordLocationV1";
 import type { DomainExposedDataRecordBotV1 } from "./DomainExposedDataRecordBotV1";
-import { DomainExposedDataRecordBotV1FromJSON, DomainExposedDataRecordBotV1FromJSONTyped, DomainExposedDataRecordBotV1ToJSON } from "./DomainExposedDataRecordBotV1";
+import {
+    DomainExposedDataRecordBotV1FromJSON,
+    DomainExposedDataRecordBotV1FromJSONTyped,
+    DomainExposedDataRecordBotV1ToJSON,
+    DomainExposedDataRecordBotV1ToJSONTyped,
+} from "./DomainExposedDataRecordBotV1";
 import type { DomainExposedDataRecordFinancialV1 } from "./DomainExposedDataRecordFinancialV1";
-import { DomainExposedDataRecordFinancialV1FromJSON, DomainExposedDataRecordFinancialV1FromJSONTyped, DomainExposedDataRecordFinancialV1ToJSON } from "./DomainExposedDataRecordFinancialV1";
+import {
+    DomainExposedDataRecordFinancialV1FromJSON,
+    DomainExposedDataRecordFinancialV1FromJSONTyped,
+    DomainExposedDataRecordFinancialV1ToJSON,
+    DomainExposedDataRecordFinancialV1ToJSONTyped,
+} from "./DomainExposedDataRecordFinancialV1";
 import type { DomainExposedDataRecordSocialV1 } from "./DomainExposedDataRecordSocialV1";
-import { DomainExposedDataRecordSocialV1FromJSON, DomainExposedDataRecordSocialV1FromJSONTyped, DomainExposedDataRecordSocialV1ToJSON } from "./DomainExposedDataRecordSocialV1";
+import {
+    DomainExposedDataRecordSocialV1FromJSON,
+    DomainExposedDataRecordSocialV1FromJSONTyped,
+    DomainExposedDataRecordSocialV1ToJSON,
+    DomainExposedDataRecordSocialV1ToJSONTyped,
+} from "./DomainExposedDataRecordSocialV1";
 
 /**
  *
@@ -217,10 +237,15 @@ export function DomainBreachedItemV1FromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DomainBreachedItemV1ToJSON(value?: DomainBreachedItemV1 | null): any {
+export function DomainBreachedItemV1ToJSON(json: any): DomainBreachedItemV1 {
+    return DomainBreachedItemV1ToJSONTyped(json, false);
+}
+
+export function DomainBreachedItemV1ToJSONTyped(value?: DomainBreachedItemV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bot: DomainExposedDataRecordBotV1ToJSON(value["bot"]),
         company: value["company"],

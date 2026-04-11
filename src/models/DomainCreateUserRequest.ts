@@ -75,10 +75,15 @@ export function DomainCreateUserRequestFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainCreateUserRequestToJSON(value?: DomainCreateUserRequest | null): any {
+export function DomainCreateUserRequestToJSON(json: any): DomainCreateUserRequest {
+    return DomainCreateUserRequestToJSONTyped(json, false);
+}
+
+export function DomainCreateUserRequestToJSONTyped(value?: DomainCreateUserRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         first_name: value["firstName"],

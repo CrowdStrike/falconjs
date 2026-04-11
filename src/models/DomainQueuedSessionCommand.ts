@@ -103,10 +103,15 @@ export function DomainQueuedSessionCommandFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainQueuedSessionCommandToJSON(value?: DomainQueuedSessionCommand | null): any {
+export function DomainQueuedSessionCommandToJSON(json: any): DomainQueuedSessionCommand {
+    return DomainQueuedSessionCommandToJSONTyped(json, false);
+}
+
+export function DomainQueuedSessionCommandToJSONTyped(value?: DomainQueuedSessionCommand | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         base_command: value["baseCommand"],
         cloud_request_id: value["cloudRequestId"],

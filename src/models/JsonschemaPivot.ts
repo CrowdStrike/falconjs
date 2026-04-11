@@ -117,10 +117,15 @@ export function JsonschemaPivotFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function JsonschemaPivotToJSON(value?: JsonschemaPivot | null): any {
+export function JsonschemaPivotToJSON(json: any): JsonschemaPivot {
+    return JsonschemaPivotToJSONTyped(json, false);
+}
+
+export function JsonschemaPivotToJSONTyped(value?: JsonschemaPivot | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         caseSensitive: value["caseSensitive"],
         entity: value["entity"],

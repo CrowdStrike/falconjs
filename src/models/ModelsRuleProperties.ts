@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { IngestionExPRTRatingFactors } from "./IngestionExPRTRatingFactors";
-import { IngestionExPRTRatingFactorsFromJSON, IngestionExPRTRatingFactorsFromJSONTyped, IngestionExPRTRatingFactorsToJSON } from "./IngestionExPRTRatingFactors";
+import {
+    IngestionExPRTRatingFactorsFromJSON,
+    IngestionExPRTRatingFactorsFromJSONTyped,
+    IngestionExPRTRatingFactorsToJSON,
+    IngestionExPRTRatingFactorsToJSONTyped,
+} from "./IngestionExPRTRatingFactors";
 import type { IngestionCVEExploitSource } from "./IngestionCVEExploitSource";
-import { IngestionCVEExploitSourceFromJSON, IngestionCVEExploitSourceFromJSONTyped, IngestionCVEExploitSourceToJSON } from "./IngestionCVEExploitSource";
+import { IngestionCVEExploitSourceFromJSON, IngestionCVEExploitSourceFromJSONTyped, IngestionCVEExploitSourceToJSON, IngestionCVEExploitSourceToJSONTyped } from "./IngestionCVEExploitSource";
 import type { IngestionReference } from "./IngestionReference";
-import { IngestionReferenceFromJSON, IngestionReferenceFromJSONTyped, IngestionReferenceToJSON } from "./IngestionReference";
+import { IngestionReferenceFromJSON, IngestionReferenceFromJSONTyped, IngestionReferenceToJSON, IngestionReferenceToJSONTyped } from "./IngestionReference";
 
 /**
  *
@@ -295,10 +300,15 @@ export function ModelsRulePropertiesFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function ModelsRulePropertiesToJSON(value?: ModelsRuleProperties | null): any {
+export function ModelsRulePropertiesToJSON(json: any): ModelsRuleProperties {
+    return ModelsRulePropertiesToJSONTyped(json, false);
+}
+
+export function ModelsRulePropertiesToJSONTyped(value?: ModelsRuleProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cvssAttackComplexity: value["cvssAttackComplexity"],
         cvssAttackVector: value["cvssAttackVector"],

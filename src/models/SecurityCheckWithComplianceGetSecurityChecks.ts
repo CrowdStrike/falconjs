@@ -232,10 +232,15 @@ export function SecurityCheckWithComplianceGetSecurityChecksFromJSONTyped(json: 
     };
 }
 
-export function SecurityCheckWithComplianceGetSecurityChecksToJSON(value?: SecurityCheckWithComplianceGetSecurityChecks | null): any {
+export function SecurityCheckWithComplianceGetSecurityChecksToJSON(json: any): SecurityCheckWithComplianceGetSecurityChecks {
+    return SecurityCheckWithComplianceGetSecurityChecksToJSONTyped(json, false);
+}
+
+export function SecurityCheckWithComplianceGetSecurityChecksToJSONTyped(value?: SecurityCheckWithComplianceGetSecurityChecks | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         affected: value["affected"],
@@ -245,7 +250,7 @@ export function SecurityCheckWithComplianceGetSecurityChecksToJSON(value?: Secur
         created_by: value["createdBy"],
         creation_date: value["creationDate"].toISOString(),
         details: value["details"],
-        dismiss_expiration_date: value["dismissExpirationDate"] == null ? null : (value["dismissExpirationDate"] as any).toISOString(),
+        dismiss_expiration_date: value["dismissExpirationDate"] == null ? value["dismissExpirationDate"] : value["dismissExpirationDate"].toISOString(),
         dismiss_reason: value["dismissReason"],
         id: value["id"],
         impact: value["impact"],
@@ -258,7 +263,7 @@ export function SecurityCheckWithComplianceGetSecurityChecksToJSON(value?: Secur
         security_check_type: value["securityCheckType"],
         security_domain: value["securityDomain"],
         status: value["status"],
-        status_last_changed_date: value["statusLastChangedDate"] == null ? null : (value["statusLastChangedDate"] as any).toISOString(),
+        status_last_changed_date: value["statusLastChangedDate"] == null ? value["statusLastChangedDate"] : value["statusLastChangedDate"].toISOString(),
         status_reason: value["statusReason"],
         user_who_dismissed: value["userWhoDismissed"],
     };

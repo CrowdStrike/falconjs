@@ -79,10 +79,15 @@ export function DomainEnvironmentScoreFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainEnvironmentScoreToJSON(value?: DomainEnvironmentScore | null): any {
+export function DomainEnvironmentScoreToJSON(json: any): DomainEnvironmentScore {
+    return DomainEnvironmentScoreToJSONTyped(json, false);
+}
+
+export function DomainEnvironmentScoreToJSONTyped(value?: DomainEnvironmentScore | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         adjusted_score: value["adjustedScore"],
         cid: value["cid"],

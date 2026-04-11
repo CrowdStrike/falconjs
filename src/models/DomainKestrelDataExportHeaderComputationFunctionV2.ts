@@ -56,10 +56,15 @@ export function DomainKestrelDataExportHeaderComputationFunctionV2FromJSONTyped(
     };
 }
 
-export function DomainKestrelDataExportHeaderComputationFunctionV2ToJSON(value?: DomainKestrelDataExportHeaderComputationFunctionV2 | null): any {
+export function DomainKestrelDataExportHeaderComputationFunctionV2ToJSON(json: any): DomainKestrelDataExportHeaderComputationFunctionV2 {
+    return DomainKestrelDataExportHeaderComputationFunctionV2ToJSONTyped(json, false);
+}
+
+export function DomainKestrelDataExportHeaderComputationFunctionV2ToJSONTyped(value?: DomainKestrelDataExportHeaderComputationFunctionV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         function_config: value["functionConfig"],
         function_name: value["functionName"],

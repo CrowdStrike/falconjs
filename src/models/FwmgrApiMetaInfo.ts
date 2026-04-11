@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { FwmgrMsaspecWrites } from "./FwmgrMsaspecWrites";
-import { FwmgrMsaspecWritesFromJSON, FwmgrMsaspecWritesFromJSONTyped, FwmgrMsaspecWritesToJSON } from "./FwmgrMsaspecWrites";
+import { FwmgrMsaspecWritesFromJSON, FwmgrMsaspecWritesFromJSONTyped, FwmgrMsaspecWritesToJSON, FwmgrMsaspecWritesToJSONTyped } from "./FwmgrMsaspecWrites";
 import type { FwmgrApiQueryPaging } from "./FwmgrApiQueryPaging";
-import { FwmgrApiQueryPagingFromJSON, FwmgrApiQueryPagingFromJSONTyped, FwmgrApiQueryPagingToJSON } from "./FwmgrApiQueryPaging";
+import { FwmgrApiQueryPagingFromJSON, FwmgrApiQueryPagingFromJSONTyped, FwmgrApiQueryPagingToJSON, FwmgrApiQueryPagingToJSONTyped } from "./FwmgrApiQueryPaging";
 
 /**
  *
@@ -82,10 +82,15 @@ export function FwmgrApiMetaInfoFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FwmgrApiMetaInfoToJSON(value?: FwmgrApiMetaInfo | null): any {
+export function FwmgrApiMetaInfoToJSON(json: any): FwmgrApiMetaInfo {
+    return FwmgrApiMetaInfoToJSONTyped(json, false);
+}
+
+export function FwmgrApiMetaInfoToJSONTyped(value?: FwmgrApiMetaInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: FwmgrApiQueryPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

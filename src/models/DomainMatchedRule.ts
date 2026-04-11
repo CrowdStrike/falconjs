@@ -61,10 +61,15 @@ export function DomainMatchedRuleFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainMatchedRuleToJSON(value?: DomainMatchedRule | null): any {
+export function DomainMatchedRuleToJSON(json: any): DomainMatchedRule {
+    return DomainMatchedRuleToJSONTyped(json, false);
+}
+
+export function DomainMatchedRuleToJSONTyped(value?: DomainMatchedRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         customer_id: value["customerId"],
         hit_id: value["hitId"],

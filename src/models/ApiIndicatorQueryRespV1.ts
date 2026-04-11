@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { ApiIndicatorsQueryMeta } from "./ApiIndicatorsQueryMeta";
-import { ApiIndicatorsQueryMetaFromJSON, ApiIndicatorsQueryMetaFromJSONTyped, ApiIndicatorsQueryMetaToJSON } from "./ApiIndicatorsQueryMeta";
+import { ApiIndicatorsQueryMetaFromJSON, ApiIndicatorsQueryMetaFromJSONTyped, ApiIndicatorsQueryMetaToJSON, ApiIndicatorsQueryMetaToJSONTyped } from "./ApiIndicatorsQueryMeta";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 
 /**
  *
@@ -69,10 +69,15 @@ export function ApiIndicatorQueryRespV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function ApiIndicatorQueryRespV1ToJSON(value?: ApiIndicatorQueryRespV1 | null): any {
+export function ApiIndicatorQueryRespV1ToJSON(json: any): ApiIndicatorQueryRespV1 {
+    return ApiIndicatorQueryRespV1ToJSONTyped(json, false);
+}
+
+export function ApiIndicatorQueryRespV1ToJSONTyped(value?: ApiIndicatorQueryRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ApiIndicatorsQueryMetaToJSON(value["meta"]),

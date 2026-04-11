@@ -48,10 +48,15 @@ export function JsonschemaResetFieldsFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function JsonschemaResetFieldsToJSON(value?: JsonschemaResetFields | null): any {
+export function JsonschemaResetFieldsToJSON(json: any): JsonschemaResetFields {
+    return JsonschemaResetFieldsToJSONTyped(json, false);
+}
+
+export function JsonschemaResetFieldsToJSONTyped(value?: JsonschemaResetFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: value["fields"],
     };

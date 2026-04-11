@@ -94,10 +94,15 @@ export function StatemgmtConditionFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function StatemgmtConditionToJSON(value?: StatemgmtCondition | null): any {
+export function StatemgmtConditionToJSON(json: any): StatemgmtCondition {
+    return StatemgmtConditionToJSONTyped(json, false);
+}
+
+export function StatemgmtConditionToJSONTyped(value?: StatemgmtCondition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         feature: value["feature"],
         is_visible: value["isVisible"],

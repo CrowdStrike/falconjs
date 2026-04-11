@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainQueuedSessionCommand } from "./DomainQueuedSessionCommand";
-import { DomainQueuedSessionCommandFromJSON, DomainQueuedSessionCommandFromJSONTyped, DomainQueuedSessionCommandToJSON } from "./DomainQueuedSessionCommand";
+import { DomainQueuedSessionCommandFromJSON, DomainQueuedSessionCommandFromJSONTyped, DomainQueuedSessionCommandToJSON, DomainQueuedSessionCommandToJSONTyped } from "./DomainQueuedSessionCommand";
 
 /**
  *
@@ -115,10 +115,15 @@ export function DomainQueuedSessionJobFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainQueuedSessionJobToJSON(value?: DomainQueuedSessionJob | null): any {
+export function DomainQueuedSessionJobToJSON(json: any): DomainQueuedSessionJob {
+    return DomainQueuedSessionJobToJSONTyped(json, false);
+}
+
+export function DomainQueuedSessionJobToJSONTyped(value?: DomainQueuedSessionJob | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Commands: (value["commands"] as Array<any>).map(DomainQueuedSessionCommandToJSON),
         aid: value["aid"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainSignalProperty } from "./DomainSignalProperty";
-import { DomainSignalPropertyFromJSON, DomainSignalPropertyFromJSONTyped, DomainSignalPropertyToJSON } from "./DomainSignalProperty";
+import { DomainSignalPropertyFromJSON, DomainSignalPropertyFromJSONTyped, DomainSignalPropertyToJSON, DomainSignalPropertyToJSONTyped } from "./DomainSignalProperty";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainAssessmentItemsFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainAssessmentItemsToJSON(value?: DomainAssessmentItems | null): any {
+export function DomainAssessmentItemsToJSON(json: any): DomainAssessmentItems {
+    return DomainAssessmentItemsToJSONTyped(json, false);
+}
+
+export function DomainAssessmentItemsToJSONTyped(value?: DomainAssessmentItems | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         os_signals: (value["osSignals"] as Array<any>).map(DomainSignalPropertyToJSON),
         sensor_signals: (value["sensorSignals"] as Array<any>).map(DomainSignalPropertyToJSON),

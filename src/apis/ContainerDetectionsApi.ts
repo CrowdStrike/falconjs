@@ -78,12 +78,9 @@ export interface ContainerDetectionsApiSearchDetectionsRequest {
  */
 export class ContainerDetectionsApi extends runtime.BaseAPI {
     /**
-     * Retrieve image assessment detections identified by the provided filter criteria
+     * Creates request options for readCombinedDetections without sending the request
      */
-    async readCombinedDetectionsRaw(
-        requestParameters: ContainerDetectionsApiReadCombinedDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectionsApiCombinedDetections>> {
+    async readCombinedDetectionsRequestOpts(requestParameters: ContainerDetectionsApiReadCombinedDetectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -109,15 +106,25 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/detections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/detections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve image assessment detections identified by the provided filter criteria
+     */
+    async readCombinedDetectionsRaw(
+        requestParameters: ContainerDetectionsApiReadCombinedDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectionsApiCombinedDetections>> {
+        const requestOptions = await this.readCombinedDetectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiCombinedDetectionsFromJSON(jsonValue));
     }
@@ -137,12 +144,9 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve image assessment detection entities identified by the provided filter criteria
+     * Creates request options for readDetections without sending the request
      */
-    async readDetectionsRaw(
-        requestParameters: ContainerDetectionsApiReadDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectionsApiAssessmentDetections>> {
+    async readDetectionsRequestOpts(requestParameters: ContainerDetectionsApiReadDetectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -164,15 +168,25 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/entities/detections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/entities/detections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve image assessment detection entities identified by the provided filter criteria
+     */
+    async readDetectionsRaw(
+        requestParameters: ContainerDetectionsApiReadDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectionsApiAssessmentDetections>> {
+        const requestOptions = await this.readDetectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiAssessmentDetectionsFromJSON(jsonValue));
     }
@@ -186,12 +200,9 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate count of detections
+     * Creates request options for readDetectionsCount without sending the request
      */
-    async readDetectionsCountRaw(
-        requestParameters: ContainerDetectionsApiReadDetectionsCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectionsApiDetectionsCount>> {
+    async readDetectionsCountRequestOpts(requestParameters: ContainerDetectionsApiReadDetectionsCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -205,15 +216,25 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/detections/count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/detections/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate count of detections
+     */
+    async readDetectionsCountRaw(
+        requestParameters: ContainerDetectionsApiReadDetectionsCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectionsApiDetectionsCount>> {
+        const requestOptions = await this.readDetectionsCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiDetectionsCountFromJSON(jsonValue));
     }
@@ -227,12 +248,9 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate counts of detections by severity
+     * Creates request options for readDetectionsCountBySeverity without sending the request
      */
-    async readDetectionsCountBySeverityRaw(
-        requestParameters: ContainerDetectionsApiReadDetectionsCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectionsApiDetectionsBySeverity>> {
+    async readDetectionsCountBySeverityRequestOpts(requestParameters: ContainerDetectionsApiReadDetectionsCountBySeverityRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -246,15 +264,25 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/detections/count-by-severity/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/detections/count-by-severity/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate counts of detections by severity
+     */
+    async readDetectionsCountBySeverityRaw(
+        requestParameters: ContainerDetectionsApiReadDetectionsCountBySeverityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectionsApiDetectionsBySeverity>> {
+        const requestOptions = await this.readDetectionsCountBySeverityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiDetectionsBySeverityFromJSON(jsonValue));
     }
@@ -268,12 +296,9 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Aggregate counts of detections by detection type
+     * Creates request options for readDetectionsCountByType without sending the request
      */
-    async readDetectionsCountByTypeRaw(
-        requestParameters: ContainerDetectionsApiReadDetectionsCountByTypeRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DetectionsApiDetectionsByType>> {
+    async readDetectionsCountByTypeRequestOpts(requestParameters: ContainerDetectionsApiReadDetectionsCountByTypeRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -287,15 +312,25 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/detections/count-by-type/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/detections/count-by-type/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Aggregate counts of detections by detection type
+     */
+    async readDetectionsCountByTypeRaw(
+        requestParameters: ContainerDetectionsApiReadDetectionsCountByTypeRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DetectionsApiDetectionsByType>> {
+        const requestOptions = await this.readDetectionsCountByTypeRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DetectionsApiDetectionsByTypeFromJSON(jsonValue));
     }
@@ -309,12 +344,9 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve image assessment detection entities identified by the provided filter criteria
+     * Creates request options for searchDetections without sending the request
      */
-    async searchDetectionsRaw(
-        requestParameters: ContainerDetectionsApiSearchDetectionsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonGenericEntityResponseString>> {
+    async searchDetectionsRequestOpts(requestParameters: ContainerDetectionsApiSearchDetectionsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -336,15 +368,25 @@ export class ContainerDetectionsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/queries/detections/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/queries/detections/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve image assessment detection entities identified by the provided filter criteria
+     */
+    async searchDetectionsRaw(
+        requestParameters: ContainerDetectionsApiSearchDetectionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonGenericEntityResponseString>> {
+        const requestOptions = await this.searchDetectionsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGenericEntityResponseStringFromJSON(jsonValue));
     }

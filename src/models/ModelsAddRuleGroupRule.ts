@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsCustomRule } from "./ModelsCustomRule";
-import { ModelsCustomRuleFromJSON, ModelsCustomRuleFromJSONTyped, ModelsCustomRuleToJSON } from "./ModelsCustomRule";
+import { ModelsCustomRuleFromJSON, ModelsCustomRuleFromJSONTyped, ModelsCustomRuleToJSON, ModelsCustomRuleToJSONTyped } from "./ModelsCustomRule";
 
 /**
  *
@@ -59,10 +59,15 @@ export function ModelsAddRuleGroupRuleFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ModelsAddRuleGroupRuleToJSON(value?: ModelsAddRuleGroupRule | null): any {
+export function ModelsAddRuleGroupRuleToJSON(json: any): ModelsAddRuleGroupRule {
+    return ModelsAddRuleGroupRuleToJSONTyped(json, false);
+}
+
+export function ModelsAddRuleGroupRuleToJSONTyped(value?: ModelsAddRuleGroupRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         custom_rules: (value["customRules"] as Array<any>).map(ModelsCustomRuleToJSON),
         id: value["id"],

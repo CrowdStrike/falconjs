@@ -45,7 +45,7 @@ export interface PolicymanagerExternalRule {
     description: string;
     /**
      * Accepts values: 'informational', 'low', 'medium', 'high', 'critical'
-     * @type {string}
+     * @type {PolicymanagerExternalRuleDetectionSeverityEnum}
      * @memberof PolicymanagerExternalRule
      */
     detectionSeverity: PolicymanagerExternalRuleDetectionSeverityEnum;
@@ -87,7 +87,7 @@ export interface PolicymanagerExternalRule {
     notifyEndUser: boolean;
     /**
      * Accepts values: 'allow', 'block', 'justify'
-     * @type {string}
+     * @type {PolicymanagerExternalRuleResponseActionEnum}
      * @memberof PolicymanagerExternalRule
      */
     responseAction: PolicymanagerExternalRuleResponseActionEnum;
@@ -99,7 +99,7 @@ export interface PolicymanagerExternalRule {
     triggerDetection: boolean;
     /**
      * Accepts values: 'all', 'specific'
-     * @type {string}
+     * @type {PolicymanagerExternalRuleUserScopeEnum}
      * @memberof PolicymanagerExternalRule
      */
     userScope: PolicymanagerExternalRuleUserScopeEnum;
@@ -111,7 +111,7 @@ export interface PolicymanagerExternalRule {
     webLocations: Array<string>;
     /**
      * Accepts values: 'all', 'specific'
-     * @type {string}
+     * @type {PolicymanagerExternalRuleWebLocationsScopeEnum}
      * @memberof PolicymanagerExternalRule
      */
     webLocationsScope: PolicymanagerExternalRuleWebLocationsScopeEnum;
@@ -206,10 +206,15 @@ export function PolicymanagerExternalRuleFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function PolicymanagerExternalRuleToJSON(value?: PolicymanagerExternalRule | null): any {
+export function PolicymanagerExternalRuleToJSON(json: any): PolicymanagerExternalRule {
+    return PolicymanagerExternalRuleToJSONTyped(json, false);
+}
+
+export function PolicymanagerExternalRuleToJSONTyped(value?: PolicymanagerExternalRule | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         ad_groups: value["adGroups"],
         ad_users: value["adUsers"],

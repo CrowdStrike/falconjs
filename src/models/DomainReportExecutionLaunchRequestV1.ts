@@ -48,10 +48,15 @@ export function DomainReportExecutionLaunchRequestV1FromJSONTyped(json: any, ign
     };
 }
 
-export function DomainReportExecutionLaunchRequestV1ToJSON(value?: DomainReportExecutionLaunchRequestV1 | null): any {
+export function DomainReportExecutionLaunchRequestV1ToJSON(json: any): DomainReportExecutionLaunchRequestV1 {
+    return DomainReportExecutionLaunchRequestV1ToJSONTyped(json, false);
+}
+
+export function DomainReportExecutionLaunchRequestV1ToJSONTyped(value?: DomainReportExecutionLaunchRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
     };

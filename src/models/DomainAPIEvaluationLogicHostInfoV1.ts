@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIEntityMatchedV1 } from "./DomainAPIEntityMatchedV1";
-import { DomainAPIEntityMatchedV1FromJSON, DomainAPIEntityMatchedV1FromJSONTyped, DomainAPIEntityMatchedV1ToJSON } from "./DomainAPIEntityMatchedV1";
+import { DomainAPIEntityMatchedV1FromJSON, DomainAPIEntityMatchedV1FromJSONTyped, DomainAPIEntityMatchedV1ToJSON, DomainAPIEntityMatchedV1ToJSONTyped } from "./DomainAPIEntityMatchedV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainAPIEvaluationLogicHostInfoV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function DomainAPIEvaluationLogicHostInfoV1ToJSON(value?: DomainAPIEvaluationLogicHostInfoV1 | null): any {
+export function DomainAPIEvaluationLogicHostInfoV1ToJSON(json: any): DomainAPIEvaluationLogicHostInfoV1 {
+    return DomainAPIEvaluationLogicHostInfoV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIEvaluationLogicHostInfoV1ToJSONTyped(value?: DomainAPIEvaluationLogicHostInfoV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         entities_matched: (value["entitiesMatched"] as Array<any>).map(DomainAPIEntityMatchedV1ToJSON),
     };

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCloudAccounts } from "./DomainCloudAccounts";
-import { DomainCloudAccountsFromJSON, DomainCloudAccountsFromJSONTyped, DomainCloudAccountsToJSON } from "./DomainCloudAccounts";
+import { DomainCloudAccountsFromJSON, DomainCloudAccountsFromJSONTyped, DomainCloudAccountsToJSON, DomainCloudAccountsToJSONTyped } from "./DomainCloudAccounts";
 
 /**
  *
@@ -120,21 +120,26 @@ export function DomainCloudScopeFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainCloudScopeToJSON(value?: DomainCloudScope | null): any {
+export function DomainCloudScopeToJSON(json: any): DomainCloudScope {
+    return DomainCloudScopeToJSONTyped(json, false);
+}
+
+export function DomainCloudScopeToJSONTyped(value?: DomainCloudScope | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         accounts: value["accounts"] == null ? undefined : (value["accounts"] as Array<any>).map(DomainCloudAccountsToJSON),
         business_impact: value["businessImpact"],
         business_unit: value["businessUnit"],
         cid: value["cid"],
-        created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
+        created_at: value["createdAt"] == null ? value["createdAt"] : value["createdAt"].toISOString(),
         description: value["description"],
         id: value["id"],
         name: value["name"],
         owners: value["owners"],
         total_accounts: value["totalAccounts"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_at: value["updatedAt"] == null ? value["updatedAt"] : value["updatedAt"].toISOString(),
     };
 }

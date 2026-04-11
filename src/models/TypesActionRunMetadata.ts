@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesIntegrationTaskType } from "./TypesIntegrationTaskType";
-import { TypesIntegrationTaskTypeFromJSON, TypesIntegrationTaskTypeFromJSONTyped, TypesIntegrationTaskTypeToJSON } from "./TypesIntegrationTaskType";
+import { TypesIntegrationTaskTypeFromJSON, TypesIntegrationTaskTypeFromJSONTyped, TypesIntegrationTaskTypeToJSON, TypesIntegrationTaskTypeToJSONTyped } from "./TypesIntegrationTaskType";
 import type { TypesTimestamp } from "./TypesTimestamp";
-import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON } from "./TypesTimestamp";
+import { TypesTimestampFromJSON, TypesTimestampFromJSONTyped, TypesTimestampToJSON, TypesTimestampToJSONTyped } from "./TypesTimestamp";
 
 /**
  *
@@ -94,10 +94,15 @@ export function TypesActionRunMetadataFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function TypesActionRunMetadataToJSON(value?: TypesActionRunMetadata | null): any {
+export function TypesActionRunMetadataToJSON(json: any): TypesActionRunMetadata {
+    return TypesActionRunMetadataToJSONTyped(json, false);
+}
+
+export function TypesActionRunMetadataToJSONTyped(value?: TypesActionRunMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collected_objects: value["collectedObjects"],
         end_time: TypesTimestampToJSON(value["endTime"]),

@@ -128,10 +128,15 @@ export function ModelsImageInfoTypeFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ModelsImageInfoTypeToJSON(value?: ModelsImageInfoType | null): any {
+export function ModelsImageInfoTypeToJSON(json: any): ModelsImageInfoType {
+    return ModelsImageInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsImageInfoTypeToJSONTyped(value?: ModelsImageInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Architecture: value["architecture"],
         CreatedAt: value["createdAt"],

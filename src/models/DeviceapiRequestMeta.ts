@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DeviceapiDevicePaging } from "./DeviceapiDevicePaging";
-import { DeviceapiDevicePagingFromJSON, DeviceapiDevicePagingFromJSONTyped, DeviceapiDevicePagingToJSON } from "./DeviceapiDevicePaging";
+import { DeviceapiDevicePagingFromJSON, DeviceapiDevicePagingFromJSONTyped, DeviceapiDevicePagingToJSON, DeviceapiDevicePagingToJSONTyped } from "./DeviceapiDevicePaging";
 
 /**
  *
@@ -73,10 +73,15 @@ export function DeviceapiRequestMetaFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function DeviceapiRequestMetaToJSON(value?: DeviceapiRequestMeta | null): any {
+export function DeviceapiRequestMetaToJSON(json: any): DeviceapiRequestMeta {
+    return DeviceapiRequestMetaToJSONTyped(json, false);
+}
+
+export function DeviceapiRequestMetaToJSONTyped(value?: DeviceapiRequestMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: DeviceapiDevicePagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

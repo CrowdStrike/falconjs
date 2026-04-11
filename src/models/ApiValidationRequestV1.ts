@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ApiValidationRequestFieldV1 } from "./ApiValidationRequestFieldV1";
-import { ApiValidationRequestFieldV1FromJSON, ApiValidationRequestFieldV1FromJSONTyped, ApiValidationRequestFieldV1ToJSON } from "./ApiValidationRequestFieldV1";
+import {
+    ApiValidationRequestFieldV1FromJSON,
+    ApiValidationRequestFieldV1FromJSONTyped,
+    ApiValidationRequestFieldV1ToJSON,
+    ApiValidationRequestFieldV1ToJSONTyped,
+} from "./ApiValidationRequestFieldV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function ApiValidationRequestV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ApiValidationRequestV1ToJSON(value?: ApiValidationRequestV1 | null): any {
+export function ApiValidationRequestV1ToJSON(json: any): ApiValidationRequestV1 {
+    return ApiValidationRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiValidationRequestV1ToJSONTyped(value?: ApiValidationRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: (value["fields"] as Array<any>).map(ApiValidationRequestFieldV1ToJSON),
     };

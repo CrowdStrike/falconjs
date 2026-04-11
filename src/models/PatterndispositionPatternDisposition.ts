@@ -264,10 +264,15 @@ export function PatterndispositionPatternDispositionFromJSONTyped(json: any, ign
     };
 }
 
-export function PatterndispositionPatternDispositionToJSON(value?: PatterndispositionPatternDisposition | null): any {
+export function PatterndispositionPatternDispositionToJSON(json: any): PatterndispositionPatternDisposition {
+    return PatterndispositionPatternDispositionToJSONTyped(json, false);
+}
+
+export function PatterndispositionPatternDispositionToJSONTyped(value?: PatterndispositionPatternDisposition | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         blocking_unsupported_or_disabled: value["blockingUnsupportedOrDisabled"],
         bootup_safeguard_enabled: value["bootupSafeguardEnabled"],

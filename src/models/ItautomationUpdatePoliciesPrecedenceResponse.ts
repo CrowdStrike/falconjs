@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -68,10 +68,15 @@ export function ItautomationUpdatePoliciesPrecedenceResponseFromJSONTyped(json: 
     };
 }
 
-export function ItautomationUpdatePoliciesPrecedenceResponseToJSON(value?: ItautomationUpdatePoliciesPrecedenceResponse | null): any {
+export function ItautomationUpdatePoliciesPrecedenceResponseToJSON(json: any): ItautomationUpdatePoliciesPrecedenceResponse {
+    return ItautomationUpdatePoliciesPrecedenceResponseToJSONTyped(json, false);
+}
+
+export function ItautomationUpdatePoliciesPrecedenceResponseToJSONTyped(value?: ItautomationUpdatePoliciesPrecedenceResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

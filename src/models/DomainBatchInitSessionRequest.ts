@@ -64,10 +64,15 @@ export function DomainBatchInitSessionRequestFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function DomainBatchInitSessionRequestToJSON(value?: DomainBatchInitSessionRequest | null): any {
+export function DomainBatchInitSessionRequestToJSON(json: any): DomainBatchInitSessionRequest {
+    return DomainBatchInitSessionRequestToJSONTyped(json, false);
+}
+
+export function DomainBatchInitSessionRequestToJSONTyped(value?: DomainBatchInitSessionRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         existing_batch_id: value["existingBatchId"],
         host_ids: value["hostIds"],

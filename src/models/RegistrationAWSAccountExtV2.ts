@@ -177,10 +177,15 @@ export function RegistrationAWSAccountExtV2FromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function RegistrationAWSAccountExtV2ToJSON(value?: RegistrationAWSAccountExtV2 | null): any {
+export function RegistrationAWSAccountExtV2ToJSON(json: any): RegistrationAWSAccountExtV2 {
+    return RegistrationAWSAccountExtV2ToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountExtV2ToJSONTyped(value?: RegistrationAWSAccountExtV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_type: value["accountType"],

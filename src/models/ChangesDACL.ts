@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ChangesDACLEntity } from "./ChangesDACLEntity";
-import { ChangesDACLEntityFromJSON, ChangesDACLEntityFromJSONTyped, ChangesDACLEntityToJSON } from "./ChangesDACLEntity";
+import { ChangesDACLEntityFromJSON, ChangesDACLEntityFromJSONTyped, ChangesDACLEntityToJSON, ChangesDACLEntityToJSONTyped } from "./ChangesDACLEntity";
 
 /**
  *
@@ -57,10 +57,15 @@ export function ChangesDACLFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function ChangesDACLToJSON(value?: ChangesDACL | null): any {
+export function ChangesDACLToJSON(json: any): ChangesDACL {
+    return ChangesDACLToJSONTyped(json, false);
+}
+
+export function ChangesDACLToJSONTyped(value?: ChangesDACL | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         changes_type: value["changesType"],
         entity_list: value["entityList"] == null ? undefined : (value["entityList"] as Array<any>).map(ChangesDACLEntityToJSON),

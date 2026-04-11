@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainBreachedItemV1 } from "./DomainBreachedItemV1";
-import { DomainBreachedItemV1FromJSON, DomainBreachedItemV1FromJSONTyped, DomainBreachedItemV1ToJSON } from "./DomainBreachedItemV1";
+import { DomainBreachedItemV1FromJSON, DomainBreachedItemV1FromJSONTyped, DomainBreachedItemV1ToJSON, DomainBreachedItemV1ToJSONTyped } from "./DomainBreachedItemV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function DomainBreachDetailsV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainBreachDetailsV1ToJSON(value?: DomainBreachDetailsV1 | null): any {
+export function DomainBreachDetailsV1ToJSON(json: any): DomainBreachDetailsV1 {
+    return DomainBreachDetailsV1ToJSONTyped(json, false);
+}
+
+export function DomainBreachDetailsV1ToJSONTyped(value?: DomainBreachDetailsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         items: (value["items"] as Array<any>).map(DomainBreachedItemV1ToJSON),
     };

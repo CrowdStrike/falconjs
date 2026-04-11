@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { HostGroupsHostGroupV1 } from "./HostGroupsHostGroupV1";
-import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON } from "./HostGroupsHostGroupV1";
+import { HostGroupsHostGroupV1FromJSON, HostGroupsHostGroupV1FromJSONTyped, HostGroupsHostGroupV1ToJSON, HostGroupsHostGroupV1ToJSONTyped } from "./HostGroupsHostGroupV1";
 
 /**
  *
@@ -90,7 +90,7 @@ export interface FirewallPolicyV1 {
     name: string;
     /**
      * The name of the platform
-     * @type {string}
+     * @type {FirewallPolicyV1PlatformNameEnum}
      * @memberof FirewallPolicyV1
      */
     platformName: FirewallPolicyV1PlatformNameEnum;
@@ -157,10 +157,15 @@ export function FirewallPolicyV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FirewallPolicyV1ToJSON(value?: FirewallPolicyV1 | null): any {
+export function FirewallPolicyV1ToJSON(json: any): FirewallPolicyV1 {
+    return FirewallPolicyV1ToJSONTyped(json, false);
+}
+
+export function FirewallPolicyV1ToJSONTyped(value?: FirewallPolicyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         channel_version: value["channelVersion"],
         cid: value["cid"],

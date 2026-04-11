@@ -68,10 +68,15 @@ export function DomainExternalAssetServiceBlobsLinksFromJSONTyped(json: any, ign
     };
 }
 
-export function DomainExternalAssetServiceBlobsLinksToJSON(value?: DomainExternalAssetServiceBlobsLinks | null): any {
+export function DomainExternalAssetServiceBlobsLinksToJSON(json: any): DomainExternalAssetServiceBlobsLinks {
+    return DomainExternalAssetServiceBlobsLinksToJSONTyped(json, false);
+}
+
+export function DomainExternalAssetServiceBlobsLinksToJSONTyped(value?: DomainExternalAssetServiceBlobsLinks | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         download_attributes: value["downloadAttributes"],
         download_banner: value["downloadBanner"],

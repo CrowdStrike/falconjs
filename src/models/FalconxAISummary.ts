@@ -94,10 +94,15 @@ export function FalconxAISummaryFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FalconxAISummaryToJSON(value?: FalconxAISummary | null): any {
+export function FalconxAISummaryToJSON(json: any): FalconxAISummary {
+    return FalconxAISummaryToJSONTyped(json, false);
+}
+
+export function FalconxAISummaryToJSONTyped(value?: FalconxAISummary | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error_message: value["errorMessage"],
         report_id: value["reportId"],

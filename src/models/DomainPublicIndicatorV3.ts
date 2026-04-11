@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCSIXLabel } from "./DomainCSIXLabel";
-import { DomainCSIXLabelFromJSON, DomainCSIXLabelFromJSONTyped, DomainCSIXLabelToJSON } from "./DomainCSIXLabel";
+import { DomainCSIXLabelFromJSON, DomainCSIXLabelFromJSONTyped, DomainCSIXLabelToJSON, DomainCSIXLabelToJSONTyped } from "./DomainCSIXLabel";
 import type { DomainCSIXRelation } from "./DomainCSIXRelation";
-import { DomainCSIXRelationFromJSON, DomainCSIXRelationFromJSONTyped, DomainCSIXRelationToJSON } from "./DomainCSIXRelation";
+import { DomainCSIXRelationFromJSON, DomainCSIXRelationFromJSONTyped, DomainCSIXRelationToJSON, DomainCSIXRelationToJSONTyped } from "./DomainCSIXRelation";
 
 /**
  *
@@ -197,10 +197,15 @@ export function DomainPublicIndicatorV3FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainPublicIndicatorV3ToJSON(value?: DomainPublicIndicatorV3 | null): any {
+export function DomainPublicIndicatorV3ToJSON(json: any): DomainPublicIndicatorV3 {
+    return DomainPublicIndicatorV3ToJSONTyped(json, false);
+}
+
+export function DomainPublicIndicatorV3ToJSONTyped(value?: DomainPublicIndicatorV3 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         _marker: value["marker"],
         actors: value["actors"],

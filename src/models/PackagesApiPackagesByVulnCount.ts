@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsAPIPackagesByVulnCount } from "./ModelsAPIPackagesByVulnCount";
-import { ModelsAPIPackagesByVulnCountFromJSON, ModelsAPIPackagesByVulnCountFromJSONTyped, ModelsAPIPackagesByVulnCountToJSON } from "./ModelsAPIPackagesByVulnCount";
+import {
+    ModelsAPIPackagesByVulnCountFromJSON,
+    ModelsAPIPackagesByVulnCountFromJSONTyped,
+    ModelsAPIPackagesByVulnCountToJSON,
+    ModelsAPIPackagesByVulnCountToJSONTyped,
+} from "./ModelsAPIPackagesByVulnCount";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function PackagesApiPackagesByVulnCountFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function PackagesApiPackagesByVulnCountToJSON(value?: PackagesApiPackagesByVulnCount | null): any {
+export function PackagesApiPackagesByVulnCountToJSON(json: any): PackagesApiPackagesByVulnCount {
+    return PackagesApiPackagesByVulnCountToJSONTyped(json, false);
+}
+
+export function PackagesApiPackagesByVulnCountToJSONTyped(value?: PackagesApiPackagesByVulnCount | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(ModelsAPIPackagesByVulnCountToJSON),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),

@@ -61,10 +61,15 @@ export function SdkCaseAccessTagFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function SdkCaseAccessTagToJSON(value?: SdkCaseAccessTag | null): any {
+export function SdkCaseAccessTagToJSON(json: any): SdkCaseAccessTag {
+    return SdkCaseAccessTagToJSONTyped(json, false);
+}
+
+export function SdkCaseAccessTagToJSONTyped(value?: SdkCaseAccessTag | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         id: value["id"],

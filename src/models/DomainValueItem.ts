@@ -56,10 +56,15 @@ export function DomainValueItemFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function DomainValueItemToJSON(value?: DomainValueItem | null): any {
+export function DomainValueItemToJSON(json: any): DomainValueItem {
+    return DomainValueItemToJSONTyped(json, false);
+}
+
+export function DomainValueItemToJSONTyped(value?: DomainValueItem | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         label: value["label"],
         value: value["value"],

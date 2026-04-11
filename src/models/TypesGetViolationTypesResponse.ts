@@ -54,10 +54,15 @@ export function TypesGetViolationTypesResponseFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function TypesGetViolationTypesResponseToJSON(value?: TypesGetViolationTypesResponse | null): any {
+export function TypesGetViolationTypesResponseToJSON(json: any): TypesGetViolationTypesResponse {
+    return TypesGetViolationTypesResponseToJSONTyped(json, false);
+}
+
+export function TypesGetViolationTypesResponseToJSONTyped(value?: TypesGetViolationTypesResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         categories: value["categories"],
         violations: value["violations"],

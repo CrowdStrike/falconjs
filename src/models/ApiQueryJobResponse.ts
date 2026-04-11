@@ -56,10 +56,15 @@ export function ApiQueryJobResponseFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiQueryJobResponseToJSON(value?: ApiQueryJobResponse | null): any {
+export function ApiQueryJobResponseToJSON(json: any): ApiQueryJobResponse {
+    return ApiQueryJobResponseToJSONTyped(json, false);
+}
+
+export function ApiQueryJobResponseToJSONTyped(value?: ApiQueryJobResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         hashedQueryOnView: value["hashedQueryOnView"],
         id: value["id"],

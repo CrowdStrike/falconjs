@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { InventoryapiUserExternalAsset } from "./InventoryapiUserExternalAsset";
-import { InventoryapiUserExternalAssetFromJSON, InventoryapiUserExternalAssetFromJSONTyped, InventoryapiUserExternalAssetToJSON } from "./InventoryapiUserExternalAsset";
+import {
+    InventoryapiUserExternalAssetFromJSON,
+    InventoryapiUserExternalAssetFromJSONTyped,
+    InventoryapiUserExternalAssetToJSON,
+    InventoryapiUserExternalAssetToJSONTyped,
+} from "./InventoryapiUserExternalAsset";
 
 /**
  *
@@ -59,10 +64,15 @@ export function InventoryapiUserExternalAssetCreateFromJSONTyped(json: any, igno
     };
 }
 
-export function InventoryapiUserExternalAssetCreateToJSON(value?: InventoryapiUserExternalAssetCreate | null): any {
+export function InventoryapiUserExternalAssetCreateToJSON(json: any): InventoryapiUserExternalAssetCreate {
+    return InventoryapiUserExternalAssetCreateToJSONTyped(json, false);
+}
+
+export function InventoryapiUserExternalAssetCreateToJSONTyped(value?: InventoryapiUserExternalAssetCreate | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         assets: (value["assets"] as Array<any>).map(InventoryapiUserExternalAssetToJSON),
         subsidiary_id: value["subsidiaryId"],

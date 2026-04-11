@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApimodelsRule } from "./ApimodelsRule";
-import { ApimodelsRuleFromJSON, ApimodelsRuleFromJSONTyped, ApimodelsRuleToJSON } from "./ApimodelsRule";
+import { ApimodelsRuleFromJSON, ApimodelsRuleFromJSONTyped, ApimodelsRuleToJSON, ApimodelsRuleToJSONTyped } from "./ApimodelsRule";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function CommonCreateRuleResponseFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function CommonCreateRuleResponseToJSON(value?: CommonCreateRuleResponse | null): any {
+export function CommonCreateRuleResponseToJSON(json: any): CommonCreateRuleResponse {
+    return CommonCreateRuleResponseToJSONTyped(json, false);
+}
+
+export function CommonCreateRuleResponseToJSONTyped(value?: CommonCreateRuleResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

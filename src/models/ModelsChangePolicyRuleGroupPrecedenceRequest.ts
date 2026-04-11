@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsChangeRuleGroupPrecedence } from "./ModelsChangeRuleGroupPrecedence";
-import { ModelsChangeRuleGroupPrecedenceFromJSON, ModelsChangeRuleGroupPrecedenceFromJSONTyped, ModelsChangeRuleGroupPrecedenceToJSON } from "./ModelsChangeRuleGroupPrecedence";
+import {
+    ModelsChangeRuleGroupPrecedenceFromJSON,
+    ModelsChangeRuleGroupPrecedenceFromJSONTyped,
+    ModelsChangeRuleGroupPrecedenceToJSON,
+    ModelsChangeRuleGroupPrecedenceToJSONTyped,
+} from "./ModelsChangeRuleGroupPrecedence";
 
 /**
  *
@@ -59,10 +64,15 @@ export function ModelsChangePolicyRuleGroupPrecedenceRequestFromJSONTyped(json: 
     };
 }
 
-export function ModelsChangePolicyRuleGroupPrecedenceRequestToJSON(value?: ModelsChangePolicyRuleGroupPrecedenceRequest | null): any {
+export function ModelsChangePolicyRuleGroupPrecedenceRequestToJSON(json: any): ModelsChangePolicyRuleGroupPrecedenceRequest {
+    return ModelsChangePolicyRuleGroupPrecedenceRequestToJSONTyped(json, false);
+}
+
+export function ModelsChangePolicyRuleGroupPrecedenceRequestToJSONTyped(value?: ModelsChangePolicyRuleGroupPrecedenceRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         rule_groups: (value["ruleGroups"] as Array<any>).map(ModelsChangeRuleGroupPrecedenceToJSON),

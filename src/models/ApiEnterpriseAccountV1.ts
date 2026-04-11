@@ -108,18 +108,23 @@ export function ApiEnterpriseAccountV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ApiEnterpriseAccountV1ToJSON(value?: ApiEnterpriseAccountV1 | null): any {
+export function ApiEnterpriseAccountV1ToJSON(json: any): ApiEnterpriseAccountV1 {
+    return ApiEnterpriseAccountV1ToJSONTyped(json, false);
+}
+
+export function ApiEnterpriseAccountV1ToJSONTyped(value?: ApiEnterpriseAccountV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         application_group_id: value["applicationGroupId"],
         cid: value["cid"],
-        created: value["created"] == null ? undefined : value["created"].toISOString(),
+        created: value["created"] == null ? value["created"] : value["created"].toISOString(),
         deleted: value["deleted"],
         domains: value["domains"],
         id: value["id"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         name: value["name"],
         plugin_config_id: value["pluginConfigId"],
     };

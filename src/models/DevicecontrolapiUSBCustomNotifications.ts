@@ -18,6 +18,7 @@ import {
     DevicecontrolapiUSBCustomNotificationFromJSON,
     DevicecontrolapiUSBCustomNotificationFromJSONTyped,
     DevicecontrolapiUSBCustomNotificationToJSON,
+    DevicecontrolapiUSBCustomNotificationToJSONTyped,
 } from "./DevicecontrolapiUSBCustomNotification";
 
 /**
@@ -61,10 +62,15 @@ export function DevicecontrolapiUSBCustomNotificationsFromJSONTyped(json: any, i
     };
 }
 
-export function DevicecontrolapiUSBCustomNotificationsToJSON(value?: DevicecontrolapiUSBCustomNotifications | null): any {
+export function DevicecontrolapiUSBCustomNotificationsToJSON(json: any): DevicecontrolapiUSBCustomNotifications {
+    return DevicecontrolapiUSBCustomNotificationsToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiUSBCustomNotificationsToJSONTyped(value?: DevicecontrolapiUSBCustomNotifications | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         blocked_notification: DevicecontrolapiUSBCustomNotificationToJSON(value["blockedNotification"]),
         restricted_notification: DevicecontrolapiUSBCustomNotificationToJSON(value["restrictedNotification"]),

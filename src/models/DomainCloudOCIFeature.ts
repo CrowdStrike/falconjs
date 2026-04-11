@@ -78,10 +78,15 @@ export function DomainCloudOCIFeatureFromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainCloudOCIFeatureToJSON(value?: DomainCloudOCIFeature | null): any {
+export function DomainCloudOCIFeatureToJSON(json: any): DomainCloudOCIFeature {
+    return DomainCloudOCIFeatureToJSONTyped(json, false);
+}
+
+export function DomainCloudOCIFeatureToJSONTyped(value?: DomainCloudOCIFeature | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         deployment_method: value["deploymentMethod"],
         feature: value["feature"],

@@ -14,26 +14,39 @@
 
 import { mapValues } from "../runtime";
 import type { CorrelationrulesapiRuleSearchV1 } from "./CorrelationrulesapiRuleSearchV1";
-import { CorrelationrulesapiRuleSearchV1FromJSON, CorrelationrulesapiRuleSearchV1FromJSONTyped, CorrelationrulesapiRuleSearchV1ToJSON } from "./CorrelationrulesapiRuleSearchV1";
+import {
+    CorrelationrulesapiRuleSearchV1FromJSON,
+    CorrelationrulesapiRuleSearchV1FromJSONTyped,
+    CorrelationrulesapiRuleSearchV1ToJSON,
+    CorrelationrulesapiRuleSearchV1ToJSONTyped,
+} from "./CorrelationrulesapiRuleSearchV1";
 import type { CorrelationrulesapiRuleLastExecutionV1 } from "./CorrelationrulesapiRuleLastExecutionV1";
 import {
     CorrelationrulesapiRuleLastExecutionV1FromJSON,
     CorrelationrulesapiRuleLastExecutionV1FromJSONTyped,
     CorrelationrulesapiRuleLastExecutionV1ToJSON,
+    CorrelationrulesapiRuleLastExecutionV1ToJSONTyped,
 } from "./CorrelationrulesapiRuleLastExecutionV1";
 import type { CorrelationrulesapiRuleOperationV1 } from "./CorrelationrulesapiRuleOperationV1";
-import { CorrelationrulesapiRuleOperationV1FromJSON, CorrelationrulesapiRuleOperationV1FromJSONTyped, CorrelationrulesapiRuleOperationV1ToJSON } from "./CorrelationrulesapiRuleOperationV1";
+import {
+    CorrelationrulesapiRuleOperationV1FromJSON,
+    CorrelationrulesapiRuleOperationV1FromJSONTyped,
+    CorrelationrulesapiRuleOperationV1ToJSON,
+    CorrelationrulesapiRuleOperationV1ToJSONTyped,
+} from "./CorrelationrulesapiRuleOperationV1";
 import type { CorrelationrulesapiMitreAttackMappingV1 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import {
     CorrelationrulesapiMitreAttackMappingV1FromJSON,
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
+    CorrelationrulesapiMitreAttackMappingV1ToJSONTyped,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
 import type { CorrelationrulesapiRuleNotificationsV1 } from "./CorrelationrulesapiRuleNotificationsV1";
 import {
     CorrelationrulesapiRuleNotificationsV1FromJSON,
     CorrelationrulesapiRuleNotificationsV1FromJSONTyped,
     CorrelationrulesapiRuleNotificationsV1ToJSON,
+    CorrelationrulesapiRuleNotificationsV1ToJSONTyped,
 } from "./CorrelationrulesapiRuleNotificationsV1";
 
 /**
@@ -307,10 +320,15 @@ export function CorrelationrulesapiRuleV1FromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function CorrelationrulesapiRuleV1ToJSON(value?: Omit<CorrelationrulesapiRuleV1, "type"> | null): any {
+export function CorrelationrulesapiRuleV1ToJSON(json: any): CorrelationrulesapiRuleV1 {
+    return CorrelationrulesapiRuleV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleV1ToJSONTyped(value?: Omit<CorrelationrulesapiRuleV1, "type"> | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         api_client_id: value["apiClientId"],
         author: value["author"],
@@ -325,7 +343,7 @@ export function CorrelationrulesapiRuleV1ToJSON(value?: Omit<Correlationrulesapi
         last_updated_on: value["lastUpdatedOn"].toISOString(),
         mitre_attack: (value["mitreAttack"] as Array<any>).map(CorrelationrulesapiMitreAttackMappingV1ToJSON),
         name: value["name"],
-        next_execution_on: value["nextExecutionOn"] == null ? undefined : value["nextExecutionOn"].toISOString(),
+        next_execution_on: value["nextExecutionOn"] == null ? value["nextExecutionOn"] : value["nextExecutionOn"].toISOString(),
         notifications: value["notifications"] == null ? undefined : (value["notifications"] as Array<any>).map(CorrelationrulesapiRuleNotificationsV1ToJSON),
         operation: CorrelationrulesapiRuleOperationV1ToJSON(value["operation"]),
         rule_id: value["ruleId"],

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ClientExtractionWithFilesV1 } from "./ClientExtractionWithFilesV1";
-import { ClientExtractionWithFilesV1FromJSON, ClientExtractionWithFilesV1FromJSONTyped, ClientExtractionWithFilesV1ToJSON } from "./ClientExtractionWithFilesV1";
+import {
+    ClientExtractionWithFilesV1FromJSON,
+    ClientExtractionWithFilesV1FromJSONTyped,
+    ClientExtractionWithFilesV1ToJSON,
+    ClientExtractionWithFilesV1ToJSONTyped,
+} from "./ClientExtractionWithFilesV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +76,15 @@ export function ClientExtractionCreateResponseV1FromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ClientExtractionCreateResponseV1ToJSON(value?: ClientExtractionCreateResponseV1 | null): any {
+export function ClientExtractionCreateResponseV1ToJSON(json: any): ClientExtractionCreateResponseV1 {
+    return ClientExtractionCreateResponseV1ToJSONTyped(json, false);
+}
+
+export function ClientExtractionCreateResponseV1ToJSONTyped(value?: ClientExtractionCreateResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

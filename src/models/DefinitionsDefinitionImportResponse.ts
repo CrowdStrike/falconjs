@@ -14,15 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DefinitionsDefinitionImportResponseEntity } from "./DefinitionsDefinitionImportResponseEntity";
 import {
     DefinitionsDefinitionImportResponseEntityFromJSON,
     DefinitionsDefinitionImportResponseEntityFromJSONTyped,
     DefinitionsDefinitionImportResponseEntityToJSON,
+    DefinitionsDefinitionImportResponseEntityToJSONTyped,
 } from "./DefinitionsDefinitionImportResponseEntity";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -74,10 +75,15 @@ export function DefinitionsDefinitionImportResponseFromJSONTyped(json: any, igno
     };
 }
 
-export function DefinitionsDefinitionImportResponseToJSON(value?: DefinitionsDefinitionImportResponse | null): any {
+export function DefinitionsDefinitionImportResponseToJSON(json: any): DefinitionsDefinitionImportResponse {
+    return DefinitionsDefinitionImportResponseToJSONTyped(json, false);
+}
+
+export function DefinitionsDefinitionImportResponseToJSONTyped(value?: DefinitionsDefinitionImportResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

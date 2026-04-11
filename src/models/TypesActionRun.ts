@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { TypesActionRunEvent } from "./TypesActionRunEvent";
-import { TypesActionRunEventFromJSON, TypesActionRunEventFromJSONTyped, TypesActionRunEventToJSON } from "./TypesActionRunEvent";
+import { TypesActionRunEventFromJSON, TypesActionRunEventFromJSONTyped, TypesActionRunEventToJSON, TypesActionRunEventToJSONTyped } from "./TypesActionRunEvent";
 import type { TypesActionRunMetadata } from "./TypesActionRunMetadata";
-import { TypesActionRunMetadataFromJSON, TypesActionRunMetadataFromJSONTyped, TypesActionRunMetadataToJSON } from "./TypesActionRunMetadata";
+import { TypesActionRunMetadataFromJSON, TypesActionRunMetadataFromJSONTyped, TypesActionRunMetadataToJSON, TypesActionRunMetadataToJSONTyped } from "./TypesActionRunMetadata";
 
 /**
  *
@@ -101,10 +101,15 @@ export function TypesActionRunFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function TypesActionRunToJSON(value?: TypesActionRun | null): any {
+export function TypesActionRunToJSON(json: any): TypesActionRun {
+    return TypesActionRunToJSONTyped(json, false);
+}
+
+export function TypesActionRunToJSONTyped(value?: TypesActionRun | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         createTime: value["createTime"],
         events: value["events"] == null ? undefined : (value["events"] as Array<any>).map(TypesActionRunEventToJSON),

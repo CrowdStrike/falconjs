@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ContentchangesContentDiff } from "./ContentchangesContentDiff";
-import { ContentchangesContentDiffFromJSON, ContentchangesContentDiffFromJSONTyped, ContentchangesContentDiffToJSON } from "./ContentchangesContentDiff";
+import { ContentchangesContentDiffFromJSON, ContentchangesContentDiffFromJSONTyped, ContentchangesContentDiffToJSON, ContentchangesContentDiffToJSONTyped } from "./ContentchangesContentDiff";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ContentchangesChangeContentsResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function ContentchangesChangeContentsResponseToJSON(value?: ContentchangesChangeContentsResponse | null): any {
+export function ContentchangesChangeContentsResponseToJSON(json: any): ContentchangesChangeContentsResponse {
+    return ContentchangesChangeContentsResponseToJSONTyped(json, false);
+}
+
+export function ContentchangesChangeContentsResponseToJSONTyped(value?: ContentchangesChangeContentsResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

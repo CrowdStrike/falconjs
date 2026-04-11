@@ -70,10 +70,15 @@ export function PolicymanagerErrorFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function PolicymanagerErrorToJSON(value?: PolicymanagerError | null): any {
+export function PolicymanagerErrorToJSON(json: any): PolicymanagerError {
+    return PolicymanagerErrorToJSONTyped(json, false);
+}
+
+export function PolicymanagerErrorToJSONTyped(value?: PolicymanagerError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         field: value["field"],

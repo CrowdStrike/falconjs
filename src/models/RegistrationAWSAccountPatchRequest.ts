@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationAWSAccountPatch } from "./RegistrationAWSAccountPatch";
-import { RegistrationAWSAccountPatchFromJSON, RegistrationAWSAccountPatchFromJSONTyped, RegistrationAWSAccountPatchToJSON } from "./RegistrationAWSAccountPatch";
+import {
+    RegistrationAWSAccountPatchFromJSON,
+    RegistrationAWSAccountPatchFromJSONTyped,
+    RegistrationAWSAccountPatchToJSON,
+    RegistrationAWSAccountPatchToJSONTyped,
+} from "./RegistrationAWSAccountPatch";
 
 /**
  *
@@ -51,10 +56,15 @@ export function RegistrationAWSAccountPatchRequestFromJSONTyped(json: any, ignor
     };
 }
 
-export function RegistrationAWSAccountPatchRequestToJSON(value?: RegistrationAWSAccountPatchRequest | null): any {
+export function RegistrationAWSAccountPatchRequestToJSON(json: any): RegistrationAWSAccountPatchRequest {
+    return RegistrationAWSAccountPatchRequestToJSONTyped(json, false);
+}
+
+export function RegistrationAWSAccountPatchRequestToJSONTyped(value?: RegistrationAWSAccountPatchRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationAWSAccountPatchToJSON),
     };

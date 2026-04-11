@@ -70,10 +70,15 @@ export function DefinitionsFlightControlRequestFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function DefinitionsFlightControlRequestToJSON(value?: DefinitionsFlightControlRequest | null): any {
+export function DefinitionsFlightControlRequestToJSON(json: any): DefinitionsFlightControlRequest {
+    return DefinitionsFlightControlRequestToJSONTyped(json, false);
+}
+
+export function DefinitionsFlightControlRequestToJSONTyped(value?: DefinitionsFlightControlRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         all_cids: value["allCids"],
         excluded_cids: value["excludedCids"],

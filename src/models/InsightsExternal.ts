@@ -90,13 +90,18 @@ export function InsightsExternalFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function InsightsExternalToJSON(value?: InsightsExternal | null): any {
+export function InsightsExternalToJSON(json: any): InsightsExternal {
+    return InsightsExternalToJSONTyped(json, false);
+}
+
+export function InsightsExternalToJSONTyped(value?: InsightsExternal | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         booleanValue: value["booleanValue"],
-        dateValue: value["dateValue"] == null ? undefined : value["dateValue"].toISOString(),
+        dateValue: value["dateValue"] == null ? value["dateValue"] : value["dateValue"].toISOString(),
         id: value["id"],
         integerValue: value["integerValue"],
         ruleId: value["ruleId"],

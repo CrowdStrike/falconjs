@@ -56,10 +56,15 @@ export function SdkCustomFieldFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function SdkCustomFieldToJSON(value?: SdkCustomField | null): any {
+export function SdkCustomFieldToJSON(json: any): SdkCustomField {
+    return SdkCustomFieldToJSONTyped(json, false);
+}
+
+export function SdkCustomFieldToJSONTyped(value?: SdkCustomField | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         values: value["values"],

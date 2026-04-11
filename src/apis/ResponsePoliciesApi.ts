@@ -105,12 +105,9 @@ export interface ResponsePoliciesApiUpdateRTResponsePoliciesRequest {
  */
 export class ResponsePoliciesApi extends runtime.BaseAPI {
     /**
-     * Create Response Policies by specifying details about the policy to create
+     * Creates request options for createRTResponsePolicies without sending the request
      */
-    async createRTResponsePoliciesRaw(
-        requestParameters: ResponsePoliciesApiCreateRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+    async createRTResponsePoliciesRequestOpts(requestParameters: ResponsePoliciesApiCreateRTResponsePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRTResponsePolicies().');
         }
@@ -126,16 +123,26 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/response/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RemoteResponseCreatePoliciesV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/response/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RemoteResponseCreatePoliciesV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create Response Policies by specifying details about the policy to create
+     */
+    async createRTResponsePoliciesRaw(
+        requestParameters: ResponsePoliciesApiCreateRTResponsePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+        const requestOptions = await this.createRTResponsePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RemoteResponseRespV1FromJSON(jsonValue));
     }
@@ -149,12 +156,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a set of Response Policies by specifying their IDs
+     * Creates request options for deleteRTResponsePolicies without sending the request
      */
-    async deleteRTResponsePoliciesRaw(
-        requestParameters: ResponsePoliciesApiDeleteRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async deleteRTResponsePoliciesRequestOpts(requestParameters: ResponsePoliciesApiDeleteRTResponsePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRTResponsePolicies().');
         }
@@ -172,15 +176,25 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/response/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/response/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a set of Response Policies by specifying their IDs
+     */
+    async deleteRTResponsePoliciesRaw(
+        requestParameters: ResponsePoliciesApiDeleteRTResponsePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.deleteRTResponsePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -194,12 +208,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve a set of Response Policies by specifying their IDs
+     * Creates request options for getRTResponsePolicies without sending the request
      */
-    async getRTResponsePoliciesRaw(
-        requestParameters: ResponsePoliciesApiGetRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+    async getRTResponsePoliciesRequestOpts(requestParameters: ResponsePoliciesApiGetRTResponsePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRTResponsePolicies().');
         }
@@ -217,15 +228,25 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/response/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/response/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Retrieve a set of Response Policies by specifying their IDs
+     */
+    async getRTResponsePoliciesRaw(
+        requestParameters: ResponsePoliciesApiGetRTResponsePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+        const requestOptions = await this.getRTResponsePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RemoteResponseRespV1FromJSON(jsonValue));
     }
@@ -239,12 +260,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform the specified action on the Response Policies specified in the request
+     * Creates request options for performRTResponsePoliciesAction without sending the request
      */
-    async performRTResponsePoliciesActionRaw(
-        requestParameters: ResponsePoliciesApiPerformRTResponsePoliciesActionRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+    async performRTResponsePoliciesActionRequestOpts(requestParameters: ResponsePoliciesApiPerformRTResponsePoliciesActionRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["actionName"] == null) {
             throw new runtime.RequiredError("actionName", 'Required parameter "actionName" was null or undefined when calling performRTResponsePoliciesAction().');
         }
@@ -268,16 +286,26 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/response-actions/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/response-actions/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: MsaEntityActionRequestV2ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Perform the specified action on the Response Policies specified in the request
+     */
+    async performRTResponsePoliciesActionRaw(
+        requestParameters: ResponsePoliciesApiPerformRTResponsePoliciesActionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+        const requestOptions = await this.performRTResponsePoliciesActionRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RemoteResponseRespV1FromJSON(jsonValue));
     }
@@ -295,12 +323,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Response Policies in your environment by providing an FQL filter and paging details. Returns a set of Response Policies which match the filter criteria
+     * Creates request options for queryCombinedRTResponsePolicies without sending the request
      */
-    async queryCombinedRTResponsePoliciesRaw(
-        requestParameters: ResponsePoliciesApiQueryCombinedRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+    async queryCombinedRTResponsePoliciesRequestOpts(requestParameters: ResponsePoliciesApiQueryCombinedRTResponsePoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -326,15 +351,25 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/response/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/response/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Response Policies in your environment by providing an FQL filter and paging details. Returns a set of Response Policies which match the filter criteria
+     */
+    async queryCombinedRTResponsePoliciesRaw(
+        requestParameters: ResponsePoliciesApiQueryCombinedRTResponsePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+        const requestOptions = await this.queryCombinedRTResponsePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RemoteResponseRespV1FromJSON(jsonValue));
     }
@@ -354,12 +389,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Response policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     * Creates request options for queryCombinedRTResponsePolicyMembers without sending the request
      */
-    async queryCombinedRTResponsePolicyMembersRaw(
-        requestParameters: ResponsePoliciesApiQueryCombinedRTResponsePolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+    async queryCombinedRTResponsePolicyMembersRequestOpts(requestParameters: ResponsePoliciesApiQueryCombinedRTResponsePolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -389,15 +421,25 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/combined/response-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/combined/response-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Response policy in your environment by providing an FQL filter and paging details. Returns a set of host details which match the filter criteria
+     */
+    async queryCombinedRTResponsePolicyMembersRaw(
+        requestParameters: ResponsePoliciesApiQueryCombinedRTResponsePolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<BasePolicyMembersRespV1>> {
+        const requestOptions = await this.queryCombinedRTResponsePolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BasePolicyMembersRespV1FromJSON(jsonValue));
     }
@@ -418,12 +460,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for Response Policies in your environment by providing an FQL filter with sort and/or paging details. This returns a set of Response Policy IDs that match the given criteria.
+     * Creates request options for queryRTResponsePolicies without sending the request
      */
-    async queryRTResponsePoliciesRaw(
-        requestParameters: ResponsePoliciesApiQueryRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRTResponsePoliciesRequestOpts(requestParameters: ResponsePoliciesApiQueryRTResponsePoliciesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -449,15 +488,25 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/response/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/response/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for Response Policies in your environment by providing an FQL filter with sort and/or paging details. This returns a set of Response Policy IDs that match the given criteria.
+     */
+    async queryRTResponsePoliciesRaw(
+        requestParameters: ResponsePoliciesApiQueryRTResponsePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryRTResponsePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -477,12 +526,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search for members of a Response policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     * Creates request options for queryRTResponsePolicyMembers without sending the request
      */
-    async queryRTResponsePolicyMembersRaw(
-        requestParameters: ResponsePoliciesApiQueryRTResponsePolicyMembersRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async queryRTResponsePolicyMembersRequestOpts(requestParameters: ResponsePoliciesApiQueryRTResponsePolicyMembersRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["id"] != null) {
@@ -512,15 +558,25 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/queries/response-members/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/queries/response-members/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search for members of a Response policy in your environment by providing an FQL filter and paging details. Returns a set of Agent IDs which match the filter criteria
+     */
+    async queryRTResponsePolicyMembersRaw(
+        requestParameters: ResponsePoliciesApiQueryRTResponsePolicyMembersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.queryRTResponsePolicyMembersRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -541,12 +597,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Sets the precedence of Response Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
+     * Creates request options for setRTResponsePoliciesPrecedence without sending the request
      */
-    async setRTResponsePoliciesPrecedenceRaw(
-        requestParameters: ResponsePoliciesApiSetRTResponsePoliciesPrecedenceRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+    async setRTResponsePoliciesPrecedenceRequestOpts(requestParameters: ResponsePoliciesApiSetRTResponsePoliciesPrecedenceRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setRTResponsePoliciesPrecedence().');
         }
@@ -562,16 +615,26 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/response-precedence/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/response-precedence/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: BaseSetPolicyPrecedenceReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Sets the precedence of Response Policies based on the order of IDs specified in the request. The first ID specified will have the highest precedence and the last ID specified will have the lowest. You must specify all non-Default Policies for a platform when updating precedence
+     */
+    async setRTResponsePoliciesPrecedenceRaw(
+        requestParameters: ResponsePoliciesApiSetRTResponsePoliciesPrecedenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const requestOptions = await this.setRTResponsePoliciesPrecedenceRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
     }
@@ -585,12 +648,9 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update Response Policies by specifying the ID of the policy and details to update
+     * Creates request options for updateRTResponsePolicies without sending the request
      */
-    async updateRTResponsePoliciesRaw(
-        requestParameters: ResponsePoliciesApiUpdateRTResponsePoliciesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+    async updateRTResponsePoliciesRequestOpts(requestParameters: ResponsePoliciesApiUpdateRTResponsePoliciesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRTResponsePolicies().');
         }
@@ -606,16 +666,26 @@ export class ResponsePoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["response-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/policy/entities/response/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RemoteResponseUpdatePoliciesReqV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/policy/entities/response/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RemoteResponseUpdatePoliciesReqV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update Response Policies by specifying the ID of the policy and details to update
+     */
+    async updateRTResponsePoliciesRaw(
+        requestParameters: ResponsePoliciesApiUpdateRTResponsePoliciesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RemoteResponseRespV1>> {
+        const requestOptions = await this.updateRTResponsePoliciesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RemoteResponseRespV1FromJSON(jsonValue));
     }

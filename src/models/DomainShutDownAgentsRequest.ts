@@ -80,10 +80,15 @@ export function DomainShutDownAgentsRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainShutDownAgentsRequestToJSON(value?: DomainShutDownAgentsRequest | null): any {
+export function DomainShutDownAgentsRequestToJSON(json: any): DomainShutDownAgentsRequest {
+    return DomainShutDownAgentsRequestToJSONTyped(json, false);
+}
+
+export function DomainShutDownAgentsRequestToJSONTyped(value?: DomainShutDownAgentsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         aids: value["aids"],
         ffcids: value["ffcids"],

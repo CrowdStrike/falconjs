@@ -70,10 +70,15 @@ export function DeviceapiUpdateDeviceDetailsResponseV1FromJSONTyped(json: any, i
     };
 }
 
-export function DeviceapiUpdateDeviceDetailsResponseV1ToJSON(value?: DeviceapiUpdateDeviceDetailsResponseV1 | null): any {
+export function DeviceapiUpdateDeviceDetailsResponseV1ToJSON(json: any): DeviceapiUpdateDeviceDetailsResponseV1 {
+    return DeviceapiUpdateDeviceDetailsResponseV1ToJSONTyped(json, false);
+}
+
+export function DeviceapiUpdateDeviceDetailsResponseV1ToJSONTyped(value?: DeviceapiUpdateDeviceDetailsResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         code: value["code"],
         device_id: value["deviceId"],

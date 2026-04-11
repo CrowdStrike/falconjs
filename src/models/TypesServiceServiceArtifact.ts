@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { TypesArtifact } from "./TypesArtifact";
-import { TypesArtifactFromJSON, TypesArtifactFromJSONTyped, TypesArtifactToJSON } from "./TypesArtifact";
+import { TypesArtifactFromJSON, TypesArtifactFromJSONTyped, TypesArtifactToJSON, TypesArtifactToJSONTyped } from "./TypesArtifact";
 
 /**
  *
@@ -57,10 +57,15 @@ export function TypesServiceServiceArtifactFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function TypesServiceServiceArtifactToJSON(value?: TypesServiceServiceArtifact | null): any {
+export function TypesServiceServiceArtifactToJSON(json: any): TypesServiceServiceArtifact {
+    return TypesServiceServiceArtifactToJSONTyped(json, false);
+}
+
+export function TypesServiceServiceArtifactToJSONTyped(value?: TypesServiceServiceArtifact | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         count: value["count"],
         items: value["items"] == null ? undefined : (value["items"] as Array<any>).map(TypesArtifactToJSON),

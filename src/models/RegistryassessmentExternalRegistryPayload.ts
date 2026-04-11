@@ -18,6 +18,7 @@ import {
     RegistryassessmentExternalCredPayloadFromJSON,
     RegistryassessmentExternalCredPayloadFromJSONTyped,
     RegistryassessmentExternalCredPayloadToJSON,
+    RegistryassessmentExternalCredPayloadToJSONTyped,
 } from "./RegistryassessmentExternalCredPayload";
 
 /**
@@ -85,10 +86,15 @@ export function RegistryassessmentExternalRegistryPayloadFromJSONTyped(json: any
     };
 }
 
-export function RegistryassessmentExternalRegistryPayloadToJSON(value?: RegistryassessmentExternalRegistryPayload | null): any {
+export function RegistryassessmentExternalRegistryPayloadToJSON(json: any): RegistryassessmentExternalRegistryPayload {
+    return RegistryassessmentExternalRegistryPayloadToJSONTyped(json, false);
+}
+
+export function RegistryassessmentExternalRegistryPayloadToJSONTyped(value?: RegistryassessmentExternalRegistryPayload | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         credential: RegistryassessmentExternalCredPayloadToJSON(value["credential"]),
         type: value["type"],

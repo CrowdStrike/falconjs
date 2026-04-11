@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DevicecontrolapiReqCreatePolicyV1 } from "./DevicecontrolapiReqCreatePolicyV1";
-import { DevicecontrolapiReqCreatePolicyV1FromJSON, DevicecontrolapiReqCreatePolicyV1FromJSONTyped, DevicecontrolapiReqCreatePolicyV1ToJSON } from "./DevicecontrolapiReqCreatePolicyV1";
+import {
+    DevicecontrolapiReqCreatePolicyV1FromJSON,
+    DevicecontrolapiReqCreatePolicyV1FromJSONTyped,
+    DevicecontrolapiReqCreatePolicyV1ToJSON,
+    DevicecontrolapiReqCreatePolicyV1ToJSONTyped,
+} from "./DevicecontrolapiReqCreatePolicyV1";
 
 /**
  *
@@ -51,10 +56,15 @@ export function DevicecontrolapiReqCreatePoliciesV1FromJSONTyped(json: any, igno
     };
 }
 
-export function DevicecontrolapiReqCreatePoliciesV1ToJSON(value?: DevicecontrolapiReqCreatePoliciesV1 | null): any {
+export function DevicecontrolapiReqCreatePoliciesV1ToJSON(json: any): DevicecontrolapiReqCreatePoliciesV1 {
+    return DevicecontrolapiReqCreatePoliciesV1ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiReqCreatePoliciesV1ToJSONTyped(value?: DevicecontrolapiReqCreatePoliciesV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         policies: (value["policies"] as Array<any>).map(DevicecontrolapiReqCreatePolicyV1ToJSON),
     };

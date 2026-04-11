@@ -48,10 +48,15 @@ export function TypesStructFromJSONTyped(json: any, ignoreDiscriminator: boolean
     };
 }
 
-export function TypesStructToJSON(value?: TypesStruct | null): any {
+export function TypesStructToJSON(json: any): TypesStruct {
+    return TypesStructToJSONTyped(json, false);
+}
+
+export function TypesStructToJSONTyped(value?: TypesStruct | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Fields: value["fields"],
     };

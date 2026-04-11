@@ -55,10 +55,15 @@ export function RegistrationGCPUserScriptFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function RegistrationGCPUserScriptToJSON(value?: RegistrationGCPUserScript | null): any {
+export function RegistrationGCPUserScriptToJSON(json: any): RegistrationGCPUserScript {
+    return RegistrationGCPUserScriptToJSONTyped(json, false);
+}
+
+export function RegistrationGCPUserScriptToJSONTyped(value?: RegistrationGCPUserScript | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         bash: value["bash"],
         service_account_emails: value["serviceAccountEmails"],

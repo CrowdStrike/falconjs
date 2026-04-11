@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { AssetGetAssetInventory } from "./AssetGetAssetInventory";
-import { AssetGetAssetInventoryFromJSON, AssetGetAssetInventoryFromJSONTyped, AssetGetAssetInventoryToJSON } from "./AssetGetAssetInventory";
+import { AssetGetAssetInventoryFromJSON, AssetGetAssetInventoryFromJSONTyped, AssetGetAssetInventoryToJSON, AssetGetAssetInventoryToJSONTyped } from "./AssetGetAssetInventory";
 import type { MetaGetAssetInventory } from "./MetaGetAssetInventory";
-import { MetaGetAssetInventoryFromJSON, MetaGetAssetInventoryFromJSONTyped, MetaGetAssetInventoryToJSON } from "./MetaGetAssetInventory";
+import { MetaGetAssetInventoryFromJSON, MetaGetAssetInventoryFromJSONTyped, MetaGetAssetInventoryToJSON, MetaGetAssetInventoryToJSONTyped } from "./MetaGetAssetInventory";
 import type { ErrorGetAssetInventory } from "./ErrorGetAssetInventory";
-import { ErrorGetAssetInventoryFromJSON, ErrorGetAssetInventoryFromJSONTyped, ErrorGetAssetInventoryToJSON } from "./ErrorGetAssetInventory";
+import { ErrorGetAssetInventoryFromJSON, ErrorGetAssetInventoryFromJSONTyped, ErrorGetAssetInventoryToJSON, ErrorGetAssetInventoryToJSONTyped } from "./ErrorGetAssetInventory";
 
 /**
  *
@@ -68,10 +68,15 @@ export function GetAssetInventoryFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function GetAssetInventoryToJSON(value?: GetAssetInventory | null): any {
+export function GetAssetInventoryToJSON(json: any): GetAssetInventory {
+    return GetAssetInventoryToJSONTyped(json, false);
+}
+
+export function GetAssetInventoryToJSONTyped(value?: GetAssetInventory | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetAssetInventoryToJSON),
         meta: MetaGetAssetInventoryToJSON(value["meta"]),

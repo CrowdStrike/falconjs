@@ -72,10 +72,15 @@ export function ModelsRulesFailedBySeverityFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsRulesFailedBySeverityToJSON(value?: ModelsRulesFailedBySeverity | null): any {
+export function ModelsRulesFailedBySeverityToJSON(json: any): ModelsRulesFailedBySeverity {
+    return ModelsRulesFailedBySeverityToJSONTyped(json, false);
+}
+
+export function ModelsRulesFailedBySeverityToJSONTyped(value?: ModelsRulesFailedBySeverity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         "1": value["_1"],
         "2": value["_2"],

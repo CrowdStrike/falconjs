@@ -56,10 +56,15 @@ export function ModelUserInputUpdateRequestFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelUserInputUpdateRequestToJSON(value?: ModelUserInputUpdateRequest | null): any {
+export function ModelUserInputUpdateRequestToJSON(json: any): ModelUserInputUpdateRequest {
+    return ModelUserInputUpdateRequestToJSONTyped(json, false);
+}
+
+export function ModelUserInputUpdateRequestToJSONTyped(value?: ModelUserInputUpdateRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         input: value["input"],
         note: value["note"],

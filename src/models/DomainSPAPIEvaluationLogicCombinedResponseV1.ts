@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainSPAPIQueryMeta } from "./DomainSPAPIQueryMeta";
-import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON } from "./DomainSPAPIQueryMeta";
+import { DomainSPAPIQueryMetaFromJSON, DomainSPAPIQueryMetaFromJSONTyped, DomainSPAPIQueryMetaToJSON, DomainSPAPIQueryMetaToJSONTyped } from "./DomainSPAPIQueryMeta";
 import type { DomainAPIEvaluationLogicV1 } from "./DomainAPIEvaluationLogicV1";
-import { DomainAPIEvaluationLogicV1FromJSON, DomainAPIEvaluationLogicV1FromJSONTyped, DomainAPIEvaluationLogicV1ToJSON } from "./DomainAPIEvaluationLogicV1";
+import { DomainAPIEvaluationLogicV1FromJSON, DomainAPIEvaluationLogicV1FromJSONTyped, DomainAPIEvaluationLogicV1ToJSON, DomainAPIEvaluationLogicV1ToJSONTyped } from "./DomainAPIEvaluationLogicV1";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DomainSPAPIEvaluationLogicCombinedResponseV1FromJSONTyped(json: 
     };
 }
 
-export function DomainSPAPIEvaluationLogicCombinedResponseV1ToJSON(value?: DomainSPAPIEvaluationLogicCombinedResponseV1 | null): any {
+export function DomainSPAPIEvaluationLogicCombinedResponseV1ToJSON(json: any): DomainSPAPIEvaluationLogicCombinedResponseV1 {
+    return DomainSPAPIEvaluationLogicCombinedResponseV1ToJSONTyped(json, false);
+}
+
+export function DomainSPAPIEvaluationLogicCombinedResponseV1ToJSONTyped(value?: DomainSPAPIEvaluationLogicCombinedResponseV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: DomainSPAPIQueryMetaToJSON(value["meta"]),

@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { DefinitionsFlightControlRequest } from "./DefinitionsFlightControlRequest";
-import { DefinitionsFlightControlRequestFromJSON, DefinitionsFlightControlRequestFromJSONTyped, DefinitionsFlightControlRequestToJSON } from "./DefinitionsFlightControlRequest";
+import {
+    DefinitionsFlightControlRequestFromJSON,
+    DefinitionsFlightControlRequestFromJSONTyped,
+    DefinitionsFlightControlRequestToJSON,
+    DefinitionsFlightControlRequestToJSONTyped,
+} from "./DefinitionsFlightControlRequest";
 import type { V2Definition } from "./V2Definition";
-import { V2DefinitionFromJSON, V2DefinitionFromJSONTyped, V2DefinitionToJSON } from "./V2Definition";
+import { V2DefinitionFromJSON, V2DefinitionFromJSONTyped, V2DefinitionToJSON, V2DefinitionToJSONTyped } from "./V2Definition";
 
 /**
  *
@@ -83,10 +88,15 @@ export function ModelsDefinitionUpdateRequestV2FromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function ModelsDefinitionUpdateRequestV2ToJSON(value?: ModelsDefinitionUpdateRequestV2 | null): any {
+export function ModelsDefinitionUpdateRequestV2ToJSON(json: any): ModelsDefinitionUpdateRequestV2 {
+    return ModelsDefinitionUpdateRequestV2ToJSONTyped(json, false);
+}
+
+export function ModelsDefinitionUpdateRequestV2ToJSONTyped(value?: ModelsDefinitionUpdateRequestV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Definition: V2DefinitionToJSON(value["definition"]),
         change_log: value["changeLog"],

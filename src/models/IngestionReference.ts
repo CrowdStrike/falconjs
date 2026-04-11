@@ -56,10 +56,15 @@ export function IngestionReferenceFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function IngestionReferenceToJSON(value?: IngestionReference | null): any {
+export function IngestionReferenceToJSON(json: any): IngestionReference {
+    return IngestionReferenceToJSONTyped(json, false);
+}
+
+export function IngestionReferenceToJSONTyped(value?: IngestionReference | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tags: value["tags"],
         url: value["url"],

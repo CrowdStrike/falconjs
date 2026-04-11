@@ -132,10 +132,15 @@ export function ClientJobStatusFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function ClientJobStatusToJSON(value?: ClientJobStatus | null): any {
+export function ClientJobStatusToJSON(json: any): ClientJobStatus {
+    return ClientJobStatusToJSONTyped(json, false);
+}
+
+export function ClientJobStatusToJSONTyped(value?: ClientJobStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         content_length: value["contentLength"],
         digest_algo: value["digestAlgo"],

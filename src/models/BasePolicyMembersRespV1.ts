@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DeviceDevice } from "./DeviceDevice";
-import { DeviceDeviceFromJSON, DeviceDeviceFromJSONTyped, DeviceDeviceToJSON } from "./DeviceDevice";
+import { DeviceDeviceFromJSON, DeviceDeviceFromJSONTyped, DeviceDeviceToJSON, DeviceDeviceToJSONTyped } from "./DeviceDevice";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function BasePolicyMembersRespV1FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function BasePolicyMembersRespV1ToJSON(value?: BasePolicyMembersRespV1 | null): any {
+export function BasePolicyMembersRespV1ToJSON(json: any): BasePolicyMembersRespV1 {
+    return BasePolicyMembersRespV1ToJSONTyped(json, false);
+}
+
+export function BasePolicyMembersRespV1ToJSONTyped(value?: BasePolicyMembersRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

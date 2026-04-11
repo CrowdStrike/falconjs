@@ -48,10 +48,15 @@ export function AzureHealthCheckTriggerInfoFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function AzureHealthCheckTriggerInfoToJSON(value?: AzureHealthCheckTriggerInfo | null): any {
+export function AzureHealthCheckTriggerInfoToJSON(json: any): AzureHealthCheckTriggerInfo {
+    return AzureHealthCheckTriggerInfoToJSONTyped(json, false);
+}
+
+export function AzureHealthCheckTriggerInfoToJSONTyped(value?: AzureHealthCheckTriggerInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         tenant_id: value["tenantId"],
     };

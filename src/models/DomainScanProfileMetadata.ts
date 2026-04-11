@@ -62,13 +62,18 @@ export function DomainScanProfileMetadataFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function DomainScanProfileMetadataToJSON(value?: DomainScanProfileMetadata | null): any {
+export function DomainScanProfileMetadataToJSON(json: any): DomainScanProfileMetadata {
+    return DomainScanProfileMetadataToJSONTyped(json, false);
+}
+
+export function DomainScanProfileMetadataToJSONTyped(value?: DomainScanProfileMetadata | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         host_id: value["hostId"],
-        last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
+        last_updated: value["lastUpdated"] == null ? value["lastUpdated"] : value["lastUpdated"].toISOString(),
         status: value["status"],
     };
 }

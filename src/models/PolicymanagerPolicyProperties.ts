@@ -14,9 +14,14 @@
 
 import { mapValues } from "../runtime";
 import type { PolicymanagerEUJDropdownOptions } from "./PolicymanagerEUJDropdownOptions";
-import { PolicymanagerEUJDropdownOptionsFromJSON, PolicymanagerEUJDropdownOptionsFromJSONTyped, PolicymanagerEUJDropdownOptionsToJSON } from "./PolicymanagerEUJDropdownOptions";
+import {
+    PolicymanagerEUJDropdownOptionsFromJSON,
+    PolicymanagerEUJDropdownOptionsFromJSONTyped,
+    PolicymanagerEUJDropdownOptionsToJSON,
+    PolicymanagerEUJDropdownOptionsToJSONTyped,
+} from "./PolicymanagerEUJDropdownOptions";
 import type { PolicymanagerEUJHeaderText } from "./PolicymanagerEUJHeaderText";
-import { PolicymanagerEUJHeaderTextFromJSON, PolicymanagerEUJHeaderTextFromJSONTyped, PolicymanagerEUJHeaderTextToJSON } from "./PolicymanagerEUJHeaderText";
+import { PolicymanagerEUJHeaderTextFromJSON, PolicymanagerEUJHeaderTextFromJSONTyped, PolicymanagerEUJHeaderTextToJSON, PolicymanagerEUJHeaderTextToJSONTyped } from "./PolicymanagerEUJHeaderText";
 
 /**
  *
@@ -26,7 +31,7 @@ import { PolicymanagerEUJHeaderTextFromJSON, PolicymanagerEUJHeaderTextFromJSONT
 export interface PolicymanagerPolicyProperties {
     /**
      * Windows only. Allow notifications accepts values: 'default', 'custom'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesAllowNotificationsEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     allowNotifications?: PolicymanagerPolicyPropertiesAllowNotificationsEnum;
@@ -44,7 +49,7 @@ export interface PolicymanagerPolicyProperties {
     bePasteClipboardMaxSize?: number;
     /**
      * Accepts values: 'Bytes', 'KiB'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesBePasteClipboardMaxSizeUnitEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     bePasteClipboardMaxSizeUnit?: PolicymanagerPolicyPropertiesBePasteClipboardMaxSizeUnitEnum;
@@ -56,7 +61,7 @@ export interface PolicymanagerPolicyProperties {
     bePasteClipboardMinSize?: number;
     /**
      * Accepts values: 'Bytes', 'KiB'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesBePasteClipboardMinSizeUnitEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     bePasteClipboardMinSizeUnit?: PolicymanagerPolicyPropertiesBePasteClipboardMinSizeUnitEnum;
@@ -74,7 +79,7 @@ export interface PolicymanagerPolicyProperties {
     bePasteTimeoutDurationMilliseconds?: number;
     /**
      * Accepts values: 'block', 'allow'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesBePasteTimeoutResponseEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     bePasteTimeoutResponse?: PolicymanagerPolicyPropertiesBePasteTimeoutResponseEnum;
@@ -95,7 +100,7 @@ export interface PolicymanagerPolicyProperties {
     beSplashEnabled?: boolean;
     /**
      * Accepts values: 'default', 'custom'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesBeSplashMessageSourceEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     beSplashMessageSource?: PolicymanagerPolicyPropertiesBeSplashMessageSourceEnum;
@@ -107,7 +112,7 @@ export interface PolicymanagerPolicyProperties {
     beUploadTimeoutDurationSeconds?: number;
     /**
      * Accepts values: 'block', 'allow'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesBeUploadTimeoutResponseEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     beUploadTimeoutResponse?: PolicymanagerPolicyPropertiesBeUploadTimeoutResponseEnum;
@@ -119,13 +124,13 @@ export interface PolicymanagerPolicyProperties {
     blockAllDataAccess?: boolean;
     /**
      * Windows only. Block notifications accepts values: 'default', 'custom'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesBlockNotificationsEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     blockNotifications?: PolicymanagerPolicyPropertiesBlockNotificationsEnum;
     /**
      * Browsers without active extension accepts values: 'allow', 'block_policy'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesBrowsersWithoutActiveExtensionEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     browsersWithoutActiveExtension?: PolicymanagerPolicyPropertiesBrowsersWithoutActiveExtensionEnum;
@@ -251,7 +256,7 @@ export interface PolicymanagerPolicyProperties {
     evidenceStorageMaxSize?: number;
     /**
      * Inspection depth accepts values : 'balanced', 'high_performance', 'deep_scan'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesInspectionDepthEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     inspectionDepth?: PolicymanagerPolicyPropertiesInspectionDepthEnum;
@@ -263,19 +268,19 @@ export interface PolicymanagerPolicyProperties {
     maxFileSizeToInspect?: number;
     /**
      * Must be either 'Bytes, KB or MB'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesMaxFileSizeToInspectUnitEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     maxFileSizeToInspectUnit?: PolicymanagerPolicyPropertiesMaxFileSizeToInspectUnitEnum;
     /**
      * Confidence level accepts values: 'low', 'medium', 'high'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesMinConfidenceLevelEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     minConfidenceLevel?: PolicymanagerPolicyPropertiesMinConfidenceLevelEnum;
     /**
      * Windows only. Network inspection files exceeding size limit accepts values: 'block', 'allow'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesNetworkInspectionFilesExceedingSizeLimitEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     networkInspectionFilesExceedingSizeLimit?: PolicymanagerPolicyPropertiesNetworkInspectionFilesExceedingSizeLimitEnum;
@@ -287,13 +292,13 @@ export interface PolicymanagerPolicyProperties {
     similarityDetection?: boolean;
     /**
      * Similarity threshold percentage values from 10 to 100
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesSimilarityThresholdEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     similarityThreshold?: PolicymanagerPolicyPropertiesSimilarityThresholdEnum;
     /**
      * Windows only. Unsupported browsers action accepts values: 'allow', 'block_policy', 'block'
-     * @type {string}
+     * @type {PolicymanagerPolicyPropertiesUnsupportedBrowsersActionEnum}
      * @memberof PolicymanagerPolicyProperties
      */
     unsupportedBrowsersAction?: PolicymanagerPolicyPropertiesUnsupportedBrowsersActionEnum;
@@ -511,10 +516,15 @@ export function PolicymanagerPolicyPropertiesFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function PolicymanagerPolicyPropertiesToJSON(value?: PolicymanagerPolicyProperties | null): any {
+export function PolicymanagerPolicyPropertiesToJSON(json: any): PolicymanagerPolicyProperties {
+    return PolicymanagerPolicyPropertiesToJSONTyped(json, false);
+}
+
+export function PolicymanagerPolicyPropertiesToJSONTyped(value?: PolicymanagerPolicyProperties | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         allow_notifications: value["allowNotifications"],
         be_exclude_domains: value["beExcludeDomains"],

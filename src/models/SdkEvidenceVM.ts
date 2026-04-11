@@ -14,13 +14,13 @@
 
 import { mapValues } from "../runtime";
 import type { SdkEventEvidenceVM } from "./SdkEventEvidenceVM";
-import { SdkEventEvidenceVMFromJSON, SdkEventEvidenceVMFromJSONTyped, SdkEventEvidenceVMToJSON } from "./SdkEventEvidenceVM";
+import { SdkEventEvidenceVMFromJSON, SdkEventEvidenceVMFromJSONTyped, SdkEventEvidenceVMToJSON, SdkEventEvidenceVMToJSONTyped } from "./SdkEventEvidenceVM";
 import type { SdkCustomEvidenceVM } from "./SdkCustomEvidenceVM";
-import { SdkCustomEvidenceVMFromJSON, SdkCustomEvidenceVMFromJSONTyped, SdkCustomEvidenceVMToJSON } from "./SdkCustomEvidenceVM";
+import { SdkCustomEvidenceVMFromJSON, SdkCustomEvidenceVMFromJSONTyped, SdkCustomEvidenceVMToJSON, SdkCustomEvidenceVMToJSONTyped } from "./SdkCustomEvidenceVM";
 import type { SdkAlertEvidenceVM } from "./SdkAlertEvidenceVM";
-import { SdkAlertEvidenceVMFromJSON, SdkAlertEvidenceVMFromJSONTyped, SdkAlertEvidenceVMToJSON } from "./SdkAlertEvidenceVM";
+import { SdkAlertEvidenceVMFromJSON, SdkAlertEvidenceVMFromJSONTyped, SdkAlertEvidenceVMToJSON, SdkAlertEvidenceVMToJSONTyped } from "./SdkAlertEvidenceVM";
 import type { SdkLeadEvidenceVM } from "./SdkLeadEvidenceVM";
-import { SdkLeadEvidenceVMFromJSON, SdkLeadEvidenceVMFromJSONTyped, SdkLeadEvidenceVMToJSON } from "./SdkLeadEvidenceVM";
+import { SdkLeadEvidenceVMFromJSON, SdkLeadEvidenceVMFromJSONTyped, SdkLeadEvidenceVMToJSON, SdkLeadEvidenceVMToJSONTyped } from "./SdkLeadEvidenceVM";
 
 /**
  *
@@ -81,10 +81,15 @@ export function SdkEvidenceVMFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function SdkEvidenceVMToJSON(value?: SdkEvidenceVM | null): any {
+export function SdkEvidenceVMToJSON(json: any): SdkEvidenceVM {
+    return SdkEvidenceVMToJSONTyped(json, false);
+}
+
+export function SdkEvidenceVMToJSONTyped(value?: SdkEvidenceVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         alerts: SdkAlertEvidenceVMToJSON(value["alerts"]),
         custom_evidence: SdkCustomEvidenceVMToJSON(value["customEvidence"]),

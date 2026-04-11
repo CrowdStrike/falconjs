@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { ApiIndicatorsQueryMeta } from "./ApiIndicatorsQueryMeta";
-import { ApiIndicatorsQueryMetaFromJSON, ApiIndicatorsQueryMetaFromJSONTyped, ApiIndicatorsQueryMetaToJSON } from "./ApiIndicatorsQueryMeta";
+import { ApiIndicatorsQueryMetaFromJSON, ApiIndicatorsQueryMetaFromJSONTyped, ApiIndicatorsQueryMetaToJSON, ApiIndicatorsQueryMetaToJSONTyped } from "./ApiIndicatorsQueryMeta";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ApiIndicatorV1 } from "./ApiIndicatorV1";
-import { ApiIndicatorV1FromJSON, ApiIndicatorV1FromJSONTyped, ApiIndicatorV1ToJSON } from "./ApiIndicatorV1";
+import { ApiIndicatorV1FromJSON, ApiIndicatorV1FromJSONTyped, ApiIndicatorV1ToJSON, ApiIndicatorV1ToJSONTyped } from "./ApiIndicatorV1";
 
 /**
  *
@@ -71,10 +71,15 @@ export function ApiIndicatorRespV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ApiIndicatorRespV1ToJSON(value?: ApiIndicatorRespV1 | null): any {
+export function ApiIndicatorRespV1ToJSON(json: any): ApiIndicatorRespV1 {
+    return ApiIndicatorRespV1ToJSONTyped(json, false);
+}
+
+export function ApiIndicatorRespV1ToJSONTyped(value?: ApiIndicatorRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: ApiIndicatorsQueryMetaToJSON(value["meta"]),

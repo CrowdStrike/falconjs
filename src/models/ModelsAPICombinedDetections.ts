@@ -136,10 +136,15 @@ export function ModelsAPICombinedDetectionsFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function ModelsAPICombinedDetectionsToJSON(value?: ModelsAPICombinedDetections | null): any {
+export function ModelsAPICombinedDetectionsToJSON(json: any): ModelsAPICombinedDetections {
+    return ModelsAPICombinedDetectionsToJSONTyped(json, false);
+}
+
+export function ModelsAPICombinedDetectionsToJSONTyped(value?: ModelsAPICombinedDetections | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         containers_impacted: value["containersImpacted"],

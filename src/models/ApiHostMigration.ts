@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiEvent } from "./ApiEvent";
-import { ApiEventFromJSON, ApiEventFromJSONTyped, ApiEventToJSON } from "./ApiEvent";
+import { ApiEventFromJSON, ApiEventFromJSONTyped, ApiEventToJSON, ApiEventToJSONTyped } from "./ApiEvent";
 
 /**
  *
@@ -154,10 +154,15 @@ export function ApiHostMigrationFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ApiHostMigrationToJSON(value?: ApiHostMigration | null): any {
+export function ApiHostMigrationToJSON(json: any): ApiHostMigration {
+    return ApiHostMigrationToJSONTyped(json, false);
+}
+
+export function ApiHostMigrationToJSONTyped(value?: ApiHostMigration | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         created_time: value["createdTime"].toISOString(),
         events: value["events"] == null ? undefined : (value["events"] as Array<any>).map(ApiEventToJSON),

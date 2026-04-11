@@ -72,10 +72,15 @@ export function DomainOCITenancyRotatedKeyFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function DomainOCITenancyRotatedKeyToJSON(value?: DomainOCITenancyRotatedKey | null): any {
+export function DomainOCITenancyRotatedKeyToJSON(json: any): DomainOCITenancyRotatedKey {
+    return DomainOCITenancyRotatedKeyToJSONTyped(json, false);
+}
+
+export function DomainOCITenancyRotatedKeyToJSONTyped(value?: DomainOCITenancyRotatedKey | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         cid: value["cid"],
         finger_print: value["fingerPrint"],

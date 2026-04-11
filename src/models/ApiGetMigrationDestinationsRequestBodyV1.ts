@@ -56,10 +56,15 @@ export function ApiGetMigrationDestinationsRequestBodyV1FromJSONTyped(json: any,
     };
 }
 
-export function ApiGetMigrationDestinationsRequestBodyV1ToJSON(value?: ApiGetMigrationDestinationsRequestBodyV1 | null): any {
+export function ApiGetMigrationDestinationsRequestBodyV1ToJSON(json: any): ApiGetMigrationDestinationsRequestBodyV1 {
+    return ApiGetMigrationDestinationsRequestBodyV1ToJSONTyped(json, false);
+}
+
+export function ApiGetMigrationDestinationsRequestBodyV1ToJSONTyped(value?: ApiGetMigrationDestinationsRequestBodyV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         device_ids: value["deviceIds"],
         filter: value["filter"],

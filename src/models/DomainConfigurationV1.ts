@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCollectionV1 } from "./DomainCollectionV1";
-import { DomainCollectionV1FromJSON, DomainCollectionV1FromJSONTyped, DomainCollectionV1ToJSON } from "./DomainCollectionV1";
+import { DomainCollectionV1FromJSON, DomainCollectionV1FromJSONTyped, DomainCollectionV1ToJSON, DomainCollectionV1ToJSONTyped } from "./DomainCollectionV1";
 
 /**
  *
@@ -144,10 +144,15 @@ export function DomainConfigurationV1FromJSONTyped(json: any, ignoreDiscriminato
     };
 }
 
-export function DomainConfigurationV1ToJSON(value?: DomainConfigurationV1 | null): any {
+export function DomainConfigurationV1ToJSON(json: any): DomainConfigurationV1 {
+    return DomainConfigurationV1ToJSONTyped(json, false);
+}
+
+export function DomainConfigurationV1ToJSONTyped(value?: DomainConfigurationV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         collections: value["collections"] == null ? undefined : (value["collections"] as Array<any>).map(DomainCollectionV1ToJSON),
         created_timestamp: value["createdTimestamp"].toISOString(),

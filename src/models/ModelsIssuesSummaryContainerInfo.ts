@@ -64,10 +64,15 @@ export function ModelsIssuesSummaryContainerInfoFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function ModelsIssuesSummaryContainerInfoToJSON(value?: ModelsIssuesSummaryContainerInfo | null): any {
+export function ModelsIssuesSummaryContainerInfoToJSON(json: any): ModelsIssuesSummaryContainerInfo {
+    return ModelsIssuesSummaryContainerInfoToJSONTyped(json, false);
+}
+
+export function ModelsIssuesSummaryContainerInfoToJSONTyped(value?: ModelsIssuesSummaryContainerInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         first_seen: value["firstSeen"],
         last_seen: value["lastSeen"],

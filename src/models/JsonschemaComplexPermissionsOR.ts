@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { JsonschemaPermission } from "./JsonschemaPermission";
-import { JsonschemaPermissionFromJSON, JsonschemaPermissionFromJSONTyped, JsonschemaPermissionToJSON } from "./JsonschemaPermission";
+import { JsonschemaPermissionFromJSON, JsonschemaPermissionFromJSONTyped, JsonschemaPermissionToJSON, JsonschemaPermissionToJSONTyped } from "./JsonschemaPermission";
 
 /**
  *
@@ -50,10 +50,15 @@ export function JsonschemaComplexPermissionsORFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function JsonschemaComplexPermissionsORToJSON(value?: JsonschemaComplexPermissionsOR | null): any {
+export function JsonschemaComplexPermissionsORToJSON(json: any): JsonschemaComplexPermissionsOR {
+    return JsonschemaComplexPermissionsORToJSONTyped(json, false);
+}
+
+export function JsonschemaComplexPermissionsORToJSONTyped(value?: JsonschemaComplexPermissionsOR | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         AND: value["aND"] == null ? undefined : (value["aND"] as Array<any>).map(JsonschemaPermissionToJSON),
     };

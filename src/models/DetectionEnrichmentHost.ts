@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DetectionHostNetwork } from "./DetectionHostNetwork";
-import { DetectionHostNetworkFromJSON, DetectionHostNetworkFromJSONTyped, DetectionHostNetworkToJSON } from "./DetectionHostNetwork";
+import { DetectionHostNetworkFromJSON, DetectionHostNetworkFromJSONTyped, DetectionHostNetworkToJSON, DetectionHostNetworkToJSONTyped } from "./DetectionHostNetwork";
 
 /**
  *
@@ -92,10 +92,15 @@ export function DetectionEnrichmentHostFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DetectionEnrichmentHostToJSON(value?: DetectionEnrichmentHost | null): any {
+export function DetectionEnrichmentHostToJSON(json: any): DetectionEnrichmentHost {
+    return DetectionEnrichmentHostToJSONTyped(json, false);
+}
+
+export function DetectionEnrichmentHostToJSONTyped(value?: DetectionEnrichmentHost | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         launch_time: value["launchTime"],

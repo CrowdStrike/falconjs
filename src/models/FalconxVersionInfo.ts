@@ -54,10 +54,15 @@ export function FalconxVersionInfoFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function FalconxVersionInfoToJSON(value?: FalconxVersionInfo | null): any {
+export function FalconxVersionInfoToJSON(json: any): FalconxVersionInfo {
+    return FalconxVersionInfoToJSONTyped(json, false);
+}
+
+export function FalconxVersionInfoToJSONTyped(value?: FalconxVersionInfo | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         value: value["value"],

@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAwsAccountAccessHealth } from "./ModelsAwsAccountAccessHealth";
-import { ModelsAwsAccountAccessHealthFromJSON, ModelsAwsAccountAccessHealthFromJSONTyped, ModelsAwsAccountAccessHealthToJSON } from "./ModelsAwsAccountAccessHealth";
+import {
+    ModelsAwsAccountAccessHealthFromJSON,
+    ModelsAwsAccountAccessHealthFromJSONTyped,
+    ModelsAwsAccountAccessHealthToJSON,
+    ModelsAwsAccountAccessHealthToJSONTyped,
+} from "./ModelsAwsAccountAccessHealth";
 
 /**
  *
@@ -169,10 +174,15 @@ export function ModelsAWSAccountV1FromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ModelsAWSAccountV1ToJSON(value?: ModelsAWSAccountV1 | null): any {
+export function ModelsAWSAccountV1ToJSON(json: any): ModelsAWSAccountV1 {
+    return ModelsAWSAccountV1ToJSONTyped(json, false);
+}
+
+export function ModelsAWSAccountV1ToJSONTyped(value?: ModelsAWSAccountV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         access_health: ModelsAwsAccountAccessHealthToJSON(value["accessHealth"]),
         alias: value["alias"],

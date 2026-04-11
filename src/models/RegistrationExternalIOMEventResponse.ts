@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { RegistrationIOMResources } from "./RegistrationIOMResources";
-import { RegistrationIOMResourcesFromJSON, RegistrationIOMResourcesFromJSONTyped, RegistrationIOMResourcesToJSON } from "./RegistrationIOMResources";
+import { RegistrationIOMResourcesFromJSON, RegistrationIOMResourcesFromJSONTyped, RegistrationIOMResourcesToJSON, RegistrationIOMResourcesToJSONTyped } from "./RegistrationIOMResources";
 import type { RegistrationMSAMetaInfoExtension } from "./RegistrationMSAMetaInfoExtension";
-import { RegistrationMSAMetaInfoExtensionFromJSON, RegistrationMSAMetaInfoExtensionFromJSONTyped, RegistrationMSAMetaInfoExtensionToJSON } from "./RegistrationMSAMetaInfoExtension";
+import {
+    RegistrationMSAMetaInfoExtensionFromJSON,
+    RegistrationMSAMetaInfoExtensionFromJSONTyped,
+    RegistrationMSAMetaInfoExtensionToJSON,
+    RegistrationMSAMetaInfoExtensionToJSONTyped,
+} from "./RegistrationMSAMetaInfoExtension";
 
 /**
  *
@@ -70,10 +75,15 @@ export function RegistrationExternalIOMEventResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function RegistrationExternalIOMEventResponseToJSON(value?: RegistrationExternalIOMEventResponse | null): any {
+export function RegistrationExternalIOMEventResponseToJSON(json: any): RegistrationExternalIOMEventResponse {
+    return RegistrationExternalIOMEventResponseToJSONTyped(json, false);
+}
+
+export function RegistrationExternalIOMEventResponseToJSONTyped(value?: RegistrationExternalIOMEventResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: RegistrationMSAMetaInfoExtensionToJSON(value["meta"]),

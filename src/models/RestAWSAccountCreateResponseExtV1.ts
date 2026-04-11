@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DomainCloudAWSAccountV1 } from "./DomainCloudAWSAccountV1";
-import { DomainCloudAWSAccountV1FromJSON, DomainCloudAWSAccountV1FromJSONTyped, DomainCloudAWSAccountV1ToJSON } from "./DomainCloudAWSAccountV1";
+import { DomainCloudAWSAccountV1FromJSON, DomainCloudAWSAccountV1FromJSONTyped, DomainCloudAWSAccountV1ToJSON, DomainCloudAWSAccountV1ToJSONTyped } from "./DomainCloudAWSAccountV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function RestAWSAccountCreateResponseExtV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function RestAWSAccountCreateResponseExtV1ToJSON(value?: RestAWSAccountCreateResponseExtV1 | null): any {
+export function RestAWSAccountCreateResponseExtV1ToJSON(json: any): RestAWSAccountCreateResponseExtV1 {
+    return RestAWSAccountCreateResponseExtV1ToJSONTyped(json, false);
+}
+
+export function RestAWSAccountCreateResponseExtV1ToJSONTyped(value?: RestAWSAccountCreateResponseExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

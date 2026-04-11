@@ -18,6 +18,7 @@ import {
     DomainKestrelDataExportHeaderComputationFunctionV2FromJSON,
     DomainKestrelDataExportHeaderComputationFunctionV2FromJSONTyped,
     DomainKestrelDataExportHeaderComputationFunctionV2ToJSON,
+    DomainKestrelDataExportHeaderComputationFunctionV2ToJSONTyped,
 } from "./DomainKestrelDataExportHeaderComputationFunctionV2";
 
 /**
@@ -79,10 +80,15 @@ export function DomainKestrelDataExportHeaderMappingV2FromJSONTyped(json: any, i
     };
 }
 
-export function DomainKestrelDataExportHeaderMappingV2ToJSON(value?: DomainKestrelDataExportHeaderMappingV2 | null): any {
+export function DomainKestrelDataExportHeaderMappingV2ToJSON(json: any): DomainKestrelDataExportHeaderMappingV2 {
+    return DomainKestrelDataExportHeaderMappingV2ToJSONTyped(json, false);
+}
+
+export function DomainKestrelDataExportHeaderMappingV2ToJSONTyped(value?: DomainKestrelDataExportHeaderMappingV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         column: value["column"],
         computation_functions: (value["computationFunctions"] as Array<any>).map(DomainKestrelDataExportHeaderComputationFunctionV2ToJSON),

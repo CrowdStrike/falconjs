@@ -64,10 +64,15 @@ export function MlscannerapiQuotaFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function MlscannerapiQuotaToJSON(value?: MlscannerapiQuota | null): any {
+export function MlscannerapiQuotaToJSON(json: any): MlscannerapiQuota {
+    return MlscannerapiQuotaToJSONTyped(json, false);
+}
+
+export function MlscannerapiQuotaToJSONTyped(value?: MlscannerapiQuota | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         in_progress: value["inProgress"],
         total: value["total"],

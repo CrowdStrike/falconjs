@@ -93,10 +93,15 @@ export function SdkCustomFieldVMFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function SdkCustomFieldVMToJSON(value?: SdkCustomFieldVM | null): any {
+export function SdkCustomFieldVMToJSON(json: any): SdkCustomFieldVM {
+    return SdkCustomFieldVMToJSONTyped(json, false);
+}
+
+export function SdkCustomFieldVMToJSONTyped(value?: SdkCustomFieldVM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         display_order: value["displayOrder"],
         id: value["id"],

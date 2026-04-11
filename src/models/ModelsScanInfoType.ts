@@ -82,10 +82,15 @@ export function ModelsScanInfoTypeFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function ModelsScanInfoTypeToJSON(value?: ModelsScanInfoType | null): any {
+export function ModelsScanInfoTypeToJSON(json: any): ModelsScanInfoType {
+    return ModelsScanInfoTypeToJSONTyped(json, false);
+}
+
+export function ModelsScanInfoTypeToJSONTyped(value?: ModelsScanInfoType | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         CorrelationUUID: value["correlationUUID"],
         RequestedAt: value["requestedAt"],

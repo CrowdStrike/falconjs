@@ -54,10 +54,15 @@ export function ApiCustomerSettingsPatchRequestV1FromJSONTyped(json: any, ignore
     };
 }
 
-export function ApiCustomerSettingsPatchRequestV1ToJSON(value?: ApiCustomerSettingsPatchRequestV1 | null): any {
+export function ApiCustomerSettingsPatchRequestV1ToJSON(json: any): ApiCustomerSettingsPatchRequestV1 {
+    return ApiCustomerSettingsPatchRequestV1ToJSONTyped(json, false);
+}
+
+export function ApiCustomerSettingsPatchRequestV1ToJSONTyped(value?: ApiCustomerSettingsPatchRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         max_active_tokens: value["maxActiveTokens"],
         tokens_required: value["tokensRequired"],

@@ -14,17 +14,37 @@
 
 import { mapValues } from "../runtime";
 import type { ApiExposedDataRecordFinancialV1 } from "./ApiExposedDataRecordFinancialV1";
-import { ApiExposedDataRecordFinancialV1FromJSON, ApiExposedDataRecordFinancialV1FromJSONTyped, ApiExposedDataRecordFinancialV1ToJSON } from "./ApiExposedDataRecordFinancialV1";
+import {
+    ApiExposedDataRecordFinancialV1FromJSON,
+    ApiExposedDataRecordFinancialV1FromJSONTyped,
+    ApiExposedDataRecordFinancialV1ToJSON,
+    ApiExposedDataRecordFinancialV1ToJSONTyped,
+} from "./ApiExposedDataRecordFinancialV1";
 import type { ApiRuleDetailsV1 } from "./ApiRuleDetailsV1";
-import { ApiRuleDetailsV1FromJSON, ApiRuleDetailsV1FromJSONTyped, ApiRuleDetailsV1ToJSON } from "./ApiRuleDetailsV1";
+import { ApiRuleDetailsV1FromJSON, ApiRuleDetailsV1FromJSONTyped, ApiRuleDetailsV1ToJSON, ApiRuleDetailsV1ToJSONTyped } from "./ApiRuleDetailsV1";
 import type { ApiExposedDataRecordLocationV1 } from "./ApiExposedDataRecordLocationV1";
-import { ApiExposedDataRecordLocationV1FromJSON, ApiExposedDataRecordLocationV1FromJSONTyped, ApiExposedDataRecordLocationV1ToJSON } from "./ApiExposedDataRecordLocationV1";
+import {
+    ApiExposedDataRecordLocationV1FromJSON,
+    ApiExposedDataRecordLocationV1FromJSONTyped,
+    ApiExposedDataRecordLocationV1ToJSON,
+    ApiExposedDataRecordLocationV1ToJSONTyped,
+} from "./ApiExposedDataRecordLocationV1";
 import type { ApiExposedDataRecordBotV1 } from "./ApiExposedDataRecordBotV1";
-import { ApiExposedDataRecordBotV1FromJSON, ApiExposedDataRecordBotV1FromJSONTyped, ApiExposedDataRecordBotV1ToJSON } from "./ApiExposedDataRecordBotV1";
+import { ApiExposedDataRecordBotV1FromJSON, ApiExposedDataRecordBotV1FromJSONTyped, ApiExposedDataRecordBotV1ToJSON, ApiExposedDataRecordBotV1ToJSONTyped } from "./ApiExposedDataRecordBotV1";
 import type { ApiExposedDataFileDetailsV1 } from "./ApiExposedDataFileDetailsV1";
-import { ApiExposedDataFileDetailsV1FromJSON, ApiExposedDataFileDetailsV1FromJSONTyped, ApiExposedDataFileDetailsV1ToJSON } from "./ApiExposedDataFileDetailsV1";
+import {
+    ApiExposedDataFileDetailsV1FromJSON,
+    ApiExposedDataFileDetailsV1FromJSONTyped,
+    ApiExposedDataFileDetailsV1ToJSON,
+    ApiExposedDataFileDetailsV1ToJSONTyped,
+} from "./ApiExposedDataFileDetailsV1";
 import type { ApiExposedDataRecordSocialV1 } from "./ApiExposedDataRecordSocialV1";
-import { ApiExposedDataRecordSocialV1FromJSON, ApiExposedDataRecordSocialV1FromJSONTyped, ApiExposedDataRecordSocialV1ToJSON } from "./ApiExposedDataRecordSocialV1";
+import {
+    ApiExposedDataRecordSocialV1FromJSON,
+    ApiExposedDataRecordSocialV1FromJSONTyped,
+    ApiExposedDataRecordSocialV1ToJSON,
+    ApiExposedDataRecordSocialV1ToJSONTyped,
+} from "./ApiExposedDataRecordSocialV1";
 
 /**
  *
@@ -331,10 +351,15 @@ export function ApiNotificationExposedDataRecordV1FromJSONTyped(json: any, ignor
     };
 }
 
-export function ApiNotificationExposedDataRecordV1ToJSON(value?: ApiNotificationExposedDataRecordV1 | null): any {
+export function ApiNotificationExposedDataRecordV1ToJSON(json: any): ApiNotificationExposedDataRecordV1 {
+    return ApiNotificationExposedDataRecordV1ToJSONTyped(json, false);
+}
+
+export function ApiNotificationExposedDataRecordV1ToJSONTyped(value?: ApiNotificationExposedDataRecordV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         author: value["author"],
         author_id: value["authorId"],

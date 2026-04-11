@@ -54,10 +54,15 @@ export function DomainUpdateResultsFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function DomainUpdateResultsToJSON(value?: DomainUpdateResults | null): any {
+export function DomainUpdateResultsToJSON(json: any): DomainUpdateResults {
+    return DomainUpdateResultsToJSONTyped(json, false);
+}
+
+export function DomainUpdateResultsToJSONTyped(value?: DomainUpdateResults | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         detections_unchanged: value["detectionsUnchanged"],
         detections_updated: value["detectionsUpdated"],

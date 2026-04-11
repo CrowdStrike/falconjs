@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { DeviceapiDeviceSwagger } from "./DeviceapiDeviceSwagger";
-import { DeviceapiDeviceSwaggerFromJSON, DeviceapiDeviceSwaggerFromJSONTyped, DeviceapiDeviceSwaggerToJSON } from "./DeviceapiDeviceSwagger";
+import { DeviceapiDeviceSwaggerFromJSON, DeviceapiDeviceSwaggerFromJSONTyped, DeviceapiDeviceSwaggerToJSON, DeviceapiDeviceSwaggerToJSONTyped } from "./DeviceapiDeviceSwagger";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function DeviceapiDeviceDetailsResponseSwaggerFromJSONTyped(json: any, ig
     };
 }
 
-export function DeviceapiDeviceDetailsResponseSwaggerToJSON(value?: DeviceapiDeviceDetailsResponseSwagger | null): any {
+export function DeviceapiDeviceDetailsResponseSwaggerToJSON(json: any): DeviceapiDeviceDetailsResponseSwagger {
+    return DeviceapiDeviceDetailsResponseSwaggerToJSONTyped(json, false);
+}
+
+export function DeviceapiDeviceDetailsResponseSwaggerToJSONTyped(value?: DeviceapiDeviceDetailsResponseSwagger | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelsCombinedFileDownloadResource } from "./ModelsCombinedFileDownloadResource";
-import { ModelsCombinedFileDownloadResourceFromJSON, ModelsCombinedFileDownloadResourceFromJSONTyped, ModelsCombinedFileDownloadResourceToJSON } from "./ModelsCombinedFileDownloadResource";
+import {
+    ModelsCombinedFileDownloadResourceFromJSON,
+    ModelsCombinedFileDownloadResourceFromJSONTyped,
+    ModelsCombinedFileDownloadResourceToJSON,
+    ModelsCombinedFileDownloadResourceToJSONTyped,
+} from "./ModelsCombinedFileDownloadResource";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ModelsCombinedFilesDownloadResponseFromJSONTyped(json: any, igno
     };
 }
 
-export function ModelsCombinedFilesDownloadResponseToJSON(value?: ModelsCombinedFilesDownloadResponse | null): any {
+export function ModelsCombinedFilesDownloadResponseToJSON(json: any): ModelsCombinedFilesDownloadResponse {
+    return ModelsCombinedFilesDownloadResponseToJSONTyped(json, false);
+}
+
+export function ModelsCombinedFilesDownloadResponseToJSONTyped(value?: ModelsCombinedFilesDownloadResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

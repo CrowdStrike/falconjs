@@ -18,6 +18,7 @@ import {
     CorrelationrulesapiRuleResultMetadataV1FromJSON,
     CorrelationrulesapiRuleResultMetadataV1FromJSONTyped,
     CorrelationrulesapiRuleResultMetadataV1ToJSON,
+    CorrelationrulesapiRuleResultMetadataV1ToJSONTyped,
 } from "./CorrelationrulesapiRuleResultMetadataV1";
 
 /**
@@ -61,10 +62,15 @@ export function CorrelationrulesapiRuleLastExecutionV1FromJSONTyped(json: any, i
     };
 }
 
-export function CorrelationrulesapiRuleLastExecutionV1ToJSON(value?: CorrelationrulesapiRuleLastExecutionV1 | null): any {
+export function CorrelationrulesapiRuleLastExecutionV1ToJSON(json: any): CorrelationrulesapiRuleLastExecutionV1 {
+    return CorrelationrulesapiRuleLastExecutionV1ToJSONTyped(json, false);
+}
+
+export function CorrelationrulesapiRuleLastExecutionV1ToJSONTyped(value?: CorrelationrulesapiRuleLastExecutionV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         result_metadata: CorrelationrulesapiRuleResultMetadataV1ToJSON(value["resultMetadata"]),
         status_display: value["statusDisplay"],

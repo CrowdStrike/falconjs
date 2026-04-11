@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationPolicyExtV1 } from "./RegistrationPolicyExtV1";
-import { RegistrationPolicyExtV1FromJSON, RegistrationPolicyExtV1FromJSONTyped, RegistrationPolicyExtV1ToJSON } from "./RegistrationPolicyExtV1";
+import { RegistrationPolicyExtV1FromJSON, RegistrationPolicyExtV1FromJSONTyped, RegistrationPolicyExtV1ToJSON, RegistrationPolicyExtV1ToJSONTyped } from "./RegistrationPolicyExtV1";
 
 /**
  *
@@ -51,10 +51,15 @@ export function RegistrationPolicyRequestExtV1FromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function RegistrationPolicyRequestExtV1ToJSON(value?: RegistrationPolicyRequestExtV1 | null): any {
+export function RegistrationPolicyRequestExtV1ToJSON(json: any): RegistrationPolicyRequestExtV1 {
+    return RegistrationPolicyRequestExtV1ToJSONTyped(json, false);
+}
+
+export function RegistrationPolicyRequestExtV1ToJSONTyped(value?: RegistrationPolicyRequestExtV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationPolicyExtV1ToJSON),
     };

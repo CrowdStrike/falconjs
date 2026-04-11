@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ItautomationTaskExecution } from "./ItautomationTaskExecution";
-import { ItautomationTaskExecutionFromJSON, ItautomationTaskExecutionFromJSONTyped, ItautomationTaskExecutionToJSON } from "./ItautomationTaskExecution";
+import { ItautomationTaskExecutionFromJSON, ItautomationTaskExecutionFromJSONTyped, ItautomationTaskExecutionToJSON, ItautomationTaskExecutionToJSONTyped } from "./ItautomationTaskExecution";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +70,15 @@ export function ItautomationGetTaskExecutionResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function ItautomationGetTaskExecutionResponseToJSON(value?: ItautomationGetTaskExecutionResponse | null): any {
+export function ItautomationGetTaskExecutionResponseToJSON(json: any): ItautomationGetTaskExecutionResponse {
+    return ItautomationGetTaskExecutionResponseToJSONTyped(json, false);
+}
+
+export function ItautomationGetTaskExecutionResponseToJSONTyped(value?: ItautomationGetTaskExecutionResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

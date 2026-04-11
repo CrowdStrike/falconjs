@@ -110,10 +110,15 @@ export function DomainDiscoverAPIOsSecurityFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function DomainDiscoverAPIOsSecurityToJSON(value?: DomainDiscoverAPIOsSecurity | null): any {
+export function DomainDiscoverAPIOsSecurityToJSON(json: any): DomainDiscoverAPIOsSecurity {
+    return DomainDiscoverAPIOsSecurityToJSONTyped(json, false);
+}
+
+export function DomainDiscoverAPIOsSecurityToJSONTyped(value?: DomainDiscoverAPIOsSecurity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         credential_guard_status: value["credentialGuardStatus"],
         device_guard_status: value["deviceGuardStatus"],

@@ -141,10 +141,15 @@ export function DomainSensorInstallerV2FromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function DomainSensorInstallerV2ToJSON(value?: DomainSensorInstallerV2 | null): any {
+export function DomainSensorInstallerV2ToJSON(json: any): DomainSensorInstallerV2 {
+    return DomainSensorInstallerV2ToJSONTyped(json, false);
+}
+
+export function DomainSensorInstallerV2ToJSONTyped(value?: DomainSensorInstallerV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         architectures: value["architectures"],
         description: value["description"],

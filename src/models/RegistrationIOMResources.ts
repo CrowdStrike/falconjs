@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { RegistrationIOMEvent } from "./RegistrationIOMEvent";
-import { RegistrationIOMEventFromJSON, RegistrationIOMEventFromJSONTyped, RegistrationIOMEventToJSON } from "./RegistrationIOMEvent";
+import { RegistrationIOMEventFromJSON, RegistrationIOMEventFromJSONTyped, RegistrationIOMEventToJSON, RegistrationIOMEventToJSONTyped } from "./RegistrationIOMEvent";
 
 /**
  *
@@ -50,10 +50,15 @@ export function RegistrationIOMResourcesFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function RegistrationIOMResourcesToJSON(value?: RegistrationIOMResources | null): any {
+export function RegistrationIOMResourcesToJSON(json: any): RegistrationIOMResources {
+    return RegistrationIOMResourcesToJSONTyped(json, false);
+}
+
+export function RegistrationIOMResourcesToJSONTyped(value?: RegistrationIOMResources | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         events: value["events"] == null ? undefined : (value["events"] as Array<any>).map(RegistrationIOMEventToJSON),
     };

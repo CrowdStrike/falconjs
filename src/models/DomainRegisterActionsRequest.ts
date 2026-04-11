@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { DomainCreateActionRequest } from "./DomainCreateActionRequest";
-import { DomainCreateActionRequestFromJSON, DomainCreateActionRequestFromJSONTyped, DomainCreateActionRequestToJSON } from "./DomainCreateActionRequest";
+import { DomainCreateActionRequestFromJSON, DomainCreateActionRequestFromJSONTyped, DomainCreateActionRequestToJSON, DomainCreateActionRequestToJSONTyped } from "./DomainCreateActionRequest";
 
 /**
  *
@@ -59,10 +59,15 @@ export function DomainRegisterActionsRequestFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function DomainRegisterActionsRequestToJSON(value?: DomainRegisterActionsRequest | null): any {
+export function DomainRegisterActionsRequestToJSON(json: any): DomainRegisterActionsRequest {
+    return DomainRegisterActionsRequestToJSONTyped(json, false);
+}
+
+export function DomainRegisterActionsRequestToJSONTyped(value?: DomainRegisterActionsRequest | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         actions: (value["actions"] as Array<any>).map(DomainCreateActionRequestToJSON),
         rule_id: value["ruleId"],

@@ -56,10 +56,15 @@ export function VulncheckEPSSFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function VulncheckEPSSToJSON(value?: VulncheckEPSS | null): any {
+export function VulncheckEPSSToJSON(json: any): VulncheckEPSS {
+    return VulncheckEPSSToJSONTyped(json, false);
+}
+
+export function VulncheckEPSSToJSONTyped(value?: VulncheckEPSS | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         epss_percentile: value["epssPercentile"],
         epss_score: value["epssScore"],

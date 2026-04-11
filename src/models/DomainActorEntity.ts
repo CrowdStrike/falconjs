@@ -61,10 +61,15 @@ export function DomainActorEntityFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function DomainActorEntityToJSON(value?: DomainActorEntity | null): any {
+export function DomainActorEntityToJSON(json: any): DomainActorEntity {
+    return DomainActorEntityToJSONTyped(json, false);
+}
+
+export function DomainActorEntityToJSONTyped(value?: DomainActorEntity | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         id: value["id"],
         name: value["name"],

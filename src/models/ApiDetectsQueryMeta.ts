@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ApiDetectsQueryPaging } from "./ApiDetectsQueryPaging";
-import { ApiDetectsQueryPagingFromJSON, ApiDetectsQueryPagingFromJSONTyped, ApiDetectsQueryPagingToJSON } from "./ApiDetectsQueryPaging";
+import { ApiDetectsQueryPagingFromJSON, ApiDetectsQueryPagingFromJSONTyped, ApiDetectsQueryPagingToJSON, ApiDetectsQueryPagingToJSONTyped } from "./ApiDetectsQueryPaging";
 
 /**
  *
@@ -73,10 +73,15 @@ export function ApiDetectsQueryMetaFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function ApiDetectsQueryMetaToJSON(value?: ApiDetectsQueryMeta | null): any {
+export function ApiDetectsQueryMetaToJSON(json: any): ApiDetectsQueryMeta {
+    return ApiDetectsQueryMetaToJSONTyped(json, false);
+}
+
+export function ApiDetectsQueryMetaToJSONTyped(value?: ApiDetectsQueryMeta | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         pagination: ApiDetectsQueryPagingToJSON(value["pagination"]),
         powered_by: value["poweredBy"],

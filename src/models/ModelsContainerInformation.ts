@@ -56,10 +56,15 @@ export function ModelsContainerInformationFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsContainerInformationToJSON(value?: ModelsContainerInformation | null): any {
+export function ModelsContainerInformationToJSON(json: any): ModelsContainerInformation {
+    return ModelsContainerInformationToJSONTyped(json, false);
+}
+
+export function ModelsContainerInformationToJSONTyped(value?: ModelsContainerInformation | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         container_detection_count: value["containerDetectionCount"],
         container_id: value["containerId"],

@@ -61,10 +61,15 @@ export function TypesQueryRequestSelectFieldsFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function TypesQueryRequestSelectFieldsToJSON(value?: TypesQueryRequestSelectFields | null): any {
+export function TypesQueryRequestSelectFieldsToJSON(json: any): TypesQueryRequestSelectFields {
+    return TypesQueryRequestSelectFieldsToJSONTyped(json, false);
+}
+
+export function TypesQueryRequestSelectFieldsToJSONTyped(value?: TypesQueryRequestSelectFields | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         fields: value["fields"],
         serviceFields: value["serviceFields"],

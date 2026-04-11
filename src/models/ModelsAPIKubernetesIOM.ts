@@ -421,10 +421,15 @@ export function ModelsAPIKubernetesIOMFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function ModelsAPIKubernetesIOMToJSON(value?: ModelsAPIKubernetesIOM | null): any {
+export function ModelsAPIKubernetesIOMToJSON(json: any): ModelsAPIKubernetesIOM {
+    return ModelsAPIKubernetesIOMToJSONTyped(json, false);
+}
+
+export function ModelsAPIKubernetesIOMToJSONTyped(value?: ModelsAPIKubernetesIOM | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         admission_review_action: value["admissionReviewAction"],
         admission_review_id: value["admissionReviewId"],

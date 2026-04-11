@@ -205,10 +205,15 @@ export function RegistrationIOMEventFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function RegistrationIOMEventToJSON(value?: RegistrationIOMEvent | null): any {
+export function RegistrationIOMEventToJSON(json: any): RegistrationIOMEvent {
+    return RegistrationIOMEventToJSONTyped(json, false);
+}
+
+export function RegistrationIOMEventToJSONTyped(value?: RegistrationIOMEvent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],

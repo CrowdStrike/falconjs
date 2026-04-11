@@ -14,11 +14,16 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ComplianceRulePostureSummary } from "./ComplianceRulePostureSummary";
-import { ComplianceRulePostureSummaryFromJSON, ComplianceRulePostureSummaryFromJSONTyped, ComplianceRulePostureSummaryToJSON } from "./ComplianceRulePostureSummary";
+import {
+    ComplianceRulePostureSummaryFromJSON,
+    ComplianceRulePostureSummaryFromJSONTyped,
+    ComplianceRulePostureSummaryToJSON,
+    ComplianceRulePostureSummaryToJSONTyped,
+} from "./ComplianceRulePostureSummary";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -70,10 +75,15 @@ export function ComplianceRulePostureSummaryResponseFromJSONTyped(json: any, ign
     };
 }
 
-export function ComplianceRulePostureSummaryResponseToJSON(value?: ComplianceRulePostureSummaryResponse | null): any {
+export function ComplianceRulePostureSummaryResponseToJSON(json: any): ComplianceRulePostureSummaryResponse {
+    return ComplianceRulePostureSummaryResponseToJSONTyped(json, false);
+}
+
+export function ComplianceRulePostureSummaryResponseToJSONTyped(value?: ComplianceRulePostureSummaryResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

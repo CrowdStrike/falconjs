@@ -21,13 +21,13 @@ import { mapValues } from "../runtime";
 export interface FalconforitapiConditionalExpr {
     /**
      * Comparison operator to use
-     * @type {string}
+     * @type {FalconforitapiConditionalExprDataComparatorEnum}
      * @memberof FalconforitapiConditionalExpr
      */
     dataComparator: FalconforitapiConditionalExprDataComparatorEnum;
     /**
      * Data type for comparison
-     * @type {string}
+     * @type {FalconforitapiConditionalExprDataTypeEnum}
      * @memberof FalconforitapiConditionalExpr
      */
     dataType: FalconforitapiConditionalExprDataTypeEnum;
@@ -107,10 +107,15 @@ export function FalconforitapiConditionalExprFromJSONTyped(json: any, ignoreDisc
     };
 }
 
-export function FalconforitapiConditionalExprToJSON(value?: FalconforitapiConditionalExpr | null): any {
+export function FalconforitapiConditionalExprToJSON(json: any): FalconforitapiConditionalExpr {
+    return FalconforitapiConditionalExprToJSONTyped(json, false);
+}
+
+export function FalconforitapiConditionalExprToJSONTyped(value?: FalconforitapiConditionalExpr | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         data_comparator: value["dataComparator"],
         data_type: value["dataType"],

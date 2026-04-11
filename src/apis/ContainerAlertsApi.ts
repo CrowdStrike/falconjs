@@ -45,12 +45,9 @@ export interface ContainerAlertsApiSearchAndReadContainerAlertsRequest {
  */
 export class ContainerAlertsApi extends runtime.BaseAPI {
     /**
-     * Search Container Alerts by the provided search criteria
+     * Creates request options for readContainerAlertsCount without sending the request
      */
-    async readContainerAlertsCountRaw(
-        requestParameters: ContainerAlertsApiReadContainerAlertsCountRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AlertsContainerAlertsCountValue>> {
+    async readContainerAlertsCountRequestOpts(requestParameters: ContainerAlertsApiReadContainerAlertsCountRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -64,15 +61,25 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/container-alerts/count/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/container-alerts/count/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Container Alerts by the provided search criteria
+     */
+    async readContainerAlertsCountRaw(
+        requestParameters: ContainerAlertsApiReadContainerAlertsCountRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AlertsContainerAlertsCountValue>> {
+        const requestOptions = await this.readContainerAlertsCountRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AlertsContainerAlertsCountValueFromJSON(jsonValue));
     }
@@ -86,12 +93,9 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Container Alerts counts by severity
+     * Creates request options for readContainerAlertsCountBySeverity without sending the request
      */
-    async readContainerAlertsCountBySeverityRaw(
-        requestParameters: ContainerAlertsApiReadContainerAlertsCountBySeverityRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AlertsContainerAlertsCountValue>> {
+    async readContainerAlertsCountBySeverityRequestOpts(requestParameters: ContainerAlertsApiReadContainerAlertsCountBySeverityRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -105,15 +109,25 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/aggregates/container-alerts/count-by-severity/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/aggregates/container-alerts/count-by-severity/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Container Alerts counts by severity
+     */
+    async readContainerAlertsCountBySeverityRaw(
+        requestParameters: ContainerAlertsApiReadContainerAlertsCountBySeverityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AlertsContainerAlertsCountValue>> {
+        const requestOptions = await this.readContainerAlertsCountBySeverityRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AlertsContainerAlertsCountValueFromJSON(jsonValue));
     }
@@ -127,12 +141,9 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search Container Alerts by the provided search criteria
+     * Creates request options for searchAndReadContainerAlerts without sending the request
      */
-    async searchAndReadContainerAlertsRaw(
-        requestParameters: ContainerAlertsApiSearchAndReadContainerAlertsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<AlertsContainerAlertsEntityResponse>> {
+    async searchAndReadContainerAlertsRequestOpts(requestParameters: ContainerAlertsApiSearchAndReadContainerAlertsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -158,15 +169,25 @@ export class ContainerAlertsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/container-security/combined/container-alerts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/container-security/combined/container-alerts/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Search Container Alerts by the provided search criteria
+     */
+    async searchAndReadContainerAlertsRaw(
+        requestParameters: ContainerAlertsApiSearchAndReadContainerAlertsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AlertsContainerAlertsEntityResponse>> {
+        const requestOptions = await this.searchAndReadContainerAlertsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AlertsContainerAlertsEntityResponseFromJSON(jsonValue));
     }

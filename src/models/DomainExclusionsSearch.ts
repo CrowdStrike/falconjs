@@ -56,10 +56,15 @@ export function DomainExclusionsSearchFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainExclusionsSearchToJSON(value?: DomainExclusionsSearch | null): any {
+export function DomainExclusionsSearchToJSON(json: any): DomainExclusionsSearch {
+    return DomainExclusionsSearchToJSONTyped(json, false);
+}
+
+export function DomainExclusionsSearchToJSONTyped(value?: DomainExclusionsSearch | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         filter: value["filter"],
         sort: value["sort"],

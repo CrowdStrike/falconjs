@@ -36,12 +36,9 @@ export interface InstallationTokensSettingsApiCustomerSettingsUpdateRequest {
  */
 export class InstallationTokensSettingsApi extends runtime.BaseAPI {
     /**
-     * Update installation token settings.
+     * Creates request options for customerSettingsUpdate without sending the request
      */
-    async customerSettingsUpdateRaw(
-        requestParameters: InstallationTokensSettingsApiCustomerSettingsUpdateRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiCustomerSettingsResponseV1>> {
+    async customerSettingsUpdateRequestOpts(requestParameters: InstallationTokensSettingsApiCustomerSettingsUpdateRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling customerSettingsUpdate().');
         }
@@ -57,16 +54,26 @@ export class InstallationTokensSettingsApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["installation-tokens-settings:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/installation-tokens/entities/customer-settings/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ApiCustomerSettingsPatchRequestV1ToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/installation-tokens/entities/customer-settings/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApiCustomerSettingsPatchRequestV1ToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update installation token settings.
+     */
+    async customerSettingsUpdateRaw(
+        requestParameters: InstallationTokensSettingsApiCustomerSettingsUpdateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCustomerSettingsResponseV1>> {
+        const requestOptions = await this.customerSettingsUpdateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApiCustomerSettingsResponseV1FromJSON(jsonValue));
     }

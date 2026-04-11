@@ -18,12 +18,14 @@ import {
     DevicecontrolapiRespUSBClassSettingsV2FromJSON,
     DevicecontrolapiRespUSBClassSettingsV2FromJSONTyped,
     DevicecontrolapiRespUSBClassSettingsV2ToJSON,
+    DevicecontrolapiRespUSBClassSettingsV2ToJSONTyped,
 } from "./DevicecontrolapiRespUSBClassSettingsV2";
 import type { DevicecontrolapiUSBCustomNotifications } from "./DevicecontrolapiUSBCustomNotifications";
 import {
     DevicecontrolapiUSBCustomNotificationsFromJSON,
     DevicecontrolapiUSBCustomNotificationsFromJSONTyped,
     DevicecontrolapiUSBCustomNotificationsToJSON,
+    DevicecontrolapiUSBCustomNotificationsToJSONTyped,
 } from "./DevicecontrolapiUSBCustomNotifications";
 
 /**
@@ -114,10 +116,15 @@ export function DevicecontrolapiRespUSBSettingsV2FromJSONTyped(json: any, ignore
     };
 }
 
-export function DevicecontrolapiRespUSBSettingsV2ToJSON(value?: DevicecontrolapiRespUSBSettingsV2 | null): any {
+export function DevicecontrolapiRespUSBSettingsV2ToJSON(json: any): DevicecontrolapiRespUSBSettingsV2 {
+    return DevicecontrolapiRespUSBSettingsV2ToJSONTyped(json, false);
+}
+
+export function DevicecontrolapiRespUSBSettingsV2ToJSONTyped(value?: DevicecontrolapiRespUSBSettingsV2 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         classes: (value["classes"] as Array<any>).map(DevicecontrolapiRespUSBClassSettingsV2ToJSON),
         custom_notifications: DevicecontrolapiUSBCustomNotificationsToJSON(value["customNotifications"]),

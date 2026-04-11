@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { PreventionPolicyV1 } from "./PreventionPolicyV1";
-import { PreventionPolicyV1FromJSON, PreventionPolicyV1FromJSONTyped, PreventionPolicyV1ToJSON } from "./PreventionPolicyV1";
+import { PreventionPolicyV1FromJSON, PreventionPolicyV1FromJSONTyped, PreventionPolicyV1ToJSON, PreventionPolicyV1ToJSONTyped } from "./PreventionPolicyV1";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function PreventionRespV1FromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function PreventionRespV1ToJSON(value?: PreventionRespV1 | null): any {
+export function PreventionRespV1ToJSON(json: any): PreventionRespV1 {
+    return PreventionRespV1ToJSONTyped(json, false);
+}
+
+export function PreventionRespV1ToJSONTyped(value?: PreventionRespV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

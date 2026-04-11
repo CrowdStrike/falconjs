@@ -79,9 +79,9 @@ export interface QuickScanProApiUploadFileQuickScanProOperationRequest {
  */
 export class QuickScanProApi extends runtime.BaseAPI {
     /**
-     * Deletes file by its sha256 identifier.
+     * Creates request options for deleteFile without sending the request
      */
-    async deleteFileRaw(requestParameters: QuickScanProApiDeleteFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QuickscanproDeleteFileResponse>> {
+    async deleteFileRequestOpts(requestParameters: QuickScanProApiDeleteFileRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteFile().');
         }
@@ -99,15 +99,22 @@ export class QuickScanProApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan-pro:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quickscanpro/entities/files/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/quickscanpro/entities/files/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes file by its sha256 identifier.
+     */
+    async deleteFileRaw(requestParameters: QuickScanProApiDeleteFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QuickscanproDeleteFileResponse>> {
+        const requestOptions = await this.deleteFileRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QuickscanproDeleteFileResponseFromJSON(jsonValue));
     }
@@ -121,12 +128,9 @@ export class QuickScanProApi extends runtime.BaseAPI {
     }
 
     /**
-     * Deletes the result of an QuickScan Pro scan.
+     * Creates request options for deleteScanResult without sending the request
      */
-    async deleteScanResultRaw(
-        requestParameters: QuickScanProApiDeleteScanResultRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+    async deleteScanResultRequestOpts(requestParameters: QuickScanProApiDeleteScanResultRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteScanResult().');
         }
@@ -144,15 +148,25 @@ export class QuickScanProApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan-pro:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quickscanpro/entities/scans/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/quickscanpro/entities/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Deletes the result of an QuickScan Pro scan.
+     */
+    async deleteScanResultRaw(
+        requestParameters: QuickScanProApiDeleteScanResultRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const requestOptions = await this.deleteScanResultRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
     }
@@ -166,12 +180,9 @@ export class QuickScanProApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets the result of an QuickScan Pro scan.
+     * Creates request options for getScanResult without sending the request
      */
-    async getScanResultRaw(
-        requestParameters: QuickScanProApiGetScanResultRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<QuickscanproGetScanResultResponse>> {
+    async getScanResultRequestOpts(requestParameters: QuickScanProApiGetScanResultRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScanResult().');
         }
@@ -189,15 +200,25 @@ export class QuickScanProApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan-pro:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quickscanpro/entities/scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/quickscanpro/entities/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets the result of an QuickScan Pro scan.
+     */
+    async getScanResultRaw(
+        requestParameters: QuickScanProApiGetScanResultRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<QuickscanproGetScanResultResponse>> {
+        const requestOptions = await this.getScanResultRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QuickscanproGetScanResultResponseFromJSON(jsonValue));
     }
@@ -211,9 +232,9 @@ export class QuickScanProApi extends runtime.BaseAPI {
     }
 
     /**
-     * Starts scanning a file uploaded through \'/quickscanpro/entities/files/v1\'.
+     * Creates request options for launchScan without sending the request
      */
-    async launchScanRaw(requestParameters: QuickScanProApiLaunchScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QuickscanproLaunchScanResponse>> {
+    async launchScanRequestOpts(requestParameters: QuickScanProApiLaunchScanRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling launchScan().');
         }
@@ -229,16 +250,23 @@ export class QuickScanProApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan-pro:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quickscanpro/entities/scans/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: QuickscanproLaunchScanRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/quickscanpro/entities/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: QuickscanproLaunchScanRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Starts scanning a file uploaded through \'/quickscanpro/entities/files/v1\'.
+     */
+    async launchScanRaw(requestParameters: QuickScanProApiLaunchScanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QuickscanproLaunchScanResponse>> {
+        const requestOptions = await this.launchScanRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QuickscanproLaunchScanResponseFromJSON(jsonValue));
     }
@@ -252,12 +280,9 @@ export class QuickScanProApi extends runtime.BaseAPI {
     }
 
     /**
-     * FQL query specifying the filter parameters
+     * Creates request options for queryScanResults without sending the request
      */
-    async queryScanResultsRaw(
-        requestParameters: QuickScanProApiQueryScanResultsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<QuickscanproQueryScanResultsResponse>> {
+    async queryScanResultsRequestOpts(requestParameters: QuickScanProApiQueryScanResultsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["filter"] == null) {
             throw new runtime.RequiredError("filter", 'Required parameter "filter" was null or undefined when calling queryScanResults().');
         }
@@ -287,15 +312,25 @@ export class QuickScanProApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan-pro:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quickscanpro/queries/scans/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/quickscanpro/queries/scans/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * FQL query specifying the filter parameters
+     */
+    async queryScanResultsRaw(
+        requestParameters: QuickScanProApiQueryScanResultsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<QuickscanproQueryScanResultsResponse>> {
+        const requestOptions = await this.queryScanResultsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QuickscanproQueryScanResultsResponseFromJSON(jsonValue));
     }
@@ -309,12 +344,9 @@ export class QuickScanProApi extends runtime.BaseAPI {
     }
 
     /**
-     * Uploads a file to be further analyzed with QuickScan Pro. Supports both multipart/form-data and application/octet-stream uploads. The samples expire according to the Retention Policies set. See parameter descriptions for usage per content type.
+     * Creates request options for uploadFileQuickScanPro without sending the request
      */
-    async uploadFileQuickScanProRaw(
-        requestParameters: QuickScanProApiUploadFileQuickScanProOperationRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<QuickscanproFileUploadResponse>> {
+    async uploadFileQuickScanProRequestOpts(requestParameters: QuickScanProApiUploadFileQuickScanProOperationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["uploadFileQuickScanProRequest"] == null) {
             throw new runtime.RequiredError("uploadFileQuickScanProRequest", 'Required parameter "uploadFileQuickScanProRequest" was null or undefined when calling uploadFileQuickScanPro().');
         }
@@ -338,16 +370,26 @@ export class QuickScanProApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan-pro:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/quickscanpro/entities/files/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: UploadFileQuickScanProRequestToJSON(requestParameters["uploadFileQuickScanProRequest"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/quickscanpro/entities/files/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: UploadFileQuickScanProRequestToJSON(requestParameters["uploadFileQuickScanProRequest"]),
+        };
+    }
+
+    /**
+     * Uploads a file to be further analyzed with QuickScan Pro. Supports both multipart/form-data and application/octet-stream uploads. The samples expire according to the Retention Policies set. See parameter descriptions for usage per content type.
+     */
+    async uploadFileQuickScanProRaw(
+        requestParameters: QuickScanProApiUploadFileQuickScanProOperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<QuickscanproFileUploadResponse>> {
+        const requestOptions = await this.uploadFileQuickScanProRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QuickscanproFileUploadResponseFromJSON(jsonValue));
     }

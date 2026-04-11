@@ -14,9 +14,9 @@
 
 import { mapValues } from "../runtime";
 import type { SadomainWhoisRegistrar } from "./SadomainWhoisRegistrar";
-import { SadomainWhoisRegistrarFromJSON, SadomainWhoisRegistrarFromJSONTyped, SadomainWhoisRegistrarToJSON } from "./SadomainWhoisRegistrar";
+import { SadomainWhoisRegistrarFromJSON, SadomainWhoisRegistrarFromJSONTyped, SadomainWhoisRegistrarToJSON, SadomainWhoisRegistrarToJSONTyped } from "./SadomainWhoisRegistrar";
 import type { SadomainWhoisRegistrant } from "./SadomainWhoisRegistrant";
-import { SadomainWhoisRegistrantFromJSON, SadomainWhoisRegistrantFromJSONTyped, SadomainWhoisRegistrantToJSON } from "./SadomainWhoisRegistrant";
+import { SadomainWhoisRegistrantFromJSON, SadomainWhoisRegistrantFromJSONTyped, SadomainWhoisRegistrantToJSON, SadomainWhoisRegistrantToJSONTyped } from "./SadomainWhoisRegistrant";
 
 /**
  *
@@ -94,15 +94,20 @@ export function SadomainWhoisRecordFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function SadomainWhoisRecordToJSON(value?: SadomainWhoisRecord | null): any {
+export function SadomainWhoisRecordToJSON(json: any): SadomainWhoisRecord {
+    return SadomainWhoisRecordToJSONTyped(json, false);
+}
+
+export function SadomainWhoisRecordToJSONTyped(value?: SadomainWhoisRecord | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
-        date_collected: value["dateCollected"] == null ? undefined : value["dateCollected"].toISOString(),
-        date_created: value["dateCreated"] == null ? undefined : value["dateCreated"].toISOString(),
-        date_expires: value["dateExpires"] == null ? undefined : value["dateExpires"].toISOString(),
-        date_updated: value["dateUpdated"] == null ? undefined : value["dateUpdated"].toISOString(),
+        date_collected: value["dateCollected"] == null ? value["dateCollected"] : value["dateCollected"].toISOString(),
+        date_created: value["dateCreated"] == null ? value["dateCreated"] : value["dateCreated"].toISOString(),
+        date_expires: value["dateExpires"] == null ? value["dateExpires"] : value["dateExpires"].toISOString(),
+        date_updated: value["dateUpdated"] == null ? value["dateUpdated"] : value["dateUpdated"].toISOString(),
         name_servers: value["nameServers"],
         registrant: SadomainWhoisRegistrantToJSON(value["registrant"]),
         registrar: SadomainWhoisRegistrarToJSON(value["registrar"]),

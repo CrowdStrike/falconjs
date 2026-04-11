@@ -18,6 +18,7 @@ import {
     RegistrationGCPServiceAccountValidationRequestObjV1FromJSON,
     RegistrationGCPServiceAccountValidationRequestObjV1FromJSONTyped,
     RegistrationGCPServiceAccountValidationRequestObjV1ToJSON,
+    RegistrationGCPServiceAccountValidationRequestObjV1ToJSONTyped,
 } from "./RegistrationGCPServiceAccountValidationRequestObjV1";
 
 /**
@@ -55,10 +56,15 @@ export function RegistrationGCPServiceAccountValidationRequestV1FromJSONTyped(js
     };
 }
 
-export function RegistrationGCPServiceAccountValidationRequestV1ToJSON(value?: RegistrationGCPServiceAccountValidationRequestV1 | null): any {
+export function RegistrationGCPServiceAccountValidationRequestV1ToJSON(json: any): RegistrationGCPServiceAccountValidationRequestV1 {
+    return RegistrationGCPServiceAccountValidationRequestV1ToJSONTyped(json, false);
+}
+
+export function RegistrationGCPServiceAccountValidationRequestV1ToJSONTyped(value?: RegistrationGCPServiceAccountValidationRequestV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         resources: (value["resources"] as Array<any>).map(RegistrationGCPServiceAccountValidationRequestObjV1ToJSON),
     };

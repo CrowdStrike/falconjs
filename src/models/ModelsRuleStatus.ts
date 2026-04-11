@@ -64,10 +64,15 @@ export function ModelsRuleStatusFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function ModelsRuleStatusToJSON(value?: ModelsRuleStatus | null): any {
+export function ModelsRuleStatusToJSON(json: any): ModelsRuleStatus {
+    return ModelsRuleStatusToJSONTyped(json, false);
+}
+
+export function ModelsRuleStatusToJSONTyped(value?: ModelsRuleStatus | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         name: value["name"],
         recommendation_id: value["recommendationId"],

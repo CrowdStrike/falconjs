@@ -14,11 +14,11 @@
 
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
-import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON, MsaAPIErrorToJSONTyped } from "./MsaAPIError";
 import type { ModelFile } from "./ModelFile";
-import { ModelFileFromJSON, ModelFileFromJSONTyped, ModelFileToJSON } from "./ModelFile";
+import { ModelFileFromJSON, ModelFileFromJSONTyped, ModelFileToJSON, ModelFileToJSONTyped } from "./ModelFile";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
-import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
+import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON, MsaMetaInfoToJSONTyped } from "./MsaMetaInfo";
 
 /**
  *
@@ -71,10 +71,15 @@ export function DomainListFilesResponseWrapperFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function DomainListFilesResponseWrapperToJSON(value?: DomainListFilesResponseWrapper | null): any {
+export function DomainListFilesResponseWrapperToJSON(json: any): DomainListFilesResponseWrapper {
+    return DomainListFilesResponseWrapperToJSONTyped(json, false);
+}
+
+export function DomainListFilesResponseWrapperToJSONTyped(value?: DomainListFilesResponseWrapper | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),

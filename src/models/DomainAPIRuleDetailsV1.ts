@@ -14,7 +14,12 @@
 
 import { mapValues } from "../runtime";
 import type { DomainAPIComplianceMappingV1 } from "./DomainAPIComplianceMappingV1";
-import { DomainAPIComplianceMappingV1FromJSON, DomainAPIComplianceMappingV1FromJSONTyped, DomainAPIComplianceMappingV1ToJSON } from "./DomainAPIComplianceMappingV1";
+import {
+    DomainAPIComplianceMappingV1FromJSON,
+    DomainAPIComplianceMappingV1FromJSONTyped,
+    DomainAPIComplianceMappingV1ToJSON,
+    DomainAPIComplianceMappingV1ToJSONTyped,
+} from "./DomainAPIComplianceMappingV1";
 
 /**
  *
@@ -169,10 +174,15 @@ export function DomainAPIRuleDetailsV1FromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function DomainAPIRuleDetailsV1ToJSON(value?: DomainAPIRuleDetailsV1 | null): any {
+export function DomainAPIRuleDetailsV1ToJSON(json: any): DomainAPIRuleDetailsV1 {
+    return DomainAPIRuleDetailsV1ToJSONTyped(json, false);
+}
+
+export function DomainAPIRuleDetailsV1ToJSONTyped(value?: DomainAPIRuleDetailsV1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         additional_information: value["additionalInformation"],
         applicable_profiles: value["applicableProfiles"],

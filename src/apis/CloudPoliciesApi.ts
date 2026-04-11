@@ -276,12 +276,9 @@ export interface CloudPoliciesApiUpdateSuppressionRuleRequest {
  */
 export class CloudPoliciesApi extends runtime.BaseAPI {
     /**
-     * Create a new custom compliance control
+     * Creates request options for createComplianceControl without sending the request
      */
-    async createComplianceControlRaw(
-        requestParameters: CloudPoliciesApiCreateComplianceControlRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCreateComplianceControlResponse>> {
+    async createComplianceControlRequestOpts(requestParameters: CloudPoliciesApiCreateComplianceControlRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createComplianceControl().');
         }
@@ -297,16 +294,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/controls/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonCreateComplianceControlRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/controls/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonCreateComplianceControlRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new custom compliance control
+     */
+    async createComplianceControlRaw(
+        requestParameters: CloudPoliciesApiCreateComplianceControlRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCreateComplianceControlResponse>> {
+        const requestOptions = await this.createComplianceControlRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCreateComplianceControlResponseFromJSON(jsonValue));
     }
@@ -320,12 +327,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new custom compliance framework
+     * Creates request options for createComplianceFramework without sending the request
      */
-    async createComplianceFrameworkRaw(
-        requestParameters: CloudPoliciesApiCreateComplianceFrameworkRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCreateComplianceFrameworkResponse>> {
+    async createComplianceFrameworkRequestOpts(requestParameters: CloudPoliciesApiCreateComplianceFrameworkRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createComplianceFramework().');
         }
@@ -341,16 +345,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/frameworks/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonCreateComplianceFrameworkRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/frameworks/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonCreateComplianceFrameworkRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new custom compliance framework
+     */
+    async createComplianceFrameworkRaw(
+        requestParameters: CloudPoliciesApiCreateComplianceFrameworkRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCreateComplianceFrameworkResponse>> {
+        const requestOptions = await this.createComplianceFrameworkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCreateComplianceFrameworkResponseFromJSON(jsonValue));
     }
@@ -364,12 +378,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new rule
+     * Creates request options for createRuleMixin0 without sending the request
      */
-    async createRuleMixin0Raw(
-        requestParameters: CloudPoliciesApiCreateRuleMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCreateRuleResponse>> {
+    async createRuleMixin0RequestOpts(requestParameters: CloudPoliciesApiCreateRuleMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRuleMixin0().');
         }
@@ -385,16 +396,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonCreateRuleRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonCreateRuleRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new rule
+     */
+    async createRuleMixin0Raw(
+        requestParameters: CloudPoliciesApiCreateRuleMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCreateRuleResponse>> {
+        const requestOptions = await this.createRuleMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCreateRuleResponseFromJSON(jsonValue));
     }
@@ -408,12 +429,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new rule override
+     * Creates request options for createRuleOverride without sending the request
      */
-    async createRuleOverrideRaw(
-        requestParameters: CloudPoliciesApiCreateRuleOverrideRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCreateRuleOverrideResponse>> {
+    async createRuleOverrideRequestOpts(requestParameters: CloudPoliciesApiCreateRuleOverrideRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createRuleOverride().');
         }
@@ -429,16 +447,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rule-overrides/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonCreateRuleOverrideRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rule-overrides/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonCreateRuleOverrideRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new rule override
+     */
+    async createRuleOverrideRaw(
+        requestParameters: CloudPoliciesApiCreateRuleOverrideRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCreateRuleOverrideResponse>> {
+        const requestOptions = await this.createRuleOverrideRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCreateRuleOverrideResponseFromJSON(jsonValue));
     }
@@ -452,12 +480,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create a new suppression rule
+     * Creates request options for createSuppressionRule without sending the request
      */
-    async createSuppressionRuleRaw(
-        requestParameters: CloudPoliciesApiCreateSuppressionRuleRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SuppressionrulesCreateSuppressionRuleResponse>> {
+    async createSuppressionRuleRequestOpts(requestParameters: CloudPoliciesApiCreateSuppressionRuleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createSuppressionRule().');
         }
@@ -473,16 +498,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/suppression-rules/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: SuppressionrulesCreateSuppressionRuleRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/suppression-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: SuppressionrulesCreateSuppressionRuleRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Create a new suppression rule
+     */
+    async createSuppressionRuleRaw(
+        requestParameters: CloudPoliciesApiCreateSuppressionRuleRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SuppressionrulesCreateSuppressionRuleResponse>> {
+        const requestOptions = await this.createSuppressionRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SuppressionrulesCreateSuppressionRuleResponseFromJSON(jsonValue));
     }
@@ -499,12 +534,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete custom compliance controls
+     * Creates request options for deleteComplianceControl without sending the request
      */
-    async deleteComplianceControlRaw(
-        requestParameters: CloudPoliciesApiDeleteComplianceControlRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonDeleteComplianceControlResponse>> {
+    async deleteComplianceControlRequestOpts(requestParameters: CloudPoliciesApiDeleteComplianceControlRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteComplianceControl().');
         }
@@ -522,15 +554,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/controls/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/controls/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete custom compliance controls
+     */
+    async deleteComplianceControlRaw(
+        requestParameters: CloudPoliciesApiDeleteComplianceControlRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonDeleteComplianceControlResponse>> {
+        const requestOptions = await this.deleteComplianceControlRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonDeleteComplianceControlResponseFromJSON(jsonValue));
     }
@@ -544,12 +586,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a custom compliance framework and all associated controls and rule assignments
+     * Creates request options for deleteComplianceFramework without sending the request
      */
-    async deleteComplianceFrameworkRaw(
-        requestParameters: CloudPoliciesApiDeleteComplianceFrameworkRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonDeleteComplianceFrameworkResponse>> {
+    async deleteComplianceFrameworkRequestOpts(requestParameters: CloudPoliciesApiDeleteComplianceFrameworkRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteComplianceFramework().');
         }
@@ -567,15 +606,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/frameworks/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/frameworks/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a custom compliance framework and all associated controls and rule assignments
+     */
+    async deleteComplianceFrameworkRaw(
+        requestParameters: CloudPoliciesApiDeleteComplianceFrameworkRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonDeleteComplianceFrameworkResponse>> {
+        const requestOptions = await this.deleteComplianceFrameworkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonDeleteComplianceFrameworkResponseFromJSON(jsonValue));
     }
@@ -589,12 +638,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a rule
+     * Creates request options for deleteRuleMixin0 without sending the request
      */
-    async deleteRuleMixin0Raw(
-        requestParameters: CloudPoliciesApiDeleteRuleMixin0Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonDeleteRuleResponse>> {
+    async deleteRuleMixin0RequestOpts(requestParameters: CloudPoliciesApiDeleteRuleMixin0Request): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRuleMixin0().');
         }
@@ -612,15 +658,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a rule
+     */
+    async deleteRuleMixin0Raw(
+        requestParameters: CloudPoliciesApiDeleteRuleMixin0Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonDeleteRuleResponse>> {
+        const requestOptions = await this.deleteRuleMixin0RequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonDeleteRuleResponseFromJSON(jsonValue));
     }
@@ -634,12 +690,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a rule override
+     * Creates request options for deleteRuleOverride without sending the request
      */
-    async deleteRuleOverrideRaw(
-        requestParameters: CloudPoliciesApiDeleteRuleOverrideRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonDeleteRuleOverrideResponse>> {
+    async deleteRuleOverrideRequestOpts(requestParameters: CloudPoliciesApiDeleteRuleOverrideRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteRuleOverride().');
         }
@@ -657,15 +710,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rule-overrides/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rule-overrides/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete a rule override
+     */
+    async deleteRuleOverrideRaw(
+        requestParameters: CloudPoliciesApiDeleteRuleOverrideRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonDeleteRuleOverrideResponse>> {
+        const requestOptions = await this.deleteRuleOverrideRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonDeleteRuleOverrideResponseFromJSON(jsonValue));
     }
@@ -679,12 +742,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete Suppression Rules by ID
+     * Creates request options for deleteSuppressionRules without sending the request
      */
-    async deleteSuppressionRulesRaw(
-        requestParameters: CloudPoliciesApiDeleteSuppressionRulesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SuppressionrulesDeleteSuppressionRulesResponse>> {
+    async deleteSuppressionRulesRequestOpts(requestParameters: CloudPoliciesApiDeleteSuppressionRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deleteSuppressionRules().');
         }
@@ -702,15 +762,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/suppression-rules/v1`,
-                method: "DELETE",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/suppression-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "DELETE",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Delete Suppression Rules by ID
+     */
+    async deleteSuppressionRulesRaw(
+        requestParameters: CloudPoliciesApiDeleteSuppressionRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SuppressionrulesDeleteSuppressionRulesResponse>> {
+        const requestOptions = await this.deleteSuppressionRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SuppressionrulesDeleteSuppressionRulesResponseFromJSON(jsonValue));
     }
@@ -724,12 +794,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get compliance controls by ID
+     * Creates request options for getComplianceControls without sending the request
      */
-    async getComplianceControlsRaw(
-        requestParameters: CloudPoliciesApiGetComplianceControlsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonGetComplianceControlsResponse>> {
+    async getComplianceControlsRequestOpts(requestParameters: CloudPoliciesApiGetComplianceControlsRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getComplianceControls().');
         }
@@ -747,15 +814,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/controls/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/controls/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get compliance controls by ID
+     */
+    async getComplianceControlsRaw(
+        requestParameters: CloudPoliciesApiGetComplianceControlsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonGetComplianceControlsResponse>> {
+        const requestOptions = await this.getComplianceControlsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGetComplianceControlsResponseFromJSON(jsonValue));
     }
@@ -769,12 +846,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get compliance frameworks by ID
+     * Creates request options for getComplianceFrameworks without sending the request
      */
-    async getComplianceFrameworksRaw(
-        requestParameters: CloudPoliciesApiGetComplianceFrameworksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonGetComplianceFrameworksResponse>> {
+    async getComplianceFrameworksRequestOpts(requestParameters: CloudPoliciesApiGetComplianceFrameworksRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getComplianceFrameworks().');
         }
@@ -792,15 +866,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/frameworks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/frameworks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get compliance frameworks by ID
+     */
+    async getComplianceFrameworksRaw(
+        requestParameters: CloudPoliciesApiGetComplianceFrameworksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonGetComplianceFrameworksResponse>> {
+        const requestOptions = await this.getComplianceFrameworksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGetComplianceFrameworksResponseFromJSON(jsonValue));
     }
@@ -814,12 +898,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets enriched assets that combine a primary resource with all its related resources
+     * Creates request options for getEnrichedAsset without sending the request
      */
-    async getEnrichedAssetRaw(
-        requestParameters: CloudPoliciesApiGetEnrichedAssetRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCursorQueryResponse>> {
+    async getEnrichedAssetRequestOpts(requestParameters: CloudPoliciesApiGetEnrichedAssetRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
@@ -833,15 +914,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/enriched-resources/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/enriched-resources/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Gets enriched assets that combine a primary resource with all its related resources
+     */
+    async getEnrichedAssetRaw(
+        requestParameters: CloudPoliciesApiGetEnrichedAssetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCursorQueryResponse>> {
+        const requestOptions = await this.getEnrichedAssetRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCursorQueryResponseFromJSON(jsonValue));
     }
@@ -855,12 +946,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Gets evaluation results based on the provided rule
+     * Creates request options for getEvaluationResult without sending the request
      */
-    async getEvaluationResultRaw(
-        requestParameters: CloudPoliciesApiGetEvaluationResultRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCursorQueryResponse>> {
+    async getEvaluationResultRequestOpts(requestParameters: CloudPoliciesApiGetEvaluationResultRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getEvaluationResult().');
         }
@@ -888,16 +976,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/evaluation/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: RuleevaluatorRuleLogicPayloadToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/evaluation/v1`;
+
+        return {
+            path: urlPath,
+            method: "POST",
+            headers: headerParameters,
+            query: queryParameters,
+            body: RuleevaluatorRuleLogicPayloadToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Gets evaluation results based on the provided rule
+     */
+    async getEvaluationResultRaw(
+        requestParameters: CloudPoliciesApiGetEvaluationResultRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCursorQueryResponse>> {
+        const requestOptions = await this.getEvaluationResultRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCursorQueryResponseFromJSON(jsonValue));
     }
@@ -917,9 +1015,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a rule by id
+     * Creates request options for getRule without sending the request
      */
-    async getRuleRaw(requestParameters: CloudPoliciesApiGetRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonGetRulesResponse>> {
+    async getRuleRequestOpts(requestParameters: CloudPoliciesApiGetRuleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRule().');
         }
@@ -937,15 +1035,22 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a rule by id
+     */
+    async getRuleRaw(requestParameters: CloudPoliciesApiGetRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonGetRulesResponse>> {
+        const requestOptions = await this.getRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGetRulesResponseFromJSON(jsonValue));
     }
@@ -959,12 +1064,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get rule input schema for given resource type
+     * Creates request options for getRuleInputSchema without sending the request
      */
-    async getRuleInputSchemaRaw(
-        requestParameters: CloudPoliciesApiGetRuleInputSchemaRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonRuleInputSchemaResponse>> {
+    async getRuleInputSchemaRequestOpts(requestParameters: CloudPoliciesApiGetRuleInputSchemaRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["domain"] == null) {
             throw new runtime.RequiredError("domain", 'Required parameter "domain" was null or undefined when calling getRuleInputSchema().');
         }
@@ -1002,15 +1104,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/combined/rules/input-schema/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/combined/rules/input-schema/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get rule input schema for given resource type
+     */
+    async getRuleInputSchemaRaw(
+        requestParameters: CloudPoliciesApiGetRuleInputSchemaRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonRuleInputSchemaResponse>> {
+        const requestOptions = await this.getRuleInputSchemaRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonRuleInputSchemaResponseFromJSON(jsonValue));
     }
@@ -1030,12 +1142,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a rule override
+     * Creates request options for getRuleOverride without sending the request
      */
-    async getRuleOverrideRaw(
-        requestParameters: CloudPoliciesApiGetRuleOverrideRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonGetRuleOverrideResponse>> {
+    async getRuleOverrideRequestOpts(requestParameters: CloudPoliciesApiGetRuleOverrideRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getRuleOverride().');
         }
@@ -1053,15 +1162,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rule-overrides/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rule-overrides/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get a rule override
+     */
+    async getRuleOverrideRaw(
+        requestParameters: CloudPoliciesApiGetRuleOverrideRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonGetRuleOverrideResponse>> {
+        const requestOptions = await this.getRuleOverrideRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGetRuleOverrideResponseFromJSON(jsonValue));
     }
@@ -1075,12 +1194,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Suppression Rules by ID
+     * Creates request options for getSuppressionRules without sending the request
      */
-    async getSuppressionRulesRaw(
-        requestParameters: CloudPoliciesApiGetSuppressionRulesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SuppressionrulesGetSuppressionRulesResponse>> {
+    async getSuppressionRulesRequestOpts(requestParameters: CloudPoliciesApiGetSuppressionRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getSuppressionRules().');
         }
@@ -1098,15 +1214,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/suppression-rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/suppression-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Get Suppression Rules by ID
+     */
+    async getSuppressionRulesRaw(
+        requestParameters: CloudPoliciesApiGetSuppressionRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SuppressionrulesGetSuppressionRulesResponse>> {
+        const requestOptions = await this.getSuppressionRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SuppressionrulesGetSuppressionRulesResponseFromJSON(jsonValue));
     }
@@ -1120,12 +1246,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query for compliance controls by various parameters
+     * Creates request options for queryComplianceControls without sending the request
      */
-    async queryComplianceControlsRaw(
-        requestParameters: CloudPoliciesApiQueryComplianceControlsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonQueryResponse>> {
+    async queryComplianceControlsRequestOpts(requestParameters: CloudPoliciesApiQueryComplianceControlsRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1151,15 +1274,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/queries/compliance/controls/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/queries/compliance/controls/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query for compliance controls by various parameters
+     */
+    async queryComplianceControlsRaw(
+        requestParameters: CloudPoliciesApiQueryComplianceControlsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonQueryResponse>> {
+        const requestOptions = await this.queryComplianceControlsRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonQueryResponseFromJSON(jsonValue));
     }
@@ -1173,12 +1306,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query for compliance frameworks by various parameters
+     * Creates request options for queryComplianceFrameworks without sending the request
      */
-    async queryComplianceFrameworksRaw(
-        requestParameters: CloudPoliciesApiQueryComplianceFrameworksRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonQueryResponse>> {
+    async queryComplianceFrameworksRequestOpts(requestParameters: CloudPoliciesApiQueryComplianceFrameworksRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1204,15 +1334,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/queries/compliance/frameworks/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/queries/compliance/frameworks/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query for compliance frameworks by various parameters
+     */
+    async queryComplianceFrameworksRaw(
+        requestParameters: CloudPoliciesApiQueryComplianceFrameworksRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonQueryResponse>> {
+        const requestOptions = await this.queryComplianceFrameworksRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonQueryResponseFromJSON(jsonValue));
     }
@@ -1226,9 +1366,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query for rules by various parameters
+     * Creates request options for queryRule without sending the request
      */
-    async queryRuleRaw(requestParameters: CloudPoliciesApiQueryRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonQueryResponse>> {
+    async queryRuleRequestOpts(requestParameters: CloudPoliciesApiQueryRuleRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1254,15 +1394,22 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/queries/rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/queries/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query for rules by various parameters
+     */
+    async queryRuleRaw(requestParameters: CloudPoliciesApiQueryRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonQueryResponse>> {
+        const requestOptions = await this.queryRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonQueryResponseFromJSON(jsonValue));
     }
@@ -1276,12 +1423,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Query suppression rules with filtering, sorting and pagination
+     * Creates request options for querySuppressionRules without sending the request
      */
-    async querySuppressionRulesRaw(
-        requestParameters: CloudPoliciesApiQuerySuppressionRulesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SuppressionrulesQuerySuppressionRulesResponse>> {
+    async querySuppressionRulesRequestOpts(requestParameters: CloudPoliciesApiQuerySuppressionRulesRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -1307,15 +1451,25 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:read"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/queries/suppression-rules/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/queries/suppression-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "GET",
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Query suppression rules with filtering, sorting and pagination
+     */
+    async querySuppressionRulesRaw(
+        requestParameters: CloudPoliciesApiQuerySuppressionRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SuppressionrulesQuerySuppressionRulesResponse>> {
+        const requestOptions = await this.querySuppressionRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SuppressionrulesQuerySuppressionRulesResponseFromJSON(jsonValue));
     }
@@ -1335,12 +1489,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Rename a section in a custom compliance framework
+     * Creates request options for renameSectionComplianceFramework without sending the request
      */
-    async renameSectionComplianceFrameworkRaw(
-        requestParameters: CloudPoliciesApiRenameSectionComplianceFrameworkRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonRenameSectionResponse>> {
+    async renameSectionComplianceFrameworkRequestOpts(requestParameters: CloudPoliciesApiRenameSectionComplianceFrameworkRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling renameSectionComplianceFramework().');
         }
@@ -1372,16 +1523,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/frameworks/section/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonRenameSectionRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/frameworks/section/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonRenameSectionRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Rename a section in a custom compliance framework
+     */
+    async renameSectionComplianceFrameworkRaw(
+        requestParameters: CloudPoliciesApiRenameSectionComplianceFrameworkRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonRenameSectionResponse>> {
+        const requestOptions = await this.renameSectionComplianceFrameworkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonRenameSectionResponseFromJSON(jsonValue));
     }
@@ -1400,12 +1561,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Assign rules to a compliance control (full replace)
+     * Creates request options for replaceControlRules without sending the request
      */
-    async replaceControlRulesRaw(
-        requestParameters: CloudPoliciesApiReplaceControlRulesRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonAssignRulesToControlResponse>> {
+    async replaceControlRulesRequestOpts(requestParameters: CloudPoliciesApiReplaceControlRulesRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling replaceControlRules().');
         }
@@ -1429,16 +1587,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/control-rule-assignments/v1`,
-                method: "PUT",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonAssignRulesToControlRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/control-rule-assignments/v1`;
+
+        return {
+            path: urlPath,
+            method: "PUT",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonAssignRulesToControlRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Assign rules to a compliance control (full replace)
+     */
+    async replaceControlRulesRaw(
+        requestParameters: CloudPoliciesApiReplaceControlRulesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonAssignRulesToControlResponse>> {
+        const requestOptions = await this.replaceControlRulesRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonAssignRulesToControlResponseFromJSON(jsonValue));
     }
@@ -1452,12 +1620,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a custom compliance control
+     * Creates request options for updateComplianceControl without sending the request
      */
-    async updateComplianceControlRaw(
-        requestParameters: CloudPoliciesApiUpdateComplianceControlRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCreateComplianceControlResponse>> {
+    async updateComplianceControlRequestOpts(requestParameters: CloudPoliciesApiUpdateComplianceControlRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updateComplianceControl().');
         }
@@ -1481,16 +1646,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/controls/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonUpdateComplianceControlRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/controls/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonUpdateComplianceControlRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a custom compliance control
+     */
+    async updateComplianceControlRaw(
+        requestParameters: CloudPoliciesApiUpdateComplianceControlRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCreateComplianceControlResponse>> {
+        const requestOptions = await this.updateComplianceControlRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCreateComplianceControlResponseFromJSON(jsonValue));
     }
@@ -1504,12 +1679,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a custom compliance framework
+     * Creates request options for updateComplianceFramework without sending the request
      */
-    async updateComplianceFrameworkRaw(
-        requestParameters: CloudPoliciesApiUpdateComplianceFrameworkRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonCreateComplianceFrameworkResponse>> {
+    async updateComplianceFrameworkRequestOpts(requestParameters: CloudPoliciesApiUpdateComplianceFrameworkRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling updateComplianceFramework().');
         }
@@ -1533,16 +1705,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/compliance/frameworks/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonUpdateComplianceFrameworkRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/compliance/frameworks/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonUpdateComplianceFrameworkRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a custom compliance framework
+     */
+    async updateComplianceFrameworkRaw(
+        requestParameters: CloudPoliciesApiUpdateComplianceFrameworkRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCreateComplianceFrameworkResponse>> {
+        const requestOptions = await this.updateComplianceFrameworkRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonCreateComplianceFrameworkResponseFromJSON(jsonValue));
     }
@@ -1560,9 +1742,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a rule
+     * Creates request options for updateRule without sending the request
      */
-    async updateRuleRaw(requestParameters: CloudPoliciesApiUpdateRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonGetRulesResponse>> {
+    async updateRuleRequestOpts(requestParameters: CloudPoliciesApiUpdateRuleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRule().');
         }
@@ -1578,16 +1760,23 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rules/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonUpdateRuleRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonUpdateRuleRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a rule
+     */
+    async updateRuleRaw(requestParameters: CloudPoliciesApiUpdateRuleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CommonGetRulesResponse>> {
+        const requestOptions = await this.updateRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonGetRulesResponseFromJSON(jsonValue));
     }
@@ -1601,12 +1790,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a rule override
+     * Creates request options for updateRuleOverride without sending the request
      */
-    async updateRuleOverrideRaw(
-        requestParameters: CloudPoliciesApiUpdateRuleOverrideRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CommonUpdateRuleOverrideResponse>> {
+    async updateRuleOverrideRequestOpts(requestParameters: CloudPoliciesApiUpdateRuleOverrideRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateRuleOverride().');
         }
@@ -1622,16 +1808,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/rule-overrides/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: CommonUpdateRuleOverrideRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/rule-overrides/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: CommonUpdateRuleOverrideRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a rule override
+     */
+    async updateRuleOverrideRaw(
+        requestParameters: CloudPoliciesApiUpdateRuleOverrideRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonUpdateRuleOverrideResponse>> {
+        const requestOptions = await this.updateRuleOverrideRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CommonUpdateRuleOverrideResponseFromJSON(jsonValue));
     }
@@ -1645,12 +1841,9 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a suppression rule
+     * Creates request options for updateSuppressionRule without sending the request
      */
-    async updateSuppressionRuleRaw(
-        requestParameters: CloudPoliciesApiUpdateSuppressionRuleRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<SuppressionrulesUpdateSuppressionRuleResponse>> {
+    async updateSuppressionRuleRequestOpts(requestParameters: CloudPoliciesApiUpdateSuppressionRuleRequest): Promise<runtime.RequestOpts> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateSuppressionRule().');
         }
@@ -1666,16 +1859,26 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
         }
 
-        const response = await this.request(
-            {
-                path: `/cloud-policies/entities/suppression-rules/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: SuppressionrulesUpdateSuppressionRuleRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
+        let urlPath = `/cloud-policies/entities/suppression-rules/v1`;
+
+        return {
+            path: urlPath,
+            method: "PATCH",
+            headers: headerParameters,
+            query: queryParameters,
+            body: SuppressionrulesUpdateSuppressionRuleRequestToJSON(requestParameters["body"]),
+        };
+    }
+
+    /**
+     * Update a suppression rule
+     */
+    async updateSuppressionRuleRaw(
+        requestParameters: CloudPoliciesApiUpdateSuppressionRuleRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SuppressionrulesUpdateSuppressionRuleResponse>> {
+        const requestOptions = await this.updateSuppressionRuleRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SuppressionrulesUpdateSuppressionRuleResponseFromJSON(jsonValue));
     }

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { FigapiIPv4 } from "./FigapiIPv4";
-import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON } from "./FigapiIPv4";
+import { FigapiIPv4FromJSON, FigapiIPv4FromJSONTyped, FigapiIPv4ToJSON, FigapiIPv4ToJSONTyped } from "./FigapiIPv4";
 
 /**
  *
@@ -64,10 +64,15 @@ export function FigapiNameServerFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function FigapiNameServerToJSON(value?: FigapiNameServer | null): any {
+export function FigapiNameServerToJSON(json: any): FigapiNameServer {
+    return FigapiNameServerToJSONTyped(json, false);
+}
+
+export function FigapiNameServerToJSONTyped(value?: FigapiNameServer | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         Domain: value["domain"],
         Hostname: value["hostname"],

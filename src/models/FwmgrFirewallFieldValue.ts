@@ -86,10 +86,15 @@ export function FwmgrFirewallFieldValueFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function FwmgrFirewallFieldValueToJSON(value?: FwmgrFirewallFieldValue | null): any {
+export function FwmgrFirewallFieldValueToJSON(json: any): FwmgrFirewallFieldValue {
+    return FwmgrFirewallFieldValueToJSONTyped(json, false);
+}
+
+export function FwmgrFirewallFieldValueToJSONTyped(value?: FwmgrFirewallFieldValue | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         final_value: value["finalValue"],
         label: value["label"],

@@ -14,7 +14,7 @@
 
 import { mapValues } from "../runtime";
 import type { ModelsAPIPolicyRule } from "./ModelsAPIPolicyRule";
-import { ModelsAPIPolicyRuleFromJSON, ModelsAPIPolicyRuleFromJSONTyped, ModelsAPIPolicyRuleToJSON } from "./ModelsAPIPolicyRule";
+import { ModelsAPIPolicyRuleFromJSON, ModelsAPIPolicyRuleFromJSONTyped, ModelsAPIPolicyRuleToJSON, ModelsAPIPolicyRuleToJSONTyped } from "./ModelsAPIPolicyRule";
 
 /**
  *
@@ -51,10 +51,15 @@ export function ModelsRequestAPIPolicyDataFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function ModelsRequestAPIPolicyDataToJSON(value?: ModelsRequestAPIPolicyData | null): any {
+export function ModelsRequestAPIPolicyDataToJSON(json: any): ModelsRequestAPIPolicyData {
+    return ModelsRequestAPIPolicyDataToJSONTyped(json, false);
+}
+
+export function ModelsRequestAPIPolicyDataToJSONTyped(value?: ModelsRequestAPIPolicyData | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         rules: (value["rules"] as Array<any>).map(ModelsAPIPolicyRuleToJSON),
     };

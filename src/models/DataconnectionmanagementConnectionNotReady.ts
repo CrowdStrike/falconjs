@@ -56,10 +56,15 @@ export function DataconnectionmanagementConnectionNotReadyFromJSONTyped(json: an
     };
 }
 
-export function DataconnectionmanagementConnectionNotReadyToJSON(value?: DataconnectionmanagementConnectionNotReady | null): any {
+export function DataconnectionmanagementConnectionNotReadyToJSON(json: any): DataconnectionmanagementConnectionNotReady {
+    return DataconnectionmanagementConnectionNotReadyToJSONTyped(json, false);
+}
+
+export function DataconnectionmanagementConnectionNotReadyToJSONTyped(value?: DataconnectionmanagementConnectionNotReady | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         error: value["error"],
         message: value["message"],
