@@ -73,8 +73,19 @@ tsc && node ./build/example.js
 
 ## How to release falconjs
 
-- create a release branch (e.g. `prepare-1.2.3`)
+**Recommended:** Use the `/release` Claude Code skill, which automates the full process:
+
+```
+/release patch   # bug fixes
+/release minor   # new features or pre-1.0 breaking changes
+/release major   # post-1.0 breaking changes
+```
+
+**Manual process:**
+
+- create a release branch from `main` (e.g. `prepare-1.2.3`)
 - bump version in `rebuild.sh` and `src/middleware/useragent.ts`
-- bump version in `package.json` and `package-lock.json` with `npm version {major | minor | patch}` (makes a new git commit)
-- push branch and merge
-- create a GitHub release on `main`
+- bump version in `package.json` and `package-lock.json` with `npm version {major | minor | patch} --no-git-tag-version`
+- run the pre-PR checklist (`format:fix`, `lint:fix`, `lint`, `build`)
+- commit, push branch, and open a PR targeting `main`
+- after merge, create a GitHub release on `main`

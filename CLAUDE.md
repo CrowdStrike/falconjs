@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-FalconJS (`crowdstrike-falcon` on npm) is a TypeScript SDK for the CrowdStrike Falcon API, supporting both browser and Node.js environments. It is **heavily auto-generated** from CrowdStrike's OpenAPI/Swagger specification using `openapitools/openapi-generator-cli:v7.7.0` with the `typescript-fetch` generator. The current version is 0.5.0.
+FalconJS (`crowdstrike-falcon` on npm) is a TypeScript SDK for the CrowdStrike Falcon API, supporting both browser and Node.js environments. It is **heavily auto-generated** from CrowdStrike's OpenAPI/Swagger specification using `openapitools/openapi-generator-cli:v7.7.0` with the `typescript-fetch` generator. The current version is 0.6.0.
 
 ## Common Commands
 
@@ -72,3 +72,15 @@ Run `./rebuild.sh` to regenerate from an updated Swagger spec. Requires Docker o
 - ESLint: flat config (`eslint.config.mjs`), TypeScript recommended rules; unused vars allowed if prefixed with `_`
 - `@typescript-eslint/no-explicit-any` is disabled for `falcon.ts`, `endpoints.ts`, and `_endpoints/*.ts` (these files were reverted in PR #311 but the ESLint rule remains)
 - Target: ES2016, CommonJS modules, strict mode enabled
+
+## Releasing
+
+To prepare a release, use the `/release` skill:
+
+```
+/release patch   # bug fixes and maintenance
+/release minor   # new features (post-1.0) or breaking changes (pre-1.0)
+/release major   # breaking changes (post-1.0)
+```
+
+This automates version bumping across `rebuild.sh`, `src/middleware/useragent.ts`, `package.json`, and `package-lock.json`, runs the pre-PR checklist, and opens a release PR. See `docs/devel.md` for the manual process.
