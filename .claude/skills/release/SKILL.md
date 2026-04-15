@@ -65,10 +65,10 @@ npm run build         # Must succeed
 Confirm the target version appears in all three files:
 
 ```bash
-grep "0.x.y" rebuild.sh src/middleware/useragent.ts package.json
+grep "x.y.z" rebuild.sh src/middleware/useragent.ts package.json package-lock.json
 ```
 
-All three must show the new version.
+All four must show the new version.
 
 ## Step 7: Commit
 

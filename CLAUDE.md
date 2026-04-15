@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-FalconJS (`crowdstrike-falcon` on npm) is a TypeScript SDK for the CrowdStrike Falcon API, supporting both browser and Node.js environments. It is **heavily auto-generated** from CrowdStrike's OpenAPI/Swagger specification using `openapitools/openapi-generator-cli:v7.7.0` with the `typescript-fetch` generator. The current version is 0.6.0.
+FalconJS (`crowdstrike-falcon` on npm) is a TypeScript SDK for the CrowdStrike Falcon API, supporting both browser and Node.js environments. It is **heavily auto-generated** from CrowdStrike's OpenAPI/Swagger specification using `openapitools/openapi-generator-cli` with the `typescript-fetch` generator.
 
 ## Common Commands
 
