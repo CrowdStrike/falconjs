@@ -1,8 +1,7 @@
 ---
 name: release
 description: Use when preparing a new FalconJS release — bumps version across all version-bearing files, runs pre-PR checks, and opens a release PR.
-argument-hint: [version-bump: major | minor | patch]
-allowed-tools: Read, Edit, Bash, Grep, Glob
+argument-hint: "[version-bump: major | minor | patch]"
 ---
 
 <objective>

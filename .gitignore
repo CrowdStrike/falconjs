@@ -7,5 +7,75 @@
 typings
 *.js
 .DS_Store
-.claude/*
-!.claude/skills/
+# AI Assistants
+#  Various AI coding assistants create local cache, settings, and conversation history.
+#  These contain user-specific data and should not be committed to version control.
+
+# Anthropic / Claude Code
+.claude/
+CLAUDE.md
+.anthropic/
+
+# OpenAI / Codex
+.openai/
+
+# Cursor
+.cursor/
+.cursorrules
+.cursorignore
+.cursorindexingignore
+
+# Windsurf (Codeium IDE)
+.windsurf/
+.windsurfrules
+.codeium/
+
+# GitHub Copilot
+.github-copilot/
+
+# Amazon Q Developer
+.amazonq/
+AmazonQ.md
+
+# Continue.dev
+.continue/
+.continuerc.json
+
+# Aider
+.aider/
+.aider*
+
+# Cline
+.cline/
+.clinerules
+.clinerules/
+.clineignore
+memory-bank/
+
+# Roo Code
+.roo/
+.roorules
+.rooignore
+
+# Augment Code
+.augment/
+.augment-guidelines
+
+# OpenHands
+.openhands/
+
+# Tabnine
+.tabnine/
+
+# Qodo (formerly CodiumAI)
+.qodo/
+
+# Repomix (LLM context packaging)
+repomix-output.*
+.repomixignore
+
+# MCP (Model Context Protocol)
+.mcp.json
+
+# Environment variables
+.env

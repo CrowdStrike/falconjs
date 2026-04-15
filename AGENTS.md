@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding assistants when working with code in this repository.
 
 ## Project Overview
 
@@ -75,7 +75,7 @@ Run `./rebuild.sh` to regenerate from an updated Swagger spec. Requires Docker o
 
 ## Releasing
 
-To prepare a release, use the `/release` skill:
+To prepare a release, use the release skill located in `skills/release/SKILL.md`:
 
 ```
 /release patch   # bug fixes and maintenance
