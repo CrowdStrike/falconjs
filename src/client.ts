@@ -135,7 +135,7 @@ import {
     UserManagementApi,
     WorkflowsApi,
     ZeroTrustAssessmentApi,
-    // @generated:end
+    // @generated:imports:end
 } from "./apis";
 import { EventStream } from "./event_stream";
 import { CloudBasePath, FalconCloud } from "./FalconCloud";
@@ -297,7 +297,7 @@ export class FalconClient {
     userManagement: UserManagementApi;
     workflows: WorkflowsApi;
     zeroTrustAssessment: ZeroTrustAssessmentApi;
-    // @generated:end
+    // @generated:properties:end
     private config: Configuration;
 
     constructor(private options: FalconClientOptions) {
@@ -450,7 +450,7 @@ export class FalconClient {
         this.userManagement = new UserManagementApi(this.config);
         this.workflows = new WorkflowsApi(this.config);
         this.zeroTrustAssessment = new ZeroTrustAssessmentApi(this.config);
-        // @generated:end
+        // @generated:assignments:end
     }
 
     async availableEventStreams(appName: string): Promise<EventStream[]> {

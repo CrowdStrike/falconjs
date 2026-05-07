@@ -67,7 +67,7 @@ cp -a ./${build_dir}/src/* ./src/
 # Re-indexing the generated paths forces git to pick up the actual filenames.
 git rm -r --cached src/apis/ src/models/ src/runtime.ts
 
-#TODO: populate client.ts with all API imports, class defs, and constructors
+node scripts/generate_client.mjs
 
 npm run lint:fix
 npm run format:fix
