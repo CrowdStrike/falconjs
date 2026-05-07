@@ -24,49 +24,43 @@ export interface ApiContentPatternUpdateRequestV1 {
      * @type {string}
      * @memberof ApiContentPatternUpdateRequestV1
      */
-    description: string;
+    description?: string;
     /**
      *
      * @type {string}
      * @memberof ApiContentPatternUpdateRequestV1
      */
-    example: string;
+    example?: string;
     /**
      *
      * @type {string}
      * @memberof ApiContentPatternUpdateRequestV1
      */
-    id: string;
+    id?: string;
     /**
      *
      * @type {number}
      * @memberof ApiContentPatternUpdateRequestV1
      */
-    minMatchThreshold: number;
+    minMatchThreshold?: number;
     /**
      *
      * @type {string}
      * @memberof ApiContentPatternUpdateRequestV1
      */
-    name: string;
+    name?: string;
     /**
      *
      * @type {Array<string>}
      * @memberof ApiContentPatternUpdateRequestV1
      */
-    regexes: Array<string>;
+    regexes?: Array<string>;
 }
 
 /**
  * Check if a given object implements the ApiContentPatternUpdateRequestV1 interface.
  */
 export function instanceOfApiContentPatternUpdateRequestV1(value: object): value is ApiContentPatternUpdateRequestV1 {
-    if (!("description" in value) || value["description"] === undefined) return false;
-    if (!("example" in value) || value["example"] === undefined) return false;
-    if (!("id" in value) || value["id"] === undefined) return false;
-    if (!("minMatchThreshold" in value) || value["minMatchThreshold"] === undefined) return false;
-    if (!("name" in value) || value["name"] === undefined) return false;
-    if (!("regexes" in value) || value["regexes"] === undefined) return false;
     return true;
 }
 
@@ -79,12 +73,12 @@ export function ApiContentPatternUpdateRequestV1FromJSONTyped(json: any, ignoreD
         return json;
     }
     return {
-        description: json["description"],
-        example: json["example"],
-        id: json["id"],
-        minMatchThreshold: json["min_match_threshold"],
-        name: json["name"],
-        regexes: json["regexes"],
+        description: json["description"] == null ? undefined : json["description"],
+        example: json["example"] == null ? undefined : json["example"],
+        id: json["id"] == null ? undefined : json["id"],
+        minMatchThreshold: json["min_match_threshold"] == null ? undefined : json["min_match_threshold"],
+        name: json["name"] == null ? undefined : json["name"],
+        regexes: json["regexes"] == null ? undefined : json["regexes"],
     };
 }
 

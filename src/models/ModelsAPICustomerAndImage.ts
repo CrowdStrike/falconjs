@@ -110,10 +110,22 @@ export interface ModelsAPICustomerAndImage {
     imageSize: number;
     /**
      *
+     * @type {string}
+     * @memberof ModelsAPICustomerAndImage
+     */
+    indexDigest?: string;
+    /**
+     *
      * @type {boolean}
      * @memberof ModelsAPICustomerAndImage
      */
     isBaseImage: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ModelsAPICustomerAndImage
+     */
+    multiArch: boolean;
     /**
      *
      * @type {string}
@@ -181,6 +193,7 @@ export function instanceOfModelsAPICustomerAndImage(value: object): value is Mod
     if (!("imageScanningActive" in value) || value["imageScanningActive"] === undefined) return false;
     if (!("imageSize" in value) || value["imageSize"] === undefined) return false;
     if (!("isBaseImage" in value) || value["isBaseImage"] === undefined) return false;
+    if (!("multiArch" in value) || value["multiArch"] === undefined) return false;
     if (!("registry" in value) || value["registry"] === undefined) return false;
     if (!("repository" in value) || value["repository"] === undefined) return false;
     if (!("source" in value) || value["source"] === undefined) return false;
@@ -215,7 +228,9 @@ export function ModelsAPICustomerAndImageFromJSONTyped(json: any, ignoreDiscrimi
         imageId: json["image_id"],
         imageScanningActive: json["image_scanning_active"],
         imageSize: json["image_size"],
+        indexDigest: json["index_digest"] == null ? undefined : json["index_digest"],
         isBaseImage: json["is_base_image"],
+        multiArch: json["multi_arch"],
         registry: json["registry"],
         repository: json["repository"],
         source: json["source"],
@@ -246,7 +261,9 @@ export function ModelsAPICustomerAndImageToJSON(value?: ModelsAPICustomerAndImag
         image_id: value["imageId"],
         image_scanning_active: value["imageScanningActive"],
         image_size: value["imageSize"],
+        index_digest: value["indexDigest"],
         is_base_image: value["isBaseImage"],
+        multi_arch: value["multiArch"],
         registry: value["registry"],
         repository: value["repository"],
         source: value["source"],

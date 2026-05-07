@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainAWSRegionalVPCConfiguration } from "./DomainAWSRegionalVPCConfiguration";
+import { DomainAWSRegionalVPCConfigurationFromJSON, DomainAWSRegionalVPCConfigurationFromJSONTyped, DomainAWSRegionalVPCConfigurationToJSON } from "./DomainAWSRegionalVPCConfiguration";
 import type { RestAccountProductRequestExtV1 } from "./RestAccountProductRequestExtV1";
 import { RestAccountProductRequestExtV1FromJSON, RestAccountProductRequestExtV1FromJSONTyped, RestAccountProductRequestExtV1ToJSON } from "./RestAccountProductRequestExtV1";
 
@@ -60,10 +62,22 @@ export interface RestCloudAWSAccountCreateExtV1 {
     deploymentMethod?: string;
     /**
      *
+     * @type {{ [key: string]: DomainAWSRegionalVPCConfiguration; }}
+     * @memberof RestCloudAWSAccountCreateExtV1
+     */
+    dspmCustomVpcConfiguration?: { [key: string]: DomainAWSRegionalVPCConfiguration };
+    /**
+     *
      * @type {string}
      * @memberof RestCloudAWSAccountCreateExtV1
      */
     dspmHostAccountId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RestCloudAWSAccountCreateExtV1
+     */
+    dspmNetworkConfigurationType?: string;
     /**
      *
      * @type {Array<string>}
@@ -76,6 +90,12 @@ export interface RestCloudAWSAccountCreateExtV1 {
      * @memberof RestCloudAWSAccountCreateExtV1
      */
     dspmRole?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof RestCloudAWSAccountCreateExtV1
+     */
+    dspmServicePermissionsOverride?: Array<string>;
     /**
      *
      * @type {string}
@@ -174,10 +194,22 @@ export interface RestCloudAWSAccountCreateExtV1 {
     useExistingCloudtrail: boolean;
     /**
      *
+     * @type {{ [key: string]: DomainAWSRegionalVPCConfiguration; }}
+     * @memberof RestCloudAWSAccountCreateExtV1
+     */
+    vulnerabilityScanningCustomVpcConfiguration?: { [key: string]: DomainAWSRegionalVPCConfiguration };
+    /**
+     *
      * @type {string}
      * @memberof RestCloudAWSAccountCreateExtV1
      */
     vulnerabilityScanningHostAccountId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RestCloudAWSAccountCreateExtV1
+     */
+    vulnerabilityScanningNetworkConfigurationType?: string;
     /**
      *
      * @type {Array<string>}
@@ -215,9 +247,12 @@ export function RestCloudAWSAccountCreateExtV1FromJSONTyped(json: any, ignoreDis
         cloudtrailRegion: json["cloudtrail_region"] == null ? undefined : json["cloudtrail_region"],
         cspEvents: json["csp_events"] == null ? undefined : json["csp_events"],
         deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
+        dspmCustomVpcConfiguration: json["dspm_custom_vpc_configuration"] == null ? undefined : mapValues(json["dspm_custom_vpc_configuration"], DomainAWSRegionalVPCConfigurationFromJSON),
         dspmHostAccountId: json["dspm_host_account_id"] == null ? undefined : json["dspm_host_account_id"],
+        dspmNetworkConfigurationType: json["dspm_network_configuration_type"] == null ? undefined : json["dspm_network_configuration_type"],
         dspmRegions: json["dspm_regions"] == null ? undefined : json["dspm_regions"],
         dspmRole: json["dspm_role"] == null ? undefined : json["dspm_role"],
+        dspmServicePermissionsOverride: json["dspm_service_permissions_override"] == null ? undefined : json["dspm_service_permissions_override"],
         falconClientId: json["falcon_client_id"] == null ? undefined : json["falcon_client_id"],
         iamRoleArn: json["iam_role_arn"] == null ? undefined : json["iam_role_arn"],
         ioaRegions: json["ioa_regions"] == null ? undefined : json["ioa_regions"],
@@ -234,7 +269,10 @@ export function RestCloudAWSAccountCreateExtV1FromJSONTyped(json: any, ignoreDis
         s3LogIngestionSnsTopicArn: json["s3_log_ingestion_sns_topic_arn"] == null ? undefined : json["s3_log_ingestion_sns_topic_arn"],
         targetOus: json["target_ous"] == null ? undefined : json["target_ous"],
         useExistingCloudtrail: json["use_existing_cloudtrail"],
+        vulnerabilityScanningCustomVpcConfiguration:
+            json["vulnerability_scanning_custom_vpc_configuration"] == null ? undefined : mapValues(json["vulnerability_scanning_custom_vpc_configuration"], DomainAWSRegionalVPCConfigurationFromJSON),
         vulnerabilityScanningHostAccountId: json["vulnerability_scanning_host_account_id"] == null ? undefined : json["vulnerability_scanning_host_account_id"],
+        vulnerabilityScanningNetworkConfigurationType: json["vulnerability_scanning_network_configuration_type"] == null ? undefined : json["vulnerability_scanning_network_configuration_type"],
         vulnerabilityScanningRegions: json["vulnerability_scanning_regions"] == null ? undefined : json["vulnerability_scanning_regions"],
         vulnerabilityScanningRole: json["vulnerability_scanning_role"] == null ? undefined : json["vulnerability_scanning_role"],
     };
@@ -251,9 +289,12 @@ export function RestCloudAWSAccountCreateExtV1ToJSON(value?: RestCloudAWSAccount
         cloudtrail_region: value["cloudtrailRegion"],
         csp_events: value["cspEvents"],
         deployment_method: value["deploymentMethod"],
+        dspm_custom_vpc_configuration: value["dspmCustomVpcConfiguration"] == null ? undefined : mapValues(value["dspmCustomVpcConfiguration"], DomainAWSRegionalVPCConfigurationToJSON),
         dspm_host_account_id: value["dspmHostAccountId"],
+        dspm_network_configuration_type: value["dspmNetworkConfigurationType"],
         dspm_regions: value["dspmRegions"],
         dspm_role: value["dspmRole"],
+        dspm_service_permissions_override: value["dspmServicePermissionsOverride"],
         falcon_client_id: value["falconClientId"],
         iam_role_arn: value["iamRoleArn"],
         ioa_regions: value["ioaRegions"],
@@ -270,7 +311,10 @@ export function RestCloudAWSAccountCreateExtV1ToJSON(value?: RestCloudAWSAccount
         s3_log_ingestion_sns_topic_arn: value["s3LogIngestionSnsTopicArn"],
         target_ous: value["targetOus"],
         use_existing_cloudtrail: value["useExistingCloudtrail"],
+        vulnerability_scanning_custom_vpc_configuration:
+            value["vulnerabilityScanningCustomVpcConfiguration"] == null ? undefined : mapValues(value["vulnerabilityScanningCustomVpcConfiguration"], DomainAWSRegionalVPCConfigurationToJSON),
         vulnerability_scanning_host_account_id: value["vulnerabilityScanningHostAccountId"],
+        vulnerability_scanning_network_configuration_type: value["vulnerabilityScanningNetworkConfigurationType"],
         vulnerability_scanning_regions: value["vulnerabilityScanningRegions"],
         vulnerability_scanning_role: value["vulnerabilityScanningRole"],
     };

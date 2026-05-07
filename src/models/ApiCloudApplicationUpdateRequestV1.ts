@@ -27,28 +27,25 @@ export interface ApiCloudApplicationUpdateRequestV1 {
      * @type {string}
      * @memberof ApiCloudApplicationUpdateRequestV1
      */
-    description: string;
+    description?: string;
     /**
      *
      * @type {string}
      * @memberof ApiCloudApplicationUpdateRequestV1
      */
-    name: string;
+    name?: string;
     /**
      *
      * @type {Array<ApiWebAppURL>}
      * @memberof ApiCloudApplicationUpdateRequestV1
      */
-    urls: Array<ApiWebAppURL>;
+    urls?: Array<ApiWebAppURL>;
 }
 
 /**
  * Check if a given object implements the ApiCloudApplicationUpdateRequestV1 interface.
  */
 export function instanceOfApiCloudApplicationUpdateRequestV1(value: object): value is ApiCloudApplicationUpdateRequestV1 {
-    if (!("description" in value) || value["description"] === undefined) return false;
-    if (!("name" in value) || value["name"] === undefined) return false;
-    if (!("urls" in value) || value["urls"] === undefined) return false;
     return true;
 }
 
@@ -61,9 +58,9 @@ export function ApiCloudApplicationUpdateRequestV1FromJSONTyped(json: any, ignor
         return json;
     }
     return {
-        description: json["description"],
-        name: json["name"],
-        urls: (json["urls"] as Array<any>).map(ApiWebAppURLFromJSON),
+        description: json["description"] == null ? undefined : json["description"],
+        name: json["name"] == null ? undefined : json["name"],
+        urls: json["urls"] == null ? undefined : (json["urls"] as Array<any>).map(ApiWebAppURLFromJSON),
     };
 }
 
@@ -74,6 +71,6 @@ export function ApiCloudApplicationUpdateRequestV1ToJSON(value?: ApiCloudApplica
     return {
         description: value["description"],
         name: value["name"],
-        urls: (value["urls"] as Array<any>).map(ApiWebAppURLToJSON),
+        urls: value["urls"] == null ? undefined : (value["urls"] as Array<any>).map(ApiWebAppURLToJSON),
     };
 }

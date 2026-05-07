@@ -14,6 +14,7 @@
 
 import * as runtime from "../runtime";
 import type {
+    DtoGCPEntitiesResponseV1,
     DtoGCPRegistrationCreateRequestExtV1,
     DtoGCPRegistrationResponseExtV1,
     DtoGCPRegistrationUpdateRequestExtV1,
@@ -22,6 +23,8 @@ import type {
     MsaspecResponseFields,
 } from "../models/index";
 import {
+    DtoGCPEntitiesResponseV1FromJSON,
+    DtoGCPEntitiesResponseV1ToJSON,
     DtoGCPRegistrationCreateRequestExtV1FromJSON,
     DtoGCPRegistrationCreateRequestExtV1ToJSON,
     DtoGCPRegistrationResponseExtV1FromJSON,
@@ -42,6 +45,14 @@ export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpCreateRegist
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpDeleteRegistrationRequest {
     ids: string;
+}
+
+export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetEntitiesRequest {
+    ids?: Array<string>;
+    filter?: string;
+    sort?: string;
+    limit?: number;
+    offset?: number;
 }
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetRegistrationRequest {
@@ -151,6 +162,72 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
      */
     async cloudRegistrationGcpDeleteRegistration(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DtoGCPRegistrationResponseExtV1> {
         const response = await this.cloudRegistrationGcpDeleteRegistrationRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Returns entities grouped by type. Sorting and pagination are applied across all entity types before grouping. Use filter=entity_type:\'project\' to retrieve only specific entity types.
+     * Retrieve all GCP entities (organizations, folders, projects) grouped by type with support for FQL filtering, sorting, and pagination.
+     */
+    async cloudRegistrationGcpGetEntitiesRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetEntitiesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoGCPEntitiesResponseV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-google-cloud/entities/accounts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DtoGCPEntitiesResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Returns entities grouped by type. Sorting and pagination are applied across all entity types before grouping. Use filter=entity_type:\'project\' to retrieve only specific entity types.
+     * Retrieve all GCP entities (organizations, folders, projects) grouped by type with support for FQL filtering, sorting, and pagination.
+     */
+    async cloudRegistrationGcpGetEntities(
+        ids?: Array<string>,
+        filter?: string,
+        sort?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DtoGCPEntitiesResponseV1> {
+        const response = await this.cloudRegistrationGcpGetEntitiesRaw({ ids: ids, filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 

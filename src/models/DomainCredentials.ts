@@ -14,24 +14,31 @@
 
 import { mapValues } from "../runtime";
 /**
- *
+ * Represents credentials entity
  * @export
  * @interface DomainCredentials
  */
 export interface DomainCredentials {
     /**
-     *
-     * @type {string}
+     * Indicates if auto authorize scanners is enabled
+     * @type {boolean}
      * @memberof DomainCredentials
      */
-    token: string;
+    autoAuthorizeScanners: boolean;
+    /**
+     * Credential IDs associated with this scan
+     * @type {Array<string>}
+     * @memberof DomainCredentials
+     */
+    ids: Array<string>;
 }
 
 /**
  * Check if a given object implements the DomainCredentials interface.
  */
 export function instanceOfDomainCredentials(value: object): value is DomainCredentials {
-    if (!("token" in value) || value["token"] === undefined) return false;
+    if (!("autoAuthorizeScanners" in value) || value["autoAuthorizeScanners"] === undefined) return false;
+    if (!("ids" in value) || value["ids"] === undefined) return false;
     return true;
 }
 
@@ -44,7 +51,8 @@ export function DomainCredentialsFromJSONTyped(json: any, ignoreDiscriminator: b
         return json;
     }
     return {
-        token: json["token"],
+        autoAuthorizeScanners: json["auto_authorize_scanners"],
+        ids: json["ids"],
     };
 }
 
@@ -53,6 +61,7 @@ export function DomainCredentialsToJSON(value?: DomainCredentials | null): any {
         return value;
     }
     return {
-        token: value["token"],
+        auto_authorize_scanners: value["autoAuthorizeScanners"],
+        ids: value["ids"],
     };
 }

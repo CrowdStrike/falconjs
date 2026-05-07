@@ -28,6 +28,12 @@ import {
 export interface CorrelationrulesapiRuleLastExecutionV1 {
     /**
      *
+     * @type {Array<string>}
+     * @memberof CorrelationrulesapiRuleLastExecutionV1
+     */
+    errors?: Array<string>;
+    /**
+     *
      * @type {CorrelationrulesapiRuleResultMetadataV1}
      * @memberof CorrelationrulesapiRuleLastExecutionV1
      */
@@ -38,6 +44,12 @@ export interface CorrelationrulesapiRuleLastExecutionV1 {
      * @memberof CorrelationrulesapiRuleLastExecutionV1
      */
     statusDisplay?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof CorrelationrulesapiRuleLastExecutionV1
+     */
+    warnings?: Array<string>;
 }
 
 /**
@@ -56,8 +68,10 @@ export function CorrelationrulesapiRuleLastExecutionV1FromJSONTyped(json: any, i
         return json;
     }
     return {
+        errors: json["errors"] == null ? undefined : json["errors"],
         resultMetadata: json["result_metadata"] == null ? undefined : CorrelationrulesapiRuleResultMetadataV1FromJSON(json["result_metadata"]),
         statusDisplay: json["status_display"] == null ? undefined : json["status_display"],
+        warnings: json["warnings"] == null ? undefined : json["warnings"],
     };
 }
 
@@ -66,7 +80,9 @@ export function CorrelationrulesapiRuleLastExecutionV1ToJSON(value?: Correlation
         return value;
     }
     return {
+        errors: value["errors"],
         result_metadata: CorrelationrulesapiRuleResultMetadataV1ToJSON(value["resultMetadata"]),
         status_display: value["statusDisplay"],
+        warnings: value["warnings"],
     };
 }

@@ -15,8 +15,14 @@
 import { mapValues } from "../runtime";
 import type { RiskSuppression } from "./RiskSuppression";
 import { RiskSuppressionFromJSON, RiskSuppressionFromJSONTyped, RiskSuppressionToJSON } from "./RiskSuppression";
+import type { RisksVertex } from "./RisksVertex";
+import { RisksVertexFromJSON, RisksVertexFromJSONTyped, RisksVertexToJSON } from "./RisksVertex";
 import type { RiskComments } from "./RiskComments";
 import { RiskCommentsFromJSON, RiskCommentsFromJSONTyped, RiskCommentsToJSON } from "./RiskComments";
+import type { RisksEdge } from "./RisksEdge";
+import { RisksEdgeFromJSON, RisksEdgeFromJSONTyped, RisksEdgeToJSON } from "./RisksEdge";
+import type { RisksGraph } from "./RisksGraph";
+import { RisksGraphFromJSON, RisksGraphFromJSONTyped, RisksGraphToJSON } from "./RisksGraph";
 
 /**
  *
@@ -36,6 +42,18 @@ export interface RisksUnionCloudRisk {
      * @memberof RisksUnionCloudRisk
      */
     accountName: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof RisksUnionCloudRisk
+     */
+    adversaries: Array<string>;
+    /**
+     *
+     * @type {string}
+     * @memberof RisksUnionCloudRisk
+     */
+    agv2Id?: string;
     /**
      *
      * @type {string}
@@ -89,7 +107,7 @@ export interface RisksUnionCloudRisk {
      * @type {Array<RiskComments>}
      * @memberof RisksUnionCloudRisk
      */
-    comment: Array<RiskComments>;
+    comments?: Array<RiskComments>;
     /**
      *
      * @type {string}
@@ -104,10 +122,22 @@ export interface RisksUnionCloudRisk {
     disabled: boolean;
     /**
      *
+     * @type {Array<RisksEdge>}
+     * @memberof RisksUnionCloudRisk
+     */
+    edges?: Array<RisksEdge>;
+    /**
+     *
      * @type {Date}
      * @memberof RisksUnionCloudRisk
      */
     firstSeen: Date;
+    /**
+     *
+     * @type {RisksGraph}
+     * @memberof RisksUnionCloudRisk
+     */
+    graph?: RisksGraph;
     /**
      *
      * @type {string}
@@ -182,12 +212,6 @@ export interface RisksUnionCloudRisk {
     severity: string;
     /**
      *
-     * @type {boolean}
-     * @memberof RisksUnionCloudRisk
-     */
-    silent: boolean;
-    /**
-     *
      * @type {string}
      * @memberof RisksUnionCloudRisk
      */
@@ -198,6 +222,12 @@ export interface RisksUnionCloudRisk {
      * @memberof RisksUnionCloudRisk
      */
     suppression?: RiskSuppression;
+    /**
+     *
+     * @type {Array<RisksVertex>}
+     * @memberof RisksUnionCloudRisk
+     */
+    vertices?: Array<RisksVertex>;
 }
 
 /**
@@ -206,13 +236,13 @@ export interface RisksUnionCloudRisk {
 export function instanceOfRisksUnionCloudRisk(value: object): value is RisksUnionCloudRisk {
     if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("accountName" in value) || value["accountName"] === undefined) return false;
+    if (!("adversaries" in value) || value["adversaries"] === undefined) return false;
     if (!("assetGcrn" in value) || value["assetGcrn"] === undefined) return false;
     if (!("assetId" in value) || value["assetId"] === undefined) return false;
     if (!("assetName" in value) || value["assetName"] === undefined) return false;
     if (!("assetType" in value) || value["assetType"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("cloudGroups" in value) || value["cloudGroups"] === undefined) return false;
-    if (!("comment" in value) || value["comment"] === undefined) return false;
     if (!("crn" in value) || value["crn"] === undefined) return false;
     if (!("disabled" in value) || value["disabled"] === undefined) return false;
     if (!("firstSeen" in value) || value["firstSeen"] === undefined) return false;
@@ -224,7 +254,6 @@ export function instanceOfRisksUnionCloudRisk(value: object): value is RisksUnio
     if (!("score" in value) || value["score"] === undefined) return false;
     if (!("serviceCategory" in value) || value["serviceCategory"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
-    if (!("silent" in value) || value["silent"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
     return true;
 }
@@ -240,6 +269,8 @@ export function RisksUnionCloudRiskFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         accountId: json["account_id"],
         accountName: json["account_name"],
+        adversaries: json["adversaries"],
+        agv2Id: json["agv2_id"] == null ? undefined : json["agv2_id"],
         assetGcrn: json["asset_gcrn"],
         assetId: json["asset_id"],
         assetName: json["asset_name"],
@@ -248,10 +279,12 @@ export function RisksUnionCloudRiskFromJSONTyped(json: any, ignoreDiscriminator:
         assetType: json["asset_type"],
         cid: json["cid"],
         cloudGroups: json["cloud_groups"],
-        comment: (json["comment"] as Array<any>).map(RiskCommentsFromJSON),
+        comments: json["comments"] == null ? undefined : (json["comments"] as Array<any>).map(RiskCommentsFromJSON),
         crn: json["crn"],
         disabled: json["disabled"],
+        edges: json["edges"] == null ? undefined : (json["edges"] as Array<any>).map(RisksEdgeFromJSON),
         firstSeen: new Date(json["first_seen"]),
+        graph: json["graph"] == null ? undefined : RisksGraphFromJSON(json["graph"]),
         id: json["id"],
         insightCategories: json["insight_categories"] == null ? undefined : json["insight_categories"],
         lastSeen: json["last_seen"] == null ? undefined : new Date(json["last_seen"]),
@@ -264,9 +297,9 @@ export function RisksUnionCloudRiskFromJSONTyped(json: any, ignoreDiscriminator:
         score: json["score"],
         serviceCategory: json["service_category"],
         severity: json["severity"],
-        silent: json["silent"],
         status: json["status"],
         suppression: json["suppression"] == null ? undefined : RiskSuppressionFromJSON(json["suppression"]),
+        vertices: json["vertices"] == null ? undefined : (json["vertices"] as Array<any>).map(RisksVertexFromJSON),
     };
 }
 
@@ -277,6 +310,8 @@ export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): a
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],
+        adversaries: value["adversaries"],
+        agv2_id: value["agv2Id"],
         asset_gcrn: value["assetGcrn"],
         asset_id: value["assetId"],
         asset_name: value["assetName"],
@@ -285,10 +320,12 @@ export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): a
         asset_type: value["assetType"],
         cid: value["cid"],
         cloud_groups: value["cloudGroups"],
-        comment: (value["comment"] as Array<any>).map(RiskCommentsToJSON),
+        comments: value["comments"] == null ? undefined : (value["comments"] as Array<any>).map(RiskCommentsToJSON),
         crn: value["crn"],
         disabled: value["disabled"],
+        edges: value["edges"] == null ? undefined : (value["edges"] as Array<any>).map(RisksEdgeToJSON),
         first_seen: value["firstSeen"].toISOString(),
+        graph: RisksGraphToJSON(value["graph"]),
         id: value["id"],
         insight_categories: value["insightCategories"],
         last_seen: value["lastSeen"] == null ? undefined : value["lastSeen"].toISOString(),
@@ -301,8 +338,8 @@ export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): a
         score: value["score"],
         service_category: value["serviceCategory"],
         severity: value["severity"],
-        silent: value["silent"],
         status: value["status"],
         suppression: RiskSuppressionToJSON(value["suppression"]),
+        vertices: value["vertices"] == null ? undefined : (value["vertices"] as Array<any>).map(RisksVertexToJSON),
     };
 }

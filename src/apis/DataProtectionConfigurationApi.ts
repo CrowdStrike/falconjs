@@ -25,6 +25,12 @@ import type {
     ApiEnterpriseAccountMSAResponseV1,
     ApiEnterpriseAccountUpdateRequestV1,
     ApiFileTypeMSAResponseV1,
+    ApiLocalApplicationCreateRequestV1,
+    ApiLocalApplicationGroupCreateRequestV1,
+    ApiLocalApplicationGroupMSAResponseV1,
+    ApiLocalApplicationGroupUpdateRequestV1,
+    ApiLocalApplicationMSAResponseV1,
+    ApiLocalApplicationUpdateRequestV1,
     ApiSensitivityLabelCreateRequestV2,
     ApiSensitivityLabelMSAResponseV2,
     ApiUpdateWebLocationRequestV2,
@@ -64,6 +70,18 @@ import {
     ApiEnterpriseAccountUpdateRequestV1ToJSON,
     ApiFileTypeMSAResponseV1FromJSON,
     ApiFileTypeMSAResponseV1ToJSON,
+    ApiLocalApplicationCreateRequestV1FromJSON,
+    ApiLocalApplicationCreateRequestV1ToJSON,
+    ApiLocalApplicationGroupCreateRequestV1FromJSON,
+    ApiLocalApplicationGroupCreateRequestV1ToJSON,
+    ApiLocalApplicationGroupMSAResponseV1FromJSON,
+    ApiLocalApplicationGroupMSAResponseV1ToJSON,
+    ApiLocalApplicationGroupUpdateRequestV1FromJSON,
+    ApiLocalApplicationGroupUpdateRequestV1ToJSON,
+    ApiLocalApplicationMSAResponseV1FromJSON,
+    ApiLocalApplicationMSAResponseV1ToJSON,
+    ApiLocalApplicationUpdateRequestV1FromJSON,
+    ApiLocalApplicationUpdateRequestV1ToJSON,
     ApiSensitivityLabelCreateRequestV2FromJSON,
     ApiSensitivityLabelCreateRequestV2ToJSON,
     ApiSensitivityLabelMSAResponseV2FromJSON,
@@ -167,6 +185,40 @@ export interface DataProtectionConfigurationApiEntitiesFileTypeGetRequest {
     ids: Array<string>;
 }
 
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationCreateRequest {
+    body: ApiLocalApplicationCreateRequestV1;
+}
+
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationDeleteRequest {
+    ids: Array<string>;
+}
+
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationGetRequest {
+    ids: Array<string>;
+}
+
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationGroupCreateRequest {
+    body: ApiLocalApplicationGroupCreateRequestV1;
+}
+
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationGroupDeleteRequest {
+    ids: Array<string>;
+}
+
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationGroupGetRequest {
+    ids: Array<string>;
+}
+
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationGroupPatchRequest {
+    id: string;
+    body: ApiLocalApplicationGroupUpdateRequestV1;
+}
+
+export interface DataProtectionConfigurationApiEntitiesLocalApplicationPatchRequest {
+    id: string;
+    body: ApiLocalApplicationUpdateRequestV1;
+}
+
 export interface DataProtectionConfigurationApiEntitiesPolicyDeleteV2Request {
     ids: Array<string>;
     platformName: string;
@@ -250,6 +302,20 @@ export interface DataProtectionConfigurationApiQueriesEnterpriseAccountGetV2Requ
 export interface DataProtectionConfigurationApiQueriesFileTypeGetV2Request {
     filter?: string;
     sort?: string;
+    limit?: number;
+    offset?: number;
+}
+
+export interface DataProtectionConfigurationApiQueriesLocalApplicationGetRequest {
+    xCSUSERUUID: string;
+    filter?: string;
+    limit?: number;
+    offset?: number;
+}
+
+export interface DataProtectionConfigurationApiQueriesLocalApplicationGroupGetRequest {
+    xCSUSERUUID: string;
+    filter?: string;
     limit?: number;
     offset?: number;
 }
@@ -1062,6 +1128,385 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
      */
     async entitiesFileTypeGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiFileTypeMSAResponseV1> {
         const response = await this.entitiesFileTypeGetRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Persist the given local application for the provided entity instance
+     */
+    async entitiesLocalApplicationCreateRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationMSAResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesLocalApplicationCreate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-applications/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiLocalApplicationCreateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Persist the given local application for the provided entity instance
+     */
+    async entitiesLocalApplicationCreate(body: ApiLocalApplicationCreateRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLocalApplicationMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationCreateRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Soft Delete local application. The application wont be visible anymore, but will still be in the database
+     */
+    async entitiesLocalApplicationDeleteRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationMSAResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesLocalApplicationDelete().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-applications/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Soft Delete local application. The application wont be visible anymore, but will still be in the database
+     */
+    async entitiesLocalApplicationDelete(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLocalApplicationMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationDeleteRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a particular local application
+     */
+    async entitiesLocalApplicationGetRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationMSAResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesLocalApplicationGet().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-applications/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get a particular local application
+     */
+    async entitiesLocalApplicationGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLocalApplicationMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationGetRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Persist the given local application group for the provided entity instance
+     */
+    async entitiesLocalApplicationGroupCreateRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationGroupCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationGroupMSAResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesLocalApplicationGroupCreate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-application-groups/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiLocalApplicationGroupCreateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationGroupMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Persist the given local application group for the provided entity instance
+     */
+    async entitiesLocalApplicationGroupCreate(
+        body: ApiLocalApplicationGroupCreateRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiLocalApplicationGroupMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationGroupCreateRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Soft Delete local application. The application won\'t be visible anymore, but will still be in the database
+     */
+    async entitiesLocalApplicationGroupDeleteRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationGroupDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationGroupMSAResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesLocalApplicationGroupDelete().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-application-groups/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationGroupMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Soft Delete local application. The application won\'t be visible anymore, but will still be in the database
+     */
+    async entitiesLocalApplicationGroupDelete(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLocalApplicationGroupMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationGroupDeleteRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get particular local application groups
+     */
+    async entitiesLocalApplicationGroupGetRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationGroupGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationGroupMSAResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesLocalApplicationGroupGet().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-application-groups/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationGroupMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get particular local application groups
+     */
+    async entitiesLocalApplicationGroupGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLocalApplicationGroupMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationGroupGetRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update a local application group
+     */
+    async entitiesLocalApplicationGroupPatchRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationGroupPatchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationGroupMSAResponseV1>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesLocalApplicationGroupPatch().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesLocalApplicationGroupPatch().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-application-groups/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiLocalApplicationGroupUpdateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationGroupMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update a local application group
+     */
+    async entitiesLocalApplicationGroupPatch(
+        id: string,
+        body: ApiLocalApplicationGroupUpdateRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiLocalApplicationGroupMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationGroupPatchRaw({ id: id, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update a local application
+     */
+    async entitiesLocalApplicationPatchRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationPatchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLocalApplicationMSAResponseV1>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesLocalApplicationPatch().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesLocalApplicationPatch().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/local-applications/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiLocalApplicationUpdateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLocalApplicationMSAResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update a local application
+     */
+    async entitiesLocalApplicationPatch(id: string, body: ApiLocalApplicationUpdateRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLocalApplicationMSAResponseV1> {
+        const response = await this.entitiesLocalApplicationPatchRaw({ id: id, body: body }, initOverrides);
         return await response.value();
     }
 
@@ -1893,6 +2338,126 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
      */
     async queriesFileTypeGetV2(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queriesFileTypeGetV2Raw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get all local-application IDs matching the query with filter
+     */
+    async queriesLocalApplicationGetRaw(
+        requestParameters: DataProtectionConfigurationApiQueriesLocalApplicationGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling queriesLocalApplicationGet().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/queries/local-applications/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get all local-application IDs matching the query with filter
+     */
+    async queriesLocalApplicationGet(xCSUSERUUID: string, filter?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queriesLocalApplicationGetRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get all local application group IDs matching the query with filter
+     */
+    async queriesLocalApplicationGroupGetRaw(
+        requestParameters: DataProtectionConfigurationApiQueriesLocalApplicationGroupGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling queriesLocalApplicationGroupGet().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/queries/local-application-groups/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get all local application group IDs matching the query with filter
+     */
+    async queriesLocalApplicationGroupGet(
+        xCSUSERUUID: string,
+        filter?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaspecQueryResponse> {
+        const response = await this.queriesLocalApplicationGroupGetRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 

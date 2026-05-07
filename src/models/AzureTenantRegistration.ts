@@ -17,6 +17,8 @@ import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
 import type { AzureAdditionalFeature } from "./AzureAdditionalFeature";
 import { AzureAdditionalFeatureFromJSON, AzureAdditionalFeatureFromJSONTyped, AzureAdditionalFeatureToJSON } from "./AzureAdditionalFeature";
+import type { AzureClientKeyInfo } from "./AzureClientKeyInfo";
+import { AzureClientKeyInfoFromJSON, AzureClientKeyInfoFromJSONTyped, AzureClientKeyInfoToJSON } from "./AzureClientKeyInfo";
 import type { AzureDSPMRegionCustomNetworkConfiguration } from "./AzureDSPMRegionCustomNetworkConfiguration";
 import {
     AzureDSPMRegionCustomNetworkConfigurationFromJSON,
@@ -100,6 +102,12 @@ export interface AzureTenantRegistration {
     csInfraSubscriptionId?: string;
     /**
      *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    csInfraSubscriptionName?: string;
+    /**
+     *
      * @type {Date}
      * @memberof AzureTenantRegistration
      */
@@ -163,7 +171,7 @@ export interface AzureTenantRegistration {
      * @type {Array<string>}
      * @memberof AzureTenantRegistration
      */
-    dspmRegions?: Array<string>;
+    dspmRegions: Array<string>;
     /**
      *
      * @type {string}
@@ -184,6 +192,12 @@ export interface AzureTenantRegistration {
     eventHubSettings: Array<AzureEventHubSettings>;
     /**
      *
+     * @type {AzureClientKeyInfo}
+     * @memberof AzureTenantRegistration
+     */
+    keyInfo: AzureClientKeyInfo;
+    /**
+     *
      * @type {Array<string>}
      * @memberof AzureTenantRegistration
      */
@@ -202,10 +216,34 @@ export interface AzureTenantRegistration {
     microsoftGraphPermissionIdsReadonly?: boolean;
     /**
      *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    primaryDomain: string;
+    /**
+     *
      * @type {Array<DomainProductFeatures>}
      * @memberof AzureTenantRegistration
      */
     products?: Array<DomainProductFeatures>;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    registrationId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    registrationName?: string;
     /**
      *
      * @type {string}
@@ -279,9 +317,12 @@ export type AzureTenantRegistrationDspmNetworkConfigurationTypeEnum =
 export function instanceOfAzureTenantRegistration(value: object): value is AzureTenantRegistration {
     if (!("additionalFeatures" in value) || value["additionalFeatures"] === undefined) return false;
     if (!("deploymentMethod" in value) || value["deploymentMethod"] === undefined) return false;
+    if (!("dspmRegions" in value) || value["dspmRegions"] === undefined) return false;
     if (!("eventHubSettings" in value) || value["eventHubSettings"] === undefined) return false;
+    if (!("keyInfo" in value) || value["keyInfo"] === undefined) return false;
     if (!("managementGroupIds" in value) || value["managementGroupIds"] === undefined) return false;
     if (!("microsoftGraphPermissionIds" in value) || value["microsoftGraphPermissionIds"] === undefined) return false;
+    if (!("primaryDomain" in value) || value["primaryDomain"] === undefined) return false;
     if (!("subscriptionIds" in value) || value["subscriptionIds"] === undefined) return false;
     if (!("tags" in value) || value["tags"] === undefined) return false;
     if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
@@ -309,6 +350,7 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
         created: json["created"] == null ? undefined : new Date(json["created"]),
         csInfraRegion: json["cs_infra_region"] == null ? undefined : json["cs_infra_region"],
         csInfraSubscriptionId: json["cs_infra_subscription_id"] == null ? undefined : json["cs_infra_subscription_id"],
+        csInfraSubscriptionName: json["cs_infra_subscription_name"] == null ? undefined : json["cs_infra_subscription_name"],
         deleted: json["deleted"] == null ? undefined : new Date(json["deleted"]),
         deploymentMethod: json["deployment_method"],
         deploymentStackHostId: json["deployment_stack_host_id"] == null ? undefined : json["deployment_stack_host_id"],
@@ -319,14 +361,19 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
         dspmCustomVnetConfiguration: json["dspm_custom_vnet_configuration"] == null ? undefined : mapValues(json["dspm_custom_vnet_configuration"], AzureDSPMRegionCustomNetworkConfigurationFromJSON),
         dspmHostSubscriptionId: json["dspm_host_subscription_id"] == null ? undefined : json["dspm_host_subscription_id"],
         dspmNetworkConfigurationType: json["dspm_network_configuration_type"] == null ? undefined : json["dspm_network_configuration_type"],
-        dspmRegions: json["dspm_regions"] == null ? undefined : json["dspm_regions"],
+        dspmRegions: json["dspm_regions"],
         enterpriseAppUrl: json["enterprise_app_url"] == null ? undefined : json["enterprise_app_url"],
         environment: json["environment"] == null ? undefined : json["environment"],
         eventHubSettings: (json["event_hub_settings"] as Array<any>).map(AzureEventHubSettingsFromJSON),
+        keyInfo: AzureClientKeyInfoFromJSON(json["key_info"]),
         managementGroupIds: json["management_group_ids"],
         microsoftGraphPermissionIds: json["microsoft_graph_permission_ids"],
         microsoftGraphPermissionIdsReadonly: json["microsoft_graph_permission_ids_readonly"] == null ? undefined : json["microsoft_graph_permission_ids_readonly"],
+        primaryDomain: json["primary_domain"],
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(DomainProductFeaturesFromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
+        registrationId: json["registration_id"] == null ? undefined : json["registration_id"],
+        registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
         resourceNameSuffix: json["resource_name_suffix"] == null ? undefined : json["resource_name_suffix"],
         status: json["status"] == null ? undefined : json["status"],
@@ -355,6 +402,7 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         created: value["created"] == null ? undefined : value["created"].toISOString(),
         cs_infra_region: value["csInfraRegion"],
         cs_infra_subscription_id: value["csInfraSubscriptionId"],
+        cs_infra_subscription_name: value["csInfraSubscriptionName"],
         deleted: value["deleted"] == null ? undefined : value["deleted"].toISOString(),
         deployment_method: value["deploymentMethod"],
         deployment_stack_host_id: value["deploymentStackHostId"],
@@ -369,10 +417,15 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         enterprise_app_url: value["enterpriseAppUrl"],
         environment: value["environment"],
         event_hub_settings: (value["eventHubSettings"] as Array<any>).map(AzureEventHubSettingsToJSON),
+        key_info: AzureClientKeyInfoToJSON(value["keyInfo"]),
         management_group_ids: value["managementGroupIds"],
         microsoft_graph_permission_ids: value["microsoftGraphPermissionIds"],
         microsoft_graph_permission_ids_readonly: value["microsoftGraphPermissionIdsReadonly"],
+        primary_domain: value["primaryDomain"],
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
+        registration_description: value["registrationDescription"],
+        registration_id: value["registrationId"],
+        registration_name: value["registrationName"],
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
         status: value["status"],

@@ -135,6 +135,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    criticality?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     defaultGatewayIp?: string;
     /**
      *
@@ -617,6 +623,7 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
         connectionMacAddress: json["connection_mac_address"] == null ? undefined : json["connection_mac_address"],
         cpuSignature: json["cpu_signature"] == null ? undefined : json["cpu_signature"],
         cpuVendor: json["cpu_vendor"] == null ? undefined : json["cpu_vendor"],
+        criticality: json["criticality"] == null ? undefined : json["criticality"],
         defaultGatewayIp: json["default_gateway_ip"] == null ? undefined : json["default_gateway_ip"],
         deploymentType: json["deployment_type"] == null ? undefined : json["deployment_type"],
         detectionSuppressionStatus: json["detection_suppression_status"] == null ? undefined : json["detection_suppression_status"],
@@ -717,6 +724,7 @@ export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | nu
         connection_mac_address: value["connectionMacAddress"],
         cpu_signature: value["cpuSignature"],
         cpu_vendor: value["cpuVendor"],
+        criticality: value["criticality"],
         default_gateway_ip: value["defaultGatewayIp"],
         deployment_type: value["deploymentType"],
         detection_suppression_status: value["detectionSuppressionStatus"],

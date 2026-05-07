@@ -21,6 +21,8 @@ import type { ModelsConfigInfoType } from "./ModelsConfigInfoType";
 import { ModelsConfigInfoTypeFromJSON, ModelsConfigInfoTypeFromJSONTyped, ModelsConfigInfoTypeToJSON } from "./ModelsConfigInfoType";
 import type { ModelsOSInfoType } from "./ModelsOSInfoType";
 import { ModelsOSInfoTypeFromJSON, ModelsOSInfoTypeFromJSONTyped, ModelsOSInfoTypeToJSON } from "./ModelsOSInfoType";
+import type { V1Manifest } from "./V1Manifest";
+import { V1ManifestFromJSON, V1ManifestFromJSONTyped, V1ManifestToJSON } from "./V1Manifest";
 import type { ModelsELFBinaryInfoType } from "./ModelsELFBinaryInfoType";
 import { ModelsELFBinaryInfoTypeFromJSON, ModelsELFBinaryInfoTypeFromJSONTyped, ModelsELFBinaryInfoTypeToJSON } from "./ModelsELFBinaryInfoType";
 import type { ModelsApplicationPackageInfoType } from "./ModelsApplicationPackageInfoType";
@@ -35,8 +37,6 @@ import type { ModelsLayerInfoType } from "./ModelsLayerInfoType";
 import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON } from "./ModelsLayerInfoType";
 import type { ModelsPackageInfoType } from "./ModelsPackageInfoType";
 import { ModelsPackageInfoTypeFromJSON, ModelsPackageInfoTypeFromJSONTyped, ModelsPackageInfoTypeToJSON } from "./ModelsPackageInfoType";
-import type { Schema2Manifest } from "./Schema2Manifest";
-import { Schema2ManifestFromJSON, Schema2ManifestFromJSONTyped, Schema2ManifestToJSON } from "./Schema2Manifest";
 
 /**
  *
@@ -94,10 +94,10 @@ export interface ModelsInventoryType {
     mLModels?: Array<ModelsMLModelType>;
     /**
      *
-     * @type {Schema2Manifest}
+     * @type {V1Manifest}
      * @memberof ModelsInventoryType
      */
-    manifest: Schema2Manifest;
+    manifest: V1Manifest;
     /**
      *
      * @type {ModelsOSInfoType}
@@ -169,7 +169,7 @@ export function ModelsInventoryTypeFromJSONTyped(json: any, ignoreDiscriminator:
         inventoryEngineInfo: ModelsInventoryEngineInfoTypeFromJSON(json["InventoryEngineInfo"]),
         layers: (json["Layers"] as Array<any>).map(ModelsLayerInfoTypeFromJSON),
         mLModels: json["MLModels"] == null ? undefined : (json["MLModels"] as Array<any>).map(ModelsMLModelTypeFromJSON),
-        manifest: Schema2ManifestFromJSON(json["Manifest"]),
+        manifest: V1ManifestFromJSON(json["Manifest"]),
         oSInfo: ModelsOSInfoTypeFromJSON(json["OSInfo"]),
         packages: (json["Packages"] as Array<any>).map(ModelsPackageInfoTypeFromJSON),
         aiRelated: json["ai_related"] == null ? undefined : json["ai_related"],
@@ -192,7 +192,7 @@ export function ModelsInventoryTypeToJSON(value?: ModelsInventoryType | null): a
         InventoryEngineInfo: ModelsInventoryEngineInfoTypeToJSON(value["inventoryEngineInfo"]),
         Layers: (value["layers"] as Array<any>).map(ModelsLayerInfoTypeToJSON),
         MLModels: value["mLModels"] == null ? undefined : (value["mLModels"] as Array<any>).map(ModelsMLModelTypeToJSON),
-        Manifest: Schema2ManifestToJSON(value["manifest"]),
+        Manifest: V1ManifestToJSON(value["manifest"]),
         OSInfo: ModelsOSInfoTypeToJSON(value["oSInfo"]),
         Packages: (value["packages"] as Array<any>).map(ModelsPackageInfoTypeToJSON),
         ai_related: value["aiRelated"],

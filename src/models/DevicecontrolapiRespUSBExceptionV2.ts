@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DevicecontrolapiIdentityV1 } from "./DevicecontrolapiIdentityV1";
+import { DevicecontrolapiIdentityV1FromJSON, DevicecontrolapiIdentityV1FromJSONTyped, DevicecontrolapiIdentityV1ToJSON } from "./DevicecontrolapiIdentityV1";
+
 /**
  *
  * @export
@@ -50,6 +53,18 @@ export interface DevicecontrolapiRespUSBExceptionV2 {
      */
     description?: string;
     /**
+     * List of groups excluded from the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiRespUSBExceptionV2
+     */
+    excludedGroups?: Array<DevicecontrolapiIdentityV1>;
+    /**
+     * List of users excluded from the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiRespUSBExceptionV2
+     */
+    excludedUsers?: Array<DevicecontrolapiIdentityV1>;
+    /**
      *
      * @type {Date}
      * @memberof DevicecontrolapiRespUSBExceptionV2
@@ -61,6 +76,18 @@ export interface DevicecontrolapiRespUSBExceptionV2 {
      * @memberof DevicecontrolapiRespUSBExceptionV2
      */
     id: string;
+    /**
+     * List of groups included in the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiRespUSBExceptionV2
+     */
+    includedGroups?: Array<DevicecontrolapiIdentityV1>;
+    /**
+     * List of users included in the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiRespUSBExceptionV2
+     */
+    includedUsers?: Array<DevicecontrolapiIdentityV1>;
     /**
      *
      * @type {string}
@@ -150,8 +177,12 @@ export function DevicecontrolapiRespUSBExceptionV2FromJSONTyped(json: any, ignor
         combinedId: json["combined_id"] == null ? undefined : json["combined_id"],
         createdTimestamp: json["created_timestamp"] == null ? undefined : new Date(json["created_timestamp"]),
         description: json["description"] == null ? undefined : json["description"],
+        excludedGroups: json["excluded_groups"] == null ? undefined : (json["excluded_groups"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
+        excludedUsers: json["excluded_users"] == null ? undefined : (json["excluded_users"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
         expirationTime: json["expiration_time"] == null ? undefined : new Date(json["expiration_time"]),
         id: json["id"],
+        includedGroups: json["included_groups"] == null ? undefined : (json["included_groups"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
+        includedUsers: json["included_users"] == null ? undefined : (json["included_users"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
         matchMethod: json["match_method"],
         modifiedTimestamp: json["modified_timestamp"] == null ? undefined : new Date(json["modified_timestamp"]),
         productId: json["product_id"] == null ? undefined : json["product_id"],
@@ -175,8 +206,12 @@ export function DevicecontrolapiRespUSBExceptionV2ToJSON(value?: Devicecontrolap
         combined_id: value["combinedId"],
         created_timestamp: value["createdTimestamp"] == null ? undefined : value["createdTimestamp"].toISOString(),
         description: value["description"],
+        excluded_groups: value["excludedGroups"] == null ? undefined : (value["excludedGroups"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
+        excluded_users: value["excludedUsers"] == null ? undefined : (value["excludedUsers"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
         expiration_time: value["expirationTime"] == null ? undefined : value["expirationTime"].toISOString(),
         id: value["id"],
+        included_groups: value["includedGroups"] == null ? undefined : (value["includedGroups"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
+        included_users: value["includedUsers"] == null ? undefined : (value["includedUsers"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
         match_method: value["matchMethod"],
         modified_timestamp: value["modifiedTimestamp"] == null ? undefined : value["modifiedTimestamp"].toISOString(),
         product_id: value["productId"],

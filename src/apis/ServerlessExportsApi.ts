@@ -13,21 +13,8 @@
  */
 
 import * as runtime from "../runtime";
-import type {
-    ExportsExportJobRequest,
-    ExportsExportJobResponse,
-    ExportsExportsResponse,
-    ExportsLaunchExportRequest,
-    ExportsLaunchExportResponse,
-    MsaReplyMetaOnly,
-    MsaspecQueryResponse,
-    MsaspecResponseFields,
-} from "../models/index";
+import type { ExportsExportsResponse, ExportsLaunchExportRequest, ExportsLaunchExportResponse, MsaReplyMetaOnly, MsaspecQueryResponse, MsaspecResponseFields } from "../models/index";
 import {
-    ExportsExportJobRequestFromJSON,
-    ExportsExportJobRequestToJSON,
-    ExportsExportJobResponseFromJSON,
-    ExportsExportJobResponseToJSON,
     ExportsExportsResponseFromJSON,
     ExportsExportsResponseToJSON,
     ExportsLaunchExportRequestFromJSON,
@@ -48,10 +35,6 @@ export interface ServerlessExportsApiDownloadExportFileMixin0Request {
 
 export interface ServerlessExportsApiLaunchExportJobMixin0Request {
     body: ExportsLaunchExportRequest;
-}
-
-export interface ServerlessExportsApiPostExportJobMixin0Mixin113Request {
-    body: ExportsExportJobRequest;
 }
 
 export interface ServerlessExportsApiQueryExportJobsMixin0Request {
@@ -152,50 +135,6 @@ export class ServerlessExportsApi extends runtime.BaseAPI {
      */
     async launchExportJobMixin0(body: ExportsLaunchExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportsLaunchExportResponse> {
         const response = await this.launchExportJobMixin0Raw({ body: body }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Launch an export job for a serverless security resource
-     */
-    async postExportJobMixin0Mixin113Raw(
-        requestParameters: ServerlessExportsApiPostExportJobMixin0Mixin113Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ExportsExportJobResponse>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postExportJobMixin0Mixin113().');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/lambdas/entities/export-jobs/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: ExportsExportJobRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ExportsExportJobResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Launch an export job for a serverless security resource
-     */
-    async postExportJobMixin0Mixin113(body: ExportsExportJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportsExportJobResponse> {
-        const response = await this.postExportJobMixin0Mixin113Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

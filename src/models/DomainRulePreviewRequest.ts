@@ -27,10 +27,10 @@ export interface DomainRulePreviewRequest {
     filter: string;
     /**
      *
-     * @type {Array<number>}
+     * @type {number}
      * @memberof DomainRulePreviewRequest
      */
-    lookbackDays?: Array<number>;
+    lookbackDays?: number;
     /**
      *
      * @type {string}

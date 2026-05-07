@@ -29,7 +29,13 @@ export interface PolicymanagerExternalClassificationProperties {
      */
     contentPatterns?: Array<string>;
     /**
-     *
+     * ContentPatternsOperator accepts values: 'or', 'and'
+     * @type {string}
+     * @memberof PolicymanagerExternalClassificationProperties
+     */
+    contentPatternsOperator?: PolicymanagerExternalClassificationPropertiesContentPatternsOperatorEnum;
+    /**
+     * Warning: Disabling evidence duplication will also disable forensic screen capture in all the rules
      * @type {boolean}
      * @memberof PolicymanagerExternalClassificationProperties
      */
@@ -40,6 +46,12 @@ export interface PolicymanagerExternalClassificationProperties {
      * @memberof PolicymanagerExternalClassificationProperties
      */
     fileTypes?: Array<string>;
+    /**
+     * File path pattern globs for mac
+     * @type {Array<string>}
+     * @memberof PolicymanagerExternalClassificationProperties
+     */
+    macFilePathPatterns?: Array<string>;
     /**
      * Protection mode accepts values: 'monitor', 'simulate', 'enforce'
      * @type {string}
@@ -64,7 +76,23 @@ export interface PolicymanagerExternalClassificationProperties {
      * @memberof PolicymanagerExternalClassificationProperties
      */
     webSources?: Array<string>;
+    /**
+     * File path pattern globs for windows
+     * @type {Array<string>}
+     * @memberof PolicymanagerExternalClassificationProperties
+     */
+    winFilePathPatterns?: Array<string>;
 }
+
+/**
+ * @export
+ */
+export const PolicymanagerExternalClassificationPropertiesContentPatternsOperatorEnum = {
+    Or: "or",
+    And: "and",
+} as const;
+export type PolicymanagerExternalClassificationPropertiesContentPatternsOperatorEnum =
+    (typeof PolicymanagerExternalClassificationPropertiesContentPatternsOperatorEnum)[keyof typeof PolicymanagerExternalClassificationPropertiesContentPatternsOperatorEnum];
 
 /**
  * @export
@@ -94,12 +122,15 @@ export function PolicymanagerExternalClassificationPropertiesFromJSONTyped(json:
     }
     return {
         contentPatterns: json["content_patterns"] == null ? undefined : json["content_patterns"],
+        contentPatternsOperator: json["content_patterns_operator"] == null ? undefined : json["content_patterns_operator"],
         evidenceDuplicationEnabled: json["evidence_duplication_enabled"] == null ? undefined : json["evidence_duplication_enabled"],
         fileTypes: json["file_types"] == null ? undefined : json["file_types"],
+        macFilePathPatterns: json["mac_file_path_patterns"] == null ? undefined : json["mac_file_path_patterns"],
         protectionMode: json["protection_mode"] == null ? undefined : json["protection_mode"],
         rules: json["rules"] == null ? undefined : (json["rules"] as Array<any>).map(PolicymanagerExternalRuleFromJSON),
         sensitivityLabels: json["sensitivity_labels"] == null ? undefined : json["sensitivity_labels"],
         webSources: json["web_sources"] == null ? undefined : json["web_sources"],
+        winFilePathPatterns: json["win_file_path_patterns"] == null ? undefined : json["win_file_path_patterns"],
     };
 }
 
@@ -109,11 +140,14 @@ export function PolicymanagerExternalClassificationPropertiesToJSON(value?: Poli
     }
     return {
         content_patterns: value["contentPatterns"],
+        content_patterns_operator: value["contentPatternsOperator"],
         evidence_duplication_enabled: value["evidenceDuplicationEnabled"],
         file_types: value["fileTypes"],
+        mac_file_path_patterns: value["macFilePathPatterns"],
         protection_mode: value["protectionMode"],
         rules: value["rules"] == null ? undefined : (value["rules"] as Array<any>).map(PolicymanagerExternalRuleToJSON),
         sensitivity_labels: value["sensitivityLabels"],
         web_sources: value["webSources"],
+        win_file_path_patterns: value["winFilePathPatterns"],
     };
 }

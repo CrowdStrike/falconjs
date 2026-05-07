@@ -58,6 +58,12 @@ export interface DomainGCPAccountV1 {
     cid: string;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainGCPAccountV1
+     */
+    cloudRegistrationEnabled: boolean;
+    /**
+     *
      * @type {Array<DomainCloudScope>}
      * @memberof DomainGCPAccountV1
      */
@@ -187,6 +193,7 @@ export function instanceOfDomainGCPAccountV1(value: object): value is DomainGCPA
     if (!("iD" in value) || value["iD"] === undefined) return false;
     if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("cloudRegistrationEnabled" in value) || value["cloudRegistrationEnabled"] === undefined) return false;
     if (!("cspmEnabled" in value) || value["cspmEnabled"] === undefined) return false;
     if (!("gcpPermissionsStatus" in value) || value["gcpPermissionsStatus"] === undefined) return false;
     if (!("parentId" in value) || value["parentId"] === undefined) return false;
@@ -208,6 +215,7 @@ export function DomainGCPAccountV1FromJSONTyped(json: any, ignoreDiscriminator: 
         iD: json["ID"],
         updatedAt: new Date(json["UpdatedAt"]),
         cid: json["cid"],
+        cloudRegistrationEnabled: json["cloud_registration_enabled"],
         cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
         conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         cspmEnabled: json["cspm_enabled"],
@@ -241,6 +249,7 @@ export function DomainGCPAccountV1ToJSON(value?: DomainGCPAccountV1 | null): any
         ID: value["iD"],
         UpdatedAt: value["updatedAt"].toISOString(),
         cid: value["cid"],
+        cloud_registration_enabled: value["cloudRegistrationEnabled"],
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         cspm_enabled: value["cspmEnabled"],

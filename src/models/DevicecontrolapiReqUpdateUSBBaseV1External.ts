@@ -62,6 +62,12 @@ export interface DevicecontrolapiReqUpdateUSBBaseV1External {
      * @memberof DevicecontrolapiReqUpdateUSBBaseV1External
      */
     storageSpaceEnforcementMode?: DevicecontrolapiReqUpdateUSBBaseV1ExternalStorageSpaceEnforcementModeEnum;
+    /**
+     * Enforcement mode for User Based exceptions
+     * @type {string}
+     * @memberof DevicecontrolapiReqUpdateUSBBaseV1External
+     */
+    userBasedEnforcementMode?: DevicecontrolapiReqUpdateUSBBaseV1ExternalUserBasedEnforcementModeEnum;
 }
 
 /**
@@ -106,6 +112,16 @@ export type DevicecontrolapiReqUpdateUSBBaseV1ExternalStorageSpaceEnforcementMod
     (typeof DevicecontrolapiReqUpdateUSBBaseV1ExternalStorageSpaceEnforcementModeEnum)[keyof typeof DevicecontrolapiReqUpdateUSBBaseV1ExternalStorageSpaceEnforcementModeEnum];
 
 /**
+ * @export
+ */
+export const DevicecontrolapiReqUpdateUSBBaseV1ExternalUserBasedEnforcementModeEnum = {
+    Only: "MONITOR_ONLY",
+    Enforce: "MONITOR_ENFORCE",
+} as const;
+export type DevicecontrolapiReqUpdateUSBBaseV1ExternalUserBasedEnforcementModeEnum =
+    (typeof DevicecontrolapiReqUpdateUSBBaseV1ExternalUserBasedEnforcementModeEnum)[keyof typeof DevicecontrolapiReqUpdateUSBBaseV1ExternalUserBasedEnforcementModeEnum];
+
+/**
  * Check if a given object implements the DevicecontrolapiReqUpdateUSBBaseV1External interface.
  */
 export function instanceOfDevicecontrolapiReqUpdateUSBBaseV1External(value: object): value is DevicecontrolapiReqUpdateUSBBaseV1External {
@@ -127,6 +143,7 @@ export function DevicecontrolapiReqUpdateUSBBaseV1ExternalFromJSONTyped(json: an
         enhancedFileMetadata: json["enhanced_file_metadata"] == null ? undefined : json["enhanced_file_metadata"],
         pcieEnforcementMode: json["pcie_enforcement_mode"] == null ? undefined : json["pcie_enforcement_mode"],
         storageSpaceEnforcementMode: json["storage_space_enforcement_mode"] == null ? undefined : json["storage_space_enforcement_mode"],
+        userBasedEnforcementMode: json["user_based_enforcement_mode"] == null ? undefined : json["user_based_enforcement_mode"],
     };
 }
 
@@ -141,5 +158,6 @@ export function DevicecontrolapiReqUpdateUSBBaseV1ExternalToJSON(value?: Devicec
         enhanced_file_metadata: value["enhancedFileMetadata"],
         pcie_enforcement_mode: value["pcieEnforcementMode"],
         storage_space_enforcement_mode: value["storageSpaceEnforcementMode"],
+        user_based_enforcement_mode: value["userBasedEnforcementMode"],
     };
 }

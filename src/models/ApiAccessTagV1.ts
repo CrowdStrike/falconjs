@@ -30,6 +30,12 @@ export interface ApiAccessTagV1 {
     cid: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ApiAccessTagV1
+     */
+    hasAccess?: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ApiAccessTagV1
      */
@@ -67,6 +73,7 @@ export function ApiAccessTagV1FromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         cid: json["cid"],
+        hasAccess: json["has_access"] == null ? undefined : json["has_access"],
         id: json["id"] == null ? undefined : json["id"],
         key: json["key"],
         templates: json["templates"] == null ? undefined : (json["templates"] as Array<any>).map(ApiAccessTagTemplateBindingV1FromJSON),
@@ -79,6 +86,7 @@ export function ApiAccessTagV1ToJSON(value?: ApiAccessTagV1 | null): any {
     }
     return {
         cid: value["cid"],
+        has_access: value["hasAccess"],
         id: value["id"],
         key: value["key"],
         templates: value["templates"] == null ? undefined : (value["templates"] as Array<any>).map(ApiAccessTagTemplateBindingV1ToJSON),

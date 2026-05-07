@@ -49,6 +49,12 @@ export interface DomainAzureClientServicePrincipalV1 {
      */
     clientId?: string;
     /**
+     * If the account has CloudRegistration enabled.
+     * @type {boolean}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
+    cloudRegistrationEnabled: boolean;
+    /**
      *
      * @type {Array<StatemgmtCondition>}
      * @memberof DomainAzureClientServicePrincipalV1
@@ -115,6 +121,7 @@ export interface DomainAzureClientServicePrincipalV1 {
  */
 export function instanceOfDomainAzureClientServicePrincipalV1(value: object): value is DomainAzureClientServicePrincipalV1 {
     if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("cloudRegistrationEnabled" in value) || value["cloudRegistrationEnabled"] === undefined) return false;
     if (!("cspmEnabled" in value) || value["cspmEnabled"] === undefined) return false;
     if (!("isSharedClient" in value) || value["isSharedClient"] === undefined) return false;
     if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
@@ -134,6 +141,7 @@ export function DomainAzureClientServicePrincipalV1FromJSONTyped(json: any, igno
         behaviorAssessmentOverride: json["behavior_assessment_override"] == null ? undefined : json["behavior_assessment_override"],
         cid: json["cid"],
         clientId: json["client_id"] == null ? undefined : json["client_id"],
+        cloudRegistrationEnabled: json["cloud_registration_enabled"],
         conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         cspmEnabled: json["cspm_enabled"],
         defaultSubscriptionId: json["default_subscription_id"] == null ? undefined : json["default_subscription_id"],
@@ -156,6 +164,7 @@ export function DomainAzureClientServicePrincipalV1ToJSON(value?: DomainAzureCli
         behavior_assessment_override: value["behaviorAssessmentOverride"],
         cid: value["cid"],
         client_id: value["clientId"],
+        cloud_registration_enabled: value["cloudRegistrationEnabled"],
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         cspm_enabled: value["cspmEnabled"],
         default_subscription_id: value["defaultSubscriptionId"],

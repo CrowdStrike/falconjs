@@ -109,6 +109,7 @@ export interface CaseManagementApiAggregatesTemplatesPostV1Request {
 
 export interface CaseManagementApiEntitiesAccessTagsGetV1Request {
     ids: Set<string>;
+    withHasAccess?: boolean;
 }
 
 export interface CaseManagementApiEntitiesFieldsGetV1Request {
@@ -181,6 +182,7 @@ export interface CaseManagementApiEntitiesTemplatesExportGetV1Request {
 
 export interface CaseManagementApiEntitiesTemplatesGetV1Request {
     ids: Set<string>;
+    withHasAccess?: boolean;
 }
 
 export interface CaseManagementApiEntitiesTemplatesImportPostV1Request {
@@ -293,6 +295,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Get notification groups aggregations
+     * @deprecated
      */
     async aggregatesNotificationGroupsPostV1Raw(
         requestParameters: CaseManagementApiAggregatesNotificationGroupsPostV1Request,
@@ -329,6 +332,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Get notification groups aggregations
+     * @deprecated
      */
     async aggregatesNotificationGroupsPostV1(body: Array<ApiMSAAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiMSAAggregatesResponse> {
         const response = await this.aggregatesNotificationGroupsPostV1Raw({ body: body }, initOverrides);
@@ -484,6 +488,10 @@ export class CaseManagementApi extends runtime.BaseAPI {
             queryParameters["ids"] = requestParameters["ids"];
         }
 
+        if (requestParameters["withHasAccess"] != null) {
+            queryParameters["with_has_access"] = requestParameters["withHasAccess"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -507,8 +515,8 @@ export class CaseManagementApi extends runtime.BaseAPI {
     /**
      * Get access tags
      */
-    async entitiesAccessTagsGetV1(ids: Set<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiAccessTagV1Response> {
-        const response = await this.entitiesAccessTagsGetV1Raw({ ids: ids }, initOverrides);
+    async entitiesAccessTagsGetV1(ids: Set<string>, withHasAccess?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiAccessTagV1Response> {
+        const response = await this.entitiesAccessTagsGetV1Raw({ ids: ids, withHasAccess: withHasAccess }, initOverrides);
         return await response.value();
     }
 
@@ -559,6 +567,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Delete notification groups by ID
+     * @deprecated
      */
     async entitiesNotificationGroupsDeleteV1Raw(
         requestParameters: CaseManagementApiEntitiesNotificationGroupsDeleteV1Request,
@@ -596,6 +605,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Delete notification groups by ID
+     * @deprecated
      */
     async entitiesNotificationGroupsDeleteV1(ids: Set<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiNotificationGroupDeleteV1Response> {
         const response = await this.entitiesNotificationGroupsDeleteV1Raw({ ids: ids }, initOverrides);
@@ -649,6 +659,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Get notification groups by ID
+     * @deprecated
      */
     async entitiesNotificationGroupsGetV1Raw(
         requestParameters: CaseManagementApiEntitiesNotificationGroupsGetV1Request,
@@ -686,6 +697,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Get notification groups by ID
+     * @deprecated
      */
     async entitiesNotificationGroupsGetV1(ids: Set<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiNotificationGroupV1Response> {
         const response = await this.entitiesNotificationGroupsGetV1Raw({ ids: ids }, initOverrides);
@@ -739,6 +751,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Update notification group
+     * @deprecated
      */
     async entitiesNotificationGroupsPatchV1Raw(
         requestParameters: CaseManagementApiEntitiesNotificationGroupsPatchV1Request,
@@ -775,6 +788,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Update notification group
+     * @deprecated
      */
     async entitiesNotificationGroupsPatchV1(body: ApiNotificationGroupV1UpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiNotificationGroupV1Response> {
         const response = await this.entitiesNotificationGroupsPatchV1Raw({ body: body }, initOverrides);
@@ -827,6 +841,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Create notification group
+     * @deprecated
      */
     async entitiesNotificationGroupsPostV1Raw(
         requestParameters: CaseManagementApiEntitiesNotificationGroupsPostV1Request,
@@ -863,6 +878,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Create notification group
+     * @deprecated
      */
     async entitiesNotificationGroupsPostV1(body: ApiNotificationGroupV1CreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiNotificationGroupV1Response> {
         const response = await this.entitiesNotificationGroupsPostV1Raw({ body: body }, initOverrides);
@@ -1265,6 +1281,10 @@ export class CaseManagementApi extends runtime.BaseAPI {
             queryParameters["ids"] = requestParameters["ids"];
         }
 
+        if (requestParameters["withHasAccess"] != null) {
+            queryParameters["with_has_access"] = requestParameters["withHasAccess"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -1288,8 +1308,8 @@ export class CaseManagementApi extends runtime.BaseAPI {
     /**
      * Get templates by ID
      */
-    async entitiesTemplatesGetV1(ids: Set<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiTemplateV1Response> {
-        const response = await this.entitiesTemplatesGetV1Raw({ ids: ids }, initOverrides);
+    async entitiesTemplatesGetV1(ids: Set<string>, withHasAccess?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiTemplateV1Response> {
+        const response = await this.entitiesTemplatesGetV1Raw({ ids: ids, withHasAccess: withHasAccess }, initOverrides);
         return await response.value();
     }
 
@@ -1549,6 +1569,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Query notification groups
+     * @deprecated
      */
     async queriesNotificationGroupsGetV1Raw(
         requestParameters: CaseManagementApiQueriesNotificationGroupsGetV1Request,
@@ -1594,6 +1615,7 @@ export class CaseManagementApi extends runtime.BaseAPI {
 
     /**
      * Query notification groups
+     * @deprecated
      */
     async queriesNotificationGroupsGetV1(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queriesNotificationGroupsGetV1Raw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);

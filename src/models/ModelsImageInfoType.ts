@@ -48,6 +48,12 @@ export interface ModelsImageInfoType {
      * @type {string}
      * @memberof ModelsImageInfoType
      */
+    indexDigest: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsImageInfoType
+     */
     registry?: string;
     /**
      *
@@ -100,6 +106,7 @@ export function instanceOfModelsImageInfoType(value: object): value is ModelsIma
     if (!("architecture" in value) || value["architecture"] === undefined) return false;
     if (!("digest" in value) || value["digest"] === undefined) return false;
     if (!("iD" in value) || value["iD"] === undefined) return false;
+    if (!("indexDigest" in value) || value["indexDigest"] === undefined) return false;
     if (!("size" in value) || value["size"] === undefined) return false;
     return true;
 }
@@ -117,6 +124,7 @@ export function ModelsImageInfoTypeFromJSONTyped(json: any, ignoreDiscriminator:
         createdAt: json["CreatedAt"] == null ? undefined : json["CreatedAt"],
         digest: json["Digest"],
         iD: json["ID"],
+        indexDigest: json["IndexDigest"],
         registry: json["Registry"] == null ? undefined : json["Registry"],
         repository: json["Repository"] == null ? undefined : json["Repository"],
         size: json["Size"],
@@ -137,6 +145,7 @@ export function ModelsImageInfoTypeToJSON(value?: ModelsImageInfoType | null): a
         CreatedAt: value["createdAt"],
         Digest: value["digest"],
         ID: value["iD"],
+        IndexDigest: value["indexDigest"],
         Registry: value["registry"],
         Repository: value["repository"],
         Size: value["size"],

@@ -61,12 +61,6 @@ export interface DomainDiscoverParams {
      * @memberof DomainDiscoverParams
      */
     templateFields: Array<string>;
-    /**
-     *
-     * @type {number}
-     * @memberof DomainDiscoverParams
-     */
-    topNResults: number;
 }
 
 /**
@@ -80,7 +74,6 @@ export function instanceOfDomainDiscoverParams(value: object): value is DomainDi
     if (!("inlineAppFilter" in value) || value["inlineAppFilter"] === undefined) return false;
     if (!("requirementCriteria" in value) || value["requirementCriteria"] === undefined) return false;
     if (!("templateFields" in value) || value["templateFields"] === undefined) return false;
-    if (!("topNResults" in value) || value["topNResults"] === undefined) return false;
     return true;
 }
 
@@ -100,7 +93,6 @@ export function DomainDiscoverParamsFromJSONTyped(json: any, ignoreDiscriminator
         inlineAppFilter: json["inline_app_filter"],
         requirementCriteria: json["requirement_criteria"],
         templateFields: json["template_fields"],
-        topNResults: json["top_n_results"],
     };
 }
 
@@ -116,6 +108,5 @@ export function DomainDiscoverParamsToJSON(value?: DomainDiscoverParams | null):
         inline_app_filter: value["inlineAppFilter"],
         requirement_criteria: value["requirementCriteria"],
         template_fields: value["templateFields"],
-        top_n_results: value["topNResults"],
     };
 }

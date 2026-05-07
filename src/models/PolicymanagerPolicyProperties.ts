@@ -124,7 +124,7 @@ export interface PolicymanagerPolicyProperties {
      */
     blockNotifications?: PolicymanagerPolicyPropertiesBlockNotificationsEnum;
     /**
-     * Browsers without active extension accepts values: 'allow', 'block_policy'
+     * Define behaviour of browsers without active extension, accepts values: 'allow', 'block_policy'.
      * @type {string}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -134,7 +134,7 @@ export interface PolicymanagerPolicyProperties {
      * @type {Array<string>}
      * @memberof PolicymanagerPolicyProperties
      */
-    classifications: Array<string>;
+    classifications?: Array<string>;
     /**
      * Windows only. Length must be at least 2 and at max 256, must follow pattern '^([^
      * ]*
@@ -164,7 +164,7 @@ export interface PolicymanagerPolicyProperties {
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
-    enableContentInspection: boolean;
+    enableContentInspection?: boolean;
     /**
      *
      * @type {boolean}
@@ -172,25 +172,31 @@ export interface PolicymanagerPolicyProperties {
      */
     enableContextInspection?: boolean;
     /**
-     * Windows only.
+     * Windows only. When enabled, users will receive a notification when data from unsupported browsers is blocked
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
     enableEndUserNotificationsUnsupportedBrowser?: boolean;
     /**
-     * Windows only.
+     * Windows only. Enable or disable network inspection
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
     enableNetworkInspection?: boolean;
     /**
-     * Windows only. Length must be at least 0 and at max 150000, must be a valid png base64 image, which matches this regular expression '^data:image\/png(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+\/])+={0,2}'
+     * Windows only. Enable screen capture before and after egress event
+     * @type {boolean}
+     * @memberof PolicymanagerPolicyProperties
+     */
+    enableScreenCapture?: boolean;
+    /**
+     * Length must be at least 0 and at max 150000, must be a valid png base64 image, which matches this regular expression '^data:image\/png(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+\/])+={0,2}'
      * @type {string}
      * @memberof PolicymanagerPolicyProperties
      */
     eujDialogBoxLogo?: string;
     /**
-     * Windows only. Must be a positive integer
+     * Configurable between 60 and 420 sec. This property sets the timeout for the end user justification dialog box. If the user fails to provide a justification, the egress will be blocked.
      * @type {number}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -208,31 +214,25 @@ export interface PolicymanagerPolicyProperties {
      */
     eujHeaderText?: PolicymanagerEUJHeaderText;
     /**
-     * Windows only.
+     * If enabled, the user must provide additional details to justify the egress
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
     eujRequireAdditionalDetails?: boolean;
     /**
-     * Windows only. Must be a non-negative integer
-     * @type {number}
-     * @memberof PolicymanagerPolicyProperties
-     */
-    eujResponseCacheTimeout?: number;
-    /**
-     * Windows only.
+     * Windows only. If enabled, Falcon Console users with Data Protection Forensics Manager role can request and download files for egress events. Data will be copied to the host's local storage when requested, or when matching a classification with storage enabled.
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
     evidenceDownloadEnabled?: boolean;
     /**
-     * Windows only.
+     * Windows only. If enabled, data is copied to a protected evidence folder on the host at the time a download is requested to prevent tampering. Copies of data will be stored on the originating host for up to 30 days.
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
     evidenceDuplicationEnabledDefault?: boolean;
     /**
-     * Windows only.
+     * Windows only. If enabled, when data encryption occurs, a copy of the original data is stored in a protected folder on the host. This ensures encrypted data is retrievable if it is part of an egress event within the following 30 days.
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -280,6 +280,18 @@ export interface PolicymanagerPolicyProperties {
      */
     networkInspectionFilesExceedingSizeLimit?: PolicymanagerPolicyPropertiesNetworkInspectionFilesExceedingSizeLimitEnum;
     /**
+     * Windows only. Screen capture duration in seconds after egress event. Only accepts '3', '5', or '10'
+     * @type {string}
+     * @memberof PolicymanagerPolicyProperties
+     */
+    screenCaptureDurationPostEvent?: PolicymanagerPolicyPropertiesScreenCaptureDurationPostEventEnum;
+    /**
+     * Windows only. Screen capture duration in seconds before egress event. Only accepts '3', '5', or '10'
+     * @type {string}
+     * @memberof PolicymanagerPolicyProperties
+     */
+    screenCaptureDurationPreEvent?: PolicymanagerPolicyPropertiesScreenCaptureDurationPreEventEnum;
+    /**
      *
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
@@ -291,12 +303,6 @@ export interface PolicymanagerPolicyProperties {
      * @memberof PolicymanagerPolicyProperties
      */
     similarityThreshold?: PolicymanagerPolicyPropertiesSimilarityThresholdEnum;
-    /**
-     * Windows only. Unsupported browsers action accepts values: 'allow', 'block_policy', 'block'
-     * @type {string}
-     * @memberof PolicymanagerPolicyProperties
-     */
-    unsupportedBrowsersAction?: PolicymanagerPolicyPropertiesUnsupportedBrowsersActionEnum;
 }
 
 /**
@@ -421,6 +427,28 @@ export type PolicymanagerPolicyPropertiesNetworkInspectionFilesExceedingSizeLimi
 /**
  * @export
  */
+export const PolicymanagerPolicyPropertiesScreenCaptureDurationPostEventEnum = {
+    _3: "3",
+    _5: "5",
+    _10: "10",
+} as const;
+export type PolicymanagerPolicyPropertiesScreenCaptureDurationPostEventEnum =
+    (typeof PolicymanagerPolicyPropertiesScreenCaptureDurationPostEventEnum)[keyof typeof PolicymanagerPolicyPropertiesScreenCaptureDurationPostEventEnum];
+
+/**
+ * @export
+ */
+export const PolicymanagerPolicyPropertiesScreenCaptureDurationPreEventEnum = {
+    _3: "3",
+    _5: "5",
+    _10: "10",
+} as const;
+export type PolicymanagerPolicyPropertiesScreenCaptureDurationPreEventEnum =
+    (typeof PolicymanagerPolicyPropertiesScreenCaptureDurationPreEventEnum)[keyof typeof PolicymanagerPolicyPropertiesScreenCaptureDurationPreEventEnum];
+
+/**
+ * @export
+ */
 export const PolicymanagerPolicyPropertiesSimilarityThresholdEnum = {
     _10: "10",
     _20: "20",
@@ -436,22 +464,9 @@ export const PolicymanagerPolicyPropertiesSimilarityThresholdEnum = {
 export type PolicymanagerPolicyPropertiesSimilarityThresholdEnum = (typeof PolicymanagerPolicyPropertiesSimilarityThresholdEnum)[keyof typeof PolicymanagerPolicyPropertiesSimilarityThresholdEnum];
 
 /**
- * @export
- */
-export const PolicymanagerPolicyPropertiesUnsupportedBrowsersActionEnum = {
-    Allow: "allow",
-    BlockPolicy: "block_policy",
-    Block: "block",
-} as const;
-export type PolicymanagerPolicyPropertiesUnsupportedBrowsersActionEnum =
-    (typeof PolicymanagerPolicyPropertiesUnsupportedBrowsersActionEnum)[keyof typeof PolicymanagerPolicyPropertiesUnsupportedBrowsersActionEnum];
-
-/**
  * Check if a given object implements the PolicymanagerPolicyProperties interface.
  */
 export function instanceOfPolicymanagerPolicyProperties(value: object): value is PolicymanagerPolicyProperties {
-    if (!("classifications" in value) || value["classifications"] === undefined) return false;
-    if (!("enableContentInspection" in value) || value["enableContentInspection"] === undefined) return false;
     return true;
 }
 
@@ -481,20 +496,20 @@ export function PolicymanagerPolicyPropertiesFromJSONTyped(json: any, ignoreDisc
         blockAllDataAccess: json["block_all_data_access"] == null ? undefined : json["block_all_data_access"],
         blockNotifications: json["block_notifications"] == null ? undefined : json["block_notifications"],
         browsersWithoutActiveExtension: json["browsers_without_active_extension"] == null ? undefined : json["browsers_without_active_extension"],
-        classifications: json["classifications"],
+        classifications: json["classifications"] == null ? undefined : json["classifications"],
         customAllowNotification: json["custom_allow_notification"] == null ? undefined : json["custom_allow_notification"],
         customBlockNotification: json["custom_block_notification"] == null ? undefined : json["custom_block_notification"],
         enableClipboardInspection: json["enable_clipboard_inspection"] == null ? undefined : json["enable_clipboard_inspection"],
-        enableContentInspection: json["enable_content_inspection"],
+        enableContentInspection: json["enable_content_inspection"] == null ? undefined : json["enable_content_inspection"],
         enableContextInspection: json["enable_context_inspection"] == null ? undefined : json["enable_context_inspection"],
         enableEndUserNotificationsUnsupportedBrowser: json["enable_end_user_notifications_unsupported_browser"] == null ? undefined : json["enable_end_user_notifications_unsupported_browser"],
         enableNetworkInspection: json["enable_network_inspection"] == null ? undefined : json["enable_network_inspection"],
+        enableScreenCapture: json["enable_screen_capture"] == null ? undefined : json["enable_screen_capture"],
         eujDialogBoxLogo: json["euj_dialog_box_logo"] == null ? undefined : json["euj_dialog_box_logo"],
         eujDialogTimeout: json["euj_dialog_timeout"] == null ? undefined : json["euj_dialog_timeout"],
         eujDropdownOptions: json["euj_dropdown_options"] == null ? undefined : PolicymanagerEUJDropdownOptionsFromJSON(json["euj_dropdown_options"]),
         eujHeaderText: json["euj_header_text"] == null ? undefined : PolicymanagerEUJHeaderTextFromJSON(json["euj_header_text"]),
         eujRequireAdditionalDetails: json["euj_require_additional_details"] == null ? undefined : json["euj_require_additional_details"],
-        eujResponseCacheTimeout: json["euj_response_cache_timeout"] == null ? undefined : json["euj_response_cache_timeout"],
         evidenceDownloadEnabled: json["evidence_download_enabled"] == null ? undefined : json["evidence_download_enabled"],
         evidenceDuplicationEnabledDefault: json["evidence_duplication_enabled_default"] == null ? undefined : json["evidence_duplication_enabled_default"],
         evidenceEncryptedEnabled: json["evidence_encrypted_enabled"] == null ? undefined : json["evidence_encrypted_enabled"],
@@ -505,9 +520,10 @@ export function PolicymanagerPolicyPropertiesFromJSONTyped(json: any, ignoreDisc
         maxFileSizeToInspectUnit: json["max_file_size_to_inspect_unit"] == null ? undefined : json["max_file_size_to_inspect_unit"],
         minConfidenceLevel: json["min_confidence_level"] == null ? undefined : json["min_confidence_level"],
         networkInspectionFilesExceedingSizeLimit: json["network_inspection_files_exceeding_size_limit"] == null ? undefined : json["network_inspection_files_exceeding_size_limit"],
+        screenCaptureDurationPostEvent: json["screen_capture_duration_post_event"] == null ? undefined : json["screen_capture_duration_post_event"],
+        screenCaptureDurationPreEvent: json["screen_capture_duration_pre_event"] == null ? undefined : json["screen_capture_duration_pre_event"],
         similarityDetection: json["similarity_detection"] == null ? undefined : json["similarity_detection"],
         similarityThreshold: json["similarity_threshold"] == null ? undefined : json["similarity_threshold"],
-        unsupportedBrowsersAction: json["unsupported_browsers_action"] == null ? undefined : json["unsupported_browsers_action"],
     };
 }
 
@@ -541,12 +557,12 @@ export function PolicymanagerPolicyPropertiesToJSON(value?: PolicymanagerPolicyP
         enable_context_inspection: value["enableContextInspection"],
         enable_end_user_notifications_unsupported_browser: value["enableEndUserNotificationsUnsupportedBrowser"],
         enable_network_inspection: value["enableNetworkInspection"],
+        enable_screen_capture: value["enableScreenCapture"],
         euj_dialog_box_logo: value["eujDialogBoxLogo"],
         euj_dialog_timeout: value["eujDialogTimeout"],
         euj_dropdown_options: PolicymanagerEUJDropdownOptionsToJSON(value["eujDropdownOptions"]),
         euj_header_text: PolicymanagerEUJHeaderTextToJSON(value["eujHeaderText"]),
         euj_require_additional_details: value["eujRequireAdditionalDetails"],
-        euj_response_cache_timeout: value["eujResponseCacheTimeout"],
         evidence_download_enabled: value["evidenceDownloadEnabled"],
         evidence_duplication_enabled_default: value["evidenceDuplicationEnabledDefault"],
         evidence_encrypted_enabled: value["evidenceEncryptedEnabled"],
@@ -557,8 +573,9 @@ export function PolicymanagerPolicyPropertiesToJSON(value?: PolicymanagerPolicyP
         max_file_size_to_inspect_unit: value["maxFileSizeToInspectUnit"],
         min_confidence_level: value["minConfidenceLevel"],
         network_inspection_files_exceeding_size_limit: value["networkInspectionFilesExceedingSizeLimit"],
+        screen_capture_duration_post_event: value["screenCaptureDurationPostEvent"],
+        screen_capture_duration_pre_event: value["screenCaptureDurationPreEvent"],
         similarity_detection: value["similarityDetection"],
         similarity_threshold: value["similarityThreshold"],
-        unsupported_browsers_action: value["unsupportedBrowsersAction"],
     };
 }

@@ -387,7 +387,7 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validate the OCI account in CSPM for a provided CID. For internal clients only.
+     * Validate the OCI account in CSPM for a provided CID.
      */
     async cloudSecurityRegistrationOciValidateTenancyRaw(
         requestParameters: CloudOciRegistrationApiCloudSecurityRegistrationOciValidateTenancyRequest,
@@ -423,7 +423,7 @@ export class CloudOciRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Validate the OCI account in CSPM for a provided CID. For internal clients only.
+     * Validate the OCI account in CSPM for a provided CID.
      */
     async cloudSecurityRegistrationOciValidateTenancy(body: DomainOCIValidateRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainOCITenancyValidationResponse> {
         const response = await this.cloudSecurityRegistrationOciValidateTenancyRaw({ body: body }, initOverrides);

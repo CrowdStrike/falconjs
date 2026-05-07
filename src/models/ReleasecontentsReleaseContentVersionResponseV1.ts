@@ -30,28 +30,25 @@ export interface ReleasecontentsReleaseContentVersionResponseV1 {
      * @type {string}
      * @memberof ReleasecontentsReleaseContentVersionResponseV1
      */
-    sourceId: string;
+    sourceId?: string;
     /**
      *
      * @type {string}
      * @memberof ReleasecontentsReleaseContentVersionResponseV1
      */
-    sourceType: string;
+    sourceType?: string;
     /**
      *
      * @type {number}
      * @memberof ReleasecontentsReleaseContentVersionResponseV1
      */
-    version: number;
+    version?: number;
 }
 
 /**
  * Check if a given object implements the ReleasecontentsReleaseContentVersionResponseV1 interface.
  */
 export function instanceOfReleasecontentsReleaseContentVersionResponseV1(value: object): value is ReleasecontentsReleaseContentVersionResponseV1 {
-    if (!("sourceId" in value) || value["sourceId"] === undefined) return false;
-    if (!("sourceType" in value) || value["sourceType"] === undefined) return false;
-    if (!("version" in value) || value["version"] === undefined) return false;
     return true;
 }
 
@@ -65,9 +62,9 @@ export function ReleasecontentsReleaseContentVersionResponseV1FromJSONTyped(json
     }
     return {
         customerId: json["customer_id"] == null ? undefined : json["customer_id"],
-        sourceId: json["source_id"],
-        sourceType: json["source_type"],
-        version: json["version"],
+        sourceId: json["source_id"] == null ? undefined : json["source_id"],
+        sourceType: json["source_type"] == null ? undefined : json["source_type"],
+        version: json["version"] == null ? undefined : json["version"],
     };
 }
 

@@ -74,6 +74,10 @@ export interface CloudAzureRegistrationApiCloudRegistrationAzureGetRegistrationR
     tenantId: string;
 }
 
+export interface CloudAzureRegistrationApiCloudRegistrationAzureGetScriptRequest {
+    tenantId: string;
+}
+
 export interface CloudAzureRegistrationApiCloudRegistrationAzureTriggerHealthCheckRequest {
     tenantIds?: Array<string>;
 }
@@ -85,10 +89,6 @@ export interface CloudAzureRegistrationApiCloudRegistrationAzureUpdateRegistrati
 export interface CloudAzureRegistrationApiCloudRegistrationAzureValidateRegistrationRequest {
     tenantId: string;
     stackName?: string;
-}
-
-export interface CloudAzureRegistrationApiDownloadAzureScriptRequest {
-    tenantId: string;
 }
 
 /**
@@ -327,6 +327,50 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Download Azure deployment script (Terraform or Bicep)
+     */
+    async cloudRegistrationAzureGetScriptRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetScriptRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["tenantId"] == null) {
+            throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling cloudRegistrationAzureGetScript().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["tenantId"] != null) {
+            queryParameters["tenant_id"] = requestParameters["tenantId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/entities/scripts/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Download Azure deployment script (Terraform or Bicep)
+     */
+    async cloudRegistrationAzureGetScript(tenantId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.cloudRegistrationAzureGetScriptRaw({ tenantId: tenantId }, initOverrides);
+    }
+
+    /**
      * Trigger health check scan for Azure registrations
      */
     async cloudRegistrationAzureTriggerHealthCheckRaw(
@@ -461,49 +505,5 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     async cloudRegistrationAzureValidateRegistration(tenantId: string, stackName?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AzureRegistrationValidateResponseV1> {
         const response = await this.cloudRegistrationAzureValidateRegistrationRaw({ tenantId: tenantId, stackName: stackName }, initOverrides);
         return await response.value();
-    }
-
-    /**
-     * Download Azure deployment script (Terraform or Bicep)
-     */
-    async downloadAzureScriptRaw(
-        requestParameters: CloudAzureRegistrationApiDownloadAzureScriptRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters["tenantId"] == null) {
-            throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling downloadAzureScript().');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters["tenantId"] != null) {
-            queryParameters["tenant_id"] = requestParameters["tenantId"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cloud-security-registration-azure/entities/scripts/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * Download Azure deployment script (Terraform or Bicep)
-     */
-    async downloadAzureScript(tenantId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.downloadAzureScriptRaw({ tenantId: tenantId }, initOverrides);
     }
 }

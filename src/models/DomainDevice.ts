@@ -57,6 +57,12 @@ export interface DomainDevice {
      * @type {string}
      * @memberof DomainDevice
      */
+    deploymentType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainDevice
+     */
     deviceId: string;
     /**
      *
@@ -257,6 +263,7 @@ export function DomainDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         configIdBase: json["config_id_base"] == null ? undefined : json["config_id_base"],
         configIdBuild: json["config_id_build"] == null ? undefined : json["config_id_build"],
         configIdPlatform: json["config_id_platform"] == null ? undefined : json["config_id_platform"],
+        deploymentType: json["deployment_type"] == null ? undefined : json["deployment_type"],
         deviceId: json["device_id"],
         devicePolicies: json["device_policies"] == null ? undefined : DomainMappedDevicePoliciesFromJSON(json["device_policies"]),
         externalIp: json["external_ip"] == null ? undefined : json["external_ip"],
@@ -300,6 +307,7 @@ export function DomainDeviceToJSON(value?: DomainDevice | null): any {
         config_id_base: value["configIdBase"],
         config_id_build: value["configIdBuild"],
         config_id_platform: value["configIdPlatform"],
+        deployment_type: value["deploymentType"],
         device_id: value["deviceId"],
         device_policies: DomainMappedDevicePoliciesToJSON(value["devicePolicies"]),
         external_ip: value["externalIp"],

@@ -13,6 +13,12 @@
  */
 
 import { mapValues } from "../runtime";
+import type { AssetgroupmanagerV1KubernetesResourceSelector } from "./AssetgroupmanagerV1KubernetesResourceSelector";
+import {
+    AssetgroupmanagerV1KubernetesResourceSelectorFromJSON,
+    AssetgroupmanagerV1KubernetesResourceSelectorFromJSONTyped,
+    AssetgroupmanagerV1KubernetesResourceSelectorToJSON,
+} from "./AssetgroupmanagerV1KubernetesResourceSelector";
 import type { AssetgroupmanagerV1ImageSelector } from "./AssetgroupmanagerV1ImageSelector";
 import { AssetgroupmanagerV1ImageSelectorFromJSON, AssetgroupmanagerV1ImageSelectorFromJSONTyped, AssetgroupmanagerV1ImageSelectorToJSON } from "./AssetgroupmanagerV1ImageSelector";
 import type { AssetgroupmanagerV1CloudResourceSelector } from "./AssetgroupmanagerV1CloudResourceSelector";
@@ -58,6 +64,12 @@ export interface AssetgroupmanagerV1CloudGroupSelectors {
      * @memberof AssetgroupmanagerV1CloudGroupSelectors
      */
     images?: Array<AssetgroupmanagerV1ImageSelector>;
+    /**
+     * Select kubernetes resources.
+     * @type {Array<AssetgroupmanagerV1KubernetesResourceSelector>}
+     * @memberof AssetgroupmanagerV1CloudGroupSelectors
+     */
+    kubernetesResources?: Array<AssetgroupmanagerV1KubernetesResourceSelector>;
 }
 
 /**
@@ -81,6 +93,7 @@ export function AssetgroupmanagerV1CloudGroupSelectorsFromJSONTyped(json: any, i
         imageRepositories: json["image_repositories"] == null ? undefined : json["image_repositories"],
         imageTags: json["image_tags"] == null ? undefined : json["image_tags"],
         images: json["images"] == null ? undefined : (json["images"] as Array<any>).map(AssetgroupmanagerV1ImageSelectorFromJSON),
+        kubernetesResources: json["kubernetes_resources"] == null ? undefined : (json["kubernetes_resources"] as Array<any>).map(AssetgroupmanagerV1KubernetesResourceSelectorFromJSON),
     };
 }
 
@@ -94,5 +107,6 @@ export function AssetgroupmanagerV1CloudGroupSelectorsToJSON(value?: Assetgroupm
         image_repositories: value["imageRepositories"],
         image_tags: value["imageTags"],
         images: value["images"] == null ? undefined : (value["images"] as Array<any>).map(AssetgroupmanagerV1ImageSelectorToJSON),
+        kubernetes_resources: value["kubernetesResources"] == null ? undefined : (value["kubernetesResources"] as Array<any>).map(AssetgroupmanagerV1KubernetesResourceSelectorToJSON),
     };
 }

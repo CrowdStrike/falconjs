@@ -49,10 +49,6 @@ export interface FalconCompleteDashboardApiAggregateEscalationsRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
 
-export interface FalconCompleteDashboardApiAggregateFCIncidentsRequest {
-    body: Array<MsaAggregateQueryRequest>;
-}
-
 export interface FalconCompleteDashboardApiAggregatePreventionPolicyRequest {
     body: Array<MsaAggregateQueryRequest>;
 }
@@ -109,13 +105,6 @@ export interface FalconCompleteDashboardApiQueryBlockListFilterRequest {
 }
 
 export interface FalconCompleteDashboardApiQueryEscalationsFilterRequest {
-    limit?: number;
-    sort?: string;
-    filter?: string;
-    offset?: string;
-}
-
-export interface FalconCompleteDashboardApiQueryIncidentIdsByFilterRequest {
     limit?: number;
     sort?: string;
     filter?: string;
@@ -350,50 +339,6 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async aggregateEscalations(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregateEscalationsRaw({ body: body }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Retrieve aggregate incident values based on the matched filter
-     */
-    async aggregateFCIncidentsRaw(
-        requestParameters: FalconCompleteDashboardApiAggregateFCIncidentsRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateFCIncidents().');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/falcon-complete-dashboards/aggregates/incidents/GET/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Retrieve aggregate incident values based on the matched filter
-     */
-    async aggregateFCIncidents(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
-        const response = await this.aggregateFCIncidentsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -938,59 +883,6 @@ export class FalconCompleteDashboardApi extends runtime.BaseAPI {
      */
     async queryEscalationsFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
         const response = await this.queryEscalationsFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Retrieve incidents that match the provided filter criteria with scrolling enabled
-     */
-    async queryIncidentIdsByFilterRaw(
-        requestParameters: FalconCompleteDashboardApiQueryIncidentIdsByFilterRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaQueryResponse>> {
-        const queryParameters: any = {};
-
-        if (requestParameters["limit"] != null) {
-            queryParameters["limit"] = requestParameters["limit"];
-        }
-
-        if (requestParameters["sort"] != null) {
-            queryParameters["sort"] = requestParameters["sort"];
-        }
-
-        if (requestParameters["filter"] != null) {
-            queryParameters["filter"] = requestParameters["filter"];
-        }
-
-        if (requestParameters["offset"] != null) {
-            queryParameters["offset"] = requestParameters["offset"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falconcomplete-dashboard:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/falcon-complete-dashboards/queries/incidents/v1`,
-                method: "GET",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Retrieve incidents that match the provided filter criteria with scrolling enabled
-     */
-    async queryIncidentIdsByFilter(limit?: number, sort?: string, filter?: string, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
-        const response = await this.queryIncidentIdsByFilterRaw({ limit: limit, sort: sort, filter: filter, offset: offset }, initOverrides);
         return await response.value();
     }
 

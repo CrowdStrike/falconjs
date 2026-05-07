@@ -36,6 +36,18 @@ export interface DetectsExternalAlert {
      */
     aggregateId: string;
     /**
+     * An opaque internal identifier that can uniquely identify the aggregation rule
+     * @type {string}
+     * @memberof DetectsExternalAlert
+     */
+    aggregationRuleId: string;
+    /**
+     * Aggregation rule name
+     * @type {string}
+     * @memberof DetectsExternalAlert
+     */
+    aggregationRuleName: string;
+    /**
      * Name of the person this Alert is assigned to
      * @type {string}
      * @memberof DetectsExternalAlert
@@ -59,6 +71,12 @@ export interface DetectsExternalAlert {
      * @memberof DetectsExternalAlert
      */
     cid: string;
+    /**
+     * An opaque internal identifier that can uniquely identify the CMS rule which triggered this detection
+     * @type {string}
+     * @memberof DetectsExternalAlert
+     */
+    cmsRuleId: string;
     /**
      * An opaque internal identifier that can uniquely identify an Alert
      * @type {string}
@@ -119,6 +137,12 @@ export interface DetectsExternalAlert {
      * @memberof DetectsExternalAlert
      */
     id: string;
+    /**
+     * Boolean indicating if this Alert is an aggregated alert
+     * @type {boolean}
+     * @memberof DetectsExternalAlert
+     */
+    isAggregated: boolean;
     /**
      * Linked Behavioral Detections are behavioral detections that are associated with this alert
      * @type {Array<string>}
@@ -289,10 +313,13 @@ export interface DetectsExternalAlert {
 export function instanceOfDetectsExternalAlert(value: object): value is DetectsExternalAlert {
     if (!("agentId" in value) || value["agentId"] === undefined) return false;
     if (!("aggregateId" in value) || value["aggregateId"] === undefined) return false;
+    if (!("aggregationRuleId" in value) || value["aggregationRuleId"] === undefined) return false;
+    if (!("aggregationRuleName" in value) || value["aggregationRuleName"] === undefined) return false;
     if (!("assignedToName" in value) || value["assignedToName"] === undefined) return false;
     if (!("assignedToUid" in value) || value["assignedToUid"] === undefined) return false;
     if (!("assignedToUuid" in value) || value["assignedToUuid"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("cmsRuleId" in value) || value["cmsRuleId"] === undefined) return false;
     if (!("compositeId" in value) || value["compositeId"] === undefined) return false;
     if (!("confidence" in value) || value["confidence"] === undefined) return false;
     if (!("crawledTimestamp" in value) || value["crawledTimestamp"] === undefined) return false;
@@ -303,6 +330,7 @@ export function instanceOfDetectsExternalAlert(value: object): value is DetectsE
     if (!("emailSent" in value) || value["emailSent"] === undefined) return false;
     if (!("external" in value) || value["external"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("isAggregated" in value) || value["isAggregated"] === undefined) return false;
     if (!("linkedBehavioralDetections" in value) || value["linkedBehavioralDetections"] === undefined) return false;
     if (!("linkedCaseIds" in value) || value["linkedCaseIds"] === undefined) return false;
     if (!("mitreAttack" in value) || value["mitreAttack"] === undefined) return false;
@@ -345,10 +373,13 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
         ...json,
         agentId: json["agent_id"],
         aggregateId: json["aggregate_id"],
+        aggregationRuleId: json["aggregation_rule_id"],
+        aggregationRuleName: json["aggregation_rule_name"],
         assignedToName: json["assigned_to_name"],
         assignedToUid: json["assigned_to_uid"],
         assignedToUuid: json["assigned_to_uuid"],
         cid: json["cid"],
+        cmsRuleId: json["cms_rule_id"],
         compositeId: json["composite_id"],
         confidence: json["confidence"],
         crawledTimestamp: new Date(json["crawled_timestamp"]),
@@ -359,6 +390,7 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
         emailSent: json["email_sent"],
         external: json["external"],
         id: json["id"],
+        isAggregated: json["is_aggregated"],
         linkedBehavioralDetections: json["linked_behavioral_detections"],
         linkedCaseIds: json["linked_case_ids"],
         mitreAttack: (json["mitre_attack"] as Array<any>).map(DetectsMitreAttackMappingFromJSON),
@@ -397,10 +429,13 @@ export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null):
         ...value,
         agent_id: value["agentId"],
         aggregate_id: value["aggregateId"],
+        aggregation_rule_id: value["aggregationRuleId"],
+        aggregation_rule_name: value["aggregationRuleName"],
         assigned_to_name: value["assignedToName"],
         assigned_to_uid: value["assignedToUid"],
         assigned_to_uuid: value["assignedToUuid"],
         cid: value["cid"],
+        cms_rule_id: value["cmsRuleId"],
         composite_id: value["compositeId"],
         confidence: value["confidence"],
         crawled_timestamp: value["crawledTimestamp"].toISOString(),
@@ -411,6 +446,7 @@ export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null):
         email_sent: value["emailSent"],
         external: value["external"],
         id: value["id"],
+        is_aggregated: value["isAggregated"],
         linked_behavioral_detections: value["linkedBehavioralDetections"],
         linked_case_ids: value["linkedCaseIds"],
         mitre_attack: (value["mitreAttack"] as Array<any>).map(DetectsMitreAttackMappingToJSON),

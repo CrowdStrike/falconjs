@@ -52,6 +52,12 @@ export interface DataconnectionmanagementCreateDataConnectionRequest {
     connectorType?: string;
     /**
      *
+     * @type {{ [key: string]: string; }}
+     * @memberof DataconnectionmanagementCreateDataConnectionRequest
+     */
+    custom?: { [key: string]: string };
+    /**
+     *
      * @type {string}
      * @memberof DataconnectionmanagementCreateDataConnectionRequest
      */
@@ -123,6 +129,7 @@ export function DataconnectionmanagementCreateDataConnectionRequestFromJSONTyped
         configId: json["config_id"] == null ? undefined : json["config_id"],
         connectorId: json["connector_id"],
         connectorType: json["connector_type"] == null ? undefined : json["connector_type"],
+        custom: json["custom"] == null ? undefined : json["custom"],
         description: json["description"] == null ? undefined : json["description"],
         enableHostEnrichment: json["enable_host_enrichment"] == null ? undefined : json["enable_host_enrichment"],
         enableUserEnrichment: json["enable_user_enrichment"] == null ? undefined : json["enable_user_enrichment"],
@@ -143,6 +150,7 @@ export function DataconnectionmanagementCreateDataConnectionRequestToJSON(value?
         config_id: value["configId"],
         connector_id: value["connectorId"],
         connector_type: value["connectorType"],
+        custom: value["custom"],
         description: value["description"],
         enable_host_enrichment: value["enableHostEnrichment"],
         enable_user_enrichment: value["enableUserEnrichment"],

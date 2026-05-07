@@ -78,6 +78,12 @@ export interface DomainUser {
      * @type {string}
      * @memberof DomainUser
      */
+    userType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainUser
+     */
     uuid?: string;
 }
 
@@ -106,6 +112,7 @@ export function DomainUserFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         status: json["status"] == null ? undefined : json["status"],
         uid: json["uid"] == null ? undefined : json["uid"],
         updatedAt: json["updated_at"] == null ? undefined : new Date(json["updated_at"]),
+        userType: json["user_type"] == null ? undefined : json["user_type"],
         uuid: json["uuid"] == null ? undefined : json["uuid"],
     };
 }
@@ -124,6 +131,7 @@ export function DomainUserToJSON(value?: DomainUser | null): any {
         status: value["status"],
         uid: value["uid"],
         updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        user_type: value["userType"],
         uuid: value["uuid"],
     };
 }

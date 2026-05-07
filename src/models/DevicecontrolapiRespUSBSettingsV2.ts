@@ -75,6 +75,12 @@ export interface DevicecontrolapiRespUSBSettingsV2 {
      */
     storageSpaceEnforcementMode?: string;
     /**
+     * Enforcement mode for User Based exceptions
+     * @type {string}
+     * @memberof DevicecontrolapiRespUSBSettingsV2
+     */
+    userBasedEnforcementMode?: string;
+    /**
      * Indicates whether the policy will include whitelist exceptions (ENABLE_ALWAYS, DISABLE_VIRTUAL)
      * @type {string}
      * @memberof DevicecontrolapiRespUSBSettingsV2
@@ -110,6 +116,7 @@ export function DevicecontrolapiRespUSBSettingsV2FromJSONTyped(json: any, ignore
         enhancedFileMetadata: json["enhanced_file_metadata"],
         pcieEnforcementMode: json["pcie_enforcement_mode"],
         storageSpaceEnforcementMode: json["storage_space_enforcement_mode"] == null ? undefined : json["storage_space_enforcement_mode"],
+        userBasedEnforcementMode: json["user_based_enforcement_mode"] == null ? undefined : json["user_based_enforcement_mode"],
         whitelistMode: json["whitelist_mode"] == null ? undefined : json["whitelist_mode"],
     };
 }
@@ -126,6 +133,7 @@ export function DevicecontrolapiRespUSBSettingsV2ToJSON(value?: Devicecontrolapi
         enhanced_file_metadata: value["enhancedFileMetadata"],
         pcie_enforcement_mode: value["pcieEnforcementMode"],
         storage_space_enforcement_mode: value["storageSpaceEnforcementMode"],
+        user_based_enforcement_mode: value["userBasedEnforcementMode"],
         whitelist_mode: value["whitelistMode"],
     };
 }

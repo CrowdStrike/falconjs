@@ -31,6 +31,12 @@ export interface GraphFlow {
      */
     condition?: GraphCondition;
     /**
+     * Optional user provided name for the flow, only used for flows with a condition.
+     * @type {string}
+     * @memberof GraphFlow
+     */
+    name?: string;
+    /**
      *
      * @type {GraphNodePosition}
      * @memberof GraphFlow
@@ -69,6 +75,7 @@ export function GraphFlowFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     }
     return {
         condition: json["condition"] == null ? undefined : GraphConditionFromJSON(json["condition"]),
+        name: json["name"] == null ? undefined : json["name"],
         position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
         source: json["source"],
         target: json["target"],
@@ -81,6 +88,7 @@ export function GraphFlowToJSON(value?: GraphFlow | null): any {
     }
     return {
         condition: GraphConditionToJSON(value["condition"]),
+        name: value["name"],
         position: GraphNodePositionToJSON(value["position"]),
         source: value["source"],
         target: value["target"],

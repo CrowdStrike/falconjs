@@ -90,6 +90,12 @@ export interface ModelsExtAPIImageCombined {
      * @type {string}
      * @memberof ModelsExtAPIImageCombined
      */
+    indexDigest: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsExtAPIImageCombined
+     */
     lastSeen: string;
     /**
      *
@@ -97,6 +103,12 @@ export interface ModelsExtAPIImageCombined {
      * @memberof ModelsExtAPIImageCombined
      */
     layersWithVulnerabilities: number;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ModelsExtAPIImageCombined
+     */
+    multiArch: boolean;
     /**
      *
      * @type {number}
@@ -162,8 +174,10 @@ export function instanceOfModelsExtAPIImageCombined(value: object): value is Mod
     if (!("highestVulnerabilitySeverity" in value) || value["highestVulnerabilitySeverity"] === undefined) return false;
     if (!("imageDigest" in value) || value["imageDigest"] === undefined) return false;
     if (!("imageId" in value) || value["imageId"] === undefined) return false;
+    if (!("indexDigest" in value) || value["indexDigest"] === undefined) return false;
     if (!("lastSeen" in value) || value["lastSeen"] === undefined) return false;
     if (!("layersWithVulnerabilities" in value) || value["layersWithVulnerabilities"] === undefined) return false;
+    if (!("multiArch" in value) || value["multiArch"] === undefined) return false;
     if (!("packages" in value) || value["packages"] === undefined) return false;
     if (!("registry" in value) || value["registry"] === undefined) return false;
     if (!("reportUrlByIdAndDigest" in value) || value["reportUrlByIdAndDigest"] === undefined) return false;
@@ -195,8 +209,10 @@ export function ModelsExtAPIImageCombinedFromJSONTyped(json: any, ignoreDiscrimi
         highestVulnerabilitySeverity: json["highest_vulnerability_severity"],
         imageDigest: json["image_digest"],
         imageId: json["image_id"],
+        indexDigest: json["index_digest"],
         lastSeen: json["last_seen"],
         layersWithVulnerabilities: json["layers_with_vulnerabilities"],
+        multiArch: json["multi_arch"],
         packages: json["packages"],
         registry: json["registry"],
         reportUrlByIdAndDigest: json["report_url_by_id_and_digest"],
@@ -224,8 +240,10 @@ export function ModelsExtAPIImageCombinedToJSON(value?: ModelsExtAPIImageCombine
         highest_vulnerability_severity: value["highestVulnerabilitySeverity"],
         image_digest: value["imageDigest"],
         image_id: value["imageId"],
+        index_digest: value["indexDigest"],
         last_seen: value["lastSeen"],
         layers_with_vulnerabilities: value["layersWithVulnerabilities"],
+        multi_arch: value["multiArch"],
         packages: value["packages"],
         registry: value["registry"],
         report_url_by_id_and_digest: value["reportUrlByIdAndDigest"],

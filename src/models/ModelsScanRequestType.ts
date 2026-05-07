@@ -17,6 +17,8 @@ import type { ModelsConfigInfoType } from "./ModelsConfigInfoType";
 import { ModelsConfigInfoTypeFromJSON, ModelsConfigInfoTypeFromJSONTyped, ModelsConfigInfoTypeToJSON } from "./ModelsConfigInfoType";
 import type { ModelsImageMetadataType } from "./ModelsImageMetadataType";
 import { ModelsImageMetadataTypeFromJSON, ModelsImageMetadataTypeFromJSONTyped, ModelsImageMetadataTypeToJSON } from "./ModelsImageMetadataType";
+import type { V1Manifest } from "./V1Manifest";
+import { V1ManifestFromJSON, V1ManifestFromJSONTyped, V1ManifestToJSON } from "./V1Manifest";
 import type { ModelsScanInfoType } from "./ModelsScanInfoType";
 import { ModelsScanInfoTypeFromJSON, ModelsScanInfoTypeFromJSONTyped, ModelsScanInfoTypeToJSON } from "./ModelsScanInfoType";
 import type { ModelsImageInfoType } from "./ModelsImageInfoType";
@@ -25,8 +27,6 @@ import type { V1Image } from "./V1Image";
 import { V1ImageFromJSON, V1ImageFromJSONTyped, V1ImageToJSON } from "./V1Image";
 import type { ModelsLayerInfoType } from "./ModelsLayerInfoType";
 import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON } from "./ModelsLayerInfoType";
-import type { Schema2Manifest } from "./Schema2Manifest";
-import { Schema2ManifestFromJSON, Schema2ManifestFromJSONTyped, Schema2ManifestToJSON } from "./Schema2Manifest";
 
 /**
  *
@@ -66,10 +66,10 @@ export interface ModelsScanRequestType {
     layers: Array<ModelsLayerInfoType>;
     /**
      *
-     * @type {Schema2Manifest}
+     * @type {V1Manifest}
      * @memberof ModelsScanRequestType
      */
-    manifest: Schema2Manifest;
+    manifest: V1Manifest;
     /**
      *
      * @type {ModelsScanInfoType}
@@ -139,7 +139,7 @@ export function ModelsScanRequestTypeFromJSONTyped(json: any, ignoreDiscriminato
         imageInfo: json["ImageInfo"] == null ? undefined : ModelsImageInfoTypeFromJSON(json["ImageInfo"]),
         imageMetadata: ModelsImageMetadataTypeFromJSON(json["ImageMetadata"]),
         layers: (json["Layers"] as Array<any>).map(ModelsLayerInfoTypeFromJSON),
-        manifest: Schema2ManifestFromJSON(json["Manifest"]),
+        manifest: V1ManifestFromJSON(json["Manifest"]),
         scanInfo: json["ScanInfo"] == null ? undefined : ModelsScanInfoTypeFromJSON(json["ScanInfo"]),
         highEntropyStringsS3Key: json["high_entropy_strings_s3_key"],
         imageInventoryS3Key: json["image_inventory_s3_key"],
@@ -159,7 +159,7 @@ export function ModelsScanRequestTypeToJSON(value?: ModelsScanRequestType | null
         ImageInfo: ModelsImageInfoTypeToJSON(value["imageInfo"]),
         ImageMetadata: ModelsImageMetadataTypeToJSON(value["imageMetadata"]),
         Layers: (value["layers"] as Array<any>).map(ModelsLayerInfoTypeToJSON),
-        Manifest: Schema2ManifestToJSON(value["manifest"]),
+        Manifest: V1ManifestToJSON(value["manifest"]),
         ScanInfo: ModelsScanInfoTypeToJSON(value["scanInfo"]),
         high_entropy_strings_s3_key: value["highEntropyStringsS3Key"],
         image_inventory_s3_key: value["imageInventoryS3Key"],
