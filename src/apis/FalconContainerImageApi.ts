@@ -78,6 +78,7 @@ export interface FalconContainerImageApiGetReportByReferenceRequest {
     tag?: string;
     imageId?: string;
     digest?: string;
+    architecture?: string;
     reportFormat?: string;
 }
 
@@ -94,6 +95,7 @@ export interface FalconContainerImageApiPolicyChecksRequest {
     repository: string;
     tag: string;
     registry?: string;
+    architecture?: string;
 }
 
 export interface FalconContainerImageApiPostImageScanInventoryRequest {
@@ -290,6 +292,10 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             queryParameters["digest"] = requestParameters["digest"];
         }
 
+        if (requestParameters["architecture"] != null) {
+            queryParameters["architecture"] = requestParameters["architecture"];
+        }
+
         if (requestParameters["reportFormat"] != null) {
             queryParameters["report_format"] = requestParameters["reportFormat"];
         }
@@ -323,10 +329,14 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
         tag?: string,
         imageId?: string,
         digest?: string,
+        architecture?: string,
         reportFormat?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<CoreEntitiesResponse> {
-        const response = await this.getReportByReferenceRaw({ registry: registry, repository: repository, tag: tag, imageId: imageId, digest: digest, reportFormat: reportFormat }, initOverrides);
+        const response = await this.getReportByReferenceRaw(
+            { registry: registry, repository: repository, tag: tag, imageId: imageId, digest: digest, architecture: architecture, reportFormat: reportFormat },
+            initOverrides,
+        );
         return await response.value();
     }
 
@@ -481,6 +491,10 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
             queryParameters["tag"] = requestParameters["tag"];
         }
 
+        if (requestParameters["architecture"] != null) {
+            queryParameters["architecture"] = requestParameters["architecture"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -504,8 +518,8 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     /**
      * Check image prevention policies
      */
-    async policyChecks(repository: string, tag: string, registry?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiPolicyEntitiesResponse> {
-        const response = await this.policyChecksRaw({ repository: repository, tag: tag, registry: registry }, initOverrides);
+    async policyChecks(repository: string, tag: string, registry?: string, architecture?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiPolicyEntitiesResponse> {
+        const response = await this.policyChecksRaw({ repository: repository, tag: tag, registry: registry, architecture: architecture }, initOverrides);
         return await response.value();
     }
 

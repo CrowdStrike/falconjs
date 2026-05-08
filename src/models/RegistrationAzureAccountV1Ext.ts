@@ -149,6 +149,12 @@ export interface RegistrationAzureAccountV1Ext {
      */
     parentManagementGroupName?: string;
     /**
+     * Azure Tenant Primary Domain.
+     * @type {string}
+     * @memberof RegistrationAzureAccountV1Ext
+     */
+    primaryDomain?: string;
+    /**
      *
      * @type {string}
      * @memberof RegistrationAzureAccountV1Ext
@@ -196,6 +202,12 @@ export interface RegistrationAzureAccountV1Ext {
      * @memberof RegistrationAzureAccountV1Ext
      */
     tenantId?: string;
+    /**
+     * Azure Tenant Name.
+     * @type {string}
+     * @memberof RegistrationAzureAccountV1Ext
+     */
+    tenantName?: string;
     /**
      *
      * @type {number}
@@ -249,6 +261,7 @@ export function RegistrationAzureAccountV1ExtFromJSONTyped(json: any, ignoreDisc
         objectId: json["object_id"] == null ? undefined : json["object_id"],
         parentManagementGroupId: json["parent_management_group_id"] == null ? undefined : json["parent_management_group_id"],
         parentManagementGroupName: json["parent_management_group_name"] == null ? undefined : json["parent_management_group_name"],
+        primaryDomain: json["primary_domain"] == null ? undefined : json["primary_domain"],
         publicCertificate: json["public_certificate"] == null ? undefined : json["public_certificate"],
         publicCertificateRaw: json["public_certificate_raw"] == null ? undefined : json["public_certificate_raw"],
         roleAssignments: json["role_assignments"] == null ? undefined : (json["role_assignments"] as Array<any>).map(AzureDBRoleAssignmentFromJSON),
@@ -257,6 +270,7 @@ export function RegistrationAzureAccountV1ExtFromJSONTyped(json: any, ignoreDisc
         subscriptionId: json["subscription_id"] == null ? undefined : json["subscription_id"],
         subscriptionName: json["subscription_name"] == null ? undefined : json["subscription_name"],
         tenantId: json["tenant_id"] == null ? undefined : json["tenant_id"],
+        tenantName: json["tenant_name"] == null ? undefined : json["tenant_name"],
         yearsValid: json["years_valid"] == null ? undefined : json["years_valid"],
     };
 }
@@ -286,6 +300,7 @@ export function RegistrationAzureAccountV1ExtToJSON(value?: RegistrationAzureAcc
         object_id: value["objectId"],
         parent_management_group_id: value["parentManagementGroupId"],
         parent_management_group_name: value["parentManagementGroupName"],
+        primary_domain: value["primaryDomain"],
         public_certificate: value["publicCertificate"],
         public_certificate_raw: value["publicCertificateRaw"],
         role_assignments: value["roleAssignments"] == null ? undefined : (value["roleAssignments"] as Array<any>).map(AzureDBRoleAssignmentToJSON),
@@ -294,6 +309,7 @@ export function RegistrationAzureAccountV1ExtToJSON(value?: RegistrationAzureAcc
         subscription_id: value["subscriptionId"],
         subscription_name: value["subscriptionName"],
         tenant_id: value["tenantId"],
+        tenant_name: value["tenantName"],
         years_valid: value["yearsValid"],
     };
 }

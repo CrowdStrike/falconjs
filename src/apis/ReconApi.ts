@@ -214,7 +214,7 @@ export interface ReconApiUpdateRulesV1Request {
  */
 export class ReconApi extends runtime.BaseAPI {
     /**
-     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
+     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id notification_group_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
      */
     async aggregateNotificationsExposedDataRecordsV1Raw(
         requestParameters: ReconApiAggregateNotificationsExposedDataRecordsV1Request,
@@ -250,7 +250,7 @@ export class ReconApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
+     * Get notification exposed data record aggregates as specified via JSON in request body. The valid aggregation fields are: [cid notification_id notification_group_id created_date rule.id rule.name rule.topic source_category site author file.name credential_status bot.operating_system.hardware_id bot.bot_id]
      */
     async aggregateNotificationsExposedDataRecordsV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAggregatesResponse> {
         const response = await this.aggregateNotificationsExposedDataRecordsV1Raw({ body: body }, initOverrides);

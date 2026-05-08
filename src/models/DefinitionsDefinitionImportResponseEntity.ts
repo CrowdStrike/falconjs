@@ -19,6 +19,8 @@ import type { GraphValidationError } from "./GraphValidationError";
 import { GraphValidationErrorFromJSON, GraphValidationErrorFromJSONTyped, GraphValidationErrorToJSON } from "./GraphValidationError";
 import type { GraphDefinitionModel } from "./GraphDefinitionModel";
 import { GraphDefinitionModelFromJSON, GraphDefinitionModelFromJSONTyped, GraphDefinitionModelToJSON } from "./GraphDefinitionModel";
+import type { ContentActivityMetadata } from "./ContentActivityMetadata";
+import { ContentActivityMetadataFromJSON, ContentActivityMetadataFromJSONTyped, ContentActivityMetadataToJSON } from "./ContentActivityMetadata";
 
 /**
  *
@@ -27,11 +29,23 @@ import { GraphDefinitionModelFromJSON, GraphDefinitionModelFromJSONTyped, GraphD
  */
 export interface DefinitionsDefinitionImportResponseEntity {
     /**
+     * Map of activity ID to activity metadata (including dependencies with app info and logo URLs) for displaying activity information in the UI
+     * @type {{ [key: string]: ContentActivityMetadata; }}
+     * @memberof DefinitionsDefinitionImportResponseEntity
+     */
+    activityMetadata?: { [key: string]: ContentActivityMetadata };
+    /**
      *
      * @type {string}
      * @memberof DefinitionsDefinitionImportResponseEntity
      */
     description?: string;
+    /**
+     * Nodes that are not part of the model but still shown to users. The UI owns all details of these, the backend simply stores/retrieves this in the DB.
+     * @type {Array<Array<number>>}
+     * @memberof DefinitionsDefinitionImportResponseEntity
+     */
+    disconnectedNodes?: Array<Array<number>>;
     /**
      *
      * @type {string}
@@ -81,7 +95,9 @@ export function DefinitionsDefinitionImportResponseEntityFromJSONTyped(json: any
         return json;
     }
     return {
+        activityMetadata: json["activity_metadata"] == null ? undefined : mapValues(json["activity_metadata"], ContentActivityMetadataFromJSON),
         description: json["description"] == null ? undefined : json["description"],
+        disconnectedNodes: json["disconnected_nodes"] == null ? undefined : json["disconnected_nodes"],
         id: json["id"] == null ? undefined : json["id"],
         model: json["model"] == null ? undefined : GraphDefinitionModelFromJSON(json["model"]),
         name: json["name"] == null ? undefined : json["name"],
@@ -95,7 +111,9 @@ export function DefinitionsDefinitionImportResponseEntityToJSON(value?: Definiti
         return value;
     }
     return {
+        activity_metadata: value["activityMetadata"] == null ? undefined : mapValues(value["activityMetadata"], ContentActivityMetadataToJSON),
         description: value["description"],
+        disconnected_nodes: value["disconnectedNodes"],
         id: value["id"],
         model: GraphDefinitionModelToJSON(value["model"]),
         name: value["name"],

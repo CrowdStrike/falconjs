@@ -84,6 +84,12 @@ export interface ApiCloudApplicationV1 {
     pluginDefinitionId?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ApiCloudApplicationV1
+     */
+    supportsNetworkInspection?: boolean;
+    /**
+     *
      * @type {Array<ApiWebAppURL>}
      * @memberof ApiCloudApplicationV1
      */
@@ -120,6 +126,7 @@ export function ApiCloudApplicationV1FromJSONTyped(json: any, ignoreDiscriminato
         lastUpdated: json["last_updated"] == null ? undefined : new Date(json["last_updated"]),
         name: json["name"] == null ? undefined : json["name"],
         pluginDefinitionId: json["plugin_definition_id"] == null ? undefined : json["plugin_definition_id"],
+        supportsNetworkInspection: json["supports_network_inspection"] == null ? undefined : json["supports_network_inspection"],
         urls: (json["urls"] as Array<any>).map(ApiWebAppURLFromJSON),
     };
 }
@@ -139,6 +146,7 @@ export function ApiCloudApplicationV1ToJSON(value?: ApiCloudApplicationV1 | null
         last_updated: value["lastUpdated"] == null ? undefined : value["lastUpdated"].toISOString(),
         name: value["name"],
         plugin_definition_id: value["pluginDefinitionId"],
+        supports_network_inspection: value["supportsNetworkInspection"],
         urls: (value["urls"] as Array<any>).map(ApiWebAppURLToJSON),
     };
 }

@@ -58,12 +58,6 @@ export interface PolicymanagerExternalPolicyPatch {
      * @memberof PolicymanagerExternalPolicyPatch
      */
     policyProperties: PolicymanagerPolicyProperties;
-    /**
-     *
-     * @type {number}
-     * @memberof PolicymanagerExternalPolicyPatch
-     */
-    precedence: number;
 }
 
 /**
@@ -73,7 +67,6 @@ export function instanceOfPolicymanagerExternalPolicyPatch(value: object): value
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("isEnabled" in value) || value["isEnabled"] === undefined) return false;
     if (!("policyProperties" in value) || value["policyProperties"] === undefined) return false;
-    if (!("precedence" in value) || value["precedence"] === undefined) return false;
     return true;
 }
 
@@ -92,7 +85,6 @@ export function PolicymanagerExternalPolicyPatchFromJSONTyped(json: any, ignoreD
         isEnabled: json["is_enabled"],
         name: json["name"] == null ? undefined : json["name"],
         policyProperties: PolicymanagerPolicyPropertiesFromJSON(json["policy_properties"]),
-        precedence: json["precedence"],
     };
 }
 
@@ -107,6 +99,5 @@ export function PolicymanagerExternalPolicyPatchToJSON(value?: PolicymanagerExte
         is_enabled: value["isEnabled"],
         name: value["name"],
         policy_properties: PolicymanagerPolicyPropertiesToJSON(value["policyProperties"]),
-        precedence: value["precedence"],
     };
 }

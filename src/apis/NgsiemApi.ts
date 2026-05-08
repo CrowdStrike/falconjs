@@ -14,6 +14,8 @@
 
 import * as runtime from "../runtime";
 import type {
+    ApiCloneParserRequestV1,
+    ApiCloneParserResponseV1,
     ApiCreateDashboardFromTemplateResponseV1,
     ApiCreateLookupFileResponseV1,
     ApiCreateParserFromTemplateResponseV1,
@@ -32,9 +34,16 @@ import type {
     ApiListLookupFilesResponseV1,
     ApiListParsersResponseV1,
     ApiListSavedQueriesResponseV1,
+    ApiParserBulkInstallRequestV1,
+    ApiParserBulkInstallResponseV1,
+    ApiParserInstallRequestV1,
+    ApiParserInstallResponseV1,
     ApiQueryJobInput,
     ApiQueryJobResponse,
     ApiQueryJobsResults,
+    ApiTestParserFromTemplateResponseV1,
+    ApiUpdateAutoUpdatePolicyRequestV1,
+    ApiUpdateAutoUpdatePolicyResponseV1,
     ApiUpdateDashboardFromTemplateResponseV1,
     ApiUpdateLookupFileEntriesResponseV1,
     ApiUpdateLookupFileResponseV1,
@@ -46,9 +55,11 @@ import type {
     DataconnectionmanagementConnectionNotReady,
     DataconnectionmanagementConnectionStatusResponse,
     DataconnectionmanagementConnectionTokenResponse,
+    DataconnectionmanagementCreateConnectorConfigRequest,
     DataconnectionmanagementCreateDataConnectionRequest,
     DataconnectionmanagementDataConnectionResponse,
     DataconnectionmanagementDataConnectorResponse,
+    DataconnectionmanagementGenericCreateResponse,
     DataconnectionmanagementGenericResourcesResponse,
     DataconnectionmanagementUpdateDataConnectionRequest,
     DataconnectionmanagementUpdateDataConnectionStatusRequest,
@@ -58,6 +69,10 @@ import type {
     MsaspecResponseFields,
 } from "../models/index";
 import {
+    ApiCloneParserRequestV1FromJSON,
+    ApiCloneParserRequestV1ToJSON,
+    ApiCloneParserResponseV1FromJSON,
+    ApiCloneParserResponseV1ToJSON,
     ApiCreateDashboardFromTemplateResponseV1FromJSON,
     ApiCreateDashboardFromTemplateResponseV1ToJSON,
     ApiCreateLookupFileResponseV1FromJSON,
@@ -94,12 +109,26 @@ import {
     ApiListParsersResponseV1ToJSON,
     ApiListSavedQueriesResponseV1FromJSON,
     ApiListSavedQueriesResponseV1ToJSON,
+    ApiParserBulkInstallRequestV1FromJSON,
+    ApiParserBulkInstallRequestV1ToJSON,
+    ApiParserBulkInstallResponseV1FromJSON,
+    ApiParserBulkInstallResponseV1ToJSON,
+    ApiParserInstallRequestV1FromJSON,
+    ApiParserInstallRequestV1ToJSON,
+    ApiParserInstallResponseV1FromJSON,
+    ApiParserInstallResponseV1ToJSON,
     ApiQueryJobInputFromJSON,
     ApiQueryJobInputToJSON,
     ApiQueryJobResponseFromJSON,
     ApiQueryJobResponseToJSON,
     ApiQueryJobsResultsFromJSON,
     ApiQueryJobsResultsToJSON,
+    ApiTestParserFromTemplateResponseV1FromJSON,
+    ApiTestParserFromTemplateResponseV1ToJSON,
+    ApiUpdateAutoUpdatePolicyRequestV1FromJSON,
+    ApiUpdateAutoUpdatePolicyRequestV1ToJSON,
+    ApiUpdateAutoUpdatePolicyResponseV1FromJSON,
+    ApiUpdateAutoUpdatePolicyResponseV1ToJSON,
     ApiUpdateDashboardFromTemplateResponseV1FromJSON,
     ApiUpdateDashboardFromTemplateResponseV1ToJSON,
     ApiUpdateLookupFileEntriesResponseV1FromJSON,
@@ -122,12 +151,16 @@ import {
     DataconnectionmanagementConnectionStatusResponseToJSON,
     DataconnectionmanagementConnectionTokenResponseFromJSON,
     DataconnectionmanagementConnectionTokenResponseToJSON,
+    DataconnectionmanagementCreateConnectorConfigRequestFromJSON,
+    DataconnectionmanagementCreateConnectorConfigRequestToJSON,
     DataconnectionmanagementCreateDataConnectionRequestFromJSON,
     DataconnectionmanagementCreateDataConnectionRequestToJSON,
     DataconnectionmanagementDataConnectionResponseFromJSON,
     DataconnectionmanagementDataConnectionResponseToJSON,
     DataconnectionmanagementDataConnectorResponseFromJSON,
     DataconnectionmanagementDataConnectorResponseToJSON,
+    DataconnectionmanagementGenericCreateResponseFromJSON,
+    DataconnectionmanagementGenericCreateResponseToJSON,
     DataconnectionmanagementGenericResourcesResponseFromJSON,
     DataconnectionmanagementGenericResourcesResponseToJSON,
     DataconnectionmanagementUpdateDataConnectionRequestFromJSON,
@@ -143,6 +176,14 @@ import {
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
 } from "../models/index";
+
+export interface NgsiemApiBulkInstallParsersRequest {
+    body: ApiParserBulkInstallRequestV1;
+}
+
+export interface NgsiemApiCloneParserRequest {
+    body: ApiCloneParserRequestV1;
+}
 
 export interface NgsiemApiCreateDashboardFromTemplateRequest {
     searchDomain?: CreateDashboardFromTemplateSearchDomainEnum;
@@ -190,8 +231,17 @@ export interface NgsiemApiDeleteSavedQueryRequest {
     searchDomain?: DeleteSavedQuerySearchDomainEnum;
 }
 
+export interface NgsiemApiExternalCreateConnectorConfigRequest {
+    body: DataconnectionmanagementCreateConnectorConfigRequest;
+}
+
 export interface NgsiemApiExternalCreateDataConnectionRequest {
     body: DataconnectionmanagementCreateDataConnectionRequest;
+}
+
+export interface NgsiemApiExternalDeleteConnectorConfigsRequest {
+    connectorId: string;
+    ids: Set<string>;
 }
 
 export interface NgsiemApiExternalDeleteDataConnectionRequest {
@@ -226,6 +276,11 @@ export interface NgsiemApiExternalListDataConnectorsRequest {
     offset?: number;
     limit?: number;
     sort?: string;
+}
+
+export interface NgsiemApiExternalPatchConnectorConfigRequest {
+    ids: string;
+    body: DataconnectionmanagementCreateConnectorConfigRequest;
 }
 
 export interface NgsiemApiExternalRegenerateDataConnectionTokenRequest {
@@ -290,6 +345,10 @@ export interface NgsiemApiGetSearchStatusV1Request {
     id: string;
 }
 
+export interface NgsiemApiInstallParserRequest {
+    body: ApiParserInstallRequestV1;
+}
+
 export interface NgsiemApiListDashboardsRequest {
     limit?: string;
     offset?: string;
@@ -309,6 +368,8 @@ export interface NgsiemApiListParsersRequest {
     offset?: string;
     filter?: string;
     repository?: ListParsersRepositoryEnum;
+    updateAvailable?: ListParsersUpdateAvailableEnum;
+    parserType?: ListParsersParserTypeEnum;
 }
 
 export interface NgsiemApiListSavedQueriesRequest {
@@ -326,6 +387,11 @@ export interface NgsiemApiStartSearchV1Request {
 export interface NgsiemApiStopSearchV1Request {
     repository: string;
     id: string;
+}
+
+export interface NgsiemApiTestParserFromTemplateRequest {
+    yamlTemplate?: Blob;
+    schemaValidationEnabled?: boolean;
 }
 
 export interface NgsiemApiUpdateDashboardFromTemplateRequest {
@@ -353,6 +419,10 @@ export interface NgsiemApiUpdateParserRequest {
     body: ApiUpdateParserRequestV1;
 }
 
+export interface NgsiemApiUpdateParserAutoUpdatePolicyRequest {
+    body: ApiUpdateAutoUpdatePolicyRequestV1;
+}
+
 export interface NgsiemApiUpdateParserFromTemplateRequest {
     repository?: UpdateParserFromTemplateRepositoryEnum;
     ids?: string;
@@ -374,6 +444,91 @@ export interface NgsiemApiUploadLookupV1Request {
  *
  */
 export class NgsiemApi extends runtime.BaseAPI {
+    /**
+     * Installs multiple CrowdStrike-managed out-of-the-box (OOTB) parsers into the customer\'s repository in a single operation. This endpoint provisions multiple pre-built parsers with their specific versions for the requesting customer ID (CID). The parsers are installed as-is and cannot be modified by the customer. Requires an array of parsers with parser_id and version in the request body. Maximum 100 parsers per request.
+     */
+    async bulkInstallParsersRaw(
+        requestParameters: NgsiemApiBulkInstallParsersRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiParserBulkInstallResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkInstallParsers().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers/bulk-install/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiParserBulkInstallRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiParserBulkInstallResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Installs multiple CrowdStrike-managed out-of-the-box (OOTB) parsers into the customer\'s repository in a single operation. This endpoint provisions multiple pre-built parsers with their specific versions for the requesting customer ID (CID). The parsers are installed as-is and cannot be modified by the customer. Requires an array of parsers with parser_id and version in the request body. Maximum 100 parsers per request.
+     */
+    async bulkInstallParsers(body: ApiParserBulkInstallRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiParserBulkInstallResponseV1> {
+        const response = await this.bulkInstallParsersRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Clone an existing parser with a new name
+     */
+    async cloneParserRaw(requestParameters: NgsiemApiCloneParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiCloneParserResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloneParser().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers-clone/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiCloneParserRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiCloneParserResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Clone an existing parser with a new name
+     */
+    async cloneParser(body: ApiCloneParserRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCloneParserResponseV1> {
+        const response = await this.cloneParserRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Create Dashboard from LogScale YAML Template in NGSIEM
      */
@@ -857,6 +1012,53 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create a new configuration for a data connector
+     */
+    async externalCreateConnectorConfigRaw(
+        requestParameters: NgsiemApiExternalCreateConnectorConfigRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DataconnectionmanagementGenericCreateResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling externalCreateConnectorConfig().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem/entities/connectors/configs/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DataconnectionmanagementCreateConnectorConfigRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DataconnectionmanagementGenericCreateResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Create a new configuration for a data connector
+     */
+    async externalCreateConnectorConfig(
+        body: DataconnectionmanagementCreateConnectorConfigRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DataconnectionmanagementGenericCreateResponse> {
+        const response = await this.externalCreateConnectorConfigRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Create a new data connection
      */
     async externalCreateDataConnectionRaw(
@@ -900,6 +1102,59 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DataconnectionmanagementGenericResourcesResponse> {
         const response = await this.externalCreateDataConnectionRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete data connection config
+     */
+    async externalDeleteConnectorConfigsRaw(
+        requestParameters: NgsiemApiExternalDeleteConnectorConfigsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+        if (requestParameters["connectorId"] == null) {
+            throw new runtime.RequiredError("connectorId", 'Required parameter "connectorId" was null or undefined when calling externalDeleteConnectorConfigs().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalDeleteConnectorConfigs().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["connectorId"] != null) {
+            queryParameters["connector_id"] = requestParameters["connectorId"];
+        }
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = Array.from(requestParameters["ids"])!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem/entities/connectors/configs/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
+    }
+
+    /**
+     * Delete data connection config
+     */
+    async externalDeleteConnectorConfigs(connectorId: string, ids: Set<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaReplyAffectedEntities> {
+        const response = await this.externalDeleteConnectorConfigsRaw({ connectorId: connectorId, ids: ids }, initOverrides);
         return await response.value();
     }
 
@@ -1243,6 +1498,62 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DataconnectionmanagementDataConnectorResponse> {
         const response = await this.externalListDataConnectorsRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Patch configurations for a data connector
+     */
+    async externalPatchConnectorConfigRaw(
+        requestParameters: NgsiemApiExternalPatchConnectorConfigRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaReplyAffectedEntities>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling externalPatchConnectorConfig().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling externalPatchConnectorConfig().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-data-connections:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem/entities/connectors/configs/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DataconnectionmanagementCreateConnectorConfigRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaReplyAffectedEntitiesFromJSON(jsonValue));
+    }
+
+    /**
+     * Patch configurations for a data connector
+     */
+    async externalPatchConnectorConfig(
+        ids: string,
+        body: DataconnectionmanagementCreateConnectorConfigRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaReplyAffectedEntities> {
+        const response = await this.externalPatchConnectorConfigRaw({ ids: ids, body: body }, initOverrides);
         return await response.value();
     }
 
@@ -1819,6 +2130,47 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Installs a CrowdStrike-managed out-of-the-box (OOTB) parser into the customer\'s repository. This endpoint provisions a pre-built parser with a specific version for the requesting customer ID (CID). The parser is installed as-is and cannot be modified by the customer. Requires parser_id and version in the request body.
+     */
+    async installParserRaw(requestParameters: NgsiemApiInstallParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiParserInstallResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling installParser().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers/install/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiParserInstallRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiParserInstallResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Installs a CrowdStrike-managed out-of-the-box (OOTB) parser into the customer\'s repository. This endpoint provisions a pre-built parser with a specific version for the requesting customer ID (CID). The parser is installed as-is and cannot be modified by the customer. Requires parser_id and version in the request body.
+     */
+    async installParser(body: ApiParserInstallRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiParserInstallResponseV1> {
+        const response = await this.installParserRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * List Dashboards in NGSIEM
      */
     async listDashboardsRaw(requestParameters: NgsiemApiListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiListDashboardsResponseV1>> {
@@ -1955,6 +2307,14 @@ export class NgsiemApi extends runtime.BaseAPI {
             queryParameters["repository"] = requestParameters["repository"];
         }
 
+        if (requestParameters["updateAvailable"] != null) {
+            queryParameters["update_available"] = requestParameters["updateAvailable"];
+        }
+
+        if (requestParameters["parserType"] != null) {
+            queryParameters["parser_type"] = requestParameters["parserType"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -1983,9 +2343,11 @@ export class NgsiemApi extends runtime.BaseAPI {
         offset?: string,
         filter?: string,
         repository?: ListParsersRepositoryEnum,
+        updateAvailable?: ListParsersUpdateAvailableEnum,
+        parserType?: ListParsersParserTypeEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiListParsersResponseV1> {
-        const response = await this.listParsersRaw({ limit: limit, offset: offset, filter: filter, repository: repository }, initOverrides);
+        const response = await this.listParsersRaw({ limit: limit, offset: offset, filter: filter, repository: repository, updateAvailable: updateAvailable, parserType: parserType }, initOverrides);
         return await response.value();
     }
 
@@ -2134,6 +2496,66 @@ export class NgsiemApi extends runtime.BaseAPI {
      */
     async stopSearchV1(repository: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.stopSearchV1Raw({ repository: repository, id: id }, initOverrides);
+    }
+
+    /**
+     * Test Parser from LogScale YAML Template in NGSIEM
+     */
+    async testParserFromTemplateRaw(
+        requestParameters: NgsiemApiTestParserFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiTestParserFromTemplateResponseV1>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:read"]);
+        }
+
+        const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters["yamlTemplate"] != null) {
+            formParams.append("yaml_template", requestParameters["yamlTemplate"] as any);
+        }
+
+        if (requestParameters["schemaValidationEnabled"] != null) {
+            formParams.append("schema_validation_enabled", requestParameters["schemaValidationEnabled"] as any);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers-template-test/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: formParams,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiTestParserFromTemplateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Test Parser from LogScale YAML Template in NGSIEM
+     */
+    async testParserFromTemplate(yamlTemplate?: Blob, schemaValidationEnabled?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiTestParserFromTemplateResponseV1> {
+        const response = await this.testParserFromTemplateRaw({ yamlTemplate: yamlTemplate, schemaValidationEnabled: schemaValidationEnabled }, initOverrides);
+        return await response.value();
     }
 
     /**
@@ -2401,6 +2823,50 @@ export class NgsiemApi extends runtime.BaseAPI {
      */
     async updateParser(body: ApiUpdateParserRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUpdateParserResponseV1> {
         const response = await this.updateParserRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Updates a parser auto update policy - \'on\' enables auto-updates, \'off\' disables them
+     */
+    async updateParserAutoUpdatePolicyRaw(
+        requestParameters: NgsiemApiUpdateParserAutoUpdatePolicyRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdateAutoUpdatePolicyResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateParserAutoUpdatePolicy().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers/autoupdate/v1`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiUpdateAutoUpdatePolicyRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateAutoUpdatePolicyResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Updates a parser auto update policy - \'on\' enables auto-updates, \'off\' disables them
+     */
+    async updateParserAutoUpdatePolicy(body: ApiUpdateAutoUpdatePolicyRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUpdateAutoUpdatePolicyResponseV1> {
+        const response = await this.updateParserAutoUpdatePolicyRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -2746,6 +3212,22 @@ export const ListParsersRepositoryEnum = {
     ParsersRepository: "parsers-repository",
 } as const;
 export type ListParsersRepositoryEnum = (typeof ListParsersRepositoryEnum)[keyof typeof ListParsersRepositoryEnum];
+/**
+ * @export
+ */
+export const ListParsersUpdateAvailableEnum = {
+    True: "true",
+    False: "false",
+} as const;
+export type ListParsersUpdateAvailableEnum = (typeof ListParsersUpdateAvailableEnum)[keyof typeof ListParsersUpdateAvailableEnum];
+/**
+ * @export
+ */
+export const ListParsersParserTypeEnum = {
+    Ootb: "ootb",
+    Custom: "custom",
+} as const;
+export type ListParsersParserTypeEnum = (typeof ListParsersParserTypeEnum)[keyof typeof ListParsersParserTypeEnum];
 /**
  * @export
  */

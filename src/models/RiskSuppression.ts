@@ -67,6 +67,12 @@ export interface RiskSuppression {
      * @memberof RiskSuppression
      */
     suppressionDate?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof RiskSuppression
+     */
+    suppressionRuleId?: string;
 }
 
 /**
@@ -99,6 +105,7 @@ export function RiskSuppressionFromJSONTyped(json: any, ignoreDiscriminator: boo
         suppressedCrn: json["suppressed_crn"],
         suppressedReason: json["suppressed_reason"],
         suppressionDate: json["suppression_date"] == null ? undefined : new Date(json["suppression_date"]),
+        suppressionRuleId: json["suppression_rule_id"] == null ? undefined : json["suppression_rule_id"],
     };
 }
 
@@ -115,5 +122,6 @@ export function RiskSuppressionToJSON(value?: RiskSuppression | null): any {
         suppressed_crn: value["suppressedCrn"],
         suppressed_reason: value["suppressedReason"],
         suppression_date: value["suppressionDate"] == null ? undefined : value["suppressionDate"].toISOString(),
+        suppression_rule_id: value["suppressionRuleId"],
     };
 }

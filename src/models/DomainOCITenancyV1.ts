@@ -32,6 +32,12 @@ export interface DomainOCITenancyV1 {
     cid: string;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainOCITenancyV1
+     */
+    cloudRegistrationEnabled: boolean;
+    /**
+     *
      * @type {Array<DomainCloudCondition>}
      * @memberof DomainOCITenancyV1
      */
@@ -175,6 +181,7 @@ export interface DomainOCITenancyV1 {
  */
 export function instanceOfDomainOCITenancyV1(value: object): value is DomainOCITenancyV1 {
     if (!("cid" in value) || value["cid"] === undefined) return false;
+    if (!("cloudRegistrationEnabled" in value) || value["cloudRegistrationEnabled"] === undefined) return false;
     if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
     if (!("cspmEnabled" in value) || value["cspmEnabled"] === undefined) return false;
     if (!("fingerPrint" in value) || value["fingerPrint"] === undefined) return false;
@@ -209,6 +216,7 @@ export function DomainOCITenancyV1FromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         cid: json["cid"],
+        cloudRegistrationEnabled: json["cloud_registration_enabled"],
         conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(DomainCloudConditionFromJSON),
         createdAt: new Date(json["created_at"]),
         cspmEnabled: json["cspm_enabled"],
@@ -241,6 +249,7 @@ export function DomainOCITenancyV1ToJSON(value?: DomainOCITenancyV1 | null): any
     }
     return {
         cid: value["cid"],
+        cloud_registration_enabled: value["cloudRegistrationEnabled"],
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(DomainCloudConditionToJSON),
         created_at: value["createdAt"].toISOString(),
         cspm_enabled: value["cspmEnabled"],

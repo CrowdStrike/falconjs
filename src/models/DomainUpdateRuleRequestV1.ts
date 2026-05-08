@@ -20,13 +20,13 @@ import { mapValues } from "../runtime";
  */
 export interface DomainUpdateRuleRequestV1 {
     /**
-     * Monitor only for breach data. Must be accompanied by breach_monitoring_enabled:true.
+     * Monitor only for exposed data. Must be accompanied by breach_monitoring_enabled:true.
      * @type {boolean}
      * @memberof DomainUpdateRuleRequestV1
      */
     breachMonitorOnly: boolean;
     /**
-     * Whether to monitor for breach data. Available only for `Company Domains` and `Email addresses` rule topics. When enabled, ownership of the monitored domains or emails is required
+     * Whether to monitor for exposed data. Available only for `Company Domains` and `Email addresses` rule topics.
      * @type {boolean}
      * @memberof DomainUpdateRuleRequestV1
      */
@@ -62,7 +62,7 @@ export interface DomainUpdateRuleRequestV1 {
      */
     permissions: string;
     /**
-     * The priority for a given rule. Possible values: [`low`, `medium`, `high`]
+     * The priority for a given rule. Possible values: [`none`, `low`, `medium`, `high`, `critical`]
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
      */

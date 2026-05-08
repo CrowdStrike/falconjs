@@ -22,10 +22,14 @@ import type {
     DomainQueryResponse,
     DomainRulesResponse,
     DomainVulnerabilityResponse,
+    IncidentResponseV1,
+    MsaAggregateQueryRequest,
+    MsaAggregatesResponse,
     MsaErrorsOnly,
     MsaIdsRequest,
     MsaQueryResponse,
     MsaReplyMetaOnly,
+    MsaspecQueryResponse,
     MsaspecResponseFields,
 } from "../models/index";
 import {
@@ -45,6 +49,12 @@ import {
     DomainRulesResponseToJSON,
     DomainVulnerabilityResponseFromJSON,
     DomainVulnerabilityResponseToJSON,
+    IncidentResponseV1FromJSON,
+    IncidentResponseV1ToJSON,
+    MsaAggregateQueryRequestFromJSON,
+    MsaAggregateQueryRequestToJSON,
+    MsaAggregatesResponseFromJSON,
+    MsaAggregatesResponseToJSON,
     MsaErrorsOnlyFromJSON,
     MsaErrorsOnlyToJSON,
     MsaIdsRequestFromJSON,
@@ -53,9 +63,26 @@ import {
     MsaQueryResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
 } from "../models/index";
+
+export interface IntelApiCaoIncidentsAggregatesV1Request {
+    body: Array<MsaAggregateQueryRequest>;
+}
+
+export interface IntelApiCaoIncidentsEntitiesV1Request {
+    body: MsaIdsRequest;
+}
+
+export interface IntelApiCaoIncidentsQueriesV1Request {
+    sort?: string;
+    filter?: string;
+    limit?: number;
+    offset?: string;
+}
 
 export interface IntelApiGetIntelActorEntitiesRequest {
     ids: Array<string>;
@@ -223,6 +250,147 @@ export interface IntelApiQueryVulnerabilitiesRequest {
  *
  */
 export class IntelApi extends runtime.BaseAPI {
+    /**
+     * Perform statistical aggregations over incident data. Available aggregation properties: InvolvesAdversaries.Slug, TargetIndustries.Slug, TargetIndustries.Name, ActivityStart, Id, InvolvesThreats.FamilyName, TargetCountries.Slug, TargetRegions.Slug, MitreAttack.TacticId, MitreAttack.TacticName, MitreAttack.TechniqueId, MitreAttack.TechniqueName, Objectives.Slug, Motivations.Slug, InvolvesAdversaries.AnimalClassifier, TargetCountries.Name, TargetRegions.Name, PublishDate, ActivityEnd.
+     */
+    async caoIncidentsAggregatesV1Raw(
+        requestParameters: IntelApiCaoIncidentsAggregatesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling caoIncidentsAggregatesV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-incidents:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/aggregates/incidents/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Perform statistical aggregations over incident data. Available aggregation properties: InvolvesAdversaries.Slug, TargetIndustries.Slug, TargetIndustries.Name, ActivityStart, Id, InvolvesThreats.FamilyName, TargetCountries.Slug, TargetRegions.Slug, MitreAttack.TacticId, MitreAttack.TacticName, MitreAttack.TechniqueId, MitreAttack.TechniqueName, Objectives.Slug, Motivations.Slug, InvolvesAdversaries.AnimalClassifier, TargetCountries.Name, TargetRegions.Name, PublishDate, ActivityEnd.
+     */
+    async caoIncidentsAggregatesV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.caoIncidentsAggregatesV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve full details for one or more adversary incidents by their IDs. Returns complete incident data including adversary activity, timestamps, and associated metadata.
+     */
+    async caoIncidentsEntitiesV1Raw(
+        requestParameters: IntelApiCaoIncidentsEntitiesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<IncidentResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling caoIncidentsEntitiesV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-incidents:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/entities/incidents/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaIdsRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => IncidentResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve full details for one or more adversary incidents by their IDs. Returns complete incident data including adversary activity, timestamps, and associated metadata.
+     */
+    async caoIncidentsEntitiesV1(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<IncidentResponseV1> {
+        const response = await this.caoIncidentsEntitiesV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for adversary incidents using FQL criteria and return a paginated list of matching incident IDs. Use the returned IDs with the entities endpoint to retrieve full incident details.
+     */
+    async caoIncidentsQueriesV1Raw(
+        requestParameters: IntelApiCaoIncidentsQueriesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cao-incidents:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/intel/queries/incidents/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for adversary incidents using FQL criteria and return a paginated list of matching incident IDs. Use the returned IDs with the entities endpoint to retrieve full incident details.
+     */
+    async caoIncidentsQueriesV1(sort?: string, filter?: string, limit?: number, offset?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.caoIncidentsQueriesV1Raw({ sort: sort, filter: filter, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Retrieve specific actors using their actor IDs.
      */

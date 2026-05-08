@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
+import type { ContentParser } from "./ContentParser";
+import { ContentParserFromJSON, ContentParserFromJSONTyped, ContentParserToJSON } from "./ContentParser";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
@@ -37,11 +39,11 @@ export interface ApiListParsersResponseV1 {
      */
     meta: MsaMetaInfo;
     /**
-     * Contains the list of parser IDs
-     * @type {Array<string>}
+     * Contains the list of parsers
+     * @type {Array<ContentParser>}
      * @memberof ApiListParsersResponseV1
      */
-    resources: Array<string>;
+    resources: Array<ContentParser>;
 }
 
 /**
@@ -64,7 +66,7 @@ export function ApiListParsersResponseV1FromJSONTyped(json: any, ignoreDiscrimin
     return {
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: json["resources"],
+        resources: (json["resources"] as Array<any>).map(ContentParserFromJSON),
     };
 }
 
@@ -75,6 +77,6 @@ export function ApiListParsersResponseV1ToJSON(value?: ApiListParsersResponseV1 
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: value["resources"],
+        resources: (value["resources"] as Array<any>).map(ContentParserToJSON),
     };
 }

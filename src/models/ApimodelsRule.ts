@@ -21,6 +21,8 @@ import type { ApimodelsResourceType } from "./ApimodelsResourceType";
 import { ApimodelsResourceTypeFromJSON, ApimodelsResourceTypeFromJSONTyped, ApimodelsResourceTypeToJSON } from "./ApimodelsResourceType";
 import type { ApimodelsControl } from "./ApimodelsControl";
 import { ApimodelsControlFromJSON, ApimodelsControlFromJSONTyped, ApimodelsControlToJSON } from "./ApimodelsControl";
+import type { ApimodelsAssetFilter } from "./ApimodelsAssetFilter";
+import { ApimodelsAssetFilterFromJSON, ApimodelsAssetFilterFromJSONTyped, ApimodelsAssetFilterToJSON } from "./ApimodelsAssetFilter";
 
 /**
  *
@@ -258,6 +260,18 @@ export interface ApimodelsRule {
     ruleLogicList: Array<ApimodelsRuleLogic>;
     /**
      *
+     * @type {ApimodelsAssetFilter}
+     * @memberof ApimodelsRule
+     */
+    scopeAssetFilter?: ApimodelsAssetFilter;
+    /**
+     *
+     * @type {string}
+     * @memberof ApimodelsRule
+     */
+    scopeType: string;
+    /**
+     *
      * @type {number}
      * @memberof ApimodelsRule
      */
@@ -332,6 +346,7 @@ export function instanceOfApimodelsRule(value: object): value is ApimodelsRule {
     if (!("remediation" in value) || value["remediation"] === undefined) return false;
     if (!("resourceTypes" in value) || value["resourceTypes"] === undefined) return false;
     if (!("ruleLogicList" in value) || value["ruleLogicList"] === undefined) return false;
+    if (!("scopeType" in value) || value["scopeType"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
     if (!("shortCode" in value) || value["shortCode"] === undefined) return false;
     if (!("subdomain" in value) || value["subdomain"] === undefined) return false;
@@ -386,6 +401,8 @@ export function ApimodelsRuleFromJSONTyped(json: any, ignoreDiscriminator: boole
         resourceTypes: (json["resource_types"] as Array<any>).map(ApimodelsResourceTypeFromJSON),
         revision: json["revision"] == null ? undefined : json["revision"],
         ruleLogicList: (json["rule_logic_list"] as Array<any>).map(ApimodelsRuleLogicFromJSON),
+        scopeAssetFilter: json["scope_asset_filter"] == null ? undefined : ApimodelsAssetFilterFromJSON(json["scope_asset_filter"]),
+        scopeType: json["scope_type"],
         severity: json["severity"],
         shortCode: json["short_code"],
         subdomain: json["subdomain"],
@@ -440,6 +457,8 @@ export function ApimodelsRuleToJSON(value?: ApimodelsRule | null): any {
         resource_types: (value["resourceTypes"] as Array<any>).map(ApimodelsResourceTypeToJSON),
         revision: value["revision"],
         rule_logic_list: (value["ruleLogicList"] as Array<any>).map(ApimodelsRuleLogicToJSON),
+        scope_asset_filter: ApimodelsAssetFilterToJSON(value["scopeAssetFilter"]),
+        scope_type: value["scopeType"],
         severity: value["severity"],
         short_code: value["shortCode"],
         subdomain: value["subdomain"],

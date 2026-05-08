@@ -37,7 +37,7 @@ export interface ReleasecontentsReleaseContentResponseV1 {
      * @type {string}
      * @memberof ReleasecontentsReleaseContentResponseV1
      */
-    contentGroupId: string;
+    contentGroupId?: string;
     /**
      *
      * @type {string}
@@ -49,7 +49,7 @@ export interface ReleasecontentsReleaseContentResponseV1 {
      * @type {ReleasecontentsReleaseContentVersionResponseV1}
      * @memberof ReleasecontentsReleaseContentResponseV1
      */
-    contentVersion: ReleasecontentsReleaseContentVersionResponseV1;
+    contentVersion?: ReleasecontentsReleaseContentVersionResponseV1;
     /**
      *
      * @type {string}
@@ -81,9 +81,7 @@ export interface ReleasecontentsReleaseContentResponseV1 {
  */
 export function instanceOfReleasecontentsReleaseContentResponseV1(value: object): value is ReleasecontentsReleaseContentResponseV1 {
     if (!("contentCategory" in value) || value["contentCategory"] === undefined) return false;
-    if (!("contentGroupId" in value) || value["contentGroupId"] === undefined) return false;
     if (!("contentType" in value) || value["contentType"] === undefined) return false;
-    if (!("contentVersion" in value) || value["contentVersion"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
     return true;
@@ -99,9 +97,9 @@ export function ReleasecontentsReleaseContentResponseV1FromJSONTyped(json: any, 
     }
     return {
         contentCategory: json["content_category"],
-        contentGroupId: json["content_group_id"],
+        contentGroupId: json["content_group_id"] == null ? undefined : json["content_group_id"],
         contentType: json["content_type"],
-        contentVersion: ReleasecontentsReleaseContentVersionResponseV1FromJSON(json["content_version"]),
+        contentVersion: json["content_version"] == null ? undefined : ReleasecontentsReleaseContentVersionResponseV1FromJSON(json["content_version"]),
         description: json["description"] == null ? undefined : json["description"],
         id: json["id"],
         jiraTicket: json["jira_ticket"] == null ? undefined : json["jira_ticket"],

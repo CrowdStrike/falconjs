@@ -934,7 +934,7 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all rule version IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on,state,version,rule_id Supported range filters: created_on,last_updated_on
+     * Find all rule version IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on,state,version,rule_id,executor_rule_id Supported range filters: created_on,last_updated_on
      */
     async queriesRulesGetV2Raw(
         requestParameters: CorrelationRulesApiQueriesRulesGetV2Request,
@@ -983,7 +983,7 @@ export class CorrelationRulesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Find all rule version IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on,state,version,rule_id Supported range filters: created_on,last_updated_on
+     * Find all rule version IDs matching the query and filter. Supported filters: customer_id,user_id,user_uuid,status,name,created_on,last_updated_on,state,version,rule_id,executor_rule_id Supported range filters: created_on,last_updated_on
      */
     async queriesRulesGetV2(
         filter?: string,

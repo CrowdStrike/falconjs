@@ -74,6 +74,12 @@ export interface ApiTemplateV1 {
     fields?: Array<ApiFieldV1>;
     /**
      *
+     * @type {boolean}
+     * @memberof ApiTemplateV1
+     */
+    hasAccess: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ApiTemplateV1
      */
@@ -136,6 +142,7 @@ export function instanceOfApiTemplateV1(value: object): value is ApiTemplateV1 {
     if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
     if (!("createdByName" in value) || value["createdByName"] === undefined) return false;
     if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
+    if (!("hasAccess" in value) || value["hasAccess"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("updatedBy" in value) || value["updatedBy"] === undefined) return false;
@@ -160,6 +167,7 @@ export function ApiTemplateV1FromJSONTyped(json: any, ignoreDiscriminator: boole
         createdTimestamp: new Date(json["created_timestamp"]),
         description: json["description"] == null ? undefined : json["description"],
         fields: json["fields"] == null ? undefined : (json["fields"] as Array<any>).map(ApiFieldV1FromJSON),
+        hasAccess: json["has_access"],
         id: json["id"],
         name: json["name"],
         slaId: json["sla_id"] == null ? undefined : json["sla_id"],
@@ -184,6 +192,7 @@ export function ApiTemplateV1ToJSON(value?: ApiTemplateV1 | null): any {
         created_timestamp: value["createdTimestamp"].toISOString(),
         description: value["description"],
         fields: value["fields"] == null ? undefined : (value["fields"] as Array<any>).map(ApiFieldV1ToJSON),
+        has_access: value["hasAccess"],
         id: value["id"],
         name: value["name"],
         sla_id: value["slaId"],

@@ -33,6 +33,8 @@ import {
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
+import type { CorrelationrulesapiAnomalyV1 } from "./CorrelationrulesapiAnomalyV1";
+import { CorrelationrulesapiAnomalyV1FromJSON, CorrelationrulesapiAnomalyV1FromJSONTyped, CorrelationrulesapiAnomalyV1ToJSON } from "./CorrelationrulesapiAnomalyV1";
 
 /**
  *
@@ -40,6 +42,12 @@ import {
  * @interface CorrelationrulesapiRuleCreateRequestV1
  */
 export interface CorrelationrulesapiRuleCreateRequestV1 {
+    /**
+     *
+     * @type {CorrelationrulesapiAnomalyV1}
+     * @memberof CorrelationrulesapiRuleCreateRequestV1
+     */
+    anomaly?: CorrelationrulesapiAnomalyV1;
     /**
      *
      * @type {string}
@@ -155,6 +163,7 @@ export function CorrelationrulesapiRuleCreateRequestV1FromJSONTyped(json: any, i
         return json;
     }
     return {
+        anomaly: json["anomaly"] == null ? undefined : CorrelationrulesapiAnomalyV1FromJSON(json["anomaly"]),
         comment: json["comment"] == null ? undefined : json["comment"],
         customerId: json["customer_id"],
         description: json["description"] == null ? undefined : json["description"],
@@ -178,6 +187,7 @@ export function CorrelationrulesapiRuleCreateRequestV1ToJSON(value?: Correlation
         return value;
     }
     return {
+        anomaly: CorrelationrulesapiAnomalyV1ToJSON(value["anomaly"]),
         comment: value["comment"],
         customer_id: value["customerId"],
         description: value["description"],

@@ -129,6 +129,12 @@ export interface DomainNotificationV1 {
      */
     logs?: Array<SadomainNotificationLog>;
     /**
+     *
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    notificationGroupId?: string;
+    /**
      * ID of the raw intel item that matched the rule
      * @type {string}
      * @memberof DomainNotificationV1
@@ -249,6 +255,7 @@ export function DomainNotificationV1FromJSONTyped(json: any, ignoreDiscriminator
         itemSiteId: json["item_site_id"] == null ? undefined : json["item_site_id"],
         itemType: json["item_type"],
         logs: json["logs"] == null ? undefined : (json["logs"] as Array<any>).map(SadomainNotificationLogFromJSON),
+        notificationGroupId: json["notification_group_id"] == null ? undefined : json["notification_group_id"],
         rawIntelId: json["raw_intel_id"],
         ruleCreatorName: json["rule_creator_name"] == null ? undefined : json["rule_creator_name"],
         ruleCreatorUid: json["rule_creator_uid"] == null ? undefined : json["rule_creator_uid"],
@@ -286,6 +293,7 @@ export function DomainNotificationV1ToJSON(value?: DomainNotificationV1 | null):
         item_site_id: value["itemSiteId"],
         item_type: value["itemType"],
         logs: value["logs"] == null ? undefined : (value["logs"] as Array<any>).map(SadomainNotificationLogToJSON),
+        notification_group_id: value["notificationGroupId"],
         raw_intel_id: value["rawIntelId"],
         rule_creator_name: value["ruleCreatorName"],
         rule_creator_uid: value["ruleCreatorUid"],

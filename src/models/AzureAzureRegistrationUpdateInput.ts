@@ -79,6 +79,12 @@ export interface AzureAzureRegistrationUpdateInput {
      * @type {string}
      * @memberof AzureAzureRegistrationUpdateInput
      */
+    csInfraSubscriptionName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureAzureRegistrationUpdateInput
+     */
     deploymentMethod?: string;
     /**
      *
@@ -121,7 +127,7 @@ export interface AzureAzureRegistrationUpdateInput {
      * @type {Array<string>}
      * @memberof AzureAzureRegistrationUpdateInput
      */
-    dspmRegions?: Array<string>;
+    dspmRegions: Array<string>;
     /**
      *
      * @type {string}
@@ -154,10 +160,34 @@ export interface AzureAzureRegistrationUpdateInput {
     microsoftGraphPermissionIdsReadonly?: boolean;
     /**
      *
+     * @type {string}
+     * @memberof AzureAzureRegistrationUpdateInput
+     */
+    primaryDomain: string;
+    /**
+     *
      * @type {Array<DomainProductFeatures>}
      * @memberof AzureAzureRegistrationUpdateInput
      */
     products?: Array<DomainProductFeatures>;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureAzureRegistrationUpdateInput
+     */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureAzureRegistrationUpdateInput
+     */
+    registrationId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureAzureRegistrationUpdateInput
+     */
+    registrationName?: string;
     /**
      *
      * @type {string}
@@ -224,9 +254,11 @@ export type AzureAzureRegistrationUpdateInputDspmNetworkConfigurationTypeEnum =
  */
 export function instanceOfAzureAzureRegistrationUpdateInput(value: object): value is AzureAzureRegistrationUpdateInput {
     if (!("additionalFeatures" in value) || value["additionalFeatures"] === undefined) return false;
+    if (!("dspmRegions" in value) || value["dspmRegions"] === undefined) return false;
     if (!("eventHubSettings" in value) || value["eventHubSettings"] === undefined) return false;
     if (!("managementGroupIds" in value) || value["managementGroupIds"] === undefined) return false;
     if (!("microsoftGraphPermissionIds" in value) || value["microsoftGraphPermissionIds"] === undefined) return false;
+    if (!("primaryDomain" in value) || value["primaryDomain"] === undefined) return false;
     if (!("subscriptionIds" in value) || value["subscriptionIds"] === undefined) return false;
     if (!("tags" in value) || value["tags"] === undefined) return false;
     if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
@@ -250,6 +282,7 @@ export function AzureAzureRegistrationUpdateInputFromJSONTyped(json: any, ignore
         apiClientKeyType: json["api_client_key_type"] == null ? undefined : json["api_client_key_type"],
         csInfraRegion: json["cs_infra_region"] == null ? undefined : json["cs_infra_region"],
         csInfraSubscriptionId: json["cs_infra_subscription_id"] == null ? undefined : json["cs_infra_subscription_id"],
+        csInfraSubscriptionName: json["cs_infra_subscription_name"] == null ? undefined : json["cs_infra_subscription_name"],
         deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
         deploymentStackHostId: json["deployment_stack_host_id"] == null ? undefined : json["deployment_stack_host_id"],
         deploymentStackHostRegion: json["deployment_stack_host_region"] == null ? undefined : json["deployment_stack_host_region"],
@@ -257,13 +290,17 @@ export function AzureAzureRegistrationUpdateInputFromJSONTyped(json: any, ignore
         dspmCustomVnetConfiguration: json["dspm_custom_vnet_configuration"] == null ? undefined : mapValues(json["dspm_custom_vnet_configuration"], AzureDSPMRegionCustomNetworkConfigurationFromJSON),
         dspmHostSubscriptionId: json["dspm_host_subscription_id"] == null ? undefined : json["dspm_host_subscription_id"],
         dspmNetworkConfigurationType: json["dspm_network_configuration_type"] == null ? undefined : json["dspm_network_configuration_type"],
-        dspmRegions: json["dspm_regions"] == null ? undefined : json["dspm_regions"],
+        dspmRegions: json["dspm_regions"],
         environment: json["environment"] == null ? undefined : json["environment"],
         eventHubSettings: (json["event_hub_settings"] as Array<any>).map(AzureEventHubSettingsFromJSON),
         managementGroupIds: json["management_group_ids"],
         microsoftGraphPermissionIds: json["microsoft_graph_permission_ids"],
         microsoftGraphPermissionIdsReadonly: json["microsoft_graph_permission_ids_readonly"] == null ? undefined : json["microsoft_graph_permission_ids_readonly"],
+        primaryDomain: json["primary_domain"],
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(DomainProductFeaturesFromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
+        registrationId: json["registration_id"] == null ? undefined : json["registration_id"],
+        registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
         resourceNameSuffix: json["resource_name_suffix"] == null ? undefined : json["resource_name_suffix"],
         status: json["status"] == null ? undefined : json["status"],
@@ -287,6 +324,7 @@ export function AzureAzureRegistrationUpdateInputToJSON(value?: AzureAzureRegist
         api_client_key_type: value["apiClientKeyType"],
         cs_infra_region: value["csInfraRegion"],
         cs_infra_subscription_id: value["csInfraSubscriptionId"],
+        cs_infra_subscription_name: value["csInfraSubscriptionName"],
         deployment_method: value["deploymentMethod"],
         deployment_stack_host_id: value["deploymentStackHostId"],
         deployment_stack_host_region: value["deploymentStackHostRegion"],
@@ -300,7 +338,11 @@ export function AzureAzureRegistrationUpdateInputToJSON(value?: AzureAzureRegist
         management_group_ids: value["managementGroupIds"],
         microsoft_graph_permission_ids: value["microsoftGraphPermissionIds"],
         microsoft_graph_permission_ids_readonly: value["microsoftGraphPermissionIdsReadonly"],
+        primary_domain: value["primaryDomain"],
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
+        registration_description: value["registrationDescription"],
+        registration_id: value["registrationId"],
+        registration_name: value["registrationName"],
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
         status: value["status"],

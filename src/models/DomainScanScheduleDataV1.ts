@@ -30,6 +30,12 @@ export interface DomainScanScheduleDataV1 {
      * @type {Date}
      * @memberof DomainScanScheduleDataV1
      */
+    lastScanCompletedAt?: Date;
+    /**
+     *
+     * @type {Date}
+     * @memberof DomainScanScheduleDataV1
+     */
     nextScanTimestamp?: Date;
     /**
      *
@@ -63,6 +69,7 @@ export function DomainScanScheduleDataV1FromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         cloudPlatform: json["cloud_platform"],
+        lastScanCompletedAt: json["last_scan_completed_at"] == null ? undefined : new Date(json["last_scan_completed_at"]),
         nextScanTimestamp: json["next_scan_timestamp"] == null ? undefined : new Date(json["next_scan_timestamp"]),
         scanInterval: json["scan_interval"] == null ? undefined : json["scan_interval"],
         scanSchedule: json["scan_schedule"] == null ? undefined : json["scan_schedule"],
@@ -75,6 +82,7 @@ export function DomainScanScheduleDataV1ToJSON(value?: DomainScanScheduleDataV1 
     }
     return {
         cloud_platform: value["cloudPlatform"],
+        last_scan_completed_at: value["lastScanCompletedAt"] == null ? undefined : value["lastScanCompletedAt"].toISOString(),
         next_scan_timestamp: value["nextScanTimestamp"] == null ? undefined : value["nextScanTimestamp"].toISOString(),
         scan_interval: value["scanInterval"],
         scan_schedule: value["scanSchedule"],

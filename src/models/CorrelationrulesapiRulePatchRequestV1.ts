@@ -33,6 +33,8 @@ import {
     CorrelationrulesapiPatchRuleOperationV1FromJSONTyped,
     CorrelationrulesapiPatchRuleOperationV1ToJSON,
 } from "./CorrelationrulesapiPatchRuleOperationV1";
+import type { CorrelationrulesapiPatchAnomalyV1 } from "./CorrelationrulesapiPatchAnomalyV1";
+import { CorrelationrulesapiPatchAnomalyV1FromJSON, CorrelationrulesapiPatchAnomalyV1FromJSONTyped, CorrelationrulesapiPatchAnomalyV1ToJSON } from "./CorrelationrulesapiPatchAnomalyV1";
 
 /**
  *
@@ -40,6 +42,12 @@ import {
  * @interface CorrelationrulesapiRulePatchRequestV1
  */
 export interface CorrelationrulesapiRulePatchRequestV1 {
+    /**
+     *
+     * @type {CorrelationrulesapiPatchAnomalyV1}
+     * @memberof CorrelationrulesapiRulePatchRequestV1
+     */
+    anomaly?: CorrelationrulesapiPatchAnomalyV1;
     /**
      *
      * @type {string}
@@ -143,6 +151,7 @@ export function CorrelationrulesapiRulePatchRequestV1FromJSONTyped(json: any, ig
         return json;
     }
     return {
+        anomaly: json["anomaly"] == null ? undefined : CorrelationrulesapiPatchAnomalyV1FromJSON(json["anomaly"]),
         comment: json["comment"] == null ? undefined : json["comment"],
         description: json["description"] == null ? undefined : json["description"],
         guardrailNotifications: json["guardrail_notifications"] == null ? undefined : (json["guardrail_notifications"] as Array<any>).map(CorrelationrulesapiPatchRuleNotificationsV1FromJSON),
@@ -165,6 +174,7 @@ export function CorrelationrulesapiRulePatchRequestV1ToJSON(value?: Correlationr
         return value;
     }
     return {
+        anomaly: CorrelationrulesapiPatchAnomalyV1ToJSON(value["anomaly"]),
         comment: value["comment"],
         description: value["description"],
         guardrail_notifications: value["guardrailNotifications"] == null ? undefined : (value["guardrailNotifications"] as Array<any>).map(CorrelationrulesapiPatchRuleNotificationsV1ToJSON),

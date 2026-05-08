@@ -54,9 +54,21 @@ export interface PolicymanagerExternalRule {
      * @type {boolean}
      * @memberof PolicymanagerExternalRule
      */
+    enableLocalApplicationGroups: boolean;
+    /**
+     * Warning(Windows): Filepath, file type and sensitivity label conditions are not supported
+     * @type {boolean}
+     * @memberof PolicymanagerExternalRule
+     */
     enablePrinterEgress: boolean;
     /**
-     *
+     * Enable screen capture for this rule, the policy this classification is attached to should have screen capture enabled as a prerequisite
+     * @type {boolean}
+     * @memberof PolicymanagerExternalRule
+     */
+    enableScreenCaptureRule: boolean;
+    /**
+     * Warning: File path conditions are partially supported; file name and extension matching only; full file paths are not supported
      * @type {boolean}
      * @memberof PolicymanagerExternalRule
      */
@@ -73,6 +85,12 @@ export interface PolicymanagerExternalRule {
      * @memberof PolicymanagerExternalRule
      */
     id: string;
+    /**
+     * List of local application groups. Maximum of 15 unique UUID groups are allowed
+     * @type {Array<string>}
+     * @memberof PolicymanagerExternalRule
+     */
+    localApplicationGroups: Array<string>;
     /**
      *
      * @type {string}
@@ -165,10 +183,13 @@ export function instanceOfPolicymanagerExternalRule(value: object): value is Pol
     if (!("adUsers" in value) || value["adUsers"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
     if (!("detectionSeverity" in value) || value["detectionSeverity"] === undefined) return false;
+    if (!("enableLocalApplicationGroups" in value) || value["enableLocalApplicationGroups"] === undefined) return false;
     if (!("enablePrinterEgress" in value) || value["enablePrinterEgress"] === undefined) return false;
+    if (!("enableScreenCaptureRule" in value) || value["enableScreenCaptureRule"] === undefined) return false;
     if (!("enableUsbDevices" in value) || value["enableUsbDevices"] === undefined) return false;
     if (!("enableWebLocations" in value) || value["enableWebLocations"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("localApplicationGroups" in value) || value["localApplicationGroups"] === undefined) return false;
     if (!("notifyEndUser" in value) || value["notifyEndUser"] === undefined) return false;
     if (!("responseAction" in value) || value["responseAction"] === undefined) return false;
     if (!("triggerDetection" in value) || value["triggerDetection"] === undefined) return false;
@@ -192,10 +213,13 @@ export function PolicymanagerExternalRuleFromJSONTyped(json: any, ignoreDiscrimi
         createdTimeStamp: json["created_time_stamp"] == null ? undefined : json["created_time_stamp"],
         description: json["description"],
         detectionSeverity: json["detection_severity"],
+        enableLocalApplicationGroups: json["enable_local_application_groups"],
         enablePrinterEgress: json["enable_printer_egress"],
+        enableScreenCaptureRule: json["enable_screen_capture_rule"],
         enableUsbDevices: json["enable_usb_devices"],
         enableWebLocations: json["enable_web_locations"],
         id: json["id"],
+        localApplicationGroups: json["local_application_groups"],
         modifiedTimeStamp: json["modified_time_stamp"] == null ? undefined : json["modified_time_stamp"],
         notifyEndUser: json["notify_end_user"],
         responseAction: json["response_action"],
@@ -216,10 +240,13 @@ export function PolicymanagerExternalRuleToJSON(value?: PolicymanagerExternalRul
         created_time_stamp: value["createdTimeStamp"],
         description: value["description"],
         detection_severity: value["detectionSeverity"],
+        enable_local_application_groups: value["enableLocalApplicationGroups"],
         enable_printer_egress: value["enablePrinterEgress"],
+        enable_screen_capture_rule: value["enableScreenCaptureRule"],
         enable_usb_devices: value["enableUsbDevices"],
         enable_web_locations: value["enableWebLocations"],
         id: value["id"],
+        local_application_groups: value["localApplicationGroups"],
         modified_time_stamp: value["modifiedTimeStamp"],
         notify_end_user: value["notifyEndUser"],
         response_action: value["responseAction"],

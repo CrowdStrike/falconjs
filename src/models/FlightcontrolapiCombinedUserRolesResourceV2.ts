@@ -84,6 +84,12 @@ export interface FlightcontrolapiCombinedUserRolesResourceV2 {
      * @type {string}
      * @memberof FlightcontrolapiCombinedUserRolesResourceV2
      */
+    userType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof FlightcontrolapiCombinedUserRolesResourceV2
+     */
     uuid?: string;
 }
 
@@ -114,6 +120,7 @@ export function FlightcontrolapiCombinedUserRolesResourceV2FromJSONTyped(json: a
         roleName: json["role_name"] == null ? undefined : json["role_name"],
         userGroupId: json["user_group_id"] == null ? undefined : json["user_group_id"],
         userGroupName: json["user_group_name"] == null ? undefined : json["user_group_name"],
+        userType: json["user_type"] == null ? undefined : json["user_type"],
         uuid: json["uuid"] == null ? undefined : json["uuid"],
     };
 }
@@ -133,6 +140,7 @@ export function FlightcontrolapiCombinedUserRolesResourceV2ToJSON(value?: Flight
         role_name: value["roleName"],
         user_group_id: value["userGroupId"],
         user_group_name: value["userGroupName"],
+        user_type: value["userType"],
         uuid: value["uuid"],
     };
 }

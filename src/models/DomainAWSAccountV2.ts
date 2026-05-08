@@ -118,6 +118,12 @@ export interface DomainAWSAccountV2 {
     cid?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainAWSAccountV2
+     */
+    cloudRegistrationEnabled?: boolean;
+    /**
+     *
      * @type {Array<DomainCloudScope>}
      * @memberof DomainAWSAccountV2
      */
@@ -426,6 +432,7 @@ export function DomainAWSAccountV2FromJSONTyped(json: any, ignoreDiscriminator: 
         awsPermissionsStatus: (json["aws_permissions_status"] as Array<any>).map(DomainPermissionFromJSON),
         behaviorAssessmentEnabled: json["behavior_assessment_enabled"] == null ? undefined : json["behavior_assessment_enabled"],
         cid: json["cid"] == null ? undefined : json["cid"],
+        cloudRegistrationEnabled: json["cloud_registration_enabled"] == null ? undefined : json["cloud_registration_enabled"],
         cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
         cloudformationRootStackArn: json["cloudformation_root_stack_arn"] == null ? undefined : json["cloudformation_root_stack_arn"],
         cloudformationUpdateUrl: json["cloudformation_update_url"] == null ? undefined : json["cloudformation_update_url"],
@@ -493,6 +500,7 @@ export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any
         aws_permissions_status: (value["awsPermissionsStatus"] as Array<any>).map(DomainPermissionToJSON),
         behavior_assessment_enabled: value["behaviorAssessmentEnabled"],
         cid: value["cid"],
+        cloud_registration_enabled: value["cloudRegistrationEnabled"],
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
         cloudformation_root_stack_arn: value["cloudformationRootStackArn"],
         cloudformation_update_url: value["cloudformationUpdateUrl"],

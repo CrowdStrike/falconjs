@@ -24,28 +24,25 @@ export interface ApiEnterpriseAccountUpdateRequestV1 {
      * @type {Array<string>}
      * @memberof ApiEnterpriseAccountUpdateRequestV1
      */
-    domains: Array<string>;
+    domains?: Array<string>;
     /**
      *
      * @type {string}
      * @memberof ApiEnterpriseAccountUpdateRequestV1
      */
-    id: string;
+    id?: string;
     /**
      *
      * @type {string}
      * @memberof ApiEnterpriseAccountUpdateRequestV1
      */
-    name: string;
+    name?: string;
 }
 
 /**
  * Check if a given object implements the ApiEnterpriseAccountUpdateRequestV1 interface.
  */
 export function instanceOfApiEnterpriseAccountUpdateRequestV1(value: object): value is ApiEnterpriseAccountUpdateRequestV1 {
-    if (!("domains" in value) || value["domains"] === undefined) return false;
-    if (!("id" in value) || value["id"] === undefined) return false;
-    if (!("name" in value) || value["name"] === undefined) return false;
     return true;
 }
 
@@ -58,9 +55,9 @@ export function ApiEnterpriseAccountUpdateRequestV1FromJSONTyped(json: any, igno
         return json;
     }
     return {
-        domains: json["domains"],
-        id: json["id"],
-        name: json["name"],
+        domains: json["domains"] == null ? undefined : json["domains"],
+        id: json["id"] == null ? undefined : json["id"],
+        name: json["name"] == null ? undefined : json["name"],
     };
 }
 

@@ -99,6 +99,7 @@ export interface WorkflowsApiExecutionActionRequest {
 
 export interface WorkflowsApiExecutionResultsRequest {
     ids: Array<string>;
+    skipFields?: Array<string>;
 }
 
 export interface WorkflowsApiPromoteRequest {
@@ -142,6 +143,10 @@ export interface WorkflowsApiWorkflowDefinitionsCombinedRequest {
     sort?: string;
 }
 
+export interface WorkflowsApiWorkflowDefinitionsDeleteRequest {
+    ids: Array<string>;
+}
+
 export interface WorkflowsApiWorkflowDefinitionsExportRequest {
     id: string;
     sanitize?: boolean;
@@ -151,6 +156,7 @@ export interface WorkflowsApiWorkflowDefinitionsImportRequest {
     dataFile: Blob;
     name?: string;
     validateOnly?: boolean;
+    includeActivityMetadata?: boolean;
 }
 
 export interface WorkflowsApiWorkflowDefinitionsUpdateRequest {
@@ -411,6 +417,10 @@ export class WorkflowsApi extends runtime.BaseAPI {
             queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
+        if (requestParameters["skipFields"] != null) {
+            queryParameters["skip_fields"] = requestParameters["skipFields"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -434,8 +444,8 @@ export class WorkflowsApi extends runtime.BaseAPI {
     /**
      * Get execution result of a given execution
      */
-    async executionResults(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiExecutionResultsResponse> {
-        const response = await this.executionResultsRaw({ ids: ids }, initOverrides);
+    async executionResults(ids: Array<string>, skipFields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiExecutionResultsResponse> {
+        const response = await this.executionResultsRaw({ ids: ids, skipFields: skipFields }, initOverrides);
         return await response.value();
     }
 
@@ -807,6 +817,51 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Accepts a list of workflow definition IDs and deletes those definitions and all their associated versions.
+     */
+    async workflowDefinitionsDeleteRaw(
+        requestParameters: WorkflowsApiWorkflowDefinitionsDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DefinitionsDefinitionEntitiesResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling workflowDefinitionsDelete().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/workflows/entities/definitions/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DefinitionsDefinitionEntitiesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Accepts a list of workflow definition IDs and deletes those definitions and all their associated versions.
+     */
+    async workflowDefinitionsDelete(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DefinitionsDefinitionEntitiesResponse> {
+        const response = await this.workflowDefinitionsDeleteRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Exports a workflow definition for the given definition ID
      */
     async workflowDefinitionsExportRaw(
@@ -876,6 +931,10 @@ export class WorkflowsApi extends runtime.BaseAPI {
             queryParameters["validate_only"] = requestParameters["validateOnly"];
         }
 
+        if (requestParameters["includeActivityMetadata"] != null) {
+            queryParameters["include_activity_metadata"] = requestParameters["includeActivityMetadata"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -918,8 +977,14 @@ export class WorkflowsApi extends runtime.BaseAPI {
     /**
      * Imports a workflow definition based on the provided model
      */
-    async workflowDefinitionsImport(dataFile: Blob, name?: string, validateOnly?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DefinitionsDefinitionImportResponse> {
-        const response = await this.workflowDefinitionsImportRaw({ dataFile: dataFile, name: name, validateOnly: validateOnly }, initOverrides);
+    async workflowDefinitionsImport(
+        dataFile: Blob,
+        name?: string,
+        validateOnly?: boolean,
+        includeActivityMetadata?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DefinitionsDefinitionImportResponse> {
+        const response = await this.workflowDefinitionsImportRaw({ dataFile: dataFile, name: name, validateOnly: validateOnly, includeActivityMetadata: includeActivityMetadata }, initOverrides);
         return await response.value();
     }
 

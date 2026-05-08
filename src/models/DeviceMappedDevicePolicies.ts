@@ -27,6 +27,12 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    aidr?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     airlock?: DeviceDevicePolicy;
     /**
      *
@@ -244,6 +250,7 @@ export function DeviceMappedDevicePoliciesFromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
+        aidr: json["aidr"] == null ? undefined : DeviceDevicePolicyFromJSON(json["aidr"]),
         airlock: json["airlock"] == null ? undefined : DeviceDevicePolicyFromJSON(json["airlock"]),
         applicationAbusePrevention: json["application-abuse-prevention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["application-abuse-prevention"]),
         automox: json["automox"] == null ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
@@ -286,6 +293,7 @@ export function DeviceMappedDevicePoliciesToJSON(value?: DeviceMappedDevicePolic
         return value;
     }
     return {
+        aidr: DeviceDevicePolicyToJSON(value["aidr"]),
         airlock: DeviceDevicePolicyToJSON(value["airlock"]),
         "application-abuse-prevention": DeviceDevicePolicyToJSON(value["applicationAbusePrevention"]),
         automox: DeviceDevicePolicyToJSON(value["automox"]),

@@ -26,6 +26,12 @@ import { DomainScheduleFromJSON, DomainScheduleFromJSONTyped, DomainScheduleToJS
 export interface DomainScanProfile {
     /**
      *
+     * @type {number}
+     * @memberof DomainScanProfile
+     */
+    channelFileStatus?: number;
+    /**
+     *
      * @type {string}
      * @memberof DomainScanProfile
      */
@@ -276,6 +282,12 @@ export interface DomainScanProfile {
      * @memberof DomainScanProfile
      */
     targetedHostCount?: number;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DomainScanProfile
+     */
+    targetedPlatforms?: Array<string>;
 }
 
 /**
@@ -296,6 +308,7 @@ export function DomainScanProfileFromJSONTyped(json: any, ignoreDiscriminator: b
         return json;
     }
     return {
+        channelFileStatus: json["channel_file_status"] == null ? undefined : json["channel_file_status"],
         cid: json["cid"] == null ? undefined : json["cid"],
         cloudMlLevelDetection: json["cloud_ml_level_detection"] == null ? undefined : json["cloud_ml_level_detection"],
         cloudMlLevelPrevention: json["cloud_ml_level_prevention"] == null ? undefined : json["cloud_ml_level_prevention"],
@@ -338,6 +351,7 @@ export function DomainScanProfileFromJSONTyped(json: any, ignoreDiscriminator: b
         sensorMlLevelPrevention: json["sensor_ml_level_prevention"] == null ? undefined : json["sensor_ml_level_prevention"],
         status: json["status"] == null ? undefined : json["status"],
         targetedHostCount: json["targeted_host_count"] == null ? undefined : json["targeted_host_count"],
+        targetedPlatforms: json["targeted_platforms"] == null ? undefined : json["targeted_platforms"],
     };
 }
 
@@ -346,6 +360,7 @@ export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
         return value;
     }
     return {
+        channel_file_status: value["channelFileStatus"],
         cid: value["cid"],
         cloud_ml_level_detection: value["cloudMlLevelDetection"],
         cloud_ml_level_prevention: value["cloudMlLevelPrevention"],
@@ -388,5 +403,6 @@ export function DomainScanProfileToJSON(value?: DomainScanProfile | null): any {
         sensor_ml_level_prevention: value["sensorMlLevelPrevention"],
         status: value["status"],
         targeted_host_count: value["targetedHostCount"],
+        targeted_platforms: value["targetedPlatforms"],
     };
 }

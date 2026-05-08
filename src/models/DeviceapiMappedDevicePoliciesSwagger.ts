@@ -27,6 +27,12 @@ export interface DeviceapiMappedDevicePoliciesSwagger {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
+    aidr?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceapiMappedDevicePoliciesSwagger
+     */
     airlock?: DeviceDevicePolicy;
     /**
      *
@@ -238,6 +244,7 @@ export function DeviceapiMappedDevicePoliciesSwaggerFromJSONTyped(json: any, ign
         return json;
     }
     return {
+        aidr: json["aidr"] == null ? undefined : DeviceDevicePolicyFromJSON(json["aidr"]),
         airlock: json["airlock"] == null ? undefined : DeviceDevicePolicyFromJSON(json["airlock"]),
         applicationAbusePrevention: json["application-abuse-prevention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["application-abuse-prevention"]),
         automox: json["automox"] == null ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
@@ -279,6 +286,7 @@ export function DeviceapiMappedDevicePoliciesSwaggerToJSON(value?: DeviceapiMapp
         return value;
     }
     return {
+        aidr: DeviceDevicePolicyToJSON(value["aidr"]),
         airlock: DeviceDevicePolicyToJSON(value["airlock"]),
         "application-abuse-prevention": DeviceDevicePolicyToJSON(value["applicationAbusePrevention"]),
         automox: DeviceDevicePolicyToJSON(value["automox"]),

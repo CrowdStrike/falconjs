@@ -17,6 +17,8 @@ import type { QuickscanproURLResult } from "./QuickscanproURLResult";
 import { QuickscanproURLResultFromJSON, QuickscanproURLResultFromJSONTyped, QuickscanproURLResultToJSON } from "./QuickscanproURLResult";
 import type { DomainMITREAttack } from "./DomainMITREAttack";
 import { DomainMITREAttackFromJSON, DomainMITREAttackFromJSONTyped, DomainMITREAttackToJSON } from "./DomainMITREAttack";
+import type { QuickscanproArtifactsTree } from "./QuickscanproArtifactsTree";
+import { QuickscanproArtifactsTreeFromJSON, QuickscanproArtifactsTreeFromJSONTyped, QuickscanproArtifactsTreeToJSON } from "./QuickscanproArtifactsTree";
 import type { QuickscanproFileResult } from "./QuickscanproFileResult";
 import { QuickscanproFileResultFromJSON, QuickscanproFileResultFromJSONTyped, QuickscanproFileResultToJSON } from "./QuickscanproFileResult";
 
@@ -26,6 +28,18 @@ import { QuickscanproFileResultFromJSON, QuickscanproFileResultFromJSONTyped, Qu
  * @interface QuickscanproScanResult
  */
 export interface QuickscanproScanResult {
+    /**
+     *
+     * @type {string}
+     * @memberof QuickscanproScanResult
+     */
+    adversary?: string;
+    /**
+     *
+     * @type {QuickscanproArtifactsTree}
+     * @memberof QuickscanproScanResult
+     */
+    artifactsTree?: QuickscanproArtifactsTree;
     /**
      *
      * @type {object}
@@ -49,7 +63,25 @@ export interface QuickscanproScanResult {
      * @type {string}
      * @memberof QuickscanproScanResult
      */
+    fileType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof QuickscanproScanResult
+     */
     fileTypeShort?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof QuickscanproScanResult
+     */
+    firstContentBytesAscii?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof QuickscanproScanResult
+     */
+    firstContentBytesHex?: string;
     /**
      *
      * @type {number}
@@ -58,10 +90,28 @@ export interface QuickscanproScanResult {
     maliciousConfidence: number;
     /**
      *
+     * @type {{ [key: string]: Array<string>; }}
+     * @memberof QuickscanproScanResult
+     */
+    malwareConfig?: { [key: string]: Array<string> };
+    /**
+     *
+     * @type {string}
+     * @memberof QuickscanproScanResult
+     */
+    mimeType?: string;
+    /**
+     *
      * @type {Array<DomainMITREAttack>}
      * @memberof QuickscanproScanResult
      */
     mitreAttacks?: Array<DomainMITREAttack>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof QuickscanproScanResult
+     */
+    staticIndicators?: Array<string>;
     /**
      *
      * @type {Array<QuickscanproURLResult>}
@@ -80,6 +130,12 @@ export interface QuickscanproScanResult {
      * @memberof QuickscanproScanResult
      */
     verdictReason: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof QuickscanproScanResult
+     */
+    verdictReasons?: Array<string>;
     /**
      *
      * @type {Array<string>}
@@ -120,15 +176,24 @@ export function QuickscanproScanResultFromJSONTyped(json: any, ignoreDiscriminat
         return json;
     }
     return {
+        adversary: json["adversary"] == null ? undefined : json["adversary"],
+        artifactsTree: json["artifacts_tree"] == null ? undefined : QuickscanproArtifactsTreeFromJSON(json["artifacts_tree"]),
         betaIntelligenceContext: json["beta_intelligence_context"] == null ? undefined : json["beta_intelligence_context"],
         fileArtifacts: (json["file_artifacts"] as Array<any>).map(QuickscanproFileResultFromJSON),
         fileSize: json["file_size"] == null ? undefined : json["file_size"],
+        fileType: json["file_type"] == null ? undefined : json["file_type"],
         fileTypeShort: json["file_type_short"] == null ? undefined : json["file_type_short"],
+        firstContentBytesAscii: json["first_content_bytes_ascii"] == null ? undefined : json["first_content_bytes_ascii"],
+        firstContentBytesHex: json["first_content_bytes_hex"] == null ? undefined : json["first_content_bytes_hex"],
         maliciousConfidence: json["malicious_confidence"],
+        malwareConfig: json["malware_config"] == null ? undefined : json["malware_config"],
+        mimeType: json["mime_type"] == null ? undefined : json["mime_type"],
         mitreAttacks: json["mitre_attacks"] == null ? undefined : (json["mitre_attacks"] as Array<any>).map(DomainMITREAttackFromJSON),
+        staticIndicators: json["static_indicators"] == null ? undefined : json["static_indicators"],
         urlArtifacts: json["url_artifacts"] == null ? undefined : (json["url_artifacts"] as Array<any>).map(QuickscanproURLResultFromJSON),
         verdict: json["verdict"],
         verdictReason: json["verdict_reason"],
+        verdictReasons: json["verdict_reasons"] == null ? undefined : json["verdict_reasons"],
         verdictSource: json["verdict_source"] == null ? undefined : json["verdict_source"],
     };
 }
@@ -138,15 +203,24 @@ export function QuickscanproScanResultToJSON(value?: QuickscanproScanResult | nu
         return value;
     }
     return {
+        adversary: value["adversary"],
+        artifacts_tree: QuickscanproArtifactsTreeToJSON(value["artifactsTree"]),
         beta_intelligence_context: value["betaIntelligenceContext"],
         file_artifacts: (value["fileArtifacts"] as Array<any>).map(QuickscanproFileResultToJSON),
         file_size: value["fileSize"],
+        file_type: value["fileType"],
         file_type_short: value["fileTypeShort"],
+        first_content_bytes_ascii: value["firstContentBytesAscii"],
+        first_content_bytes_hex: value["firstContentBytesHex"],
         malicious_confidence: value["maliciousConfidence"],
+        malware_config: value["malwareConfig"],
+        mime_type: value["mimeType"],
         mitre_attacks: value["mitreAttacks"] == null ? undefined : (value["mitreAttacks"] as Array<any>).map(DomainMITREAttackToJSON),
+        static_indicators: value["staticIndicators"],
         url_artifacts: value["urlArtifacts"] == null ? undefined : (value["urlArtifacts"] as Array<any>).map(QuickscanproURLResultToJSON),
         verdict: value["verdict"],
         verdict_reason: value["verdictReason"],
+        verdict_reasons: value["verdictReasons"],
         verdict_source: value["verdictSource"],
     };
 }

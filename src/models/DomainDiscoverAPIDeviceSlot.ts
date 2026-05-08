@@ -56,11 +56,23 @@ export interface DomainDiscoverAPIDeviceSlot {
      */
     slotNumber?: number;
     /**
+     * The PLC mode of the slot
+     * @type {string}
+     * @memberof DomainDiscoverAPIDeviceSlot
+     */
+    slotPlcMode?: string;
+    /**
      * The Serial Number of the Rack Slot of IoT Asset
      * @type {string}
      * @memberof DomainDiscoverAPIDeviceSlot
      */
     slotSerialNumber?: string;
+    /**
+     * The ICS ID of the child device discovered through this slot
+     * @type {string}
+     * @memberof DomainDiscoverAPIDeviceSlot
+     */
+    slotTargetIcsId?: string;
     /**
      * The IoT asset's slot type
      * @type {string}
@@ -97,7 +109,9 @@ export function DomainDiscoverAPIDeviceSlotFromJSONTyped(json: any, ignoreDiscri
         slotModel: json["slot_model"] == null ? undefined : json["slot_model"],
         slotName: json["slot_name"] == null ? undefined : json["slot_name"],
         slotNumber: json["slot_number"] == null ? undefined : json["slot_number"],
+        slotPlcMode: json["slot_plc_mode"] == null ? undefined : json["slot_plc_mode"],
         slotSerialNumber: json["slot_serial_number"] == null ? undefined : json["slot_serial_number"],
+        slotTargetIcsId: json["slot_target_ics_id"] == null ? undefined : json["slot_target_ics_id"],
         slotType: json["slot_type"] == null ? undefined : json["slot_type"],
         slotVendor: json["slot_vendor"] == null ? undefined : json["slot_vendor"],
     };
@@ -114,7 +128,9 @@ export function DomainDiscoverAPIDeviceSlotToJSON(value?: DomainDiscoverAPIDevic
         slot_model: value["slotModel"],
         slot_name: value["slotName"],
         slot_number: value["slotNumber"],
+        slot_plc_mode: value["slotPlcMode"],
         slot_serial_number: value["slotSerialNumber"],
+        slot_target_ics_id: value["slotTargetIcsId"],
         slot_type: value["slotType"],
         slot_vendor: value["slotVendor"],
     };

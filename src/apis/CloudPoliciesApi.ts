@@ -30,6 +30,7 @@ import type {
     CommonDeleteRuleOverrideResponse,
     CommonDeleteRuleResponse,
     CommonEntitiesResponse,
+    CommonEvaluationRequestPayload,
     CommonGetComplianceControlsResponse,
     CommonGetComplianceFrameworksResponse,
     CommonGetRuleOverrideResponse,
@@ -44,7 +45,6 @@ import type {
     CommonUpdateRuleOverrideResponse,
     CommonUpdateRuleRequest,
     MsaReplyMetaOnly,
-    RuleevaluatorRuleLogicPayload,
     SuppressionrulesCreateSuppressionRuleRequest,
     SuppressionrulesCreateSuppressionRuleResponse,
     SuppressionrulesDeleteSuppressionRulesResponse,
@@ -86,6 +86,8 @@ import {
     CommonDeleteRuleResponseToJSON,
     CommonEntitiesResponseFromJSON,
     CommonEntitiesResponseToJSON,
+    CommonEvaluationRequestPayloadFromJSON,
+    CommonEvaluationRequestPayloadToJSON,
     CommonGetComplianceControlsResponseFromJSON,
     CommonGetComplianceControlsResponseToJSON,
     CommonGetComplianceFrameworksResponseFromJSON,
@@ -114,8 +116,6 @@ import {
     CommonUpdateRuleRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RuleevaluatorRuleLogicPayloadFromJSON,
-    RuleevaluatorRuleLogicPayloadToJSON,
     SuppressionrulesCreateSuppressionRuleRequestFromJSON,
     SuppressionrulesCreateSuppressionRuleRequestToJSON,
     SuppressionrulesCreateSuppressionRuleResponseFromJSON,
@@ -131,6 +131,10 @@ import {
     SuppressionrulesUpdateSuppressionRuleResponseFromJSON,
     SuppressionrulesUpdateSuppressionRuleResponseToJSON,
 } from "../models/index";
+
+export interface CloudPoliciesApiCloneComplianceFrameworkRequest {
+    ids: string;
+}
 
 export interface CloudPoliciesApiCreateComplianceControlRequest {
     body: CommonCreateComplianceControlRequest;
@@ -182,10 +186,13 @@ export interface CloudPoliciesApiGetComplianceFrameworksRequest {
 
 export interface CloudPoliciesApiGetEnrichedAssetRequest {
     ids?: Array<string>;
+    domain?: string;
+    subdomain?: string;
+    resourceType?: GetEnrichedAssetResourceTypeEnum;
 }
 
 export interface CloudPoliciesApiGetEvaluationResultRequest {
-    body: RuleevaluatorRuleLogicPayload;
+    body: CommonEvaluationRequestPayload;
     cloudProvider?: GetEvaluationResultCloudProviderEnum;
     resourceType?: string;
     ids?: Array<string>;
@@ -275,6 +282,51 @@ export interface CloudPoliciesApiUpdateSuppressionRuleRequest {
  *
  */
 export class CloudPoliciesApi extends runtime.BaseAPI {
+    /**
+     * Clone an existing compliance framework to create a custom copy
+     */
+    async cloneComplianceFrameworkRaw(
+        requestParameters: CloudPoliciesApiCloneComplianceFrameworkRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CommonCreateComplianceFrameworkResponse>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling cloneComplianceFramework().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-policies:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-policies/entities/compliance/clone-framework/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CommonCreateComplianceFrameworkResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Clone an existing compliance framework to create a custom copy
+     */
+    async cloneComplianceFramework(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCreateComplianceFrameworkResponse> {
+        const response = await this.cloneComplianceFrameworkRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Create a new custom compliance control
      */
@@ -826,6 +878,18 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             queryParameters["ids"] = requestParameters["ids"];
         }
 
+        if (requestParameters["domain"] != null) {
+            queryParameters["domain"] = requestParameters["domain"];
+        }
+
+        if (requestParameters["subdomain"] != null) {
+            queryParameters["subdomain"] = requestParameters["subdomain"];
+        }
+
+        if (requestParameters["resourceType"] != null) {
+            queryParameters["resource_type"] = requestParameters["resourceType"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -849,8 +913,14 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     /**
      * Gets enriched assets that combine a primary resource with all its related resources
      */
-    async getEnrichedAsset(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CommonCursorQueryResponse> {
-        const response = await this.getEnrichedAssetRaw({ ids: ids }, initOverrides);
+    async getEnrichedAsset(
+        ids?: Array<string>,
+        domain?: string,
+        subdomain?: string,
+        resourceType?: GetEnrichedAssetResourceTypeEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CommonCursorQueryResponse> {
+        const response = await this.getEnrichedAssetRaw({ ids: ids, domain: domain, subdomain: subdomain, resourceType: resourceType }, initOverrides);
         return await response.value();
     }
 
@@ -894,7 +964,7 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: RuleevaluatorRuleLogicPayloadToJSON(requestParameters["body"]),
+                body: CommonEvaluationRequestPayloadToJSON(requestParameters["body"]),
             },
             initOverrides,
         );
@@ -906,7 +976,7 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
      * Gets evaluation results based on the provided rule
      */
     async getEvaluationResult(
-        body: RuleevaluatorRuleLogicPayload,
+        body: CommonEvaluationRequestPayload,
         cloudProvider?: GetEvaluationResultCloudProviderEnum,
         resourceType?: string,
         ids?: Array<string>,
@@ -1692,6 +1762,21 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const GetEnrichedAssetResourceTypeEnum = {
+    Cronjobs: "cronjobs",
+    Daemonsets: "daemonsets",
+    Deployments: "deployments",
+    Jobs: "jobs",
+    Pods: "pods",
+    Replicasets: "replicasets",
+    Replicationcontrollers: "replicationcontrollers",
+    Services: "services",
+    Statefulsets: "statefulsets",
+} as const;
+export type GetEnrichedAssetResourceTypeEnum = (typeof GetEnrichedAssetResourceTypeEnum)[keyof typeof GetEnrichedAssetResourceTypeEnum];
 /**
  * @export
  */

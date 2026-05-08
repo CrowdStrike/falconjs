@@ -73,7 +73,7 @@ export interface ReleasesReleaseResponseV1 {
      * @type {Date}
      * @memberof ReleasesReleaseResponseV1
      */
-    lastModifiedTimestamp?: Date;
+    lastModifiedTimestamp: Date;
     /**
      *
      * @type {Array<ReleasecontentsReleaseContentResponseV1>}
@@ -100,6 +100,7 @@ export interface ReleasesReleaseResponseV1 {
 export function instanceOfReleasesReleaseResponseV1(value: object): value is ReleasesReleaseResponseV1 {
     if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("lastModifiedTimestamp" in value) || value["lastModifiedTimestamp"] === undefined) return false;
     if (!("releaseContents" in value) || value["releaseContents"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
     return true;
@@ -121,7 +122,7 @@ export function ReleasesReleaseResponseV1FromJSONTyped(json: any, ignoreDiscrimi
         deploymentStartTimestamp: json["deployment_start_timestamp"] == null ? undefined : new Date(json["deployment_start_timestamp"]),
         id: json["id"],
         lastModifiedBy: json["last_modified_by"] == null ? undefined : json["last_modified_by"],
-        lastModifiedTimestamp: json["last_modified_timestamp"] == null ? undefined : new Date(json["last_modified_timestamp"]),
+        lastModifiedTimestamp: new Date(json["last_modified_timestamp"]),
         releaseContents: (json["release_contents"] as Array<any>).map(ReleasecontentsReleaseContentResponseV1FromJSON),
         releaseNotesTicket: json["release_notes_ticket"] == null ? undefined : json["release_notes_ticket"],
         status: json["status"],
@@ -140,7 +141,7 @@ export function ReleasesReleaseResponseV1ToJSON(value?: ReleasesReleaseResponseV
         deployment_start_timestamp: value["deploymentStartTimestamp"] == null ? undefined : value["deploymentStartTimestamp"].toISOString(),
         id: value["id"],
         last_modified_by: value["lastModifiedBy"],
-        last_modified_timestamp: value["lastModifiedTimestamp"] == null ? undefined : value["lastModifiedTimestamp"].toISOString(),
+        last_modified_timestamp: value["lastModifiedTimestamp"].toISOString(),
         release_contents: (value["releaseContents"] as Array<any>).map(ReleasecontentsReleaseContentResponseV1ToJSON),
         release_notes_ticket: value["releaseNotesTicket"],
         status: value["status"],

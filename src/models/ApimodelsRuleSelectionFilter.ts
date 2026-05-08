@@ -48,6 +48,18 @@ export interface ApimodelsRuleSelectionFilter {
      * @type {Array<string>}
      * @memberof ApimodelsRuleSelectionFilter
      */
+    ruleResourceTypeNames?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ApimodelsRuleSelectionFilter
+     */
+    ruleRiskFactors?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ApimodelsRuleSelectionFilter
+     */
     ruleServices?: Array<string>;
     /**
      *
@@ -77,6 +89,8 @@ export function ApimodelsRuleSelectionFilterFromJSONTyped(json: any, ignoreDiscr
         ruleNames: json["rule_names"] == null ? undefined : json["rule_names"],
         ruleOrigins: json["rule_origins"] == null ? undefined : json["rule_origins"],
         ruleProviders: json["rule_providers"] == null ? undefined : json["rule_providers"],
+        ruleResourceTypeNames: json["rule_resource_type_names"] == null ? undefined : json["rule_resource_type_names"],
+        ruleRiskFactors: json["rule_risk_factors"] == null ? undefined : json["rule_risk_factors"],
         ruleServices: json["rule_services"] == null ? undefined : json["rule_services"],
         ruleSeverities: json["rule_severities"] == null ? undefined : json["rule_severities"],
     };
@@ -91,6 +105,8 @@ export function ApimodelsRuleSelectionFilterToJSON(value?: ApimodelsRuleSelectio
         rule_names: value["ruleNames"],
         rule_origins: value["ruleOrigins"],
         rule_providers: value["ruleProviders"],
+        rule_resource_type_names: value["ruleResourceTypeNames"],
+        rule_risk_factors: value["ruleRiskFactors"],
         rule_services: value["ruleServices"],
         rule_severities: value["ruleSeverities"],
     };

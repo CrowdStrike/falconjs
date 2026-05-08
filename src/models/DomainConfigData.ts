@@ -40,6 +40,12 @@ export interface DomainConfigData {
     data?: string;
     /**
      *
+     * @type {string}
+     * @memberof DomainConfigData
+     */
+    definitionId?: string;
+    /**
+     *
      * @type {boolean}
      * @memberof DomainConfigData
      */
@@ -149,6 +155,7 @@ export function DomainConfigDataFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         auth: json["auth"] == null ? undefined : json["auth"],
         data: json["data"] == null ? undefined : json["data"],
+        definitionId: json["definition_id"] == null ? undefined : json["definition_id"],
         enableSystemWorkflow: json["enable_system_workflow"],
         graphicalPasswordAlgorithm: json["graphical_password_algorithm"] == null ? undefined : DomainGPAsFromJSON(json["graphical_password_algorithm"]),
         id: json["id"] == null ? undefined : json["id"],
@@ -174,6 +181,7 @@ export function DomainConfigDataToJSON(value?: DomainConfigData | null): any {
     return {
         auth: value["auth"],
         data: value["data"],
+        definition_id: value["definitionId"],
         enable_system_workflow: value["enableSystemWorkflow"],
         graphical_password_algorithm: DomainGPAsToJSON(value["graphicalPasswordAlgorithm"]),
         id: value["id"],

@@ -48,7 +48,7 @@ export interface CorrelationrulesapiPatchRuleSearchV1 {
      * @type {string}
      * @memberof CorrelationrulesapiPatchRuleSearchV1
      */
-    triggerMode: string;
+    triggerMode?: string;
     /**
      *
      * @type {boolean}
@@ -61,7 +61,6 @@ export interface CorrelationrulesapiPatchRuleSearchV1 {
  * Check if a given object implements the CorrelationrulesapiPatchRuleSearchV1 interface.
  */
 export function instanceOfCorrelationrulesapiPatchRuleSearchV1(value: object): value is CorrelationrulesapiPatchRuleSearchV1 {
-    if (!("triggerMode" in value) || value["triggerMode"] === undefined) return false;
     return true;
 }
 
@@ -78,7 +77,7 @@ export function CorrelationrulesapiPatchRuleSearchV1FromJSONTyped(json: any, ign
         filter: json["filter"] == null ? undefined : json["filter"],
         lookback: json["lookback"] == null ? undefined : json["lookback"],
         outcome: json["outcome"] == null ? undefined : json["outcome"],
-        triggerMode: json["trigger_mode"],
+        triggerMode: json["trigger_mode"] == null ? undefined : json["trigger_mode"],
         useIngestTime: json["use_ingest_time"] == null ? undefined : json["use_ingest_time"],
     };
 }

@@ -111,12 +111,6 @@ export interface EntitiesODSScheduleScanRequest {
      * @type {Array<string>}
      * @memberof EntitiesODSScheduleScanRequest
      */
-    macFilePaths: Array<string>;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof EntitiesODSScheduleScanRequest
-     */
     macScanExclusions: Array<string>;
     /**
      *
@@ -222,7 +216,6 @@ export function instanceOfEntitiesODSScheduleScanRequest(value: object): value i
     if (!("macCloudMlLevelPrevention" in value) || value["macCloudMlLevelPrevention"] === undefined) return false;
     if (!("macCloudPupAdwareLevelDetection" in value) || value["macCloudPupAdwareLevelDetection"] === undefined) return false;
     if (!("macCloudPupAdwareLevelPrevention" in value) || value["macCloudPupAdwareLevelPrevention"] === undefined) return false;
-    if (!("macFilePaths" in value) || value["macFilePaths"] === undefined) return false;
     if (!("macScanExclusions" in value) || value["macScanExclusions"] === undefined) return false;
     if (!("macScanInclusions" in value) || value["macScanInclusions"] === undefined) return false;
     if (!("macSensorMlLevelDetection" in value) || value["macSensorMlLevelDetection"] === undefined) return false;
@@ -264,7 +257,6 @@ export function EntitiesODSScheduleScanRequestFromJSONTyped(json: any, ignoreDis
         macCloudMlLevelPrevention: json["mac_cloud_ml_level_prevention"],
         macCloudPupAdwareLevelDetection: json["mac_cloud_pup_adware_level_detection"],
         macCloudPupAdwareLevelPrevention: json["mac_cloud_pup_adware_level_prevention"],
-        macFilePaths: json["mac_file_paths"],
         macScanExclusions: json["mac_scan_exclusions"],
         macScanInclusions: json["mac_scan_inclusions"],
         macSensorMlLevelDetection: json["mac_sensor_ml_level_detection"],
@@ -302,7 +294,6 @@ export function EntitiesODSScheduleScanRequestToJSON(value?: EntitiesODSSchedule
         mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
         mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],
         mac_cloud_pup_adware_level_prevention: value["macCloudPupAdwareLevelPrevention"],
-        mac_file_paths: value["macFilePaths"],
         mac_scan_exclusions: value["macScanExclusions"],
         mac_scan_inclusions: value["macScanInclusions"],
         mac_sensor_ml_level_detection: value["macSensorMlLevelDetection"],

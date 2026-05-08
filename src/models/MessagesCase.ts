@@ -57,6 +57,12 @@ export interface MessagesCase {
      * @type {string}
      * @memberof MessagesCase
      */
+    caseType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesCase
+     */
     cid: string;
     /**
      *
@@ -190,6 +196,7 @@ export function MessagesCaseFromJSONTyped(json: any, ignoreDiscriminator: boolea
         assigner: MessagesAuthorFromJSON(json["assigner"]),
         attachments: (json["attachments"] as Array<any>).map(MessagesAttachmentFromJSON),
         body: json["body"],
+        caseType: json["case_type"] == null ? undefined : json["case_type"],
         cid: json["cid"],
         createdTime: json["created_time"],
         detections: (json["detections"] as Array<any>).map(MessagesDetectionFromJSON),
@@ -218,6 +225,7 @@ export function MessagesCaseToJSON(value?: MessagesCase | null): any {
         assigner: MessagesAuthorToJSON(value["assigner"]),
         attachments: (value["attachments"] as Array<any>).map(MessagesAttachmentToJSON),
         body: value["body"],
+        case_type: value["caseType"],
         cid: value["cid"],
         created_time: value["createdTime"],
         detections: (value["detections"] as Array<any>).map(MessagesDetectionToJSON),

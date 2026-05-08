@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DevicecontrolapiIdentityV1 } from "./DevicecontrolapiIdentityV1";
+import { DevicecontrolapiIdentityV1FromJSON, DevicecontrolapiIdentityV1FromJSONTyped, DevicecontrolapiIdentityV1ToJSON } from "./DevicecontrolapiIdentityV1";
+
 /**
  *
  * @export
@@ -44,6 +47,18 @@ export interface DevicecontrolapiUSBExceptionBase {
      */
     description?: string;
     /**
+     * List of groups excluded from the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiUSBExceptionBase
+     */
+    excludedGroups?: Array<DevicecontrolapiIdentityV1>;
+    /**
+     * List of users excluded from the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiUSBExceptionBase
+     */
+    excludedUsers?: Array<DevicecontrolapiIdentityV1>;
+    /**
      * yyyy-mm-ddThh:mm:ssZ (UTC) format of the time to remove the exception if temporary. Must be in the future. Only provide this value for temporary exceptions
      * @type {Date}
      * @memberof DevicecontrolapiUSBExceptionBase
@@ -55,6 +70,18 @@ export interface DevicecontrolapiUSBExceptionBase {
      * @memberof DevicecontrolapiUSBExceptionBase
      */
     id: string;
+    /**
+     * List of groups included in the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiUSBExceptionBase
+     */
+    includedGroups?: Array<DevicecontrolapiIdentityV1>;
+    /**
+     * List of users included in the exception scope
+     * @type {Array<DevicecontrolapiIdentityV1>}
+     * @memberof DevicecontrolapiUSBExceptionBase
+     */
+    includedUsers?: Array<DevicecontrolapiIdentityV1>;
     /**
      * Decimal value of the product ID. Required if a serial number is provided
      * @type {string}
@@ -140,8 +167,12 @@ export function DevicecontrolapiUSBExceptionBaseFromJSONTyped(json: any, ignoreD
         _class: json["class"] == null ? undefined : json["class"],
         combinedId: json["combined_id"] == null ? undefined : json["combined_id"],
         description: json["description"] == null ? undefined : json["description"],
+        excludedGroups: json["excluded_groups"] == null ? undefined : (json["excluded_groups"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
+        excludedUsers: json["excluded_users"] == null ? undefined : (json["excluded_users"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
         expirationTime: json["expiration_time"] == null ? undefined : new Date(json["expiration_time"]),
         id: json["id"],
+        includedGroups: json["included_groups"] == null ? undefined : (json["included_groups"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
+        includedUsers: json["included_users"] == null ? undefined : (json["included_users"] as Array<any>).map(DevicecontrolapiIdentityV1FromJSON),
         productId: json["product_id"] == null ? undefined : json["product_id"],
         productName: json["product_name"] == null ? undefined : json["product_name"],
         serialNumber: json["serial_number"] == null ? undefined : json["serial_number"],
@@ -160,8 +191,12 @@ export function DevicecontrolapiUSBExceptionBaseToJSON(value?: DevicecontrolapiU
         class: value["_class"],
         combined_id: value["combinedId"],
         description: value["description"],
+        excluded_groups: value["excludedGroups"] == null ? undefined : (value["excludedGroups"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
+        excluded_users: value["excludedUsers"] == null ? undefined : (value["excludedUsers"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
         expiration_time: value["expirationTime"] == null ? undefined : value["expirationTime"].toISOString(),
         id: value["id"],
+        included_groups: value["includedGroups"] == null ? undefined : (value["includedGroups"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
+        included_users: value["includedUsers"] == null ? undefined : (value["includedUsers"] as Array<any>).map(DevicecontrolapiIdentityV1ToJSON),
         product_id: value["productId"],
         product_name: value["productName"],
         serial_number: value["serialNumber"],

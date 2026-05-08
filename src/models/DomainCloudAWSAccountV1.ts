@@ -88,6 +88,12 @@ export interface DomainCloudAWSAccountV1 {
     cid?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof DomainCloudAWSAccountV1
+     */
+    cloudRegistrationEnabled?: boolean;
+    /**
+     *
      * @type {string}
      * @memberof DomainCloudAWSAccountV1
      */
@@ -302,6 +308,7 @@ export function DomainCloudAWSAccountV1FromJSONTyped(json: any, ignoreDiscrimina
         accountType: json["account_type"] == null ? undefined : json["account_type"],
         activeRegions: json["active_regions"] == null ? undefined : json["active_regions"],
         cid: json["cid"] == null ? undefined : json["cid"],
+        cloudRegistrationEnabled: json["cloud_registration_enabled"] == null ? undefined : json["cloud_registration_enabled"],
         cloudformationStackArn: json["cloudformation_stack_arn"] == null ? undefined : json["cloudformation_stack_arn"],
         cloudformationUpdateUrl: json["cloudformation_update_url"] == null ? undefined : json["cloudformation_update_url"],
         cloudformationUrl: json["cloudformation_url"] == null ? undefined : json["cloudformation_url"],
@@ -349,6 +356,7 @@ export function DomainCloudAWSAccountV1ToJSON(value?: DomainCloudAWSAccountV1 | 
         account_type: value["accountType"],
         active_regions: value["activeRegions"],
         cid: value["cid"],
+        cloud_registration_enabled: value["cloudRegistrationEnabled"],
         cloudformation_stack_arn: value["cloudformationStackArn"],
         cloudformation_update_url: value["cloudformationUpdateUrl"],
         cloudformation_url: value["cloudformationUrl"],

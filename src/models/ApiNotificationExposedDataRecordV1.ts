@@ -177,6 +177,12 @@ export interface ApiNotificationExposedDataRecordV1 {
      */
     malwareFamily?: string;
     /**
+     * The thread group ID of the parent notification associated with this entity
+     * @type {string}
+     * @memberof ApiNotificationExposedDataRecordV1
+     */
+    notificationGroupId?: string;
+    /**
      * The ID of the parent notification associated with this entity
      * @type {string}
      * @memberof ApiNotificationExposedDataRecordV1
@@ -314,6 +320,7 @@ export function ApiNotificationExposedDataRecordV1FromJSONTyped(json: any, ignor
         location: json["location"] == null ? undefined : ApiExposedDataRecordLocationV1FromJSON(json["location"]),
         loginId: json["login_id"] == null ? undefined : json["login_id"],
         malwareFamily: json["malware_family"] == null ? undefined : json["malware_family"],
+        notificationGroupId: json["notification_group_id"] == null ? undefined : json["notification_group_id"],
         notificationId: json["notification_id"],
         password: json["password"] == null ? undefined : json["password"],
         passwordHash: json["password_hash"] == null ? undefined : json["password_hash"],
@@ -360,6 +367,7 @@ export function ApiNotificationExposedDataRecordV1ToJSON(value?: ApiNotification
         location: ApiExposedDataRecordLocationV1ToJSON(value["location"]),
         login_id: value["loginId"],
         malware_family: value["malwareFamily"],
+        notification_group_id: value["notificationGroupId"],
         notification_id: value["notificationId"],
         password: value["password"],
         password_hash: value["passwordHash"],

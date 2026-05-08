@@ -1003,5 +1003,11 @@ export const QueryScheduledScansSortEnum = {
     CreatedByDesc: "created_by|desc",
     LastUpdatedAsc: "last_updated|asc",
     LastUpdatedDesc: "last_updated|desc",
+    TargetedHostCountAsc: "targeted_host_count|asc",
+    TargetedHostCountDesc: "targeted_host_count|desc",
+    TargetedPlatformsAsc: "targeted_platforms|asc",
+    TargetedPlatformsDesc: "targeted_platforms|desc",
+    ChannelFileStatusAsc: "channel_file_status|asc",
+    ChannelFileStatusDesc: "channel_file_status|desc",
 } as const;
 export type QueryScheduledScansSortEnum = (typeof QueryScheduledScansSortEnum)[keyof typeof QueryScheduledScansSortEnum];

@@ -87,6 +87,12 @@ export interface ApiWebLocationV2 {
     providerLocationName?: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ApiWebLocationV2
+     */
+    supportsNetworkInspection?: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ApiWebLocationV2
      */
@@ -124,6 +130,7 @@ export function ApiWebLocationV2FromJSONTyped(json: any, ignoreDiscriminator: bo
         name: json["name"] == null ? undefined : json["name"],
         providerLocationId: json["provider_location_id"] == null ? undefined : json["provider_location_id"],
         providerLocationName: json["provider_location_name"] == null ? undefined : json["provider_location_name"],
+        supportsNetworkInspection: json["supports_network_inspection"] == null ? undefined : json["supports_network_inspection"],
         type: json["type"],
     };
 }
@@ -144,6 +151,7 @@ export function ApiWebLocationV2ToJSON(value?: ApiWebLocationV2 | null): any {
         name: value["name"],
         provider_location_id: value["providerLocationId"],
         provider_location_name: value["providerLocationName"],
+        supports_network_inspection: value["supportsNetworkInspection"],
         type: value["type"],
     };
 }

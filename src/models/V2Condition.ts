@@ -50,6 +50,12 @@ export interface V2Condition {
      */
     expression?: string;
     /**
+     * Optional user provided name for the condition.
+     * @type {string}
+     * @memberof V2Condition
+     */
+    name?: string;
+    /**
      *
      * @type {Array<string>}
      * @memberof V2Condition
@@ -79,6 +85,7 @@ export function V2ConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean
         _else: json["else"] == null ? undefined : json["else"],
         elseIf: json["else_if"] == null ? undefined : json["else_if"],
         expression: json["expression"] == null ? undefined : json["expression"],
+        name: json["name"] == null ? undefined : json["name"],
         next: json["next"],
     };
 }
@@ -93,6 +100,7 @@ export function V2ConditionToJSON(value?: V2Condition | null): any {
         else: value["_else"],
         else_if: value["elseIf"],
         expression: value["expression"],
+        name: value["name"],
         next: value["next"],
     };
 }

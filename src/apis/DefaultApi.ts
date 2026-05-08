@@ -408,6 +408,33 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     */
+    async falconCompleteDashboardsQueriesIncidentsV1GetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaQueryResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request(
+            {
+                path: `/falcon-complete-dashboards/queries/incidents/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async falconCompleteDashboardsQueriesIncidentsV1Get(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaQueryResponse> {
+        const response = await this.falconCompleteDashboardsQueriesIncidentsV1GetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get Collection counts by field names: collection_tag and state
      */
     async getCollectionCountsByV1Raw(

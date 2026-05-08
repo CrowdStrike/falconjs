@@ -63,6 +63,12 @@ export interface DevicecontrolapiReqUpdateUSBBaseV1 {
      */
     storageSpaceEnforcementMode?: DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum;
     /**
+     * Enforcement mode for User Based exceptions
+     * @type {string}
+     * @memberof DevicecontrolapiReqUpdateUSBBaseV1
+     */
+    userBasedEnforcementMode?: DevicecontrolapiReqUpdateUSBBaseV1UserBasedEnforcementModeEnum;
+    /**
      * Determines if the policy will include whitelist exceptions
      * @type {string}
      * @memberof DevicecontrolapiReqUpdateUSBBaseV1
@@ -113,6 +119,16 @@ export type DevicecontrolapiReqUpdateUSBBaseV1StorageSpaceEnforcementModeEnum =
 /**
  * @export
  */
+export const DevicecontrolapiReqUpdateUSBBaseV1UserBasedEnforcementModeEnum = {
+    Only: "MONITOR_ONLY",
+    Enforce: "MONITOR_ENFORCE",
+} as const;
+export type DevicecontrolapiReqUpdateUSBBaseV1UserBasedEnforcementModeEnum =
+    (typeof DevicecontrolapiReqUpdateUSBBaseV1UserBasedEnforcementModeEnum)[keyof typeof DevicecontrolapiReqUpdateUSBBaseV1UserBasedEnforcementModeEnum];
+
+/**
+ * @export
+ */
 export const DevicecontrolapiReqUpdateUSBBaseV1WhitelistModeEnum = {
     EnableAlways: "ENABLE_ALWAYS",
     DisableVirtual: "DISABLE_VIRTUAL",
@@ -141,6 +157,7 @@ export function DevicecontrolapiReqUpdateUSBBaseV1FromJSONTyped(json: any, ignor
         enhancedFileMetadata: json["enhanced_file_metadata"] == null ? undefined : json["enhanced_file_metadata"],
         pcieEnforcementMode: json["pcie_enforcement_mode"] == null ? undefined : json["pcie_enforcement_mode"],
         storageSpaceEnforcementMode: json["storage_space_enforcement_mode"] == null ? undefined : json["storage_space_enforcement_mode"],
+        userBasedEnforcementMode: json["user_based_enforcement_mode"] == null ? undefined : json["user_based_enforcement_mode"],
         whitelistMode: json["whitelist_mode"] == null ? undefined : json["whitelist_mode"],
     };
 }
@@ -156,6 +173,7 @@ export function DevicecontrolapiReqUpdateUSBBaseV1ToJSON(value?: Devicecontrolap
         enhanced_file_metadata: value["enhancedFileMetadata"],
         pcie_enforcement_mode: value["pcieEnforcementMode"],
         storage_space_enforcement_mode: value["storageSpaceEnforcementMode"],
+        user_based_enforcement_mode: value["userBasedEnforcementMode"],
         whitelist_mode: value["whitelistMode"],
     };
 }

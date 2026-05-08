@@ -37,6 +37,12 @@ export interface ApiPostEnrollmentDetailsV4 {
      * @memberof ApiPostEnrollmentDetailsV4
      */
     expiresAt: Date;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ApiPostEnrollmentDetailsV4
+     */
+    useNetworkExtension: boolean;
 }
 
 /**
@@ -46,6 +52,7 @@ export function instanceOfApiPostEnrollmentDetailsV4(value: object): value is Ap
     if (!("emailAddresses" in value) || value["emailAddresses"] === undefined) return false;
     if (!("enrollmentType" in value) || value["enrollmentType"] === undefined) return false;
     if (!("expiresAt" in value) || value["expiresAt"] === undefined) return false;
+    if (!("useNetworkExtension" in value) || value["useNetworkExtension"] === undefined) return false;
     return true;
 }
 
@@ -61,6 +68,7 @@ export function ApiPostEnrollmentDetailsV4FromJSONTyped(json: any, ignoreDiscrim
         emailAddresses: json["email_addresses"],
         enrollmentType: json["enrollment_type"],
         expiresAt: new Date(json["expires_at"]),
+        useNetworkExtension: json["use_network_extension"],
     };
 }
 
@@ -72,5 +80,6 @@ export function ApiPostEnrollmentDetailsV4ToJSON(value?: ApiPostEnrollmentDetail
         email_addresses: value["emailAddresses"],
         enrollment_type: value["enrollmentType"],
         expires_at: value["expiresAt"].toISOString(),
+        use_network_extension: value["useNetworkExtension"],
     };
 }

@@ -571,6 +571,12 @@ export interface DomainDiscoverAPIHost {
      */
     kernelVersion?: string;
     /**
+     * The date of the most recent authenticated scan.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    lastAuthenticatedScanDate?: string;
+    /**
      * The agent ID of the Falcon sensor installed on the source that most recently discovered the asset.
      * @type {string}
      * @memberof DomainDiscoverAPIHost
@@ -594,6 +600,12 @@ export interface DomainDiscoverAPIHost {
      * @memberof DomainDiscoverAPIHost
      */
     lastSeenTimestamp?: string;
+    /**
+     * The date of the most recent unauthenticated scan.
+     * @type {string}
+     * @memberof DomainDiscoverAPIHost
+     */
+    lastUnauthenticatedScanDate?: string;
     /**
      * Historical local IPv4 addresses associated with the asset.
      * @type {Array<string>}
@@ -1116,10 +1128,12 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         iotImported: json["iot_imported"] == null ? undefined : DomainIotImportedHostFromJSON(json["iot_imported"]),
         iotTags: json["iot_tags"] == null ? undefined : json["iot_tags"],
         kernelVersion: json["kernel_version"] == null ? undefined : json["kernel_version"],
+        lastAuthenticatedScanDate: json["last_authenticated_scan_date"] == null ? undefined : json["last_authenticated_scan_date"],
         lastDiscovererAid: json["last_discoverer_aid"] == null ? undefined : json["last_discoverer_aid"],
         lastDiscovererHostname: json["last_discoverer_hostname"] == null ? undefined : json["last_discoverer_hostname"],
         lastDiscovererIcsCollectorId: json["last_discoverer_ics_collector_id"] == null ? undefined : json["last_discoverer_ics_collector_id"],
         lastSeenTimestamp: json["last_seen_timestamp"] == null ? undefined : json["last_seen_timestamp"],
+        lastUnauthenticatedScanDate: json["last_unauthenticated_scan_date"] == null ? undefined : json["last_unauthenticated_scan_date"],
         localIpAddresses: json["local_ip_addresses"] == null ? undefined : json["local_ip_addresses"],
         localIpsCount: json["local_ips_count"] == null ? undefined : json["local_ips_count"],
         location: json["location"] == null ? undefined : json["location"],
@@ -1285,10 +1299,12 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         iot_imported: DomainIotImportedHostToJSON(value["iotImported"]),
         iot_tags: value["iotTags"],
         kernel_version: value["kernelVersion"],
+        last_authenticated_scan_date: value["lastAuthenticatedScanDate"],
         last_discoverer_aid: value["lastDiscovererAid"],
         last_discoverer_hostname: value["lastDiscovererHostname"],
         last_discoverer_ics_collector_id: value["lastDiscovererIcsCollectorId"],
         last_seen_timestamp: value["lastSeenTimestamp"],
+        last_unauthenticated_scan_date: value["lastUnauthenticatedScanDate"],
         local_ip_addresses: value["localIpAddresses"],
         local_ips_count: value["localIpsCount"],
         location: value["location"],

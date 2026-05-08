@@ -150,6 +150,12 @@ export interface ModelsAPIImageCombinedExport {
     imageId: string;
     /**
      *
+     * @type {string}
+     * @memberof ModelsAPIImageCombinedExport
+     */
+    indexDigest: string;
+    /**
+     *
      * @type {boolean}
      * @memberof ModelsAPIImageCombinedExport
      */
@@ -244,6 +250,7 @@ export function instanceOfModelsAPIImageCombinedExport(value: object): value is 
     if (!("firstSeen" in value) || value["firstSeen"] === undefined) return false;
     if (!("imageDigest" in value) || value["imageDigest"] === undefined) return false;
     if (!("imageId" in value) || value["imageId"] === undefined) return false;
+    if (!("indexDigest" in value) || value["indexDigest"] === undefined) return false;
     if (!("isBaseImage" in value) || value["isBaseImage"] === undefined) return false;
     if (!("lastSeen" in value) || value["lastSeen"] === undefined) return false;
     if (!("packagesImpacted" in value) || value["packagesImpacted"] === undefined) return false;
@@ -289,6 +296,7 @@ export function ModelsAPIImageCombinedExportFromJSONTyped(json: any, ignoreDiscr
         imageBuildDate: json["image_build_date"] == null ? undefined : json["image_build_date"],
         imageDigest: json["image_digest"],
         imageId: json["image_id"],
+        indexDigest: json["index_digest"],
         isBaseImage: json["is_base_image"],
         lastSeen: json["last_seen"],
         packageNameVersion: json["package_name_version"] == null ? undefined : json["package_name_version"],
@@ -331,6 +339,7 @@ export function ModelsAPIImageCombinedExportToJSON(value?: ModelsAPIImageCombine
         image_build_date: value["imageBuildDate"],
         image_digest: value["imageDigest"],
         image_id: value["imageId"],
+        index_digest: value["indexDigest"],
         is_base_image: value["isBaseImage"],
         last_seen: value["lastSeen"],
         package_name_version: value["packageNameVersion"],
