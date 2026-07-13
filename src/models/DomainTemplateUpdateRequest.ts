@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { NswipScanFlags } from "./NswipScanFlags";
+import { NswipScanFlagsFromJSON, NswipScanFlagsFromJSONTyped, NswipScanFlagsToJSON } from "./NswipScanFlags";
+
 /**
  * Represents a request to update a template
  * Represents a request to update a template
@@ -51,6 +54,18 @@ export interface DomainTemplateUpdateRequest {
      */
     detections?: Array<string>;
     /**
+     * Excluded TCP ports associated with the template
+     * @type {Array<string>}
+     * @memberof DomainTemplateUpdateRequest
+     */
+    excludedTcpPorts?: Array<string>;
+    /**
+     * Excluded UDP ports associated with the template
+     * @type {Array<string>}
+     * @memberof DomainTemplateUpdateRequest
+     */
+    excludedUdpPorts?: Array<string>;
+    /**
      * The unique identifier of the template
      * @type {string}
      * @memberof DomainTemplateUpdateRequest
@@ -74,6 +89,12 @@ export interface DomainTemplateUpdateRequest {
      * @memberof DomainTemplateUpdateRequest
      */
     portsScanLevel?: DomainTemplateUpdateRequestPortsScanLevelEnum;
+    /**
+     *
+     * @type {NswipScanFlags}
+     * @memberof DomainTemplateUpdateRequest
+     */
+    scanFlags?: NswipScanFlags;
     /**
      * The scan intensity at which scans will run from this template
      * @type {string}
@@ -102,7 +123,7 @@ export type DomainTemplateUpdateRequestPortsScanLevelEnum = (typeof DomainTempla
  * @export
  */
 export const DomainTemplateUpdateRequestScanIntensityEnum = {
-    Basicstandardcautiousmaximum: "basic,standard,cautious,maximum",
+    Basicstandardcautiousmaximumcustom: "basic,standard,cautious,maximum,custom",
 } as const;
 export type DomainTemplateUpdateRequestScanIntensityEnum = (typeof DomainTemplateUpdateRequestScanIntensityEnum)[keyof typeof DomainTemplateUpdateRequestScanIntensityEnum];
 
@@ -128,10 +149,13 @@ export function DomainTemplateUpdateRequestFromJSONTyped(json: any, ignoreDiscri
         additionalUdpPorts: json["additional_udp_ports"] == null ? undefined : json["additional_udp_ports"],
         autoIncludeNewDetections: json["auto_include_new_detections"] == null ? undefined : json["auto_include_new_detections"],
         detections: json["detections"] == null ? undefined : json["detections"],
+        excludedTcpPorts: json["excluded_tcp_ports"] == null ? undefined : json["excluded_tcp_ports"],
+        excludedUdpPorts: json["excluded_udp_ports"] == null ? undefined : json["excluded_udp_ports"],
         id: json["id"],
         ignoreTcpResets: json["ignore_tcp_resets"] == null ? undefined : json["ignore_tcp_resets"],
         name: json["name"] == null ? undefined : json["name"],
         portsScanLevel: json["ports_scan_level"] == null ? undefined : json["ports_scan_level"],
+        scanFlags: json["scan_flags"] == null ? undefined : NswipScanFlagsFromJSON(json["scan_flags"]),
         scanIntensity: json["scan_intensity"] == null ? undefined : json["scan_intensity"],
     };
 }
@@ -146,10 +170,13 @@ export function DomainTemplateUpdateRequestToJSON(value?: DomainTemplateUpdateRe
         additional_udp_ports: value["additionalUdpPorts"],
         auto_include_new_detections: value["autoIncludeNewDetections"],
         detections: value["detections"],
+        excluded_tcp_ports: value["excludedTcpPorts"],
+        excluded_udp_ports: value["excludedUdpPorts"],
         id: value["id"],
         ignore_tcp_resets: value["ignoreTcpResets"],
         name: value["name"],
         ports_scan_level: value["portsScanLevel"],
+        scan_flags: NswipScanFlagsToJSON(value["scanFlags"]),
         scan_intensity: value["scanIntensity"],
     };
 }

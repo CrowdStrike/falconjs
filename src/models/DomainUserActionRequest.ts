@@ -17,7 +17,7 @@ import type { DomainUserAction } from "./DomainUserAction";
 import { DomainUserActionFromJSON, DomainUserActionFromJSONTyped, DomainUserActionToJSON } from "./DomainUserAction";
 
 /**
- * ID(s) of users the action(s) are to applied to
+ * ID(s) of users the action are to applied to
  * @export
  * @interface DomainUserActionRequest
  */

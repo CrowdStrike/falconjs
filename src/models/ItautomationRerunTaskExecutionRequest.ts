@@ -20,11 +20,17 @@ import { mapValues } from "../runtime";
  */
 export interface ItautomationRerunTaskExecutionRequest {
     /**
-     * Type of rerun. When set to hosts, re-run on same hosts again. When set to failed, re-run only on failed hosts. When set to offline, re-run only on offline hosts. When set to target, re-run on all the hosts resolved to set criteria.
+     * [Deprecated: use run_types] Type of rerun. When set to hosts, re-run on same hosts again. When set to failed, re-run only on failed hosts. When set to offline, re-run only on offline hosts. When set to target, re-run on all the hosts resolved to set criteria.
      * @type {string}
      * @memberof ItautomationRerunTaskExecutionRequest
      */
-    runType: ItautomationRerunTaskExecutionRequestRunTypeEnum;
+    runType?: ItautomationRerunTaskExecutionRequestRunTypeEnum;
+    /**
+     * Types of reruns to combine with OR logic. Cannot be used with run_type. Example: ['failed', 'offline']
+     * @type {Array<string>}
+     * @memberof ItautomationRerunTaskExecutionRequest
+     */
+    runTypes?: Array<string>;
     /**
      * ID of the task execution to rerun. Example: f64b95555ef54ea682619ce880d267cc
      * @type {string}
@@ -48,7 +54,6 @@ export type ItautomationRerunTaskExecutionRequestRunTypeEnum = (typeof Itautomat
  * Check if a given object implements the ItautomationRerunTaskExecutionRequest interface.
  */
 export function instanceOfItautomationRerunTaskExecutionRequest(value: object): value is ItautomationRerunTaskExecutionRequest {
-    if (!("runType" in value) || value["runType"] === undefined) return false;
     if (!("taskExecutionId" in value) || value["taskExecutionId"] === undefined) return false;
     return true;
 }
@@ -62,7 +67,8 @@ export function ItautomationRerunTaskExecutionRequestFromJSONTyped(json: any, ig
         return json;
     }
     return {
-        runType: json["run_type"],
+        runType: json["run_type"] == null ? undefined : json["run_type"],
+        runTypes: json["run_types"] == null ? undefined : json["run_types"],
         taskExecutionId: json["task_execution_id"],
     };
 }
@@ -73,6 +79,7 @@ export function ItautomationRerunTaskExecutionRequestToJSON(value?: Itautomation
     }
     return {
         run_type: value["runType"],
+        run_types: value["runTypes"],
         task_execution_id: value["taskExecutionId"],
     };
 }

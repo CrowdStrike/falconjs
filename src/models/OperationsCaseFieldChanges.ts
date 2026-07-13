@@ -59,6 +59,18 @@ export interface OperationsCaseFieldChanges {
      * @type {string}
      * @memberof OperationsCaseFieldChanges
      */
+    descriptionFormat?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof OperationsCaseFieldChanges
+     */
+    descriptionTaggedUsers?: Array<string>;
+    /**
+     *
+     * @type {string}
+     * @memberof OperationsCaseFieldChanges
+     */
     name: string;
     /**
      *
@@ -133,6 +145,8 @@ export function OperationsCaseFieldChangesFromJSONTyped(json: any, ignoreDiscrim
         assignedToUserUuid: json["assigned_to_user_uuid"],
         customFields: (json["custom_fields"] as Array<any>).map(SdkCustomFieldFromJSON),
         description: json["description"],
+        descriptionFormat: json["description_format"] == null ? undefined : json["description_format"],
+        descriptionTaggedUsers: json["description_tagged_users"] == null ? undefined : json["description_tagged_users"],
         name: json["name"],
         removeUserAssignment: json["remove_user_assignment"],
         severity: json["severity"],
@@ -153,6 +167,8 @@ export function OperationsCaseFieldChangesToJSON(value?: OperationsCaseFieldChan
         assigned_to_user_uuid: value["assignedToUserUuid"],
         custom_fields: (value["customFields"] as Array<any>).map(SdkCustomFieldToJSON),
         description: value["description"],
+        description_format: value["descriptionFormat"],
+        description_tagged_users: value["descriptionTaggedUsers"],
         name: value["name"],
         remove_user_assignment: value["removeUserAssignment"],
         severity: value["severity"],

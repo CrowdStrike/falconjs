@@ -93,6 +93,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    cloudServiceCompartmentId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     configIdBase?: string;
     /**
      *
@@ -232,12 +238,6 @@ export interface DeviceapiDeviceSwagger {
      * @memberof DeviceapiDeviceSwagger
      */
     instanceId?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DeviceapiDeviceSwagger
-     */
-    internetExposure?: string;
     /**
      *
      * @type {string}
@@ -616,6 +616,7 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
         chassisType: json["chassis_type"] == null ? undefined : json["chassis_type"],
         chassisTypeDesc: json["chassis_type_desc"] == null ? undefined : json["chassis_type_desc"],
         cid: json["cid"],
+        cloudServiceCompartmentId: json["cloud_service_compartment_id"] == null ? undefined : json["cloud_service_compartment_id"],
         configIdBase: json["config_id_base"] == null ? undefined : json["config_id_base"],
         configIdBuild: json["config_id_build"] == null ? undefined : json["config_id_build"],
         configIdPlatform: json["config_id_platform"] == null ? undefined : json["config_id_platform"],
@@ -640,7 +641,6 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
         hostUtcOffset: json["host_utc_offset"] == null ? undefined : json["host_utc_offset"],
         hostname: json["hostname"] == null ? undefined : json["hostname"],
         instanceId: json["instance_id"] == null ? undefined : json["instance_id"],
-        internetExposure: json["internet_exposure"] == null ? undefined : json["internet_exposure"],
         k8sClusterGitVersion: json["k8s_cluster_git_version"] == null ? undefined : json["k8s_cluster_git_version"],
         k8sClusterId: json["k8s_cluster_id"] == null ? undefined : json["k8s_cluster_id"],
         k8sClusterVersion: json["k8s_cluster_version"] == null ? undefined : json["k8s_cluster_version"],
@@ -717,6 +717,7 @@ export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | nu
         chassis_type: value["chassisType"],
         chassis_type_desc: value["chassisTypeDesc"],
         cid: value["cid"],
+        cloud_service_compartment_id: value["cloudServiceCompartmentId"],
         config_id_base: value["configIdBase"],
         config_id_build: value["configIdBuild"],
         config_id_platform: value["configIdPlatform"],
@@ -741,7 +742,6 @@ export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | nu
         host_utc_offset: value["hostUtcOffset"],
         hostname: value["hostname"],
         instance_id: value["instanceId"],
-        internet_exposure: value["internetExposure"],
         k8s_cluster_git_version: value["k8sClusterGitVersion"],
         k8s_cluster_id: value["k8sClusterId"],
         k8s_cluster_version: value["k8sClusterVersion"],

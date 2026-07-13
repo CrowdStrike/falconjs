@@ -207,6 +207,7 @@ export interface CloudPoliciesApiGetRuleInputSchemaRequest {
     subdomain: string;
     resourceType: string;
     cloudProvider?: GetRuleInputSchemaCloudProviderEnum;
+    enriched?: boolean;
 }
 
 export interface CloudPoliciesApiGetRuleOverrideRequest {
@@ -1065,6 +1066,10 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
             queryParameters["resource_type"] = requestParameters["resourceType"];
         }
 
+        if (requestParameters["enriched"] != null) {
+            queryParameters["enriched"] = requestParameters["enriched"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -1093,9 +1098,10 @@ export class CloudPoliciesApi extends runtime.BaseAPI {
         subdomain: string,
         resourceType: string,
         cloudProvider?: GetRuleInputSchemaCloudProviderEnum,
+        enriched?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<CommonRuleInputSchemaResponse> {
-        const response = await this.getRuleInputSchemaRaw({ domain: domain, subdomain: subdomain, resourceType: resourceType, cloudProvider: cloudProvider }, initOverrides);
+        const response = await this.getRuleInputSchemaRaw({ domain: domain, subdomain: subdomain, resourceType: resourceType, cloudProvider: cloudProvider, enriched: enriched }, initOverrides);
         return await response.value();
     }
 

@@ -27,6 +27,12 @@ export interface AzureClientKeyInfo {
     appRegistrationId?: string;
     /**
      *
+     * @type {string}
+     * @memberof AzureClientKeyInfo
+     */
+    appRegistrationName?: string;
+    /**
+     *
      * @type {Date}
      * @memberof AzureClientKeyInfo
      */
@@ -92,6 +98,7 @@ export function AzureClientKeyInfoFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         appRegistrationId: json["app_registration_id"] == null ? undefined : json["app_registration_id"],
+        appRegistrationName: json["app_registration_name"] == null ? undefined : json["app_registration_name"],
         created: json["created"] == null ? undefined : new Date(json["created"]),
         expires: json["expires"] == null ? undefined : new Date(json["expires"]),
         fingerprintSha1: json["fingerprint_sha1"] == null ? undefined : json["fingerprint_sha1"],
@@ -109,6 +116,7 @@ export function AzureClientKeyInfoToJSON(value?: AzureClientKeyInfo | null): any
     }
     return {
         app_registration_id: value["appRegistrationId"],
+        app_registration_name: value["appRegistrationName"],
         created: value["created"] == null ? undefined : value["created"].toISOString(),
         expires: value["expires"] == null ? undefined : value["expires"].toISOString(),
         fingerprint_sha1: value["fingerprintSha1"],

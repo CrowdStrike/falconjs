@@ -17,10 +17,10 @@ import type { DefinitionsPlaybookParameter } from "./DefinitionsPlaybookParamete
 import { DefinitionsPlaybookParameterFromJSON, DefinitionsPlaybookParameterFromJSONTyped, DefinitionsPlaybookParameterToJSON } from "./DefinitionsPlaybookParameter";
 import type { GraphValidationError } from "./GraphValidationError";
 import { GraphValidationErrorFromJSON, GraphValidationErrorFromJSONTyped, GraphValidationErrorToJSON } from "./GraphValidationError";
+import type { DefinitionsActivityMetadata } from "./DefinitionsActivityMetadata";
+import { DefinitionsActivityMetadataFromJSON, DefinitionsActivityMetadataFromJSONTyped, DefinitionsActivityMetadataToJSON } from "./DefinitionsActivityMetadata";
 import type { GraphDefinitionModel } from "./GraphDefinitionModel";
 import { GraphDefinitionModelFromJSON, GraphDefinitionModelFromJSONTyped, GraphDefinitionModelToJSON } from "./GraphDefinitionModel";
-import type { ContentActivityMetadata } from "./ContentActivityMetadata";
-import { ContentActivityMetadataFromJSON, ContentActivityMetadataFromJSONTyped, ContentActivityMetadataToJSON } from "./ContentActivityMetadata";
 
 /**
  *
@@ -30,10 +30,10 @@ import { ContentActivityMetadataFromJSON, ContentActivityMetadataFromJSONTyped, 
 export interface DefinitionsDefinitionImportResponseEntity {
     /**
      * Map of activity ID to activity metadata (including dependencies with app info and logo URLs) for displaying activity information in the UI
-     * @type {{ [key: string]: ContentActivityMetadata; }}
+     * @type {{ [key: string]: DefinitionsActivityMetadata; }}
      * @memberof DefinitionsDefinitionImportResponseEntity
      */
-    activityMetadata?: { [key: string]: ContentActivityMetadata };
+    activityMetadata?: { [key: string]: DefinitionsActivityMetadata };
     /**
      *
      * @type {string}
@@ -95,7 +95,7 @@ export function DefinitionsDefinitionImportResponseEntityFromJSONTyped(json: any
         return json;
     }
     return {
-        activityMetadata: json["activity_metadata"] == null ? undefined : mapValues(json["activity_metadata"], ContentActivityMetadataFromJSON),
+        activityMetadata: json["activity_metadata"] == null ? undefined : mapValues(json["activity_metadata"], DefinitionsActivityMetadataFromJSON),
         description: json["description"] == null ? undefined : json["description"],
         disconnectedNodes: json["disconnected_nodes"] == null ? undefined : json["disconnected_nodes"],
         id: json["id"] == null ? undefined : json["id"],
@@ -111,7 +111,7 @@ export function DefinitionsDefinitionImportResponseEntityToJSON(value?: Definiti
         return value;
     }
     return {
-        activity_metadata: value["activityMetadata"] == null ? undefined : mapValues(value["activityMetadata"], ContentActivityMetadataToJSON),
+        activity_metadata: value["activityMetadata"] == null ? undefined : mapValues(value["activityMetadata"], DefinitionsActivityMetadataToJSON),
         description: value["description"],
         disconnected_nodes: value["disconnectedNodes"],
         id: value["id"],

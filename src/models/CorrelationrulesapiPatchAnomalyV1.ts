@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { CorrelationrulesapiAnomalyScopes } from "./CorrelationrulesapiAnomalyScopes";
+import { CorrelationrulesapiAnomalyScopesFromJSON, CorrelationrulesapiAnomalyScopesFromJSONTyped, CorrelationrulesapiAnomalyScopesToJSON } from "./CorrelationrulesapiAnomalyScopes";
+
 /**
  *
  * @export
@@ -37,6 +40,12 @@ export interface CorrelationrulesapiPatchAnomalyV1 {
      * @memberof CorrelationrulesapiPatchAnomalyV1
      */
     scope?: string;
+    /**
+     *
+     * @type {Array<CorrelationrulesapiAnomalyScopes>}
+     * @memberof CorrelationrulesapiPatchAnomalyV1
+     */
+    scopes?: Array<CorrelationrulesapiAnomalyScopes>;
     /**
      *
      * @type {string}
@@ -70,6 +79,7 @@ export function CorrelationrulesapiPatchAnomalyV1FromJSONTyped(json: any, ignore
         eventFieldNames: json["event_field_names"] == null ? undefined : json["event_field_names"],
         lookbackTimeframe: json["lookback_timeframe"] == null ? undefined : json["lookback_timeframe"],
         scope: json["scope"] == null ? undefined : json["scope"],
+        scopes: json["scopes"] == null ? undefined : (json["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesFromJSON),
         type: json["type"] == null ? undefined : json["type"],
         useEstablishedEntityOnly: json["use_established_entity_only"] == null ? undefined : json["use_established_entity_only"],
     };
@@ -83,6 +93,7 @@ export function CorrelationrulesapiPatchAnomalyV1ToJSON(value?: Correlationrules
         event_field_names: value["eventFieldNames"],
         lookback_timeframe: value["lookbackTimeframe"],
         scope: value["scope"],
+        scopes: value["scopes"] == null ? undefined : (value["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesToJSON),
         type: value["type"],
         use_established_entity_only: value["useEstablishedEntityOnly"],
     };

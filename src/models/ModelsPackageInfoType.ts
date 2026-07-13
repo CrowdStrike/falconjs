@@ -24,6 +24,12 @@ export interface ModelsPackageInfoType {
      * @type {string}
      * @memberof ModelsPackageInfoType
      */
+    installDate?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsPackageInfoType
+     */
     layerHash?: string;
     /**
      *
@@ -98,6 +104,7 @@ export function ModelsPackageInfoTypeFromJSONTyped(json: any, ignoreDiscriminato
         return json;
     }
     return {
+        installDate: json["InstallDate"] == null ? undefined : json["InstallDate"],
         layerHash: json["LayerHash"] == null ? undefined : json["LayerHash"],
         layerIndex: json["LayerIndex"],
         majorVersion: json["MajorVersion"] == null ? undefined : json["MajorVersion"],
@@ -116,6 +123,7 @@ export function ModelsPackageInfoTypeToJSON(value?: ModelsPackageInfoType | null
         return value;
     }
     return {
+        InstallDate: value["installDate"],
         LayerHash: value["layerHash"],
         LayerIndex: value["layerIndex"],
         MajorVersion: value["majorVersion"],

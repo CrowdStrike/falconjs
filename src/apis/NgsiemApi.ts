@@ -14,10 +14,24 @@
 
 import * as runtime from "../runtime";
 import type {
+    ApiBulkCreateDashboardsFromTemplateRequestV1,
+    ApiBulkCreateDashboardsFromTemplateResponseV1,
+    ApiBulkCreateLookupFilesRequestV1,
+    ApiBulkCreateLookupFilesResponseV1,
+    ApiBulkCreateSavedQueriesFromTemplateRequestV1,
+    ApiBulkCreateSavedQueriesFromTemplateResponseV1,
+    ApiBulkGetLookupFilesResponseV1,
+    ApiBulkUpdateDashboardsFromTemplateRequestV1,
+    ApiBulkUpdateDashboardsFromTemplateResponseV1,
+    ApiBulkUpdateLookupFilesRequestV1,
+    ApiBulkUpdateLookupFilesResponseV1,
+    ApiBulkUpdateSavedQueriesFromTemplateRequestV1,
+    ApiBulkUpdateSavedQueriesFromTemplateResponseV1,
     ApiCloneParserRequestV1,
     ApiCloneParserResponseV1,
     ApiCreateDashboardFromTemplateResponseV1,
     ApiCreateLookupFileResponseV1,
+    ApiCreateParserExtensionRequestV1,
     ApiCreateParserFromTemplateResponseV1,
     ApiCreateParserRequestV1,
     ApiCreateParserResponseV1,
@@ -47,6 +61,7 @@ import type {
     ApiUpdateDashboardFromTemplateResponseV1,
     ApiUpdateLookupFileEntriesResponseV1,
     ApiUpdateLookupFileResponseV1,
+    ApiUpdateParserExtensionRequestV1,
     ApiUpdateParserFromTemplateResponseV1,
     ApiUpdateParserRequestV1,
     ApiUpdateParserResponseV1,
@@ -69,6 +84,32 @@ import type {
     MsaspecResponseFields,
 } from "../models/index";
 import {
+    ApiBulkCreateDashboardsFromTemplateRequestV1FromJSON,
+    ApiBulkCreateDashboardsFromTemplateRequestV1ToJSON,
+    ApiBulkCreateDashboardsFromTemplateResponseV1FromJSON,
+    ApiBulkCreateDashboardsFromTemplateResponseV1ToJSON,
+    ApiBulkCreateLookupFilesRequestV1FromJSON,
+    ApiBulkCreateLookupFilesRequestV1ToJSON,
+    ApiBulkCreateLookupFilesResponseV1FromJSON,
+    ApiBulkCreateLookupFilesResponseV1ToJSON,
+    ApiBulkCreateSavedQueriesFromTemplateRequestV1FromJSON,
+    ApiBulkCreateSavedQueriesFromTemplateRequestV1ToJSON,
+    ApiBulkCreateSavedQueriesFromTemplateResponseV1FromJSON,
+    ApiBulkCreateSavedQueriesFromTemplateResponseV1ToJSON,
+    ApiBulkGetLookupFilesResponseV1FromJSON,
+    ApiBulkGetLookupFilesResponseV1ToJSON,
+    ApiBulkUpdateDashboardsFromTemplateRequestV1FromJSON,
+    ApiBulkUpdateDashboardsFromTemplateRequestV1ToJSON,
+    ApiBulkUpdateDashboardsFromTemplateResponseV1FromJSON,
+    ApiBulkUpdateDashboardsFromTemplateResponseV1ToJSON,
+    ApiBulkUpdateLookupFilesRequestV1FromJSON,
+    ApiBulkUpdateLookupFilesRequestV1ToJSON,
+    ApiBulkUpdateLookupFilesResponseV1FromJSON,
+    ApiBulkUpdateLookupFilesResponseV1ToJSON,
+    ApiBulkUpdateSavedQueriesFromTemplateRequestV1FromJSON,
+    ApiBulkUpdateSavedQueriesFromTemplateRequestV1ToJSON,
+    ApiBulkUpdateSavedQueriesFromTemplateResponseV1FromJSON,
+    ApiBulkUpdateSavedQueriesFromTemplateResponseV1ToJSON,
     ApiCloneParserRequestV1FromJSON,
     ApiCloneParserRequestV1ToJSON,
     ApiCloneParserResponseV1FromJSON,
@@ -77,6 +118,8 @@ import {
     ApiCreateDashboardFromTemplateResponseV1ToJSON,
     ApiCreateLookupFileResponseV1FromJSON,
     ApiCreateLookupFileResponseV1ToJSON,
+    ApiCreateParserExtensionRequestV1FromJSON,
+    ApiCreateParserExtensionRequestV1ToJSON,
     ApiCreateParserFromTemplateResponseV1FromJSON,
     ApiCreateParserFromTemplateResponseV1ToJSON,
     ApiCreateParserRequestV1FromJSON,
@@ -135,6 +178,8 @@ import {
     ApiUpdateLookupFileEntriesResponseV1ToJSON,
     ApiUpdateLookupFileResponseV1FromJSON,
     ApiUpdateLookupFileResponseV1ToJSON,
+    ApiUpdateParserExtensionRequestV1FromJSON,
+    ApiUpdateParserExtensionRequestV1ToJSON,
     ApiUpdateParserFromTemplateResponseV1FromJSON,
     ApiUpdateParserFromTemplateResponseV1ToJSON,
     ApiUpdateParserRequestV1FromJSON,
@@ -177,8 +222,37 @@ import {
     MsaspecResponseFieldsToJSON,
 } from "../models/index";
 
+export interface NgsiemApiBulkCreateDashboardsFromTemplateRequest {
+    body: ApiBulkCreateDashboardsFromTemplateRequestV1;
+}
+
+export interface NgsiemApiBulkCreateLookupFilesRequest {
+    body: ApiBulkCreateLookupFilesRequestV1;
+}
+
+export interface NgsiemApiBulkCreateSavedQueriesFromTemplateRequest {
+    body: ApiBulkCreateSavedQueriesFromTemplateRequestV1;
+}
+
+export interface NgsiemApiBulkGetLookupFilesRequest {
+    filename: Array<string>;
+    searchDomain?: BulkGetLookupFilesSearchDomainEnum;
+}
+
 export interface NgsiemApiBulkInstallParsersRequest {
     body: ApiParserBulkInstallRequestV1;
+}
+
+export interface NgsiemApiBulkUpdateDashboardsFromTemplateRequest {
+    body: ApiBulkUpdateDashboardsFromTemplateRequestV1;
+}
+
+export interface NgsiemApiBulkUpdateLookupFilesRequest {
+    body: ApiBulkUpdateLookupFilesRequestV1;
+}
+
+export interface NgsiemApiBulkUpdateSavedQueriesFromTemplateRequest {
+    body: ApiBulkUpdateSavedQueriesFromTemplateRequestV1;
 }
 
 export interface NgsiemApiCloneParserRequest {
@@ -201,6 +275,10 @@ export interface NgsiemApiCreateParserRequest {
     body: ApiCreateParserRequestV1;
 }
 
+export interface NgsiemApiCreateParserExtensionRequest {
+    body: ApiCreateParserExtensionRequestV1;
+}
+
 export interface NgsiemApiCreateParserFromTemplateRequest {
     repository?: CreateParserFromTemplateRepositoryEnum;
     yamlTemplate?: Blob;
@@ -212,12 +290,12 @@ export interface NgsiemApiCreateSavedQueryRequest {
 }
 
 export interface NgsiemApiDeleteDashboardRequest {
-    ids?: string;
+    ids?: Array<string>;
     searchDomain?: DeleteDashboardSearchDomainEnum;
 }
 
 export interface NgsiemApiDeleteLookupFileRequest {
-    filename?: string;
+    filename?: Array<string>;
     searchDomain?: DeleteLookupFileSearchDomainEnum;
 }
 
@@ -227,7 +305,7 @@ export interface NgsiemApiDeleteParserRequest {
 }
 
 export interface NgsiemApiDeleteSavedQueryRequest {
-    ids?: string;
+    ids?: Array<string>;
     searchDomain?: DeleteSavedQuerySearchDomainEnum;
 }
 
@@ -298,7 +376,7 @@ export interface NgsiemApiExternalUpdateDataConnectionStatusRequest {
 }
 
 export interface NgsiemApiGetDashboardTemplateRequest {
-    ids?: string;
+    ids?: Array<string>;
     searchDomain?: GetDashboardTemplateSearchDomainEnum;
 }
 
@@ -336,7 +414,7 @@ export interface NgsiemApiGetParserTemplateRequest {
 }
 
 export interface NgsiemApiGetSavedQueryTemplateRequest {
-    ids?: string;
+    ids?: Array<string>;
     searchDomain?: GetSavedQueryTemplateSearchDomainEnum;
 }
 
@@ -423,6 +501,10 @@ export interface NgsiemApiUpdateParserAutoUpdatePolicyRequest {
     body: ApiUpdateAutoUpdatePolicyRequestV1;
 }
 
+export interface NgsiemApiUpdateParserExtensionRequest {
+    body: ApiUpdateParserExtensionRequestV1;
+}
+
 export interface NgsiemApiUpdateParserFromTemplateRequest {
     repository?: UpdateParserFromTemplateRepositoryEnum;
     ids?: string;
@@ -444,6 +526,197 @@ export interface NgsiemApiUploadLookupV1Request {
  *
  */
 export class NgsiemApi extends runtime.BaseAPI {
+    /**
+     * Create Multiple Dashboards from YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkCreateDashboardsFromTemplateRaw(
+        requestParameters: NgsiemApiBulkCreateDashboardsFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkCreateDashboardsFromTemplateResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkCreateDashboardsFromTemplate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-dashboards-template/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkCreateDashboardsFromTemplateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkCreateDashboardsFromTemplateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create Multiple Dashboards from YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkCreateDashboardsFromTemplate(
+        body: ApiBulkCreateDashboardsFromTemplateRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiBulkCreateDashboardsFromTemplateResponseV1> {
+        const response = await this.bulkCreateDashboardsFromTemplateRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create Multiple Lookup Files. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkCreateLookupFilesRaw(
+        requestParameters: NgsiemApiBulkCreateLookupFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkCreateLookupFilesResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkCreateLookupFiles().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-lookupfiles/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkCreateLookupFilesRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkCreateLookupFilesResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create Multiple Lookup Files. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkCreateLookupFiles(body: ApiBulkCreateLookupFilesRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkCreateLookupFilesResponseV1> {
+        const response = await this.bulkCreateLookupFilesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create Multiple Saved Queries from LogScale YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkCreateSavedQueriesFromTemplateRaw(
+        requestParameters: NgsiemApiBulkCreateSavedQueriesFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkCreateSavedQueriesFromTemplateResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkCreateSavedQueriesFromTemplate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-savedqueries-template/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkCreateSavedQueriesFromTemplateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkCreateSavedQueriesFromTemplateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create Multiple Saved Queries from LogScale YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkCreateSavedQueriesFromTemplate(
+        body: ApiBulkCreateSavedQueriesFromTemplateRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiBulkCreateSavedQueriesFromTemplateResponseV1> {
+        const response = await this.bulkCreateSavedQueriesFromTemplateRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve Multiple Lookup Files by Filenames in NGSIEM.
+     */
+    async bulkGetLookupFilesRaw(
+        requestParameters: NgsiemApiBulkGetLookupFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkGetLookupFilesResponseV1>> {
+        if (requestParameters["filename"] == null) {
+            throw new runtime.RequiredError("filename", 'Required parameter "filename" was null or undefined when calling bulkGetLookupFiles().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["filename"] != null) {
+            queryParameters["filename"] = requestParameters["filename"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["searchDomain"] != null) {
+            queryParameters["search_domain"] = requestParameters["searchDomain"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-lookupfiles/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkGetLookupFilesResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve Multiple Lookup Files by Filenames in NGSIEM.
+     */
+    async bulkGetLookupFiles(
+        filename: Array<string>,
+        searchDomain?: BulkGetLookupFilesSearchDomainEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiBulkGetLookupFilesResponseV1> {
+        const response = await this.bulkGetLookupFilesRaw({ filename: filename, searchDomain: searchDomain }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Installs multiple CrowdStrike-managed out-of-the-box (OOTB) parsers into the customer\'s repository in a single operation. This endpoint provisions multiple pre-built parsers with their specific versions for the requesting customer ID (CID). The parsers are installed as-is and cannot be modified by the customer. Requires an array of parsers with parser_id and version in the request body. Maximum 100 parsers per request.
      */
@@ -485,6 +758,144 @@ export class NgsiemApi extends runtime.BaseAPI {
      */
     async bulkInstallParsers(body: ApiParserBulkInstallRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiParserBulkInstallResponseV1> {
         const response = await this.bulkInstallParsersRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update Multiple Dashboards from YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkUpdateDashboardsFromTemplateRaw(
+        requestParameters: NgsiemApiBulkUpdateDashboardsFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkUpdateDashboardsFromTemplateResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkUpdateDashboardsFromTemplate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-dashboards-template/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkUpdateDashboardsFromTemplateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkUpdateDashboardsFromTemplateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update Multiple Dashboards from YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkUpdateDashboardsFromTemplate(
+        body: ApiBulkUpdateDashboardsFromTemplateRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiBulkUpdateDashboardsFromTemplateResponseV1> {
+        const response = await this.bulkUpdateDashboardsFromTemplateRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update Multiple Lookup Files. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkUpdateLookupFilesRaw(
+        requestParameters: NgsiemApiBulkUpdateLookupFilesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkUpdateLookupFilesResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkUpdateLookupFiles().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-lookupfiles/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkUpdateLookupFilesRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkUpdateLookupFilesResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update Multiple Lookup Files. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkUpdateLookupFiles(body: ApiBulkUpdateLookupFilesRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkUpdateLookupFilesResponseV1> {
+        const response = await this.bulkUpdateLookupFilesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update Multiple Saved Queries from LogScale YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkUpdateSavedQueriesFromTemplateRaw(
+        requestParameters: NgsiemApiBulkUpdateSavedQueriesFromTemplateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkUpdateSavedQueriesFromTemplateResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkUpdateSavedQueriesFromTemplate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-savedqueries-template/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkUpdateSavedQueriesFromTemplateRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkUpdateSavedQueriesFromTemplateResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update Multiple Saved Queries from LogScale YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
+     */
+    async bulkUpdateSavedQueriesFromTemplate(
+        body: ApiBulkUpdateSavedQueriesFromTemplateRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiBulkUpdateSavedQueriesFromTemplateResponseV1> {
+        const response = await this.bulkUpdateSavedQueriesFromTemplateRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -711,6 +1122,50 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create a Parser extension in NGSIEM for the provided base parser.
+     */
+    async createParserExtensionRaw(
+        requestParameters: NgsiemApiCreateParserExtensionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateParserResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createParserExtension().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers-extensions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiCreateParserExtensionRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateParserResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create a Parser extension in NGSIEM for the provided base parser.
+     */
+    async createParserExtension(body: ApiCreateParserExtensionRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCreateParserResponseV1> {
+        const response = await this.createParserExtensionRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Create Parser from LogScale YAML Template in NGSIEM
      */
     async createParserFromTemplateRaw(
@@ -844,7 +1299,7 @@ export class NgsiemApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
-            queryParameters["ids"] = requestParameters["ids"];
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         if (requestParameters["searchDomain"] != null) {
@@ -874,7 +1329,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     /**
      * Delete Dashboard in NGSIEM
      */
-    async deleteDashboard(ids?: string, searchDomain?: DeleteDashboardSearchDomainEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeleteDashboardResponseV1> {
+    async deleteDashboard(ids?: Array<string>, searchDomain?: DeleteDashboardSearchDomainEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeleteDashboardResponseV1> {
         const response = await this.deleteDashboardRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
         return await response.value();
     }
@@ -889,7 +1344,7 @@ export class NgsiemApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters["filename"] != null) {
-            queryParameters["filename"] = requestParameters["filename"];
+            queryParameters["filename"] = requestParameters["filename"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         if (requestParameters["searchDomain"] != null) {
@@ -919,7 +1374,11 @@ export class NgsiemApi extends runtime.BaseAPI {
     /**
      * Delete Lookup File in NGSIEM
      */
-    async deleteLookupFile(filename?: string, searchDomain?: DeleteLookupFileSearchDomainEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeleteLookupFileResponseV1> {
+    async deleteLookupFile(
+        filename?: Array<string>,
+        searchDomain?: DeleteLookupFileSearchDomainEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiDeleteLookupFileResponseV1> {
         const response = await this.deleteLookupFileRaw({ filename: filename, searchDomain: searchDomain }, initOverrides);
         return await response.value();
     }
@@ -976,7 +1435,7 @@ export class NgsiemApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
-            queryParameters["ids"] = requestParameters["ids"];
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         if (requestParameters["searchDomain"] != null) {
@@ -1006,7 +1465,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     /**
      * Delete Saved Query in NGSIEM
      */
-    async deleteSavedQuery(ids?: string, searchDomain?: DeleteSavedQuerySearchDomainEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeleteSavedQueryResponseV1> {
+    async deleteSavedQuery(ids?: Array<string>, searchDomain?: DeleteSavedQuerySearchDomainEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeleteSavedQueryResponseV1> {
         const response = await this.deleteSavedQueryRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
         return await response.value();
     }
@@ -1715,7 +2174,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Dashboard in NGSIEM as LogScale YAML Template
+     * Retrieve Dashboard(s) in NGSIEM as LogScale YAML Template. Supports single or multiple IDs.
      */
     async getDashboardTemplateRaw(
         requestParameters: NgsiemApiGetDashboardTemplateRequest,
@@ -1724,7 +2183,7 @@ export class NgsiemApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
-            queryParameters["ids"] = requestParameters["ids"];
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         if (requestParameters["searchDomain"] != null) {
@@ -1752,10 +2211,10 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Dashboard in NGSIEM as LogScale YAML Template
+     * Retrieve Dashboard(s) in NGSIEM as LogScale YAML Template. Supports single or multiple IDs.
      */
     async getDashboardTemplate(
-        ids?: string,
+        ids?: Array<string>,
         searchDomain?: GetDashboardTemplateSearchDomainEnum,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiGetDashboardTemplateResponseV1> {
@@ -2041,7 +2500,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Saved Query in NGSIEM as LogScale YAML Template
+     * Retrieve Saved Quer(ies) in NGSIEM as LogScale YAML Template. Supports single or multiple IDs.
      */
     async getSavedQueryTemplateRaw(
         requestParameters: NgsiemApiGetSavedQueryTemplateRequest,
@@ -2050,7 +2509,7 @@ export class NgsiemApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
-            queryParameters["ids"] = requestParameters["ids"];
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
         }
 
         if (requestParameters["searchDomain"] != null) {
@@ -2078,9 +2537,13 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieve Saved Query in NGSIEM as LogScale YAML Template
+     * Retrieve Saved Quer(ies) in NGSIEM as LogScale YAML Template. Supports single or multiple IDs.
      */
-    async getSavedQueryTemplate(ids?: string, searchDomain?: GetSavedQueryTemplateSearchDomainEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiGetSavedQueryResponseV1> {
+    async getSavedQueryTemplate(
+        ids?: Array<string>,
+        searchDomain?: GetSavedQueryTemplateSearchDomainEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiGetSavedQueryResponseV1> {
         const response = await this.getSavedQueryTemplateRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
         return await response.value();
     }
@@ -2171,7 +2634,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Dashboards in NGSIEM
+     * List Dashboards in NGSIEM with Pagination and Filtering. Returns dashboard ID and name. Supports pagination (default limit: 50) and optional name filtering.
      */
     async listDashboardsRaw(requestParameters: NgsiemApiListDashboardsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiListDashboardsResponseV1>> {
         const queryParameters: any = {};
@@ -2213,7 +2676,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Dashboards in NGSIEM
+     * List Dashboards in NGSIEM with Pagination and Filtering. Returns dashboard ID and name. Supports pagination (default limit: 50) and optional name filtering.
      */
     async listDashboards(
         limit?: string,
@@ -2227,7 +2690,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Lookup Files in NGSIEM
+     * List Lookup Files in NGSIEM with Pagination and Filtering. Supports bulk listing with pagination (default limit: 50) and optional name filtering.
      */
     async listLookupFilesRaw(
         requestParameters: NgsiemApiListLookupFilesRequest,
@@ -2272,7 +2735,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * List Lookup Files in NGSIEM
+     * List Lookup Files in NGSIEM with Pagination and Filtering. Supports bulk listing with pagination (default limit: 50) and optional name filtering.
      */
     async listLookupFiles(
         limit?: string,
@@ -2352,7 +2815,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Saved Queries in NGSIEM
+     * List Saved Queries in NGSIEM with Pagination and Filtering. Supports bulk listing with pagination (default limit: 50) and optional name filtering.
      */
     async listSavedQueriesRaw(
         requestParameters: NgsiemApiListSavedQueriesRequest,
@@ -2397,7 +2860,7 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get Saved Queries in NGSIEM
+     * List Saved Queries in NGSIEM with Pagination and Filtering. Supports bulk listing with pagination (default limit: 50) and optional name filtering.
      */
     async listSavedQueries(
         limit?: string,
@@ -2871,6 +3334,50 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Update an existing Parser extension in NGSIEM. At least one field must be provided for update.
+     */
+    async updateParserExtensionRaw(
+        requestParameters: NgsiemApiUpdateParserExtensionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateParserResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateParserExtension().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers-extensions/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiUpdateParserExtensionRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateParserResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update an existing Parser extension in NGSIEM. At least one field must be provided for update.
+     */
+    async updateParserExtension(body: ApiUpdateParserExtensionRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCreateParserResponseV1> {
+        const response = await this.updateParserExtensionRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Update Parser in NGSIEM from YAML Template. Please note that name changes are not supported, but rather should be created as a new parser.
      */
     async updateParserFromTemplateRaw(
@@ -3072,6 +3579,17 @@ export class NgsiemApi extends runtime.BaseAPI {
 /**
  * @export
  */
+export const BulkGetLookupFilesSearchDomainEnum = {
+    All: "all",
+    Falcon: "falcon",
+    ThirdParty: "third-party",
+    Dashboards: "dashboards",
+    ParsersRepository: "parsers-repository",
+} as const;
+export type BulkGetLookupFilesSearchDomainEnum = (typeof BulkGetLookupFilesSearchDomainEnum)[keyof typeof BulkGetLookupFilesSearchDomainEnum];
+/**
+ * @export
+ */
 export const CreateDashboardFromTemplateSearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
@@ -3084,6 +3602,7 @@ export type CreateDashboardFromTemplateSearchDomainEnum = (typeof CreateDashboar
 export const CreateLookupFileSearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
+    FalconForIt: "falcon-for-it",
     ThirdParty: "third-party",
     ParsersRepository: "parsers-repository",
 } as const;
@@ -3226,6 +3745,7 @@ export type ListParsersUpdateAvailableEnum = (typeof ListParsersUpdateAvailableE
 export const ListParsersParserTypeEnum = {
     Ootb: "ootb",
     Custom: "custom",
+    Extension: "extension",
 } as const;
 export type ListParsersParserTypeEnum = (typeof ListParsersParserTypeEnum)[keyof typeof ListParsersParserTypeEnum];
 /**
@@ -3253,6 +3773,7 @@ export type UpdateDashboardFromTemplateSearchDomainEnum = (typeof UpdateDashboar
 export const UpdateLookupFileSearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
+    FalconForIt: "falcon-for-it",
     ThirdParty: "third-party",
     ParsersRepository: "parsers-repository",
 } as const;

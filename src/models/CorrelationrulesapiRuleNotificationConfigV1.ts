@@ -24,6 +24,12 @@ export interface CorrelationrulesapiRuleNotificationConfigV1 {
      * @type {string}
      * @memberof CorrelationrulesapiRuleNotificationConfigV1
      */
+    channelId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiRuleNotificationConfigV1
+     */
     cid: string;
     /**
      *
@@ -49,6 +55,12 @@ export interface CorrelationrulesapiRuleNotificationConfigV1 {
      * @memberof CorrelationrulesapiRuleNotificationConfigV1
      */
     severity: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiRuleNotificationConfigV1
+     */
+    teamId?: string;
 }
 
 /**
@@ -72,11 +84,13 @@ export function CorrelationrulesapiRuleNotificationConfigV1FromJSONTyped(json: a
         return json;
     }
     return {
+        channelId: json["channel_id"] == null ? undefined : json["channel_id"],
         cid: json["cid"],
         configId: json["config_id"],
         pluginId: json["plugin_id"],
         recipients: json["recipients"],
         severity: json["severity"],
+        teamId: json["team_id"] == null ? undefined : json["team_id"],
     };
 }
 
@@ -85,10 +99,12 @@ export function CorrelationrulesapiRuleNotificationConfigV1ToJSON(value?: Correl
         return value;
     }
     return {
+        channel_id: value["channelId"],
         cid: value["cid"],
         config_id: value["configId"],
         plugin_id: value["pluginId"],
         recipients: value["recipients"],
         severity: value["severity"],
+        team_id: value["teamId"],
     };
 }

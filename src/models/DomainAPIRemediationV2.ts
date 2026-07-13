@@ -26,6 +26,12 @@ export interface DomainAPIRemediationV2 {
      */
     action: string;
     /**
+     * The timestamp when this remediation was created
+     * @type {string}
+     * @memberof DomainAPIRemediationV2
+     */
+    createdTimestamp?: string;
+    /**
      * Refers to an unique identifier for a given remediation
      * @type {string}
      * @memberof DomainAPIRemediationV2
@@ -43,6 +49,12 @@ export interface DomainAPIRemediationV2 {
      * @memberof DomainAPIRemediationV2
      */
     patchPublicationDate?: string;
+    /**
+     * The provider of the remediation
+     * @type {string}
+     * @memberof DomainAPIRemediationV2
+     */
+    provider: string;
     /**
      * The type of recommendation for this remediation, usually either 'recommended' or 'minimum'
      * @type {string}
@@ -62,6 +74,18 @@ export interface DomainAPIRemediationV2 {
      */
     title: string;
     /**
+     * The type of remediation (e.g., patch, workaround)
+     * @type {string}
+     * @memberof DomainAPIRemediationV2
+     */
+    type: string;
+    /**
+     * The timestamp when this remediation was last updated
+     * @type {string}
+     * @memberof DomainAPIRemediationV2
+     */
+    updatedTimestamp?: string;
+    /**
      * Link to the vendor advisory - Note: This field is populated if there are extra steps that are required to complete the remediation
      * @type {string}
      * @memberof DomainAPIRemediationV2
@@ -76,8 +100,10 @@ export function instanceOfDomainAPIRemediationV2(value: object): value is Domain
     if (!("action" in value) || value["action"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("link" in value) || value["link"] === undefined) return false;
+    if (!("provider" in value) || value["provider"] === undefined) return false;
     if (!("reference" in value) || value["reference"] === undefined) return false;
     if (!("title" in value) || value["title"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
     if (!("vendorUrl" in value) || value["vendorUrl"] === undefined) return false;
     return true;
 }
@@ -92,12 +118,16 @@ export function DomainAPIRemediationV2FromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         action: json["action"],
+        createdTimestamp: json["created_timestamp"] == null ? undefined : json["created_timestamp"],
         id: json["id"],
         link: json["link"],
         patchPublicationDate: json["patch_publication_date"] == null ? undefined : json["patch_publication_date"],
+        provider: json["provider"],
         recommendationType: json["recommendation_type"] == null ? undefined : json["recommendation_type"],
         reference: json["reference"],
         title: json["title"],
+        type: json["type"],
+        updatedTimestamp: json["updated_timestamp"] == null ? undefined : json["updated_timestamp"],
         vendorUrl: json["vendor_url"],
     };
 }
@@ -108,12 +138,16 @@ export function DomainAPIRemediationV2ToJSON(value?: DomainAPIRemediationV2 | nu
     }
     return {
         action: value["action"],
+        created_timestamp: value["createdTimestamp"],
         id: value["id"],
         link: value["link"],
         patch_publication_date: value["patchPublicationDate"],
+        provider: value["provider"],
         recommendation_type: value["recommendationType"],
         reference: value["reference"],
         title: value["title"],
+        type: value["type"],
+        updated_timestamp: value["updatedTimestamp"],
         vendor_url: value["vendorUrl"],
     };
 }

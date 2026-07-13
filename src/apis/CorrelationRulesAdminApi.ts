@@ -13,18 +13,32 @@
  */
 
 import * as runtime from "../runtime";
-import type { CorrelationrulesapiGetEntitiesRulesResponseV1, CorrelationrulesapiRuleOwnerPutRequestV1, MsaReplyMetaOnly } from "../models/index";
+import type {
+    CorrelationrulesapiBulkRuleOwnerPutRequestV1,
+    CorrelationrulesapiGetEntitiesRulesResponseV1,
+    CorrelationrulesapiRuleOwnerPutRequestV1,
+    MsaReplyMetaOnly,
+    MsaspecQueryResponse,
+} from "../models/index";
 import {
+    CorrelationrulesapiBulkRuleOwnerPutRequestV1FromJSON,
+    CorrelationrulesapiBulkRuleOwnerPutRequestV1ToJSON,
     CorrelationrulesapiGetEntitiesRulesResponseV1FromJSON,
     CorrelationrulesapiGetEntitiesRulesResponseV1ToJSON,
     CorrelationrulesapiRuleOwnerPutRequestV1FromJSON,
     CorrelationrulesapiRuleOwnerPutRequestV1ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecQueryResponseFromJSON,
+    MsaspecQueryResponseToJSON,
 } from "../models/index";
 
 export interface CorrelationRulesAdminApiEntitiesRulesOwnershipPutV1Request {
     body: CorrelationrulesapiRuleOwnerPutRequestV1;
+}
+
+export interface CorrelationRulesAdminApiEntitiesRulesOwnershipPutV2Request {
+    body: CorrelationrulesapiBulkRuleOwnerPutRequestV1;
 }
 
 /**
@@ -75,6 +89,50 @@ export class CorrelationRulesAdminApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<CorrelationrulesapiGetEntitiesRulesResponseV1> {
         const response = await this.entitiesRulesOwnershipPutV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Bulk change the owner of existing Correlation Rules
+     */
+    async entitiesRulesOwnershipPutV2Raw(
+        requestParameters: CorrelationRulesAdminApiEntitiesRulesOwnershipPutV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesRulesOwnershipPutV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["correlation-rules-admin:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/correlation-rules/entities/rules/ownership/v2`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: CorrelationrulesapiBulkRuleOwnerPutRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Bulk change the owner of existing Correlation Rules
+     */
+    async entitiesRulesOwnershipPutV2(body: CorrelationrulesapiBulkRuleOwnerPutRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.entitiesRulesOwnershipPutV2Raw({ body: body }, initOverrides);
         return await response.value();
     }
 }

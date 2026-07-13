@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import type { GcpAgentlessScanningSettings } from "./GcpAgentlessScanningSettings";
+import { GcpAgentlessScanningSettingsFromJSON, GcpAgentlessScanningSettingsFromJSONTyped, GcpAgentlessScanningSettingsToJSON } from "./GcpAgentlessScanningSettings";
 
 /**
  *
@@ -34,6 +36,12 @@ export interface DtoCreateGCPRegistrationRequest {
      * @memberof DtoCreateGCPRegistrationRequest
      */
     deploymentMethod: string;
+    /**
+     *
+     * @type {GcpAgentlessScanningSettings}
+     * @memberof DtoCreateGCPRegistrationRequest
+     */
+    dspmSettings?: GcpAgentlessScanningSettings;
     /**
      *
      * @type {Array<string>}
@@ -87,6 +95,12 @@ export interface DtoCreateGCPRegistrationRequest {
      * @type {string}
      * @memberof DtoCreateGCPRegistrationRequest
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoCreateGCPRegistrationRequest
+     */
     registrationName: string;
     /**
      *
@@ -112,6 +126,12 @@ export interface DtoCreateGCPRegistrationRequest {
      * @memberof DtoCreateGCPRegistrationRequest
      */
     tags?: { [key: string]: string };
+    /**
+     *
+     * @type {GcpAgentlessScanningSettings}
+     * @memberof DtoCreateGCPRegistrationRequest
+     */
+    vulnerabilityScanningSettings?: GcpAgentlessScanningSettings;
     /**
      *
      * @type {string}
@@ -150,6 +170,7 @@ export function DtoCreateGCPRegistrationRequestFromJSONTyped(json: any, ignoreDi
     return {
         additionalProperties: json["additional_properties"] == null ? undefined : json["additional_properties"],
         deploymentMethod: json["deployment_method"],
+        dspmSettings: json["dspm_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["dspm_settings"]),
         entityId: json["entity_id"],
         excludedProjectPatterns: json["excluded_project_patterns"] == null ? undefined : json["excluded_project_patterns"],
         falconClientKeyId: json["falcon_client_key_id"] == null ? undefined : json["falcon_client_key_id"],
@@ -158,11 +179,13 @@ export function DtoCreateGCPRegistrationRequestFromJSONTyped(json: any, ignoreDi
         infraProjectId: json["infra_project_id"],
         labels: json["labels"] == null ? undefined : json["labels"],
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(DomainProductFeaturesFromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
         registrationName: json["registration_name"],
         registrationScope: json["registration_scope"],
         resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
         resourceNameSuffix: json["resource_name_suffix"] == null ? undefined : json["resource_name_suffix"],
         tags: json["tags"] == null ? undefined : json["tags"],
+        vulnerabilityScanningSettings: json["vulnerability_scanning_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["vulnerability_scanning_settings"]),
         wifProjectId: json["wif_project_id"],
         wifProjectNumber: json["wif_project_number"] == null ? undefined : json["wif_project_number"],
     };
@@ -175,6 +198,7 @@ export function DtoCreateGCPRegistrationRequestToJSON(value?: DtoCreateGCPRegist
     return {
         additional_properties: value["additionalProperties"],
         deployment_method: value["deploymentMethod"],
+        dspm_settings: GcpAgentlessScanningSettingsToJSON(value["dspmSettings"]),
         entity_id: value["entityId"],
         excluded_project_patterns: value["excludedProjectPatterns"],
         falcon_client_key_id: value["falconClientKeyId"],
@@ -183,11 +207,13 @@ export function DtoCreateGCPRegistrationRequestToJSON(value?: DtoCreateGCPRegist
         infra_project_id: value["infraProjectId"],
         labels: value["labels"],
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
+        registration_description: value["registrationDescription"],
         registration_name: value["registrationName"],
         registration_scope: value["registrationScope"],
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
         tags: value["tags"],
+        vulnerability_scanning_settings: GcpAgentlessScanningSettingsToJSON(value["vulnerabilityScanningSettings"]),
         wif_project_id: value["wifProjectId"],
         wif_project_number: value["wifProjectNumber"],
     };

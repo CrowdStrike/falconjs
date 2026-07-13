@@ -15,10 +15,18 @@
 import { mapValues } from "../runtime";
 import type { SadomainNotificationLog } from "./SadomainNotificationLog";
 import { SadomainNotificationLogFromJSON, SadomainNotificationLogFromJSONTyped, SadomainNotificationLogToJSON } from "./SadomainNotificationLog";
+import type { DomainRiskScoreMatchingCriteriaResponse } from "./DomainRiskScoreMatchingCriteriaResponse";
+import {
+    DomainRiskScoreMatchingCriteriaResponseFromJSON,
+    DomainRiskScoreMatchingCriteriaResponseFromJSONTyped,
+    DomainRiskScoreMatchingCriteriaResponseToJSON,
+} from "./DomainRiskScoreMatchingCriteriaResponse";
 import type { DomainMatchedBreachSummaryV1 } from "./DomainMatchedBreachSummaryV1";
 import { DomainMatchedBreachSummaryV1FromJSON, DomainMatchedBreachSummaryV1FromJSONTyped, DomainMatchedBreachSummaryV1ToJSON } from "./DomainMatchedBreachSummaryV1";
 import type { SadomainTyposquattingComponent } from "./SadomainTyposquattingComponent";
 import { SadomainTyposquattingComponentFromJSON, SadomainTyposquattingComponentFromJSONTyped, SadomainTyposquattingComponentToJSON } from "./SadomainTyposquattingComponent";
+import type { SadomainTermMatch } from "./SadomainTermMatch";
+import { SadomainTermMatchFromJSON, SadomainTermMatchFromJSONTyped, SadomainTermMatchToJSON } from "./SadomainTermMatch";
 
 /**
  *
@@ -141,6 +149,18 @@ export interface DomainNotificationV1 {
      */
     rawIntelId: string;
     /**
+     *
+     * @type {string}
+     * @memberof DomainNotificationV1
+     */
+    riskScoreLabel: string;
+    /**
+     *
+     * @type {Array<DomainRiskScoreMatchingCriteriaResponse>}
+     * @memberof DomainNotificationV1
+     */
+    riskScoreMatchingCriteria?: Array<DomainRiskScoreMatchingCriteriaResponse>;
+    /**
      * The name of the user who created the rule
      * @type {string}
      * @memberof DomainNotificationV1
@@ -195,6 +215,12 @@ export interface DomainNotificationV1 {
      */
     status: string;
     /**
+     * Term matches with their highlighted text and source field information
+     * @type {Array<SadomainTermMatch>}
+     * @memberof DomainNotificationV1
+     */
+    termMatches?: Array<SadomainTermMatch>;
+    /**
      *
      * @type {SadomainTyposquattingComponent}
      * @memberof DomainNotificationV1
@@ -220,6 +246,7 @@ export function instanceOfDomainNotificationV1(value: object): value is DomainNo
     if (!("itemId" in value) || value["itemId"] === undefined) return false;
     if (!("itemType" in value) || value["itemType"] === undefined) return false;
     if (!("rawIntelId" in value) || value["rawIntelId"] === undefined) return false;
+    if (!("riskScoreLabel" in value) || value["riskScoreLabel"] === undefined) return false;
     if (!("ruleId" in value) || value["ruleId"] === undefined) return false;
     if (!("ruleName" in value) || value["ruleName"] === undefined) return false;
     if (!("rulePriority" in value) || value["rulePriority"] === undefined) return false;
@@ -257,6 +284,8 @@ export function DomainNotificationV1FromJSONTyped(json: any, ignoreDiscriminator
         logs: json["logs"] == null ? undefined : (json["logs"] as Array<any>).map(SadomainNotificationLogFromJSON),
         notificationGroupId: json["notification_group_id"] == null ? undefined : json["notification_group_id"],
         rawIntelId: json["raw_intel_id"],
+        riskScoreLabel: json["risk_score_label"],
+        riskScoreMatchingCriteria: json["risk_score_matching_criteria"] == null ? undefined : (json["risk_score_matching_criteria"] as Array<any>).map(DomainRiskScoreMatchingCriteriaResponseFromJSON),
         ruleCreatorName: json["rule_creator_name"] == null ? undefined : json["rule_creator_name"],
         ruleCreatorUid: json["rule_creator_uid"] == null ? undefined : json["rule_creator_uid"],
         ruleCreatorUuid: json["rule_creator_uuid"] == null ? undefined : json["rule_creator_uuid"],
@@ -266,6 +295,7 @@ export function DomainNotificationV1FromJSONTyped(json: any, ignoreDiscriminator
         ruleTopic: json["rule_topic"],
         sourceCategory: json["source_category"] == null ? undefined : json["source_category"],
         status: json["status"],
+        termMatches: json["term_matches"] == null ? undefined : (json["term_matches"] as Array<any>).map(SadomainTermMatchFromJSON),
         typosquatting: json["typosquatting"] == null ? undefined : SadomainTyposquattingComponentFromJSON(json["typosquatting"]),
         updatedDate: new Date(json["updated_date"]),
     };
@@ -295,6 +325,8 @@ export function DomainNotificationV1ToJSON(value?: DomainNotificationV1 | null):
         logs: value["logs"] == null ? undefined : (value["logs"] as Array<any>).map(SadomainNotificationLogToJSON),
         notification_group_id: value["notificationGroupId"],
         raw_intel_id: value["rawIntelId"],
+        risk_score_label: value["riskScoreLabel"],
+        risk_score_matching_criteria: value["riskScoreMatchingCriteria"] == null ? undefined : (value["riskScoreMatchingCriteria"] as Array<any>).map(DomainRiskScoreMatchingCriteriaResponseToJSON),
         rule_creator_name: value["ruleCreatorName"],
         rule_creator_uid: value["ruleCreatorUid"],
         rule_creator_uuid: value["ruleCreatorUuid"],
@@ -304,6 +336,7 @@ export function DomainNotificationV1ToJSON(value?: DomainNotificationV1 | null):
         rule_topic: value["ruleTopic"],
         source_category: value["sourceCategory"],
         status: value["status"],
+        term_matches: value["termMatches"] == null ? undefined : (value["termMatches"] as Array<any>).map(SadomainTermMatchToJSON),
         typosquatting: SadomainTyposquattingComponentToJSON(value["typosquatting"]),
         updated_date: value["updatedDate"].toISOString(),
     };

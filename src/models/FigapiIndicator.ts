@@ -37,6 +37,8 @@ import type { FigapiUniqueIdentifier } from "./FigapiUniqueIdentifier";
 import { FigapiUniqueIdentifierFromJSON, FigapiUniqueIdentifierFromJSONTyped, FigapiUniqueIdentifierToJSON } from "./FigapiUniqueIdentifier";
 import type { FigapiReport } from "./FigapiReport";
 import { FigapiReportFromJSON, FigapiReportFromJSONTyped, FigapiReportToJSON } from "./FigapiReport";
+import type { FigapiSoftwarePackage } from "./FigapiSoftwarePackage";
+import { FigapiSoftwarePackageFromJSON, FigapiSoftwarePackageFromJSONTyped, FigapiSoftwarePackageToJSON } from "./FigapiSoftwarePackage";
 import type { FigapiX509Certificate } from "./FigapiX509Certificate";
 import { FigapiX509CertificateFromJSON, FigapiX509CertificateFromJSONTyped, FigapiX509CertificateToJSON } from "./FigapiX509Certificate";
 import type { FigapiIPv6 } from "./FigapiIPv6";
@@ -186,6 +188,12 @@ export interface FigapiIndicator {
     sectors?: Array<FigapiSector>;
     /**
      *
+     * @type {Array<FigapiSoftwarePackage>}
+     * @memberof FigapiIndicator
+     */
+    softwarePackages?: Array<FigapiSoftwarePackage>;
+    /**
+     *
      * @type {Array<string>}
      * @memberof FigapiIndicator
      */
@@ -260,6 +268,7 @@ export function FigapiIndicatorFromJSONTyped(json: any, ignoreDiscriminator: boo
         reports: json["Reports"] == null ? undefined : (json["Reports"] as Array<any>).map(FigapiReportFromJSON),
         rootDomainDetails: json["RootDomainDetails"] == null ? undefined : FigapiDomainFromJSON(json["RootDomainDetails"]),
         sectors: json["Sectors"] == null ? undefined : (json["Sectors"] as Array<any>).map(FigapiSectorFromJSON),
+        softwarePackages: json["SoftwarePackages"] == null ? undefined : (json["SoftwarePackages"] as Array<any>).map(FigapiSoftwarePackageFromJSON),
         threatTypes: json["ThreatTypes"] == null ? undefined : json["ThreatTypes"],
         threats: json["Threats"] == null ? undefined : (json["Threats"] as Array<any>).map(FigapiThreatFromJSON),
         type: json["Type"] == null ? undefined : json["Type"],
@@ -296,6 +305,7 @@ export function FigapiIndicatorToJSON(value?: FigapiIndicator | null): any {
         Reports: value["reports"] == null ? undefined : (value["reports"] as Array<any>).map(FigapiReportToJSON),
         RootDomainDetails: FigapiDomainToJSON(value["rootDomainDetails"]),
         Sectors: value["sectors"] == null ? undefined : (value["sectors"] as Array<any>).map(FigapiSectorToJSON),
+        SoftwarePackages: value["softwarePackages"] == null ? undefined : (value["softwarePackages"] as Array<any>).map(FigapiSoftwarePackageToJSON),
         ThreatTypes: value["threatTypes"],
         Threats: value["threats"] == null ? undefined : (value["threats"] as Array<any>).map(FigapiThreatToJSON),
         Type: value["type"],

@@ -19,8 +19,8 @@ import type {
     CasefilesapiDownloadRequestV1,
     CasefilesapiDownloadResponseV1,
     CasefilesapiFileDetailsResponseV1,
+    CasefilesapiFileIDsResponseV1,
     CasefilesapiGetRTRFileMetaDataRequestV1,
-    CasefilesapiMSAResponseString,
     CasefilesapiRetrieveRTRFileRequestV1,
     CasefilesapiRetrieveRTRRecentFileRequestV1,
     CasefilesapiUpdateRequestV1,
@@ -39,10 +39,10 @@ import {
     CasefilesapiDownloadResponseV1ToJSON,
     CasefilesapiFileDetailsResponseV1FromJSON,
     CasefilesapiFileDetailsResponseV1ToJSON,
+    CasefilesapiFileIDsResponseV1FromJSON,
+    CasefilesapiFileIDsResponseV1ToJSON,
     CasefilesapiGetRTRFileMetaDataRequestV1FromJSON,
     CasefilesapiGetRTRFileMetaDataRequestV1ToJSON,
-    CasefilesapiMSAResponseStringFromJSON,
-    CasefilesapiMSAResponseStringToJSON,
     CasefilesapiRetrieveRTRFileRequestV1FromJSON,
     CasefilesapiRetrieveRTRFileRequestV1ToJSON,
     CasefilesapiRetrieveRTRRecentFileRequestV1FromJSON,
@@ -365,7 +365,7 @@ export class CaseFilesApi extends runtime.BaseAPI {
     async entitiesFilesDeleteV1Raw(
         requestParameters: CaseFilesApiEntitiesFilesDeleteV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiMSAResponseString>> {
+    ): Promise<runtime.ApiResponse<CasefilesapiFileIDsResponseV1>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesFilesDeleteV1().');
         }
@@ -393,13 +393,13 @@ export class CaseFilesApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiMSAResponseStringFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileIDsResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Delete file details by id
      */
-    async entitiesFilesDeleteV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CasefilesapiMSAResponseString> {
+    async entitiesFilesDeleteV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CasefilesapiFileIDsResponseV1> {
         const response = await this.entitiesFilesDeleteV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -708,7 +708,7 @@ export class CaseFilesApi extends runtime.BaseAPI {
     async queriesFileDetailsGetV1Raw(
         requestParameters: CaseFilesApiQueriesFileDetailsGetV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<CasefilesapiMSAResponseString>> {
+    ): Promise<runtime.ApiResponse<CasefilesapiFileIDsResponseV1>> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -740,13 +740,13 @@ export class CaseFilesApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiMSAResponseStringFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => CasefilesapiFileIDsResponseV1FromJSON(jsonValue));
     }
 
     /**
      * Query for ids of file details
      */
-    async queriesFileDetailsGetV1(filter?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CasefilesapiMSAResponseString> {
+    async queriesFileDetailsGetV1(filter?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CasefilesapiFileIDsResponseV1> {
         const response = await this.queriesFileDetailsGetV1Raw({ filter: filter, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }

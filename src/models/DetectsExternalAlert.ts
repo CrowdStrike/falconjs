@@ -78,6 +78,18 @@ export interface DetectsExternalAlert {
      */
     cmsRuleId: string;
     /**
+     * An opaque internal identifier that can uniquely identify the CMS rule instance which triggered this detection
+     * @type {string}
+     * @memberof DetectsExternalAlert
+     */
+    cmsRuleInstanceId: string;
+    /**
+     * An opaque internal identifier that can uniquely identify the CMS rule instance version which triggered this detection
+     * @type {string}
+     * @memberof DetectsExternalAlert
+     */
+    cmsRuleInstanceVersion: string;
+    /**
      * An opaque internal identifier that can uniquely identify an Alert
      * @type {string}
      * @memberof DetectsExternalAlert
@@ -143,6 +155,12 @@ export interface DetectsExternalAlert {
      * @memberof DetectsExternalAlert
      */
     isAggregated: boolean;
+    /**
+     * Boolean indicating if this Alert is coming from a Falcon Platform IOA rule
+     * @type {boolean}
+     * @memberof DetectsExternalAlert
+     */
+    isFalconPlatformIoa: boolean;
     /**
      * Linked Behavioral Detections are behavioral detections that are associated with this alert
      * @type {Array<string>}
@@ -320,6 +338,8 @@ export function instanceOfDetectsExternalAlert(value: object): value is DetectsE
     if (!("assignedToUuid" in value) || value["assignedToUuid"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("cmsRuleId" in value) || value["cmsRuleId"] === undefined) return false;
+    if (!("cmsRuleInstanceId" in value) || value["cmsRuleInstanceId"] === undefined) return false;
+    if (!("cmsRuleInstanceVersion" in value) || value["cmsRuleInstanceVersion"] === undefined) return false;
     if (!("compositeId" in value) || value["compositeId"] === undefined) return false;
     if (!("confidence" in value) || value["confidence"] === undefined) return false;
     if (!("crawledTimestamp" in value) || value["crawledTimestamp"] === undefined) return false;
@@ -331,6 +351,7 @@ export function instanceOfDetectsExternalAlert(value: object): value is DetectsE
     if (!("external" in value) || value["external"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("isAggregated" in value) || value["isAggregated"] === undefined) return false;
+    if (!("isFalconPlatformIoa" in value) || value["isFalconPlatformIoa"] === undefined) return false;
     if (!("linkedBehavioralDetections" in value) || value["linkedBehavioralDetections"] === undefined) return false;
     if (!("linkedCaseIds" in value) || value["linkedCaseIds"] === undefined) return false;
     if (!("mitreAttack" in value) || value["mitreAttack"] === undefined) return false;
@@ -380,6 +401,8 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
         assignedToUuid: json["assigned_to_uuid"],
         cid: json["cid"],
         cmsRuleId: json["cms_rule_id"],
+        cmsRuleInstanceId: json["cms_rule_instance_id"],
+        cmsRuleInstanceVersion: json["cms_rule_instance_version"],
         compositeId: json["composite_id"],
         confidence: json["confidence"],
         crawledTimestamp: new Date(json["crawled_timestamp"]),
@@ -391,6 +414,7 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
         external: json["external"],
         id: json["id"],
         isAggregated: json["is_aggregated"],
+        isFalconPlatformIoa: json["is_falcon_platform_ioa"],
         linkedBehavioralDetections: json["linked_behavioral_detections"],
         linkedCaseIds: json["linked_case_ids"],
         mitreAttack: (json["mitre_attack"] as Array<any>).map(DetectsMitreAttackMappingFromJSON),
@@ -436,6 +460,8 @@ export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null):
         assigned_to_uuid: value["assignedToUuid"],
         cid: value["cid"],
         cms_rule_id: value["cmsRuleId"],
+        cms_rule_instance_id: value["cmsRuleInstanceId"],
+        cms_rule_instance_version: value["cmsRuleInstanceVersion"],
         composite_id: value["compositeId"],
         confidence: value["confidence"],
         crawled_timestamp: value["crawledTimestamp"].toISOString(),
@@ -447,6 +473,7 @@ export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null):
         external: value["external"],
         id: value["id"],
         is_aggregated: value["isAggregated"],
+        is_falcon_platform_ioa: value["isFalconPlatformIoa"],
         linked_behavioral_detections: value["linkedBehavioralDetections"],
         linked_case_ids: value["linkedCaseIds"],
         mitre_attack: (value["mitreAttack"] as Array<any>).map(DetectsMitreAttackMappingToJSON),

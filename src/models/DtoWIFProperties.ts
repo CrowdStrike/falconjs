@@ -24,6 +24,12 @@ export interface DtoWIFProperties {
      * @type {string}
      * @memberof DtoWIFProperties
      */
+    identitySource?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoWIFProperties
+     */
     poolId?: string;
     /**
      *
@@ -73,6 +79,7 @@ export function DtoWIFPropertiesFromJSONTyped(json: any, ignoreDiscriminator: bo
         return json;
     }
     return {
+        identitySource: json["identity_source"] == null ? undefined : json["identity_source"],
         poolId: json["pool_id"] == null ? undefined : json["pool_id"],
         poolName: json["pool_name"] == null ? undefined : json["pool_name"],
         projectId: json["project_id"] == null ? undefined : json["project_id"],
@@ -87,6 +94,7 @@ export function DtoWIFPropertiesToJSON(value?: DtoWIFProperties | null): any {
         return value;
     }
     return {
+        identity_source: value["identitySource"],
         pool_id: value["poolId"],
         pool_name: value["poolName"],
         project_id: value["projectId"],

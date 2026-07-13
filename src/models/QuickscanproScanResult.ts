@@ -13,12 +13,16 @@
  */
 
 import { mapValues } from "../runtime";
+import type { QuickscanproMalwareFamily } from "./QuickscanproMalwareFamily";
+import { QuickscanproMalwareFamilyFromJSON, QuickscanproMalwareFamilyFromJSONTyped, QuickscanproMalwareFamilyToJSON } from "./QuickscanproMalwareFamily";
 import type { QuickscanproURLResult } from "./QuickscanproURLResult";
 import { QuickscanproURLResultFromJSON, QuickscanproURLResultFromJSONTyped, QuickscanproURLResultToJSON } from "./QuickscanproURLResult";
 import type { DomainMITREAttack } from "./DomainMITREAttack";
 import { DomainMITREAttackFromJSON, DomainMITREAttackFromJSONTyped, DomainMITREAttackToJSON } from "./DomainMITREAttack";
 import type { QuickscanproArtifactsTree } from "./QuickscanproArtifactsTree";
 import { QuickscanproArtifactsTreeFromJSON, QuickscanproArtifactsTreeFromJSONTyped, QuickscanproArtifactsTreeToJSON } from "./QuickscanproArtifactsTree";
+import type { QuickscanproYaraRule } from "./QuickscanproYaraRule";
+import { QuickscanproYaraRuleFromJSON, QuickscanproYaraRuleFromJSONTyped, QuickscanproYaraRuleToJSON } from "./QuickscanproYaraRule";
 import type { QuickscanproFileResult } from "./QuickscanproFileResult";
 import { QuickscanproFileResultFromJSON, QuickscanproFileResultFromJSONTyped, QuickscanproFileResultToJSON } from "./QuickscanproFileResult";
 
@@ -96,6 +100,12 @@ export interface QuickscanproScanResult {
     malwareConfig?: { [key: string]: Array<string> };
     /**
      *
+     * @type {Array<QuickscanproMalwareFamily>}
+     * @memberof QuickscanproScanResult
+     */
+    malwareFamilies?: Array<QuickscanproMalwareFamily>;
+    /**
+     *
      * @type {string}
      * @memberof QuickscanproScanResult
      */
@@ -142,6 +152,12 @@ export interface QuickscanproScanResult {
      * @memberof QuickscanproScanResult
      */
     verdictSource?: Array<string>;
+    /**
+     *
+     * @type {Array<QuickscanproYaraRule>}
+     * @memberof QuickscanproScanResult
+     */
+    yaraRules?: Array<QuickscanproYaraRule>;
 }
 
 /**
@@ -187,6 +203,7 @@ export function QuickscanproScanResultFromJSONTyped(json: any, ignoreDiscriminat
         firstContentBytesHex: json["first_content_bytes_hex"] == null ? undefined : json["first_content_bytes_hex"],
         maliciousConfidence: json["malicious_confidence"],
         malwareConfig: json["malware_config"] == null ? undefined : json["malware_config"],
+        malwareFamilies: json["malware_families"] == null ? undefined : (json["malware_families"] as Array<any>).map(QuickscanproMalwareFamilyFromJSON),
         mimeType: json["mime_type"] == null ? undefined : json["mime_type"],
         mitreAttacks: json["mitre_attacks"] == null ? undefined : (json["mitre_attacks"] as Array<any>).map(DomainMITREAttackFromJSON),
         staticIndicators: json["static_indicators"] == null ? undefined : json["static_indicators"],
@@ -195,6 +212,7 @@ export function QuickscanproScanResultFromJSONTyped(json: any, ignoreDiscriminat
         verdictReason: json["verdict_reason"],
         verdictReasons: json["verdict_reasons"] == null ? undefined : json["verdict_reasons"],
         verdictSource: json["verdict_source"] == null ? undefined : json["verdict_source"],
+        yaraRules: json["yara_rules"] == null ? undefined : (json["yara_rules"] as Array<any>).map(QuickscanproYaraRuleFromJSON),
     };
 }
 
@@ -214,6 +232,7 @@ export function QuickscanproScanResultToJSON(value?: QuickscanproScanResult | nu
         first_content_bytes_hex: value["firstContentBytesHex"],
         malicious_confidence: value["maliciousConfidence"],
         malware_config: value["malwareConfig"],
+        malware_families: value["malwareFamilies"] == null ? undefined : (value["malwareFamilies"] as Array<any>).map(QuickscanproMalwareFamilyToJSON),
         mime_type: value["mimeType"],
         mitre_attacks: value["mitreAttacks"] == null ? undefined : (value["mitreAttacks"] as Array<any>).map(DomainMITREAttackToJSON),
         static_indicators: value["staticIndicators"],
@@ -222,5 +241,6 @@ export function QuickscanproScanResultToJSON(value?: QuickscanproScanResult | nu
         verdict_reason: value["verdictReason"],
         verdict_reasons: value["verdictReasons"],
         verdict_source: value["verdictSource"],
+        yara_rules: value["yaraRules"] == null ? undefined : (value["yaraRules"] as Array<any>).map(QuickscanproYaraRuleToJSON),
     };
 }

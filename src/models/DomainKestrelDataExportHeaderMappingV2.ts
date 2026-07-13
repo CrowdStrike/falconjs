@@ -43,6 +43,12 @@ export interface DomainKestrelDataExportHeaderMappingV2 {
      * @type {string}
      * @memberof DomainKestrelDataExportHeaderMappingV2
      */
+    formatterOverride: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainKestrelDataExportHeaderMappingV2
+     */
     headerName: string;
     /**
      *
@@ -58,6 +64,7 @@ export interface DomainKestrelDataExportHeaderMappingV2 {
 export function instanceOfDomainKestrelDataExportHeaderMappingV2(value: object): value is DomainKestrelDataExportHeaderMappingV2 {
     if (!("column" in value) || value["column"] === undefined) return false;
     if (!("computationFunctions" in value) || value["computationFunctions"] === undefined) return false;
+    if (!("formatterOverride" in value) || value["formatterOverride"] === undefined) return false;
     if (!("headerName" in value) || value["headerName"] === undefined) return false;
     if (!("useDataAsValue" in value) || value["useDataAsValue"] === undefined) return false;
     return true;
@@ -74,6 +81,7 @@ export function DomainKestrelDataExportHeaderMappingV2FromJSONTyped(json: any, i
     return {
         column: json["column"],
         computationFunctions: (json["computation_functions"] as Array<any>).map(DomainKestrelDataExportHeaderComputationFunctionV2FromJSON),
+        formatterOverride: json["formatter_override"],
         headerName: json["header_name"],
         useDataAsValue: json["use_data_as_value"],
     };
@@ -86,6 +94,7 @@ export function DomainKestrelDataExportHeaderMappingV2ToJSON(value?: DomainKestr
     return {
         column: value["column"],
         computation_functions: (value["computationFunctions"] as Array<any>).map(DomainKestrelDataExportHeaderComputationFunctionV2ToJSON),
+        formatter_override: value["formatterOverride"],
         header_name: value["headerName"],
         use_data_as_value: value["useDataAsValue"],
     };

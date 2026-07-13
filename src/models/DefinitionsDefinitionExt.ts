@@ -23,6 +23,8 @@ import type { V2Condition } from "./V2Condition";
 import { V2ConditionFromJSON, V2ConditionFromJSONTyped, V2ConditionToJSON } from "./V2Condition";
 import type { V2Activity } from "./V2Activity";
 import { V2ActivityFromJSON, V2ActivityFromJSONTyped, V2ActivityToJSON } from "./V2Activity";
+import type { V2Budget } from "./V2Budget";
+import { V2BudgetFromJSON, V2BudgetFromJSONTyped, V2BudgetToJSON } from "./V2Budget";
 import type { V2Trigger } from "./V2Trigger";
 import { V2TriggerFromJSON, V2TriggerFromJSONTyped, V2TriggerToJSON } from "./V2Trigger";
 
@@ -38,6 +40,12 @@ export interface DefinitionsDefinitionExt {
      * @memberof DefinitionsDefinitionExt
      */
     actions?: { [key: string]: V2Activity };
+    /**
+     *
+     * @type {V2Budget}
+     * @memberof DefinitionsDefinitionExt
+     */
+    budget?: V2Budget;
     /**
      *
      * @type {{ [key: string]: V2Condition; }}
@@ -205,6 +213,7 @@ export function DefinitionsDefinitionExtFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         actions: json["actions"] == null ? undefined : mapValues(json["actions"], V2ActivityFromJSON),
+        budget: json["budget"] == null ? undefined : V2BudgetFromJSON(json["budget"]),
         conditions: json["conditions"] == null ? undefined : mapValues(json["conditions"], V2ConditionFromJSON),
         description: json["description"] == null ? undefined : json["description"],
         disconnectedNodes: json["disconnected_nodes"] == null ? undefined : json["disconnected_nodes"],
@@ -237,6 +246,7 @@ export function DefinitionsDefinitionExtToJSON(value?: DefinitionsDefinitionExt 
     }
     return {
         actions: value["actions"] == null ? undefined : mapValues(value["actions"], V2ActivityToJSON),
+        budget: V2BudgetToJSON(value["budget"]),
         conditions: value["conditions"] == null ? undefined : mapValues(value["conditions"], V2ConditionToJSON),
         description: value["description"],
         disconnected_nodes: value["disconnectedNodes"],

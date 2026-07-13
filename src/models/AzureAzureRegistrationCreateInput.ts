@@ -17,12 +17,12 @@ import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
 import type { AzureAdditionalFeature } from "./AzureAdditionalFeature";
 import { AzureAdditionalFeatureFromJSON, AzureAdditionalFeatureFromJSONTyped, AzureAdditionalFeatureToJSON } from "./AzureAdditionalFeature";
-import type { AzureDSPMRegionCustomNetworkConfiguration } from "./AzureDSPMRegionCustomNetworkConfiguration";
+import type { AzureAgentlessScanningRegionCustomNetworkConfiguration } from "./AzureAgentlessScanningRegionCustomNetworkConfiguration";
 import {
-    AzureDSPMRegionCustomNetworkConfigurationFromJSON,
-    AzureDSPMRegionCustomNetworkConfigurationFromJSONTyped,
-    AzureDSPMRegionCustomNetworkConfigurationToJSON,
-} from "./AzureDSPMRegionCustomNetworkConfiguration";
+    AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSON,
+    AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSONTyped,
+    AzureAgentlessScanningRegionCustomNetworkConfigurationToJSON,
+} from "./AzureAgentlessScanningRegionCustomNetworkConfiguration";
 import type { AzureEventHubSettings } from "./AzureEventHubSettings";
 import { AzureEventHubSettingsFromJSON, AzureEventHubSettingsFromJSONTyped, AzureEventHubSettingsToJSON } from "./AzureEventHubSettings";
 
@@ -106,10 +106,10 @@ export interface AzureAzureRegistrationCreateInput {
     deploymentStackName?: string;
     /**
      *
-     * @type {{ [key: string]: AzureDSPMRegionCustomNetworkConfiguration; }}
+     * @type {{ [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration; }}
      * @memberof AzureAzureRegistrationCreateInput
      */
-    dspmCustomVnetConfiguration?: { [key: string]: AzureDSPMRegionCustomNetworkConfiguration };
+    dspmCustomVnetConfiguration?: { [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration };
     /**
      *
      * @type {string}
@@ -230,6 +230,30 @@ export interface AzureAzureRegistrationCreateInput {
      * @memberof AzureAzureRegistrationCreateInput
      */
     tenantName: string;
+    /**
+     *
+     * @type {{ [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration; }}
+     * @memberof AzureAzureRegistrationCreateInput
+     */
+    vulnerabilityScanningCustomVnetConfiguration?: { [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration };
+    /**
+     *
+     * @type {string}
+     * @memberof AzureAzureRegistrationCreateInput
+     */
+    vulnerabilityScanningHostSubscriptionId?: string;
+    /**
+     * Network configuration type for Vulnerability Scanning
+     * @type {string}
+     * @memberof AzureAzureRegistrationCreateInput
+     */
+    vulnerabilityScanningNetworkConfigurationType?: AzureAzureRegistrationCreateInputVulnerabilityScanningNetworkConfigurationTypeEnum;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof AzureAzureRegistrationCreateInput
+     */
+    vulnerabilityScanningRegions: Array<string>;
 }
 
 /**
@@ -242,6 +266,17 @@ export const AzureAzureRegistrationCreateInputDspmNetworkConfigurationTypeEnum =
 } as const;
 export type AzureAzureRegistrationCreateInputDspmNetworkConfigurationTypeEnum =
     (typeof AzureAzureRegistrationCreateInputDspmNetworkConfigurationTypeEnum)[keyof typeof AzureAzureRegistrationCreateInputDspmNetworkConfigurationTypeEnum];
+
+/**
+ * @export
+ */
+export const AzureAzureRegistrationCreateInputVulnerabilityScanningNetworkConfigurationTypeEnum = {
+    Managed: "managed",
+    ManagedNoNat: "managed_no_nat",
+    Custom: "custom",
+} as const;
+export type AzureAzureRegistrationCreateInputVulnerabilityScanningNetworkConfigurationTypeEnum =
+    (typeof AzureAzureRegistrationCreateInputVulnerabilityScanningNetworkConfigurationTypeEnum)[keyof typeof AzureAzureRegistrationCreateInputVulnerabilityScanningNetworkConfigurationTypeEnum];
 
 /**
  * Check if a given object implements the AzureAzureRegistrationCreateInput interface.
@@ -258,6 +293,7 @@ export function instanceOfAzureAzureRegistrationCreateInput(value: object): valu
     if (!("tags" in value) || value["tags"] === undefined) return false;
     if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
     if (!("tenantName" in value) || value["tenantName"] === undefined) return false;
+    if (!("vulnerabilityScanningRegions" in value) || value["vulnerabilityScanningRegions"] === undefined) return false;
     return true;
 }
 
@@ -282,7 +318,8 @@ export function AzureAzureRegistrationCreateInputFromJSONTyped(json: any, ignore
         deploymentStackHostId: json["deployment_stack_host_id"] == null ? undefined : json["deployment_stack_host_id"],
         deploymentStackHostRegion: json["deployment_stack_host_region"] == null ? undefined : json["deployment_stack_host_region"],
         deploymentStackName: json["deployment_stack_name"] == null ? undefined : json["deployment_stack_name"],
-        dspmCustomVnetConfiguration: json["dspm_custom_vnet_configuration"] == null ? undefined : mapValues(json["dspm_custom_vnet_configuration"], AzureDSPMRegionCustomNetworkConfigurationFromJSON),
+        dspmCustomVnetConfiguration:
+            json["dspm_custom_vnet_configuration"] == null ? undefined : mapValues(json["dspm_custom_vnet_configuration"], AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSON),
         dspmHostSubscriptionId: json["dspm_host_subscription_id"] == null ? undefined : json["dspm_host_subscription_id"],
         dspmNetworkConfigurationType: json["dspm_network_configuration_type"] == null ? undefined : json["dspm_network_configuration_type"],
         dspmRegions: json["dspm_regions"],
@@ -303,6 +340,13 @@ export function AzureAzureRegistrationCreateInputFromJSONTyped(json: any, ignore
         templateVersion: json["template_version"] == null ? undefined : json["template_version"],
         tenantId: json["tenant_id"],
         tenantName: json["tenant_name"],
+        vulnerabilityScanningCustomVnetConfiguration:
+            json["vulnerability_scanning_custom_vnet_configuration"] == null
+                ? undefined
+                : mapValues(json["vulnerability_scanning_custom_vnet_configuration"], AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSON),
+        vulnerabilityScanningHostSubscriptionId: json["vulnerability_scanning_host_subscription_id"] == null ? undefined : json["vulnerability_scanning_host_subscription_id"],
+        vulnerabilityScanningNetworkConfigurationType: json["vulnerability_scanning_network_configuration_type"] == null ? undefined : json["vulnerability_scanning_network_configuration_type"],
+        vulnerabilityScanningRegions: json["vulnerability_scanning_regions"],
     };
 }
 
@@ -323,7 +367,8 @@ export function AzureAzureRegistrationCreateInputToJSON(value?: AzureAzureRegist
         deployment_stack_host_id: value["deploymentStackHostId"],
         deployment_stack_host_region: value["deploymentStackHostRegion"],
         deployment_stack_name: value["deploymentStackName"],
-        dspm_custom_vnet_configuration: value["dspmCustomVnetConfiguration"] == null ? undefined : mapValues(value["dspmCustomVnetConfiguration"], AzureDSPMRegionCustomNetworkConfigurationToJSON),
+        dspm_custom_vnet_configuration:
+            value["dspmCustomVnetConfiguration"] == null ? undefined : mapValues(value["dspmCustomVnetConfiguration"], AzureAgentlessScanningRegionCustomNetworkConfigurationToJSON),
         dspm_host_subscription_id: value["dspmHostSubscriptionId"],
         dspm_network_configuration_type: value["dspmNetworkConfigurationType"],
         dspm_regions: value["dspmRegions"],
@@ -344,5 +389,12 @@ export function AzureAzureRegistrationCreateInputToJSON(value?: AzureAzureRegist
         template_version: value["templateVersion"],
         tenant_id: value["tenantId"],
         tenant_name: value["tenantName"],
+        vulnerability_scanning_custom_vnet_configuration:
+            value["vulnerabilityScanningCustomVnetConfiguration"] == null
+                ? undefined
+                : mapValues(value["vulnerabilityScanningCustomVnetConfiguration"], AzureAgentlessScanningRegionCustomNetworkConfigurationToJSON),
+        vulnerability_scanning_host_subscription_id: value["vulnerabilityScanningHostSubscriptionId"],
+        vulnerability_scanning_network_configuration_type: value["vulnerabilityScanningNetworkConfigurationType"],
+        vulnerability_scanning_regions: value["vulnerabilityScanningRegions"],
     };
 }

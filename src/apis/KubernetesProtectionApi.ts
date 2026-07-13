@@ -50,6 +50,7 @@ import type {
     ModelsDeploymentEntityResponse,
     ModelsNodeEntityResponse,
     ModelsPodEntityResponse,
+    MsaAggregatesResponse,
     MsaBaseEntitiesResponse,
     MsaMetaInfo,
     MsaReplyMetaOnly,
@@ -128,6 +129,8 @@ import {
     ModelsNodeEntityResponseToJSON,
     ModelsPodEntityResponseFromJSON,
     ModelsPodEntityResponseToJSON,
+    MsaAggregatesResponseFromJSON,
+    MsaAggregatesResponseToJSON,
     MsaBaseEntitiesResponseFromJSON,
     MsaBaseEntitiesResponseToJSON,
     MsaMetaInfoFromJSON,
@@ -384,6 +387,10 @@ export interface KubernetesProtectionApiPodCountRequest {
 export interface KubernetesProtectionApiPodEnrichmentRequest {
     podId: Array<string>;
     filter?: string;
+}
+
+export interface KubernetesProtectionApiPostAggregatesPodsRequest {
+    body: Array<object>;
 }
 
 export interface KubernetesProtectionApiPostSearchKubernetesIOMEntitiesRequest {
@@ -2884,6 +2891,50 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
      */
     async podsByDateRangeCount(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsAggregateValuesByFieldResponse> {
         const response = await this.podsByDateRangeCountRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get aggregate query result for pods
+     */
+    async postAggregatesPodsRaw(
+        requestParameters: KubernetesProtectionApiPostAggregatesPodsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling postAggregatesPods().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/container-security/aggregates/pods/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"],
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get aggregate query result for pods
+     */
+    async postAggregatesPods(body: Array<object>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
+        const response = await this.postAggregatesPodsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 

@@ -176,12 +176,6 @@ export interface DomainScan {
     macCloudPupAdwareLevelPrevention?: number;
     /**
      *
-     * @type {Array<string>}
-     * @memberof DomainScan
-     */
-    macFilePaths?: Array<string>;
-    /**
-     *
      * @type {Array<number>}
      * @memberof DomainScan
      */
@@ -398,7 +392,6 @@ export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         macCloudMlLevelPrevention: json["mac_cloud_ml_level_prevention"] == null ? undefined : json["mac_cloud_ml_level_prevention"],
         macCloudPupAdwareLevelDetection: json["mac_cloud_pup_adware_level_detection"] == null ? undefined : json["mac_cloud_pup_adware_level_detection"],
         macCloudPupAdwareLevelPrevention: json["mac_cloud_pup_adware_level_prevention"] == null ? undefined : json["mac_cloud_pup_adware_level_prevention"],
-        macFilePaths: json["mac_file_paths"] == null ? undefined : json["mac_file_paths"],
         macPolicySetting: json["mac_policy_setting"] == null ? undefined : json["mac_policy_setting"],
         macScanExclusions: json["mac_scan_exclusions"] == null ? undefined : json["mac_scan_exclusions"],
         macScanInclusions: json["mac_scan_inclusions"] == null ? undefined : json["mac_scan_inclusions"],
@@ -461,7 +454,6 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         mac_cloud_ml_level_prevention: value["macCloudMlLevelPrevention"],
         mac_cloud_pup_adware_level_detection: value["macCloudPupAdwareLevelDetection"],
         mac_cloud_pup_adware_level_prevention: value["macCloudPupAdwareLevelPrevention"],
-        mac_file_paths: value["macFilePaths"],
         mac_policy_setting: value["macPolicySetting"],
         mac_scan_exclusions: value["macScanExclusions"],
         mac_scan_inclusions: value["macScanInclusions"],

@@ -24,6 +24,12 @@ import { SdkAlertEvidenceSelectorFromJSON, SdkAlertEvidenceSelectorFromJSONTyped
 export interface SdkAlertEvidenceRecordVM {
     /**
      *
+     * @type {string}
+     * @memberof SdkAlertEvidenceRecordVM
+     */
+    id: string;
+    /**
+     *
      * @type {SdkAlertEvidenceSelector}
      * @memberof SdkAlertEvidenceRecordVM
      */
@@ -34,6 +40,7 @@ export interface SdkAlertEvidenceRecordVM {
  * Check if a given object implements the SdkAlertEvidenceRecordVM interface.
  */
 export function instanceOfSdkAlertEvidenceRecordVM(value: object): value is SdkAlertEvidenceRecordVM {
+    if (!("id" in value) || value["id"] === undefined) return false;
     if (!("selector" in value) || value["selector"] === undefined) return false;
     return true;
 }
@@ -47,6 +54,7 @@ export function SdkAlertEvidenceRecordVMFromJSONTyped(json: any, ignoreDiscrimin
         return json;
     }
     return {
+        id: json["id"],
         selector: SdkAlertEvidenceSelectorFromJSON(json["selector"]),
     };
 }
@@ -56,6 +64,7 @@ export function SdkAlertEvidenceRecordVMToJSON(value?: SdkAlertEvidenceRecordVM 
         return value;
     }
     return {
+        id: value["id"],
         selector: SdkAlertEvidenceSelectorToJSON(value["selector"]),
     };
 }

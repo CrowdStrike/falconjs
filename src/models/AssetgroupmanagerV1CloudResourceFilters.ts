@@ -24,6 +24,12 @@ export interface AssetgroupmanagerV1CloudResourceFilters {
      * @type {Array<string>}
      * @memberof AssetgroupmanagerV1CloudResourceFilters
      */
+    gcrn?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof AssetgroupmanagerV1CloudResourceFilters
+     */
     region?: Array<string>;
     /**
      *
@@ -49,6 +55,7 @@ export function AssetgroupmanagerV1CloudResourceFiltersFromJSONTyped(json: any, 
         return json;
     }
     return {
+        gcrn: json["gcrn"] == null ? undefined : json["gcrn"],
         region: json["region"] == null ? undefined : json["region"],
         tags: json["tags"] == null ? undefined : json["tags"],
     };
@@ -59,6 +66,7 @@ export function AssetgroupmanagerV1CloudResourceFiltersToJSON(value?: Assetgroup
         return value;
     }
     return {
+        gcrn: value["gcrn"],
         region: value["region"],
         tags: value["tags"],
     };

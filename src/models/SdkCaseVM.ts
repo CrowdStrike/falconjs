@@ -19,6 +19,8 @@ import type { SdkCaseSeverityInfoVM } from "./SdkCaseSeverityInfoVM";
 import { SdkCaseSeverityInfoVMFromJSON, SdkCaseSeverityInfoVMFromJSONTyped, SdkCaseSeverityInfoVMToJSON } from "./SdkCaseSeverityInfoVM";
 import type { SdkEvidenceVM } from "./SdkEvidenceVM";
 import { SdkEvidenceVMFromJSON, SdkEvidenceVMFromJSONTyped, SdkEvidenceVMToJSON } from "./SdkEvidenceVM";
+import type { SdkActorVM } from "./SdkActorVM";
+import { SdkActorVMFromJSON, SdkActorVMFromJSONTyped, SdkActorVMToJSON } from "./SdkActorVM";
 import type { SdkCustomFieldVM } from "./SdkCustomFieldVM";
 import { SdkCustomFieldVMFromJSON, SdkCustomFieldVMFromJSONTyped, SdkCustomFieldVMToJSON } from "./SdkCustomFieldVM";
 import type { SdkCaseAccessTag } from "./SdkCaseAccessTag";
@@ -33,6 +35,8 @@ import type { SdkConsistencyVM } from "./SdkConsistencyVM";
 import { SdkConsistencyVMFromJSON, SdkConsistencyVMFromJSONTyped, SdkConsistencyVMToJSON } from "./SdkConsistencyVM";
 import type { SdkWorkflowVM } from "./SdkWorkflowVM";
 import { SdkWorkflowVMFromJSON, SdkWorkflowVMFromJSONTyped, SdkWorkflowVMToJSON } from "./SdkWorkflowVM";
+import type { SdkReadOnlyVM } from "./SdkReadOnlyVM";
+import { SdkReadOnlyVMFromJSON, SdkReadOnlyVMFromJSONTyped, SdkReadOnlyVMToJSON } from "./SdkReadOnlyVM";
 
 /**
  *
@@ -84,10 +88,28 @@ export interface SdkCaseVM {
     createdTimestamp: Date;
     /**
      *
+     * @type {SdkActorVM}
+     * @memberof SdkCaseVM
+     */
+    creationActor: SdkActorVM;
+    /**
+     *
      * @type {string}
      * @memberof SdkCaseVM
      */
     description: string;
+    /**
+     *
+     * @type {string}
+     * @memberof SdkCaseVM
+     */
+    descriptionFormat?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof SdkCaseVM
+     */
+    descriptionTaggedUsers?: Array<string>;
     /**
      *
      * @type {Date}
@@ -124,6 +146,12 @@ export interface SdkCaseVM {
      * @memberof SdkCaseVM
      */
     name: string;
+    /**
+     *
+     * @type {SdkReadOnlyVM}
+     * @memberof SdkCaseVM
+     */
+    readOnly: SdkReadOnlyVM;
     /**
      *
      * @type {string}
@@ -174,6 +202,12 @@ export interface SdkCaseVM {
     template?: SdkTemplateVM;
     /**
      *
+     * @type {SdkActorVM}
+     * @memberof SdkCaseVM
+     */
+    updateActor: SdkActorVM;
+    /**
+     *
      * @type {Date}
      * @memberof SdkCaseVM
      */
@@ -202,17 +236,20 @@ export function instanceOfSdkCaseVM(value: object): value is SdkCaseVM {
     if (!("consistency" in value) || value["consistency"] === undefined) return false;
     if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
     if (!("createdTimestamp" in value) || value["createdTimestamp"] === undefined) return false;
+    if (!("creationActor" in value) || value["creationActor"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
     if (!("endTimestamp" in value) || value["endTimestamp"] === undefined) return false;
     if (!("evidence" in value) || value["evidence"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("lastUpdatedBy" in value) || value["lastUpdatedBy"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("readOnly" in value) || value["readOnly"] === undefined) return false;
     if (!("referenceId" in value) || value["referenceId"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
     if (!("severityInfo" in value) || value["severityInfo"] === undefined) return false;
     if (!("startTimestamp" in value) || value["startTimestamp"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
+    if (!("updateActor" in value) || value["updateActor"] === undefined) return false;
     if (!("updatedTimestamp" in value) || value["updatedTimestamp"] === undefined) return false;
     if (!("version" in value) || value["version"] === undefined) return false;
     return true;
@@ -234,13 +271,17 @@ export function SdkCaseVMFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         consistency: SdkConsistencyVMFromJSON(json["consistency"]),
         createdBy: SdkFalconUserVMFromJSON(json["created_by"]),
         createdTimestamp: new Date(json["created_timestamp"]),
+        creationActor: SdkActorVMFromJSON(json["creation_actor"]),
         description: json["description"],
+        descriptionFormat: json["description_format"] == null ? undefined : json["description_format"],
+        descriptionTaggedUsers: json["description_tagged_users"] == null ? undefined : json["description_tagged_users"],
         endTimestamp: new Date(json["end_timestamp"]),
         evidence: SdkEvidenceVMFromJSON(json["evidence"]),
         fields: json["fields"] == null ? undefined : (json["fields"] as Array<any>).map(SdkCustomFieldVMFromJSON),
         id: json["id"],
         lastUpdatedBy: SdkFalconUserVMFromJSON(json["last_updated_by"]),
         name: json["name"],
+        readOnly: SdkReadOnlyVMFromJSON(json["read_only"]),
         referenceId: json["reference_id"],
         severity: json["severity"],
         severityInfo: SdkCaseSeverityInfoVMFromJSON(json["severity_info"]),
@@ -249,6 +290,7 @@ export function SdkCaseVMFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         status: json["status"],
         tags: json["tags"] == null ? undefined : json["tags"],
         template: json["template"] == null ? undefined : SdkTemplateVMFromJSON(json["template"]),
+        updateActor: SdkActorVMFromJSON(json["update_actor"]),
         updatedTimestamp: new Date(json["updated_timestamp"]),
         version: json["version"],
         workflows: json["workflows"] == null ? undefined : (json["workflows"] as Array<any>).map(SdkWorkflowVMFromJSON),
@@ -267,13 +309,17 @@ export function SdkCaseVMToJSON(value?: SdkCaseVM | null): any {
         consistency: SdkConsistencyVMToJSON(value["consistency"]),
         created_by: SdkFalconUserVMToJSON(value["createdBy"]),
         created_timestamp: value["createdTimestamp"].toISOString(),
+        creation_actor: SdkActorVMToJSON(value["creationActor"]),
         description: value["description"],
+        description_format: value["descriptionFormat"],
+        description_tagged_users: value["descriptionTaggedUsers"],
         end_timestamp: value["endTimestamp"].toISOString(),
         evidence: SdkEvidenceVMToJSON(value["evidence"]),
         fields: value["fields"] == null ? undefined : (value["fields"] as Array<any>).map(SdkCustomFieldVMToJSON),
         id: value["id"],
         last_updated_by: SdkFalconUserVMToJSON(value["lastUpdatedBy"]),
         name: value["name"],
+        read_only: SdkReadOnlyVMToJSON(value["readOnly"]),
         reference_id: value["referenceId"],
         severity: value["severity"],
         severity_info: SdkCaseSeverityInfoVMToJSON(value["severityInfo"]),
@@ -282,6 +328,7 @@ export function SdkCaseVMToJSON(value?: SdkCaseVM | null): any {
         status: value["status"],
         tags: value["tags"],
         template: SdkTemplateVMToJSON(value["template"]),
+        update_actor: SdkActorVMToJSON(value["updateActor"]),
         updated_timestamp: value["updatedTimestamp"].toISOString(),
         version: value["version"],
         workflows: value["workflows"] == null ? undefined : (value["workflows"] as Array<any>).map(SdkWorkflowVMToJSON),

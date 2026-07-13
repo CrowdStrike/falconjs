@@ -24,6 +24,12 @@ import { SdkLeadEvidenceSelectorFromJSON, SdkLeadEvidenceSelectorFromJSONTyped, 
 export interface SdkLeadEvidenceRecordVM {
     /**
      *
+     * @type {string}
+     * @memberof SdkLeadEvidenceRecordVM
+     */
+    id: string;
+    /**
+     *
      * @type {SdkLeadEvidenceSelector}
      * @memberof SdkLeadEvidenceRecordVM
      */
@@ -34,6 +40,7 @@ export interface SdkLeadEvidenceRecordVM {
  * Check if a given object implements the SdkLeadEvidenceRecordVM interface.
  */
 export function instanceOfSdkLeadEvidenceRecordVM(value: object): value is SdkLeadEvidenceRecordVM {
+    if (!("id" in value) || value["id"] === undefined) return false;
     if (!("selector" in value) || value["selector"] === undefined) return false;
     return true;
 }
@@ -47,6 +54,7 @@ export function SdkLeadEvidenceRecordVMFromJSONTyped(json: any, ignoreDiscrimina
         return json;
     }
     return {
+        id: json["id"],
         selector: SdkLeadEvidenceSelectorFromJSON(json["selector"]),
     };
 }
@@ -56,6 +64,7 @@ export function SdkLeadEvidenceRecordVMToJSON(value?: SdkLeadEvidenceRecordVM | 
         return value;
     }
     return {
+        id: value["id"],
         selector: SdkLeadEvidenceSelectorToJSON(value["selector"]),
     };
 }

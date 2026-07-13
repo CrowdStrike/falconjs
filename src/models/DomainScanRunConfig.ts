@@ -19,6 +19,8 @@ import type { DomainTargetAsset } from "./DomainTargetAsset";
 import { DomainTargetAssetFromJSON, DomainTargetAssetFromJSONTyped, DomainTargetAssetToJSON } from "./DomainTargetAsset";
 import type { DomainTargetIP } from "./DomainTargetIP";
 import { DomainTargetIPFromJSON, DomainTargetIPFromJSONTyped, DomainTargetIPToJSON } from "./DomainTargetIP";
+import type { NswipScanFlags } from "./NswipScanFlags";
+import { NswipScanFlagsFromJSON, NswipScanFlagsFromJSONTyped, NswipScanFlagsToJSON } from "./NswipScanFlags";
 import type { DomainTargetAssetVulnerability } from "./DomainTargetAssetVulnerability";
 import { DomainTargetAssetVulnerabilityFromJSON, DomainTargetAssetVulnerabilityFromJSONTyped, DomainTargetAssetVulnerabilityToJSON } from "./DomainTargetAssetVulnerability";
 import type { DomainTargetAssetFilter } from "./DomainTargetAssetFilter";
@@ -32,6 +34,12 @@ import { DomainScanExclusionFromJSON, DomainScanExclusionFromJSONTyped, DomainSc
  * @interface DomainScanRunConfig
  */
 export interface DomainScanRunConfig {
+    /**
+     * The active check level associated with the template
+     * @type {string}
+     * @memberof DomainScanRunConfig
+     */
+    activeCheckLevel?: DomainScanRunConfigActiveCheckLevelEnum;
     /**
      * The set of additional TCP ports
      * @type {Array<string>}
@@ -57,6 +65,18 @@ export interface DomainScanRunConfig {
      */
     detections?: Array<string>;
     /**
+     * The set of excluded TCP ports
+     * @type {Array<string>}
+     * @memberof DomainScanRunConfig
+     */
+    excludedTcpPorts?: Array<string>;
+    /**
+     * The set of excluded UDP ports
+     * @type {Array<string>}
+     * @memberof DomainScanRunConfig
+     */
+    excludedUdpPorts?: Array<string>;
+    /**
      * Indicates whether fragile device detection is enabled or not
      * @type {boolean}
      * @memberof DomainScanRunConfig
@@ -80,6 +100,12 @@ export interface DomainScanRunConfig {
      * @memberof DomainScanRunConfig
      */
     scanExclusion?: DomainScanExclusion;
+    /**
+     *
+     * @type {NswipScanFlags}
+     * @memberof DomainScanRunConfig
+     */
+    scanFlags?: NswipScanFlags;
     /**
      * The scan intensity
      * @type {string}
@@ -133,6 +159,14 @@ export interface DomainScanRunConfig {
 /**
  * @export
  */
+export const DomainScanRunConfigActiveCheckLevelEnum = {
+    ActiveCheckSafeOnlyactiveCheckAll: "active_check_safe_only,active_check_all",
+} as const;
+export type DomainScanRunConfigActiveCheckLevelEnum = (typeof DomainScanRunConfigActiveCheckLevelEnum)[keyof typeof DomainScanRunConfigActiveCheckLevelEnum];
+
+/**
+ * @export
+ */
 export const DomainScanRunConfigPortsScanLevelEnum = {
     DefaultallPortscustom: "default,all_ports,custom",
 } as const;
@@ -182,14 +216,18 @@ export function DomainScanRunConfigFromJSONTyped(json: any, ignoreDiscriminator:
         return json;
     }
     return {
+        activeCheckLevel: json["active_check_level"] == null ? undefined : json["active_check_level"],
         additionalTcpPorts: json["additional_tcp_ports"] == null ? undefined : json["additional_tcp_ports"],
         additionalUdpPorts: json["additional_udp_ports"] == null ? undefined : json["additional_udp_ports"],
         autoIncludeNewDetections: json["auto_include_new_detections"] == null ? undefined : json["auto_include_new_detections"],
         detections: json["detections"] == null ? undefined : json["detections"],
+        excludedTcpPorts: json["excluded_tcp_ports"] == null ? undefined : json["excluded_tcp_ports"],
+        excludedUdpPorts: json["excluded_udp_ports"] == null ? undefined : json["excluded_udp_ports"],
         fragileDeviceDetection: json["fragile_device_detection"] == null ? undefined : json["fragile_device_detection"],
         ignoreTcpResets: json["ignore_tcp_resets"] == null ? undefined : json["ignore_tcp_resets"],
         portsScanLevel: json["ports_scan_level"],
         scanExclusion: json["scan_exclusion"] == null ? undefined : DomainScanExclusionFromJSON(json["scan_exclusion"]),
+        scanFlags: json["scan_flags"] == null ? undefined : NswipScanFlagsFromJSON(json["scan_flags"]),
         scanIntensity: json["scan_intensity"],
         targetAsset: json["target_asset"] == null ? undefined : DomainTargetAssetFromJSON(json["target_asset"]),
         targetAssetFilter: json["target_asset_filter"] == null ? undefined : DomainTargetAssetFilterFromJSON(json["target_asset_filter"]),
@@ -206,14 +244,18 @@ export function DomainScanRunConfigToJSON(value?: DomainScanRunConfig | null): a
         return value;
     }
     return {
+        active_check_level: value["activeCheckLevel"],
         additional_tcp_ports: value["additionalTcpPorts"],
         additional_udp_ports: value["additionalUdpPorts"],
         auto_include_new_detections: value["autoIncludeNewDetections"],
         detections: value["detections"],
+        excluded_tcp_ports: value["excludedTcpPorts"],
+        excluded_udp_ports: value["excludedUdpPorts"],
         fragile_device_detection: value["fragileDeviceDetection"],
         ignore_tcp_resets: value["ignoreTcpResets"],
         ports_scan_level: value["portsScanLevel"],
         scan_exclusion: DomainScanExclusionToJSON(value["scanExclusion"]),
+        scan_flags: NswipScanFlagsToJSON(value["scanFlags"]),
         scan_intensity: value["scanIntensity"],
         target_asset: DomainTargetAssetToJSON(value["targetAsset"]),
         target_asset_filter: DomainTargetAssetFilterToJSON(value["targetAssetFilter"]),

@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { ApiAgentToolsMetadata } from "./ApiAgentToolsMetadata";
+import { ApiAgentToolsMetadataFromJSON, ApiAgentToolsMetadataFromJSONTyped, ApiAgentToolsMetadataToJSON } from "./ApiAgentToolsMetadata";
 import type { ApiWorkflowMetadata } from "./ApiWorkflowMetadata";
 import { ApiWorkflowMetadataFromJSON, ApiWorkflowMetadataFromJSONTyped, ApiWorkflowMetadataToJSON } from "./ApiWorkflowMetadata";
 import type { ApiUserMetadata } from "./ApiUserMetadata";
@@ -24,6 +26,12 @@ import { ApiUserMetadataFromJSON, ApiUserMetadataFromJSONTyped, ApiUserMetadataT
  * @interface ApiCollectionMetadata
  */
 export interface ApiCollectionMetadata {
+    /**
+     *
+     * @type {ApiAgentToolsMetadata}
+     * @memberof ApiCollectionMetadata
+     */
+    agentToolsMeta?: ApiAgentToolsMetadata;
     /**
      *
      * @type {ApiUserMetadata}
@@ -139,6 +147,7 @@ export function ApiCollectionMetadataFromJSONTyped(json: any, ignoreDiscriminato
         return json;
     }
     return {
+        agentToolsMeta: json["agent_tools_meta"] == null ? undefined : ApiAgentToolsMetadataFromJSON(json["agent_tools_meta"]),
         createdBy: json["created_by"] == null ? undefined : ApiUserMetadataFromJSON(json["created_by"]),
         createdTimestamp: new Date(json["created_timestamp"]),
         description: json["description"],
@@ -162,6 +171,7 @@ export function ApiCollectionMetadataToJSON(value?: ApiCollectionMetadata | null
         return value;
     }
     return {
+        agent_tools_meta: ApiAgentToolsMetadataToJSON(value["agentToolsMeta"]),
         created_by: ApiUserMetadataToJSON(value["createdBy"]),
         created_timestamp: value["createdTimestamp"].toISOString(),
         description: value["description"],

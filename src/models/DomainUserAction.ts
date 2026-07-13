@@ -24,7 +24,7 @@ export interface DomainUserAction {
      * @type {string}
      * @memberof DomainUserAction
      */
-    actionName: DomainUserActionActionNameEnum;
+    actionName?: DomainUserActionActionNameEnum;
     /**
      * Value for action, if any
      * @type {string}
@@ -46,7 +46,6 @@ export type DomainUserActionActionNameEnum = (typeof DomainUserActionActionNameE
  * Check if a given object implements the DomainUserAction interface.
  */
 export function instanceOfDomainUserAction(value: object): value is DomainUserAction {
-    if (!("actionName" in value) || value["actionName"] === undefined) return false;
     return true;
 }
 
@@ -59,7 +58,7 @@ export function DomainUserActionFromJSONTyped(json: any, ignoreDiscriminator: bo
         return json;
     }
     return {
-        actionName: json["action_name"],
+        actionName: json["action_name"] == null ? undefined : json["action_name"],
         actionValue: json["action_value"] == null ? undefined : json["action_value"],
     };
 }

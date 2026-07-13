@@ -24,6 +24,12 @@ export interface ApimodelsCloudResourceSelectorFilter {
      * @type {Array<string>}
      * @memberof ApimodelsCloudResourceSelectorFilter
      */
+    gcrn?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ApimodelsCloudResourceSelectorFilter
+     */
     region?: Array<string>;
     /**
      *
@@ -49,6 +55,7 @@ export function ApimodelsCloudResourceSelectorFilterFromJSONTyped(json: any, ign
         return json;
     }
     return {
+        gcrn: json["gcrn"] == null ? undefined : json["gcrn"],
         region: json["region"] == null ? undefined : json["region"],
         tags: json["tags"] == null ? undefined : json["tags"],
     };
@@ -59,6 +66,7 @@ export function ApimodelsCloudResourceSelectorFilterToJSON(value?: ApimodelsClou
         return value;
     }
     return {
+        gcrn: value["gcrn"],
         region: value["region"],
         tags: value["tags"],
     };

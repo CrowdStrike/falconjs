@@ -76,6 +76,12 @@ export interface EvaluationsEvaluationDoc {
     lastDetected?: Date;
     /**
      *
+     * @type {Date}
+     * @memberof EvaluationsEvaluationDoc
+     */
+    lastStatusChange?: Date;
+    /**
+     *
      * @type {EvaluationsRule}
      * @memberof EvaluationsEvaluationDoc
      */
@@ -124,6 +130,7 @@ export function EvaluationsEvaluationDocFromJSONTyped(json: any, ignoreDiscrimin
         findings: json["findings"] == null ? undefined : (json["findings"] as Array<any>).map(EvaluationFindingFromJSON),
         firstDetected: json["first_detected"] == null ? undefined : new Date(json["first_detected"]),
         lastDetected: json["last_detected"] == null ? undefined : new Date(json["last_detected"]),
+        lastStatusChange: json["last_status_change"] == null ? undefined : new Date(json["last_status_change"]),
         rule: json["rule"] == null ? undefined : EvaluationsRuleFromJSON(json["rule"]),
         severity: json["severity"] == null ? undefined : json["severity"],
         status: json["status"] == null ? undefined : json["status"],
@@ -144,6 +151,7 @@ export function EvaluationsEvaluationDocToJSON(value?: EvaluationsEvaluationDoc 
         findings: value["findings"] == null ? undefined : (value["findings"] as Array<any>).map(EvaluationFindingToJSON),
         first_detected: value["firstDetected"] == null ? undefined : value["firstDetected"].toISOString(),
         last_detected: value["lastDetected"] == null ? undefined : value["lastDetected"].toISOString(),
+        last_status_change: value["lastStatusChange"] == null ? undefined : value["lastStatusChange"].toISOString(),
         rule: EvaluationsRuleToJSON(value["rule"]),
         severity: value["severity"],
         status: value["status"],

@@ -85,13 +85,13 @@ export interface DataconnectionmanagementCreateDataConnectionRequest {
      * @type {string}
      * @memberof DataconnectionmanagementCreateDataConnectionRequest
      */
-    name: string;
+    name?: string;
     /**
      *
      * @type {string}
      * @memberof DataconnectionmanagementCreateDataConnectionRequest
      */
-    parser: string;
+    parser?: string;
     /**
      *
      * @type {string}
@@ -111,8 +111,6 @@ export interface DataconnectionmanagementCreateDataConnectionRequest {
  */
 export function instanceOfDataconnectionmanagementCreateDataConnectionRequest(value: object): value is DataconnectionmanagementCreateDataConnectionRequest {
     if (!("connectorId" in value) || value["connectorId"] === undefined) return false;
-    if (!("name" in value) || value["name"] === undefined) return false;
-    if (!("parser" in value) || value["parser"] === undefined) return false;
     return true;
 }
 
@@ -134,8 +132,8 @@ export function DataconnectionmanagementCreateDataConnectionRequestFromJSONTyped
         enableHostEnrichment: json["enable_host_enrichment"] == null ? undefined : json["enable_host_enrichment"],
         enableUserEnrichment: json["enable_user_enrichment"] == null ? undefined : json["enable_user_enrichment"],
         logSources: json["log_sources"] == null ? undefined : json["log_sources"],
-        name: json["name"],
-        parser: json["parser"],
+        name: json["name"] == null ? undefined : json["name"],
+        parser: json["parser"] == null ? undefined : json["parser"],
         vendorName: json["vendor_name"] == null ? undefined : json["vendor_name"],
         vendorProductName: json["vendor_product_name"] == null ? undefined : json["vendor_product_name"],
     };

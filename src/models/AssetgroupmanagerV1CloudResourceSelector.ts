@@ -55,6 +55,7 @@ export const AssetgroupmanagerV1CloudResourceSelectorCloudProviderEnum = {
     Aws: "aws",
     Azure: "azure",
     Gcp: "gcp",
+    Oci: "oci",
 } as const;
 export type AssetgroupmanagerV1CloudResourceSelectorCloudProviderEnum =
     (typeof AssetgroupmanagerV1CloudResourceSelectorCloudProviderEnum)[keyof typeof AssetgroupmanagerV1CloudResourceSelectorCloudProviderEnum];

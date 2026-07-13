@@ -324,6 +324,12 @@ export interface JsonschemaSubSchema {
     xCsDoNotHide?: boolean;
     /**
      *
+     * @type {{ [key: string]: string; }}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsErrorMessage?: { [key: string]: string };
+    /**
+     *
      * @type {boolean}
      * @memberof JsonschemaSubSchema
      */
@@ -420,6 +426,12 @@ export interface JsonschemaSubSchema {
     xCsTags?: Array<string>;
     /**
      *
+     * @type {boolean}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsUclCidSpecific?: boolean;
+    /**
+     *
      * @type {JsonschemaUIExtensions}
      * @memberof JsonschemaSubSchema
      */
@@ -495,6 +507,7 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
         xCsConditionGroupFields: json["x-cs-condition-group-fields"] == null ? undefined : JsonschemaConditionGroupFieldsFromJSON(json["x-cs-condition-group-fields"]),
         xCsDefaultTableColumn: json["x-cs-default-table-column"] == null ? undefined : json["x-cs-default-table-column"],
         xCsDoNotHide: json["x-cs-do-not-hide"] == null ? undefined : json["x-cs-do-not-hide"],
+        xCsErrorMessage: json["x-cs-errorMessage"] == null ? undefined : json["x-cs-errorMessage"],
         xCsImmutable: json["x-cs-immutable"] == null ? undefined : json["x-cs-immutable"],
         xCsIndexable: json["x-cs-indexable"] == null ? undefined : json["x-cs-indexable"],
         xCsIndexableFields: json["x-cs-indexable-fields"] == null ? undefined : (json["x-cs-indexable-fields"] as Array<any>).map(JsonschemaCollectionIndexFieldFromJSON),
@@ -511,6 +524,7 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
         xCsSignalsOperators: json["x-cs-signals-operators"] == null ? undefined : json["x-cs-signals-operators"],
         xCsSignalsSubCategory: json["x-cs-signals-subCategory"] == null ? undefined : json["x-cs-signals-subCategory"],
         xCsTags: json["x-cs-tags"] == null ? undefined : json["x-cs-tags"],
+        xCsUclCidSpecific: json["x-cs-ucl-cid-specific"] == null ? undefined : json["x-cs-ucl-cid-specific"],
         xCsUi: json["x-cs-ui"] == null ? undefined : JsonschemaUIExtensionsFromJSON(json["x-cs-ui"]),
         xCsWorkflow: json["x-cs-workflow"] == null ? undefined : JsonschemaWorkflowExtensionsFromJSON(json["x-cs-workflow"]),
     };
@@ -568,6 +582,7 @@ export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): a
         "x-cs-condition-group-fields": JsonschemaConditionGroupFieldsToJSON(value["xCsConditionGroupFields"]),
         "x-cs-default-table-column": value["xCsDefaultTableColumn"],
         "x-cs-do-not-hide": value["xCsDoNotHide"],
+        "x-cs-errorMessage": value["xCsErrorMessage"],
         "x-cs-immutable": value["xCsImmutable"],
         "x-cs-indexable": value["xCsIndexable"],
         "x-cs-indexable-fields": value["xCsIndexableFields"] == null ? undefined : (value["xCsIndexableFields"] as Array<any>).map(JsonschemaCollectionIndexFieldToJSON),
@@ -584,6 +599,7 @@ export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): a
         "x-cs-signals-operators": value["xCsSignalsOperators"],
         "x-cs-signals-subCategory": value["xCsSignalsSubCategory"],
         "x-cs-tags": value["xCsTags"],
+        "x-cs-ucl-cid-specific": value["xCsUclCidSpecific"],
         "x-cs-ui": JsonschemaUIExtensionsToJSON(value["xCsUi"]),
         "x-cs-workflow": JsonschemaWorkflowExtensionsToJSON(value["xCsWorkflow"]),
     };

@@ -60,6 +60,12 @@ export interface ModelsAPIKubernetesIOM {
      * @type {string}
      * @memberof ModelsAPIKubernetesIOM
      */
+    cloudService?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIKubernetesIOM
+     */
     clusterId: string;
     /**
      *
@@ -373,6 +379,7 @@ export function ModelsAPIKubernetesIOMFromJSONTyped(json: any, ignoreDiscriminat
         admissionReviewOperation: json["admission_review_operation"] == null ? undefined : json["admission_review_operation"],
         cid: json["cid"],
         cisId: json["cis_id"],
+        cloudService: json["cloud_service"] == null ? undefined : json["cloud_service"],
         clusterId: json["cluster_id"],
         clusterName: json["cluster_name"],
         containersImpactedAiRelated: json["containers_impacted_ai_related"] == null ? undefined : json["containers_impacted_ai_related"],
@@ -432,6 +439,7 @@ export function ModelsAPIKubernetesIOMToJSON(value?: ModelsAPIKubernetesIOM | nu
         admission_review_operation: value["admissionReviewOperation"],
         cid: value["cid"],
         cis_id: value["cisId"],
+        cloud_service: value["cloudService"],
         cluster_id: value["clusterId"],
         cluster_name: value["clusterName"],
         containers_impacted_ai_related: value["containersImpactedAiRelated"],

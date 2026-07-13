@@ -73,6 +73,12 @@ export interface ApiUpdateWebLocationRequestV2 {
      * @memberof ApiUpdateWebLocationRequestV2
      */
     type: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ApiUpdateWebLocationRequestV2
+     */
+    webLocationGroupIds?: Array<string>;
 }
 
 /**
@@ -104,6 +110,7 @@ export function ApiUpdateWebLocationRequestV2FromJSONTyped(json: any, ignoreDisc
         providerLocationId: json["provider_location_id"] == null ? undefined : json["provider_location_id"],
         providerLocationName: json["provider_location_name"] == null ? undefined : json["provider_location_name"],
         type: json["type"],
+        webLocationGroupIds: json["web_location_group_ids"] == null ? undefined : json["web_location_group_ids"],
     };
 }
 
@@ -121,5 +128,6 @@ export function ApiUpdateWebLocationRequestV2ToJSON(value?: ApiUpdateWebLocation
         provider_location_id: value["providerLocationId"],
         provider_location_name: value["providerLocationName"],
         type: value["type"],
+        web_location_group_ids: value["webLocationGroupIds"],
     };
 }

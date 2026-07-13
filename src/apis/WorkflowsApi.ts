@@ -26,14 +26,14 @@ import type {
     DefinitionsDefinitionEntitiesResponse,
     DefinitionsDefinitionExternalResponse,
     DefinitionsDefinitionImportResponse,
-    ModelUserInputReadResponse,
-    ModelUserInputUpdateRequest,
     ModelsDefinitionUpdateRequestV2,
     ModelsMockExecutionCreateRequestV1,
     ModelsSingleNodeExecutionCreateRequestV1,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     TriggersTriggerExternalResponse,
+    UserinputReadResponse,
+    UserinputUpdateRequest,
 } from "../models/index";
 import {
     ActivitiesActivityExternalResponseFromJSON,
@@ -60,10 +60,6 @@ import {
     DefinitionsDefinitionExternalResponseToJSON,
     DefinitionsDefinitionImportResponseFromJSON,
     DefinitionsDefinitionImportResponseToJSON,
-    ModelUserInputReadResponseFromJSON,
-    ModelUserInputReadResponseToJSON,
-    ModelUserInputUpdateRequestFromJSON,
-    ModelUserInputUpdateRequestToJSON,
     ModelsDefinitionUpdateRequestV2FromJSON,
     ModelsDefinitionUpdateRequestV2ToJSON,
     ModelsMockExecutionCreateRequestV1FromJSON,
@@ -76,6 +72,10 @@ import {
     MsaspecQueryResponseToJSON,
     TriggersTriggerExternalResponseFromJSON,
     TriggersTriggerExternalResponseToJSON,
+    UserinputReadResponseFromJSON,
+    UserinputReadResponseToJSON,
+    UserinputUpdateRequestFromJSON,
+    UserinputUpdateRequestToJSON,
 } from "../models/index";
 
 export interface WorkflowsApiDeprovisionRequest {
@@ -122,6 +122,7 @@ export interface WorkflowsApiWorkflowActivitiesCombinedRequest {
     offset?: string;
     limit?: number;
     sort?: string;
+    skipArtifactResolution?: boolean;
 }
 
 export interface WorkflowsApiWorkflowActivitiesContentCombinedRequest {
@@ -150,6 +151,8 @@ export interface WorkflowsApiWorkflowDefinitionsDeleteRequest {
 export interface WorkflowsApiWorkflowDefinitionsExportRequest {
     id: string;
     sanitize?: boolean;
+    includeMocks?: boolean;
+    version?: number;
 }
 
 export interface WorkflowsApiWorkflowDefinitionsImportRequest {
@@ -216,7 +219,7 @@ export interface WorkflowsApiWorkflowTriggersCombinedRequest {
 
 export interface WorkflowsApiWorkflowUpdateHumanInputV1Request {
     id: string;
-    body: ModelUserInputUpdateRequest;
+    body: UserinputUpdateRequest;
 }
 
 /**
@@ -612,6 +615,10 @@ export class WorkflowsApi extends runtime.BaseAPI {
             queryParameters["sort"] = requestParameters["sort"];
         }
 
+        if (requestParameters["skipArtifactResolution"] != null) {
+            queryParameters["skip_artifact_resolution"] = requestParameters["skipArtifactResolution"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -640,9 +647,10 @@ export class WorkflowsApi extends runtime.BaseAPI {
         offset?: string,
         limit?: number,
         sort?: string,
+        skipArtifactResolution?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ActivitiesActivityExternalResponse> {
-        const response = await this.workflowActivitiesCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        const response = await this.workflowActivitiesCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort, skipArtifactResolution: skipArtifactResolution }, initOverrides);
         return await response.value();
     }
 
@@ -882,6 +890,14 @@ export class WorkflowsApi extends runtime.BaseAPI {
             queryParameters["sanitize"] = requestParameters["sanitize"];
         }
 
+        if (requestParameters["includeMocks"] != null) {
+            queryParameters["include_mocks"] = requestParameters["includeMocks"];
+        }
+
+        if (requestParameters["version"] != null) {
+            queryParameters["version"] = requestParameters["version"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -905,8 +921,8 @@ export class WorkflowsApi extends runtime.BaseAPI {
     /**
      * Exports a workflow definition for the given definition ID
      */
-    async workflowDefinitionsExport(id: string, sanitize?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
-        const response = await this.workflowDefinitionsExportRaw({ id: id, sanitize: sanitize }, initOverrides);
+    async workflowDefinitionsExport(id: string, sanitize?: boolean, includeMocks?: boolean, version?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
+        const response = await this.workflowDefinitionsExportRaw({ id: id, sanitize: sanitize, includeMocks: includeMocks, version: version }, initOverrides);
         return await response.value();
     }
 
@@ -1258,7 +1274,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     async workflowGetHumanInputV1Raw(
         requestParameters: WorkflowsApiWorkflowGetHumanInputV1Request,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelUserInputReadResponse>> {
+    ): Promise<runtime.ApiResponse<UserinputReadResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling workflowGetHumanInputV1().');
         }
@@ -1286,13 +1302,13 @@ export class WorkflowsApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelUserInputReadResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserinputReadResponseFromJSON(jsonValue));
     }
 
     /**
      * Gets one or more specific human inputs by their IDs.
      */
-    async workflowGetHumanInputV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelUserInputReadResponse> {
+    async workflowGetHumanInputV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserinputReadResponse> {
         const response = await this.workflowGetHumanInputV1Raw({ ids: ids }, initOverrides);
         return await response.value();
     }
@@ -1488,7 +1504,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: ModelUserInputUpdateRequestToJSON(requestParameters["body"]),
+                body: UserinputUpdateRequestToJSON(requestParameters["body"]),
             },
             initOverrides,
         );
@@ -1499,7 +1515,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     /**
      * Provides an input in response to a human input action. Depending on action configuration, one or more of Approve, Decline, and/or Escalate are permitted.
      */
-    async workflowUpdateHumanInputV1(id: string, body: ModelUserInputUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiResourceIDsResponse> {
+    async workflowUpdateHumanInputV1(id: string, body: UserinputUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiResourceIDsResponse> {
         const response = await this.workflowUpdateHumanInputV1Raw({ id: id, body: body }, initOverrides);
         return await response.value();
     }

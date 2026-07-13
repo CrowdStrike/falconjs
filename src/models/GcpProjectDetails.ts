@@ -33,6 +33,12 @@ export interface GcpProjectDetails {
     deploymentMethod?: string;
     /**
      *
+     * @type {string}
+     * @memberof GcpProjectDetails
+     */
+    dspmStatus?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof GcpProjectDetails
      */
@@ -102,6 +108,12 @@ export interface GcpProjectDetails {
      * @type {string}
      * @memberof GcpProjectDetails
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpProjectDetails
+     */
     registrationId?: string;
     /**
      *
@@ -133,6 +145,12 @@ export interface GcpProjectDetails {
      * @memberof GcpProjectDetails
      */
     updated?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpProjectDetails
+     */
+    vulnerabilityScanningStatus?: string;
 }
 
 /**
@@ -153,6 +171,7 @@ export function GcpProjectDetailsFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         created: json["created"] == null ? undefined : new Date(json["created"]),
         deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
+        dspmStatus: json["dspm_status"] == null ? undefined : json["dspm_status"],
         ioaFailedPermissions: json["ioa_failed_permissions"] == null ? undefined : json["ioa_failed_permissions"],
         ioaPassedPermissions: json["ioa_passed_permissions"] == null ? undefined : json["ioa_passed_permissions"],
         ioaStatus: json["ioa_status"] == null ? undefined : json["ioa_status"],
@@ -164,12 +183,14 @@ export function GcpProjectDetailsFromJSONTyped(json: any, ignoreDiscriminator: b
         projectId: json["project_id"] == null ? undefined : json["project_id"],
         projectName: json["project_name"] == null ? undefined : json["project_name"],
         projectNumber: json["project_number"] == null ? undefined : json["project_number"],
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
         registrationId: json["registration_id"] == null ? undefined : json["registration_id"],
         registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         registrationScope: json["registration_scope"] == null ? undefined : json["registration_scope"],
         serviceAccount: json["service_account"] == null ? undefined : json["service_account"],
         status: json["status"] == null ? undefined : json["status"],
         updated: json["updated"] == null ? undefined : new Date(json["updated"]),
+        vulnerabilityScanningStatus: json["vulnerability_scanning_status"] == null ? undefined : json["vulnerability_scanning_status"],
     };
 }
 
@@ -180,6 +201,7 @@ export function GcpProjectDetailsToJSON(value?: GcpProjectDetails | null): any {
     return {
         created: value["created"] == null ? undefined : value["created"].toISOString(),
         deployment_method: value["deploymentMethod"],
+        dspm_status: value["dspmStatus"],
         ioa_failed_permissions: value["ioaFailedPermissions"],
         ioa_passed_permissions: value["ioaPassedPermissions"],
         ioa_status: value["ioaStatus"],
@@ -191,11 +213,13 @@ export function GcpProjectDetailsToJSON(value?: GcpProjectDetails | null): any {
         project_id: value["projectId"],
         project_name: value["projectName"],
         project_number: value["projectNumber"],
+        registration_description: value["registrationDescription"],
         registration_id: value["registrationId"],
         registration_name: value["registrationName"],
         registration_scope: value["registrationScope"],
         service_account: value["serviceAccount"],
         status: value["status"],
         updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
+        vulnerability_scanning_status: value["vulnerabilityScanningStatus"],
     };
 }

@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainEntityInfo } from "./DomainEntityInfo";
+import { DomainEntityInfoFromJSON, DomainEntityInfoFromJSONTyped, DomainEntityInfoToJSON } from "./DomainEntityInfo";
 import type { CaohuntingapiTranslation } from "./CaohuntingapiTranslation";
 import { CaohuntingapiTranslationFromJSON, CaohuntingapiTranslationFromJSONTyped, CaohuntingapiTranslationToJSON } from "./CaohuntingapiTranslation";
 import type { CaohuntingapiMitreData } from "./CaohuntingapiMitreData";
@@ -84,6 +86,12 @@ export interface CaohuntingapiIntelligenceQueryEntity {
      * @memberof CaohuntingapiIntelligenceQueryEntity
      */
     hasEliteQueryExplainer: boolean;
+    /**
+     *
+     * @type {Array<DomainEntityInfo>}
+     * @memberof CaohuntingapiIntelligenceQueryEntity
+     */
+    huntingGuides?: Array<DomainEntityInfo>;
     /**
      *
      * @type {string}
@@ -225,6 +233,7 @@ export function CaohuntingapiIntelligenceQueryEntityFromJSONTyped(json: any, ign
         environment: json["environment"] == null ? undefined : json["environment"],
         hasEliteAnalystNotes: json["has_elite_analyst_notes"],
         hasEliteQueryExplainer: json["has_elite_query_explainer"],
+        huntingGuides: json["hunting_guides"] == null ? undefined : (json["hunting_guides"] as Array<any>).map(DomainEntityInfoFromJSON),
         id: json["id"],
         killChain: json["kill_chain"] == null ? undefined : json["kill_chain"],
         language: json["language"],
@@ -260,6 +269,7 @@ export function CaohuntingapiIntelligenceQueryEntityToJSON(value?: Caohuntingapi
         environment: value["environment"],
         has_elite_analyst_notes: value["hasEliteAnalystNotes"],
         has_elite_query_explainer: value["hasEliteQueryExplainer"],
+        hunting_guides: value["huntingGuides"] == null ? undefined : (value["huntingGuides"] as Array<any>).map(DomainEntityInfoToJSON),
         id: value["id"],
         kill_chain: value["killChain"],
         language: value["language"],

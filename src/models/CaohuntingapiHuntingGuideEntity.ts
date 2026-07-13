@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { CaohuntingapiGuideCategory } from "./CaohuntingapiGuideCategory";
 import { CaohuntingapiGuideCategoryFromJSON, CaohuntingapiGuideCategoryFromJSONTyped, CaohuntingapiGuideCategoryToJSON } from "./CaohuntingapiGuideCategory";
+import type { DomainEntityInfo } from "./DomainEntityInfo";
+import { DomainEntityInfoFromJSON, DomainEntityInfoFromJSONTyped, DomainEntityInfoToJSON } from "./DomainEntityInfo";
 import type { CaohuntingapiMitreData } from "./CaohuntingapiMitreData";
 import { CaohuntingapiMitreDataFromJSON, CaohuntingapiMitreDataFromJSONTyped, CaohuntingapiMitreDataToJSON } from "./CaohuntingapiMitreData";
 
@@ -114,6 +116,12 @@ export interface CaohuntingapiHuntingGuideEntity {
      * @memberof CaohuntingapiHuntingGuideEntity
      */
     name: string;
+    /**
+     *
+     * @type {Array<DomainEntityInfo>}
+     * @memberof CaohuntingapiHuntingGuideEntity
+     */
+    queries?: Array<DomainEntityInfo>;
 }
 
 /**
@@ -153,6 +161,7 @@ export function CaohuntingapiHuntingGuideEntityFromJSONTyped(json: any, ignoreDi
         malwareFamilies: json["malware_families"] == null ? undefined : json["malware_families"],
         mitre: json["mitre"] == null ? undefined : (json["mitre"] as Array<any>).map(CaohuntingapiMitreDataFromJSON),
         name: json["name"],
+        queries: json["queries"] == null ? undefined : (json["queries"] as Array<any>).map(DomainEntityInfoFromJSON),
     };
 }
 
@@ -176,5 +185,6 @@ export function CaohuntingapiHuntingGuideEntityToJSON(value?: CaohuntingapiHunti
         malware_families: value["malwareFamilies"],
         mitre: value["mitre"] == null ? undefined : (value["mitre"] as Array<any>).map(CaohuntingapiMitreDataToJSON),
         name: value["name"],
+        queries: value["queries"] == null ? undefined : (value["queries"] as Array<any>).map(DomainEntityInfoToJSON),
     };
 }

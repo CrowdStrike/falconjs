@@ -1737,7 +1737,8 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of related cloud event LogScale IDs for a given IOA
+     * Deprecated: use cdrapi entities/event-details/v1 \'logscale_related_events_query\' instead. Get list of related cloud event LogScale IDs for a given IOA.
+     * @deprecated
      */
     async getCloudEventIDsRaw(
         requestParameters: CspmRegistrationApiGetCloudEventIDsRequest,
@@ -1782,7 +1783,8 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get list of related cloud event LogScale IDs for a given IOA
+     * Deprecated: use cdrapi entities/event-details/v1 \'logscale_related_events_query\' instead. Get list of related cloud event LogScale IDs for a given IOA.
+     * @deprecated
      */
     async getCloudEventIDs(xCSUSERUUID: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CdrioamanagerGetCloudEventIDsResponse> {
         const response = await this.getCloudEventIDsRaw({ xCSUSERUUID: xCSUSERUUID, id: id }, initOverrides);

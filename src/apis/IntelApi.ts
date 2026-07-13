@@ -14,7 +14,8 @@
 
 import * as runtime from "../runtime";
 import type {
-    DomainActorsResponse,
+    ActorActorPaginatedResponse,
+    ActorActorResponse,
     DomainMalwareResponse,
     DomainNewsResponse,
     DomainPublicIndicatorsV3Response,
@@ -33,8 +34,10 @@ import type {
     MsaspecResponseFields,
 } from "../models/index";
 import {
-    DomainActorsResponseFromJSON,
-    DomainActorsResponseToJSON,
+    ActorActorPaginatedResponseFromJSON,
+    ActorActorPaginatedResponseToJSON,
+    ActorActorResponseFromJSON,
+    ActorActorResponseToJSON,
     DomainMalwareResponseFromJSON,
     DomainMalwareResponseToJSON,
     DomainNewsResponseFromJSON,
@@ -251,7 +254,7 @@ export interface IntelApiQueryVulnerabilitiesRequest {
  */
 export class IntelApi extends runtime.BaseAPI {
     /**
-     * Perform statistical aggregations over incident data. Available aggregation properties: InvolvesAdversaries.Slug, TargetIndustries.Slug, TargetIndustries.Name, ActivityStart, Id, InvolvesThreats.FamilyName, TargetCountries.Slug, TargetRegions.Slug, MitreAttack.TacticId, MitreAttack.TacticName, MitreAttack.TechniqueId, MitreAttack.TechniqueName, Objectives.Slug, Motivations.Slug, InvolvesAdversaries.AnimalClassifier, TargetCountries.Name, TargetRegions.Name, PublishDate, ActivityEnd.
+     * Perform statistical aggregations over incident data. Available aggregation properties: MitreAttack.TechniqueId, ActivityStart, ActivityEnd, Objectives.Slug, TargetCountries.Slug, TargetIndustries.Name, TargetRegions.Slug, MitreAttack.TechniqueName, Id, Motivations.Slug, InvolvesAdversaries.AnimalClassifier, TargetIndustries.Slug, MitreAttack.TacticName, PublishDate, InvolvesAdversaries.Slug, InvolvesThreats.FamilyName, TargetRegions.Name, MitreAttack.TacticId, TargetCountries.Name.
      */
     async caoIncidentsAggregatesV1Raw(
         requestParameters: IntelApiCaoIncidentsAggregatesV1Request,
@@ -287,7 +290,7 @@ export class IntelApi extends runtime.BaseAPI {
     }
 
     /**
-     * Perform statistical aggregations over incident data. Available aggregation properties: InvolvesAdversaries.Slug, TargetIndustries.Slug, TargetIndustries.Name, ActivityStart, Id, InvolvesThreats.FamilyName, TargetCountries.Slug, TargetRegions.Slug, MitreAttack.TacticId, MitreAttack.TacticName, MitreAttack.TechniqueId, MitreAttack.TechniqueName, Objectives.Slug, Motivations.Slug, InvolvesAdversaries.AnimalClassifier, TargetCountries.Name, TargetRegions.Name, PublishDate, ActivityEnd.
+     * Perform statistical aggregations over incident data. Available aggregation properties: MitreAttack.TechniqueId, ActivityStart, ActivityEnd, Objectives.Slug, TargetCountries.Slug, TargetIndustries.Name, TargetRegions.Slug, MitreAttack.TechniqueName, Id, Motivations.Slug, InvolvesAdversaries.AnimalClassifier, TargetIndustries.Slug, MitreAttack.TacticName, PublishDate, InvolvesAdversaries.Slug, InvolvesThreats.FamilyName, TargetRegions.Name, MitreAttack.TacticId, TargetCountries.Name.
      */
     async caoIncidentsAggregatesV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.caoIncidentsAggregatesV1Raw({ body: body }, initOverrides);
@@ -397,7 +400,7 @@ export class IntelApi extends runtime.BaseAPI {
     async getIntelActorEntitiesRaw(
         requestParameters: IntelApiGetIntelActorEntitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+    ): Promise<runtime.ApiResponse<ActorActorResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getIntelActorEntities().');
         }
@@ -429,13 +432,13 @@ export class IntelApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainActorsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActorActorResponseFromJSON(jsonValue));
     }
 
     /**
      * Retrieve specific actors using their actor IDs.
      */
-    async getIntelActorEntities(ids: Array<string>, fields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainActorsResponse> {
+    async getIntelActorEntities(ids: Array<string>, fields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ActorActorResponse> {
         const response = await this.getIntelActorEntitiesRaw({ ids: ids, fields: fields }, initOverrides);
         return await response.value();
     }
@@ -977,7 +980,7 @@ export class IntelApi extends runtime.BaseAPI {
     async queryIntelActorEntitiesRaw(
         requestParameters: IntelApiQueryIntelActorEntitiesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainActorsResponse>> {
+    ): Promise<runtime.ApiResponse<ActorActorPaginatedResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -1021,7 +1024,7 @@ export class IntelApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainActorsResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActorActorPaginatedResponseFromJSON(jsonValue));
     }
 
     /**
@@ -1035,7 +1038,7 @@ export class IntelApi extends runtime.BaseAPI {
         q?: string,
         fields?: Array<string>,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<DomainActorsResponse> {
+    ): Promise<ActorActorPaginatedResponse> {
         const response = await this.queryIntelActorEntitiesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q, fields: fields }, initOverrides);
         return await response.value();
     }

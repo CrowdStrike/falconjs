@@ -127,6 +127,24 @@ export interface DomainOCITenancyV1 {
      */
     publicKey: string;
     /**
+     *
+     * @type {string}
+     * @memberof DomainOCITenancyV1
+     */
+    registrationDescription: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainOCITenancyV1
+     */
+    registrationId: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainOCITenancyV1
+     */
+    registrationName: string;
+    /**
      * OCI Tenancy stack name
      * @type {string}
      * @memberof DomainOCITenancyV1
@@ -195,6 +213,9 @@ export function instanceOfDomainOCITenancyV1(value: object): value is DomainOCIT
     if (!("policyOcid" in value) || value["policyOcid"] === undefined) return false;
     if (!("products" in value) || value["products"] === undefined) return false;
     if (!("publicKey" in value) || value["publicKey"] === undefined) return false;
+    if (!("registrationDescription" in value) || value["registrationDescription"] === undefined) return false;
+    if (!("registrationId" in value) || value["registrationId"] === undefined) return false;
+    if (!("registrationName" in value) || value["registrationName"] === undefined) return false;
     if (!("stackName" in value) || value["stackName"] === undefined) return false;
     if (!("stackOcid" in value) || value["stackOcid"] === undefined) return false;
     if (!("tenancyName" in value) || value["tenancyName"] === undefined) return false;
@@ -232,6 +253,9 @@ export function DomainOCITenancyV1FromJSONTyped(json: any, ignoreDiscriminator: 
         privateKey: json["private_key"] == null ? undefined : json["private_key"],
         products: json["products"],
         publicKey: json["public_key"],
+        registrationDescription: json["registration_description"],
+        registrationId: json["registration_id"],
+        registrationName: json["registration_name"],
         stackName: json["stack_name"],
         stackOcid: json["stack_ocid"],
         tenancyName: json["tenancy_name"],
@@ -265,6 +289,9 @@ export function DomainOCITenancyV1ToJSON(value?: DomainOCITenancyV1 | null): any
         private_key: value["privateKey"],
         products: value["products"],
         public_key: value["publicKey"],
+        registration_description: value["registrationDescription"],
+        registration_id: value["registrationId"],
+        registration_name: value["registrationName"],
         stack_name: value["stackName"],
         stack_ocid: value["stackOcid"],
         tenancy_name: value["tenancyName"],

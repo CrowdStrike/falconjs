@@ -17,6 +17,7 @@ import type {
     AssetsComplianceResponse,
     AssetsGetResourceApplicationFindingsResponse,
     AssetsGetResourceIDsResponse,
+    AssetsGetResourcesRequest,
     AssetsGetResourcesResponse,
     MsaReplyMetaOnly,
     MsaspecResponseFields,
@@ -29,6 +30,8 @@ import {
     AssetsGetResourceApplicationFindingsResponseToJSON,
     AssetsGetResourceIDsResponseFromJSON,
     AssetsGetResourceIDsResponseToJSON,
+    AssetsGetResourcesRequestFromJSON,
+    AssetsGetResourcesRequestToJSON,
     AssetsGetResourcesResponseFromJSON,
     AssetsGetResourcesResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
@@ -46,6 +49,7 @@ export interface CloudSecurityAssetsApiCloudSecurityAssetsCombinedApplicationFin
     filter?: string;
     offset?: number;
     limit?: number;
+    sort?: string;
 }
 
 export interface CloudSecurityAssetsApiCloudSecurityAssetsCombinedComplianceByAccountRequest {
@@ -59,6 +63,10 @@ export interface CloudSecurityAssetsApiCloudSecurityAssetsCombinedComplianceByAc
 
 export interface CloudSecurityAssetsApiCloudSecurityAssetsEntitiesGetRequest {
     ids?: Array<string>;
+}
+
+export interface CloudSecurityAssetsApiCloudSecurityAssetsEntitiesPostRequest {
+    body: AssetsGetResourcesRequest;
 }
 
 export interface CloudSecurityAssetsApiCloudSecurityAssetsQueriesRequest {
@@ -110,6 +118,10 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
             queryParameters["limit"] = requestParameters["limit"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -140,9 +152,10 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
         filter?: string,
         offset?: number,
         limit?: number,
+        sort?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<AssetsGetResourceApplicationFindingsResponse> {
-        const response = await this.cloudSecurityAssetsCombinedApplicationFindingsRaw({ type: type, crn: crn, gcrn: gcrn, filter: filter, offset: offset, limit: limit }, initOverrides);
+        const response = await this.cloudSecurityAssetsCombinedApplicationFindingsRaw({ type: type, crn: crn, gcrn: gcrn, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -256,6 +269,50 @@ export class CloudSecurityAssetsApi extends runtime.BaseAPI {
      */
     async cloudSecurityAssetsEntitiesGet(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsGetResourcesResponse> {
         const response = await this.cloudSecurityAssetsEntitiesGetRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Gets raw resources based on IDs in the request body. Maximum of 500 resources can be requested.
+     */
+    async cloudSecurityAssetsEntitiesPostRaw(
+        requestParameters: CloudSecurityAssetsApiCloudSecurityAssetsEntitiesPostRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AssetsGetResourcesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudSecurityAssetsEntitiesPost().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-assets:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-assets/entities/resources/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: AssetsGetResourcesRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AssetsGetResourcesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Gets raw resources based on IDs in the request body. Maximum of 500 resources can be requested.
+     */
+    async cloudSecurityAssetsEntitiesPost(body: AssetsGetResourcesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AssetsGetResourcesResponse> {
+        const response = await this.cloudSecurityAssetsEntitiesPostRaw({ body: body }, initOverrides);
         return await response.value();
     }
 

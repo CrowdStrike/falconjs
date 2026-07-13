@@ -60,12 +60,6 @@ export interface DomainSaveConfigRequest {
     platform: string;
     /**
      *
-     * @type {boolean}
-     * @memberof DomainSaveConfigRequest
-     */
-    selfDestruct: boolean;
-    /**
-     *
      * @type {string}
      * @memberof DomainSaveConfigRequest
      */
@@ -82,7 +76,6 @@ export function instanceOfDomainSaveConfigRequest(value: object): value is Domai
     if (!("isDefault" in value) || value["isDefault"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("platform" in value) || value["platform"] === undefined) return false;
-    if (!("selfDestruct" in value) || value["selfDestruct"] === undefined) return false;
     if (!("tag" in value) || value["tag"] === undefined) return false;
     return true;
 }
@@ -102,7 +95,6 @@ export function DomainSaveConfigRequestFromJSONTyped(json: any, ignoreDiscrimina
         isDefault: json["is_default"],
         name: json["name"],
         platform: json["platform"],
-        selfDestruct: json["self_destruct"],
         tag: json["tag"],
     };
 }
@@ -118,7 +110,6 @@ export function DomainSaveConfigRequestToJSON(value?: DomainSaveConfigRequest | 
         is_default: value["isDefault"],
         name: value["name"],
         platform: value["platform"],
-        self_destruct: value["selfDestruct"],
         tag: value["tag"],
     };
 }

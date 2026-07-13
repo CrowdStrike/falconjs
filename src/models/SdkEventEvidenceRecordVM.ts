@@ -24,6 +24,12 @@ import { SdkEventEvidenceSelectorFromJSON, SdkEventEvidenceSelectorFromJSONTyped
 export interface SdkEventEvidenceRecordVM {
     /**
      *
+     * @type {string}
+     * @memberof SdkEventEvidenceRecordVM
+     */
+    id: string;
+    /**
+     *
      * @type {SdkEventEvidenceSelector}
      * @memberof SdkEventEvidenceRecordVM
      */
@@ -34,6 +40,7 @@ export interface SdkEventEvidenceRecordVM {
  * Check if a given object implements the SdkEventEvidenceRecordVM interface.
  */
 export function instanceOfSdkEventEvidenceRecordVM(value: object): value is SdkEventEvidenceRecordVM {
+    if (!("id" in value) || value["id"] === undefined) return false;
     if (!("selector" in value) || value["selector"] === undefined) return false;
     return true;
 }
@@ -47,6 +54,7 @@ export function SdkEventEvidenceRecordVMFromJSONTyped(json: any, ignoreDiscrimin
         return json;
     }
     return {
+        id: json["id"],
         selector: SdkEventEvidenceSelectorFromJSON(json["selector"]),
     };
 }
@@ -56,6 +64,7 @@ export function SdkEventEvidenceRecordVMToJSON(value?: SdkEventEvidenceRecordVM 
         return value;
     }
     return {
+        id: value["id"],
         selector: SdkEventEvidenceSelectorToJSON(value["selector"]),
     };
 }

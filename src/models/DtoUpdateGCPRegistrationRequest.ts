@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
+import type { GcpAgentlessScanningSettings } from "./GcpAgentlessScanningSettings";
+import { GcpAgentlessScanningSettingsFromJSON, GcpAgentlessScanningSettingsFromJSONTyped, GcpAgentlessScanningSettingsToJSON } from "./GcpAgentlessScanningSettings";
 
 /**
  *
@@ -34,6 +36,12 @@ export interface DtoUpdateGCPRegistrationRequest {
      * @memberof DtoUpdateGCPRegistrationRequest
      */
     deploymentMethod?: string;
+    /**
+     *
+     * @type {GcpAgentlessScanningSettings}
+     * @memberof DtoUpdateGCPRegistrationRequest
+     */
+    dspmSettings?: GcpAgentlessScanningSettings;
     /**
      *
      * @type {Array<string>}
@@ -105,6 +113,12 @@ export interface DtoUpdateGCPRegistrationRequest {
      * @type {string}
      * @memberof DtoUpdateGCPRegistrationRequest
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoUpdateGCPRegistrationRequest
+     */
     registrationName?: string;
     /**
      *
@@ -130,6 +144,12 @@ export interface DtoUpdateGCPRegistrationRequest {
      * @memberof DtoUpdateGCPRegistrationRequest
      */
     tags?: { [key: string]: string };
+    /**
+     *
+     * @type {GcpAgentlessScanningSettings}
+     * @memberof DtoUpdateGCPRegistrationRequest
+     */
+    vulnerabilityScanningSettings?: GcpAgentlessScanningSettings;
     /**
      *
      * @type {string}
@@ -174,6 +194,7 @@ export function DtoUpdateGCPRegistrationRequestFromJSONTyped(json: any, ignoreDi
     return {
         additionalProperties: json["additional_properties"] == null ? undefined : json["additional_properties"],
         deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
+        dspmSettings: json["dspm_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["dspm_settings"]),
         entityId: json["entity_id"] == null ? undefined : json["entity_id"],
         excludedProjectPatterns: json["excluded_project_patterns"] == null ? undefined : json["excluded_project_patterns"],
         falconClientKeyId: json["falcon_client_key_id"] == null ? undefined : json["falcon_client_key_id"],
@@ -185,11 +206,13 @@ export function DtoUpdateGCPRegistrationRequestFromJSONTyped(json: any, ignoreDi
         logIngestionSubscriptionName: json["log_ingestion_subscription_name"] == null ? undefined : json["log_ingestion_subscription_name"],
         logIngestionTopicId: json["log_ingestion_topic_id"] == null ? undefined : json["log_ingestion_topic_id"],
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(DomainProductFeaturesFromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
         registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         registrationScope: json["registration_scope"] == null ? undefined : json["registration_scope"],
         resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
         resourceNameSuffix: json["resource_name_suffix"] == null ? undefined : json["resource_name_suffix"],
         tags: json["tags"] == null ? undefined : json["tags"],
+        vulnerabilityScanningSettings: json["vulnerability_scanning_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["vulnerability_scanning_settings"]),
         wifPoolName: json["wif_pool_name"] == null ? undefined : json["wif_pool_name"],
         wifProjectId: json["wif_project_id"] == null ? undefined : json["wif_project_id"],
         wifProjectNumber: json["wif_project_number"] == null ? undefined : json["wif_project_number"],
@@ -204,6 +227,7 @@ export function DtoUpdateGCPRegistrationRequestToJSON(value?: DtoUpdateGCPRegist
     return {
         additional_properties: value["additionalProperties"],
         deployment_method: value["deploymentMethod"],
+        dspm_settings: GcpAgentlessScanningSettingsToJSON(value["dspmSettings"]),
         entity_id: value["entityId"],
         excluded_project_patterns: value["excludedProjectPatterns"],
         falcon_client_key_id: value["falconClientKeyId"],
@@ -215,11 +239,13 @@ export function DtoUpdateGCPRegistrationRequestToJSON(value?: DtoUpdateGCPRegist
         log_ingestion_subscription_name: value["logIngestionSubscriptionName"],
         log_ingestion_topic_id: value["logIngestionTopicId"],
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
+        registration_description: value["registrationDescription"],
         registration_name: value["registrationName"],
         registration_scope: value["registrationScope"],
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
         tags: value["tags"],
+        vulnerability_scanning_settings: GcpAgentlessScanningSettingsToJSON(value["vulnerabilityScanningSettings"]),
         wif_pool_name: value["wifPoolName"],
         wif_project_id: value["wifProjectId"],
         wif_project_number: value["wifProjectNumber"],

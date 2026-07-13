@@ -17,6 +17,8 @@ import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
 import type { DtoLogIngestionProperties } from "./DtoLogIngestionProperties";
 import { DtoLogIngestionPropertiesFromJSON, DtoLogIngestionPropertiesFromJSONTyped, DtoLogIngestionPropertiesToJSON } from "./DtoLogIngestionProperties";
+import type { GcpAgentlessScanningSettings } from "./GcpAgentlessScanningSettings";
+import { GcpAgentlessScanningSettingsFromJSON, GcpAgentlessScanningSettingsFromJSONTyped, GcpAgentlessScanningSettingsToJSON } from "./GcpAgentlessScanningSettings";
 import type { DtoInfraManagerProperties } from "./DtoInfraManagerProperties";
 import { DtoInfraManagerPropertiesFromJSON, DtoInfraManagerPropertiesFromJSONTyped, DtoInfraManagerPropertiesToJSON } from "./DtoInfraManagerProperties";
 import type { DtoOrganization } from "./DtoOrganization";
@@ -27,6 +29,8 @@ import type { DtoWIFProperties } from "./DtoWIFProperties";
 import { DtoWIFPropertiesFromJSON, DtoWIFPropertiesFromJSONTyped, DtoWIFPropertiesToJSON } from "./DtoWIFProperties";
 import type { DtoFolder } from "./DtoFolder";
 import { DtoFolderFromJSON, DtoFolderFromJSONTyped, DtoFolderToJSON } from "./DtoFolder";
+import type { DtoServiceAccountProperties } from "./DtoServiceAccountProperties";
+import { DtoServiceAccountPropertiesFromJSON, DtoServiceAccountPropertiesFromJSONTyped, DtoServiceAccountPropertiesToJSON } from "./DtoServiceAccountProperties";
 
 /**
  *
@@ -42,16 +46,34 @@ export interface DtoGCPRegistration {
     additionalProperties?: object;
     /**
      *
+     * @type {boolean}
+     * @memberof DtoGCPRegistration
+     */
+    cloudRegistrationEnabled: boolean;
+    /**
+     *
      * @type {Date}
      * @memberof DtoGCPRegistration
      */
     created?: Date;
     /**
      *
+     * @type {boolean}
+     * @memberof DtoGCPRegistration
+     */
+    cspmEnabled: boolean;
+    /**
+     *
      * @type {string}
      * @memberof DtoGCPRegistration
      */
     deploymentMethod?: string;
+    /**
+     *
+     * @type {GcpAgentlessScanningSettings}
+     * @memberof DtoGCPRegistration
+     */
+    dspmSettings?: GcpAgentlessScanningSettings;
     /**
      *
      * @type {Array<string>}
@@ -96,6 +118,12 @@ export interface DtoGCPRegistration {
     labels?: { [key: string]: string };
     /**
      *
+     * @type {Date}
+     * @memberof DtoGCPRegistration
+     */
+    lastHealthcheckCompletedAt?: Date;
+    /**
+     *
      * @type {DtoLogIngestionProperties}
      * @memberof DtoGCPRegistration
      */
@@ -118,6 +146,12 @@ export interface DtoGCPRegistration {
      * @memberof DtoGCPRegistration
      */
     projects?: Array<DtoProject>;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoGCPRegistration
+     */
+    registrationDescription?: string;
     /**
      *
      * @type {string}
@@ -150,6 +184,12 @@ export interface DtoGCPRegistration {
     resourceNameSuffix?: string;
     /**
      *
+     * @type {DtoServiceAccountProperties}
+     * @memberof DtoGCPRegistration
+     */
+    serviceAccountProperties?: DtoServiceAccountProperties;
+    /**
+     *
      * @type {string}
      * @memberof DtoGCPRegistration
      */
@@ -168,6 +208,12 @@ export interface DtoGCPRegistration {
     updated?: Date;
     /**
      *
+     * @type {GcpAgentlessScanningSettings}
+     * @memberof DtoGCPRegistration
+     */
+    vulnerabilityScanningSettings?: GcpAgentlessScanningSettings;
+    /**
+     *
      * @type {DtoWIFProperties}
      * @memberof DtoGCPRegistration
      */
@@ -178,6 +224,8 @@ export interface DtoGCPRegistration {
  * Check if a given object implements the DtoGCPRegistration interface.
  */
 export function instanceOfDtoGCPRegistration(value: object): value is DtoGCPRegistration {
+    if (!("cloudRegistrationEnabled" in value) || value["cloudRegistrationEnabled"] === undefined) return false;
+    if (!("cspmEnabled" in value) || value["cspmEnabled"] === undefined) return false;
     return true;
 }
 
@@ -191,8 +239,11 @@ export function DtoGCPRegistrationFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         additionalProperties: json["additional_properties"] == null ? undefined : json["additional_properties"],
+        cloudRegistrationEnabled: json["cloud_registration_enabled"],
         created: json["created"] == null ? undefined : new Date(json["created"]),
+        cspmEnabled: json["cspm_enabled"],
         deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
+        dspmSettings: json["dspm_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["dspm_settings"]),
         excludedProjectPatterns: json["excluded_project_patterns"] == null ? undefined : json["excluded_project_patterns"],
         falconClientKeyId: json["falcon_client_key_id"] == null ? undefined : json["falcon_client_key_id"],
         falconClientKeyType: json["falcon_client_key_type"] == null ? undefined : json["falcon_client_key_type"],
@@ -200,18 +251,22 @@ export function DtoGCPRegistrationFromJSONTyped(json: any, ignoreDiscriminator: 
         infraManagerProperties: json["infra_manager_properties"] == null ? undefined : DtoInfraManagerPropertiesFromJSON(json["infra_manager_properties"]),
         infraProjectId: json["infra_project_id"] == null ? undefined : json["infra_project_id"],
         labels: json["labels"] == null ? undefined : json["labels"],
+        lastHealthcheckCompletedAt: json["last_healthcheck_completed_at"] == null ? undefined : new Date(json["last_healthcheck_completed_at"]),
         logIngestionProperties: json["log_ingestion_properties"] == null ? undefined : DtoLogIngestionPropertiesFromJSON(json["log_ingestion_properties"]),
         organization: json["organization"] == null ? undefined : DtoOrganizationFromJSON(json["organization"]),
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(DomainProductFeaturesFromJSON),
         projects: json["projects"] == null ? undefined : (json["projects"] as Array<any>).map(DtoProjectFromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
         registrationId: json["registration_id"] == null ? undefined : json["registration_id"],
         registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         registrationScope: json["registration_scope"] == null ? undefined : json["registration_scope"],
         resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
         resourceNameSuffix: json["resource_name_suffix"] == null ? undefined : json["resource_name_suffix"],
+        serviceAccountProperties: json["service_account_properties"] == null ? undefined : DtoServiceAccountPropertiesFromJSON(json["service_account_properties"]),
         status: json["status"] == null ? undefined : json["status"],
         tags: json["tags"] == null ? undefined : json["tags"],
         updated: json["updated"] == null ? undefined : new Date(json["updated"]),
+        vulnerabilityScanningSettings: json["vulnerability_scanning_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["vulnerability_scanning_settings"]),
         wifProperties: json["wif_properties"] == null ? undefined : DtoWIFPropertiesFromJSON(json["wif_properties"]),
     };
 }
@@ -222,8 +277,11 @@ export function DtoGCPRegistrationToJSON(value?: DtoGCPRegistration | null): any
     }
     return {
         additional_properties: value["additionalProperties"],
+        cloud_registration_enabled: value["cloudRegistrationEnabled"],
         created: value["created"] == null ? undefined : value["created"].toISOString(),
+        cspm_enabled: value["cspmEnabled"],
         deployment_method: value["deploymentMethod"],
+        dspm_settings: GcpAgentlessScanningSettingsToJSON(value["dspmSettings"]),
         excluded_project_patterns: value["excludedProjectPatterns"],
         falcon_client_key_id: value["falconClientKeyId"],
         falcon_client_key_type: value["falconClientKeyType"],
@@ -231,18 +289,22 @@ export function DtoGCPRegistrationToJSON(value?: DtoGCPRegistration | null): any
         infra_manager_properties: DtoInfraManagerPropertiesToJSON(value["infraManagerProperties"]),
         infra_project_id: value["infraProjectId"],
         labels: value["labels"],
+        last_healthcheck_completed_at: value["lastHealthcheckCompletedAt"] == null ? undefined : value["lastHealthcheckCompletedAt"].toISOString(),
         log_ingestion_properties: DtoLogIngestionPropertiesToJSON(value["logIngestionProperties"]),
         organization: DtoOrganizationToJSON(value["organization"]),
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
         projects: value["projects"] == null ? undefined : (value["projects"] as Array<any>).map(DtoProjectToJSON),
+        registration_description: value["registrationDescription"],
         registration_id: value["registrationId"],
         registration_name: value["registrationName"],
         registration_scope: value["registrationScope"],
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
+        service_account_properties: DtoServiceAccountPropertiesToJSON(value["serviceAccountProperties"]),
         status: value["status"],
         tags: value["tags"],
         updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
+        vulnerability_scanning_settings: GcpAgentlessScanningSettingsToJSON(value["vulnerabilityScanningSettings"]),
         wif_properties: DtoWIFPropertiesToJSON(value["wifProperties"]),
     };
 }

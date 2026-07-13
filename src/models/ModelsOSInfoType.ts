@@ -24,6 +24,36 @@ export interface ModelsOSInfoType {
      * @type {string}
      * @memberof ModelsOSInfoType
      */
+    displayVersion?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsOSInfoType
+     */
+    editionID?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsOSInfoType
+     */
+    installType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsOSInfoType
+     */
+    layerHash?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof ModelsOSInfoType
+     */
+    layerIndex?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsOSInfoType
+     */
     name: string;
     /**
      *
@@ -51,6 +81,11 @@ export function ModelsOSInfoTypeFromJSONTyped(json: any, ignoreDiscriminator: bo
         return json;
     }
     return {
+        displayVersion: json["DisplayVersion"] == null ? undefined : json["DisplayVersion"],
+        editionID: json["EditionID"] == null ? undefined : json["EditionID"],
+        installType: json["InstallType"] == null ? undefined : json["InstallType"],
+        layerHash: json["LayerHash"] == null ? undefined : json["LayerHash"],
+        layerIndex: json["LayerIndex"] == null ? undefined : json["LayerIndex"],
         name: json["Name"],
         version: json["Version"],
     };
@@ -61,6 +96,11 @@ export function ModelsOSInfoTypeToJSON(value?: ModelsOSInfoType | null): any {
         return value;
     }
     return {
+        DisplayVersion: value["displayVersion"],
+        EditionID: value["editionID"],
+        InstallType: value["installType"],
+        LayerHash: value["layerHash"],
+        LayerIndex: value["layerIndex"],
         Name: value["name"],
         Version: value["version"],
     };

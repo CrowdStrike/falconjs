@@ -130,6 +130,12 @@ export interface DomainConfigData {
     tokenParameters?: { [key: string]: Array<string> };
     /**
      *
+     * @type {string}
+     * @memberof DomainConfigData
+     */
+    tokenResponseMetadata?: string;
+    /**
+     *
      * @type {object}
      * @memberof DomainConfigData
      */
@@ -170,6 +176,7 @@ export function DomainConfigDataFromJSONTyped(json: any, ignoreDiscriminator: bo
         tags: json["tags"] == null ? undefined : json["tags"],
         tagsMap: json["tags_map"] == null ? undefined : json["tags_map"],
         tokenParameters: json["token_parameters"] == null ? undefined : json["token_parameters"],
+        tokenResponseMetadata: json["token_response_metadata"] == null ? undefined : json["token_response_metadata"],
         xWwwFormUrlencoded: json["x-www-form-urlencoded"] == null ? undefined : json["x-www-form-urlencoded"],
     };
 }
@@ -196,6 +203,7 @@ export function DomainConfigDataToJSON(value?: DomainConfigData | null): any {
         tags: value["tags"],
         tags_map: value["tagsMap"],
         token_parameters: value["tokenParameters"],
+        token_response_metadata: value["tokenResponseMetadata"],
         "x-www-form-urlencoded": value["xWwwFormUrlencoded"],
     };
 }

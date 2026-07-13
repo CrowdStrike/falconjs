@@ -24,6 +24,12 @@ export interface CorrelationrulesapiPatchRuleNotificationConfigV1 {
      * @type {string}
      * @memberof CorrelationrulesapiPatchRuleNotificationConfigV1
      */
+    channelId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiPatchRuleNotificationConfigV1
+     */
     cid?: string;
     /**
      *
@@ -49,6 +55,12 @@ export interface CorrelationrulesapiPatchRuleNotificationConfigV1 {
      * @memberof CorrelationrulesapiPatchRuleNotificationConfigV1
      */
     severity?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiPatchRuleNotificationConfigV1
+     */
+    teamId?: string;
 }
 
 /**
@@ -67,11 +79,13 @@ export function CorrelationrulesapiPatchRuleNotificationConfigV1FromJSONTyped(js
         return json;
     }
     return {
+        channelId: json["channel_id"] == null ? undefined : json["channel_id"],
         cid: json["cid"] == null ? undefined : json["cid"],
         configId: json["config_id"] == null ? undefined : json["config_id"],
         pluginId: json["plugin_id"] == null ? undefined : json["plugin_id"],
         recipients: json["recipients"] == null ? undefined : json["recipients"],
         severity: json["severity"] == null ? undefined : json["severity"],
+        teamId: json["team_id"] == null ? undefined : json["team_id"],
     };
 }
 
@@ -80,10 +94,12 @@ export function CorrelationrulesapiPatchRuleNotificationConfigV1ToJSON(value?: C
         return value;
     }
     return {
+        channel_id: value["channelId"],
         cid: value["cid"],
         config_id: value["configId"],
         plugin_id: value["pluginId"],
         recipients: value["recipients"],
         severity: value["severity"],
+        team_id: value["teamId"],
     };
 }

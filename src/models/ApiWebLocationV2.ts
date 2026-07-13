@@ -97,6 +97,12 @@ export interface ApiWebLocationV2 {
      * @memberof ApiWebLocationV2
      */
     type: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ApiWebLocationV2
+     */
+    webLocationGroupIds: Array<string>;
 }
 
 /**
@@ -107,6 +113,7 @@ export function instanceOfApiWebLocationV2(value: object): value is ApiWebLocati
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("locationType" in value) || value["locationType"] === undefined) return false;
     if (!("type" in value) || value["type"] === undefined) return false;
+    if (!("webLocationGroupIds" in value) || value["webLocationGroupIds"] === undefined) return false;
     return true;
 }
 
@@ -132,6 +139,7 @@ export function ApiWebLocationV2FromJSONTyped(json: any, ignoreDiscriminator: bo
         providerLocationName: json["provider_location_name"] == null ? undefined : json["provider_location_name"],
         supportsNetworkInspection: json["supports_network_inspection"] == null ? undefined : json["supports_network_inspection"],
         type: json["type"],
+        webLocationGroupIds: json["web_location_group_ids"],
     };
 }
 
@@ -153,5 +161,6 @@ export function ApiWebLocationV2ToJSON(value?: ApiWebLocationV2 | null): any {
         provider_location_name: value["providerLocationName"],
         supports_network_inspection: value["supportsNetworkInspection"],
         type: value["type"],
+        web_location_group_ids: value["webLocationGroupIds"],
     };
 }

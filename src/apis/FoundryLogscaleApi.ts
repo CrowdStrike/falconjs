@@ -1061,7 +1061,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Lists available repositories and views
+     * Lists available repositories
      */
     async listReposRaw(
         requestParameters: FoundryLogscaleApiListReposRequest,
@@ -1094,7 +1094,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * Lists available repositories and views
+     * Lists available repositories
      */
     async listRepos(checkTestData?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApidomainRepoViewListItemWrapperV1> {
         const response = await this.listReposRaw({ checkTestData: checkTestData }, initOverrides);
@@ -1102,7 +1102,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * List views
+     * List available views
      */
     async listViewsRaw(
         requestParameters: FoundryLogscaleApiListViewsRequest,
@@ -1135,7 +1135,7 @@ export class FoundryLogscaleApi extends runtime.BaseAPI {
     }
 
     /**
-     * List views
+     * List available views
      */
     async listViews(checkTestData?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApidomainRepoViewListItemWrapperV1> {
         const response = await this.listViewsRaw({ checkTestData: checkTestData }, initOverrides);

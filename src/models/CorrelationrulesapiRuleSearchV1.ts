@@ -60,7 +60,7 @@ export interface CorrelationrulesapiRuleSearchV1 {
      * @type {boolean}
      * @memberof CorrelationrulesapiRuleSearchV1
      */
-    useIngestTime: boolean;
+    useIngestTime?: boolean;
 }
 
 /**
@@ -72,7 +72,6 @@ export function instanceOfCorrelationrulesapiRuleSearchV1(value: object): value 
     if (!("lookback" in value) || value["lookback"] === undefined) return false;
     if (!("outcome" in value) || value["outcome"] === undefined) return false;
     if (!("triggerMode" in value) || value["triggerMode"] === undefined) return false;
-    if (!("useIngestTime" in value) || value["useIngestTime"] === undefined) return false;
     return true;
 }
 
@@ -91,7 +90,7 @@ export function CorrelationrulesapiRuleSearchV1FromJSONTyped(json: any, ignoreDi
         lookback: json["lookback"],
         outcome: json["outcome"],
         triggerMode: json["trigger_mode"],
-        useIngestTime: json["use_ingest_time"],
+        useIngestTime: json["use_ingest_time"] == null ? undefined : json["use_ingest_time"],
     };
 }
 

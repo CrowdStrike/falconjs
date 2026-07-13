@@ -19,6 +19,8 @@ import type { DomainSimpleActor } from "./DomainSimpleActor";
 import { DomainSimpleActorFromJSON, DomainSimpleActorFromJSONTyped, DomainSimpleActorToJSON } from "./DomainSimpleActor";
 import type { DomainReportMalware } from "./DomainReportMalware";
 import { DomainReportMalwareFromJSON, DomainReportMalwareFromJSONTyped, DomainReportMalwareToJSON } from "./DomainReportMalware";
+import type { DomainMitreAttackDetection } from "./DomainMitreAttackDetection";
+import { DomainMitreAttackDetectionFromJSON, DomainMitreAttackDetectionFromJSONTyped, DomainMitreAttackDetectionToJSON } from "./DomainMitreAttackDetection";
 import type { DomainFile } from "./DomainFile";
 import { DomainFileFromJSON, DomainFileFromJSONTyped, DomainFileToJSON } from "./DomainFile";
 import type { DomainEntity } from "./DomainEntity";
@@ -90,6 +92,12 @@ export interface DomainNewsDocument {
      * @memberof DomainNewsDocument
      */
     malware?: Array<DomainReportMalware>;
+    /**
+     * MITRE attacks referenced in the news/report
+     * @type {Array<DomainMitreAttackDetection>}
+     * @memberof DomainNewsDocument
+     */
+    mitreAttacks?: Array<DomainMitreAttackDetection>;
     /**
      * News mentioned motivation or motivation of related actors and malware families
      * @type {Array<DomainEntity>}
@@ -231,6 +239,7 @@ export function DomainNewsDocumentFromJSONTyped(json: any, ignoreDiscriminator: 
         image: json["image"] == null ? undefined : DomainImageFromJSON(json["image"]),
         lastModifiedDate: json["last_modified_date"],
         malware: json["malware"] == null ? undefined : (json["malware"] as Array<any>).map(DomainReportMalwareFromJSON),
+        mitreAttacks: json["mitre_attacks"] == null ? undefined : (json["mitre_attacks"] as Array<any>).map(DomainMitreAttackDetectionFromJSON),
         motivations: (json["motivations"] as Array<any>).map(DomainEntityFromJSON),
         name: json["name"],
         notifyUsers: json["notify_users"] == null ? undefined : json["notify_users"],
@@ -266,6 +275,7 @@ export function DomainNewsDocumentToJSON(value?: DomainNewsDocument | null): any
         image: DomainImageToJSON(value["image"]),
         last_modified_date: value["lastModifiedDate"],
         malware: value["malware"] == null ? undefined : (value["malware"] as Array<any>).map(DomainReportMalwareToJSON),
+        mitre_attacks: value["mitreAttacks"] == null ? undefined : (value["mitreAttacks"] as Array<any>).map(DomainMitreAttackDetectionToJSON),
         motivations: (value["motivations"] as Array<any>).map(DomainEntityToJSON),
         name: value["name"],
         notify_users: value["notifyUsers"],

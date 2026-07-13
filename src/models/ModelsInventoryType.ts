@@ -23,20 +23,22 @@ import type { ModelsOSInfoType } from "./ModelsOSInfoType";
 import { ModelsOSInfoTypeFromJSON, ModelsOSInfoTypeFromJSONTyped, ModelsOSInfoTypeToJSON } from "./ModelsOSInfoType";
 import type { V1Manifest } from "./V1Manifest";
 import { V1ManifestFromJSON, V1ManifestFromJSONTyped, V1ManifestToJSON } from "./V1Manifest";
-import type { ModelsELFBinaryInfoType } from "./ModelsELFBinaryInfoType";
-import { ModelsELFBinaryInfoTypeFromJSON, ModelsELFBinaryInfoTypeFromJSONTyped, ModelsELFBinaryInfoTypeToJSON } from "./ModelsELFBinaryInfoType";
-import type { ModelsApplicationPackageInfoType } from "./ModelsApplicationPackageInfoType";
-import { ModelsApplicationPackageInfoTypeFromJSON, ModelsApplicationPackageInfoTypeFromJSONTyped, ModelsApplicationPackageInfoTypeToJSON } from "./ModelsApplicationPackageInfoType";
 import type { ModelsMLModelType } from "./ModelsMLModelType";
 import { ModelsMLModelTypeFromJSON, ModelsMLModelTypeFromJSONTyped, ModelsMLModelTypeToJSON } from "./ModelsMLModelType";
-import type { ModelsImageInfoType } from "./ModelsImageInfoType";
-import { ModelsImageInfoTypeFromJSON, ModelsImageInfoTypeFromJSONTyped, ModelsImageInfoTypeToJSON } from "./ModelsImageInfoType";
 import type { V1Image } from "./V1Image";
 import { V1ImageFromJSON, V1ImageFromJSONTyped, V1ImageToJSON } from "./V1Image";
-import type { ModelsLayerInfoType } from "./ModelsLayerInfoType";
-import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON } from "./ModelsLayerInfoType";
 import type { ModelsPackageInfoType } from "./ModelsPackageInfoType";
 import { ModelsPackageInfoTypeFromJSON, ModelsPackageInfoTypeFromJSONTyped, ModelsPackageInfoTypeToJSON } from "./ModelsPackageInfoType";
+import type { ModelsELFBinaryInfoType } from "./ModelsELFBinaryInfoType";
+import { ModelsELFBinaryInfoTypeFromJSON, ModelsELFBinaryInfoTypeFromJSONTyped, ModelsELFBinaryInfoTypeToJSON } from "./ModelsELFBinaryInfoType";
+import type { ModelsHashedFileInfoType } from "./ModelsHashedFileInfoType";
+import { ModelsHashedFileInfoTypeFromJSON, ModelsHashedFileInfoTypeFromJSONTyped, ModelsHashedFileInfoTypeToJSON } from "./ModelsHashedFileInfoType";
+import type { ModelsApplicationPackageInfoType } from "./ModelsApplicationPackageInfoType";
+import { ModelsApplicationPackageInfoTypeFromJSON, ModelsApplicationPackageInfoTypeFromJSONTyped, ModelsApplicationPackageInfoTypeToJSON } from "./ModelsApplicationPackageInfoType";
+import type { ModelsImageInfoType } from "./ModelsImageInfoType";
+import { ModelsImageInfoTypeFromJSON, ModelsImageInfoTypeFromJSONTyped, ModelsImageInfoTypeToJSON } from "./ModelsImageInfoType";
+import type { ModelsLayerInfoType } from "./ModelsLayerInfoType";
+import { ModelsLayerInfoTypeFromJSON, ModelsLayerInfoTypeFromJSONTyped, ModelsLayerInfoTypeToJSON } from "./ModelsLayerInfoType";
 
 /**
  *
@@ -68,6 +70,12 @@ export interface ModelsInventoryType {
      * @memberof ModelsInventoryType
      */
     eLFBinaries: Array<ModelsELFBinaryInfoType>;
+    /**
+     *
+     * @type {Array<ModelsHashedFileInfoType>}
+     * @memberof ModelsInventoryType
+     */
+    hashedFiles?: Array<ModelsHashedFileInfoType>;
     /**
      *
      * @type {ModelsImageInfoType}
@@ -165,6 +173,7 @@ export function ModelsInventoryTypeFromJSONTyped(json: any, ignoreDiscriminator:
         config: V1ImageFromJSON(json["Config"]),
         configInfo: ModelsConfigInfoTypeFromJSON(json["ConfigInfo"]),
         eLFBinaries: (json["ELFBinaries"] as Array<any>).map(ModelsELFBinaryInfoTypeFromJSON),
+        hashedFiles: json["HashedFiles"] == null ? undefined : (json["HashedFiles"] as Array<any>).map(ModelsHashedFileInfoTypeFromJSON),
         imageInfo: ModelsImageInfoTypeFromJSON(json["ImageInfo"]),
         inventoryEngineInfo: ModelsInventoryEngineInfoTypeFromJSON(json["InventoryEngineInfo"]),
         layers: (json["Layers"] as Array<any>).map(ModelsLayerInfoTypeFromJSON),
@@ -188,6 +197,7 @@ export function ModelsInventoryTypeToJSON(value?: ModelsInventoryType | null): a
         Config: V1ImageToJSON(value["config"]),
         ConfigInfo: ModelsConfigInfoTypeToJSON(value["configInfo"]),
         ELFBinaries: (value["eLFBinaries"] as Array<any>).map(ModelsELFBinaryInfoTypeToJSON),
+        HashedFiles: value["hashedFiles"] == null ? undefined : (value["hashedFiles"] as Array<any>).map(ModelsHashedFileInfoTypeToJSON),
         ImageInfo: ModelsImageInfoTypeToJSON(value["imageInfo"]),
         InventoryEngineInfo: ModelsInventoryEngineInfoTypeToJSON(value["inventoryEngineInfo"]),
         Layers: (value["layers"] as Array<any>).map(ModelsLayerInfoTypeToJSON),

@@ -1189,35 +1189,6 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * - request graphql query
-     */
-    async postGraphqlQueryMixin0Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: any }>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request(
-            {
-                path: `/cloud-data-protection/entities/schedules/graphql/v2`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse<any>(response);
-    }
-
-    /**
-     * - request graphql query
-     */
-    async postGraphqlQueryMixin0(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: any }> {
-        const response = await this.postGraphqlQueryMixin0Raw(initOverrides);
-        return await response.value();
-    }
-
-    /**
      * Update Collections
      */
     async putCollectionsV1Raw(

@@ -23,6 +23,8 @@ import type {
     ApiIndicatorUpdateReqsV1,
     ApiIndicatorsReportRequest,
     ApiProcessesRanOnRespV1,
+    ApiSdmfQuery,
+    ApiSdmfResponse,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaEntitiesResponse,
@@ -48,6 +50,10 @@ import {
     ApiIndicatorsReportRequestToJSON,
     ApiProcessesRanOnRespV1FromJSON,
     ApiProcessesRanOnRespV1ToJSON,
+    ApiSdmfQueryFromJSON,
+    ApiSdmfQueryToJSON,
+    ApiSdmfResponseFromJSON,
+    ApiSdmfResponseToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -123,6 +129,10 @@ export interface IocApiIndicatorGetProcessesRanOnV1Request {
 
 export interface IocApiIndicatorGetV1Request {
     ids: Array<string>;
+}
+
+export interface IocApiIndicatorSdmfQueryV1Request {
+    body: ApiSdmfQuery;
 }
 
 export interface IocApiIndicatorSearchV1Request {
@@ -732,6 +742,47 @@ export class IocApi extends runtime.BaseAPI {
      */
     async indicatorGetV1(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiIndicatorRespV1> {
         const response = await this.indicatorGetV1Raw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Executes an SDMF data frame query against IOC indicators
+     */
+    async indicatorSdmfQueryV1Raw(requestParameters: IocApiIndicatorSdmfQueryV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiSdmfResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling indicatorSdmfQueryV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ioc:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/iocs/sdmf/query/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiSdmfQueryToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiSdmfResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Executes an SDMF data frame query against IOC indicators
+     */
+    async indicatorSdmfQueryV1(body: ApiSdmfQuery, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiSdmfResponse> {
+        const response = await this.indicatorSdmfQueryV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

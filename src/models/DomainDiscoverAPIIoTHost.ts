@@ -69,6 +69,12 @@ export interface DomainDiscoverAPIIoTHost {
      */
     aid?: string;
     /**
+     * All subnets (current and historical) to which the device is or was connected.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    allSubnets?: Array<string>;
+    /**
      * The asset role or roles currently assigned to the asset either automatically or by a user (Jump host, Highly connected, Highly active, Server by behavior, DHCP server, DNS server, FTP server, SSH server, or Web server).
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIIoTHost
@@ -284,6 +290,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     department?: string;
+    /**
+     * The deployment type of the asset.
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    deploymentType?: string;
     /**
      * The descriptions of the asset in Active Directory (Cannot be used for filtering, sorting, or querying).
      * @type {Array<string>}
@@ -549,6 +561,12 @@ export interface DomainDiscoverAPIIoTHost {
      */
     lastSeenTimestamp?: string;
     /**
+     * The sensor mode of the Linux asset.
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    linuxSensorMode?: string;
+    /**
      * Historical local IPv4 addresses associated with the asset.
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIIoTHost
@@ -621,6 +639,12 @@ export interface DomainDiscoverAPIIoTHost {
      */
     mountStorageInfo?: Array<DomainDiscoverAPIMountStorageInfo>;
     /**
+     * The IP addresses across multiple network interfaces of the device.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    multiNicIpAddresses?: Array<string>;
+    /**
      * The network ID to which device is connected.
      * @type {string}
      * @memberof DomainDiscoverAPIIoTHost
@@ -632,6 +656,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     networkInterfaces?: Array<DomainDiscoverAPINetworkInterface>;
+    /**
+     * The external ID of the IoT Device in 3rd Party System (Nozomi Vantage)
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    nozomiId?: string;
     /**
      * The number of active physical drives available on the system.
      * @type {number}
@@ -801,6 +831,12 @@ export interface DomainDiscoverAPIIoTHost {
      */
     subnet?: string;
     /**
+     * The historical subnets to which the device was connected.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    subnetHistory?: Array<string>;
+    /**
      * The asset's system manufacturer.
      * @type {string}
      * @memberof DomainDiscoverAPIIoTHost
@@ -951,6 +987,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         adVirtualServer: json["ad_virtual_server"] == null ? undefined : json["ad_virtual_server"],
         agentVersion: json["agent_version"] == null ? undefined : json["agent_version"],
         aid: json["aid"] == null ? undefined : json["aid"],
+        allSubnets: json["all_subnets"] == null ? undefined : json["all_subnets"],
         assetRoles: json["asset_roles"] == null ? undefined : json["asset_roles"],
         assignedTo: json["assigned_to"] == null ? undefined : json["assigned_to"],
         availableDiskSpace: json["available_disk_space"] == null ? undefined : json["available_disk_space"],
@@ -987,6 +1024,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         dataProviders: json["data_providers"] == null ? undefined : json["data_providers"],
         dataProvidersCount: json["data_providers_count"] == null ? undefined : json["data_providers_count"],
         department: json["department"] == null ? undefined : json["department"],
+        deploymentType: json["deployment_type"] == null ? undefined : json["deployment_type"],
         descriptions: json["descriptions"] == null ? undefined : json["descriptions"],
         deviceClass: json["device_class"] == null ? undefined : json["device_class"],
         deviceFamily: json["device_family"] == null ? undefined : json["device_family"],
@@ -1031,6 +1069,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         lastDiscovererHostname: json["last_discoverer_hostname"] == null ? undefined : json["last_discoverer_hostname"],
         lastDiscovererIcsCollectorId: json["last_discoverer_ics_collector_id"] == null ? undefined : json["last_discoverer_ics_collector_id"],
         lastSeenTimestamp: json["last_seen_timestamp"] == null ? undefined : json["last_seen_timestamp"],
+        linuxSensorMode: json["linux_sensor_mode"] == null ? undefined : json["linux_sensor_mode"],
         localIpAddresses: json["local_ip_addresses"] == null ? undefined : json["local_ip_addresses"],
         localIpsCount: json["local_ips_count"] == null ? undefined : json["local_ips_count"],
         location: json["location"] == null ? undefined : json["location"],
@@ -1043,8 +1082,10 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         maxProcessorUsage: json["max_processor_usage"] == null ? undefined : json["max_processor_usage"],
         memoryTotal: json["memory_total"] == null ? undefined : json["memory_total"],
         mountStorageInfo: json["mount_storage_info"] == null ? undefined : (json["mount_storage_info"] as Array<any>).map(DomainDiscoverAPIMountStorageInfoFromJSON),
+        multiNicIpAddresses: json["multi_nic_ip_addresses"] == null ? undefined : json["multi_nic_ip_addresses"],
         networkId: json["network_id"] == null ? undefined : json["network_id"],
         networkInterfaces: json["network_interfaces"] == null ? undefined : (json["network_interfaces"] as Array<any>).map(DomainDiscoverAPINetworkInterfaceFromJSON),
+        nozomiId: json["nozomi_id"] == null ? undefined : json["nozomi_id"],
         numberOfDiskDrives: json["number_of_disk_drives"] == null ? undefined : json["number_of_disk_drives"],
         objectGuid: json["object_guid"] == null ? undefined : json["object_guid"],
         objectSid: json["object_sid"] == null ? undefined : json["object_sid"],
@@ -1073,6 +1114,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         siteName: json["site_name"] == null ? undefined : json["site_name"],
         state: json["state"] == null ? undefined : json["state"],
         subnet: json["subnet"] == null ? undefined : json["subnet"],
+        subnetHistory: json["subnet_history"] == null ? undefined : json["subnet_history"],
         systemManufacturer: json["system_manufacturer"] == null ? undefined : json["system_manufacturer"],
         systemProductName: json["system_product_name"] == null ? undefined : json["system_product_name"],
         systemSerialNumber: json["system_serial_number"] == null ? undefined : json["system_serial_number"],
@@ -1107,6 +1149,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         ad_virtual_server: value["adVirtualServer"],
         agent_version: value["agentVersion"],
         aid: value["aid"],
+        all_subnets: value["allSubnets"],
         asset_roles: value["assetRoles"],
         assigned_to: value["assignedTo"],
         available_disk_space: value["availableDiskSpace"],
@@ -1143,6 +1186,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         data_providers: value["dataProviders"],
         data_providers_count: value["dataProvidersCount"],
         department: value["department"],
+        deployment_type: value["deploymentType"],
         descriptions: value["descriptions"],
         device_class: value["deviceClass"],
         device_family: value["deviceFamily"],
@@ -1187,6 +1231,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         last_discoverer_hostname: value["lastDiscovererHostname"],
         last_discoverer_ics_collector_id: value["lastDiscovererIcsCollectorId"],
         last_seen_timestamp: value["lastSeenTimestamp"],
+        linux_sensor_mode: value["linuxSensorMode"],
         local_ip_addresses: value["localIpAddresses"],
         local_ips_count: value["localIpsCount"],
         location: value["location"],
@@ -1199,8 +1244,10 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         max_processor_usage: value["maxProcessorUsage"],
         memory_total: value["memoryTotal"],
         mount_storage_info: value["mountStorageInfo"] == null ? undefined : (value["mountStorageInfo"] as Array<any>).map(DomainDiscoverAPIMountStorageInfoToJSON),
+        multi_nic_ip_addresses: value["multiNicIpAddresses"],
         network_id: value["networkId"],
         network_interfaces: value["networkInterfaces"] == null ? undefined : (value["networkInterfaces"] as Array<any>).map(DomainDiscoverAPINetworkInterfaceToJSON),
+        nozomi_id: value["nozomiId"],
         number_of_disk_drives: value["numberOfDiskDrives"],
         object_guid: value["objectGuid"],
         object_sid: value["objectSid"],
@@ -1229,6 +1276,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         site_name: value["siteName"],
         state: value["state"],
         subnet: value["subnet"],
+        subnet_history: value["subnetHistory"],
         system_manufacturer: value["systemManufacturer"],
         system_product_name: value["systemProductName"],
         system_serial_number: value["systemSerialNumber"],

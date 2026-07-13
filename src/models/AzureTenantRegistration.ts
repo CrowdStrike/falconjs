@@ -17,14 +17,14 @@ import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
 import type { AzureAdditionalFeature } from "./AzureAdditionalFeature";
 import { AzureAdditionalFeatureFromJSON, AzureAdditionalFeatureFromJSONTyped, AzureAdditionalFeatureToJSON } from "./AzureAdditionalFeature";
+import type { AzureAgentlessScanningRegionCustomNetworkConfiguration } from "./AzureAgentlessScanningRegionCustomNetworkConfiguration";
+import {
+    AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSON,
+    AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSONTyped,
+    AzureAgentlessScanningRegionCustomNetworkConfigurationToJSON,
+} from "./AzureAgentlessScanningRegionCustomNetworkConfiguration";
 import type { AzureClientKeyInfo } from "./AzureClientKeyInfo";
 import { AzureClientKeyInfoFromJSON, AzureClientKeyInfoFromJSONTyped, AzureClientKeyInfoToJSON } from "./AzureClientKeyInfo";
-import type { AzureDSPMRegionCustomNetworkConfiguration } from "./AzureDSPMRegionCustomNetworkConfiguration";
-import {
-    AzureDSPMRegionCustomNetworkConfigurationFromJSON,
-    AzureDSPMRegionCustomNetworkConfigurationFromJSONTyped,
-    AzureDSPMRegionCustomNetworkConfigurationToJSON,
-} from "./AzureDSPMRegionCustomNetworkConfiguration";
 import type { AzureEventHubSettings } from "./AzureEventHubSettings";
 import { AzureEventHubSettingsFromJSON, AzureEventHubSettingsFromJSONTyped, AzureEventHubSettingsToJSON } from "./AzureEventHubSettings";
 
@@ -76,6 +76,12 @@ export interface AzureTenantRegistration {
      * @memberof AzureTenantRegistration
      */
     appRegistrationId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    appRegistrationName?: string;
     /**
      *
      * @type {string}
@@ -150,10 +156,10 @@ export interface AzureTenantRegistration {
     deploymentStackName?: string;
     /**
      *
-     * @type {{ [key: string]: AzureDSPMRegionCustomNetworkConfiguration; }}
+     * @type {{ [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration; }}
      * @memberof AzureTenantRegistration
      */
-    dspmCustomVnetConfiguration?: { [key: string]: AzureDSPMRegionCustomNetworkConfiguration };
+    dspmCustomVnetConfiguration?: { [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration };
     /**
      *
      * @type {string}
@@ -196,6 +202,12 @@ export interface AzureTenantRegistration {
      * @memberof AzureTenantRegistration
      */
     keyInfo: AzureClientKeyInfo;
+    /**
+     *
+     * @type {Date}
+     * @memberof AzureTenantRegistration
+     */
+    lastHealthcheckCompletedAt?: Date;
     /**
      *
      * @type {Array<string>}
@@ -298,6 +310,30 @@ export interface AzureTenantRegistration {
      * @memberof AzureTenantRegistration
      */
     updated?: Date;
+    /**
+     *
+     * @type {{ [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration; }}
+     * @memberof AzureTenantRegistration
+     */
+    vulnerabilityScanningCustomVnetConfiguration?: { [key: string]: AzureAgentlessScanningRegionCustomNetworkConfiguration };
+    /**
+     *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    vulnerabilityScanningHostSubscriptionId?: string;
+    /**
+     * Network configuration type for Vulnerability Scanning
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
+    vulnerabilityScanningNetworkConfigurationType?: AzureTenantRegistrationVulnerabilityScanningNetworkConfigurationTypeEnum;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof AzureTenantRegistration
+     */
+    vulnerabilityScanningRegions: Array<string>;
 }
 
 /**
@@ -310,6 +346,17 @@ export const AzureTenantRegistrationDspmNetworkConfigurationTypeEnum = {
 } as const;
 export type AzureTenantRegistrationDspmNetworkConfigurationTypeEnum =
     (typeof AzureTenantRegistrationDspmNetworkConfigurationTypeEnum)[keyof typeof AzureTenantRegistrationDspmNetworkConfigurationTypeEnum];
+
+/**
+ * @export
+ */
+export const AzureTenantRegistrationVulnerabilityScanningNetworkConfigurationTypeEnum = {
+    Managed: "managed",
+    ManagedNoNat: "managed_no_nat",
+    Custom: "custom",
+} as const;
+export type AzureTenantRegistrationVulnerabilityScanningNetworkConfigurationTypeEnum =
+    (typeof AzureTenantRegistrationVulnerabilityScanningNetworkConfigurationTypeEnum)[keyof typeof AzureTenantRegistrationVulnerabilityScanningNetworkConfigurationTypeEnum];
 
 /**
  * Check if a given object implements the AzureTenantRegistration interface.
@@ -327,6 +374,7 @@ export function instanceOfAzureTenantRegistration(value: object): value is Azure
     if (!("tags" in value) || value["tags"] === undefined) return false;
     if (!("tenantId" in value) || value["tenantId"] === undefined) return false;
     if (!("tenantName" in value) || value["tenantName"] === undefined) return false;
+    if (!("vulnerabilityScanningRegions" in value) || value["vulnerabilityScanningRegions"] === undefined) return false;
     return true;
 }
 
@@ -346,6 +394,7 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
         apiClientKeyId: json["api_client_key_id"] == null ? undefined : json["api_client_key_id"],
         apiClientKeyType: json["api_client_key_type"] == null ? undefined : json["api_client_key_type"],
         appRegistrationId: json["app_registration_id"] == null ? undefined : json["app_registration_id"],
+        appRegistrationName: json["app_registration_name"] == null ? undefined : json["app_registration_name"],
         cid: json["cid"] == null ? undefined : json["cid"],
         created: json["created"] == null ? undefined : new Date(json["created"]),
         csInfraRegion: json["cs_infra_region"] == null ? undefined : json["cs_infra_region"],
@@ -358,7 +407,8 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
         deploymentStackHostType: json["deployment_stack_host_type"] == null ? undefined : json["deployment_stack_host_type"],
         deploymentStackHostUrl: json["deployment_stack_host_url"] == null ? undefined : json["deployment_stack_host_url"],
         deploymentStackName: json["deployment_stack_name"] == null ? undefined : json["deployment_stack_name"],
-        dspmCustomVnetConfiguration: json["dspm_custom_vnet_configuration"] == null ? undefined : mapValues(json["dspm_custom_vnet_configuration"], AzureDSPMRegionCustomNetworkConfigurationFromJSON),
+        dspmCustomVnetConfiguration:
+            json["dspm_custom_vnet_configuration"] == null ? undefined : mapValues(json["dspm_custom_vnet_configuration"], AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSON),
         dspmHostSubscriptionId: json["dspm_host_subscription_id"] == null ? undefined : json["dspm_host_subscription_id"],
         dspmNetworkConfigurationType: json["dspm_network_configuration_type"] == null ? undefined : json["dspm_network_configuration_type"],
         dspmRegions: json["dspm_regions"],
@@ -366,6 +416,7 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
         environment: json["environment"] == null ? undefined : json["environment"],
         eventHubSettings: (json["event_hub_settings"] as Array<any>).map(AzureEventHubSettingsFromJSON),
         keyInfo: AzureClientKeyInfoFromJSON(json["key_info"]),
+        lastHealthcheckCompletedAt: json["last_healthcheck_completed_at"] == null ? undefined : new Date(json["last_healthcheck_completed_at"]),
         managementGroupIds: json["management_group_ids"],
         microsoftGraphPermissionIds: json["microsoft_graph_permission_ids"],
         microsoftGraphPermissionIdsReadonly: json["microsoft_graph_permission_ids_readonly"] == null ? undefined : json["microsoft_graph_permission_ids_readonly"],
@@ -383,6 +434,13 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
         tenantId: json["tenant_id"],
         tenantName: json["tenant_name"],
         updated: json["updated"] == null ? undefined : new Date(json["updated"]),
+        vulnerabilityScanningCustomVnetConfiguration:
+            json["vulnerability_scanning_custom_vnet_configuration"] == null
+                ? undefined
+                : mapValues(json["vulnerability_scanning_custom_vnet_configuration"], AzureAgentlessScanningRegionCustomNetworkConfigurationFromJSON),
+        vulnerabilityScanningHostSubscriptionId: json["vulnerability_scanning_host_subscription_id"] == null ? undefined : json["vulnerability_scanning_host_subscription_id"],
+        vulnerabilityScanningNetworkConfigurationType: json["vulnerability_scanning_network_configuration_type"] == null ? undefined : json["vulnerability_scanning_network_configuration_type"],
+        vulnerabilityScanningRegions: json["vulnerability_scanning_regions"],
     };
 }
 
@@ -398,6 +456,7 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         api_client_key_id: value["apiClientKeyId"],
         api_client_key_type: value["apiClientKeyType"],
         app_registration_id: value["appRegistrationId"],
+        app_registration_name: value["appRegistrationName"],
         cid: value["cid"],
         created: value["created"] == null ? undefined : value["created"].toISOString(),
         cs_infra_region: value["csInfraRegion"],
@@ -410,7 +469,8 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         deployment_stack_host_type: value["deploymentStackHostType"],
         deployment_stack_host_url: value["deploymentStackHostUrl"],
         deployment_stack_name: value["deploymentStackName"],
-        dspm_custom_vnet_configuration: value["dspmCustomVnetConfiguration"] == null ? undefined : mapValues(value["dspmCustomVnetConfiguration"], AzureDSPMRegionCustomNetworkConfigurationToJSON),
+        dspm_custom_vnet_configuration:
+            value["dspmCustomVnetConfiguration"] == null ? undefined : mapValues(value["dspmCustomVnetConfiguration"], AzureAgentlessScanningRegionCustomNetworkConfigurationToJSON),
         dspm_host_subscription_id: value["dspmHostSubscriptionId"],
         dspm_network_configuration_type: value["dspmNetworkConfigurationType"],
         dspm_regions: value["dspmRegions"],
@@ -418,6 +478,7 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         environment: value["environment"],
         event_hub_settings: (value["eventHubSettings"] as Array<any>).map(AzureEventHubSettingsToJSON),
         key_info: AzureClientKeyInfoToJSON(value["keyInfo"]),
+        last_healthcheck_completed_at: value["lastHealthcheckCompletedAt"] == null ? undefined : value["lastHealthcheckCompletedAt"].toISOString(),
         management_group_ids: value["managementGroupIds"],
         microsoft_graph_permission_ids: value["microsoftGraphPermissionIds"],
         microsoft_graph_permission_ids_readonly: value["microsoftGraphPermissionIdsReadonly"],
@@ -435,5 +496,12 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         tenant_id: value["tenantId"],
         tenant_name: value["tenantName"],
         updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
+        vulnerability_scanning_custom_vnet_configuration:
+            value["vulnerabilityScanningCustomVnetConfiguration"] == null
+                ? undefined
+                : mapValues(value["vulnerabilityScanningCustomVnetConfiguration"], AzureAgentlessScanningRegionCustomNetworkConfigurationToJSON),
+        vulnerability_scanning_host_subscription_id: value["vulnerabilityScanningHostSubscriptionId"],
+        vulnerability_scanning_network_configuration_type: value["vulnerabilityScanningNetworkConfigurationType"],
+        vulnerability_scanning_regions: value["vulnerabilityScanningRegions"],
     };
 }

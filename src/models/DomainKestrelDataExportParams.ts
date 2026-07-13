@@ -19,6 +19,12 @@ import {
     DomainKestrelDataExportHeaderMappingV2FromJSONTyped,
     DomainKestrelDataExportHeaderMappingV2ToJSON,
 } from "./DomainKestrelDataExportHeaderMappingV2";
+import type { DomainKestrelDataExportExecutionContext } from "./DomainKestrelDataExportExecutionContext";
+import {
+    DomainKestrelDataExportExecutionContextFromJSON,
+    DomainKestrelDataExportExecutionContextFromJSONTyped,
+    DomainKestrelDataExportExecutionContextToJSON,
+} from "./DomainKestrelDataExportExecutionContext";
 
 /**
  *
@@ -26,6 +32,12 @@ import {
  * @interface DomainKestrelDataExportParams
  */
 export interface DomainKestrelDataExportParams {
+    /**
+     *
+     * @type {DomainKestrelDataExportExecutionContext}
+     * @memberof DomainKestrelDataExportParams
+     */
+    executionContext?: DomainKestrelDataExportExecutionContext;
     /**
      *
      * @type {Array<DomainKestrelDataExportHeaderMappingV2>}
@@ -44,6 +56,12 @@ export interface DomainKestrelDataExportParams {
      * @memberof DomainKestrelDataExportParams
      */
     limit?: number;
+    /**
+     *
+     * @type {{ [key: string]: object; }}
+     * @memberof DomainKestrelDataExportParams
+     */
+    storeHeaders?: { [key: string]: object };
     /**
      *
      * @type {string}
@@ -71,9 +89,11 @@ export function DomainKestrelDataExportParamsFromJSONTyped(json: any, ignoreDisc
         return json;
     }
     return {
+        executionContext: json["execution_context"] == null ? undefined : DomainKestrelDataExportExecutionContextFromJSON(json["execution_context"]),
         exportMappingV2: (json["export_mapping_v2"] as Array<any>).map(DomainKestrelDataExportHeaderMappingV2FromJSON),
         gqeQuery: json["gqe_query"],
         limit: json["limit"] == null ? undefined : json["limit"],
+        storeHeaders: json["store_headers"] == null ? undefined : json["store_headers"],
         viewId: json["view_id"],
     };
 }
@@ -83,9 +103,11 @@ export function DomainKestrelDataExportParamsToJSON(value?: DomainKestrelDataExp
         return value;
     }
     return {
+        execution_context: DomainKestrelDataExportExecutionContextToJSON(value["executionContext"]),
         export_mapping_v2: (value["exportMappingV2"] as Array<any>).map(DomainKestrelDataExportHeaderMappingV2ToJSON),
         gqe_query: value["gqeQuery"],
         limit: value["limit"],
+        store_headers: value["storeHeaders"],
         view_id: value["viewId"],
     };
 }

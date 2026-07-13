@@ -40,6 +40,12 @@ export interface DataconnectionmanagementUpdateDataConnectionRequest {
     configId?: string;
     /**
      *
+     * @type {{ [key: string]: string; }}
+     * @memberof DataconnectionmanagementUpdateDataConnectionRequest
+     */
+    custom?: { [key: string]: string };
+    /**
+     *
      * @type {string}
      * @memberof DataconnectionmanagementUpdateDataConnectionRequest
      */
@@ -56,6 +62,12 @@ export interface DataconnectionmanagementUpdateDataConnectionRequest {
      * @memberof DataconnectionmanagementUpdateDataConnectionRequest
      */
     enableUserEnrichment?: boolean;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof DataconnectionmanagementUpdateDataConnectionRequest
+     */
+    logSources?: Array<string>;
     /**
      *
      * @type {string}
@@ -88,9 +100,11 @@ export function DataconnectionmanagementUpdateDataConnectionRequestFromJSONTyped
     return {
         config: json["config"] == null ? undefined : DataconnectionmanagementConnectorConfigRequestFromJSON(json["config"]),
         configId: json["config_id"] == null ? undefined : json["config_id"],
+        custom: json["custom"] == null ? undefined : json["custom"],
         description: json["description"] == null ? undefined : json["description"],
         enableHostEnrichment: json["enable_host_enrichment"] == null ? undefined : json["enable_host_enrichment"],
         enableUserEnrichment: json["enable_user_enrichment"] == null ? undefined : json["enable_user_enrichment"],
+        logSources: json["log_sources"] == null ? undefined : json["log_sources"],
         name: json["name"] == null ? undefined : json["name"],
         parser: json["parser"] == null ? undefined : json["parser"],
     };
@@ -103,9 +117,11 @@ export function DataconnectionmanagementUpdateDataConnectionRequestToJSON(value?
     return {
         config: DataconnectionmanagementConnectorConfigRequestToJSON(value["config"]),
         config_id: value["configId"],
+        custom: value["custom"],
         description: value["description"],
         enable_host_enrichment: value["enableHostEnrichment"],
         enable_user_enrichment: value["enableUserEnrichment"],
+        log_sources: value["logSources"],
         name: value["name"],
         parser: value["parser"],
     };

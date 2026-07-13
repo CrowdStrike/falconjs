@@ -199,6 +199,12 @@ export interface DomainCloudAWSAccountV1 {
      * @type {string}
      * @memberof DomainCloudAWSAccountV1
      */
+    registrationId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainCloudAWSAccountV1
+     */
     registrationStatus?: string;
     /**
      *
@@ -326,6 +332,7 @@ export function DomainCloudAWSAccountV1FromJSONTyped(json: any, ignoreDiscrimina
         ngsiemEnabled: json["ngsiem_enabled"] == null ? undefined : json["ngsiem_enabled"],
         organizationId: json["organization_id"] == null ? undefined : json["organization_id"],
         products: (json["products"] as Array<any>).map(DomainProductFeaturesFromJSON),
+        registrationId: json["registration_id"] == null ? undefined : json["registration_id"],
         registrationStatus: json["registration_status"] == null ? undefined : json["registration_status"],
         remediationCloudformationUrl: json["remediation_cloudformation_url"] == null ? undefined : json["remediation_cloudformation_url"],
         resourceMetadata: DomainAWSAccountResourceMetadataFromJSON(json["resource_metadata"]),
@@ -374,6 +381,7 @@ export function DomainCloudAWSAccountV1ToJSON(value?: DomainCloudAWSAccountV1 | 
         ngsiem_enabled: value["ngsiemEnabled"],
         organization_id: value["organizationId"],
         products: (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
+        registration_id: value["registrationId"],
         registration_status: value["registrationStatus"],
         remediation_cloudformation_url: value["remediationCloudformationUrl"],
         resource_metadata: DomainAWSAccountResourceMetadataToJSON(value["resourceMetadata"]),

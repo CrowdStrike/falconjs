@@ -91,6 +91,12 @@ export interface ReleasesReleaseResponseV1 {
      * @type {string}
      * @memberof ReleasesReleaseResponseV1
      */
+    replicationRole?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ReleasesReleaseResponseV1
+     */
     status: string;
 }
 
@@ -125,6 +131,7 @@ export function ReleasesReleaseResponseV1FromJSONTyped(json: any, ignoreDiscrimi
         lastModifiedTimestamp: new Date(json["last_modified_timestamp"]),
         releaseContents: (json["release_contents"] as Array<any>).map(ReleasecontentsReleaseContentResponseV1FromJSON),
         releaseNotesTicket: json["release_notes_ticket"] == null ? undefined : json["release_notes_ticket"],
+        replicationRole: json["replication_role"] == null ? undefined : json["replication_role"],
         status: json["status"],
     };
 }
@@ -144,6 +151,7 @@ export function ReleasesReleaseResponseV1ToJSON(value?: ReleasesReleaseResponseV
         last_modified_timestamp: value["lastModifiedTimestamp"].toISOString(),
         release_contents: (value["releaseContents"] as Array<any>).map(ReleasecontentsReleaseContentResponseV1ToJSON),
         release_notes_ticket: value["releaseNotesTicket"],
+        replication_role: value["replicationRole"],
         status: value["status"],
     };
 }

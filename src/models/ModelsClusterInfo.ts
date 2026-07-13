@@ -55,6 +55,12 @@ export interface ModelsClusterInfo {
      * @memberof ModelsClusterInfo
      */
     clusterName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsClusterInfo
+     */
+    k8sDistro?: string;
 }
 
 /**
@@ -79,6 +85,7 @@ export function ModelsClusterInfoFromJSONTyped(json: any, ignoreDiscriminator: b
         cloudService: json["cloud_service"] == null ? undefined : json["cloud_service"],
         clusterId: json["cluster_id"] == null ? undefined : json["cluster_id"],
         clusterName: json["cluster_name"] == null ? undefined : json["cluster_name"],
+        k8sDistro: json["k8s_distro"] == null ? undefined : json["k8s_distro"],
     };
 }
 
@@ -93,5 +100,6 @@ export function ModelsClusterInfoToJSON(value?: ModelsClusterInfo | null): any {
         cloud_service: value["cloudService"],
         cluster_id: value["clusterId"],
         cluster_name: value["clusterName"],
+        k8s_distro: value["k8sDistro"],
     };
 }

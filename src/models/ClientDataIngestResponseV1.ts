@@ -24,6 +24,30 @@ import { ClientRepositoryFromJSON, ClientRepositoryFromJSONTyped, ClientReposito
 export interface ClientDataIngestResponseV1 {
     /**
      *
+     * @type {string}
+     * @memberof ClientDataIngestResponseV1
+     */
+    errorMessage?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof ClientDataIngestResponseV1
+     */
+    failedEvents?: number;
+    /**
+     *
+     * @type {Array<number>}
+     * @memberof ClientDataIngestResponseV1
+     */
+    failedItemIndices?: Array<number>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ClientDataIngestResponseV1
+     */
+    partialSuccess?: boolean;
+    /**
+     *
      * @type {ClientRepository}
      * @memberof ClientDataIngestResponseV1
      */
@@ -34,6 +58,18 @@ export interface ClientDataIngestResponseV1 {
      * @memberof ClientDataIngestResponseV1
      */
     rowsWritten: number;
+    /**
+     *
+     * @type {number}
+     * @memberof ClientDataIngestResponseV1
+     */
+    successfulEvents?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof ClientDataIngestResponseV1
+     */
+    totalEvents?: number;
 }
 
 /**
@@ -54,8 +90,14 @@ export function ClientDataIngestResponseV1FromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
+        errorMessage: json["error_message"] == null ? undefined : json["error_message"],
+        failedEvents: json["failed_events"] == null ? undefined : json["failed_events"],
+        failedItemIndices: json["failed_item_indices"] == null ? undefined : json["failed_item_indices"],
+        partialSuccess: json["partial_success"] == null ? undefined : json["partial_success"],
         repo: ClientRepositoryFromJSON(json["repo"]),
         rowsWritten: json["rows_written"],
+        successfulEvents: json["successful_events"] == null ? undefined : json["successful_events"],
+        totalEvents: json["total_events"] == null ? undefined : json["total_events"],
     };
 }
 
@@ -64,7 +106,13 @@ export function ClientDataIngestResponseV1ToJSON(value?: ClientDataIngestRespons
         return value;
     }
     return {
+        error_message: value["errorMessage"],
+        failed_events: value["failedEvents"],
+        failed_item_indices: value["failedItemIndices"],
+        partial_success: value["partialSuccess"],
         repo: ClientRepositoryToJSON(value["repo"]),
         rows_written: value["rowsWritten"],
+        successful_events: value["successfulEvents"],
+        total_events: value["totalEvents"],
     };
 }

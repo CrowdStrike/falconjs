@@ -69,6 +69,12 @@ export interface DomainAgentV1 {
     platform: number;
     /**
      *
+     * @type {Date}
+     * @memberof DomainAgentV1
+     */
+    seenTimestamp: Date;
+    /**
+     *
      * @type {string}
      * @memberof DomainAgentV1
      */
@@ -99,6 +105,7 @@ export function instanceOfDomainAgentV1(value: object): value is DomainAgentV1 {
     if (!("modifiedTimestamp" in value) || value["modifiedTimestamp"] === undefined) return false;
     if (!("notes" in value) || value["notes"] === undefined) return false;
     if (!("platform" in value) || value["platform"] === undefined) return false;
+    if (!("seenTimestamp" in value) || value["seenTimestamp"] === undefined) return false;
     if (!("sessionid" in value) || value["sessionid"] === undefined) return false;
     if (!("state" in value) || value["state"] === undefined) return false;
     if (!("updatedBy" in value) || value["updatedBy"] === undefined) return false;
@@ -122,6 +129,7 @@ export function DomainAgentV1FromJSONTyped(json: any, ignoreDiscriminator: boole
         modifiedTimestamp: new Date(json["modified_timestamp"]),
         notes: json["notes"],
         platform: json["platform"],
+        seenTimestamp: new Date(json["seen_timestamp"]),
         sessionid: json["sessionid"],
         state: json["state"],
         updatedBy: json["updated_by"],
@@ -141,6 +149,7 @@ export function DomainAgentV1ToJSON(value?: DomainAgentV1 | null): any {
         modified_timestamp: value["modifiedTimestamp"].toISOString(),
         notes: value["notes"],
         platform: value["platform"],
+        seen_timestamp: value["seenTimestamp"].toISOString(),
         sessionid: value["sessionid"],
         state: value["state"],
         updated_by: value["updatedBy"],

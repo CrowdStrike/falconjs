@@ -44,6 +44,14 @@ export interface KnowledgeBasesApiAggregatesKnowledgeBasesV1Request {
     includeDeleted?: boolean;
 }
 
+export interface KnowledgeBasesApiCombinedKnowledgeBasesV1Request {
+    offset?: number;
+    limit?: number;
+    sort?: string;
+    filter?: string;
+    includeDeleted?: boolean;
+}
+
 export interface KnowledgeBasesApiEntitiesKnowledgeBasesCreateV1Request {
     body: DomainKnowledgeBase;
 }
@@ -114,6 +122,70 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
      */
     async aggregatesKnowledgeBasesV1(body: Array<MsaAggregateQueryRequest>, includeDeleted?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
         const response = await this.aggregatesKnowledgeBasesV1Raw({ body: body, includeDeleted: includeDeleted }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Search for knowledge bases with filtering and return full entity details in a single response.
+     */
+    async combinedKnowledgeBasesV1Raw(
+        requestParameters: KnowledgeBasesApiCombinedKnowledgeBasesV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainReplyEntitiesKnowledgeBasesResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["includeDeleted"] != null) {
+            queryParameters["include_deleted"] = requestParameters["includeDeleted"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/agentic-studio/combined/knowledge_bases/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainReplyEntitiesKnowledgeBasesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Search for knowledge bases with filtering and return full entity details in a single response.
+     */
+    async combinedKnowledgeBasesV1(
+        offset?: number,
+        limit?: number,
+        sort?: string,
+        filter?: string,
+        includeDeleted?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DomainReplyEntitiesKnowledgeBasesResponse> {
+        const response = await this.combinedKnowledgeBasesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted }, initOverrides);
         return await response.value();
     }
 

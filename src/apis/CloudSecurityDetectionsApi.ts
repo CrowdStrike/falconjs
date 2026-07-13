@@ -13,8 +13,10 @@
  */
 
 import * as runtime from "../runtime";
-import type { EvaluationsGetIOMsResponse, EvaluationsIOMsByRuleResponse, EvaluationsQueryIOMsResponse, MsaReplyMetaOnly, RestCursorQueryResponse, RestCursorResponseFields } from "../models/index";
+import type { EvaluationsGetIOMsRequest, EvaluationsGetIOMsResponse, EvaluationsIOMsByRuleResponse, EvaluationsQueryIOMsResponse, MsaReplyMetaOnly, RestCursorResponseFields } from "../models/index";
 import {
+    EvaluationsGetIOMsRequestFromJSON,
+    EvaluationsGetIOMsRequestToJSON,
     EvaluationsGetIOMsResponseFromJSON,
     EvaluationsGetIOMsResponseToJSON,
     EvaluationsIOMsByRuleResponseFromJSON,
@@ -23,8 +25,6 @@ import {
     EvaluationsQueryIOMsResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    RestCursorQueryResponseFromJSON,
-    RestCursorQueryResponseToJSON,
     RestCursorResponseFieldsFromJSON,
     RestCursorResponseFieldsToJSON,
 } from "../models/index";
@@ -38,6 +38,10 @@ export interface CloudSecurityDetectionsApiCspmEvaluationsCombinedIomByRuleReque
 
 export interface CloudSecurityDetectionsApiCspmEvaluationsIomEntitiesRequest {
     ids?: Array<string>;
+}
+
+export interface CloudSecurityDetectionsApiCspmEvaluationsIomEntitiesPostRequest {
+    body: EvaluationsGetIOMsRequest;
 }
 
 export interface CloudSecurityDetectionsApiCspmEvaluationsIomQueriesRequest {
@@ -149,6 +153,50 @@ export class CloudSecurityDetectionsApi extends runtime.BaseAPI {
      */
     async cspmEvaluationsIomEntities(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EvaluationsGetIOMsResponse> {
         const response = await this.cspmEvaluationsIomEntitiesRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Gets IOMs based on IDs in the request body. Maximum of 500 resources can be requested.
+     */
+    async cspmEvaluationsIomEntitiesPostRaw(
+        requestParameters: CloudSecurityDetectionsApiCspmEvaluationsIomEntitiesPostRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<EvaluationsGetIOMsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cspmEvaluationsIomEntitiesPost().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-security-detections:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-evaluations/entities/ioms/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: EvaluationsGetIOMsRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EvaluationsGetIOMsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Gets IOMs based on IDs in the request body. Maximum of 500 resources can be requested.
+     */
+    async cspmEvaluationsIomEntitiesPost(body: EvaluationsGetIOMsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EvaluationsGetIOMsResponse> {
+        const response = await this.cspmEvaluationsIomEntitiesPostRaw({ body: body }, initOverrides);
         return await response.value();
     }
 

@@ -21,9 +21,17 @@ import type {
     AzureAzureRegistrationUpdateRequestExtV1,
     AzureDeleteRegistrationResponseExtV1,
     AzureHealthCheckTriggerResponseExtV1,
+    AzureIssueResponseExtV1,
+    AzureIssueSuppressionValuesByFieldResponse,
+    AzureIssueValuesByFieldResponse,
     AzureLegacySubscriptionDeleteRequestExtV1,
     AzureLegacySubscriptionDeleteResponseExtV1,
     AzureRegistrationValidateResponseV1,
+    AzureScriptVersionResponseExtV1,
+    AzureSuppressionCreateRequest,
+    AzureSuppressionDeleteRequest,
+    AzureSuppressionResponseExtV1,
+    AzureSuppressionUpdateRequest,
     MsaReplyMetaOnly,
     MsaspecResponseFields,
 } from "../models/index";
@@ -42,12 +50,28 @@ import {
     AzureDeleteRegistrationResponseExtV1ToJSON,
     AzureHealthCheckTriggerResponseExtV1FromJSON,
     AzureHealthCheckTriggerResponseExtV1ToJSON,
+    AzureIssueResponseExtV1FromJSON,
+    AzureIssueResponseExtV1ToJSON,
+    AzureIssueSuppressionValuesByFieldResponseFromJSON,
+    AzureIssueSuppressionValuesByFieldResponseToJSON,
+    AzureIssueValuesByFieldResponseFromJSON,
+    AzureIssueValuesByFieldResponseToJSON,
     AzureLegacySubscriptionDeleteRequestExtV1FromJSON,
     AzureLegacySubscriptionDeleteRequestExtV1ToJSON,
     AzureLegacySubscriptionDeleteResponseExtV1FromJSON,
     AzureLegacySubscriptionDeleteResponseExtV1ToJSON,
     AzureRegistrationValidateResponseV1FromJSON,
     AzureRegistrationValidateResponseV1ToJSON,
+    AzureScriptVersionResponseExtV1FromJSON,
+    AzureScriptVersionResponseExtV1ToJSON,
+    AzureSuppressionCreateRequestFromJSON,
+    AzureSuppressionCreateRequestToJSON,
+    AzureSuppressionDeleteRequestFromJSON,
+    AzureSuppressionDeleteRequestToJSON,
+    AzureSuppressionResponseExtV1FromJSON,
+    AzureSuppressionResponseExtV1ToJSON,
+    AzureSuppressionUpdateRequestFromJSON,
+    AzureSuppressionUpdateRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
@@ -58,6 +82,10 @@ export interface CloudAzureRegistrationApiCloudRegistrationAzureCreateRegistrati
     body: AzureAzureRegistrationCreateRequestExtV1;
 }
 
+export interface CloudAzureRegistrationApiCloudRegistrationAzureCreateSuppressionsRequest {
+    body: AzureSuppressionCreateRequest;
+}
+
 export interface CloudAzureRegistrationApiCloudRegistrationAzureDeleteLegacySubscriptionRequest {
     body: AzureLegacySubscriptionDeleteRequestExtV1;
 }
@@ -66,16 +94,56 @@ export interface CloudAzureRegistrationApiCloudRegistrationAzureDeleteRegistrati
     tenantIds: Array<string>;
 }
 
+export interface CloudAzureRegistrationApiCloudRegistrationAzureDeleteSuppressionsRequest {
+    body: AzureSuppressionDeleteRequest;
+}
+
 export interface CloudAzureRegistrationApiCloudRegistrationAzureDownloadScriptRequest {
     body: AzureAzureDownloadScriptRequestV1;
 }
 
+export interface CloudAzureRegistrationApiCloudRegistrationAzureGetIssueSuppressionValuesByFieldRequest {
+    registrationId: string;
+    field: CloudRegistrationAzureGetIssueSuppressionValuesByFieldFieldEnum;
+}
+
+export interface CloudAzureRegistrationApiCloudRegistrationAzureGetIssueValuesByFieldRequest {
+    registrationId: string;
+    field: CloudRegistrationAzureGetIssueValuesByFieldFieldEnum;
+    filter?: string;
+}
+
+export interface CloudAzureRegistrationApiCloudRegistrationAzureGetIssuesRequest {
+    registrationId: string;
+    filter?: string;
+    sort?: string;
+    groupBy?: CloudRegistrationAzureGetIssuesGroupByEnum;
+    limit?: number;
+    offset?: number;
+}
+
 export interface CloudAzureRegistrationApiCloudRegistrationAzureGetRegistrationRequest {
-    tenantId: string;
+    tenantId?: string;
+    registrationId?: string;
 }
 
 export interface CloudAzureRegistrationApiCloudRegistrationAzureGetScriptRequest {
     tenantId: string;
+}
+
+export interface CloudAzureRegistrationApiCloudRegistrationAzureGetScriptVersionsRequest {
+    deploymentMethod: string;
+    sort?: string;
+    limit?: number;
+    offset?: number;
+}
+
+export interface CloudAzureRegistrationApiCloudRegistrationAzureGetSuppressionsRequest {
+    registrationId: string;
+    filter?: string;
+    sort?: string;
+    limit?: number;
+    offset?: number;
 }
 
 export interface CloudAzureRegistrationApiCloudRegistrationAzureTriggerHealthCheckRequest {
@@ -84,6 +152,10 @@ export interface CloudAzureRegistrationApiCloudRegistrationAzureTriggerHealthChe
 
 export interface CloudAzureRegistrationApiCloudRegistrationAzureUpdateRegistrationRequest {
     body: AzureAzureRegistrationUpdateRequestExtV1;
+}
+
+export interface CloudAzureRegistrationApiCloudRegistrationAzureUpdateSuppressionsRequest {
+    body: AzureSuppressionUpdateRequest;
 }
 
 export interface CloudAzureRegistrationApiCloudRegistrationAzureValidateRegistrationRequest {
@@ -139,6 +211,50 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<AzureAzureRegistrationResponseExtV1> {
         const response = await this.cloudRegistrationAzureCreateRegistrationRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create new issue suppression rules
+     */
+    async cloudRegistrationAzureCreateSuppressionsRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureCreateSuppressionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureSuppressionResponseExtV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAzureCreateSuppressions().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/entities/issue-suppressions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: AzureSuppressionCreateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AzureSuppressionResponseExtV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create new issue suppression rules
+     */
+    async cloudRegistrationAzureCreateSuppressions(body: AzureSuppressionCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AzureSuppressionResponseExtV1> {
+        const response = await this.cloudRegistrationAzureCreateSuppressionsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -235,6 +351,49 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Remove/revoke suppression rules
+     */
+    async cloudRegistrationAzureDeleteSuppressionsRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureDeleteSuppressionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAzureDeleteSuppressions().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/entities/issue-suppressions/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+                body: AzureSuppressionDeleteRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Remove/revoke suppression rules
+     */
+    async cloudRegistrationAzureDeleteSuppressions(body: AzureSuppressionDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.cloudRegistrationAzureDeleteSuppressionsRaw({ body: body }, initOverrides);
+    }
+
+    /**
      * Retrieve script to create resources
      */
     async cloudRegistrationAzureDownloadScriptRaw(
@@ -282,20 +441,212 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Retrieve distinct filterable values for issue suppression fields
+     */
+    async cloudRegistrationAzureGetIssueSuppressionValuesByFieldRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetIssueSuppressionValuesByFieldRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureIssueSuppressionValuesByFieldResponse>> {
+        if (requestParameters["registrationId"] == null) {
+            throw new runtime.RequiredError("registrationId", 'Required parameter "registrationId" was null or undefined when calling cloudRegistrationAzureGetIssueSuppressionValuesByField().');
+        }
+
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling cloudRegistrationAzureGetIssueSuppressionValuesByField().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["registrationId"] != null) {
+            queryParameters["registration_id"] = requestParameters["registrationId"];
+        }
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/aggregates/issue-suppressions-values-by-fields/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AzureIssueSuppressionValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve distinct filterable values for issue suppression fields
+     */
+    async cloudRegistrationAzureGetIssueSuppressionValuesByField(
+        registrationId: string,
+        field: CloudRegistrationAzureGetIssueSuppressionValuesByFieldFieldEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AzureIssueSuppressionValuesByFieldResponse> {
+        const response = await this.cloudRegistrationAzureGetIssueSuppressionValuesByFieldRaw({ registrationId: registrationId, field: field }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve distinct filterable values for issue fields
+     */
+    async cloudRegistrationAzureGetIssueValuesByFieldRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetIssueValuesByFieldRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureIssueValuesByFieldResponse>> {
+        if (requestParameters["registrationId"] == null) {
+            throw new runtime.RequiredError("registrationId", 'Required parameter "registrationId" was null or undefined when calling cloudRegistrationAzureGetIssueValuesByField().');
+        }
+
+        if (requestParameters["field"] == null) {
+            throw new runtime.RequiredError("field", 'Required parameter "field" was null or undefined when calling cloudRegistrationAzureGetIssueValuesByField().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["registrationId"] != null) {
+            queryParameters["registration_id"] = requestParameters["registrationId"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["field"] != null) {
+            queryParameters["field"] = requestParameters["field"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/aggregates/issues-values-by-fields/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AzureIssueValuesByFieldResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve distinct filterable values for issue fields
+     */
+    async cloudRegistrationAzureGetIssueValuesByField(
+        registrationId: string,
+        field: CloudRegistrationAzureGetIssueValuesByFieldFieldEnum,
+        filter?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AzureIssueValuesByFieldResponse> {
+        const response = await this.cloudRegistrationAzureGetIssueValuesByFieldRaw({ registrationId: registrationId, field: field, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve issues for Azure registrations
+     */
+    async cloudRegistrationAzureGetIssuesRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetIssuesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureIssueResponseExtV1>> {
+        if (requestParameters["registrationId"] == null) {
+            throw new runtime.RequiredError("registrationId", 'Required parameter "registrationId" was null or undefined when calling cloudRegistrationAzureGetIssues().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["registrationId"] != null) {
+            queryParameters["registration_id"] = requestParameters["registrationId"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["groupBy"] != null) {
+            queryParameters["group_by"] = requestParameters["groupBy"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/entities/issues/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AzureIssueResponseExtV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve issues for Azure registrations
+     */
+    async cloudRegistrationAzureGetIssues(
+        registrationId: string,
+        filter?: string,
+        sort?: string,
+        groupBy?: CloudRegistrationAzureGetIssuesGroupByEnum,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AzureIssueResponseExtV1> {
+        const response = await this.cloudRegistrationAzureGetIssuesRaw({ registrationId: registrationId, filter: filter, sort: sort, groupBy: groupBy, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Retrieve existing Azure registration for a tenant.
      */
     async cloudRegistrationAzureGetRegistrationRaw(
         requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetRegistrationRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<AzureAzureRegistrationResponseExtV1>> {
-        if (requestParameters["tenantId"] == null) {
-            throw new runtime.RequiredError("tenantId", 'Required parameter "tenantId" was null or undefined when calling cloudRegistrationAzureGetRegistration().');
-        }
-
         const queryParameters: any = {};
 
         if (requestParameters["tenantId"] != null) {
             queryParameters["tenant_id"] = requestParameters["tenantId"];
+        }
+
+        if (requestParameters["registrationId"] != null) {
+            queryParameters["registration_id"] = requestParameters["registrationId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -321,8 +672,8 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     /**
      * Retrieve existing Azure registration for a tenant.
      */
-    async cloudRegistrationAzureGetRegistration(tenantId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AzureAzureRegistrationResponseExtV1> {
-        const response = await this.cloudRegistrationAzureGetRegistrationRaw({ tenantId: tenantId }, initOverrides);
+    async cloudRegistrationAzureGetRegistration(tenantId?: string, registrationId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AzureAzureRegistrationResponseExtV1> {
+        const response = await this.cloudRegistrationAzureGetRegistrationRaw({ tenantId: tenantId, registrationId: registrationId }, initOverrides);
         return await response.value();
     }
 
@@ -368,6 +719,137 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
      */
     async cloudRegistrationAzureGetScript(tenantId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.cloudRegistrationAzureGetScriptRaw({ tenantId: tenantId }, initOverrides);
+    }
+
+    /**
+     * Retrieve all available script versions with filtering and sorting
+     */
+    async cloudRegistrationAzureGetScriptVersionsRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetScriptVersionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureScriptVersionResponseExtV1>> {
+        if (requestParameters["deploymentMethod"] == null) {
+            throw new runtime.RequiredError("deploymentMethod", 'Required parameter "deploymentMethod" was null or undefined when calling cloudRegistrationAzureGetScriptVersions().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["deploymentMethod"] != null) {
+            queryParameters["deployment_method"] = requestParameters["deploymentMethod"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/entities/script-versions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AzureScriptVersionResponseExtV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve all available script versions with filtering and sorting
+     */
+    async cloudRegistrationAzureGetScriptVersions(
+        deploymentMethod: string,
+        sort?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AzureScriptVersionResponseExtV1> {
+        const response = await this.cloudRegistrationAzureGetScriptVersionsRaw({ deploymentMethod: deploymentMethod, sort: sort, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Retrieve existing suppression rules with filtering
+     */
+    async cloudRegistrationAzureGetSuppressionsRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureGetSuppressionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureSuppressionResponseExtV1>> {
+        if (requestParameters["registrationId"] == null) {
+            throw new runtime.RequiredError("registrationId", 'Required parameter "registrationId" was null or undefined when calling cloudRegistrationAzureGetSuppressions().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["registrationId"] != null) {
+            queryParameters["registration_id"] = requestParameters["registrationId"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/entities/issue-suppressions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AzureSuppressionResponseExtV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve existing suppression rules with filtering
+     */
+    async cloudRegistrationAzureGetSuppressions(
+        registrationId: string,
+        filter?: string,
+        sort?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AzureSuppressionResponseExtV1> {
+        const response = await this.cloudRegistrationAzureGetSuppressionsRaw({ registrationId: registrationId, filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
     }
 
     /**
@@ -459,6 +941,50 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Update existing suppression rules
+     */
+    async cloudRegistrationAzureUpdateSuppressionsRaw(
+        requestParameters: CloudAzureRegistrationApiCloudRegistrationAzureUpdateSuppressionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AzureSuppressionResponseExtV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationAzureUpdateSuppressions().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-azure-registration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-azure/entities/issue-suppressions/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: AzureSuppressionUpdateRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AzureSuppressionResponseExtV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update existing suppression rules
+     */
+    async cloudRegistrationAzureUpdateSuppressions(body: AzureSuppressionUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AzureSuppressionResponseExtV1> {
+        const response = await this.cloudRegistrationAzureUpdateSuppressionsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Validate an Azure registration by checking service principal, role assignments and deployment stack (if the deployment method is Bicep)
      */
     async cloudRegistrationAzureValidateRegistrationRaw(
@@ -507,3 +1033,39 @@ export class CloudAzureRegistrationApi extends runtime.BaseAPI {
         return await response.value();
     }
 }
+
+/**
+ * @export
+ */
+export const CloudRegistrationAzureGetIssueSuppressionValuesByFieldFieldEnum = {
+    IssueName: "issue_name",
+    EntityId: "entity_id",
+    SuppressedBy: "suppressed_by",
+    CreatedAt: "created_at",
+    Reason: "reason",
+} as const;
+export type CloudRegistrationAzureGetIssueSuppressionValuesByFieldFieldEnum =
+    (typeof CloudRegistrationAzureGetIssueSuppressionValuesByFieldFieldEnum)[keyof typeof CloudRegistrationAzureGetIssueSuppressionValuesByFieldFieldEnum];
+/**
+ * @export
+ */
+export const CloudRegistrationAzureGetIssueValuesByFieldFieldEnum = {
+    Issue: "issue",
+    Name: "name",
+    Severity: "severity",
+    Category: "category",
+    Impact: "impact",
+    EntityType: "entity_type",
+    EntityId: "entity_id",
+    EntityName: "entity_name",
+    Status: "status",
+    Feature: "feature",
+} as const;
+export type CloudRegistrationAzureGetIssueValuesByFieldFieldEnum = (typeof CloudRegistrationAzureGetIssueValuesByFieldFieldEnum)[keyof typeof CloudRegistrationAzureGetIssueValuesByFieldFieldEnum];
+/**
+ * @export
+ */
+export const CloudRegistrationAzureGetIssuesGroupByEnum = {
+    Name: "name",
+} as const;
+export type CloudRegistrationAzureGetIssuesGroupByEnum = (typeof CloudRegistrationAzureGetIssuesGroupByEnum)[keyof typeof CloudRegistrationAzureGetIssuesGroupByEnum];

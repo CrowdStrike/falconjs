@@ -39,6 +39,36 @@ export interface ClientJobStatus {
     digestHex?: string;
     /**
      *
+     * @type {string}
+     * @memberof ClientJobStatus
+     */
+    errorCategory?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof ClientJobStatus
+     */
+    errorHttpCode?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof ClientJobStatus
+     */
+    errorMessage?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ClientJobStatus
+     */
+    errorRetryable?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof ClientJobStatus
+     */
+    errorType?: string;
+    /**
+     *
      * @type {number}
      * @memberof ClientJobStatus
      */
@@ -119,6 +149,11 @@ export function ClientJobStatusFromJSONTyped(json: any, ignoreDiscriminator: boo
         contentLength: json["content_length"] == null ? undefined : json["content_length"],
         digestAlgo: json["digest_algo"] == null ? undefined : json["digest_algo"],
         digestHex: json["digest_hex"] == null ? undefined : json["digest_hex"],
+        errorCategory: json["error_category"] == null ? undefined : json["error_category"],
+        errorHttpCode: json["error_http_code"] == null ? undefined : json["error_http_code"],
+        errorMessage: json["error_message"] == null ? undefined : json["error_message"],
+        errorRetryable: json["error_retryable"] == null ? undefined : json["error_retryable"],
+        errorType: json["error_type"] == null ? undefined : json["error_type"],
         eventCount: json["event_count"] == null ? undefined : json["event_count"],
         fileLink: json["file_link"] == null ? undefined : json["file_link"],
         filteredEventCount: json["filtered_event_count"] == null ? undefined : json["filtered_event_count"],
@@ -140,6 +175,11 @@ export function ClientJobStatusToJSON(value?: ClientJobStatus | null): any {
         content_length: value["contentLength"],
         digest_algo: value["digestAlgo"],
         digest_hex: value["digestHex"],
+        error_category: value["errorCategory"],
+        error_http_code: value["errorHttpCode"],
+        error_message: value["errorMessage"],
+        error_retryable: value["errorRetryable"],
+        error_type: value["errorType"],
         event_count: value["eventCount"],
         file_link: value["fileLink"],
         filtered_event_count: value["filteredEventCount"],

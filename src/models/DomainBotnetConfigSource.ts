@@ -25,49 +25,55 @@ import { DomainKeyValuePairFromJSON, DomainKeyValuePairFromJSONTyped, DomainKeyV
  */
 export interface DomainBotnetConfigSource {
     /**
-     * Populated for action botnets. List of action key value pairs, defined as the action and its type
+     *
      * @type {Array<DomainKeyValuePair>}
      * @memberof DomainBotnetConfigSource
      */
     actions: Array<DomainKeyValuePair>;
     /**
-     * Populated for spam botnets. The body of the spam template. If this contains replaceable variables, keep the variable names in the template as they appear in the raw config
+     *
      * @type {string}
      * @memberof DomainBotnetConfigSource
      */
     body: string;
     /**
-     * The botnet's name
+     *
      * @type {string}
      * @memberof DomainBotnetConfigSource
      */
     botnet: string;
     /**
-     * The type of botnet: `action`, `inject`, or `spam`
+     *
+     * @type {string}
+     * @memberof DomainBotnetConfigSource
+     */
+    configId: string;
+    /**
+     *
      * @type {string}
      * @memberof DomainBotnetConfigSource
      */
     configType: string;
     /**
-     * Populated for inject botnets. List of inject targets and their data
+     *
      * @type {Array<DomainBotnetInject>}
      * @memberof DomainBotnetConfigSource
      */
     injects: Array<DomainBotnetInject>;
     /**
-     * Optional sub-botnet differentiator
+     *
      * @type {string}
      * @memberof DomainBotnetConfigSource
      */
     subBotnet: string;
     /**
-     * Populated for spam botnets. The subject of the spam template. If this contains replaceable variables, keep the variable names in the template as they appear in the raw config
+     *
      * @type {string}
      * @memberof DomainBotnetConfigSource
      */
     subject: string;
     /**
-     * Populated for spam botnets. List of key value pairs for any replaceable variables in the spam template
+     *
      * @type {Array<DomainKeyValuePair>}
      * @memberof DomainBotnetConfigSource
      */
@@ -81,6 +87,7 @@ export function instanceOfDomainBotnetConfigSource(value: object): value is Doma
     if (!("actions" in value) || value["actions"] === undefined) return false;
     if (!("body" in value) || value["body"] === undefined) return false;
     if (!("botnet" in value) || value["botnet"] === undefined) return false;
+    if (!("configId" in value) || value["configId"] === undefined) return false;
     if (!("configType" in value) || value["configType"] === undefined) return false;
     if (!("injects" in value) || value["injects"] === undefined) return false;
     if (!("subBotnet" in value) || value["subBotnet"] === undefined) return false;
@@ -101,6 +108,7 @@ export function DomainBotnetConfigSourceFromJSONTyped(json: any, ignoreDiscrimin
         actions: (json["actions"] as Array<any>).map(DomainKeyValuePairFromJSON),
         body: json["body"],
         botnet: json["botnet"],
+        configId: json["config_id"],
         configType: json["config_type"],
         injects: (json["injects"] as Array<any>).map(DomainBotnetInjectFromJSON),
         subBotnet: json["sub_botnet"],
@@ -117,6 +125,7 @@ export function DomainBotnetConfigSourceToJSON(value?: DomainBotnetConfigSource 
         actions: (value["actions"] as Array<any>).map(DomainKeyValuePairToJSON),
         body: value["body"],
         botnet: value["botnet"],
+        config_id: value["configId"],
         config_type: value["configType"],
         injects: (value["injects"] as Array<any>).map(DomainBotnetInjectToJSON),
         sub_botnet: value["subBotnet"],

@@ -35,6 +35,12 @@ export interface RestAWSAccountPatchExtV1 {
      * @type {string}
      * @memberof RestAWSAccountPatchExtV1
      */
+    cloudformationStackArn?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RestAWSAccountPatchExtV1
+     */
     cloudtrailRegion?: string;
     /**
      *
@@ -170,6 +176,12 @@ export interface RestAWSAccountPatchExtV1 {
     s3LogIngestionSnsTopicArn?: string;
     /**
      *
+     * @type {Array<string>}
+     * @memberof RestAWSAccountPatchExtV1
+     */
+    targetOus?: Array<string>;
+    /**
+     *
      * @type {boolean}
      * @memberof RestAWSAccountPatchExtV1
      */
@@ -224,6 +236,7 @@ export function RestAWSAccountPatchExtV1FromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         accountId: json["account_id"],
+        cloudformationStackArn: json["cloudformation_stack_arn"] == null ? undefined : json["cloudformation_stack_arn"],
         cloudtrailRegion: json["cloudtrail_region"] == null ? undefined : json["cloudtrail_region"],
         cspEvents: json["csp_events"] == null ? undefined : json["csp_events"],
         disableProducts: json["disable_products"] == null ? undefined : (json["disable_products"] as Array<any>).map(RestAccountProductRequestExtV1FromJSON),
@@ -247,6 +260,7 @@ export function RestAWSAccountPatchExtV1FromJSONTyped(json: any, ignoreDiscrimin
         s3LogIngestionBucketPrefix: json["s3_log_ingestion_bucket_prefix"] == null ? undefined : json["s3_log_ingestion_bucket_prefix"],
         s3LogIngestionKmsKeyArn: json["s3_log_ingestion_kms_key_arn"] == null ? undefined : json["s3_log_ingestion_kms_key_arn"],
         s3LogIngestionSnsTopicArn: json["s3_log_ingestion_sns_topic_arn"] == null ? undefined : json["s3_log_ingestion_sns_topic_arn"],
+        targetOus: json["target_ous"] == null ? undefined : json["target_ous"],
         useExistingCloudtrail: json["use_existing_cloudtrail"] == null ? undefined : json["use_existing_cloudtrail"],
         vulnerabilityScanningCustomVpcConfiguration:
             json["vulnerability_scanning_custom_vpc_configuration"] == null ? undefined : mapValues(json["vulnerability_scanning_custom_vpc_configuration"], DomainAWSRegionalVPCConfigurationFromJSON),
@@ -263,6 +277,7 @@ export function RestAWSAccountPatchExtV1ToJSON(value?: RestAWSAccountPatchExtV1 
     }
     return {
         account_id: value["accountId"],
+        cloudformation_stack_arn: value["cloudformationStackArn"],
         cloudtrail_region: value["cloudtrailRegion"],
         csp_events: value["cspEvents"],
         disable_products: value["disableProducts"] == null ? undefined : (value["disableProducts"] as Array<any>).map(RestAccountProductRequestExtV1ToJSON),
@@ -286,6 +301,7 @@ export function RestAWSAccountPatchExtV1ToJSON(value?: RestAWSAccountPatchExtV1 
         s3_log_ingestion_bucket_prefix: value["s3LogIngestionBucketPrefix"],
         s3_log_ingestion_kms_key_arn: value["s3LogIngestionKmsKeyArn"],
         s3_log_ingestion_sns_topic_arn: value["s3LogIngestionSnsTopicArn"],
+        target_ous: value["targetOus"],
         use_existing_cloudtrail: value["useExistingCloudtrail"],
         vulnerability_scanning_custom_vpc_configuration:
             value["vulnerabilityScanningCustomVpcConfiguration"] == null ? undefined : mapValues(value["vulnerabilityScanningCustomVpcConfiguration"], DomainAWSRegionalVPCConfigurationToJSON),

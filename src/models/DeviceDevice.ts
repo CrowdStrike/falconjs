@@ -93,6 +93,12 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    cloudServiceCompartmentId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     configIdBase?: string;
     /**
      *
@@ -640,6 +646,7 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         chassisType: json["chassis_type"] == null ? undefined : json["chassis_type"],
         chassisTypeDesc: json["chassis_type_desc"] == null ? undefined : json["chassis_type_desc"],
         cid: json["cid"],
+        cloudServiceCompartmentId: json["cloud_service_compartment_id"] == null ? undefined : json["cloud_service_compartment_id"],
         configIdBase: json["config_id_base"] == null ? undefined : json["config_id_base"],
         configIdBuild: json["config_id_build"] == null ? undefined : json["config_id_build"],
         configIdPlatform: json["config_id_platform"] == null ? undefined : json["config_id_platform"],
@@ -745,6 +752,7 @@ export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
         chassis_type: value["chassisType"],
         chassis_type_desc: value["chassisTypeDesc"],
         cid: value["cid"],
+        cloud_service_compartment_id: value["cloudServiceCompartmentId"],
         config_id_base: value["configIdBase"],
         config_id_build: value["configIdBuild"],
         config_id_platform: value["configIdPlatform"],

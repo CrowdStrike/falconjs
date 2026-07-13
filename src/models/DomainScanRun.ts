@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { DomainCredentialedAssetSummary } from "./DomainCredentialedAssetSummary";
+import { DomainCredentialedAssetSummaryFromJSON, DomainCredentialedAssetSummaryFromJSONTyped, DomainCredentialedAssetSummaryToJSON } from "./DomainCredentialedAssetSummary";
 import type { DomainSelectedScanner } from "./DomainSelectedScanner";
 import { DomainSelectedScannerFromJSON, DomainSelectedScannerFromJSONTyped, DomainSelectedScannerToJSON } from "./DomainSelectedScanner";
 import type { DomainScanRunConfig } from "./DomainScanRunConfig";
@@ -48,6 +50,12 @@ export interface DomainScanRun {
      * @memberof DomainScanRun
      */
     createdTimestamp: string;
+    /**
+     *
+     * @type {DomainCredentialedAssetSummary}
+     * @memberof DomainScanRun
+     */
+    credentialedAssetSummary?: DomainCredentialedAssetSummary;
     /**
      * The end time of the scan run
      * @type {string}
@@ -233,6 +241,7 @@ export function DomainScanRunFromJSONTyped(json: any, ignoreDiscriminator: boole
         config: json["config"] == null ? undefined : DomainScanRunConfigFromJSON(json["config"]),
         createdBy: json["created_by"],
         createdTimestamp: json["created_timestamp"],
+        credentialedAssetSummary: json["credentialed_asset_summary"] == null ? undefined : DomainCredentialedAssetSummaryFromJSON(json["credentialed_asset_summary"]),
         endTimestamp: json["end_timestamp"],
         errorCode: json["error_code"] == null ? undefined : json["error_code"],
         errorReason: json["error_reason"] == null ? undefined : json["error_reason"],
@@ -264,6 +273,7 @@ export function DomainScanRunToJSON(value?: DomainScanRun | null): any {
         config: DomainScanRunConfigToJSON(value["config"]),
         created_by: value["createdBy"],
         created_timestamp: value["createdTimestamp"],
+        credentialed_asset_summary: DomainCredentialedAssetSummaryToJSON(value["credentialedAssetSummary"]),
         end_timestamp: value["endTimestamp"],
         error_code: value["errorCode"],
         error_reason: value["errorReason"],

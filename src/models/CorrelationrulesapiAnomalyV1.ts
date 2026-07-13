@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { CorrelationrulesapiAnomalyScopes } from "./CorrelationrulesapiAnomalyScopes";
+import { CorrelationrulesapiAnomalyScopesFromJSON, CorrelationrulesapiAnomalyScopesFromJSONTyped, CorrelationrulesapiAnomalyScopesToJSON } from "./CorrelationrulesapiAnomalyScopes";
+
 /**
  *
  * @export
@@ -36,7 +39,13 @@ export interface CorrelationrulesapiAnomalyV1 {
      * @type {string}
      * @memberof CorrelationrulesapiAnomalyV1
      */
-    scope: string;
+    scope?: string;
+    /**
+     *
+     * @type {Array<CorrelationrulesapiAnomalyScopes>}
+     * @memberof CorrelationrulesapiAnomalyV1
+     */
+    scopes?: Array<CorrelationrulesapiAnomalyScopes>;
     /**
      *
      * @type {string}
@@ -57,7 +66,6 @@ export interface CorrelationrulesapiAnomalyV1 {
 export function instanceOfCorrelationrulesapiAnomalyV1(value: object): value is CorrelationrulesapiAnomalyV1 {
     if (!("eventFieldNames" in value) || value["eventFieldNames"] === undefined) return false;
     if (!("lookbackTimeframe" in value) || value["lookbackTimeframe"] === undefined) return false;
-    if (!("scope" in value) || value["scope"] === undefined) return false;
     if (!("type" in value) || value["type"] === undefined) return false;
     if (!("useEstablishedEntityOnly" in value) || value["useEstablishedEntityOnly"] === undefined) return false;
     return true;
@@ -74,7 +82,8 @@ export function CorrelationrulesapiAnomalyV1FromJSONTyped(json: any, ignoreDiscr
     return {
         eventFieldNames: json["event_field_names"],
         lookbackTimeframe: json["lookback_timeframe"],
-        scope: json["scope"],
+        scope: json["scope"] == null ? undefined : json["scope"],
+        scopes: json["scopes"] == null ? undefined : (json["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesFromJSON),
         type: json["type"],
         useEstablishedEntityOnly: json["use_established_entity_only"],
     };
@@ -88,6 +97,7 @@ export function CorrelationrulesapiAnomalyV1ToJSON(value?: CorrelationrulesapiAn
         event_field_names: value["eventFieldNames"],
         lookback_timeframe: value["lookbackTimeframe"],
         scope: value["scope"],
+        scopes: value["scopes"] == null ? undefined : (value["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesToJSON),
         type: value["type"],
         use_established_entity_only: value["useEstablishedEntityOnly"],
     };

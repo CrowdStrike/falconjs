@@ -18,6 +18,7 @@ import type {
     DtoGCPRegistrationCreateRequestExtV1,
     DtoGCPRegistrationResponseExtV1,
     DtoGCPRegistrationUpdateRequestExtV1,
+    DtoGCPTerraformScriptRequestV1,
     DtoHealthCheckTriggerResponseExtV1,
     MsaReplyMetaOnly,
     MsaspecResponseFields,
@@ -31,6 +32,8 @@ import {
     DtoGCPRegistrationResponseExtV1ToJSON,
     DtoGCPRegistrationUpdateRequestExtV1FromJSON,
     DtoGCPRegistrationUpdateRequestExtV1ToJSON,
+    DtoGCPTerraformScriptRequestV1FromJSON,
+    DtoGCPTerraformScriptRequestV1ToJSON,
     DtoHealthCheckTriggerResponseExtV1FromJSON,
     DtoHealthCheckTriggerResponseExtV1ToJSON,
     MsaReplyMetaOnlyFromJSON,
@@ -57,6 +60,10 @@ export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetEntitiesR
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetRegistrationRequest {
     ids: string;
+}
+
+export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpPostTerraformScriptRequest {
+    body: DtoGCPTerraformScriptRequestV1;
 }
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpPutRegistrationRequest {
@@ -274,6 +281,51 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
     async cloudRegistrationGcpGetRegistration(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DtoGCPRegistrationResponseExtV1> {
         const response = await this.cloudRegistrationGcpGetRegistrationRaw({ ids: ids }, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Only supports terraform-native deployment method. Returns zip files containing Terraform scripts.
+     * Generate Google Cloud Terraform deployment scripts (zip files)
+     */
+    async cloudRegistrationGcpPostTerraformScriptRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpPostTerraformScriptRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationGcpPostTerraformScript().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-google-cloud/entities/scripts-terraform/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DtoGCPTerraformScriptRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Only supports terraform-native deployment method. Returns zip files containing Terraform scripts.
+     * Generate Google Cloud Terraform deployment scripts (zip files)
+     */
+    async cloudRegistrationGcpPostTerraformScript(body: DtoGCPTerraformScriptRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.cloudRegistrationGcpPostTerraformScriptRaw({ body: body }, initOverrides);
     }
 
     /**

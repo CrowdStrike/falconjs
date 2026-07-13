@@ -42,6 +42,12 @@ export interface AzureEventHubSettings {
      * @type {string}
      * @memberof AzureEventHubSettings
      */
+    managementType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureEventHubSettings
+     */
     purpose: string;
     /**
      *
@@ -75,6 +81,7 @@ export function AzureEventHubSettingsFromJSONTyped(json: any, ignoreDiscriminato
         cid: json["cid"],
         consumerGroup: json["consumer_group"],
         eventHubId: json["event_hub_id"],
+        managementType: json["management_type"] == null ? undefined : json["management_type"],
         purpose: json["purpose"],
         tenantId: json["tenant_id"],
     };
@@ -88,6 +95,7 @@ export function AzureEventHubSettingsToJSON(value?: AzureEventHubSettings | null
         cid: value["cid"],
         consumer_group: value["consumerGroup"],
         event_hub_id: value["eventHubId"],
+        management_type: value["managementType"],
         purpose: value["purpose"],
         tenant_id: value["tenantId"],
     };

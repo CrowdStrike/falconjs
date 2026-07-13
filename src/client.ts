@@ -1,7 +1,10 @@
 import {
     // @generated:imports
+    AccessScopesApi,
     AdmissionControlPoliciesApi,
+    AgentInvocationApi,
     AlertsApi,
+    ApiClientsApi,
     ApiIntegrationsApi,
     AspmApi,
     CaoHuntingApi,
@@ -19,6 +22,7 @@ import {
     CloudSecurityAssetsApi,
     CloudSecurityComplianceApi,
     CloudSecurityDetectionsApi,
+    CloudSecurityRegistrationCombinedApi,
     CloudSecurityRisksApi,
     CloudSnapshotsApi,
     ConfigurationAssessmentApi,
@@ -57,6 +61,7 @@ import {
     FalconContainerApi,
     FalconContainerCliApi,
     FalconContainerImageApi,
+    FalconIdApi,
     FalconxSandboxApi,
     FederatedConnectionsApi,
     FieldSchemaApi,
@@ -64,6 +69,7 @@ import {
     FirewallManagementApi,
     FirewallPoliciesApi,
     FoundryLogscaleApi,
+    FoundryLookupFilesApi,
     HostGroupApi,
     HostMigrationApi,
     HostsApi,
@@ -85,7 +91,6 @@ import {
     KnowledgeBasesApi,
     KubernetesContainerComplianceApi,
     KubernetesProtectionApi,
-    LookupFilesApi,
     MaintenanceTokenApi,
     MalqueryApi,
     MessageCenterApi,
@@ -104,6 +109,7 @@ import {
     Oauth2Api,
     OdsApi,
     PreventionPoliciesApi,
+    ProfileGroupsApi,
     QuarantineApi,
     QuickScanApi,
     QuickScanProApi,
@@ -118,6 +124,7 @@ import {
     RuntimeDetectionsApi,
     SaasSecurityApi,
     SampleUploadsApi,
+    ScanningOrchestratorApi,
     ScheduledReportsApi,
     SensorDownloadApi,
     SensorUpdatePoliciesApi,
@@ -129,6 +136,7 @@ import {
     SpotlightSupportedEvaluationApi,
     SpotlightVulnerabilitiesApi,
     SpotlightVulnerabilityMetadataApi,
+    StreamApi,
     TailoredIntelligenceApi,
     ThreatgraphApi,
     UnidentifiedContainersApi,
@@ -162,8 +170,11 @@ export interface FalconClientOptions {
 
 export class FalconClient {
     // @generated:properties
+    accessScopes: AccessScopesApi;
     admissionControlPolicies: AdmissionControlPoliciesApi;
+    agentInvocation: AgentInvocationApi;
     alerts: AlertsApi;
+    apiClients: ApiClientsApi;
     apiIntegrations: ApiIntegrationsApi;
     aspm: AspmApi;
     caoHunting: CaoHuntingApi;
@@ -181,6 +192,7 @@ export class FalconClient {
     cloudSecurityAssets: CloudSecurityAssetsApi;
     cloudSecurityCompliance: CloudSecurityComplianceApi;
     cloudSecurityDetections: CloudSecurityDetectionsApi;
+    cloudSecurityRegistrationCombined: CloudSecurityRegistrationCombinedApi;
     cloudSecurityRisks: CloudSecurityRisksApi;
     cloudSnapshots: CloudSnapshotsApi;
     configurationAssessment: ConfigurationAssessmentApi;
@@ -219,6 +231,7 @@ export class FalconClient {
     falconContainer: FalconContainerApi;
     falconContainerCli: FalconContainerCliApi;
     falconContainerImage: FalconContainerImageApi;
+    falconId: FalconIdApi;
     falconxSandbox: FalconxSandboxApi;
     federatedConnections: FederatedConnectionsApi;
     fieldSchema: FieldSchemaApi;
@@ -226,6 +239,7 @@ export class FalconClient {
     firewallManagement: FirewallManagementApi;
     firewallPolicies: FirewallPoliciesApi;
     foundryLogscale: FoundryLogscaleApi;
+    foundryLookupFiles: FoundryLookupFilesApi;
     hostGroup: HostGroupApi;
     hostMigration: HostMigrationApi;
     hosts: HostsApi;
@@ -247,7 +261,6 @@ export class FalconClient {
     knowledgeBases: KnowledgeBasesApi;
     kubernetesContainerCompliance: KubernetesContainerComplianceApi;
     kubernetesProtection: KubernetesProtectionApi;
-    lookupFiles: LookupFilesApi;
     maintenanceToken: MaintenanceTokenApi;
     malquery: MalqueryApi;
     messageCenter: MessageCenterApi;
@@ -266,6 +279,7 @@ export class FalconClient {
     oauth2: Oauth2Api;
     ods: OdsApi;
     preventionPolicies: PreventionPoliciesApi;
+    profileGroups: ProfileGroupsApi;
     quarantine: QuarantineApi;
     quickScan: QuickScanApi;
     quickScanPro: QuickScanProApi;
@@ -280,6 +294,7 @@ export class FalconClient {
     runtimeDetections: RuntimeDetectionsApi;
     saasSecurity: SaasSecurityApi;
     sampleUploads: SampleUploadsApi;
+    scanningOrchestrator: ScanningOrchestratorApi;
     scheduledReports: ScheduledReportsApi;
     sensorDownload: SensorDownloadApi;
     sensorUpdatePolicies: SensorUpdatePoliciesApi;
@@ -291,6 +306,7 @@ export class FalconClient {
     spotlightSupportedEvaluation: SpotlightSupportedEvaluationApi;
     spotlightVulnerabilities: SpotlightVulnerabilitiesApi;
     spotlightVulnerabilityMetadata: SpotlightVulnerabilityMetadataApi;
+    stream: StreamApi;
     tailoredIntelligence: TailoredIntelligenceApi;
     threatgraph: ThreatgraphApi;
     unidentifiedContainers: UnidentifiedContainersApi;
@@ -315,8 +331,11 @@ export class FalconClient {
             basePath: CloudBasePath(options.cloud),
         });
         // @generated:assignments
+        this.accessScopes = new AccessScopesApi(this.config);
         this.admissionControlPolicies = new AdmissionControlPoliciesApi(this.config);
+        this.agentInvocation = new AgentInvocationApi(this.config);
         this.alerts = new AlertsApi(this.config);
+        this.apiClients = new ApiClientsApi(this.config);
         this.apiIntegrations = new ApiIntegrationsApi(this.config);
         this.aspm = new AspmApi(this.config);
         this.caoHunting = new CaoHuntingApi(this.config);
@@ -334,6 +353,7 @@ export class FalconClient {
         this.cloudSecurityAssets = new CloudSecurityAssetsApi(this.config);
         this.cloudSecurityCompliance = new CloudSecurityComplianceApi(this.config);
         this.cloudSecurityDetections = new CloudSecurityDetectionsApi(this.config);
+        this.cloudSecurityRegistrationCombined = new CloudSecurityRegistrationCombinedApi(this.config);
         this.cloudSecurityRisks = new CloudSecurityRisksApi(this.config);
         this.cloudSnapshots = new CloudSnapshotsApi(this.config);
         this.configurationAssessment = new ConfigurationAssessmentApi(this.config);
@@ -372,6 +392,7 @@ export class FalconClient {
         this.falconContainer = new FalconContainerApi(this.config);
         this.falconContainerCli = new FalconContainerCliApi(this.config);
         this.falconContainerImage = new FalconContainerImageApi(this.config);
+        this.falconId = new FalconIdApi(this.config);
         this.falconxSandbox = new FalconxSandboxApi(this.config);
         this.federatedConnections = new FederatedConnectionsApi(this.config);
         this.fieldSchema = new FieldSchemaApi(this.config);
@@ -379,6 +400,7 @@ export class FalconClient {
         this.firewallManagement = new FirewallManagementApi(this.config);
         this.firewallPolicies = new FirewallPoliciesApi(this.config);
         this.foundryLogscale = new FoundryLogscaleApi(this.config);
+        this.foundryLookupFiles = new FoundryLookupFilesApi(this.config);
         this.hostGroup = new HostGroupApi(this.config);
         this.hostMigration = new HostMigrationApi(this.config);
         this.hosts = new HostsApi(this.config);
@@ -400,7 +422,6 @@ export class FalconClient {
         this.knowledgeBases = new KnowledgeBasesApi(this.config);
         this.kubernetesContainerCompliance = new KubernetesContainerComplianceApi(this.config);
         this.kubernetesProtection = new KubernetesProtectionApi(this.config);
-        this.lookupFiles = new LookupFilesApi(this.config);
         this.maintenanceToken = new MaintenanceTokenApi(this.config);
         this.malquery = new MalqueryApi(this.config);
         this.messageCenter = new MessageCenterApi(this.config);
@@ -419,6 +440,7 @@ export class FalconClient {
         this.oauth2 = new Oauth2Api(this.config);
         this.ods = new OdsApi(this.config);
         this.preventionPolicies = new PreventionPoliciesApi(this.config);
+        this.profileGroups = new ProfileGroupsApi(this.config);
         this.quarantine = new QuarantineApi(this.config);
         this.quickScan = new QuickScanApi(this.config);
         this.quickScanPro = new QuickScanProApi(this.config);
@@ -433,6 +455,7 @@ export class FalconClient {
         this.runtimeDetections = new RuntimeDetectionsApi(this.config);
         this.saasSecurity = new SaasSecurityApi(this.config);
         this.sampleUploads = new SampleUploadsApi(this.config);
+        this.scanningOrchestrator = new ScanningOrchestratorApi(this.config);
         this.scheduledReports = new ScheduledReportsApi(this.config);
         this.sensorDownload = new SensorDownloadApi(this.config);
         this.sensorUpdatePolicies = new SensorUpdatePoliciesApi(this.config);
@@ -444,6 +467,7 @@ export class FalconClient {
         this.spotlightSupportedEvaluation = new SpotlightSupportedEvaluationApi(this.config);
         this.spotlightVulnerabilities = new SpotlightVulnerabilitiesApi(this.config);
         this.spotlightVulnerabilityMetadata = new SpotlightVulnerabilityMetadataApi(this.config);
+        this.stream = new StreamApi(this.config);
         this.tailoredIntelligence = new TailoredIntelligenceApi(this.config);
         this.threatgraph = new ThreatgraphApi(this.config);
         this.unidentifiedContainers = new UnidentifiedContainersApi(this.config);

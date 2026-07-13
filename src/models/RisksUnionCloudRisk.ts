@@ -15,12 +15,8 @@
 import { mapValues } from "../runtime";
 import type { RiskSuppression } from "./RiskSuppression";
 import { RiskSuppressionFromJSON, RiskSuppressionFromJSONTyped, RiskSuppressionToJSON } from "./RiskSuppression";
-import type { RisksVertex } from "./RisksVertex";
-import { RisksVertexFromJSON, RisksVertexFromJSONTyped, RisksVertexToJSON } from "./RisksVertex";
 import type { RiskComments } from "./RiskComments";
 import { RiskCommentsFromJSON, RiskCommentsFromJSONTyped, RiskCommentsToJSON } from "./RiskComments";
-import type { RisksEdge } from "./RisksEdge";
-import { RisksEdgeFromJSON, RisksEdgeFromJSONTyped, RisksEdgeToJSON } from "./RisksEdge";
 import type { RisksGraph } from "./RisksGraph";
 import { RisksGraphFromJSON, RisksGraphFromJSONTyped, RisksGraphToJSON } from "./RisksGraph";
 
@@ -122,12 +118,6 @@ export interface RisksUnionCloudRisk {
     disabled: boolean;
     /**
      *
-     * @type {Array<RisksEdge>}
-     * @memberof RisksUnionCloudRisk
-     */
-    edges?: Array<RisksEdge>;
-    /**
-     *
      * @type {Date}
      * @memberof RisksUnionCloudRisk
      */
@@ -222,12 +212,6 @@ export interface RisksUnionCloudRisk {
      * @memberof RisksUnionCloudRisk
      */
     suppression?: RiskSuppression;
-    /**
-     *
-     * @type {Array<RisksVertex>}
-     * @memberof RisksUnionCloudRisk
-     */
-    vertices?: Array<RisksVertex>;
 }
 
 /**
@@ -282,7 +266,6 @@ export function RisksUnionCloudRiskFromJSONTyped(json: any, ignoreDiscriminator:
         comments: json["comments"] == null ? undefined : (json["comments"] as Array<any>).map(RiskCommentsFromJSON),
         crn: json["crn"],
         disabled: json["disabled"],
-        edges: json["edges"] == null ? undefined : (json["edges"] as Array<any>).map(RisksEdgeFromJSON),
         firstSeen: new Date(json["first_seen"]),
         graph: json["graph"] == null ? undefined : RisksGraphFromJSON(json["graph"]),
         id: json["id"],
@@ -299,7 +282,6 @@ export function RisksUnionCloudRiskFromJSONTyped(json: any, ignoreDiscriminator:
         severity: json["severity"],
         status: json["status"],
         suppression: json["suppression"] == null ? undefined : RiskSuppressionFromJSON(json["suppression"]),
-        vertices: json["vertices"] == null ? undefined : (json["vertices"] as Array<any>).map(RisksVertexFromJSON),
     };
 }
 
@@ -323,7 +305,6 @@ export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): a
         comments: value["comments"] == null ? undefined : (value["comments"] as Array<any>).map(RiskCommentsToJSON),
         crn: value["crn"],
         disabled: value["disabled"],
-        edges: value["edges"] == null ? undefined : (value["edges"] as Array<any>).map(RisksEdgeToJSON),
         first_seen: value["firstSeen"].toISOString(),
         graph: RisksGraphToJSON(value["graph"]),
         id: value["id"],
@@ -340,6 +321,5 @@ export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): a
         severity: value["severity"],
         status: value["status"],
         suppression: RiskSuppressionToJSON(value["suppression"]),
-        vertices: value["vertices"] == null ? undefined : (value["vertices"] as Array<any>).map(RisksVertexToJSON),
     };
 }

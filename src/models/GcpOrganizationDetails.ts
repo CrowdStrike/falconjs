@@ -27,6 +27,12 @@ export interface GcpOrganizationDetails {
     created: Date;
     /**
      *
+     * @type {string}
+     * @memberof GcpOrganizationDetails
+     */
+    dspmStatus?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof GcpOrganizationDetails
      */
@@ -78,6 +84,12 @@ export interface GcpOrganizationDetails {
      * @type {string}
      * @memberof GcpOrganizationDetails
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpOrganizationDetails
+     */
     registrationId: string;
     /**
      *
@@ -103,6 +115,12 @@ export interface GcpOrganizationDetails {
      * @memberof GcpOrganizationDetails
      */
     updated: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpOrganizationDetails
+     */
+    vulnerabilityScanningStatus?: string;
 }
 
 /**
@@ -128,6 +146,7 @@ export function GcpOrganizationDetailsFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         created: new Date(json["created"]),
+        dspmStatus: json["dspm_status"] == null ? undefined : json["dspm_status"],
         ioaFailedPermissions: json["ioa_failed_permissions"] == null ? undefined : json["ioa_failed_permissions"],
         ioaPassedPermissions: json["ioa_passed_permissions"] == null ? undefined : json["ioa_passed_permissions"],
         ioaStatus: json["ioa_status"] == null ? undefined : json["ioa_status"],
@@ -136,11 +155,13 @@ export function GcpOrganizationDetailsFromJSONTyped(json: any, ignoreDiscriminat
         iomStatus: json["iom_status"] == null ? undefined : json["iom_status"],
         organizationId: json["organization_id"],
         organizationName: json["organization_name"] == null ? undefined : json["organization_name"],
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
         registrationId: json["registration_id"],
         registrationName: json["registration_name"],
         registrationScope: json["registration_scope"],
         status: json["status"] == null ? undefined : json["status"],
         updated: new Date(json["updated"]),
+        vulnerabilityScanningStatus: json["vulnerability_scanning_status"] == null ? undefined : json["vulnerability_scanning_status"],
     };
 }
 
@@ -150,6 +171,7 @@ export function GcpOrganizationDetailsToJSON(value?: GcpOrganizationDetails | nu
     }
     return {
         created: value["created"].toISOString(),
+        dspm_status: value["dspmStatus"],
         ioa_failed_permissions: value["ioaFailedPermissions"],
         ioa_passed_permissions: value["ioaPassedPermissions"],
         ioa_status: value["ioaStatus"],
@@ -158,10 +180,12 @@ export function GcpOrganizationDetailsToJSON(value?: GcpOrganizationDetails | nu
         iom_status: value["iomStatus"],
         organization_id: value["organizationId"],
         organization_name: value["organizationName"],
+        registration_description: value["registrationDescription"],
         registration_id: value["registrationId"],
         registration_name: value["registrationName"],
         registration_scope: value["registrationScope"],
         status: value["status"],
         updated: value["updated"].toISOString(),
+        vulnerability_scanning_status: value["vulnerabilityScanningStatus"],
     };
 }

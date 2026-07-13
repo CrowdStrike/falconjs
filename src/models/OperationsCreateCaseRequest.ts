@@ -48,6 +48,18 @@ export interface OperationsCreateCaseRequest {
     description: string;
     /**
      *
+     * @type {string}
+     * @memberof OperationsCreateCaseRequest
+     */
+    descriptionFormat?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof OperationsCreateCaseRequest
+     */
+    descriptionTaggedUsers?: Array<string>;
+    /**
+     *
      * @type {OperationsCreateCaseRequestEvidence}
      * @memberof OperationsCreateCaseRequest
      */
@@ -116,6 +128,8 @@ export function OperationsCreateCaseRequestFromJSONTyped(json: any, ignoreDiscri
         accessTags: json["access_tags"] == null ? undefined : (json["access_tags"] as Array<any>).map(SdkCaseAccessTagFromJSON),
         assignedToUserUuid: json["assigned_to_user_uuid"],
         description: json["description"],
+        descriptionFormat: json["description_format"] == null ? undefined : json["description_format"],
+        descriptionTaggedUsers: json["description_tagged_users"] == null ? undefined : json["description_tagged_users"],
         evidence: OperationsCreateCaseRequestEvidenceFromJSON(json["evidence"]),
         name: json["name"],
         severity: json["severity"],
@@ -134,6 +148,8 @@ export function OperationsCreateCaseRequestToJSON(value?: OperationsCreateCaseRe
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(SdkCaseAccessTagToJSON),
         assigned_to_user_uuid: value["assignedToUserUuid"],
         description: value["description"],
+        description_format: value["descriptionFormat"],
+        description_tagged_users: value["descriptionTaggedUsers"],
         evidence: OperationsCreateCaseRequestEvidenceToJSON(value["evidence"]),
         name: value["name"],
         severity: value["severity"],

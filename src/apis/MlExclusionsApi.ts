@@ -14,6 +14,8 @@
 
 import * as runtime from "../runtime";
 import type {
+    ApiSdmfQuery,
+    ApiSdmfResponse,
     DomainExclusionUpdateReqV2,
     DomainExclusionsCreateReqV2,
     DomainExclusionsReportRequest,
@@ -27,6 +29,10 @@ import type {
     SvExclusionsUpdateReqV1,
 } from "../models/index";
 import {
+    ApiSdmfQueryFromJSON,
+    ApiSdmfQueryToJSON,
+    ApiSdmfResponseFromJSON,
+    ApiSdmfResponseToJSON,
     DomainExclusionUpdateReqV2FromJSON,
     DomainExclusionUpdateReqV2ToJSON,
     DomainExclusionsCreateReqV2FromJSON,
@@ -84,6 +90,10 @@ export interface MlExclusionsApiExclusionsGetV2Request {
 export interface MlExclusionsApiExclusionsPerformActionV2Request {
     actionName: ExclusionsPerformActionV2ActionNameEnum;
     body: MsaspecAction;
+}
+
+export interface MlExclusionsApiExclusionsSdmfQueryV1Request {
+    body: ApiSdmfQuery;
 }
 
 export interface MlExclusionsApiExclusionsSearchV2Request {
@@ -497,6 +507,50 @@ export class MlExclusionsApi extends runtime.BaseAPI {
      */
     async exclusionsPerformActionV2(actionName: ExclusionsPerformActionV2ActionNameEnum, body: MsaspecAction, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.exclusionsPerformActionV2Raw({ actionName: actionName, body: body }, initOverrides);
+    }
+
+    /**
+     * Executes an SDMF data frame query against exclusion entities
+     */
+    async exclusionsSdmfQueryV1Raw(
+        requestParameters: MlExclusionsApiExclusionsSdmfQueryV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiSdmfResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling exclusionsSdmfQueryV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ml-exclusions:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/exclusions/sdmf/query/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiSdmfQueryToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiSdmfResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Executes an SDMF data frame query against exclusion entities
+     */
+    async exclusionsSdmfQueryV1(body: ApiSdmfQuery, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiSdmfResponse> {
+        const response = await this.exclusionsSdmfQueryV1Raw({ body: body }, initOverrides);
+        return await response.value();
     }
 
     /**

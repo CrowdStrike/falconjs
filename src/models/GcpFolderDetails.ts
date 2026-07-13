@@ -30,6 +30,12 @@ export interface GcpFolderDetails {
      * @type {string}
      * @memberof GcpFolderDetails
      */
+    dspmStatus?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpFolderDetails
+     */
     folderId: string;
     /**
      *
@@ -96,6 +102,12 @@ export interface GcpFolderDetails {
      * @type {string}
      * @memberof GcpFolderDetails
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpFolderDetails
+     */
     registrationId: string;
     /**
      *
@@ -127,6 +139,12 @@ export interface GcpFolderDetails {
      * @memberof GcpFolderDetails
      */
     updated: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpFolderDetails
+     */
+    vulnerabilityScanningStatus?: string;
 }
 
 /**
@@ -152,6 +170,7 @@ export function GcpFolderDetailsFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         created: new Date(json["created"]),
+        dspmStatus: json["dspm_status"] == null ? undefined : json["dspm_status"],
         folderId: json["folder_id"],
         folderName: json["folder_name"] == null ? undefined : json["folder_name"],
         ioaFailedPermissions: json["ioa_failed_permissions"] == null ? undefined : json["ioa_failed_permissions"],
@@ -163,12 +182,14 @@ export function GcpFolderDetailsFromJSONTyped(json: any, ignoreDiscriminator: bo
         isInitialRegistration: json["is_initial_registration"] == null ? undefined : json["is_initial_registration"],
         organizationId: json["organization_id"] == null ? undefined : json["organization_id"],
         parentId: json["parent_id"] == null ? undefined : json["parent_id"],
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
         registrationId: json["registration_id"],
         registrationName: json["registration_name"],
         registrationScope: json["registration_scope"],
         rootFolderId: json["root_folder_id"] == null ? undefined : json["root_folder_id"],
         status: json["status"] == null ? undefined : json["status"],
         updated: new Date(json["updated"]),
+        vulnerabilityScanningStatus: json["vulnerability_scanning_status"] == null ? undefined : json["vulnerability_scanning_status"],
     };
 }
 
@@ -178,6 +199,7 @@ export function GcpFolderDetailsToJSON(value?: GcpFolderDetails | null): any {
     }
     return {
         created: value["created"].toISOString(),
+        dspm_status: value["dspmStatus"],
         folder_id: value["folderId"],
         folder_name: value["folderName"],
         ioa_failed_permissions: value["ioaFailedPermissions"],
@@ -189,11 +211,13 @@ export function GcpFolderDetailsToJSON(value?: GcpFolderDetails | null): any {
         is_initial_registration: value["isInitialRegistration"],
         organization_id: value["organizationId"],
         parent_id: value["parentId"],
+        registration_description: value["registrationDescription"],
         registration_id: value["registrationId"],
         registration_name: value["registrationName"],
         registration_scope: value["registrationScope"],
         root_folder_id: value["rootFolderId"],
         status: value["status"],
         updated: value["updated"].toISOString(),
+        vulnerability_scanning_status: value["vulnerabilityScanningStatus"],
     };
 }

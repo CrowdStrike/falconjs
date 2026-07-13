@@ -51,6 +51,18 @@ export interface DomainOCITenancyCreateExtV1 {
      * @type {string}
      * @memberof DomainOCITenancyCreateExtV1
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainOCITenancyCreateExtV1
+     */
+    registrationName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainOCITenancyCreateExtV1
+     */
     tenancyOcid: string;
     /**
      *
@@ -90,6 +102,8 @@ export function DomainOCITenancyCreateExtV1FromJSONTyped(json: any, ignoreDiscri
         homeRegion: json["home_region"],
         policyName: json["policy_name"] == null ? undefined : json["policy_name"],
         products: (json["products"] as Array<any>).map(DomainCloudOCIProductFeatureFromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
+        registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         tenancyOcid: json["tenancy_ocid"],
         userEmail: json["user_email"],
         userName: json["user_name"] == null ? undefined : json["user_name"],
@@ -105,6 +119,8 @@ export function DomainOCITenancyCreateExtV1ToJSON(value?: DomainOCITenancyCreate
         home_region: value["homeRegion"],
         policy_name: value["policyName"],
         products: (value["products"] as Array<any>).map(DomainCloudOCIProductFeatureToJSON),
+        registration_description: value["registrationDescription"],
+        registration_name: value["registrationName"],
         tenancy_ocid: value["tenancyOcid"],
         user_email: value["userEmail"],
         user_name: value["userName"],

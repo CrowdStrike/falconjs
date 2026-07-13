@@ -19,6 +19,8 @@ import type { SdkCustomEvidenceVM } from "./SdkCustomEvidenceVM";
 import { SdkCustomEvidenceVMFromJSON, SdkCustomEvidenceVMFromJSONTyped, SdkCustomEvidenceVMToJSON } from "./SdkCustomEvidenceVM";
 import type { SdkAlertEvidenceVM } from "./SdkAlertEvidenceVM";
 import { SdkAlertEvidenceVMFromJSON, SdkAlertEvidenceVMFromJSONTyped, SdkAlertEvidenceVMToJSON } from "./SdkAlertEvidenceVM";
+import type { SdkUserEvidenceVM } from "./SdkUserEvidenceVM";
+import { SdkUserEvidenceVMFromJSON, SdkUserEvidenceVMFromJSONTyped, SdkUserEvidenceVMToJSON } from "./SdkUserEvidenceVM";
 import type { SdkLeadEvidenceVM } from "./SdkLeadEvidenceVM";
 import { SdkLeadEvidenceVMFromJSON, SdkLeadEvidenceVMFromJSONTyped, SdkLeadEvidenceVMToJSON } from "./SdkLeadEvidenceVM";
 
@@ -52,6 +54,12 @@ export interface SdkEvidenceVM {
      * @memberof SdkEvidenceVM
      */
     leads: SdkLeadEvidenceVM;
+    /**
+     *
+     * @type {SdkUserEvidenceVM}
+     * @memberof SdkEvidenceVM
+     */
+    users: SdkUserEvidenceVM;
 }
 
 /**
@@ -62,6 +70,7 @@ export function instanceOfSdkEvidenceVM(value: object): value is SdkEvidenceVM {
     if (!("customEvidence" in value) || value["customEvidence"] === undefined) return false;
     if (!("events" in value) || value["events"] === undefined) return false;
     if (!("leads" in value) || value["leads"] === undefined) return false;
+    if (!("users" in value) || value["users"] === undefined) return false;
     return true;
 }
 
@@ -78,6 +87,7 @@ export function SdkEvidenceVMFromJSONTyped(json: any, ignoreDiscriminator: boole
         customEvidence: SdkCustomEvidenceVMFromJSON(json["custom_evidence"]),
         events: SdkEventEvidenceVMFromJSON(json["events"]),
         leads: SdkLeadEvidenceVMFromJSON(json["leads"]),
+        users: SdkUserEvidenceVMFromJSON(json["users"]),
     };
 }
 
@@ -90,5 +100,6 @@ export function SdkEvidenceVMToJSON(value?: SdkEvidenceVM | null): any {
         custom_evidence: SdkCustomEvidenceVMToJSON(value["customEvidence"]),
         events: SdkEventEvidenceVMToJSON(value["events"]),
         leads: SdkLeadEvidenceVMToJSON(value["leads"]),
+        users: SdkUserEvidenceVMToJSON(value["users"]),
     };
 }

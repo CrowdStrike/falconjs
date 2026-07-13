@@ -1358,7 +1358,7 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get particular local application groups
+     * Get specific local application groups
      */
     async entitiesLocalApplicationGroupGetRaw(
         requestParameters: DataProtectionConfigurationApiEntitiesLocalApplicationGroupGetRequest,
@@ -1395,7 +1395,7 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get particular local application groups
+     * Get specific local application groups
      */
     async entitiesLocalApplicationGroupGet(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLocalApplicationGroupMSAResponseV1> {
         const response = await this.entitiesLocalApplicationGroupGetRaw({ ids: ids }, initOverrides);
@@ -1948,7 +1948,7 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         if (requestParameters["ids"] != null) {
-            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+            queryParameters["ids"] = requestParameters["ids"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

@@ -27,16 +27,10 @@ export interface DomainUser {
     cid?: string;
     /**
      *
-     * @type {Date}
+     * @type {string}
      * @memberof DomainUser
      */
-    createdAt?: Date;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainUser
-     */
-    factors?: Array<string>;
+    email?: string;
     /**
      *
      * @type {string}
@@ -45,40 +39,10 @@ export interface DomainUser {
     firstName?: string;
     /**
      *
-     * @type {Date}
-     * @memberof DomainUser
-     */
-    lastLoginAt?: Date;
-    /**
-     *
      * @type {string}
      * @memberof DomainUser
      */
     lastName?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainUser
-     */
-    status?: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainUser
-     */
-    uid?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof DomainUser
-     */
-    updatedAt?: Date;
-    /**
-     *
-     * @type {string}
-     * @memberof DomainUser
-     */
-    userType?: string;
     /**
      *
      * @type {string}
@@ -104,15 +68,9 @@ export function DomainUserFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         cid: json["cid"] == null ? undefined : json["cid"],
-        createdAt: json["created_at"] == null ? undefined : new Date(json["created_at"]),
-        factors: json["factors"] == null ? undefined : json["factors"],
-        firstName: json["first_name"] == null ? undefined : json["first_name"],
-        lastLoginAt: json["last_login_at"] == null ? undefined : new Date(json["last_login_at"]),
-        lastName: json["last_name"] == null ? undefined : json["last_name"],
-        status: json["status"] == null ? undefined : json["status"],
-        uid: json["uid"] == null ? undefined : json["uid"],
-        updatedAt: json["updated_at"] == null ? undefined : new Date(json["updated_at"]),
-        userType: json["user_type"] == null ? undefined : json["user_type"],
+        email: json["email"] == null ? undefined : json["email"],
+        firstName: json["firstName"] == null ? undefined : json["firstName"],
+        lastName: json["lastName"] == null ? undefined : json["lastName"],
         uuid: json["uuid"] == null ? undefined : json["uuid"],
     };
 }
@@ -123,15 +81,9 @@ export function DomainUserToJSON(value?: DomainUser | null): any {
     }
     return {
         cid: value["cid"],
-        created_at: value["createdAt"] == null ? undefined : value["createdAt"].toISOString(),
-        factors: value["factors"],
-        first_name: value["firstName"],
-        last_login_at: value["lastLoginAt"] == null ? undefined : value["lastLoginAt"].toISOString(),
-        last_name: value["lastName"],
-        status: value["status"],
-        uid: value["uid"],
-        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
-        user_type: value["userType"],
+        email: value["email"],
+        firstName: value["firstName"],
+        lastName: value["lastName"],
         uuid: value["uuid"],
     };
 }

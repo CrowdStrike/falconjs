@@ -29,17 +29,21 @@ import {
 
 export interface TailoredIntelligenceApiGetEventsBodyRequest {
     id: string;
+    authorization?: string;
 }
 
 export interface TailoredIntelligenceApiGetEventsEntitiesRequest {
     body: MsaIdsRequest;
+    authorization?: string;
 }
 
 export interface TailoredIntelligenceApiGetRulesEntitiesRequest {
     body: MsaIdsRequest;
+    authorization?: string;
 }
 
 export interface TailoredIntelligenceApiQueryEventsRequest {
+    authorization?: string;
     offset?: string;
     limit?: number;
     sort?: string;
@@ -48,6 +52,7 @@ export interface TailoredIntelligenceApiQueryEventsRequest {
 }
 
 export interface TailoredIntelligenceApiQueryRulesRequest {
+    authorization?: string;
     offset?: string;
     limit?: number;
     sort?: string;
@@ -75,6 +80,10 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters["authorization"] != null) {
+            headerParameters["Authorization"] = String(requestParameters["authorization"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
@@ -96,8 +105,8 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get event body for the provided event ID
      */
-    async getEventsBody(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
-        const response = await this.getEventsBodyRaw({ id: id }, initOverrides);
+    async getEventsBody(id: string, authorization?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<number>> {
+        const response = await this.getEventsBodyRaw({ id: id, authorization: authorization }, initOverrides);
         return await response.value();
     }
 
@@ -117,6 +126,10 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
+
+        if (requestParameters["authorization"] != null) {
+            headerParameters["Authorization"] = String(requestParameters["authorization"]);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
@@ -140,8 +153,8 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get events entities for specified ids.
      */
-    async getEventsEntities(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainEventEntitiesResponse> {
-        const response = await this.getEventsEntitiesRaw({ body: body }, initOverrides);
+    async getEventsEntities(body: MsaIdsRequest, authorization?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainEventEntitiesResponse> {
+        const response = await this.getEventsEntitiesRaw({ body: body, authorization: authorization }, initOverrides);
         return await response.value();
     }
 
@@ -161,6 +174,10 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters["Content-Type"] = "application/json";
+
+        if (requestParameters["authorization"] != null) {
+            headerParameters["Authorization"] = String(requestParameters["authorization"]);
+        }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
@@ -184,8 +201,8 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get rules entities for specified ids.
      */
-    async getRulesEntities(body: MsaIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleEntitiesResponse> {
-        const response = await this.getRulesEntitiesRaw({ body: body }, initOverrides);
+    async getRulesEntities(body: MsaIdsRequest, authorization?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainRuleEntitiesResponse> {
+        const response = await this.getRulesEntitiesRaw({ body: body, authorization: authorization }, initOverrides);
         return await response.value();
     }
 
@@ -217,6 +234,10 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters["authorization"] != null) {
+            headerParameters["Authorization"] = String(requestParameters["authorization"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
@@ -238,8 +259,16 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get events ids that match the provided filter criteria.
      */
-    async queryEvents(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
-        const response = await this.queryEventsRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
+    async queryEvents(
+        authorization?: string,
+        offset?: string,
+        limit?: number,
+        sort?: string,
+        filter?: string,
+        q?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DomainQueryResponse> {
+        const response = await this.queryEventsRaw({ authorization: authorization, offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
 
@@ -271,6 +300,10 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (requestParameters["authorization"] != null) {
+            headerParameters["Authorization"] = String(requestParameters["authorization"]);
+        }
+
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["tailored-intelligence:read"]);
@@ -292,8 +325,16 @@ export class TailoredIntelligenceApi extends runtime.BaseAPI {
     /**
      * Get rules ids that match the provided filter criteria.
      */
-    async queryRules(offset?: string, limit?: number, sort?: string, filter?: string, q?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainQueryResponse> {
-        const response = await this.queryRulesRaw({ offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
+    async queryRules(
+        authorization?: string,
+        offset?: string,
+        limit?: number,
+        sort?: string,
+        filter?: string,
+        q?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DomainQueryResponse> {
+        const response = await this.queryRulesRaw({ authorization: authorization, offset: offset, limit: limit, sort: sort, filter: filter, q: q }, initOverrides);
         return await response.value();
     }
 }

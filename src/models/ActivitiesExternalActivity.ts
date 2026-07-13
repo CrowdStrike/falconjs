@@ -135,6 +135,12 @@ export interface ActivitiesExternalActivity {
      */
     outputSchema?: JsonschemaSchema;
     /**
+     * Activity semantic version
+     * @type {string}
+     * @memberof ActivitiesExternalActivity
+     */
+    semanticVersion?: string;
+    /**
      * Timestamp of when the activity was last updated
      * @type {Date}
      * @memberof ActivitiesExternalActivity
@@ -200,6 +206,7 @@ export function ActivitiesExternalActivityFromJSONTyped(json: any, ignoreDiscrim
         namespace: json["namespace"] == null ? undefined : json["namespace"],
         outputFields: json["output_fields"] == null ? undefined : (json["output_fields"] as Array<any>).map(ActivitiesActivityExtFieldFromJSON),
         outputSchema: json["output_schema"] == null ? undefined : JsonschemaSchemaFromJSON(json["output_schema"]),
+        semanticVersion: json["semantic_version"] == null ? undefined : json["semantic_version"],
         updated: json["updated"] == null ? undefined : new Date(json["updated"]),
         useCases: json["use_cases"] == null ? undefined : json["use_cases"],
         vendor: json["vendor"] == null ? undefined : json["vendor"],
@@ -230,6 +237,7 @@ export function ActivitiesExternalActivityToJSON(value?: ActivitiesExternalActiv
         namespace: value["namespace"],
         output_fields: value["outputFields"] == null ? undefined : (value["outputFields"] as Array<any>).map(ActivitiesActivityExtFieldToJSON),
         output_schema: JsonschemaSchemaToJSON(value["outputSchema"]),
+        semantic_version: value["semanticVersion"],
         updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
         use_cases: value["useCases"],
         vendor: value["vendor"],

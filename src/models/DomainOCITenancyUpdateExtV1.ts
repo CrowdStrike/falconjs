@@ -47,6 +47,18 @@ export interface DomainOCITenancyUpdateExtV1 {
      */
     products: Array<DomainCloudOCIProductFeature>;
     /**
+     *
+     * @type {string}
+     * @memberof DomainOCITenancyUpdateExtV1
+     */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainOCITenancyUpdateExtV1
+     */
+    registrationName?: string;
+    /**
      * Stack OCID
      * @type {string}
      * @memberof DomainOCITenancyUpdateExtV1
@@ -99,6 +111,8 @@ export function DomainOCITenancyUpdateExtV1FromJSONTyped(json: any, ignoreDiscri
         homeRegion: json["home_region"] == null ? undefined : json["home_region"],
         policyName: json["policy_name"] == null ? undefined : json["policy_name"],
         products: (json["products"] as Array<any>).map(DomainCloudOCIProductFeatureFromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
+        registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         stackOcid: json["stack_ocid"] == null ? undefined : json["stack_ocid"],
         tenancyOcid: json["tenancy_ocid"] == null ? undefined : json["tenancy_ocid"],
         userEmail: json["user_email"] == null ? undefined : json["user_email"],
@@ -116,6 +130,8 @@ export function DomainOCITenancyUpdateExtV1ToJSON(value?: DomainOCITenancyUpdate
         home_region: value["homeRegion"],
         policy_name: value["policyName"],
         products: (value["products"] as Array<any>).map(DomainCloudOCIProductFeatureToJSON),
+        registration_description: value["registrationDescription"],
+        registration_name: value["registrationName"],
         stack_ocid: value["stackOcid"],
         tenancy_ocid: value["tenancyOcid"],
         user_email: value["userEmail"],

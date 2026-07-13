@@ -15,12 +15,8 @@
 import { mapValues } from "../runtime";
 import type { FalconxIntelReportV1 } from "./FalconxIntelReportV1";
 import { FalconxIntelReportV1FromJSON, FalconxIntelReportV1FromJSONTyped, FalconxIntelReportV1ToJSON } from "./FalconxIntelReportV1";
-import type { FalconxIntelXReportV1 } from "./FalconxIntelXReportV1";
-import { FalconxIntelXReportV1FromJSON, FalconxIntelXReportV1FromJSONTyped, FalconxIntelXReportV1ToJSON } from "./FalconxIntelXReportV1";
 import type { FalconxSandboxReportV1 } from "./FalconxSandboxReportV1";
 import { FalconxSandboxReportV1FromJSON, FalconxSandboxReportV1FromJSONTyped, FalconxSandboxReportV1ToJSON } from "./FalconxSandboxReportV1";
-import type { FalconxMalqueryReportV1 } from "./FalconxMalqueryReportV1";
-import { FalconxMalqueryReportV1FromJSON, FalconxMalqueryReportV1FromJSONTyped, FalconxMalqueryReportV1ToJSON } from "./FalconxMalqueryReportV1";
 import type { FalconxAISummary } from "./FalconxAISummary";
 import { FalconxAISummaryFromJSON, FalconxAISummaryFromJSONTyped, FalconxAISummaryToJSON } from "./FalconxAISummary";
 import type { FalconxThreatGraphReportV1 } from "./FalconxThreatGraphReportV1";
@@ -82,12 +78,6 @@ export interface FalconxReportV1 {
     intel?: Array<FalconxIntelReportV1>;
     /**
      *
-     * @type {FalconxIntelXReportV1}
-     * @memberof FalconxReportV1
-     */
-    intelx?: FalconxIntelXReportV1;
-    /**
-     *
      * @type {string}
      * @memberof FalconxReportV1
      */
@@ -134,12 +124,6 @@ export interface FalconxReportV1 {
      * @memberof FalconxReportV1
      */
     iocReportStrictStixArtifactId?: string;
-    /**
-     *
-     * @type {Array<FalconxMalqueryReportV1>}
-     * @memberof FalconxReportV1
-     */
-    malquery?: Array<FalconxMalqueryReportV1>;
     /**
      *
      * @type {string}
@@ -226,7 +210,6 @@ export function FalconxReportV1FromJSONTyped(json: any, ignoreDiscriminator: boo
         id: json["id"] == null ? undefined : json["id"],
         indexTimestamp: json["index_timestamp"] == null ? undefined : json["index_timestamp"],
         intel: json["intel"] == null ? undefined : (json["intel"] as Array<any>).map(FalconxIntelReportV1FromJSON),
-        intelx: json["intelx"] == null ? undefined : FalconxIntelXReportV1FromJSON(json["intelx"]),
         iocReportBroadCsvArtifactId: json["ioc_report_broad_csv_artifact_id"] == null ? undefined : json["ioc_report_broad_csv_artifact_id"],
         iocReportBroadJsonArtifactId: json["ioc_report_broad_json_artifact_id"] == null ? undefined : json["ioc_report_broad_json_artifact_id"],
         iocReportBroadMaecArtifactId: json["ioc_report_broad_maec_artifact_id"] == null ? undefined : json["ioc_report_broad_maec_artifact_id"],
@@ -235,7 +218,6 @@ export function FalconxReportV1FromJSONTyped(json: any, ignoreDiscriminator: boo
         iocReportStrictJsonArtifactId: json["ioc_report_strict_json_artifact_id"] == null ? undefined : json["ioc_report_strict_json_artifact_id"],
         iocReportStrictMaecArtifactId: json["ioc_report_strict_maec_artifact_id"] == null ? undefined : json["ioc_report_strict_maec_artifact_id"],
         iocReportStrictStixArtifactId: json["ioc_report_strict_stix_artifact_id"] == null ? undefined : json["ioc_report_strict_stix_artifact_id"],
-        malquery: json["malquery"] == null ? undefined : (json["malquery"] as Array<any>).map(FalconxMalqueryReportV1FromJSON),
         origin: json["origin"] == null ? undefined : json["origin"],
         sandbox: json["sandbox"] == null ? undefined : (json["sandbox"] as Array<any>).map(FalconxSandboxReportV1FromJSON),
         tags: json["tags"] == null ? undefined : json["tags"],
@@ -262,7 +244,6 @@ export function FalconxReportV1ToJSON(value?: FalconxReportV1 | null): any {
         id: value["id"],
         index_timestamp: value["indexTimestamp"],
         intel: value["intel"] == null ? undefined : (value["intel"] as Array<any>).map(FalconxIntelReportV1ToJSON),
-        intelx: FalconxIntelXReportV1ToJSON(value["intelx"]),
         ioc_report_broad_csv_artifact_id: value["iocReportBroadCsvArtifactId"],
         ioc_report_broad_json_artifact_id: value["iocReportBroadJsonArtifactId"],
         ioc_report_broad_maec_artifact_id: value["iocReportBroadMaecArtifactId"],
@@ -271,7 +252,6 @@ export function FalconxReportV1ToJSON(value?: FalconxReportV1 | null): any {
         ioc_report_strict_json_artifact_id: value["iocReportStrictJsonArtifactId"],
         ioc_report_strict_maec_artifact_id: value["iocReportStrictMaecArtifactId"],
         ioc_report_strict_stix_artifact_id: value["iocReportStrictStixArtifactId"],
-        malquery: value["malquery"] == null ? undefined : (value["malquery"] as Array<any>).map(FalconxMalqueryReportV1ToJSON),
         origin: value["origin"],
         sandbox: value["sandbox"] == null ? undefined : (value["sandbox"] as Array<any>).map(FalconxSandboxReportV1ToJSON),
         tags: value["tags"],
