@@ -275,3 +275,12 @@
 
 # Fix prevention_settings nullable handling - issue #316
 | .definitions."prevention.PolicyV1".properties.prevention_settings += {"x-nullable": true}
+
+# Rename domain.MitreAttack to domain.MitreAttackDetection. It collides with
+# domain.MITREAttack (a distinct threat-intel type) on case-insensitive filesystems,
+# which breaks generation on macOS. These are two different schemas, so we keep both
+| walk(
+    if type == "object" and has("$ref") and ."$ref" == "#/definitions/domain.MitreAttack" then ."$ref" = "#/definitions/domain.MitreAttackDetection" else . end
+  )
+| .definitions."domain.MitreAttackDetection" = .definitions."domain.MitreAttack"
+| del(.definitions."domain.MitreAttack")
