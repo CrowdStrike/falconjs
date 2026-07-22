@@ -2846,7 +2846,6 @@ export * from "./UninstallTokenRevealUninstallTokenReqV1";
 export * from "./UninstallTokenUninstallTokenV1";
 export * from "./UploadDataRequest";
 export * from "./UploadDataResponse";
-export * from "./UploadFileQuickScanProRequest";
 export * from "./UploadSampleV2Request";
 export * from "./Usage";
 export * from "./UserGetUserInventory";

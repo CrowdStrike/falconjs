@@ -22,7 +22,6 @@ import type {
     QuickscanproLaunchScanRequest,
     QuickscanproLaunchScanResponse,
     QuickscanproQueryScanResultsResponse,
-    UploadFileQuickScanProRequest,
 } from "../models/index";
 import {
     MsaReplyMetaOnlyFromJSON,
@@ -41,8 +40,6 @@ import {
     QuickscanproLaunchScanResponseToJSON,
     QuickscanproQueryScanResultsResponseFromJSON,
     QuickscanproQueryScanResultsResponseToJSON,
-    UploadFileQuickScanProRequestFromJSON,
-    UploadFileQuickScanProRequestToJSON,
 } from "../models/index";
 
 export interface QuickScanProApiDeleteFileRequest {
@@ -68,10 +65,12 @@ export interface QuickScanProApiQueryScanResultsRequest {
     sort?: string;
 }
 
-export interface QuickScanProApiUploadFileQuickScanProOperationRequest {
-    uploadFileQuickScanProRequest: UploadFileQuickScanProRequest;
+export interface QuickScanProApiUploadFileQuickScanProRequest {
+    file: Blob;
     fileName?: string;
     xFilePassword?: string;
+    scan?: boolean;
+    password?: string;
 }
 
 /**
@@ -312,11 +311,11 @@ export class QuickScanProApi extends runtime.BaseAPI {
      * Uploads a file to be further analyzed with QuickScan Pro. Supports both multipart/form-data and application/octet-stream uploads. The samples expire according to the Retention Policies set. See parameter descriptions for usage per content type.
      */
     async uploadFileQuickScanProRaw(
-        requestParameters: QuickScanProApiUploadFileQuickScanProOperationRequest,
+        requestParameters: QuickScanProApiUploadFileQuickScanProRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<runtime.ApiResponse<QuickscanproFileUploadResponse>> {
-        if (requestParameters["uploadFileQuickScanProRequest"] == null) {
-            throw new runtime.RequiredError("uploadFileQuickScanProRequest", 'Required parameter "uploadFileQuickScanProRequest" was null or undefined when calling uploadFileQuickScanPro().');
+        if (requestParameters["file"] == null) {
+            throw new runtime.RequiredError("file", 'Required parameter "file" was null or undefined when calling uploadFileQuickScanPro().');
         }
 
         const queryParameters: any = {};
@@ -327,8 +326,6 @@ export class QuickScanProApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        headerParameters["Content-Type"] = "application/octet-stream";
-
         if (requestParameters["xFilePassword"] != null) {
             headerParameters["X-File-Password"] = String(requestParameters["xFilePassword"]);
         }
@@ -338,13 +335,39 @@ export class QuickScanProApi extends runtime.BaseAPI {
             headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["quick-scan-pro:write"]);
         }
 
+        const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters["file"] != null) {
+            formParams.append("file", requestParameters["file"] as any);
+        }
+
+        if (requestParameters["scan"] != null) {
+            formParams.append("scan", requestParameters["scan"] as any);
+        }
+
+        if (requestParameters["password"] != null) {
+            formParams.append("password", requestParameters["password"] as any);
+        }
+
         const response = await this.request(
             {
                 path: `/quickscanpro/entities/files/v1`,
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: UploadFileQuickScanProRequestToJSON(requestParameters["uploadFileQuickScanProRequest"]),
+                body: formParams,
             },
             initOverrides,
         );
@@ -356,12 +379,14 @@ export class QuickScanProApi extends runtime.BaseAPI {
      * Uploads a file to be further analyzed with QuickScan Pro. Supports both multipart/form-data and application/octet-stream uploads. The samples expire according to the Retention Policies set. See parameter descriptions for usage per content type.
      */
     async uploadFileQuickScanPro(
-        uploadFileQuickScanProRequest: UploadFileQuickScanProRequest,
+        file: Blob,
         fileName?: string,
         xFilePassword?: string,
+        scan?: boolean,
+        password?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<QuickscanproFileUploadResponse> {
-        const response = await this.uploadFileQuickScanProRaw({ uploadFileQuickScanProRequest: uploadFileQuickScanProRequest, fileName: fileName, xFilePassword: xFilePassword }, initOverrides);
+        const response = await this.uploadFileQuickScanProRaw({ file: file, fileName: fileName, xFilePassword: xFilePassword, scan: scan, password: password }, initOverrides);
         return await response.value();
     }
 }

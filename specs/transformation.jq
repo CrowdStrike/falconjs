@@ -276,6 +276,12 @@
 # Fix prevention_settings nullable handling - issue #316
 | .definitions."prevention.PolicyV1".properties.prevention_settings += {"x-nullable": true}
 
+# Fix QuickScanPro upload - issue #322
+# The op declared both octet-stream and multipart/form-data, confusing openapi-generator
+# into serializing the body with ...ToJSON() (a plain object -> "[object Object]").
+# Collapse to multipart/form-data only so it emits a real FormData upload.
+| .paths."/quickscanpro/entities/files/v1".post.consumes = ["multipart/form-data"]
+
 # Rename domain.MitreAttack to domain.MitreAttackDetection. It collides with
 # domain.MITREAttack (a distinct threat-intel type) on case-insensitive filesystems,
 # which breaks generation on macOS. These are two different schemas, so we keep both
