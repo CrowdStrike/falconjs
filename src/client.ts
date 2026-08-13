@@ -166,6 +166,9 @@ export interface FalconClientOptions {
     /** (optional) Member CID (MSSP targetting). Please provide memberCid only if your clientId/clientSecret key pair
         has access to multiple CID environments. */
     memberCid?: string;
+
+    /** (optional) Identifies a downstream integration before the FalconJS user agent. */
+    userAgentOverride?: string;
 }
 
 export class FalconClient {
@@ -323,11 +326,12 @@ export class FalconClient {
             clientId: options.clientId,
             clientSecret: options.clientSecret,
             memberCid: options.memberCid,
+            userAgentOverride: options.userAgentOverride,
         });
         this.config = new Configuration({
             fetchApi: options.fetchApi,
             accessToken: oauth2.accessToken.bind(oauth2),
-            middleware: [new UserAgent()],
+            middleware: [new UserAgent(options.userAgentOverride)],
             basePath: CloudBasePath(options.cloud),
         });
         // @generated:assignments

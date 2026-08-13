@@ -14,6 +14,7 @@ type OAuth2Options = {
     clientId: string;
     clientSecret: string;
     memberCid?: string;
+    userAgentOverride?: string;
 };
 
 export class OAuth2 {
@@ -55,7 +56,7 @@ export class OAuth2 {
         const config = new Configuration({
             basePath: CloudBasePath(this.options.cloud),
             fetchApi: this.options.fetchApi || fetch,
-            middleware: [new UserAgent()],
+            middleware: [new UserAgent(this.options.userAgentOverride)],
         });
         const api = new Oauth2Api(config);
         const response = await api.oauth2AccessToken(this.options.clientId, this.options.clientSecret, this.options.memberCid);

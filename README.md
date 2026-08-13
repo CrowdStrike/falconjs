@@ -33,6 +33,8 @@ const client = new FalconClient({
     cloud: "us-1",
     clientId: "your-client-id",
     clientSecret: "your-client-secret",
+    // Optional: identifies your integration while preserving the FalconJS version.
+    userAgentOverride: "example-integration/1.0.0",
 });
 
 await client.sensorDownload
@@ -44,6 +46,9 @@ await client.sensorDownload
         console.log("my CCID: ", value);
     });
 ```
+
+When `userAgentOverride` is set, FalconJS sends it before its own identifier. The
+example above produces `example-integration/1.0.0 falconjs/0.7.0`.
 
 ## Documentation
 
