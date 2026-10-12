@@ -92,6 +92,12 @@ export interface ApiTemplateV1 {
     name: string;
     /**
      *
+     * @type {Array<string>}
+     * @memberof ApiTemplateV1
+     */
+    ownerGroupIds?: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof ApiTemplateV1
      */
@@ -170,6 +176,7 @@ export function ApiTemplateV1FromJSONTyped(json: any, ignoreDiscriminator: boole
         hasAccess: json["has_access"],
         id: json["id"],
         name: json["name"],
+        ownerGroupIds: json["owner_group_ids"] == null ? undefined : json["owner_group_ids"],
         slaId: json["sla_id"] == null ? undefined : json["sla_id"],
         slaMethod: json["sla_method"] == null ? undefined : json["sla_method"],
         slaRules: json["sla_rules"] == null ? undefined : (json["sla_rules"] as Array<any>).map(ApiTemplateSLARuleV1FromJSON),
@@ -195,6 +202,7 @@ export function ApiTemplateV1ToJSON(value?: ApiTemplateV1 | null): any {
         has_access: value["hasAccess"],
         id: value["id"],
         name: value["name"],
+        owner_group_ids: value["ownerGroupIds"],
         sla_id: value["slaId"],
         sla_method: value["slaMethod"],
         sla_rules: value["slaRules"] == null ? undefined : (value["slaRules"] as Array<any>).map(ApiTemplateSLARuleV1ToJSON),

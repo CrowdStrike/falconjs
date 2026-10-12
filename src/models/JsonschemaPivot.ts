@@ -48,6 +48,24 @@ export interface JsonschemaPivot {
      * @type {string}
      * @memberof JsonschemaPivot
      */
+    ids?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof JsonschemaPivot
+     */
+    limit?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaPivot
+     */
+    q?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaPivot
+     */
     queryString?: string;
     /**
      *
@@ -55,6 +73,18 @@ export interface JsonschemaPivot {
      * @memberof JsonschemaPivot
      */
     queryStringOnLoad?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaPivot
+     */
+    search?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaPivot
+     */
+    searchQ?: string;
     /**
      *
      * @type {boolean}
@@ -107,8 +137,13 @@ export function JsonschemaPivotFromJSONTyped(json: any, ignoreDiscriminator: boo
         entity: json["entity"] == null ? undefined : json["entity"],
         entityOnLoad: json["entityOnLoad"] == null ? undefined : json["entityOnLoad"],
         entityValue: json["entityValue"] == null ? undefined : json["entityValue"],
+        ids: json["ids"] == null ? undefined : json["ids"],
+        limit: json["limit"] == null ? undefined : json["limit"],
+        q: json["q"] == null ? undefined : json["q"],
         queryString: json["queryString"] == null ? undefined : json["queryString"],
         queryStringOnLoad: json["queryStringOnLoad"] == null ? undefined : json["queryStringOnLoad"],
+        search: json["search"] == null ? undefined : json["search"],
+        searchQ: json["search_q"] == null ? undefined : json["search_q"],
         searchable: json["searchable"] == null ? undefined : json["searchable"],
         sortByDisplay: json["sortByDisplay"] == null ? undefined : json["sortByDisplay"],
         sortByValue: json["sortByValue"] == null ? undefined : json["sortByValue"],
@@ -126,8 +161,13 @@ export function JsonschemaPivotToJSON(value?: JsonschemaPivot | null): any {
         entity: value["entity"],
         entityOnLoad: value["entityOnLoad"],
         entityValue: value["entityValue"],
+        ids: value["ids"],
+        limit: value["limit"],
+        q: value["q"],
         queryString: value["queryString"],
         queryStringOnLoad: value["queryStringOnLoad"],
+        search: value["search"],
+        search_q: value["searchQ"],
         searchable: value["searchable"],
         sortByDisplay: value["sortByDisplay"],
         sortByValue: value["sortByValue"],

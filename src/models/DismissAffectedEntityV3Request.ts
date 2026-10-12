@@ -20,6 +20,12 @@ import { mapValues } from "../runtime";
  */
 export interface DismissAffectedEntityV3Request {
     /**
+     * Snooze the dismiss for this many days (1-365). Omit to dismiss indefinitely
+     * @type {number}
+     * @memberof DismissAffectedEntityV3Request
+     */
+    durationInDays?: number;
+    /**
      * Comma separated list of entity names to dismiss
      * @type {string}
      * @memberof DismissAffectedEntityV3Request
@@ -49,6 +55,7 @@ export function DismissAffectedEntityV3RequestFromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
+        durationInDays: json["duration_in_days"] == null ? undefined : json["duration_in_days"],
         entities: json["entities"] == null ? undefined : json["entities"],
         reason: json["reason"] == null ? undefined : json["reason"],
     };
@@ -59,6 +66,7 @@ export function DismissAffectedEntityV3RequestToJSON(value?: DismissAffectedEnti
         return value;
     }
     return {
+        duration_in_days: value["durationInDays"],
         entities: value["entities"],
         reason: value["reason"],
     };

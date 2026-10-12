@@ -20,18 +20,34 @@ import { mapValues } from "../runtime";
  */
 export interface QuickscanproLaunchScanRequestResource {
     /**
-     *
+     * Password for encrypted archives and documents. Optional.
      * @type {string}
      * @memberof QuickscanproLaunchScanRequestResource
      */
     password?: string;
     /**
-     *
+     * Scan mode for this resource. Optional, default is 'standard'. 'fast': less than 5 seconds, ML-based detection and signature matching. 'standard': less than 30 seconds, adds heuristic analysis to fast scan coverage. 'deep': less than 90 seconds, adds static analysis and dynamic execution monitoring to standard scan coverage.
+     * @type {string}
+     * @memberof QuickscanproLaunchScanRequestResource
+     */
+    scanMode?: QuickscanproLaunchScanRequestResourceScanModeEnum;
+    /**
+     * SHA256 of a file previously uploaded via '/quickscanpro/entities/files/v1'. Required.
      * @type {string}
      * @memberof QuickscanproLaunchScanRequestResource
      */
     sha256: string;
 }
+
+/**
+ * @export
+ */
+export const QuickscanproLaunchScanRequestResourceScanModeEnum = {
+    Fast: "fast",
+    Standard: "standard",
+    Deep: "deep",
+} as const;
+export type QuickscanproLaunchScanRequestResourceScanModeEnum = (typeof QuickscanproLaunchScanRequestResourceScanModeEnum)[keyof typeof QuickscanproLaunchScanRequestResourceScanModeEnum];
 
 /**
  * Check if a given object implements the QuickscanproLaunchScanRequestResource interface.
@@ -51,6 +67,7 @@ export function QuickscanproLaunchScanRequestResourceFromJSONTyped(json: any, ig
     }
     return {
         password: json["password"] == null ? undefined : json["password"],
+        scanMode: json["scan_mode"] == null ? undefined : json["scan_mode"],
         sha256: json["sha256"],
     };
 }
@@ -61,6 +78,7 @@ export function QuickscanproLaunchScanRequestResourceToJSON(value?: Quickscanpro
     }
     return {
         password: value["password"],
+        scan_mode: value["scanMode"],
         sha256: value["sha256"],
     };
 }

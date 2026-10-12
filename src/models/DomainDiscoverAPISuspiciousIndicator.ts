@@ -20,6 +20,12 @@ import { mapValues } from "../runtime";
  */
 export interface DomainDiscoverAPISuspiciousIndicator {
     /**
+     * A description of the indicator
+     * @type {string}
+     * @memberof DomainDiscoverAPISuspiciousIndicator
+     */
+    description: string;
+    /**
      * The indicator name (e.g., low_prevalence, known_malicious)
      * @type {string}
      * @memberof DomainDiscoverAPISuspiciousIndicator
@@ -37,6 +43,7 @@ export interface DomainDiscoverAPISuspiciousIndicator {
  * Check if a given object implements the DomainDiscoverAPISuspiciousIndicator interface.
  */
 export function instanceOfDomainDiscoverAPISuspiciousIndicator(value: object): value is DomainDiscoverAPISuspiciousIndicator {
+    if (!("description" in value) || value["description"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
     return true;
@@ -51,6 +58,7 @@ export function DomainDiscoverAPISuspiciousIndicatorFromJSONTyped(json: any, ign
         return json;
     }
     return {
+        description: json["description"],
         name: json["name"],
         severity: json["severity"],
     };
@@ -61,6 +69,7 @@ export function DomainDiscoverAPISuspiciousIndicatorToJSON(value?: DomainDiscove
         return value;
     }
     return {
+        description: value["description"],
         name: value["name"],
         severity: value["severity"],
     };

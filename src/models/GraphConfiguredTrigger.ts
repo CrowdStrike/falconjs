@@ -13,8 +13,6 @@
  */
 
 import { mapValues } from "../runtime";
-import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
 import type { GraphNodePosition } from "./GraphNodePosition";
 import { GraphNodePositionFromJSON, GraphNodePositionFromJSONTyped, GraphNodePositionToJSON } from "./GraphNodePosition";
 import type { GraphWebhookTriggerDefinition } from "./GraphWebhookTriggerDefinition";
@@ -61,11 +59,11 @@ export interface GraphConfiguredTrigger {
      */
     outgoingFlow: string;
     /**
-     *
-     * @type {JsonschemaSchema}
+     * JSON Schema defining parameters required for an on-demand trigger.
+     * @type {string}
      * @memberof GraphConfiguredTrigger
      */
-    parameters?: JsonschemaSchema;
+    parameters?: string;
     /**
      *
      * @type {GraphNodePosition}
@@ -122,7 +120,7 @@ export function GraphConfiguredTriggerFromJSONTyped(json: any, ignoreDiscriminat
         name: json["name"],
         nodeID: json["nodeID"],
         outgoingFlow: json["outgoing_flow"],
-        parameters: json["parameters"] == null ? undefined : JsonschemaSchemaFromJSON(json["parameters"]),
+        parameters: json["parameters"] == null ? undefined : json["parameters"],
         position: json["position"] == null ? undefined : GraphNodePositionFromJSON(json["position"]),
         timerEventDefinition: json["timer_event_definition"] == null ? undefined : GraphTimerEventDefinitionFromJSON(json["timer_event_definition"]),
         triggerType: json["trigger_type"] == null ? undefined : json["trigger_type"],
@@ -141,7 +139,7 @@ export function GraphConfiguredTriggerToJSON(value?: GraphConfiguredTrigger | nu
         name: value["name"],
         nodeID: value["nodeID"],
         outgoing_flow: value["outgoingFlow"],
-        parameters: JsonschemaSchemaToJSON(value["parameters"]),
+        parameters: value["parameters"],
         position: GraphNodePositionToJSON(value["position"]),
         timer_event_definition: GraphTimerEventDefinitionToJSON(value["timerEventDefinition"]),
         trigger_type: value["triggerType"],

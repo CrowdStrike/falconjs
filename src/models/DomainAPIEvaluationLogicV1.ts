@@ -73,6 +73,12 @@ export interface DomainAPIEvaluationLogicV1 {
      */
     logic?: Array<DomainAPIEvaluationLogicItemV1>;
     /**
+     * Logical operator that combines the logic items of this evaluation logic. This is the outermost level of the operators also found on comparisons and state comparisons
+     * @type {string}
+     * @memberof DomainAPIEvaluationLogicV1
+     */
+    logicOperator?: string;
+    /**
      * Refers to the identifier of the scanner that generated the evaluation logic
      * @type {string}
      * @memberof DomainAPIEvaluationLogicV1
@@ -116,6 +122,7 @@ export function DomainAPIEvaluationLogicV1FromJSONTyped(json: any, ignoreDiscrim
         hostInfo: json["host_info"] == null ? undefined : DomainAPIEvaluationLogicHostInfoV1FromJSON(json["host_info"]),
         id: json["id"],
         logic: json["logic"] == null ? undefined : (json["logic"] as Array<any>).map(DomainAPIEvaluationLogicItemV1FromJSON),
+        logicOperator: json["logic_operator"] == null ? undefined : json["logic_operator"],
         scannerId: json["scanner_id"] == null ? undefined : json["scanner_id"],
         simplifiedLogic: json["simplified_logic"] == null ? undefined : (json["simplified_logic"] as Array<any>).map(DomainAPISimplifiedEvaluationLogicItemV1FromJSON),
         updatedTimestamp: json["updated_timestamp"] == null ? undefined : json["updated_timestamp"],
@@ -134,6 +141,7 @@ export function DomainAPIEvaluationLogicV1ToJSON(value?: DomainAPIEvaluationLogi
         host_info: DomainAPIEvaluationLogicHostInfoV1ToJSON(value["hostInfo"]),
         id: value["id"],
         logic: value["logic"] == null ? undefined : (value["logic"] as Array<any>).map(DomainAPIEvaluationLogicItemV1ToJSON),
+        logic_operator: value["logicOperator"],
         scanner_id: value["scannerId"],
         simplified_logic: value["simplifiedLogic"] == null ? undefined : (value["simplifiedLogic"] as Array<any>).map(DomainAPISimplifiedEvaluationLogicItemV1ToJSON),
         updated_timestamp: value["updatedTimestamp"],

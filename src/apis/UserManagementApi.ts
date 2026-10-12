@@ -17,6 +17,9 @@ import type {
     ApiUserMetadataResponse,
     ApiUserRoleIDsResponse,
     ApiUserRoleResponse,
+    DomainActionUserRolesRequestV2,
+    DomainActionValidationRequest,
+    DomainActionValidationResponse,
     DomainCreateUserRequest,
     DomainRoleIDs,
     DomainUpdateUserFields,
@@ -26,9 +29,15 @@ import type {
     FlightcontrolapiAggregatesResponse,
     FlightcontrolapiCombinedUserRolesResponseV1,
     FlightcontrolapiCombinedUserRolesResponseV2,
+    FlightcontrolapiGetPermissionGroupsResponse,
+    FlightcontrolapiGetPermissionsResponse,
+    FlightcontrolapiGetRolePermissionsResponse,
     FlightcontrolapiGetRolesResponse,
     FlightcontrolapiGrantInput,
+    FlightcontrolapiInvitationResponse,
+    FlightcontrolapiQueryInvitationResponse,
     FlightcontrolapiUserResponse,
+    FlightcontrolapiUserV2Response,
     MsaAggregateQueryRequest,
     MsaEntitiesResponse,
     MsaQueryResponse,
@@ -44,6 +53,12 @@ import {
     ApiUserRoleIDsResponseToJSON,
     ApiUserRoleResponseFromJSON,
     ApiUserRoleResponseToJSON,
+    DomainActionUserRolesRequestV2FromJSON,
+    DomainActionUserRolesRequestV2ToJSON,
+    DomainActionValidationRequestFromJSON,
+    DomainActionValidationRequestToJSON,
+    DomainActionValidationResponseFromJSON,
+    DomainActionValidationResponseToJSON,
     DomainCreateUserRequestFromJSON,
     DomainCreateUserRequestToJSON,
     DomainRoleIDsFromJSON,
@@ -62,12 +77,24 @@ import {
     FlightcontrolapiCombinedUserRolesResponseV1ToJSON,
     FlightcontrolapiCombinedUserRolesResponseV2FromJSON,
     FlightcontrolapiCombinedUserRolesResponseV2ToJSON,
+    FlightcontrolapiGetPermissionGroupsResponseFromJSON,
+    FlightcontrolapiGetPermissionGroupsResponseToJSON,
+    FlightcontrolapiGetPermissionsResponseFromJSON,
+    FlightcontrolapiGetPermissionsResponseToJSON,
+    FlightcontrolapiGetRolePermissionsResponseFromJSON,
+    FlightcontrolapiGetRolePermissionsResponseToJSON,
     FlightcontrolapiGetRolesResponseFromJSON,
     FlightcontrolapiGetRolesResponseToJSON,
     FlightcontrolapiGrantInputFromJSON,
     FlightcontrolapiGrantInputToJSON,
+    FlightcontrolapiInvitationResponseFromJSON,
+    FlightcontrolapiInvitationResponseToJSON,
+    FlightcontrolapiQueryInvitationResponseFromJSON,
+    FlightcontrolapiQueryInvitationResponseToJSON,
     FlightcontrolapiUserResponseFromJSON,
     FlightcontrolapiUserResponseToJSON,
+    FlightcontrolapiUserV2ResponseFromJSON,
+    FlightcontrolapiUserV2ResponseToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaEntitiesResponseFromJSON,
@@ -86,6 +113,11 @@ import {
 
 export interface UserManagementApiAggregateUsersV1Request {
     body: Array<MsaAggregateQueryRequest>;
+}
+
+export interface UserManagementApiAggregateUsersV2Request {
+    body: Array<MsaAggregateQueryRequest>;
+    userType?: AggregateUsersV2UserTypeEnum;
 }
 
 export interface UserManagementApiCombinedUserRolesV1Request {
@@ -108,6 +140,16 @@ export interface UserManagementApiCombinedUserRolesV2Request {
     sort?: CombinedUserRolesV2SortEnum;
 }
 
+export interface UserManagementApiCombinedUserRolesV3Request {
+    userUuid: string;
+    cid?: string;
+    directOnly?: boolean;
+    filter?: string;
+    offset?: number;
+    limit?: number;
+    sort?: CombinedUserRolesV3SortEnum;
+}
+
 export interface UserManagementApiCreateUserRequest {
     body: DomainUserCreateRequest;
 }
@@ -125,6 +167,18 @@ export interface UserManagementApiDeleteUserV1Request {
     userUuid: string;
 }
 
+export interface UserManagementApiEntitiesPermissionGroupsGETV1Request {
+    body: MsaspecIdsRequest;
+}
+
+export interface UserManagementApiEntitiesPermissionsGETV1Request {
+    body: MsaspecIdsRequest;
+}
+
+export interface UserManagementApiEntitiesRolePermissionsV1Request {
+    id: string;
+}
+
 export interface UserManagementApiEntitiesRolesGETV2Request {
     body: MsaspecIdsRequest;
     cid?: string;
@@ -139,6 +193,10 @@ export interface UserManagementApiGetRolesRequest {
     ids: Array<string>;
 }
 
+export interface UserManagementApiGetUserInvitationsGETV1Request {
+    body: MsaspecIdsRequest;
+}
+
 export interface UserManagementApiGetUserRoleIdsRequest {
     userUuid: string;
 }
@@ -148,10 +206,22 @@ export interface UserManagementApiGrantUserRoleIdsRequest {
     body: DomainRoleIDs;
 }
 
+export interface UserManagementApiQueriesPermissionsV1Request {
+    offset?: number;
+    limit?: number;
+}
+
 export interface UserManagementApiQueriesRolesV1Request {
     cid?: string;
     userUuid?: string;
     action?: string;
+}
+
+export interface UserManagementApiQueryUserInvitationsV1Request {
+    filter?: string;
+    sort?: string;
+    offset?: number;
+    limit?: number;
 }
 
 export interface UserManagementApiQueryUserV1Request {
@@ -159,6 +229,14 @@ export interface UserManagementApiQueryUserV1Request {
     offset?: number;
     limit?: number;
     sort?: QueryUserV1SortEnum;
+}
+
+export interface UserManagementApiQueryUserV2Request {
+    filter?: string;
+    offset?: number;
+    limit?: number;
+    sort?: QueryUserV2SortEnum;
+    userType?: QueryUserV2UserTypeEnum;
 }
 
 export interface UserManagementApiRetrieveUserRequest {
@@ -170,6 +248,10 @@ export interface UserManagementApiRetrieveUserUUIDRequest {
 }
 
 export interface UserManagementApiRetrieveUsersGETV1Request {
+    body: MsaspecIdsRequest;
+}
+
+export interface UserManagementApiRetrieveUsersGETV2Request {
     body: MsaspecIdsRequest;
 }
 
@@ -192,8 +274,16 @@ export interface UserManagementApiUserActionV1Request {
     body: DomainUserActionRequest;
 }
 
+export interface UserManagementApiUserAllowedActionsV1Request {
+    body: DomainActionValidationRequest;
+}
+
 export interface UserManagementApiUserRolesActionV1Request {
     body: FlightcontrolapiGrantInput;
+}
+
+export interface UserManagementApiUserRolesActionV2Request {
+    body: DomainActionUserRolesRequestV2;
 }
 
 /**
@@ -241,6 +331,58 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async aggregateUsersV1(body: Array<MsaAggregateQueryRequest>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiAggregatesResponse> {
         const response = await this.aggregateUsersV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get user aggregates including external users as specified via json in request body.
+     */
+    async aggregateUsersV2Raw(
+        requestParameters: UserManagementApiAggregateUsersV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiAggregatesResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregateUsersV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["userType"] != null) {
+            queryParameters["user_type"] = requestParameters["userType"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/aggregates/users/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiAggregatesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get user aggregates including external users as specified via json in request body.
+     */
+    async aggregateUsersV2(
+        body: Array<MsaAggregateQueryRequest>,
+        userType?: AggregateUsersV2UserTypeEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<FlightcontrolapiAggregatesResponse> {
+        const response = await this.aggregateUsersV2Raw({ body: body, userType: userType }, initOverrides);
         return await response.value();
     }
 
@@ -399,6 +541,84 @@ export class UserManagementApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<FlightcontrolapiCombinedUserRolesResponseV2> {
         const response = await this.combinedUserRolesV2Raw({ userUuid: userUuid, cid: cid, directOnly: directOnly, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get User Grant(s) including external users. This endpoint lists grants between a User and a Customer, where the user may be homed in a partner CID.
+     */
+    async combinedUserRolesV3Raw(
+        requestParameters: UserManagementApiCombinedUserRolesV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiCombinedUserRolesResponseV2>> {
+        if (requestParameters["userUuid"] == null) {
+            throw new runtime.RequiredError("userUuid", 'Required parameter "userUuid" was null or undefined when calling combinedUserRolesV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["userUuid"] != null) {
+            queryParameters["user_uuid"] = requestParameters["userUuid"];
+        }
+
+        if (requestParameters["cid"] != null) {
+            queryParameters["cid"] = requestParameters["cid"];
+        }
+
+        if (requestParameters["directOnly"] != null) {
+            queryParameters["direct_only"] = requestParameters["directOnly"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/combined/user-roles/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiCombinedUserRolesResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Get User Grant(s) including external users. This endpoint lists grants between a User and a Customer, where the user may be homed in a partner CID.
+     */
+    async combinedUserRolesV3(
+        userUuid: string,
+        cid?: string,
+        directOnly?: boolean,
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: CombinedUserRolesV3SortEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<FlightcontrolapiCombinedUserRolesResponseV2> {
+        const response = await this.combinedUserRolesV3Raw({ userUuid: userUuid, cid: cid, directOnly: directOnly, filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
         return await response.value();
     }
 
@@ -576,6 +796,139 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async deleteUserV1(userUuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.deleteUserV1Raw({ userUuid: userUuid }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get details about permission groups including name and description.
+     */
+    async entitiesPermissionGroupsGETV1Raw(
+        requestParameters: UserManagementApiEntitiesPermissionGroupsGETV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiGetPermissionGroupsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesPermissionGroupsGETV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/permission-groups/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaspecIdsRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiGetPermissionGroupsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get details about permission groups including name and description.
+     */
+    async entitiesPermissionGroupsGETV1(body: MsaspecIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiGetPermissionGroupsResponse> {
+        const response = await this.entitiesPermissionGroupsGETV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get details about permissions including name, description, and which permission groups they belong to.
+     */
+    async entitiesPermissionsGETV1Raw(
+        requestParameters: UserManagementApiEntitiesPermissionsGETV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiGetPermissionsResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesPermissionsGETV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/permissions/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaspecIdsRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiGetPermissionsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get details about permissions including name, description, and which permission groups they belong to.
+     */
+    async entitiesPermissionsGETV1(body: MsaspecIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiGetPermissionsResponse> {
+        const response = await this.entitiesPermissionsGETV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get permission IDs assigned to a given role.
+     */
+    async entitiesRolePermissionsV1Raw(
+        requestParameters: UserManagementApiEntitiesRolePermissionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiGetRolePermissionsResponse>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesRolePermissionsV1().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/role-permissions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiGetRolePermissionsResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get permission IDs assigned to a given role.
+     */
+    async entitiesRolePermissionsV1(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiGetRolePermissionsResponse> {
+        const response = await this.entitiesRolePermissionsV1Raw({ id: id }, initOverrides);
         return await response.value();
     }
 
@@ -759,6 +1112,50 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get one or more external user invitations by ID.
+     */
+    async getUserInvitationsGETV1Raw(
+        requestParameters: UserManagementApiGetUserInvitationsGETV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiInvitationResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling getUserInvitationsGETV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/user-invitations/GET/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaspecIdsRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiInvitationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get one or more external user invitations by ID.
+     */
+    async getUserInvitationsGETV1(body: MsaspecIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiInvitationResponse> {
+        const response = await this.getUserInvitationsGETV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Deprecated : Please use GET /user-management/combined/user-roles/v1. Show role IDs of roles assigned to a user. For more information on each role, provide the role ID to `/customer/entities/roles/v1`.
      * @deprecated
      */
@@ -857,6 +1254,51 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * List all permission IDs available to your CID based on product subscriptions.
+     */
+    async queriesPermissionsV1Raw(
+        requestParameters: UserManagementApiQueriesPermissionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/queries/permissions/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List all permission IDs available to your CID based on product subscriptions.
+     */
+    async queriesPermissionsV1(offset?: number, limit?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
+        const response = await this.queriesPermissionsV1Raw({ offset: offset, limit: limit }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Show role IDs for all roles available in your customer account. For more information on each role, provide the role ID to `/user-management/entities/roles/v1`.
      */
     async queriesRolesV1Raw(requestParameters: UserManagementApiQueriesRolesV1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
@@ -899,6 +1341,65 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async queriesRolesV1(cid?: string, userUuid?: string, action?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queriesRolesV1Raw({ cid: cid, userUuid: userUuid, action: action }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Query external user invitation IDs using an FQL filter.
+     */
+    async queryUserInvitationsV1Raw(
+        requestParameters: UserManagementApiQueryUserInvitationsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiQueryInvitationResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/queries/user-invitations/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiQueryInvitationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Query external user invitation IDs using an FQL filter.
+     */
+    async queryUserInvitationsV1(
+        filter?: string,
+        sort?: string,
+        offset?: number,
+        limit?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<FlightcontrolapiQueryInvitationResponse> {
+        const response = await this.queryUserInvitationsV1Raw({ filter: filter, sort: sort, offset: offset, limit: limit }, initOverrides);
         return await response.value();
     }
 
@@ -949,6 +1450,67 @@ export class UserManagementApi extends runtime.BaseAPI {
      */
     async queryUserV1(filter?: string, offset?: number, limit?: number, sort?: QueryUserV1SortEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
         const response = await this.queryUserV1Raw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List user IDs for all users in your customer account, including external users who have roles assigned in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
+     */
+    async queryUserV2Raw(requestParameters: UserManagementApiQueryUserV2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["userType"] != null) {
+            queryParameters["user_type"] = requestParameters["userType"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/queries/users/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List user IDs for all users in your customer account, including external users who have roles assigned in your customer account. For more information on each user, provide the user ID to `/user-management/entities/users/GET/v1`.
+     */
+    async queryUserV2(
+        filter?: string,
+        offset?: number,
+        limit?: number,
+        sort?: QueryUserV2SortEnum,
+        userType?: QueryUserV2UserTypeEnum,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaspecQueryResponse> {
+        const response = await this.queryUserV2Raw({ filter: filter, offset: offset, limit: limit, sort: sort, userType: userType }, initOverrides);
         return await response.value();
     }
 
@@ -1157,6 +1719,50 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get info about users including their name, UID, CID and whether they are external by providing user UUIDs
+     */
+    async retrieveUsersGETV2Raw(
+        requestParameters: UserManagementApiRetrieveUsersGETV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<FlightcontrolapiUserV2Response>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling retrieveUsersGETV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/users/GET/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: MsaspecIdsRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlightcontrolapiUserV2ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get info about users including their name, UID, CID and whether they are external by providing user UUIDs
+     */
+    async retrieveUsersGETV2(body: MsaspecIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlightcontrolapiUserV2Response> {
+        const response = await this.retrieveUsersGETV2Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Deprecated : Please use POST /user-management/entities/user-role-actions/v1. Revoke one or more roles from a user
      * @deprecated
      */
@@ -1356,6 +1962,50 @@ export class UserManagementApi extends runtime.BaseAPI {
     }
 
     /**
+     * Provides the list of actions that can performed on the user on the CID.
+     */
+    async userAllowedActionsV1Raw(
+        requestParameters: UserManagementApiUserAllowedActionsV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DomainActionValidationResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling userAllowedActionsV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/user-allowed-actions/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainActionValidationRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DomainActionValidationResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides the list of actions that can performed on the user on the CID.
+     */
+    async userAllowedActionsV1(body: DomainActionValidationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainActionValidationResponse> {
+        const response = await this.userAllowedActionsV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Grant or Revoke one or more role(s) to a user against a CID. User UUID, CID and Role ID(s) can be provided in request payload. Available Action(s) : grant, revoke
      */
     async userRolesActionV1Raw(
@@ -1398,8 +2048,60 @@ export class UserManagementApi extends runtime.BaseAPI {
         const response = await this.userRolesActionV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
+
+    /**
+     * Grant or Revoke one or more role(s) to a user against a CID. The user can be a regular user or a invited external user to the CID. User UUID, CID and Role ID(s) can be provided in request payload. Available Action(s) : assign-role or grant, AND remove-role or revoke
+     */
+    async userRolesActionV2Raw(
+        requestParameters: UserManagementApiUserRolesActionV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling userRolesActionV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["usermgmt:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/user-management/entities/user-role-actions/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DomainActionUserRolesRequestV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
+    }
+
+    /**
+     * Grant or Revoke one or more role(s) to a user against a CID. The user can be a regular user or a invited external user to the CID. User UUID, CID and Role ID(s) can be provided in request payload. Available Action(s) : assign-role or grant, AND remove-role or revoke
+     */
+    async userRolesActionV2(body: DomainActionUserRolesRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
+        const response = await this.userRolesActionV2Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
 }
 
+/**
+ * @export
+ */
+export const AggregateUsersV2UserTypeEnum = {
+    External: "external",
+    Internal: "internal",
+} as const;
+export type AggregateUsersV2UserTypeEnum = (typeof AggregateUsersV2UserTypeEnum)[keyof typeof AggregateUsersV2UserTypeEnum];
 /**
  * @export
  */
@@ -1445,6 +2147,27 @@ export type CombinedUserRolesV2SortEnum = (typeof CombinedUserRolesV2SortEnum)[k
 /**
  * @export
  */
+export const CombinedUserRolesV3SortEnum = {
+    Cid: "cid",
+    CidAsc: "cid|asc",
+    CidDesc: "cid|desc",
+    ExpiresAt: "expires_at",
+    ExpiresAtAsc: "expires_at|asc",
+    ExpiresAtDesc: "expires_at|desc",
+    RoleName: "role_name",
+    RoleNameAsc: "role_name|asc",
+    RoleNameDesc: "role_name|desc",
+    Type: "type",
+    TypeAsc: "type|asc",
+    TypeDesc: "type|desc",
+    UserUuid: "user_uuid",
+    UserUuidAsc: "user_uuid|asc",
+    UserUuidDesc: "user_uuid|desc",
+} as const;
+export type CombinedUserRolesV3SortEnum = (typeof CombinedUserRolesV3SortEnum)[keyof typeof CombinedUserRolesV3SortEnum];
+/**
+ * @export
+ */
 export const QueryUserV1SortEnum = {
     CidName: "cid_name",
     CidNameAsc: "cid_name|asc",
@@ -1478,3 +2201,47 @@ export const QueryUserV1SortEnum = {
     UidDesc: "uid|desc",
 } as const;
 export type QueryUserV1SortEnum = (typeof QueryUserV1SortEnum)[keyof typeof QueryUserV1SortEnum];
+/**
+ * @export
+ */
+export const QueryUserV2SortEnum = {
+    CidName: "cid_name",
+    CidNameAsc: "cid_name|asc",
+    CidNameDesc: "cid_name|desc",
+    CreatedAt: "created_at",
+    CreatedAtAsc: "created_at|asc",
+    CreatedAtDesc: "created_at|desc",
+    FirstName: "first_name",
+    FirstNameAsc: "first_name|asc",
+    FirstNameDesc: "first_name|desc",
+    HasTemporaryRoles: "has_temporary_roles",
+    HasTemporaryRolesAsc: "has_temporary_roles|asc",
+    HasTemporaryRolesDesc: "has_temporary_roles|desc",
+    LastLoginAt: "last_login_at",
+    LastLoginAtAsc: "last_login_at|asc",
+    LastLoginAtDesc: "last_login_at|desc",
+    LastName: "last_name",
+    LastNameAsc: "last_name|asc",
+    LastNameDesc: "last_name|desc",
+    Name: "name",
+    NameAsc: "name|asc",
+    NameDesc: "name|desc",
+    Status: "status",
+    StatusAsc: "status|asc",
+    StatusDesc: "status|desc",
+    TemporarilyAssignedCids: "temporarily_assigned_cids",
+    TemporarilyAssignedCidsAsc: "temporarily_assigned_cids|asc",
+    TemporarilyAssignedCidsDesc: "temporarily_assigned_cids|desc",
+    Uid: "uid",
+    UidAsc: "uid|asc",
+    UidDesc: "uid|desc",
+} as const;
+export type QueryUserV2SortEnum = (typeof QueryUserV2SortEnum)[keyof typeof QueryUserV2SortEnum];
+/**
+ * @export
+ */
+export const QueryUserV2UserTypeEnum = {
+    Internal: "internal",
+    External: "external",
+} as const;
+export type QueryUserV2UserTypeEnum = (typeof QueryUserV2UserTypeEnum)[keyof typeof QueryUserV2UserTypeEnum];

@@ -256,6 +256,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     * @deprecated
      */
     async createD4CAwsAccountRaw(
         requestParameters: D4cRegistrationApiCreateD4CAwsAccountRequest,
@@ -292,6 +293,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     * @deprecated
      */
     async createD4CAwsAccount(body: RegistrationAWSAccountCreateRequestD4CExtV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAWSAccountResponseV2> {
         const response = await this.createD4CAwsAccountRaw({ body: body }, initOverrides);
@@ -391,6 +393,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes an existing AWS account or organization in our system.
+     * @deprecated
      */
     async deleteD4CAwsAccountRaw(
         requestParameters: D4cRegistrationApiDeleteD4CAwsAccountRequest,
@@ -428,6 +431,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes an existing AWS account or organization in our system.
+     * @deprecated
      */
     async deleteD4CAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.deleteD4CAwsAccountRaw({ ids: ids, organizationIds: organizationIds }, initOverrides);
@@ -477,6 +481,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
+     * @deprecated
      */
     async getD4CAWSAccountScriptsAttachmentRaw(
         requestParameters: D4cRegistrationApiGetD4CAWSAccountScriptsAttachmentRequest,
@@ -610,6 +615,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their AWS environment as a downloadable attachment.
+     * @deprecated
      */
     async getD4CAWSAccountScriptsAttachment(
         ids?: Array<string>,
@@ -676,6 +682,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns information about the current status of an AWS account.
+     * @deprecated
      */
     async getD4CAwsAccountRaw(
         requestParameters: D4cRegistrationApiGetD4CAwsAccountRequest,
@@ -733,6 +740,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns information about the current status of an AWS account.
+     * @deprecated
      */
     async getD4CAwsAccount(
         scanType?: string,
@@ -753,6 +761,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     * @deprecated
      */
     async getD4CAwsConsoleSetupURLsRaw(
         requestParameters: D4cRegistrationApiGetD4CAwsConsoleSetupURLsRequest,
@@ -786,6 +795,7 @@ export class D4cRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     * @deprecated
      */
     async getD4CAwsConsoleSetupURLs(region?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAWSConsoleURLResponseV2> {
         const response = await this.getD4CAwsConsoleSetupURLsRaw({ region: region }, initOverrides);

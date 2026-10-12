@@ -59,6 +59,12 @@ export interface DtoCreateGCPRegistrationRequest {
      * @type {string}
      * @memberof DtoCreateGCPRegistrationRequest
      */
+    existingWifPoolId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoCreateGCPRegistrationRequest
+     */
     falconClientKeyId?: string;
     /**
      *
@@ -173,6 +179,7 @@ export function DtoCreateGCPRegistrationRequestFromJSONTyped(json: any, ignoreDi
         dspmSettings: json["dspm_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["dspm_settings"]),
         entityId: json["entity_id"],
         excludedProjectPatterns: json["excluded_project_patterns"] == null ? undefined : json["excluded_project_patterns"],
+        existingWifPoolId: json["existing_wif_pool_id"] == null ? undefined : json["existing_wif_pool_id"],
         falconClientKeyId: json["falcon_client_key_id"] == null ? undefined : json["falcon_client_key_id"],
         falconClientKeyType: json["falcon_client_key_type"] == null ? undefined : json["falcon_client_key_type"],
         infraManagerRegion: json["infra_manager_region"] == null ? undefined : json["infra_manager_region"],
@@ -201,6 +208,7 @@ export function DtoCreateGCPRegistrationRequestToJSON(value?: DtoCreateGCPRegist
         dspm_settings: GcpAgentlessScanningSettingsToJSON(value["dspmSettings"]),
         entity_id: value["entityId"],
         excluded_project_patterns: value["excludedProjectPatterns"],
+        existing_wif_pool_id: value["existingWifPoolId"],
         falcon_client_key_id: value["falconClientKeyId"],
         falcon_client_key_type: value["falconClientKeyType"],
         infra_manager_region: value["infraManagerRegion"],

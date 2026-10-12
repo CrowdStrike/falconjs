@@ -23,6 +23,8 @@ import type { InsightsInsight } from "./InsightsInsight";
 import { InsightsInsightFromJSON, InsightsInsightFromJSONTyped, InsightsInsightToJSON } from "./InsightsInsight";
 import type { ResourcesAssetGraph } from "./ResourcesAssetGraph";
 import { ResourcesAssetGraphFromJSON, ResourcesAssetGraphFromJSONTyped, ResourcesAssetGraphToJSON } from "./ResourcesAssetGraph";
+import type { BusinesscontextData } from "./BusinesscontextData";
+import { BusinesscontextDataFromJSON, BusinesscontextDataFromJSONTyped, BusinesscontextDataToJSON } from "./BusinesscontextData";
 import type { ResourcesDetections } from "./ResourcesDetections";
 import { ResourcesDetectionsFromJSON, ResourcesDetectionsFromJSONTyped, ResourcesDetectionsToJSON } from "./ResourcesDetections";
 
@@ -50,6 +52,12 @@ export interface ResourcesCloudContext {
      * @memberof ResourcesCloudContext
      */
     assetGraph?: ResourcesAssetGraph;
+    /**
+     *
+     * @type {BusinesscontextData}
+     * @memberof ResourcesCloudContext
+     */
+    businessContext?: BusinesscontextData;
     /**
      *
      * @type {ResourcesCloudRisks}
@@ -173,6 +181,7 @@ export function ResourcesCloudContextFromJSONTyped(json: any, ignoreDiscriminato
         accountName: json["account_name"] == null ? undefined : json["account_name"],
         allowsPublicAccess: json["allows_public_access"] == null ? undefined : json["allows_public_access"],
         assetGraph: json["asset_graph"] == null ? undefined : ResourcesAssetGraphFromJSON(json["asset_graph"]),
+        businessContext: json["business_context"] == null ? undefined : BusinesscontextDataFromJSON(json["business_context"]),
         cloudRisks: json["cloud_risks"] == null ? undefined : ResourcesCloudRisksFromJSON(json["cloud_risks"]),
         cspmLicense: json["cspm_license"] == null ? undefined : json["cspm_license"],
         dataClassifications: json["data_classifications"] == null ? undefined : DataclassificationsResponseFromJSON(json["data_classifications"]),
@@ -201,6 +210,7 @@ export function ResourcesCloudContextToJSON(value?: ResourcesCloudContext | null
         account_name: value["accountName"],
         allows_public_access: value["allowsPublicAccess"],
         asset_graph: ResourcesAssetGraphToJSON(value["assetGraph"]),
+        business_context: BusinesscontextDataToJSON(value["businessContext"]),
         cloud_risks: ResourcesCloudRisksToJSON(value["cloudRisks"]),
         cspm_license: value["cspmLicense"],
         data_classifications: DataclassificationsResponseToJSON(value["dataClassifications"]),

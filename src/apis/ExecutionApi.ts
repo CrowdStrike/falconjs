@@ -30,7 +30,7 @@ export class ExecutionApi extends runtime.BaseAPI {
     /**
      * retrieve a large request body, such as a file, that has spilled into object storage
      */
-    async readRequestBodyRaw(requestParameters: ExecutionApiReadRequestBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
+    async readRequestBodyRaw(requestParameters: ExecutionApiReadRequestBodyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters["id"] == null) {
             throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling readRequestBody().');
         }
@@ -82,14 +82,13 @@ export class ExecutionApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse<any>(response);
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      * retrieve a large request body, such as a file, that has spilled into object storage
      */
-    async readRequestBody(id: string, fn: string, filename: string, sha256: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {
-        const response = await this.readRequestBodyRaw({ id: id, fn: fn, filename: filename, sha256: sha256 }, initOverrides);
-        return await response.value();
+    async readRequestBody(id: string, fn: string, filename: string, sha256: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.readRequestBodyRaw({ id: id, fn: fn, filename: filename, sha256: sha256 }, initOverrides);
     }
 }

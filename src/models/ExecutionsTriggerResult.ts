@@ -44,6 +44,12 @@ export interface ExecutionsTriggerResult {
      */
     id?: string;
     /**
+     * Execution-time node metadata (e.g. throttling counters/timestamps, rate limit, version constraint). Keys mirror the node config.
+     * @type {{ [key: string]: string; }}
+     * @memberof ExecutionsTriggerResult
+     */
+    metadata?: { [key: string]: string };
+    /**
      * Whether this node's result is mocked
      * @type {boolean}
      * @memberof ExecutionsTriggerResult
@@ -141,6 +147,7 @@ export function ExecutionsTriggerResultFromJSONTyped(json: any, ignoreDiscrimina
         errorCode: json["error_code"] == null ? undefined : json["error_code"],
         errorMessage: json["error_message"] == null ? undefined : json["error_message"],
         id: json["id"] == null ? undefined : json["id"],
+        metadata: json["metadata"] == null ? undefined : json["metadata"],
         mocked: json["mocked"] == null ? undefined : json["mocked"],
         name: json["name"],
         nodeId: json["node_id"],
@@ -161,6 +168,7 @@ export function ExecutionsTriggerResultToJSON(value?: ExecutionsTriggerResult | 
         error_code: value["errorCode"],
         error_message: value["errorMessage"],
         id: value["id"],
+        metadata: value["metadata"],
         mocked: value["mocked"],
         name: value["name"],
         node_id: value["nodeId"],

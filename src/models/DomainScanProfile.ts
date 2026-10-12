@@ -83,7 +83,7 @@ export interface DomainScanProfile {
      * @type {boolean}
      * @memberof DomainScanProfile
      */
-    deleted: boolean;
+    deleted?: boolean;
     /**
      *
      * @type {string}
@@ -294,7 +294,6 @@ export interface DomainScanProfile {
  * Check if a given object implements the DomainScanProfile interface.
  */
 export function instanceOfDomainScanProfile(value: object): value is DomainScanProfile {
-    if (!("deleted" in value) || value["deleted"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     return true;
 }
@@ -317,7 +316,7 @@ export function DomainScanProfileFromJSONTyped(json: any, ignoreDiscriminator: b
         cpuPriority: json["cpu_priority"] == null ? undefined : json["cpu_priority"],
         createdBy: json["created_by"] == null ? undefined : json["created_by"],
         createdOn: json["created_on"] == null ? undefined : new Date(json["created_on"]),
-        deleted: json["deleted"],
+        deleted: json["deleted"] == null ? undefined : json["deleted"],
         description: json["description"] == null ? undefined : json["description"],
         endpointNotification: json["endpoint_notification"] == null ? undefined : json["endpoint_notification"],
         filePaths: json["file_paths"] == null ? undefined : json["file_paths"],

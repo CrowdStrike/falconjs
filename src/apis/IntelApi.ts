@@ -127,6 +127,7 @@ export interface IntelApiGetLatestIntelRuleFileRequest {
 
 export interface IntelApiGetMalwareEntitiesRequest {
     ids: Array<string>;
+    fields?: Array<string>;
 }
 
 export interface IntelApiGetMalwareMitreReportRequest {
@@ -760,6 +761,10 @@ export class IntelApi extends runtime.BaseAPI {
             queryParameters["ids"] = requestParameters["ids"];
         }
 
+        if (requestParameters["fields"] != null) {
+            queryParameters["fields"] = requestParameters["fields"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -783,8 +788,8 @@ export class IntelApi extends runtime.BaseAPI {
     /**
      * Get malware entities for specified ids.
      */
-    async getMalwareEntities(ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMalwareResponse> {
-        const response = await this.getMalwareEntitiesRaw({ ids: ids }, initOverrides);
+    async getMalwareEntities(ids: Array<string>, fields?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainMalwareResponse> {
+        const response = await this.getMalwareEntitiesRaw({ ids: ids, fields: fields }, initOverrides);
         return await response.value();
     }
 

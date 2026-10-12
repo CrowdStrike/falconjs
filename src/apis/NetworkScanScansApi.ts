@@ -14,22 +14,16 @@
 
 import * as runtime from "../runtime";
 import type {
-    DomainScanCreateRequest,
-    DomainScanEntitiesResponse,
-    DomainScanUpdateRequest,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     MsaspecResponseFields,
+    NvaapiScanCreateRequest,
+    NvaapiScanEntitiesResponse,
+    NvaapiScanUpdateRequest,
 } from "../models/index";
 import {
-    DomainScanCreateRequestFromJSON,
-    DomainScanCreateRequestToJSON,
-    DomainScanEntitiesResponseFromJSON,
-    DomainScanEntitiesResponseToJSON,
-    DomainScanUpdateRequestFromJSON,
-    DomainScanUpdateRequestToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -40,6 +34,12 @@ import {
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    NvaapiScanCreateRequestFromJSON,
+    NvaapiScanCreateRequestToJSON,
+    NvaapiScanEntitiesResponseFromJSON,
+    NvaapiScanEntitiesResponseToJSON,
+    NvaapiScanUpdateRequestFromJSON,
+    NvaapiScanUpdateRequestToJSON,
 } from "../models/index";
 
 export interface NetworkScanScansApiAggregateScansMixin0Request {
@@ -48,7 +48,7 @@ export interface NetworkScanScansApiAggregateScansMixin0Request {
 }
 
 export interface NetworkScanScansApiCreateScansRequest {
-    body: Array<DomainScanCreateRequest>;
+    body: Array<NvaapiScanCreateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -71,7 +71,7 @@ export interface NetworkScanScansApiQueryScansMixin0Request {
 }
 
 export interface NetworkScanScansApiUpdateScansRequest {
-    body: Array<DomainScanUpdateRequest>;
+    body: Array<NvaapiScanUpdateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -133,7 +133,7 @@ export class NetworkScanScansApi extends runtime.BaseAPI {
     async createScansRaw(
         requestParameters: NetworkScanScansApiCreateScansRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScanEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiScanEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createScans().');
         }
@@ -159,18 +159,18 @@ export class NetworkScanScansApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainScanCreateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiScanCreateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScanEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScanEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Create \"scans\" using provided specifications
      */
-    async createScans(body: Array<DomainScanCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScanEntitiesResponse> {
+    async createScans(body: Array<NvaapiScanCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScanEntitiesResponse> {
         const response = await this.createScansRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -224,7 +224,7 @@ export class NetworkScanScansApi extends runtime.BaseAPI {
     /**
      * Get \"scans\" by their IDs
      */
-    async getScansRaw(requestParameters: NetworkScanScansApiGetScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainScanEntitiesResponse>> {
+    async getScansRaw(requestParameters: NetworkScanScansApiGetScansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<NvaapiScanEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScans().');
         }
@@ -256,13 +256,13 @@ export class NetworkScanScansApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScanEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScanEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get \"scans\" by their IDs
      */
-    async getScans(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScanEntitiesResponse> {
+    async getScans(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScanEntitiesResponse> {
         const response = await this.getScansRaw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -337,7 +337,7 @@ export class NetworkScanScansApi extends runtime.BaseAPI {
     async updateScansRaw(
         requestParameters: NetworkScanScansApiUpdateScansRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScanEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiScanEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateScans().');
         }
@@ -363,18 +363,18 @@ export class NetworkScanScansApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainScanUpdateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiScanUpdateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScanEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScanEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Update \"scans\" using provided specifications
      */
-    async updateScans(body: Array<DomainScanUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScanEntitiesResponse> {
+    async updateScans(body: Array<NvaapiScanUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScanEntitiesResponse> {
         const response = await this.updateScansRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }

@@ -54,6 +54,12 @@ export interface ApiTemplateV1CreateRequest {
     name: string;
     /**
      *
+     * @type {Array<string>}
+     * @memberof ApiTemplateV1CreateRequest
+     */
+    ownerGroupIds?: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof ApiTemplateV1CreateRequest
      */
@@ -93,6 +99,7 @@ export function ApiTemplateV1CreateRequestFromJSONTyped(json: any, ignoreDiscrim
         description: json["description"] == null ? undefined : json["description"],
         fields: json["fields"] == null ? undefined : (json["fields"] as Array<any>).map(ApiFieldV1CreateRequestFromJSON),
         name: json["name"],
+        ownerGroupIds: json["owner_group_ids"] == null ? undefined : json["owner_group_ids"],
         slaId: json["sla_id"] == null ? undefined : json["sla_id"],
         slaRules: json["sla_rules"] == null ? undefined : (json["sla_rules"] as Array<any>).map(ApiTemplateSLARuleV1CreateRequestFromJSON),
         workflows: json["workflows"] == null ? undefined : (json["workflows"] as Array<any>).map(ApiWorkflowV1FromJSON),
@@ -108,6 +115,7 @@ export function ApiTemplateV1CreateRequestToJSON(value?: ApiTemplateV1CreateRequ
         description: value["description"],
         fields: value["fields"] == null ? undefined : (value["fields"] as Array<any>).map(ApiFieldV1CreateRequestToJSON),
         name: value["name"],
+        owner_group_ids: value["ownerGroupIds"],
         sla_id: value["slaId"],
         sla_rules: value["slaRules"] == null ? undefined : (value["slaRules"] as Array<any>).map(ApiTemplateSLARuleV1CreateRequestToJSON),
         workflows: value["workflows"] == null ? undefined : (value["workflows"] as Array<any>).map(ApiWorkflowV1ToJSON),

@@ -143,6 +143,18 @@ export interface RestCloudAWSAccountCreateExtV1 {
      * @type {string}
      * @memberof RestCloudAWSAccountCreateExtV1
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RestCloudAWSAccountCreateExtV1
+     */
+    registrationName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RestCloudAWSAccountCreateExtV1
+     */
     resourceNamePrefix?: string;
     /**
      *
@@ -260,6 +272,8 @@ export function RestCloudAWSAccountCreateExtV1FromJSONTyped(json: any, ignoreDis
         logIngestionMethod: json["log_ingestion_method"] == null ? undefined : json["log_ingestion_method"],
         organizationId: json["organization_id"] == null ? undefined : json["organization_id"],
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(RestAccountProductRequestExtV1FromJSON),
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
+        registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
         resourceNameSuffix: json["resource_name_suffix"] == null ? undefined : json["resource_name_suffix"],
         rootStackId: json["root_stack_id"] == null ? undefined : json["root_stack_id"],
@@ -302,6 +316,8 @@ export function RestCloudAWSAccountCreateExtV1ToJSON(value?: RestCloudAWSAccount
         log_ingestion_method: value["logIngestionMethod"],
         organization_id: value["organizationId"],
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(RestAccountProductRequestExtV1ToJSON),
+        registration_description: value["registrationDescription"],
+        registration_name: value["registrationName"],
         resource_name_prefix: value["resourceNamePrefix"],
         resource_name_suffix: value["resourceNameSuffix"],
         root_stack_id: value["rootStackId"],

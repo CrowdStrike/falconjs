@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { DomainUser } from "./DomainUser";
 import { DomainUserFromJSON, DomainUserFromJSONTyped, DomainUserToJSON } from "./DomainUser";
+import type { DomainAttribution } from "./DomainAttribution";
+import { DomainAttributionFromJSON, DomainAttributionFromJSONTyped, DomainAttributionToJSON } from "./DomainAttribution";
 
 /**
  *
@@ -22,6 +24,12 @@ import { DomainUserFromJSON, DomainUserFromJSONTyped, DomainUserToJSON } from ".
  * @interface DomainKnowledgeBase
  */
 export interface DomainKnowledgeBase {
+    /**
+     *
+     * @type {DomainAttribution}
+     * @memberof DomainKnowledgeBase
+     */
+    attribution?: DomainAttribution;
     /**
      *
      * @type {Date}
@@ -72,6 +80,12 @@ export interface DomainKnowledgeBase {
     name: string;
     /**
      *
+     * @type {string}
+     * @memberof DomainKnowledgeBase
+     */
+    projectId?: string;
+    /**
+     *
      * @type {Date}
      * @memberof DomainKnowledgeBase
      */
@@ -110,6 +124,7 @@ export function DomainKnowledgeBaseFromJSONTyped(json: any, ignoreDiscriminator:
         return json;
     }
     return {
+        attribution: json["attribution"] == null ? undefined : DomainAttributionFromJSON(json["attribution"]),
         createdAt: new Date(json["created_at"]),
         createdBy: DomainUserFromJSON(json["created_by"]),
         description: json["description"],
@@ -118,6 +133,7 @@ export function DomainKnowledgeBaseFromJSONTyped(json: any, ignoreDiscriminator:
         id: json["id"],
         isDeleted: json["is_deleted"],
         name: json["name"],
+        projectId: json["project_id"] == null ? undefined : json["project_id"],
         updatedAt: new Date(json["updated_at"]),
         updatedBy: DomainUserFromJSON(json["updated_by"]),
     };
@@ -128,6 +144,7 @@ export function DomainKnowledgeBaseToJSON(value?: DomainKnowledgeBase | null): a
         return value;
     }
     return {
+        attribution: DomainAttributionToJSON(value["attribution"]),
         created_at: value["createdAt"].toISOString(),
         created_by: DomainUserToJSON(value["createdBy"]),
         description: value["description"],
@@ -136,6 +153,7 @@ export function DomainKnowledgeBaseToJSON(value?: DomainKnowledgeBase | null): a
         id: value["id"],
         is_deleted: value["isDeleted"],
         name: value["name"],
+        project_id: value["projectId"],
         updated_at: value["updatedAt"].toISOString(),
         updated_by: DomainUserToJSON(value["updatedBy"]),
     };

@@ -18,8 +18,6 @@ import type {
     DomainReplyCombinedKnowledgeBaseAuditEventsResponse,
     DomainReplyEntitiesKnowledgeBaseAuditEventsResponse,
     DomainReplyQueryKnowledgeBaseAuditEventsResponse,
-    MsaAggregateQueryRequest,
-    MsaAggregatesResponse,
     MsaReplyMetaOnly,
 } from "../models/index";
 import {
@@ -31,18 +29,9 @@ import {
     DomainReplyEntitiesKnowledgeBaseAuditEventsResponseToJSON,
     DomainReplyQueryKnowledgeBaseAuditEventsResponseFromJSON,
     DomainReplyQueryKnowledgeBaseAuditEventsResponseToJSON,
-    MsaAggregateQueryRequestFromJSON,
-    MsaAggregateQueryRequestToJSON,
-    MsaAggregatesResponseFromJSON,
-    MsaAggregatesResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models/index";
-
-export interface KnowledgeBaseAuditEventsApiAggregatesKnowledgeBaseAuditEventsV1Request {
-    body: Array<MsaAggregateQueryRequest>;
-    includeDeleted?: boolean;
-}
 
 export interface KnowledgeBaseAuditEventsApiCombinedKnowledgeBaseAuditEventsV1Request {
     knowledgeBaseId: string;
@@ -51,12 +40,14 @@ export interface KnowledgeBaseAuditEventsApiCombinedKnowledgeBaseAuditEventsV1Re
     sort?: string;
     filter?: string;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 export interface KnowledgeBaseAuditEventsApiEntitiesKnowledgeBaseAuditEventsV1Request {
     knowledgeBaseId: string;
     ids: Array<string>;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 export interface KnowledgeBaseAuditEventsApiQueriesKnowledgeBaseAuditEventsV1Request {
@@ -66,64 +57,13 @@ export interface KnowledgeBaseAuditEventsApiQueriesKnowledgeBaseAuditEventsV1Req
     sort?: string;
     filter?: string;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 /**
  *
  */
 export class KnowledgeBaseAuditEventsApi extends runtime.BaseAPI {
-    /**
-     * Aggregate knowledge base audit events based on the provided msa criteria.
-     */
-    async aggregatesKnowledgeBaseAuditEventsV1Raw(
-        requestParameters: KnowledgeBaseAuditEventsApiAggregatesKnowledgeBaseAuditEventsV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesKnowledgeBaseAuditEventsV1().');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters["includeDeleted"] != null) {
-            queryParameters["include_deleted"] = requestParameters["includeDeleted"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/agentic-studio/aggregates/knowledge_base_audit_events/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Aggregate knowledge base audit events based on the provided msa criteria.
-     */
-    async aggregatesKnowledgeBaseAuditEventsV1(
-        body: Array<MsaAggregateQueryRequest>,
-        includeDeleted?: boolean,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<MsaAggregatesResponse> {
-        const response = await this.aggregatesKnowledgeBaseAuditEventsV1Raw({ body: body, includeDeleted: includeDeleted }, initOverrides);
-        return await response.value();
-    }
-
     /**
      * Get knowledge base audit events with full event details and pagination.
      */
@@ -161,6 +101,10 @@ export class KnowledgeBaseAuditEventsApi extends runtime.BaseAPI {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -191,10 +135,11 @@ export class KnowledgeBaseAuditEventsApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         includeDeleted?: boolean,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyCombinedKnowledgeBaseAuditEventsResponse> {
         const response = await this.combinedKnowledgeBaseAuditEventsV1Raw(
-            { knowledgeBaseId: knowledgeBaseId, offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted },
+            { knowledgeBaseId: knowledgeBaseId, offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted, projectId: projectId },
             initOverrides,
         );
         return await response.value();
@@ -229,6 +174,10 @@ export class KnowledgeBaseAuditEventsApi extends runtime.BaseAPI {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -256,9 +205,10 @@ export class KnowledgeBaseAuditEventsApi extends runtime.BaseAPI {
         knowledgeBaseId: string,
         ids: Array<string>,
         includeDeleted?: boolean,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyEntitiesKnowledgeBaseAuditEventsResponse> {
-        const response = await this.entitiesKnowledgeBaseAuditEventsV1Raw({ knowledgeBaseId: knowledgeBaseId, ids: ids, includeDeleted: includeDeleted }, initOverrides);
+        const response = await this.entitiesKnowledgeBaseAuditEventsV1Raw({ knowledgeBaseId: knowledgeBaseId, ids: ids, includeDeleted: includeDeleted, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
@@ -299,6 +249,10 @@ export class KnowledgeBaseAuditEventsApi extends runtime.BaseAPI {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -329,10 +283,11 @@ export class KnowledgeBaseAuditEventsApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         includeDeleted?: boolean,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyQueryKnowledgeBaseAuditEventsResponse> {
         const response = await this.queriesKnowledgeBaseAuditEventsV1Raw(
-            { knowledgeBaseId: knowledgeBaseId, offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted },
+            { knowledgeBaseId: knowledgeBaseId, offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted, projectId: projectId },
             initOverrides,
         );
         return await response.value();

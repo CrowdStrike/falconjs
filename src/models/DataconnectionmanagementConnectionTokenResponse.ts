@@ -44,10 +44,10 @@ export interface DataconnectionmanagementConnectionTokenResponse {
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<DataconnectionmanagementConnectionToken>}
+     * @type {DataconnectionmanagementConnectionToken}
      * @memberof DataconnectionmanagementConnectionTokenResponse
      */
-    resources: Array<DataconnectionmanagementConnectionToken>;
+    resources: DataconnectionmanagementConnectionToken;
 }
 
 /**
@@ -70,7 +70,7 @@ export function DataconnectionmanagementConnectionTokenResponseFromJSONTyped(jso
     return {
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(DataconnectionmanagementConnectionTokenFromJSON),
+        resources: DataconnectionmanagementConnectionTokenFromJSON(json["resources"]),
     };
 }
 
@@ -81,6 +81,6 @@ export function DataconnectionmanagementConnectionTokenResponseToJSON(value?: Da
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(DataconnectionmanagementConnectionTokenToJSON),
+        resources: DataconnectionmanagementConnectionTokenToJSON(value["resources"]),
     };
 }

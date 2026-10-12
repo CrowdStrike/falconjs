@@ -17,6 +17,8 @@ import type { ApiToolApproval } from "./ApiToolApproval";
 import { ApiToolApprovalFromJSON, ApiToolApprovalFromJSONTyped, ApiToolApprovalToJSON } from "./ApiToolApproval";
 import type { ApiAgentInvocationTool } from "./ApiAgentInvocationTool";
 import { ApiAgentInvocationToolFromJSON, ApiAgentInvocationToolFromJSONTyped, ApiAgentInvocationToolToJSON } from "./ApiAgentInvocationTool";
+import type { ApiBudgetApproval } from "./ApiBudgetApproval";
+import { ApiBudgetApprovalFromJSON, ApiBudgetApprovalFromJSONTyped, ApiBudgetApprovalToJSON } from "./ApiBudgetApproval";
 import type { ApiInvocationErrorMessage } from "./ApiInvocationErrorMessage";
 import { ApiInvocationErrorMessageFromJSON, ApiInvocationErrorMessageFromJSONTyped, ApiInvocationErrorMessageToJSON } from "./ApiInvocationErrorMessage";
 
@@ -26,6 +28,12 @@ import { ApiInvocationErrorMessageFromJSON, ApiInvocationErrorMessageFromJSONTyp
  * @interface ApiMessage
  */
 export interface ApiMessage {
+    /**
+     *
+     * @type {ApiBudgetApproval}
+     * @memberof ApiMessage
+     */
+    budgetApproval?: ApiBudgetApproval;
     /**
      *
      * @type {string}
@@ -82,6 +90,7 @@ export function ApiMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         return json;
     }
     return {
+        budgetApproval: json["budget_approval"] == null ? undefined : ApiBudgetApprovalFromJSON(json["budget_approval"]),
         content: json["content"],
         error: json["error"] == null ? undefined : ApiInvocationErrorMessageFromJSON(json["error"]),
         reasoning: json["reasoning"] == null ? undefined : json["reasoning"],
@@ -96,6 +105,7 @@ export function ApiMessageToJSON(value?: ApiMessage | null): any {
         return value;
     }
     return {
+        budget_approval: ApiBudgetApprovalToJSON(value["budgetApproval"]),
         content: value["content"],
         error: ApiInvocationErrorMessageToJSON(value["error"]),
         reasoning: value["reasoning"],

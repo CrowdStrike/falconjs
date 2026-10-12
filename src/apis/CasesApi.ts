@@ -17,9 +17,16 @@ import type {
     CasesapiGetQueriesCasesV1Response,
     MsaReplyMetaOnly,
     MsaspecResponseFields,
+    OperationsAddAccessTagsToCaseRequest,
     OperationsAddAlertsToCaseRequest,
+    OperationsAddAlertsToCaseRequestV2,
+    OperationsAddAlertsToCaseResponseV2VM,
+    OperationsAddCustomEvidenceResponseVM,
+    OperationsAddCustomEvidenceToCaseRequest,
     OperationsAddEventsToCaseRequest,
     OperationsAddTagsToCaseRequest,
+    OperationsAddUserToCaseRequest,
+    OperationsAddUserToCaseResponseVM,
     OperationsCreateCaseRequest,
     OperationsCreateCaseResponseVM,
     OperationsGetCasesByIDsRequest,
@@ -35,12 +42,26 @@ import {
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    OperationsAddAccessTagsToCaseRequestFromJSON,
+    OperationsAddAccessTagsToCaseRequestToJSON,
     OperationsAddAlertsToCaseRequestFromJSON,
     OperationsAddAlertsToCaseRequestToJSON,
+    OperationsAddAlertsToCaseRequestV2FromJSON,
+    OperationsAddAlertsToCaseRequestV2ToJSON,
+    OperationsAddAlertsToCaseResponseV2VMFromJSON,
+    OperationsAddAlertsToCaseResponseV2VMToJSON,
+    OperationsAddCustomEvidenceResponseVMFromJSON,
+    OperationsAddCustomEvidenceResponseVMToJSON,
+    OperationsAddCustomEvidenceToCaseRequestFromJSON,
+    OperationsAddCustomEvidenceToCaseRequestToJSON,
     OperationsAddEventsToCaseRequestFromJSON,
     OperationsAddEventsToCaseRequestToJSON,
     OperationsAddTagsToCaseRequestFromJSON,
     OperationsAddTagsToCaseRequestToJSON,
+    OperationsAddUserToCaseRequestFromJSON,
+    OperationsAddUserToCaseRequestToJSON,
+    OperationsAddUserToCaseResponseVMFromJSON,
+    OperationsAddUserToCaseResponseVMToJSON,
     OperationsCreateCaseRequestFromJSON,
     OperationsCreateCaseRequestToJSON,
     OperationsCreateCaseResponseVMFromJSON,
@@ -59,6 +80,19 @@ import {
 
 export interface CasesApiEntitiesAlertEvidencePostV1Request {
     body: OperationsAddAlertsToCaseRequest;
+}
+
+export interface CasesApiEntitiesAlertEvidencePostV2Request {
+    body: OperationsAddAlertsToCaseRequestV2;
+}
+
+export interface CasesApiEntitiesCaseAccessTagsDeleteV1Request {
+    id: string;
+    accessTagId?: Array<string>;
+}
+
+export interface CasesApiEntitiesCaseAccessTagsPostV1Request {
+    body: OperationsAddAccessTagsToCaseRequest;
 }
 
 export interface CasesApiEntitiesCaseTagsDeleteV1Request {
@@ -82,12 +116,20 @@ export interface CasesApiEntitiesCasesPutV2Request {
     body: OperationsCreateCaseRequest;
 }
 
+export interface CasesApiEntitiesCustomEvidencePostV1Request {
+    body: OperationsAddCustomEvidenceToCaseRequest;
+}
+
 export interface CasesApiEntitiesEventEvidencePostV1Request {
     body: OperationsAddEventsToCaseRequest;
 }
 
 export interface CasesApiEntitiesMergePostV1Request {
     body: OperationsMergeCasesRequest;
+}
+
+export interface CasesApiEntitiesUserEvidencePostV1Request {
+    body: OperationsAddUserToCaseRequest;
 }
 
 export interface CasesApiQueriesCasesGetV1Request {
@@ -143,6 +185,143 @@ export class CasesApi extends runtime.BaseAPI {
      */
     async entitiesAlertEvidencePostV1(body: OperationsAddAlertsToCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperationsUpdateCaseResponseVM> {
         const response = await this.entitiesAlertEvidencePostV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Adds the given list of alert evidence to the specified case and returns the created evidence records.
+     */
+    async entitiesAlertEvidencePostV2Raw(
+        requestParameters: CasesApiEntitiesAlertEvidencePostV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsAddAlertsToCaseResponseV2VM>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesAlertEvidencePostV2().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cases/entities/alert-evidence/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: OperationsAddAlertsToCaseRequestV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OperationsAddAlertsToCaseResponseV2VMFromJSON(jsonValue));
+    }
+
+    /**
+     * Adds the given list of alert evidence to the specified case and returns the created evidence records.
+     */
+    async entitiesAlertEvidencePostV2(body: OperationsAddAlertsToCaseRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperationsAddAlertsToCaseResponseV2VM> {
+        const response = await this.entitiesAlertEvidencePostV2Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Removes the specified access tags from the specified case.
+     */
+    async entitiesCaseAccessTagsDeleteV1Raw(
+        requestParameters: CasesApiEntitiesCaseAccessTagsDeleteV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesCaseAccessTagsDeleteV1().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["accessTagId"] != null) {
+            queryParameters["access_tag_id"] = requestParameters["accessTagId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cases/entities/case-access-tags/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OperationsUpdateCaseResponseVMFromJSON(jsonValue));
+    }
+
+    /**
+     * Removes the specified access tags from the specified case.
+     */
+    async entitiesCaseAccessTagsDeleteV1(id: string, accessTagId?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperationsUpdateCaseResponseVM> {
+        const response = await this.entitiesCaseAccessTagsDeleteV1Raw({ id: id, accessTagId: accessTagId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Adds the given list of access tags to the specified case.
+     */
+    async entitiesCaseAccessTagsPostV1Raw(
+        requestParameters: CasesApiEntitiesCaseAccessTagsPostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsUpdateCaseResponseVM>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesCaseAccessTagsPostV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cases/entities/case-access-tags/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: OperationsAddAccessTagsToCaseRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OperationsUpdateCaseResponseVMFromJSON(jsonValue));
+    }
+
+    /**
+     * Adds the given list of access tags to the specified case.
+     */
+    async entitiesCaseAccessTagsPostV1(body: OperationsAddAccessTagsToCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperationsUpdateCaseResponseVM> {
+        const response = await this.entitiesCaseAccessTagsPostV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -376,6 +555,50 @@ export class CasesApi extends runtime.BaseAPI {
     }
 
     /**
+     * Adds the given custom evidence to the specified case.
+     */
+    async entitiesCustomEvidencePostV1Raw(
+        requestParameters: CasesApiEntitiesCustomEvidencePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsAddCustomEvidenceResponseVM>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesCustomEvidencePostV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cases/entities/custom-evidence/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: OperationsAddCustomEvidenceToCaseRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OperationsAddCustomEvidenceResponseVMFromJSON(jsonValue));
+    }
+
+    /**
+     * Adds the given custom evidence to the specified case.
+     */
+    async entitiesCustomEvidencePostV1(body: OperationsAddCustomEvidenceToCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperationsAddCustomEvidenceResponseVM> {
+        const response = await this.entitiesCustomEvidencePostV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Adds the given list of event evidence to the specified case.
      */
     async entitiesEventEvidencePostV1Raw(
@@ -460,6 +683,50 @@ export class CasesApi extends runtime.BaseAPI {
      */
     async entitiesMergePostV1(body: OperationsMergeCasesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.entitiesMergePostV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Adds user evidence to the specified case.
+     */
+    async entitiesUserEvidencePostV1Raw(
+        requestParameters: CasesApiEntitiesUserEvidencePostV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<OperationsAddUserToCaseResponseVM>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesUserEvidencePostV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cases/entities/user-evidence/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: OperationsAddUserToCaseRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OperationsAddUserToCaseResponseVMFromJSON(jsonValue));
+    }
+
+    /**
+     * Adds user evidence to the specified case.
+     */
+    async entitiesUserEvidencePostV1(body: OperationsAddUserToCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperationsAddUserToCaseResponseVM> {
+        const response = await this.entitiesUserEvidencePostV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

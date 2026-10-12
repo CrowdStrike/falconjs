@@ -13,8 +13,6 @@
  */
 
 import { mapValues } from "../runtime";
-import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
 import type { GraphWebhookTriggerDefinition } from "./GraphWebhookTriggerDefinition";
 import { GraphWebhookTriggerDefinitionFromJSON, GraphWebhookTriggerDefinitionFromJSONTyped, GraphWebhookTriggerDefinitionToJSON } from "./GraphWebhookTriggerDefinition";
 import type { GraphTimerEventDefinition } from "./GraphTimerEventDefinition";
@@ -46,10 +44,10 @@ export interface V2Trigger {
     next: Array<string>;
     /**
      *
-     * @type {JsonschemaSchema}
+     * @type {string}
      * @memberof V2Trigger
      */
-    parameters?: JsonschemaSchema;
+    parameters?: string;
     /**
      *
      * @type {GraphTimerEventDefinition}
@@ -96,7 +94,7 @@ export function V2TriggerFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         event: json["event"] == null ? undefined : json["event"],
         name: json["name"] == null ? undefined : json["name"],
         next: json["next"],
-        parameters: json["parameters"] == null ? undefined : JsonschemaSchemaFromJSON(json["parameters"]),
+        parameters: json["parameters"] == null ? undefined : json["parameters"],
         schedule: json["schedule"] == null ? undefined : GraphTimerEventDefinitionFromJSON(json["schedule"]),
         type: json["type"] == null ? undefined : json["type"],
         versionConstraint: json["version_constraint"] == null ? undefined : json["version_constraint"],
@@ -112,7 +110,7 @@ export function V2TriggerToJSON(value?: V2Trigger | null): any {
         event: value["event"],
         name: value["name"],
         next: value["next"],
-        parameters: JsonschemaSchemaToJSON(value["parameters"]),
+        parameters: value["parameters"],
         schedule: GraphTimerEventDefinitionToJSON(value["schedule"]),
         type: value["type"],
         version_constraint: value["versionConstraint"],

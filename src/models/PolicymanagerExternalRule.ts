@@ -122,6 +122,12 @@ export interface PolicymanagerExternalRule {
      */
     userScope: PolicymanagerExternalRuleUserScopeEnum;
     /**
+     * List of web location destination groups. Maximum of 15 unique UUID groups are allowed
+     * @type {Array<string>}
+     * @memberof PolicymanagerExternalRule
+     */
+    webLocationDestinationGroups: Array<string>;
+    /**
      *
      * @type {Array<string>}
      * @memberof PolicymanagerExternalRule
@@ -194,6 +200,7 @@ export function instanceOfPolicymanagerExternalRule(value: object): value is Pol
     if (!("responseAction" in value) || value["responseAction"] === undefined) return false;
     if (!("triggerDetection" in value) || value["triggerDetection"] === undefined) return false;
     if (!("userScope" in value) || value["userScope"] === undefined) return false;
+    if (!("webLocationDestinationGroups" in value) || value["webLocationDestinationGroups"] === undefined) return false;
     if (!("webLocations" in value) || value["webLocations"] === undefined) return false;
     if (!("webLocationsScope" in value) || value["webLocationsScope"] === undefined) return false;
     return true;
@@ -225,6 +232,7 @@ export function PolicymanagerExternalRuleFromJSONTyped(json: any, ignoreDiscrimi
         responseAction: json["response_action"],
         triggerDetection: json["trigger_detection"],
         userScope: json["user_scope"],
+        webLocationDestinationGroups: json["web_location_destination_groups"],
         webLocations: json["web_locations"],
         webLocationsScope: json["web_locations_scope"],
     };
@@ -252,6 +260,7 @@ export function PolicymanagerExternalRuleToJSON(value?: PolicymanagerExternalRul
         response_action: value["responseAction"],
         trigger_detection: value["triggerDetection"],
         user_scope: value["userScope"],
+        web_location_destination_groups: value["webLocationDestinationGroups"],
         web_locations: value["webLocations"],
         web_locations_scope: value["webLocationsScope"],
     };

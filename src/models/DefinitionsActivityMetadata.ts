@@ -29,6 +29,18 @@ export interface DefinitionsActivityMetadata {
      */
     dependencies: Array<ActivitiesDependency>;
     /**
+     * Latest semantic version of this activity
+     * @type {string}
+     * @memberof DefinitionsActivityMetadata
+     */
+    latestSemanticVersion?: string;
+    /**
+     * Latest version constraint of this activity
+     * @type {string}
+     * @memberof DefinitionsActivityMetadata
+     */
+    latestVersionConstraint?: string;
+    /**
      * Use cases associated with this activity
      * @type {Array<string>}
      * @memberof DefinitionsActivityMetadata
@@ -61,6 +73,8 @@ export function DefinitionsActivityMetadataFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         dependencies: (json["dependencies"] as Array<any>).map(ActivitiesDependencyFromJSON),
+        latestSemanticVersion: json["latest_semantic_version"] == null ? undefined : json["latest_semantic_version"],
+        latestVersionConstraint: json["latest_version_constraint"] == null ? undefined : json["latest_version_constraint"],
         useCases: json["use_cases"] == null ? undefined : json["use_cases"],
         vendor: json["vendor"],
     };
@@ -72,6 +86,8 @@ export function DefinitionsActivityMetadataToJSON(value?: DefinitionsActivityMet
     }
     return {
         dependencies: (value["dependencies"] as Array<any>).map(ActivitiesDependencyToJSON),
+        latest_semantic_version: value["latestSemanticVersion"],
+        latest_version_constraint: value["latestVersionConstraint"],
         use_cases: value["useCases"],
         vendor: value["vendor"],
     };

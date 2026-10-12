@@ -31,13 +31,13 @@ export interface PolicymanagerPolicyProperties {
      */
     allowNotifications?: PolicymanagerPolicyPropertiesAllowNotificationsEnum;
     /**
-     * Length must be at most 2048 characters
+     * Length must be at most 4096 characters
      * @type {string}
      * @memberof PolicymanagerPolicyProperties
      */
     beExcludeDomains?: string;
     /**
-     * Must be a non-negative integer and max 65536
+     * Must be a non-negative integer and max 65536 bytes with consideration to the unit specified in be_paste_clipboard_max_size_unit
      * @type {number}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -49,7 +49,7 @@ export interface PolicymanagerPolicyProperties {
      */
     bePasteClipboardMaxSizeUnit?: PolicymanagerPolicyPropertiesBePasteClipboardMaxSizeUnitEnum;
     /**
-     * Must be a non-negative integer and max 65536
+     * Must be a non-negative integer and max 65536 bytes with consideration to the unit specified in be_paste_clipboard_min_size_unit
      * @type {number}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -160,6 +160,12 @@ export interface PolicymanagerPolicyProperties {
      */
     enableClipboardInspection?: boolean;
     /**
+     * Track and attribute web sources for clipboard content when copying from web applications. Requires context inspection to be enabled
+     * @type {boolean}
+     * @memberof PolicymanagerPolicyProperties
+     */
+    enableClipboardWebOrigin?: boolean;
+    /**
      *
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
@@ -183,6 +189,18 @@ export interface PolicymanagerPolicyProperties {
      * @memberof PolicymanagerPolicyProperties
      */
     enableNetworkInspection?: boolean;
+    /**
+     * Mac only. Enable or disable OCR
+     * @type {boolean}
+     * @memberof PolicymanagerPolicyProperties
+     */
+    enableOcr?: boolean;
+    /**
+     * Windows only. Enable or disable print monitoring
+     * @type {boolean}
+     * @memberof PolicymanagerPolicyProperties
+     */
+    enablePrintMonitor?: boolean;
     /**
      * Windows only. Enable screen capture before and after egress event
      * @type {boolean}
@@ -220,13 +238,13 @@ export interface PolicymanagerPolicyProperties {
      */
     eujRequireAdditionalDetails?: boolean;
     /**
-     * Windows only. If enabled, Falcon Console users with Data Protection Forensics Manager role can request and download files for egress events. Data will be copied to the host's local storage when requested, or when matching a classification with storage enabled.
+     * If enabled, Falcon Console users with Data Protection Forensics Manager role can request and download files for egress events. Data will be copied to the host's local storage when requested, or when matching a classification with storage enabled.
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
     evidenceDownloadEnabled?: boolean;
     /**
-     * Windows only. If enabled, data is copied to a protected evidence folder on the host at the time a download is requested to prevent tampering. Copies of data will be stored on the originating host for up to 30 days.
+     * If enabled, data is copied to a protected evidence folder on the host at the time a download is requested to prevent tampering. Copies of data will be stored on the originating host for up to 30 days.
      * @type {boolean}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -238,13 +256,13 @@ export interface PolicymanagerPolicyProperties {
      */
     evidenceEncryptedEnabled?: boolean;
     /**
-     * Windows only. Must be between 1 and 90
+     * Must be between 1 and 90
      * @type {number}
      * @memberof PolicymanagerPolicyProperties
      */
     evidenceStorageFreeDiskPerc?: number;
     /**
-     * Windows only. Must be between 1 and 100
+     * Must be between 1 and 100
      * @type {number}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -256,7 +274,7 @@ export interface PolicymanagerPolicyProperties {
      */
     inspectionDepth?: PolicymanagerPolicyPropertiesInspectionDepthEnum;
     /**
-     * Must be between 512 and 524288000 bytes
+     * Must be between 512 and 524288000 bytes, with consideration to the unit specified in max_file_size_to_inspect_unit
      * @type {number}
      * @memberof PolicymanagerPolicyProperties
      */
@@ -273,6 +291,12 @@ export interface PolicymanagerPolicyProperties {
      * @memberof PolicymanagerPolicyProperties
      */
     minConfidenceLevel?: PolicymanagerPolicyPropertiesMinConfidenceLevelEnum;
+    /**
+     * Windows only. Network inspection exclusion list with at most 200 unique items
+     * @type {Array<string>}
+     * @memberof PolicymanagerPolicyProperties
+     */
+    networkInspectionExcludeListV2?: Array<string>;
     /**
      * Windows only. Network inspection files exceeding size limit accepts values: 'block', 'allow'
      * @type {string}
@@ -500,10 +524,13 @@ export function PolicymanagerPolicyPropertiesFromJSONTyped(json: any, ignoreDisc
         customAllowNotification: json["custom_allow_notification"] == null ? undefined : json["custom_allow_notification"],
         customBlockNotification: json["custom_block_notification"] == null ? undefined : json["custom_block_notification"],
         enableClipboardInspection: json["enable_clipboard_inspection"] == null ? undefined : json["enable_clipboard_inspection"],
+        enableClipboardWebOrigin: json["enable_clipboard_web_origin"] == null ? undefined : json["enable_clipboard_web_origin"],
         enableContentInspection: json["enable_content_inspection"] == null ? undefined : json["enable_content_inspection"],
         enableContextInspection: json["enable_context_inspection"] == null ? undefined : json["enable_context_inspection"],
         enableEndUserNotificationsUnsupportedBrowser: json["enable_end_user_notifications_unsupported_browser"] == null ? undefined : json["enable_end_user_notifications_unsupported_browser"],
         enableNetworkInspection: json["enable_network_inspection"] == null ? undefined : json["enable_network_inspection"],
+        enableOcr: json["enable_ocr"] == null ? undefined : json["enable_ocr"],
+        enablePrintMonitor: json["enable_print_monitor"] == null ? undefined : json["enable_print_monitor"],
         enableScreenCapture: json["enable_screen_capture"] == null ? undefined : json["enable_screen_capture"],
         eujDialogBoxLogo: json["euj_dialog_box_logo"] == null ? undefined : json["euj_dialog_box_logo"],
         eujDialogTimeout: json["euj_dialog_timeout"] == null ? undefined : json["euj_dialog_timeout"],
@@ -519,6 +546,7 @@ export function PolicymanagerPolicyPropertiesFromJSONTyped(json: any, ignoreDisc
         maxFileSizeToInspect: json["max_file_size_to_inspect"] == null ? undefined : json["max_file_size_to_inspect"],
         maxFileSizeToInspectUnit: json["max_file_size_to_inspect_unit"] == null ? undefined : json["max_file_size_to_inspect_unit"],
         minConfidenceLevel: json["min_confidence_level"] == null ? undefined : json["min_confidence_level"],
+        networkInspectionExcludeListV2: json["network_inspection_exclude_list_v2"] == null ? undefined : json["network_inspection_exclude_list_v2"],
         networkInspectionFilesExceedingSizeLimit: json["network_inspection_files_exceeding_size_limit"] == null ? undefined : json["network_inspection_files_exceeding_size_limit"],
         screenCaptureDurationPostEvent: json["screen_capture_duration_post_event"] == null ? undefined : json["screen_capture_duration_post_event"],
         screenCaptureDurationPreEvent: json["screen_capture_duration_pre_event"] == null ? undefined : json["screen_capture_duration_pre_event"],
@@ -553,10 +581,13 @@ export function PolicymanagerPolicyPropertiesToJSON(value?: PolicymanagerPolicyP
         custom_allow_notification: value["customAllowNotification"],
         custom_block_notification: value["customBlockNotification"],
         enable_clipboard_inspection: value["enableClipboardInspection"],
+        enable_clipboard_web_origin: value["enableClipboardWebOrigin"],
         enable_content_inspection: value["enableContentInspection"],
         enable_context_inspection: value["enableContextInspection"],
         enable_end_user_notifications_unsupported_browser: value["enableEndUserNotificationsUnsupportedBrowser"],
         enable_network_inspection: value["enableNetworkInspection"],
+        enable_ocr: value["enableOcr"],
+        enable_print_monitor: value["enablePrintMonitor"],
         enable_screen_capture: value["enableScreenCapture"],
         euj_dialog_box_logo: value["eujDialogBoxLogo"],
         euj_dialog_timeout: value["eujDialogTimeout"],
@@ -572,6 +603,7 @@ export function PolicymanagerPolicyPropertiesToJSON(value?: PolicymanagerPolicyP
         max_file_size_to_inspect: value["maxFileSizeToInspect"],
         max_file_size_to_inspect_unit: value["maxFileSizeToInspectUnit"],
         min_confidence_level: value["minConfidenceLevel"],
+        network_inspection_exclude_list_v2: value["networkInspectionExcludeListV2"],
         network_inspection_files_exceeding_size_limit: value["networkInspectionFilesExceedingSizeLimit"],
         screen_capture_duration_post_event: value["screenCaptureDurationPostEvent"],
         screen_capture_duration_pre_event: value["screenCaptureDurationPreEvent"],

@@ -34,6 +34,9 @@ import type {
     ApiSensitivityLabelCreateRequestV2,
     ApiSensitivityLabelMSAResponseV2,
     ApiUpdateWebLocationRequestV2,
+    ApiWebLocationGroupCreateRequestV2,
+    ApiWebLocationGroupMSAResponseV2,
+    ApiWebLocationGroupUpdateRequestV2,
     ApiWebLocationMSAResponseV2,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
@@ -88,6 +91,12 @@ import {
     ApiSensitivityLabelMSAResponseV2ToJSON,
     ApiUpdateWebLocationRequestV2FromJSON,
     ApiUpdateWebLocationRequestV2ToJSON,
+    ApiWebLocationGroupCreateRequestV2FromJSON,
+    ApiWebLocationGroupCreateRequestV2ToJSON,
+    ApiWebLocationGroupMSAResponseV2FromJSON,
+    ApiWebLocationGroupMSAResponseV2ToJSON,
+    ApiWebLocationGroupUpdateRequestV2FromJSON,
+    ApiWebLocationGroupUpdateRequestV2ToJSON,
     ApiWebLocationMSAResponseV2FromJSON,
     ApiWebLocationMSAResponseV2ToJSON,
     MsaReplyMetaOnlyFromJSON,
@@ -266,6 +275,27 @@ export interface DataProtectionConfigurationApiEntitiesWebLocationGetV2Request {
     ids: Array<string>;
 }
 
+export interface DataProtectionConfigurationApiEntitiesWebLocationGroupCreateRequest {
+    xCSUSERUUID: string;
+    body: ApiWebLocationGroupCreateRequestV2;
+}
+
+export interface DataProtectionConfigurationApiEntitiesWebLocationGroupDeleteRequest {
+    xCSUSERUUID: string;
+    ids: Array<string>;
+}
+
+export interface DataProtectionConfigurationApiEntitiesWebLocationGroupGetRequest {
+    xCSUSERUUID: string;
+    ids: Array<string>;
+}
+
+export interface DataProtectionConfigurationApiEntitiesWebLocationGroupPatchRequest {
+    xCSUSERUUID: string;
+    id: string;
+    body: ApiWebLocationGroupUpdateRequestV2;
+}
+
 export interface DataProtectionConfigurationApiEntitiesWebLocationPatchV2Request {
     id: string;
     body: ApiUpdateWebLocationRequestV2;
@@ -309,6 +339,7 @@ export interface DataProtectionConfigurationApiQueriesFileTypeGetV2Request {
 export interface DataProtectionConfigurationApiQueriesLocalApplicationGetRequest {
     xCSUSERUUID: string;
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
 }
@@ -316,6 +347,7 @@ export interface DataProtectionConfigurationApiQueriesLocalApplicationGetRequest
 export interface DataProtectionConfigurationApiQueriesLocalApplicationGroupGetRequest {
     xCSUSERUUID: string;
     filter?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
 }
@@ -337,7 +369,17 @@ export interface DataProtectionConfigurationApiQueriesSensitivityLabelGetV2Reque
 
 export interface DataProtectionConfigurationApiQueriesWebLocationGetV2Request {
     filter?: string;
+    sort?: string;
     type?: string;
+    limit?: number;
+    offset?: number;
+}
+
+export interface DataProtectionConfigurationApiQueriesWebLocationGroupGetRequest {
+    xCSUSERUUID: string;
+    filter?: string;
+    type?: string;
+    sort?: string;
     limit?: number;
     offset?: number;
 }
@@ -525,7 +567,7 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Persist the given cloud application for the provided entity instance
+     * Persist the given cloud application for the provided entity instance. Each URL is normalized (FQDN and path lowercased) and validated: if not compliant, it is rejected with a 400.
      */
     async entitiesCloudApplicationCreateRaw(
         requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationCreateRequest,
@@ -561,7 +603,7 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Persist the given cloud application for the provided entity instance
+     * Persist the given cloud application for the provided entity instance. Each URL is normalized (FQDN and path lowercased) and validated: if not compliant, it is rejected with a 400.
      */
     async entitiesCloudApplicationCreate(body: ApiCloudApplicationCreateRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCloudApplicationMSAResponseV1> {
         const response = await this.entitiesCloudApplicationCreateRaw({ body: body }, initOverrides);
@@ -659,7 +701,7 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a cloud application
+     * Update a cloud application. Every URL in the request payload is normalized (FQDN and path lowercased) and validated with the same rules as create; the whole payload is checked, not just newly-added URLs.
      */
     async entitiesCloudApplicationPatchRaw(
         requestParameters: DataProtectionConfigurationApiEntitiesCloudApplicationPatchRequest,
@@ -703,7 +745,7 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Update a cloud application
+     * Update a cloud application. Every URL in the request payload is normalized (FQDN and path lowercased) and validated with the same rules as create; the whole payload is checked, not just newly-added URLs.
      */
     async entitiesCloudApplicationPatch(id: string, body: ApiCloudApplicationUpdateRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCloudApplicationMSAResponseV1> {
         const response = await this.entitiesCloudApplicationPatchRaw({ id: id, body: body }, initOverrides);
@@ -2025,6 +2067,233 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create a web location group
+     */
+    async entitiesWebLocationGroupCreateRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationGroupCreateRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationGroupMSAResponseV2>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling entitiesWebLocationGroupCreate().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesWebLocationGroupCreate().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/web-location-groups/v2`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiWebLocationGroupCreateRequestV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationGroupMSAResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Create a web location group
+     */
+    async entitiesWebLocationGroupCreate(
+        xCSUSERUUID: string,
+        body: ApiWebLocationGroupCreateRequestV2,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiWebLocationGroupMSAResponseV2> {
+        const response = await this.entitiesWebLocationGroupCreateRaw({ xCSUSERUUID: xCSUSERUUID, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Soft delete web location groups
+     */
+    async entitiesWebLocationGroupDeleteRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationGroupDeleteRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationGroupMSAResponseV2>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling entitiesWebLocationGroupDelete().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesWebLocationGroupDelete().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/web-location-groups/v2`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationGroupMSAResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Soft delete web location groups
+     */
+    async entitiesWebLocationGroupDelete(xCSUSERUUID: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiWebLocationGroupMSAResponseV2> {
+        const response = await this.entitiesWebLocationGroupDeleteRaw({ xCSUSERUUID: xCSUSERUUID, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get specific web location groups
+     */
+    async entitiesWebLocationGroupGetRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationGroupGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationGroupMSAResponseV2>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling entitiesWebLocationGroupGet().');
+        }
+
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling entitiesWebLocationGroupGet().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/web-location-groups/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationGroupMSAResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Get specific web location groups
+     */
+    async entitiesWebLocationGroupGet(xCSUSERUUID: string, ids: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiWebLocationGroupMSAResponseV2> {
+        const response = await this.entitiesWebLocationGroupGetRaw({ xCSUSERUUID: xCSUSERUUID, ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update a web location group
+     */
+    async entitiesWebLocationGroupPatchRaw(
+        requestParameters: DataProtectionConfigurationApiEntitiesWebLocationGroupPatchRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiWebLocationGroupMSAResponseV2>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling entitiesWebLocationGroupPatch().');
+        }
+
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling entitiesWebLocationGroupPatch().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesWebLocationGroupPatch().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/entities/web-location-groups/v2`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiWebLocationGroupUpdateRequestV2ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiWebLocationGroupMSAResponseV2FromJSON(jsonValue));
+    }
+
+    /**
+     * Update a web location group
+     */
+    async entitiesWebLocationGroupPatch(
+        xCSUSERUUID: string,
+        id: string,
+        body: ApiWebLocationGroupUpdateRequestV2,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiWebLocationGroupMSAResponseV2> {
+        const response = await this.entitiesWebLocationGroupPatchRaw({ xCSUSERUUID: xCSUSERUUID, id: id, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Update a web-location
      */
     async entitiesWebLocationPatchV2Raw(
@@ -2358,6 +2627,10 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["limit"] != null) {
             queryParameters["limit"] = requestParameters["limit"];
         }
@@ -2393,8 +2666,15 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     /**
      * Get all local-application IDs matching the query with filter
      */
-    async queriesLocalApplicationGet(xCSUSERUUID: string, filter?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
-        const response = await this.queriesLocalApplicationGetRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, limit: limit, offset: offset }, initOverrides);
+    async queriesLocalApplicationGet(
+        xCSUSERUUID: string,
+        filter?: string,
+        sort?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaspecQueryResponse> {
+        const response = await this.queriesLocalApplicationGetRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -2413,6 +2693,10 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
 
         if (requestParameters["filter"] != null) {
             queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
         }
 
         if (requestParameters["limit"] != null) {
@@ -2453,11 +2737,12 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     async queriesLocalApplicationGroupGet(
         xCSUSERUUID: string,
         filter?: string,
+        sort?: string,
         limit?: number,
         offset?: number,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<MsaspecQueryResponse> {
-        const response = await this.queriesLocalApplicationGroupGetRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, limit: limit, offset: offset }, initOverrides);
+        const response = await this.queriesLocalApplicationGroupGetRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -2595,6 +2880,10 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
             queryParameters["filter"] = requestParameters["filter"];
         }
 
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
         if (requestParameters["type"] != null) {
             queryParameters["type"] = requestParameters["type"];
         }
@@ -2630,8 +2919,88 @@ export class DataProtectionConfigurationApi extends runtime.BaseAPI {
     /**
      * Get web-location IDs matching the query with filter
      */
-    async queriesWebLocationGetV2(filter?: string, type?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecQueryResponse> {
-        const response = await this.queriesWebLocationGetV2Raw({ filter: filter, type: type, limit: limit, offset: offset }, initOverrides);
+    async queriesWebLocationGetV2(
+        filter?: string,
+        sort?: string,
+        type?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaspecQueryResponse> {
+        const response = await this.queriesWebLocationGetV2Raw({ filter: filter, sort: sort, type: type, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get all web location group IDs matching the query with filter
+     */
+    async queriesWebLocationGroupGetRaw(
+        requestParameters: DataProtectionConfigurationApiQueriesWebLocationGroupGetRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecQueryResponse>> {
+        if (requestParameters["xCSUSERUUID"] == null) {
+            throw new runtime.RequiredError("xCSUSERUUID", 'Required parameter "xCSUSERUUID" was null or undefined when calling queriesWebLocationGroupGet().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["type"] != null) {
+            queryParameters["type"] = requestParameters["type"];
+        }
+
+        if (requestParameters["sort"] != null) {
+            queryParameters["sort"] = requestParameters["sort"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters["xCSUSERUUID"] != null) {
+            headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["data-protection:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/data-protection/queries/web-location-groups/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecQueryResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get all web location group IDs matching the query with filter
+     */
+    async queriesWebLocationGroupGet(
+        xCSUSERUUID: string,
+        filter?: string,
+        type?: string,
+        sort?: string,
+        limit?: number,
+        offset?: number,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<MsaspecQueryResponse> {
+        const response = await this.queriesWebLocationGroupGetRaw({ xCSUSERUUID: xCSUSERUUID, filter: filter, type: type, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 }

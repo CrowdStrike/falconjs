@@ -45,7 +45,7 @@ import type {
     ModelsClusterEntityResponse,
     ModelsContainerCoverageResponseEntity,
     ModelsContainerEntityResponse,
-    ModelsContainerImage,
+    ModelsContainerImageResponse,
     ModelsContainerRuntimePivotResponse,
     ModelsDeploymentEntityResponse,
     ModelsNodeEntityResponse,
@@ -119,8 +119,8 @@ import {
     ModelsContainerCoverageResponseEntityToJSON,
     ModelsContainerEntityResponseFromJSON,
     ModelsContainerEntityResponseToJSON,
-    ModelsContainerImageFromJSON,
-    ModelsContainerImageToJSON,
+    ModelsContainerImageResponseFromJSON,
+    ModelsContainerImageResponseToJSON,
     ModelsContainerRuntimePivotResponseFromJSON,
     ModelsContainerRuntimePivotResponseToJSON,
     ModelsDeploymentEntityResponseFromJSON,
@@ -3232,7 +3232,7 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
     async runningContainerImagesRaw(
         requestParameters: KubernetesProtectionApiRunningContainerImagesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ModelsContainerImage>> {
+    ): Promise<runtime.ApiResponse<ModelsContainerImageResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters["filter"] != null) {
@@ -3268,13 +3268,13 @@ export class KubernetesProtectionApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerImageFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelsContainerImageResponseFromJSON(jsonValue));
     }
 
     /**
      * Retrieve images on running containers
      */
-    async runningContainerImages(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerImage> {
+    async runningContainerImages(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelsContainerImageResponse> {
         const response = await this.runningContainerImagesRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }

@@ -77,6 +77,12 @@ export interface DomainAzureClientServicePrincipalV1 {
      * @type {string}
      * @memberof DomainAzureClientServicePrincipalV1
      */
+    displayName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAzureClientServicePrincipalV1
+     */
     encryptedPrivateKey?: string;
     /**
      *
@@ -145,6 +151,7 @@ export function DomainAzureClientServicePrincipalV1FromJSONTyped(json: any, igno
         conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         cspmEnabled: json["cspm_enabled"],
         defaultSubscriptionId: json["default_subscription_id"] == null ? undefined : json["default_subscription_id"],
+        displayName: json["display_name"] == null ? undefined : json["display_name"],
         encryptedPrivateKey: json["encrypted_private_key"] == null ? undefined : json["encrypted_private_key"],
         isSharedClient: json["is_shared_client"],
         objectId: json["object_id"] == null ? undefined : json["object_id"],
@@ -168,6 +175,7 @@ export function DomainAzureClientServicePrincipalV1ToJSON(value?: DomainAzureCli
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         cspm_enabled: value["cspmEnabled"],
         default_subscription_id: value["defaultSubscriptionId"],
+        display_name: value["displayName"],
         encrypted_private_key: value["encryptedPrivateKey"],
         is_shared_client: value["isSharedClient"],
         object_id: value["objectId"],

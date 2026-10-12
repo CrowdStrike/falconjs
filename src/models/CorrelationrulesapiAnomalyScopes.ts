@@ -24,6 +24,12 @@ export interface CorrelationrulesapiAnomalyScopes {
      * @type {string}
      * @memberof CorrelationrulesapiAnomalyScopes
      */
+    customFieldName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiAnomalyScopes
+     */
     role?: string;
     /**
      *
@@ -50,6 +56,7 @@ export function CorrelationrulesapiAnomalyScopesFromJSONTyped(json: any, ignoreD
         return json;
     }
     return {
+        customFieldName: json["custom_field_name"] == null ? undefined : json["custom_field_name"],
         role: json["role"] == null ? undefined : json["role"],
         scope: json["scope"],
     };
@@ -60,6 +67,7 @@ export function CorrelationrulesapiAnomalyScopesToJSON(value?: Correlationrulesa
         return value;
     }
     return {
+        custom_field_name: value["customFieldName"],
         role: value["role"],
         scope: value["scope"],
     };

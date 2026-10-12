@@ -51,6 +51,18 @@ export interface DomainAgentV1 {
     ffcid: string;
     /**
      *
+     * @type {string}
+     * @memberof DomainAgentV1
+     */
+    hostname?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAgentV1
+     */
+    ipAddress?: string;
+    /**
+     *
      * @type {Date}
      * @memberof DomainAgentV1
      */
@@ -126,6 +138,8 @@ export function DomainAgentV1FromJSONTyped(json: any, ignoreDiscriminator: boole
         createdTimestamp: new Date(json["created_timestamp"]),
         deployedTimestamp: new Date(json["deployed_timestamp"]),
         ffcid: json["ffcid"],
+        hostname: json["hostname"] == null ? undefined : json["hostname"],
+        ipAddress: json["ip_address"] == null ? undefined : json["ip_address"],
         modifiedTimestamp: new Date(json["modified_timestamp"]),
         notes: json["notes"],
         platform: json["platform"],
@@ -146,6 +160,8 @@ export function DomainAgentV1ToJSON(value?: DomainAgentV1 | null): any {
         created_timestamp: value["createdTimestamp"].toISOString(),
         deployed_timestamp: value["deployedTimestamp"].toISOString(),
         ffcid: value["ffcid"],
+        hostname: value["hostname"],
+        ip_address: value["ipAddress"],
         modified_timestamp: value["modifiedTimestamp"].toISOString(),
         notes: value["notes"],
         platform: value["platform"],

@@ -32,6 +32,12 @@ export interface SadomainCreateRuleRequestV1 {
      */
     breachMonitoringEnabled: boolean;
     /**
+     *
+     * @type {string}
+     * @memberof SadomainCreateRuleRequestV1
+     */
+    exposedDataMatchType?: string;
+    /**
      * The FQL filter to be used for searching
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
@@ -68,6 +74,12 @@ export interface SadomainCreateRuleRequestV1 {
      */
     permissions: string;
     /**
+     * The PIR IDs associated with the rule
+     * @type {Array<string>}
+     * @memberof SadomainCreateRuleRequestV1
+     */
+    pirIds: Array<string>;
+    /**
      * The priority for a given rule. Possible values: [`none`, `low`, `medium`, `high`, `critical`]
      * @type {string}
      * @memberof SadomainCreateRuleRequestV1
@@ -85,6 +97,12 @@ export interface SadomainCreateRuleRequestV1 {
      * @memberof SadomainCreateRuleRequestV1
      */
     topic: string;
+    /**
+     * The edit distance to be used with the loosely_matches(~) filter operator(eg: typosquatting_term:~'yourdomain') in the context of Typosquatting topic rules. Possible values: [`auto`, `1`, `2`]. Not permitted with other rule topics and/or operators.
+     * @type {string}
+     * @memberof SadomainCreateRuleRequestV1
+     */
+    tsqMatchEditDistance?: string;
 }
 
 /**
@@ -98,6 +116,7 @@ export function instanceOfSadomainCreateRuleRequestV1(value: object): value is S
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("originatingTemplateId" in value) || value["originatingTemplateId"] === undefined) return false;
     if (!("permissions" in value) || value["permissions"] === undefined) return false;
+    if (!("pirIds" in value) || value["pirIds"] === undefined) return false;
     if (!("priority" in value) || value["priority"] === undefined) return false;
     if (!("substringMatchingEnabled" in value) || value["substringMatchingEnabled"] === undefined) return false;
     if (!("topic" in value) || value["topic"] === undefined) return false;
@@ -115,15 +134,18 @@ export function SadomainCreateRuleRequestV1FromJSONTyped(json: any, ignoreDiscri
     return {
         breachMonitorOnly: json["breach_monitor_only"],
         breachMonitoringEnabled: json["breach_monitoring_enabled"],
+        exposedDataMatchType: json["exposed_data_match_type"] == null ? undefined : json["exposed_data_match_type"],
         filter: json["filter"],
         lookbackPeriod: json["lookback_period"] == null ? undefined : json["lookback_period"],
         matchOnTsqResultTypes: json["match_on_tsq_result_types"],
         name: json["name"],
         originatingTemplateId: json["originating_template_id"],
         permissions: json["permissions"],
+        pirIds: json["pir_ids"],
         priority: json["priority"],
         substringMatchingEnabled: json["substring_matching_enabled"],
         topic: json["topic"],
+        tsqMatchEditDistance: json["tsq_match_edit_distance"] == null ? undefined : json["tsq_match_edit_distance"],
     };
 }
 
@@ -134,14 +156,17 @@ export function SadomainCreateRuleRequestV1ToJSON(value?: SadomainCreateRuleRequ
     return {
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],
+        exposed_data_match_type: value["exposedDataMatchType"],
         filter: value["filter"],
         lookback_period: value["lookbackPeriod"],
         match_on_tsq_result_types: value["matchOnTsqResultTypes"],
         name: value["name"],
         originating_template_id: value["originatingTemplateId"],
         permissions: value["permissions"],
+        pir_ids: value["pirIds"],
         priority: value["priority"],
         substring_matching_enabled: value["substringMatchingEnabled"],
         topic: value["topic"],
+        tsq_match_edit_distance: value["tsqMatchEditDistance"],
     };
 }

@@ -17,6 +17,8 @@ import type { ApiCompactionMetadata } from "./ApiCompactionMetadata";
 import { ApiCompactionMetadataFromJSON, ApiCompactionMetadataFromJSONTyped, ApiCompactionMetadataToJSON } from "./ApiCompactionMetadata";
 import type { ApiToolApproval } from "./ApiToolApproval";
 import { ApiToolApprovalFromJSON, ApiToolApprovalFromJSONTyped, ApiToolApprovalToJSON } from "./ApiToolApproval";
+import type { ApiBudgetApproval } from "./ApiBudgetApproval";
+import { ApiBudgetApprovalFromJSON, ApiBudgetApprovalFromJSONTyped, ApiBudgetApprovalToJSON } from "./ApiBudgetApproval";
 import type { ApiMessage } from "./ApiMessage";
 import { ApiMessageFromJSON, ApiMessageFromJSONTyped, ApiMessageToJSON } from "./ApiMessage";
 
@@ -32,6 +34,12 @@ export interface ApiAgentInvocationResponseResource {
      * @memberof ApiAgentInvocationResponseResource
      */
     aiTraceId?: string;
+    /**
+     *
+     * @type {Array<ApiBudgetApproval>}
+     * @memberof ApiAgentInvocationResponseResource
+     */
+    budgetApprovals?: Array<ApiBudgetApproval>;
     /**
      *
      * @type {ApiCompactionMetadata}
@@ -82,6 +90,7 @@ export function ApiAgentInvocationResponseResourceFromJSONTyped(json: any, ignor
     }
     return {
         aiTraceId: json["ai_trace_id"] == null ? undefined : json["ai_trace_id"],
+        budgetApprovals: json["budget_approvals"] == null ? undefined : (json["budget_approvals"] as Array<any>).map(ApiBudgetApprovalFromJSON),
         compaction: json["compaction"] == null ? undefined : ApiCompactionMetadataFromJSON(json["compaction"]),
         conversation: (json["conversation"] as Array<any>).map(ApiMessageFromJSON),
         id: json["id"] == null ? undefined : json["id"],
@@ -96,6 +105,7 @@ export function ApiAgentInvocationResponseResourceToJSON(value?: ApiAgentInvocat
     }
     return {
         ai_trace_id: value["aiTraceId"],
+        budget_approvals: value["budgetApprovals"] == null ? undefined : (value["budgetApprovals"] as Array<any>).map(ApiBudgetApprovalToJSON),
         compaction: ApiCompactionMetadataToJSON(value["compaction"]),
         conversation: (value["conversation"] as Array<any>).map(ApiMessageToJSON),
         id: value["id"],

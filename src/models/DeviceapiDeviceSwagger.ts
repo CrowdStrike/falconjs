@@ -19,8 +19,8 @@ import type { DeviceapiMappedDevicePoliciesSwagger } from "./DeviceapiMappedDevi
 import { DeviceapiMappedDevicePoliciesSwaggerFromJSON, DeviceapiMappedDevicePoliciesSwaggerFromJSONTyped, DeviceapiMappedDevicePoliciesSwaggerToJSON } from "./DeviceapiMappedDevicePoliciesSwagger";
 import type { DeviceDeviceMeta } from "./DeviceDeviceMeta";
 import { DeviceDeviceMetaFromJSON, DeviceDeviceMetaFromJSONTyped, DeviceDeviceMetaToJSON } from "./DeviceDeviceMeta";
-import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
-import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
+import type { DeviceapiDevicePolicySwagger } from "./DeviceapiDevicePolicySwagger";
+import { DeviceapiDevicePolicySwaggerFromJSON, DeviceapiDevicePolicySwaggerFromJSONTyped, DeviceapiDevicePolicySwaggerToJSON } from "./DeviceapiDevicePolicySwagger";
 
 /**
  *
@@ -261,6 +261,12 @@ export interface DeviceapiDeviceSwagger {
      * @type {string}
      * @memberof DeviceapiDeviceSwagger
      */
+    k8sNodeUid?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceapiDeviceSwagger
+     */
     kernelVersion?: string;
     /**
      *
@@ -474,10 +480,10 @@ export interface DeviceapiDeviceSwagger {
     pointerSize?: string;
     /**
      *
-     * @type {Array<DeviceDevicePolicy>}
+     * @type {Array<DeviceapiDevicePolicySwagger>}
      * @memberof DeviceapiDeviceSwagger
      */
-    policies?: Array<DeviceDevicePolicy>;
+    policies?: Array<DeviceapiDevicePolicySwagger>;
     /**
      *
      * @type {string}
@@ -644,6 +650,7 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
         k8sClusterGitVersion: json["k8s_cluster_git_version"] == null ? undefined : json["k8s_cluster_git_version"],
         k8sClusterId: json["k8s_cluster_id"] == null ? undefined : json["k8s_cluster_id"],
         k8sClusterVersion: json["k8s_cluster_version"] == null ? undefined : json["k8s_cluster_version"],
+        k8sNodeUid: json["k8s_node_uid"] == null ? undefined : json["k8s_node_uid"],
         kernelVersion: json["kernel_version"] == null ? undefined : json["kernel_version"],
         lastLoginTimestamp: json["last_login_timestamp"] == null ? undefined : json["last_login_timestamp"],
         lastLoginUid: json["last_login_uid"] == null ? undefined : json["last_login_uid"],
@@ -680,7 +687,7 @@ export function DeviceapiDeviceSwaggerFromJSONTyped(json: any, ignoreDiscriminat
         podNamespace: json["pod_namespace"] == null ? undefined : json["pod_namespace"],
         podServiceAccountName: json["pod_service_account_name"] == null ? undefined : json["pod_service_account_name"],
         pointerSize: json["pointer_size"] == null ? undefined : json["pointer_size"],
-        policies: json["policies"] == null ? undefined : (json["policies"] as Array<any>).map(DeviceDevicePolicyFromJSON),
+        policies: json["policies"] == null ? undefined : (json["policies"] as Array<any>).map(DeviceapiDevicePolicySwaggerFromJSON),
         productType: json["product_type"] == null ? undefined : json["product_type"],
         productTypeDesc: json["product_type_desc"] == null ? undefined : json["product_type_desc"],
         provisionStatus: json["provision_status"] == null ? undefined : json["provision_status"],
@@ -745,6 +752,7 @@ export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | nu
         k8s_cluster_git_version: value["k8sClusterGitVersion"],
         k8s_cluster_id: value["k8sClusterId"],
         k8s_cluster_version: value["k8sClusterVersion"],
+        k8s_node_uid: value["k8sNodeUid"],
         kernel_version: value["kernelVersion"],
         last_login_timestamp: value["lastLoginTimestamp"],
         last_login_uid: value["lastLoginUid"],
@@ -781,7 +789,7 @@ export function DeviceapiDeviceSwaggerToJSON(value?: DeviceapiDeviceSwagger | nu
         pod_namespace: value["podNamespace"],
         pod_service_account_name: value["podServiceAccountName"],
         pointer_size: value["pointerSize"],
-        policies: value["policies"] == null ? undefined : (value["policies"] as Array<any>).map(DeviceDevicePolicyToJSON),
+        policies: value["policies"] == null ? undefined : (value["policies"] as Array<any>).map(DeviceapiDevicePolicySwaggerToJSON),
         product_type: value["productType"],
         product_type_desc: value["productTypeDesc"],
         provision_status: value["provisionStatus"],

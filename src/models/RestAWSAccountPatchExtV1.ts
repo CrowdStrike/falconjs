@@ -131,6 +131,18 @@ export interface RestAWSAccountPatchExtV1 {
      * @type {string}
      * @memberof RestAWSAccountPatchExtV1
      */
+    registrationDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RestAWSAccountPatchExtV1
+     */
+    registrationName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof RestAWSAccountPatchExtV1
+     */
     remediationRegion?: string;
     /**
      *
@@ -252,6 +264,8 @@ export function RestAWSAccountPatchExtV1FromJSONTyped(json: any, ignoreDiscrimin
         organizationId: json["organization_id"] == null ? undefined : json["organization_id"],
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(RestAccountProductRequestExtV1FromJSON),
         readerRoleArn: json["reader_role_arn"] == null ? undefined : json["reader_role_arn"],
+        registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
+        registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         remediationRegion: json["remediation_region"] == null ? undefined : json["remediation_region"],
         remediationTouAccepted: json["remediation_tou_accepted"] == null ? undefined : new Date(json["remediation_tou_accepted"]),
         resourceNamePrefix: json["resource_name_prefix"] == null ? undefined : json["resource_name_prefix"],
@@ -293,6 +307,8 @@ export function RestAWSAccountPatchExtV1ToJSON(value?: RestAWSAccountPatchExtV1 
         organization_id: value["organizationId"],
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(RestAccountProductRequestExtV1ToJSON),
         reader_role_arn: value["readerRoleArn"],
+        registration_description: value["registrationDescription"],
+        registration_name: value["registrationName"],
         remediation_region: value["remediationRegion"],
         remediation_tou_accepted: value["remediationTouAccepted"] == null ? undefined : value["remediationTouAccepted"].toISOString(),
         resource_name_prefix: value["resourceNamePrefix"],

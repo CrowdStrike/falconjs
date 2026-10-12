@@ -31,28 +31,33 @@ export interface KnowledgeBaseFilesApiEntitiesKnowledgeBaseFilesCreateV1Request 
     knowledgeBaseId: string;
     file: Blob;
     fileDescription?: string;
+    projectId?: string;
 }
 
 export interface KnowledgeBaseFilesApiEntitiesKnowledgeBaseFilesDeleteV1Request {
     knowledgeBaseId: string;
     id: string;
+    projectId?: string;
 }
 
 export interface KnowledgeBaseFilesApiEntitiesKnowledgeBaseFilesDownloadV1Request {
     knowledgeBaseId: string;
     id: string;
+    projectId?: string;
 }
 
 export interface KnowledgeBaseFilesApiEntitiesKnowledgeBaseFilesUpdateV1Request {
     id: string;
     file: Blob;
     fileDescription?: string;
+    projectId?: string;
 }
 
 export interface KnowledgeBaseFilesApiEntitiesKnowledgeBaseFilesV1Request {
     knowledgeBaseId: string;
     ids: Array<string>;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 export interface KnowledgeBaseFilesApiQueriesKnowledgeBaseFilesV1Request {
@@ -61,6 +66,7 @@ export interface KnowledgeBaseFilesApiQueriesKnowledgeBaseFilesV1Request {
     limit?: number;
     filter?: string;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 /**
@@ -117,6 +123,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
             formParams.append("file_description", requestParameters["fileDescription"] as any);
         }
 
+        if (requestParameters["projectId"] != null) {
+            formParams.append("project_id", requestParameters["projectId"] as any);
+        }
+
         const response = await this.request(
             {
                 path: `/agentic-studio/entities/knowledge_base_files/v1`,
@@ -138,14 +148,15 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
         knowledgeBaseId: string,
         file: Blob,
         fileDescription?: string,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyEntitiesKnowledgeBaseFilesResponse> {
-        const response = await this.entitiesKnowledgeBaseFilesCreateV1Raw({ knowledgeBaseId: knowledgeBaseId, file: file, fileDescription: fileDescription }, initOverrides);
+        const response = await this.entitiesKnowledgeBaseFilesCreateV1Raw({ knowledgeBaseId: knowledgeBaseId, file: file, fileDescription: fileDescription, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Delete document from knowledge base.
+     * Delete a knowledge base file.
      */
     async entitiesKnowledgeBaseFilesDeleteV1Raw(
         requestParameters: KnowledgeBaseFilesApiEntitiesKnowledgeBaseFilesDeleteV1Request,
@@ -169,6 +180,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
             queryParameters["id"] = requestParameters["id"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -190,10 +205,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete document from knowledge base.
+     * Delete a knowledge base file.
      */
-    async entitiesKnowledgeBaseFilesDeleteV1(knowledgeBaseId: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
-        const response = await this.entitiesKnowledgeBaseFilesDeleteV1Raw({ knowledgeBaseId: knowledgeBaseId, id: id }, initOverrides);
+    async entitiesKnowledgeBaseFilesDeleteV1(knowledgeBaseId: string, id: string, projectId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
+        const response = await this.entitiesKnowledgeBaseFilesDeleteV1Raw({ knowledgeBaseId: knowledgeBaseId, id: id, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
@@ -222,6 +237,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
             queryParameters["id"] = requestParameters["id"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -245,8 +264,8 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
     /**
      * Download knowledge base file entities for the provided id.
      */
-    async entitiesKnowledgeBaseFilesDownloadV1(knowledgeBaseId: string, id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.entitiesKnowledgeBaseFilesDownloadV1Raw({ knowledgeBaseId: knowledgeBaseId, id: id }, initOverrides);
+    async entitiesKnowledgeBaseFilesDownloadV1(knowledgeBaseId: string, id: string, projectId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.entitiesKnowledgeBaseFilesDownloadV1Raw({ knowledgeBaseId: knowledgeBaseId, id: id, projectId: projectId }, initOverrides);
     }
 
     /**
@@ -299,6 +318,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
             formParams.append("file_description", requestParameters["fileDescription"] as any);
         }
 
+        if (requestParameters["projectId"] != null) {
+            formParams.append("project_id", requestParameters["projectId"] as any);
+        }
+
         const response = await this.request(
             {
                 path: `/agentic-studio/entities/knowledge_base_files/v1`,
@@ -320,9 +343,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
         id: string,
         file: Blob,
         fileDescription?: string,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyEntitiesKnowledgeBaseFilesResponse> {
-        const response = await this.entitiesKnowledgeBaseFilesUpdateV1Raw({ id: id, file: file, fileDescription: fileDescription }, initOverrides);
+        const response = await this.entitiesKnowledgeBaseFilesUpdateV1Raw({ id: id, file: file, fileDescription: fileDescription, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
@@ -355,6 +379,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -382,9 +410,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
         knowledgeBaseId: string,
         ids: Array<string>,
         includeDeleted?: boolean,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyEntitiesKnowledgeBaseFilesResponse> {
-        const response = await this.entitiesKnowledgeBaseFilesV1Raw({ knowledgeBaseId: knowledgeBaseId, ids: ids, includeDeleted: includeDeleted }, initOverrides);
+        const response = await this.entitiesKnowledgeBaseFilesV1Raw({ knowledgeBaseId: knowledgeBaseId, ids: ids, includeDeleted: includeDeleted, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
@@ -421,6 +450,10 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -450,9 +483,13 @@ export class KnowledgeBaseFilesApi extends runtime.BaseAPI {
         limit?: number,
         filter?: string,
         includeDeleted?: boolean,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyQueryKnowledgeBaseFilesResponse> {
-        const response = await this.queriesKnowledgeBaseFilesV1Raw({ knowledgeBaseId: knowledgeBaseId, offset: offset, limit: limit, filter: filter, includeDeleted: includeDeleted }, initOverrides);
+        const response = await this.queriesKnowledgeBaseFilesV1Raw(
+            { knowledgeBaseId: knowledgeBaseId, offset: offset, limit: limit, filter: filter, includeDeleted: includeDeleted, projectId: projectId },
+            initOverrides,
+        );
         return await response.value();
     }
 }

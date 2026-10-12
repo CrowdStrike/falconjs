@@ -38,6 +38,12 @@ export interface ApimodelsRule {
     alertInfo: string;
     /**
      *
+     * @type {string}
+     * @memberof ApimodelsRule
+     */
+    annotationStatus?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof ApimodelsRule
      */
@@ -120,6 +126,12 @@ export interface ApimodelsRule {
      * @memberof ApimodelsRule
      */
     domain: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ApimodelsRule
+     */
+    insightId?: string;
     /**
      *
      * @type {string}
@@ -364,6 +376,7 @@ export function ApimodelsRuleFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         alertInfo: json["alert_info"],
+        annotationStatus: json["annotation_status"] == null ? undefined : json["annotation_status"],
         attackTypes: json["attack_types"] == null ? undefined : json["attack_types"],
         autoRemediable: json["auto_remediable"],
         category: json["category"] == null ? undefined : json["category"],
@@ -378,6 +391,7 @@ export function ApimodelsRuleFromJSONTyped(json: any, ignoreDiscriminator: boole
         deprecated: json["deprecated"] == null ? undefined : json["deprecated"],
         description: json["description"],
         domain: json["domain"],
+        insightId: json["insight_id"] == null ? undefined : json["insight_id"],
         logic: json["logic"] == null ? undefined : json["logic"],
         logicFormat: json["logic_format"] == null ? undefined : json["logic_format"],
         mitreTacticsId: json["mitre_tactics_id"],
@@ -420,6 +434,7 @@ export function ApimodelsRuleToJSON(value?: ApimodelsRule | null): any {
     }
     return {
         alert_info: value["alertInfo"],
+        annotation_status: value["annotationStatus"],
         attack_types: value["attackTypes"],
         auto_remediable: value["autoRemediable"],
         category: value["category"],
@@ -434,6 +449,7 @@ export function ApimodelsRuleToJSON(value?: ApimodelsRule | null): any {
         deprecated: value["deprecated"],
         description: value["description"],
         domain: value["domain"],
+        insight_id: value["insightId"],
         logic: value["logic"],
         logic_format: value["logicFormat"],
         mitre_tactics_id: value["mitreTacticsId"],

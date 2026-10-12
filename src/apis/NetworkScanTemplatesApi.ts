@@ -13,24 +13,24 @@
  */
 
 import * as runtime from "../runtime";
-import type { DomainTemplateCreateRequest, DomainTemplateEntitiesResponse, DomainTemplateUpdateRequest, MsaReplyMetaOnly, MsaspecQueryResponse, MsaspecResponseFields } from "../models/index";
+import type { MsaReplyMetaOnly, MsaspecQueryResponse, MsaspecResponseFields, NvaapiTemplateCreateRequest, NvaapiTemplateEntitiesResponse, NvaapiTemplateUpdateRequest } from "../models/index";
 import {
-    DomainTemplateCreateRequestFromJSON,
-    DomainTemplateCreateRequestToJSON,
-    DomainTemplateEntitiesResponseFromJSON,
-    DomainTemplateEntitiesResponseToJSON,
-    DomainTemplateUpdateRequestFromJSON,
-    DomainTemplateUpdateRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecQueryResponseFromJSON,
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    NvaapiTemplateCreateRequestFromJSON,
+    NvaapiTemplateCreateRequestToJSON,
+    NvaapiTemplateEntitiesResponseFromJSON,
+    NvaapiTemplateEntitiesResponseToJSON,
+    NvaapiTemplateUpdateRequestFromJSON,
+    NvaapiTemplateUpdateRequestToJSON,
 } from "../models/index";
 
 export interface NetworkScanTemplatesApiCreateTemplatesRequest {
-    body: Array<DomainTemplateCreateRequest>;
+    body: Array<NvaapiTemplateCreateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -57,7 +57,7 @@ export interface NetworkScanTemplatesApiQueryTemplatesRequest {
 }
 
 export interface NetworkScanTemplatesApiUpdateTemplatesRequest {
-    body: Array<DomainTemplateUpdateRequest>;
+    body: Array<NvaapiTemplateUpdateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -71,7 +71,7 @@ export class NetworkScanTemplatesApi extends runtime.BaseAPI {
     async createTemplatesRaw(
         requestParameters: NetworkScanTemplatesApiCreateTemplatesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainTemplateEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiTemplateEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createTemplates().');
         }
@@ -97,18 +97,18 @@ export class NetworkScanTemplatesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainTemplateCreateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiTemplateCreateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainTemplateEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiTemplateEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Create \"templates\" using provided specifications
      */
-    async createTemplates(body: Array<DomainTemplateCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainTemplateEntitiesResponse> {
+    async createTemplates(body: Array<NvaapiTemplateCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiTemplateEntitiesResponse> {
         const response = await this.createTemplatesRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -209,7 +209,7 @@ export class NetworkScanTemplatesApi extends runtime.BaseAPI {
     async getTemplatesRaw(
         requestParameters: NetworkScanTemplatesApiGetTemplatesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainTemplateEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiTemplateEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getTemplates().');
         }
@@ -241,13 +241,13 @@ export class NetworkScanTemplatesApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainTemplateEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiTemplateEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get \"templates\" by their IDs
      */
-    async getTemplates(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainTemplateEntitiesResponse> {
+    async getTemplates(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiTemplateEntitiesResponse> {
         const response = await this.getTemplatesRaw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -322,7 +322,7 @@ export class NetworkScanTemplatesApi extends runtime.BaseAPI {
     async updateTemplatesRaw(
         requestParameters: NetworkScanTemplatesApiUpdateTemplatesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainTemplateEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiTemplateEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateTemplates().');
         }
@@ -348,18 +348,18 @@ export class NetworkScanTemplatesApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainTemplateUpdateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiTemplateUpdateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainTemplateEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiTemplateEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Update \"templates\" using provided specifications
      */
-    async updateTemplates(body: Array<DomainTemplateUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainTemplateEntitiesResponse> {
+    async updateTemplates(body: Array<NvaapiTemplateUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiTemplateEntitiesResponse> {
         const response = await this.updateTemplatesRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }

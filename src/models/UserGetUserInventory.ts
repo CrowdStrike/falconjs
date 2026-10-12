@@ -98,6 +98,12 @@ export interface UserGetUserInventory {
     integrationsTotal: number;
     /**
      *
+     * @type {string}
+     * @memberof UserGetUserInventory
+     */
+    itemId: string | null;
+    /**
+     *
      * @type {Array<string>}
      * @memberof UserGetUserInventory
      */
@@ -138,6 +144,7 @@ export function instanceOfUserGetUserInventory(value: object): value is UserGetU
     if (!("fullName" in value) || value["fullName"] === undefined) return false;
     if (!("integrations" in value) || value["integrations"] === undefined) return false;
     if (!("integrationsTotal" in value) || value["integrationsTotal"] === undefined) return false;
+    if (!("itemId" in value) || value["itemId"] === undefined) return false;
     if (!("loginNames" in value) || value["loginNames"] === undefined) return false;
     if (!("roles" in value) || value["roles"] === undefined) return false;
     if (!("title" in value) || value["title"] === undefined) return false;
@@ -166,6 +173,7 @@ export function UserGetUserInventoryFromJSONTyped(json: any, ignoreDiscriminator
         fullName: json["full_name"],
         integrations: (json["integrations"] as Array<any>).map(IntegrationUserGetUserInventoryFromJSON),
         integrationsTotal: json["integrations_total"],
+        itemId: json["item_id"],
         loginNames: json["login_names"],
         roles: json["roles"],
         title: json["title"],
@@ -190,6 +198,7 @@ export function UserGetUserInventoryToJSON(value?: UserGetUserInventory | null):
         full_name: value["fullName"],
         integrations: (value["integrations"] as Array<any>).map(IntegrationUserGetUserInventoryToJSON),
         integrations_total: value["integrationsTotal"],
+        item_id: value["itemId"],
         login_names: value["loginNames"],
         roles: value["roles"],
         title: value["title"],

@@ -30,13 +30,19 @@ export interface DomainCIDGroup {
      * @type {string}
      * @memberof DomainCIDGroup
      */
-    cidGroupId?: string;
+    cidGroupId: string;
     /**
      *
      * @type {string}
      * @memberof DomainCIDGroup
      */
-    description: string;
+    description?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainCIDGroup
+     */
+    isDefault?: boolean;
     /**
      *
      * @type {string}
@@ -49,7 +55,7 @@ export interface DomainCIDGroup {
  * Check if a given object implements the DomainCIDGroup interface.
  */
 export function instanceOfDomainCIDGroup(value: object): value is DomainCIDGroup {
-    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("cidGroupId" in value) || value["cidGroupId"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     return true;
 }
@@ -64,8 +70,9 @@ export function DomainCIDGroupFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         cid: json["cid"] == null ? undefined : json["cid"],
-        cidGroupId: json["cid_group_id"] == null ? undefined : json["cid_group_id"],
-        description: json["description"],
+        cidGroupId: json["cid_group_id"],
+        description: json["description"] == null ? undefined : json["description"],
+        isDefault: json["is_default"] == null ? undefined : json["is_default"],
         name: json["name"],
     };
 }
@@ -78,6 +85,7 @@ export function DomainCIDGroupToJSON(value?: DomainCIDGroup | null): any {
         cid: value["cid"],
         cid_group_id: value["cidGroupId"],
         description: value["description"],
+        is_default: value["isDefault"],
         name: value["name"],
     };
 }

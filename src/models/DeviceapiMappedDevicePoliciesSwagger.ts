@@ -13,8 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DeviceDevicePolicy } from "./DeviceDevicePolicy";
-import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevicePolicyToJSON } from "./DeviceDevicePolicy";
+import type { DeviceapiDevicePolicySwagger } from "./DeviceapiDevicePolicySwagger";
+import { DeviceapiDevicePolicySwaggerFromJSON, DeviceapiDevicePolicySwaggerFromJSONTyped, DeviceapiDevicePolicySwaggerToJSON } from "./DeviceapiDevicePolicySwagger";
 
 /**
  *
@@ -24,208 +24,214 @@ import { DeviceDevicePolicyFromJSON, DeviceDevicePolicyFromJSONTyped, DeviceDevi
 export interface DeviceapiMappedDevicePoliciesSwagger {
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    aidr?: DeviceDevicePolicy;
+    aidr?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    airlock?: DeviceDevicePolicy;
+    airlock?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    applicationAbusePrevention?: DeviceDevicePolicy;
+    applicationAbusePrevention?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    automox?: DeviceDevicePolicy;
+    automox?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    awsVerifiedAccess?: DeviceDevicePolicy;
+    awsVerifiedAccess?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    browserExtension?: DeviceDevicePolicy;
+    browserExtension?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    cloudMl?: DeviceDevicePolicy;
+    cloudContainerWorkload?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    contentUpdate?: DeviceDevicePolicy;
+    cloudMl?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    customerEntitlements?: DeviceDevicePolicy;
+    contentUpdate?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    dataProtection?: DeviceDevicePolicy;
+    customerEntitlements?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    dataProtectionCloud?: DeviceDevicePolicy;
+    dataProtection?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    deviceControl?: DeviceDevicePolicy;
+    dataProtectionCloud?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    exposureManagement?: DeviceDevicePolicy;
+    deviceControl?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    femBrowserExtensionControl?: DeviceDevicePolicy;
+    exposureManagement?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    fim?: DeviceDevicePolicy;
+    femBrowserExtensionControl?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    firewall?: DeviceDevicePolicy;
+    fim?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    globalConfig?: DeviceDevicePolicy;
+    firewall?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    hostRetention?: DeviceDevicePolicy;
+    globalConfig?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    identityEndpoint?: DeviceDevicePolicy;
+    hostRetention?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    identityProtection?: DeviceDevicePolicy;
+    identityEndpoint?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    itAutomation?: DeviceDevicePolicy;
+    identityProtection?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    jumpcloud?: DeviceDevicePolicy;
+    itAutomation?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    kubernetesAdmissionControl?: DeviceDevicePolicy;
+    jumpcloud?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    logscaleCollector?: DeviceDevicePolicy;
+    kubernetesAdmissionControl?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    mobile?: DeviceDevicePolicy;
+    logscaleCollector?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    netskope?: DeviceDevicePolicy;
+    mobile?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    networkScanContent?: DeviceDevicePolicy;
+    netskope?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    prevention?: DeviceDevicePolicy;
+    networkScanContent?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    remoteResponse?: DeviceDevicePolicy;
+    prevention?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    sca?: DeviceDevicePolicy;
+    remoteResponse?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    sensorUpdate?: DeviceDevicePolicy;
+    sca?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    systemTray?: DeviceDevicePolicy;
+    sensorUpdate?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    vulnerabilityManagement?: DeviceDevicePolicy;
+    systemTray?: DeviceapiDevicePolicySwagger;
     /**
      *
-     * @type {DeviceDevicePolicy}
+     * @type {DeviceapiDevicePolicySwagger}
      * @memberof DeviceapiMappedDevicePoliciesSwagger
      */
-    ztl?: DeviceDevicePolicy;
+    vulnerabilityManagement?: DeviceapiDevicePolicySwagger;
+    /**
+     *
+     * @type {DeviceapiDevicePolicySwagger}
+     * @memberof DeviceapiMappedDevicePoliciesSwagger
+     */
+    ztl?: DeviceapiDevicePolicySwagger;
 }
 
 /**
@@ -244,40 +250,41 @@ export function DeviceapiMappedDevicePoliciesSwaggerFromJSONTyped(json: any, ign
         return json;
     }
     return {
-        aidr: json["aidr"] == null ? undefined : DeviceDevicePolicyFromJSON(json["aidr"]),
-        airlock: json["airlock"] == null ? undefined : DeviceDevicePolicyFromJSON(json["airlock"]),
-        applicationAbusePrevention: json["application-abuse-prevention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["application-abuse-prevention"]),
-        automox: json["automox"] == null ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
-        awsVerifiedAccess: json["aws-verified-access"] == null ? undefined : DeviceDevicePolicyFromJSON(json["aws-verified-access"]),
-        browserExtension: json["browser-extension"] == null ? undefined : DeviceDevicePolicyFromJSON(json["browser-extension"]),
-        cloudMl: json["cloud-ml"] == null ? undefined : DeviceDevicePolicyFromJSON(json["cloud-ml"]),
-        contentUpdate: json["content-update"] == null ? undefined : DeviceDevicePolicyFromJSON(json["content-update"]),
-        customerEntitlements: json["customer-entitlements"] == null ? undefined : DeviceDevicePolicyFromJSON(json["customer-entitlements"]),
-        dataProtection: json["data-protection"] == null ? undefined : DeviceDevicePolicyFromJSON(json["data-protection"]),
-        dataProtectionCloud: json["data-protection-cloud"] == null ? undefined : DeviceDevicePolicyFromJSON(json["data-protection-cloud"]),
-        deviceControl: json["device_control"] == null ? undefined : DeviceDevicePolicyFromJSON(json["device_control"]),
-        exposureManagement: json["exposure-management"] == null ? undefined : DeviceDevicePolicyFromJSON(json["exposure-management"]),
-        femBrowserExtensionControl: json["fem-browser-extension-control"] == null ? undefined : DeviceDevicePolicyFromJSON(json["fem-browser-extension-control"]),
-        fim: json["fim"] == null ? undefined : DeviceDevicePolicyFromJSON(json["fim"]),
-        firewall: json["firewall"] == null ? undefined : DeviceDevicePolicyFromJSON(json["firewall"]),
-        globalConfig: json["global_config"] == null ? undefined : DeviceDevicePolicyFromJSON(json["global_config"]),
-        hostRetention: json["host-retention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["host-retention"]),
-        identityEndpoint: json["identity-endpoint"] == null ? undefined : DeviceDevicePolicyFromJSON(json["identity-endpoint"]),
-        identityProtection: json["identity-protection"] == null ? undefined : DeviceDevicePolicyFromJSON(json["identity-protection"]),
-        itAutomation: json["it-automation"] == null ? undefined : DeviceDevicePolicyFromJSON(json["it-automation"]),
-        jumpcloud: json["jumpcloud"] == null ? undefined : DeviceDevicePolicyFromJSON(json["jumpcloud"]),
-        kubernetesAdmissionControl: json["kubernetes-admission-control"] == null ? undefined : DeviceDevicePolicyFromJSON(json["kubernetes-admission-control"]),
-        logscaleCollector: json["logscale-collector"] == null ? undefined : DeviceDevicePolicyFromJSON(json["logscale-collector"]),
-        mobile: json["mobile"] == null ? undefined : DeviceDevicePolicyFromJSON(json["mobile"]),
-        netskope: json["netskope"] == null ? undefined : DeviceDevicePolicyFromJSON(json["netskope"]),
-        networkScanContent: json["network-scan-content"] == null ? undefined : DeviceDevicePolicyFromJSON(json["network-scan-content"]),
-        prevention: json["prevention"] == null ? undefined : DeviceDevicePolicyFromJSON(json["prevention"]),
-        remoteResponse: json["remote_response"] == null ? undefined : DeviceDevicePolicyFromJSON(json["remote_response"]),
-        sca: json["sca"] == null ? undefined : DeviceDevicePolicyFromJSON(json["sca"]),
-        sensorUpdate: json["sensor_update"] == null ? undefined : DeviceDevicePolicyFromJSON(json["sensor_update"]),
-        systemTray: json["system-tray"] == null ? undefined : DeviceDevicePolicyFromJSON(json["system-tray"]),
-        vulnerabilityManagement: json["vulnerability-management"] == null ? undefined : DeviceDevicePolicyFromJSON(json["vulnerability-management"]),
-        ztl: json["ztl"] == null ? undefined : DeviceDevicePolicyFromJSON(json["ztl"]),
+        aidr: json["aidr"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["aidr"]),
+        airlock: json["airlock"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["airlock"]),
+        applicationAbusePrevention: json["application-abuse-prevention"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["application-abuse-prevention"]),
+        automox: json["automox"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["automox"]),
+        awsVerifiedAccess: json["aws-verified-access"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["aws-verified-access"]),
+        browserExtension: json["browser-extension"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["browser-extension"]),
+        cloudContainerWorkload: json["cloud-container-workload"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["cloud-container-workload"]),
+        cloudMl: json["cloud-ml"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["cloud-ml"]),
+        contentUpdate: json["content-update"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["content-update"]),
+        customerEntitlements: json["customer-entitlements"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["customer-entitlements"]),
+        dataProtection: json["data-protection"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["data-protection"]),
+        dataProtectionCloud: json["data-protection-cloud"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["data-protection-cloud"]),
+        deviceControl: json["device_control"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["device_control"]),
+        exposureManagement: json["exposure-management"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["exposure-management"]),
+        femBrowserExtensionControl: json["fem-browser-extension-control"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["fem-browser-extension-control"]),
+        fim: json["fim"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["fim"]),
+        firewall: json["firewall"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["firewall"]),
+        globalConfig: json["global_config"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["global_config"]),
+        hostRetention: json["host-retention"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["host-retention"]),
+        identityEndpoint: json["identity-endpoint"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["identity-endpoint"]),
+        identityProtection: json["identity-protection"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["identity-protection"]),
+        itAutomation: json["it-automation"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["it-automation"]),
+        jumpcloud: json["jumpcloud"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["jumpcloud"]),
+        kubernetesAdmissionControl: json["kubernetes-admission-control"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["kubernetes-admission-control"]),
+        logscaleCollector: json["logscale-collector"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["logscale-collector"]),
+        mobile: json["mobile"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["mobile"]),
+        netskope: json["netskope"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["netskope"]),
+        networkScanContent: json["network-scan-content"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["network-scan-content"]),
+        prevention: json["prevention"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["prevention"]),
+        remoteResponse: json["remote_response"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["remote_response"]),
+        sca: json["sca"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["sca"]),
+        sensorUpdate: json["sensor_update"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["sensor_update"]),
+        systemTray: json["system-tray"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["system-tray"]),
+        vulnerabilityManagement: json["vulnerability-management"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["vulnerability-management"]),
+        ztl: json["ztl"] == null ? undefined : DeviceapiDevicePolicySwaggerFromJSON(json["ztl"]),
     };
 }
 
@@ -286,39 +293,40 @@ export function DeviceapiMappedDevicePoliciesSwaggerToJSON(value?: DeviceapiMapp
         return value;
     }
     return {
-        aidr: DeviceDevicePolicyToJSON(value["aidr"]),
-        airlock: DeviceDevicePolicyToJSON(value["airlock"]),
-        "application-abuse-prevention": DeviceDevicePolicyToJSON(value["applicationAbusePrevention"]),
-        automox: DeviceDevicePolicyToJSON(value["automox"]),
-        "aws-verified-access": DeviceDevicePolicyToJSON(value["awsVerifiedAccess"]),
-        "browser-extension": DeviceDevicePolicyToJSON(value["browserExtension"]),
-        "cloud-ml": DeviceDevicePolicyToJSON(value["cloudMl"]),
-        "content-update": DeviceDevicePolicyToJSON(value["contentUpdate"]),
-        "customer-entitlements": DeviceDevicePolicyToJSON(value["customerEntitlements"]),
-        "data-protection": DeviceDevicePolicyToJSON(value["dataProtection"]),
-        "data-protection-cloud": DeviceDevicePolicyToJSON(value["dataProtectionCloud"]),
-        device_control: DeviceDevicePolicyToJSON(value["deviceControl"]),
-        "exposure-management": DeviceDevicePolicyToJSON(value["exposureManagement"]),
-        "fem-browser-extension-control": DeviceDevicePolicyToJSON(value["femBrowserExtensionControl"]),
-        fim: DeviceDevicePolicyToJSON(value["fim"]),
-        firewall: DeviceDevicePolicyToJSON(value["firewall"]),
-        global_config: DeviceDevicePolicyToJSON(value["globalConfig"]),
-        "host-retention": DeviceDevicePolicyToJSON(value["hostRetention"]),
-        "identity-endpoint": DeviceDevicePolicyToJSON(value["identityEndpoint"]),
-        "identity-protection": DeviceDevicePolicyToJSON(value["identityProtection"]),
-        "it-automation": DeviceDevicePolicyToJSON(value["itAutomation"]),
-        jumpcloud: DeviceDevicePolicyToJSON(value["jumpcloud"]),
-        "kubernetes-admission-control": DeviceDevicePolicyToJSON(value["kubernetesAdmissionControl"]),
-        "logscale-collector": DeviceDevicePolicyToJSON(value["logscaleCollector"]),
-        mobile: DeviceDevicePolicyToJSON(value["mobile"]),
-        netskope: DeviceDevicePolicyToJSON(value["netskope"]),
-        "network-scan-content": DeviceDevicePolicyToJSON(value["networkScanContent"]),
-        prevention: DeviceDevicePolicyToJSON(value["prevention"]),
-        remote_response: DeviceDevicePolicyToJSON(value["remoteResponse"]),
-        sca: DeviceDevicePolicyToJSON(value["sca"]),
-        sensor_update: DeviceDevicePolicyToJSON(value["sensorUpdate"]),
-        "system-tray": DeviceDevicePolicyToJSON(value["systemTray"]),
-        "vulnerability-management": DeviceDevicePolicyToJSON(value["vulnerabilityManagement"]),
-        ztl: DeviceDevicePolicyToJSON(value["ztl"]),
+        aidr: DeviceapiDevicePolicySwaggerToJSON(value["aidr"]),
+        airlock: DeviceapiDevicePolicySwaggerToJSON(value["airlock"]),
+        "application-abuse-prevention": DeviceapiDevicePolicySwaggerToJSON(value["applicationAbusePrevention"]),
+        automox: DeviceapiDevicePolicySwaggerToJSON(value["automox"]),
+        "aws-verified-access": DeviceapiDevicePolicySwaggerToJSON(value["awsVerifiedAccess"]),
+        "browser-extension": DeviceapiDevicePolicySwaggerToJSON(value["browserExtension"]),
+        "cloud-container-workload": DeviceapiDevicePolicySwaggerToJSON(value["cloudContainerWorkload"]),
+        "cloud-ml": DeviceapiDevicePolicySwaggerToJSON(value["cloudMl"]),
+        "content-update": DeviceapiDevicePolicySwaggerToJSON(value["contentUpdate"]),
+        "customer-entitlements": DeviceapiDevicePolicySwaggerToJSON(value["customerEntitlements"]),
+        "data-protection": DeviceapiDevicePolicySwaggerToJSON(value["dataProtection"]),
+        "data-protection-cloud": DeviceapiDevicePolicySwaggerToJSON(value["dataProtectionCloud"]),
+        device_control: DeviceapiDevicePolicySwaggerToJSON(value["deviceControl"]),
+        "exposure-management": DeviceapiDevicePolicySwaggerToJSON(value["exposureManagement"]),
+        "fem-browser-extension-control": DeviceapiDevicePolicySwaggerToJSON(value["femBrowserExtensionControl"]),
+        fim: DeviceapiDevicePolicySwaggerToJSON(value["fim"]),
+        firewall: DeviceapiDevicePolicySwaggerToJSON(value["firewall"]),
+        global_config: DeviceapiDevicePolicySwaggerToJSON(value["globalConfig"]),
+        "host-retention": DeviceapiDevicePolicySwaggerToJSON(value["hostRetention"]),
+        "identity-endpoint": DeviceapiDevicePolicySwaggerToJSON(value["identityEndpoint"]),
+        "identity-protection": DeviceapiDevicePolicySwaggerToJSON(value["identityProtection"]),
+        "it-automation": DeviceapiDevicePolicySwaggerToJSON(value["itAutomation"]),
+        jumpcloud: DeviceapiDevicePolicySwaggerToJSON(value["jumpcloud"]),
+        "kubernetes-admission-control": DeviceapiDevicePolicySwaggerToJSON(value["kubernetesAdmissionControl"]),
+        "logscale-collector": DeviceapiDevicePolicySwaggerToJSON(value["logscaleCollector"]),
+        mobile: DeviceapiDevicePolicySwaggerToJSON(value["mobile"]),
+        netskope: DeviceapiDevicePolicySwaggerToJSON(value["netskope"]),
+        "network-scan-content": DeviceapiDevicePolicySwaggerToJSON(value["networkScanContent"]),
+        prevention: DeviceapiDevicePolicySwaggerToJSON(value["prevention"]),
+        remote_response: DeviceapiDevicePolicySwaggerToJSON(value["remoteResponse"]),
+        sca: DeviceapiDevicePolicySwaggerToJSON(value["sca"]),
+        sensor_update: DeviceapiDevicePolicySwaggerToJSON(value["sensorUpdate"]),
+        "system-tray": DeviceapiDevicePolicySwaggerToJSON(value["systemTray"]),
+        "vulnerability-management": DeviceapiDevicePolicySwaggerToJSON(value["vulnerabilityManagement"]),
+        ztl: DeviceapiDevicePolicySwaggerToJSON(value["ztl"]),
     };
 }

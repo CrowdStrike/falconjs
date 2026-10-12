@@ -179,6 +179,12 @@ export interface ResourcesCloudResource {
      * @type {string}
      * @memberof ResourcesCloudResource
      */
+    infrastructureProvider?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ResourcesCloudResource
+     */
     location?: string;
     /**
      *
@@ -384,6 +390,7 @@ export function ResourcesCloudResourceFromJSONTyped(json: any, ignoreDiscriminat
         groups: json["groups"] == null ? undefined : json["groups"],
         hash: json["hash"] == null ? undefined : json["hash"],
         id: json["id"] == null ? undefined : json["id"],
+        infrastructureProvider: json["infrastructure_provider"] == null ? undefined : json["infrastructure_provider"],
         location: json["location"] == null ? undefined : json["location"],
         organizationId: json["organization_id"] == null ? undefined : json["organization_id"],
         parent: json["parent"] == null ? undefined : json["parent"],
@@ -444,6 +451,7 @@ export function ResourcesCloudResourceToJSON(value?: ResourcesCloudResource | nu
         groups: value["groups"],
         hash: value["hash"],
         id: value["id"],
+        infrastructure_provider: value["infrastructureProvider"],
         location: value["location"],
         organization_id: value["organizationId"],
         parent: value["parent"],

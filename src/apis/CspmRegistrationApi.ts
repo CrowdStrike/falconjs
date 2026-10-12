@@ -360,6 +360,7 @@ export interface CspmRegistrationApiValidateCSPMGCPServiceAccountExtRequest {
 export class CspmRegistrationApi extends runtime.BaseAPI {
     /**
      * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     * @deprecated
      */
     async azureDownloadCertificateRaw(
         requestParameters: CspmRegistrationApiAzureDownloadCertificateRequest,
@@ -397,6 +398,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     * @deprecated
      */
     async azureDownloadCertificate(tenantId: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureDownloadCertificateResponseV1> {
         const response = await this.azureDownloadCertificateRaw({ tenantId: tenantId }, initOverrides);
@@ -405,6 +407,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Refresh certificate and returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     * @deprecated
      */
     async azureRefreshCertificateRaw(
         requestParameters: CspmRegistrationApiAzureRefreshCertificateRequest,
@@ -446,6 +449,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Refresh certificate and returns JSON object(s) that contain the base64 encoded certificate for a service principal.
+     * @deprecated
      */
     async azureRefreshCertificate(tenantId: Array<string>, yearsValid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureDownloadCertificateResponseV1> {
         const response = await this.azureRefreshCertificateRaw({ tenantId: tenantId, yearsValid: yearsValid }, initOverrides);
@@ -454,6 +458,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new GCP account with newly-uploaded service account or connects with existing service account with only the following fields: parent_id, parent_type and service_account_id
+     * @deprecated
      */
     async connectCSPMGCPAccountRaw(
         requestParameters: CspmRegistrationApiConnectCSPMGCPAccountRequest,
@@ -490,6 +495,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new GCP account with newly-uploaded service account or connects with existing service account with only the following fields: parent_id, parent_type and service_account_id
+     * @deprecated
      */
     async connectCSPMGCPAccount(body: RegistrationGCPAccountExtRequestV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPAccountResponseExtV2> {
         const response = await this.connectCSPMGCPAccountRaw({ body: body }, initOverrides);
@@ -498,6 +504,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     * @deprecated
      */
     async createCSPMAwsAccountRaw(
         requestParameters: CspmRegistrationApiCreateCSPMAwsAccountRequest,
@@ -534,6 +541,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their AWS cloud environment to grant us access.
+     * @deprecated
      */
     async createCSPMAwsAccount(body: RegistrationAWSAccountCreateRequestExtV2, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAWSAccountResponseV2> {
         const response = await this.createCSPMAwsAccountRaw({ body: body }, initOverrides);
@@ -542,6 +550,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     * @deprecated
      */
     async createCSPMAzureAccountRaw(
         requestParameters: CspmRegistrationApiCreateCSPMAzureAccountRequest,
@@ -578,6 +587,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a script for them to run in their cloud environment to grant us access.
+     * @deprecated
      */
     async createCSPMAzureAccount(body: RegistrationAzureAccountCreateRequestExternalV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureAccountResponseV1> {
         const response = await this.createCSPMAzureAccountRaw({ body: body }, initOverrides);
@@ -586,6 +596,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new management group in our system for a customer.
+     * @deprecated
      */
     async createCSPMAzureManagementGroupRaw(
         requestParameters: CspmRegistrationApiCreateCSPMAzureManagementGroupRequest,
@@ -622,6 +633,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new management group in our system for a customer.
+     * @deprecated
      */
     async createCSPMAzureManagementGroup(
         body: RegistrationAzureManagementGroupCreateRequestExternalV1,
@@ -633,6 +645,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     * @deprecated
      */
     async createCSPMGCPAccountRaw(
         requestParameters: CspmRegistrationApiCreateCSPMGCPAccountRequest,
@@ -669,6 +682,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Creates a new account in our system for a customer and generates a new service account for them to add access to in their GCP environment to grant us access.
+     * @deprecated
      */
     async createCSPMGCPAccount(body: RegistrationGCPAccountCreateRequestExtV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPAccountResponseV1> {
         const response = await this.createCSPMGCPAccountRaw({ body: body }, initOverrides);
@@ -677,6 +691,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes an existing AWS account or organization in our system.
+     * @deprecated
      */
     async deleteCSPMAwsAccountRaw(
         requestParameters: CspmRegistrationApiDeleteCSPMAwsAccountRequest,
@@ -714,6 +729,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes an existing AWS account or organization in our system.
+     * @deprecated
      */
     async deleteCSPMAwsAccount(ids?: Array<string>, organizationIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.deleteCSPMAwsAccountRaw({ ids: ids, organizationIds: organizationIds }, initOverrides);
@@ -722,6 +738,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes an Azure subscription from the system.
+     * @deprecated
      */
     async deleteCSPMAzureAccountRaw(
         requestParameters: CspmRegistrationApiDeleteCSPMAzureAccountRequest,
@@ -763,6 +780,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes an Azure subscription from the system.
+     * @deprecated
      */
     async deleteCSPMAzureAccount(ids?: Array<string>, tenantIds?: Array<string>, retainTenant?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
         const response = await this.deleteCSPMAzureAccountRaw({ ids: ids, tenantIds: tenantIds, retainTenant: retainTenant }, initOverrides);
@@ -771,6 +789,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes Azure management groups from the system.
+     * @deprecated
      */
     async deleteCSPMAzureManagementGroupRaw(
         requestParameters: CspmRegistrationApiDeleteCSPMAzureManagementGroupRequest,
@@ -804,6 +823,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes Azure management groups from the system.
+     * @deprecated
      */
     async deleteCSPMAzureManagementGroup(tenantIds?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.deleteCSPMAzureManagementGroupRaw({ tenantIds: tenantIds }, initOverrides);
@@ -812,6 +832,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes a GCP account from the system.
+     * @deprecated
      */
     async deleteCSPMGCPAccountRaw(
         requestParameters: CspmRegistrationApiDeleteCSPMGCPAccountRequest,
@@ -845,6 +866,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Deletes a GCP account from the system.
+     * @deprecated
      */
     async deleteCSPMGCPAccount(ids?: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaBaseEntitiesResponse> {
         const response = await this.deleteCSPMGCPAccountRaw({ ids: ids }, initOverrides);
@@ -980,6 +1002,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns information about the current status of an AWS account.
+     * @deprecated
      */
     async getCSPMAwsAccountRaw(
         requestParameters: CspmRegistrationApiGetCSPMAwsAccountRequest,
@@ -1049,6 +1072,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns information about the current status of an AWS account.
+     * @deprecated
      */
     async getCSPMAwsAccount(
         scanType?: GetCSPMAwsAccountScanTypeEnum,
@@ -1083,6 +1107,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     * @deprecated
      */
     async getCSPMAwsConsoleSetupURLsRaw(
         requestParameters: CspmRegistrationApiGetCSPMAwsConsoleSetupURLsRequest,
@@ -1132,6 +1157,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a URL for customer to visit in their cloud environment to grant us access to their AWS environment.
+     * @deprecated
      */
     async getCSPMAwsConsoleSetupURLs(
         ids?: Array<string>,
@@ -1147,6 +1173,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return information about Azure account registration
+     * @deprecated
      */
     async getCSPMAzureAccountRaw(
         requestParameters: CspmRegistrationApiGetCSPMAzureAccountRequest,
@@ -1204,6 +1231,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return information about Azure account registration
+     * @deprecated
      */
     async getCSPMAzureAccount(
         ids?: Array<string>,
@@ -1221,6 +1249,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return information about Azure management group registration
+     * @deprecated
      */
     async getCSPMAzureManagementGroupRaw(
         requestParameters: CspmRegistrationApiGetCSPMAzureManagementGroupRequest,
@@ -1262,6 +1291,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return information about Azure management group registration
+     * @deprecated
      */
     async getCSPMAzureManagementGroup(
         tenantIds?: Array<string>,
@@ -1275,6 +1305,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     * @deprecated
      */
     async getCSPMAzureUserScriptsAttachmentRaw(
         requestParameters: CspmRegistrationApiGetCSPMAzureUserScriptsAttachmentRequest,
@@ -1324,6 +1355,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their Azure environment as a downloadable attachment
+     * @deprecated
      */
     async getCSPMAzureUserScriptsAttachment(
         tenantId?: string,
@@ -1342,6 +1374,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns information about the current status of an GCP account.
+     * @deprecated
      */
     async getCSPMGCPAccountRaw(
         requestParameters: CspmRegistrationApiGetCSPMGCPAccountRequest,
@@ -1399,6 +1432,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns information about the current status of an GCP account.
+     * @deprecated
      */
     async getCSPMGCPAccount(
         parentType?: GetCSPMGCPAccountParentTypeEnum,
@@ -1416,6 +1450,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns the service account id and client email for external clients.
+     * @deprecated
      */
     async getCSPMGCPServiceAccountsExtRaw(
         requestParameters: CspmRegistrationApiGetCSPMGCPServiceAccountsExtRequest,
@@ -1449,6 +1484,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Returns the service account id and client email for external clients.
+     * @deprecated
      */
     async getCSPMGCPServiceAccountsExt(id?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPServiceAccountResponseExtV1> {
         const response = await this.getCSPMGCPServiceAccountsExtRaw({ id: id }, initOverrides);
@@ -1457,6 +1493,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
+     * @deprecated
      */
     async getCSPMGCPUserScriptsAttachmentRaw(
         requestParameters: CspmRegistrationApiGetCSPMGCPUserScriptsAttachmentRequest,
@@ -1494,6 +1531,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Return a script for customer to run in their cloud environment to grant us access to their GCP environment as a downloadable attachment
+     * @deprecated
      */
     async getCSPMGCPUserScriptsAttachment(
         parentType?: GetCSPMGCPUserScriptsAttachmentParentTypeEnum,
@@ -1506,6 +1544,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Run a synchronous health check.
+     * @deprecated
      */
     async getCSPMGCPValidateAccountsExtRaw(
         requestParameters: CspmRegistrationApiGetCSPMGCPValidateAccountsExtRequest,
@@ -1542,6 +1581,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Run a synchronous health check.
+     * @deprecated
      */
     async getCSPMGCPValidateAccountsExt(
         body: RegistrationGCPAccountValidationRequestV1,
@@ -2007,6 +2047,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches a existing account in our system for a customer.
+     * @deprecated
      */
     async patchCSPMAwsAccountRaw(
         requestParameters: CspmRegistrationApiPatchCSPMAwsAccountRequest,
@@ -2043,6 +2084,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches a existing account in our system for a customer.
+     * @deprecated
      */
     async patchCSPMAwsAccount(body: RegistrationAWSAccountPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAWSAccountResponseV2> {
         const response = await this.patchCSPMAwsAccountRaw({ body: body }, initOverrides);
@@ -2051,6 +2093,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches a existing account in our system for a customer.
+     * @deprecated
      */
     async updateCSPMAzureAccountRaw(
         requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountRequest,
@@ -2087,6 +2130,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches a existing account in our system for a customer.
+     * @deprecated
      */
     async updateCSPMAzureAccount(body: RegistrationAzureAccountPatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureAccountResponseV1> {
         const response = await this.updateCSPMAzureAccountRaw({ body: body }, initOverrides);
@@ -2095,6 +2139,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
+     * @deprecated
      */
     async updateCSPMAzureAccountClientIDRaw(
         requestParameters: CspmRegistrationApiUpdateCSPMAzureAccountClientIDRequest,
@@ -2136,6 +2181,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Update an Azure service account in our system by with the user-created client_id created with the public key we\'ve provided
+     * @deprecated
      */
     async updateCSPMAzureAccountClientID(id: string, tenantId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationAzureTenantConfigurationResponseV1> {
         const response = await this.updateCSPMAzureAccountClientIDRaw({ id: id, tenantId: tenantId }, initOverrides);
@@ -2144,6 +2190,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Update an Azure default subscription_id in our system for given tenant_id
+     * @deprecated
      */
     async updateCSPMAzureTenantDefaultSubscriptionIDRaw(
         requestParameters: CspmRegistrationApiUpdateCSPMAzureTenantDefaultSubscriptionIDRequest,
@@ -2185,6 +2232,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Update an Azure default subscription_id in our system for given tenant_id
+     * @deprecated
      */
     async updateCSPMAzureTenantDefaultSubscriptionID(
         subscriptionId: string,
@@ -2197,6 +2245,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches a existing account in our system for a customer.
+     * @deprecated
      */
     async updateCSPMGCPAccountRaw(
         requestParameters: CspmRegistrationApiUpdateCSPMGCPAccountRequest,
@@ -2233,6 +2282,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches a existing account in our system for a customer.
+     * @deprecated
      */
     async updateCSPMGCPAccount(body: RegistrationGCPAccountPatchRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RegistrationGCPAccountResponseV1> {
         const response = await this.updateCSPMGCPAccountRaw({ body: body }, initOverrides);
@@ -2241,6 +2291,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches the service account key for external clients.
+     * @deprecated
      */
     async updateCSPMGCPServiceAccountsExtRaw(
         requestParameters: CspmRegistrationApiUpdateCSPMGCPServiceAccountsExtRequest,
@@ -2277,6 +2328,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Patches the service account key for external clients.
+     * @deprecated
      */
     async updateCSPMGCPServiceAccountsExt(
         body: RegistrationGCPServiceAccountPatchRequestV1,
@@ -2376,6 +2428,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Validates credentials for a service account
+     * @deprecated
      */
     async validateCSPMGCPServiceAccountExtRaw(
         requestParameters: CspmRegistrationApiValidateCSPMGCPServiceAccountExtRequest,
@@ -2412,6 +2465,7 @@ export class CspmRegistrationApi extends runtime.BaseAPI {
 
     /**
      * Validates credentials for a service account
+     * @deprecated
      */
     async validateCSPMGCPServiceAccountExt(
         body: RegistrationGCPServiceAccountValidationRequestV1,

@@ -18,6 +18,7 @@ import { MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON, MsaspecResponseFields
 
 export interface StreamApiStreamInvocationResponseV1Request {
     id: string;
+    projectId?: string;
 }
 
 /**
@@ -38,11 +39,15 @@ export class StreamApi extends runtime.BaseAPI {
             queryParameters["id"] = requestParameters["id"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:read"]);
         }
 
         const response = await this.request(
@@ -61,7 +66,7 @@ export class StreamApi extends runtime.BaseAPI {
     /**
      * Retrieves the stream of results for an invocation
      */
-    async streamInvocationResponseV1(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.streamInvocationResponseV1Raw({ id: id }, initOverrides);
+    async streamInvocationResponseV1(id: string, projectId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.streamInvocationResponseV1Raw({ id: id, projectId: projectId }, initOverrides);
     }
 }

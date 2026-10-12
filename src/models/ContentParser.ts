@@ -84,6 +84,12 @@ export interface ContentParser {
      * @type {boolean}
      * @memberof ContentParser
      */
+    rollbackAvailable: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ContentParser
+     */
     updateAvailable?: boolean;
     /**
      *
@@ -109,6 +115,7 @@ export function instanceOfContentParser(value: object): value is ContentParser {
     if (!("impactedConnections" in value) || value["impactedConnections"] === undefined) return false;
     if (!("passThroughAlerts" in value) || value["passThroughAlerts"] === undefined) return false;
     if (!("product" in value) || value["product"] === undefined) return false;
+    if (!("rollbackAvailable" in value) || value["rollbackAvailable"] === undefined) return false;
     if (!("vendor" in value) || value["vendor"] === undefined) return false;
     if (!("version" in value) || value["version"] === undefined) return false;
     return true;
@@ -133,6 +140,7 @@ export function ContentParserFromJSONTyped(json: any, ignoreDiscriminator: boole
         parserType: json["parser_type"] == null ? undefined : json["parser_type"],
         passThroughAlerts: json["pass_through_alerts"],
         product: json["product"],
+        rollbackAvailable: json["rollback_available"],
         updateAvailable: json["update_available"] == null ? undefined : json["update_available"],
         vendor: json["vendor"],
         version: json["version"],
@@ -154,6 +162,7 @@ export function ContentParserToJSON(value?: ContentParser | null): any {
         parser_type: value["parserType"],
         pass_through_alerts: value["passThroughAlerts"],
         product: value["product"],
+        rollback_available: value["rollbackAvailable"],
         update_available: value["updateAvailable"],
         vendor: value["vendor"],
         version: value["version"],

@@ -132,6 +132,12 @@ export interface GcpProjectDetails {
      * @type {string}
      * @memberof GcpProjectDetails
      */
+    rootFolderId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof GcpProjectDetails
+     */
     serviceAccount?: string;
     /**
      *
@@ -187,6 +193,7 @@ export function GcpProjectDetailsFromJSONTyped(json: any, ignoreDiscriminator: b
         registrationId: json["registration_id"] == null ? undefined : json["registration_id"],
         registrationName: json["registration_name"] == null ? undefined : json["registration_name"],
         registrationScope: json["registration_scope"] == null ? undefined : json["registration_scope"],
+        rootFolderId: json["root_folder_id"] == null ? undefined : json["root_folder_id"],
         serviceAccount: json["service_account"] == null ? undefined : json["service_account"],
         status: json["status"] == null ? undefined : json["status"],
         updated: json["updated"] == null ? undefined : new Date(json["updated"]),
@@ -217,6 +224,7 @@ export function GcpProjectDetailsToJSON(value?: GcpProjectDetails | null): any {
         registration_id: value["registrationId"],
         registration_name: value["registrationName"],
         registration_scope: value["registrationScope"],
+        root_folder_id: value["rootFolderId"],
         service_account: value["serviceAccount"],
         status: value["status"],
         updated: value["updated"] == null ? undefined : value["updated"].toISOString(),

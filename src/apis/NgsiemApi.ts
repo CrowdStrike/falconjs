@@ -14,17 +14,30 @@
 
 import * as runtime from "../runtime";
 import type {
+    ApiAddDashboardLabelsRequestV1,
+    ApiAddFileLabelsRequestV1,
+    ApiAddSavedQueryLabelsRequestV1,
     ApiBulkCreateDashboardsFromTemplateRequestV1,
     ApiBulkCreateDashboardsFromTemplateResponseV1,
     ApiBulkCreateLookupFilesRequestV1,
     ApiBulkCreateLookupFilesResponseV1,
+    ApiBulkCreatePersistedAggregationsRequestV1,
+    ApiBulkCreatePersistedAggregationsResponseV1,
     ApiBulkCreateSavedQueriesFromTemplateRequestV1,
     ApiBulkCreateSavedQueriesFromTemplateResponseV1,
+    ApiBulkDashboardLabelsRequestV1,
+    ApiBulkDashboardLabelsResponseV1,
     ApiBulkGetLookupFilesResponseV1,
+    ApiBulkLookupFileLabelsRequestV1,
+    ApiBulkLookupFileLabelsResponseV1,
+    ApiBulkSavedQueryLabelsRequestV1,
+    ApiBulkSavedQueryLabelsResponseV1,
     ApiBulkUpdateDashboardsFromTemplateRequestV1,
     ApiBulkUpdateDashboardsFromTemplateResponseV1,
     ApiBulkUpdateLookupFilesRequestV1,
     ApiBulkUpdateLookupFilesResponseV1,
+    ApiBulkUpdatePersistedAggregationsRequestV1,
+    ApiBulkUpdatePersistedAggregationsResponseV1,
     ApiBulkUpdateSavedQueriesFromTemplateRequestV1,
     ApiBulkUpdateSavedQueriesFromTemplateResponseV1,
     ApiCloneParserRequestV1,
@@ -35,19 +48,32 @@ import type {
     ApiCreateParserFromTemplateResponseV1,
     ApiCreateParserRequestV1,
     ApiCreateParserResponseV1,
+    ApiCreatePersistedAggregationRequestV1,
+    ApiCreatePersistedAggregationResponseV1,
     ApiCreateSavedQueryResponseV1,
+    ApiCreateScheduledReportRequestV1,
+    ApiCreateScheduledReportResponseV1,
     ApiDeleteDashboardResponseV1,
     ApiDeleteLookupFileResponseV1,
     ApiDeleteParserResponseV1,
+    ApiDeletePersistedAggregationResponseV1,
     ApiDeleteSavedQueryResponseV1,
+    ApiDeleteScheduledReportResponseV1,
+    ApiFileLabelResponseV1,
     ApiGetDashboardTemplateResponseV1,
     ApiGetParserResponseV1,
+    ApiGetParserRollbackOptionsResponseV1,
     ApiGetParserTemplateResponseV1,
+    ApiGetPersistedAggregationResponseV1,
     ApiGetSavedQueryResponseV1,
+    ApiGetScheduledReportResponseV1,
+    ApiLabelResponseV1,
     ApiListDashboardsResponseV1,
     ApiListLookupFilesResponseV1,
     ApiListParsersResponseV1,
+    ApiListPersistedAggregationsResponseV1,
     ApiListSavedQueriesResponseV1,
+    ApiListScheduledReportsResponseV1,
     ApiParserBulkInstallRequestV1,
     ApiParserBulkInstallResponseV1,
     ApiParserInstallRequestV1,
@@ -55,17 +81,29 @@ import type {
     ApiQueryJobInput,
     ApiQueryJobResponse,
     ApiQueryJobsResults,
+    ApiRemoveDashboardLabelsRequestV1,
+    ApiRemoveFileLabelsRequestV1,
+    ApiRemoveSavedQueryLabelsRequestV1,
+    ApiRollbackParserRequestV1,
+    ApiRollbackParserResponseV1,
     ApiTestParserFromTemplateResponseV1,
     ApiUpdateAutoUpdatePolicyRequestV1,
     ApiUpdateAutoUpdatePolicyResponseV1,
     ApiUpdateDashboardFromTemplateResponseV1,
+    ApiUpdateDashboardLabelsRequestV1,
+    ApiUpdateFileLabelsRequestV1,
     ApiUpdateLookupFileEntriesResponseV1,
     ApiUpdateLookupFileResponseV1,
     ApiUpdateParserExtensionRequestV1,
     ApiUpdateParserFromTemplateResponseV1,
     ApiUpdateParserRequestV1,
     ApiUpdateParserResponseV1,
+    ApiUpdatePersistedAggregationRequestV1,
+    ApiUpdatePersistedAggregationResponseV1,
+    ApiUpdateSavedQueryLabelsRequestV1,
     ApiUpdateSavedQueryResponseV1,
+    ApiUpdateScheduledReportRequestV1,
+    ApiUpdateScheduledReportResponseV1,
     DataconnectionmanagementConfigResponse,
     DataconnectionmanagementConnectionNotReady,
     DataconnectionmanagementConnectionStatusResponse,
@@ -84,6 +122,12 @@ import type {
     MsaspecResponseFields,
 } from "../models/index";
 import {
+    ApiAddDashboardLabelsRequestV1FromJSON,
+    ApiAddDashboardLabelsRequestV1ToJSON,
+    ApiAddFileLabelsRequestV1FromJSON,
+    ApiAddFileLabelsRequestV1ToJSON,
+    ApiAddSavedQueryLabelsRequestV1FromJSON,
+    ApiAddSavedQueryLabelsRequestV1ToJSON,
     ApiBulkCreateDashboardsFromTemplateRequestV1FromJSON,
     ApiBulkCreateDashboardsFromTemplateRequestV1ToJSON,
     ApiBulkCreateDashboardsFromTemplateResponseV1FromJSON,
@@ -92,12 +136,28 @@ import {
     ApiBulkCreateLookupFilesRequestV1ToJSON,
     ApiBulkCreateLookupFilesResponseV1FromJSON,
     ApiBulkCreateLookupFilesResponseV1ToJSON,
+    ApiBulkCreatePersistedAggregationsRequestV1FromJSON,
+    ApiBulkCreatePersistedAggregationsRequestV1ToJSON,
+    ApiBulkCreatePersistedAggregationsResponseV1FromJSON,
+    ApiBulkCreatePersistedAggregationsResponseV1ToJSON,
     ApiBulkCreateSavedQueriesFromTemplateRequestV1FromJSON,
     ApiBulkCreateSavedQueriesFromTemplateRequestV1ToJSON,
     ApiBulkCreateSavedQueriesFromTemplateResponseV1FromJSON,
     ApiBulkCreateSavedQueriesFromTemplateResponseV1ToJSON,
+    ApiBulkDashboardLabelsRequestV1FromJSON,
+    ApiBulkDashboardLabelsRequestV1ToJSON,
+    ApiBulkDashboardLabelsResponseV1FromJSON,
+    ApiBulkDashboardLabelsResponseV1ToJSON,
     ApiBulkGetLookupFilesResponseV1FromJSON,
     ApiBulkGetLookupFilesResponseV1ToJSON,
+    ApiBulkLookupFileLabelsRequestV1FromJSON,
+    ApiBulkLookupFileLabelsRequestV1ToJSON,
+    ApiBulkLookupFileLabelsResponseV1FromJSON,
+    ApiBulkLookupFileLabelsResponseV1ToJSON,
+    ApiBulkSavedQueryLabelsRequestV1FromJSON,
+    ApiBulkSavedQueryLabelsRequestV1ToJSON,
+    ApiBulkSavedQueryLabelsResponseV1FromJSON,
+    ApiBulkSavedQueryLabelsResponseV1ToJSON,
     ApiBulkUpdateDashboardsFromTemplateRequestV1FromJSON,
     ApiBulkUpdateDashboardsFromTemplateRequestV1ToJSON,
     ApiBulkUpdateDashboardsFromTemplateResponseV1FromJSON,
@@ -106,6 +166,10 @@ import {
     ApiBulkUpdateLookupFilesRequestV1ToJSON,
     ApiBulkUpdateLookupFilesResponseV1FromJSON,
     ApiBulkUpdateLookupFilesResponseV1ToJSON,
+    ApiBulkUpdatePersistedAggregationsRequestV1FromJSON,
+    ApiBulkUpdatePersistedAggregationsRequestV1ToJSON,
+    ApiBulkUpdatePersistedAggregationsResponseV1FromJSON,
+    ApiBulkUpdatePersistedAggregationsResponseV1ToJSON,
     ApiBulkUpdateSavedQueriesFromTemplateRequestV1FromJSON,
     ApiBulkUpdateSavedQueriesFromTemplateRequestV1ToJSON,
     ApiBulkUpdateSavedQueriesFromTemplateResponseV1FromJSON,
@@ -126,32 +190,58 @@ import {
     ApiCreateParserRequestV1ToJSON,
     ApiCreateParserResponseV1FromJSON,
     ApiCreateParserResponseV1ToJSON,
+    ApiCreatePersistedAggregationRequestV1FromJSON,
+    ApiCreatePersistedAggregationRequestV1ToJSON,
+    ApiCreatePersistedAggregationResponseV1FromJSON,
+    ApiCreatePersistedAggregationResponseV1ToJSON,
     ApiCreateSavedQueryResponseV1FromJSON,
     ApiCreateSavedQueryResponseV1ToJSON,
+    ApiCreateScheduledReportRequestV1FromJSON,
+    ApiCreateScheduledReportRequestV1ToJSON,
+    ApiCreateScheduledReportResponseV1FromJSON,
+    ApiCreateScheduledReportResponseV1ToJSON,
     ApiDeleteDashboardResponseV1FromJSON,
     ApiDeleteDashboardResponseV1ToJSON,
     ApiDeleteLookupFileResponseV1FromJSON,
     ApiDeleteLookupFileResponseV1ToJSON,
     ApiDeleteParserResponseV1FromJSON,
     ApiDeleteParserResponseV1ToJSON,
+    ApiDeletePersistedAggregationResponseV1FromJSON,
+    ApiDeletePersistedAggregationResponseV1ToJSON,
     ApiDeleteSavedQueryResponseV1FromJSON,
     ApiDeleteSavedQueryResponseV1ToJSON,
+    ApiDeleteScheduledReportResponseV1FromJSON,
+    ApiDeleteScheduledReportResponseV1ToJSON,
+    ApiFileLabelResponseV1FromJSON,
+    ApiFileLabelResponseV1ToJSON,
     ApiGetDashboardTemplateResponseV1FromJSON,
     ApiGetDashboardTemplateResponseV1ToJSON,
     ApiGetParserResponseV1FromJSON,
     ApiGetParserResponseV1ToJSON,
+    ApiGetParserRollbackOptionsResponseV1FromJSON,
+    ApiGetParserRollbackOptionsResponseV1ToJSON,
     ApiGetParserTemplateResponseV1FromJSON,
     ApiGetParserTemplateResponseV1ToJSON,
+    ApiGetPersistedAggregationResponseV1FromJSON,
+    ApiGetPersistedAggregationResponseV1ToJSON,
     ApiGetSavedQueryResponseV1FromJSON,
     ApiGetSavedQueryResponseV1ToJSON,
+    ApiGetScheduledReportResponseV1FromJSON,
+    ApiGetScheduledReportResponseV1ToJSON,
+    ApiLabelResponseV1FromJSON,
+    ApiLabelResponseV1ToJSON,
     ApiListDashboardsResponseV1FromJSON,
     ApiListDashboardsResponseV1ToJSON,
     ApiListLookupFilesResponseV1FromJSON,
     ApiListLookupFilesResponseV1ToJSON,
     ApiListParsersResponseV1FromJSON,
     ApiListParsersResponseV1ToJSON,
+    ApiListPersistedAggregationsResponseV1FromJSON,
+    ApiListPersistedAggregationsResponseV1ToJSON,
     ApiListSavedQueriesResponseV1FromJSON,
     ApiListSavedQueriesResponseV1ToJSON,
+    ApiListScheduledReportsResponseV1FromJSON,
+    ApiListScheduledReportsResponseV1ToJSON,
     ApiParserBulkInstallRequestV1FromJSON,
     ApiParserBulkInstallRequestV1ToJSON,
     ApiParserBulkInstallResponseV1FromJSON,
@@ -166,6 +256,16 @@ import {
     ApiQueryJobResponseToJSON,
     ApiQueryJobsResultsFromJSON,
     ApiQueryJobsResultsToJSON,
+    ApiRemoveDashboardLabelsRequestV1FromJSON,
+    ApiRemoveDashboardLabelsRequestV1ToJSON,
+    ApiRemoveFileLabelsRequestV1FromJSON,
+    ApiRemoveFileLabelsRequestV1ToJSON,
+    ApiRemoveSavedQueryLabelsRequestV1FromJSON,
+    ApiRemoveSavedQueryLabelsRequestV1ToJSON,
+    ApiRollbackParserRequestV1FromJSON,
+    ApiRollbackParserRequestV1ToJSON,
+    ApiRollbackParserResponseV1FromJSON,
+    ApiRollbackParserResponseV1ToJSON,
     ApiTestParserFromTemplateResponseV1FromJSON,
     ApiTestParserFromTemplateResponseV1ToJSON,
     ApiUpdateAutoUpdatePolicyRequestV1FromJSON,
@@ -174,6 +274,10 @@ import {
     ApiUpdateAutoUpdatePolicyResponseV1ToJSON,
     ApiUpdateDashboardFromTemplateResponseV1FromJSON,
     ApiUpdateDashboardFromTemplateResponseV1ToJSON,
+    ApiUpdateDashboardLabelsRequestV1FromJSON,
+    ApiUpdateDashboardLabelsRequestV1ToJSON,
+    ApiUpdateFileLabelsRequestV1FromJSON,
+    ApiUpdateFileLabelsRequestV1ToJSON,
     ApiUpdateLookupFileEntriesResponseV1FromJSON,
     ApiUpdateLookupFileEntriesResponseV1ToJSON,
     ApiUpdateLookupFileResponseV1FromJSON,
@@ -186,8 +290,18 @@ import {
     ApiUpdateParserRequestV1ToJSON,
     ApiUpdateParserResponseV1FromJSON,
     ApiUpdateParserResponseV1ToJSON,
+    ApiUpdatePersistedAggregationRequestV1FromJSON,
+    ApiUpdatePersistedAggregationRequestV1ToJSON,
+    ApiUpdatePersistedAggregationResponseV1FromJSON,
+    ApiUpdatePersistedAggregationResponseV1ToJSON,
+    ApiUpdateSavedQueryLabelsRequestV1FromJSON,
+    ApiUpdateSavedQueryLabelsRequestV1ToJSON,
     ApiUpdateSavedQueryResponseV1FromJSON,
     ApiUpdateSavedQueryResponseV1ToJSON,
+    ApiUpdateScheduledReportRequestV1FromJSON,
+    ApiUpdateScheduledReportRequestV1ToJSON,
+    ApiUpdateScheduledReportResponseV1FromJSON,
+    ApiUpdateScheduledReportResponseV1ToJSON,
     DataconnectionmanagementConfigResponseFromJSON,
     DataconnectionmanagementConfigResponseToJSON,
     DataconnectionmanagementConnectionNotReadyFromJSON,
@@ -222,12 +336,40 @@ import {
     MsaspecResponseFieldsToJSON,
 } from "../models/index";
 
+export interface NgsiemApiAddDashboardLabelsRequest {
+    body: ApiAddDashboardLabelsRequestV1;
+}
+
+export interface NgsiemApiAddFileLabelsRequest {
+    body: ApiAddFileLabelsRequestV1;
+}
+
+export interface NgsiemApiAddSavedQueryLabelsRequest {
+    body: ApiAddSavedQueryLabelsRequestV1;
+}
+
+export interface NgsiemApiBulkAddDashboardLabelsRequest {
+    body: ApiBulkDashboardLabelsRequestV1;
+}
+
+export interface NgsiemApiBulkAddLookupFileLabelsRequest {
+    body: ApiBulkLookupFileLabelsRequestV1;
+}
+
+export interface NgsiemApiBulkAddSavedQueryLabelsRequest {
+    body: ApiBulkSavedQueryLabelsRequestV1;
+}
+
 export interface NgsiemApiBulkCreateDashboardsFromTemplateRequest {
     body: ApiBulkCreateDashboardsFromTemplateRequestV1;
 }
 
 export interface NgsiemApiBulkCreateLookupFilesRequest {
     body: ApiBulkCreateLookupFilesRequestV1;
+}
+
+export interface NgsiemApiBulkCreatePersistedAggregationsRequest {
+    body: ApiBulkCreatePersistedAggregationsRequestV1;
 }
 
 export interface NgsiemApiBulkCreateSavedQueriesFromTemplateRequest {
@@ -243,16 +385,44 @@ export interface NgsiemApiBulkInstallParsersRequest {
     body: ApiParserBulkInstallRequestV1;
 }
 
+export interface NgsiemApiBulkRemoveDashboardLabelsRequest {
+    body: ApiBulkDashboardLabelsRequestV1;
+}
+
+export interface NgsiemApiBulkRemoveLookupFileLabelsRequest {
+    body: ApiBulkLookupFileLabelsRequestV1;
+}
+
+export interface NgsiemApiBulkRemoveSavedQueryLabelsRequest {
+    body: ApiBulkSavedQueryLabelsRequestV1;
+}
+
+export interface NgsiemApiBulkUpdateDashboardLabelsRequest {
+    body: ApiBulkDashboardLabelsRequestV1;
+}
+
 export interface NgsiemApiBulkUpdateDashboardsFromTemplateRequest {
     body: ApiBulkUpdateDashboardsFromTemplateRequestV1;
+}
+
+export interface NgsiemApiBulkUpdateLookupFileLabelsRequest {
+    body: ApiBulkLookupFileLabelsRequestV1;
 }
 
 export interface NgsiemApiBulkUpdateLookupFilesRequest {
     body: ApiBulkUpdateLookupFilesRequestV1;
 }
 
+export interface NgsiemApiBulkUpdatePersistedAggregationsRequest {
+    body: ApiBulkUpdatePersistedAggregationsRequestV1;
+}
+
 export interface NgsiemApiBulkUpdateSavedQueriesFromTemplateRequest {
     body: ApiBulkUpdateSavedQueriesFromTemplateRequestV1;
+}
+
+export interface NgsiemApiBulkUpdateSavedQueryLabelsRequest {
+    body: ApiBulkSavedQueryLabelsRequestV1;
 }
 
 export interface NgsiemApiCloneParserRequest {
@@ -284,9 +454,17 @@ export interface NgsiemApiCreateParserFromTemplateRequest {
     yamlTemplate?: Blob;
 }
 
+export interface NgsiemApiCreatePersistedAggregationRequest {
+    body: ApiCreatePersistedAggregationRequestV1;
+}
+
 export interface NgsiemApiCreateSavedQueryRequest {
     searchDomain?: CreateSavedQuerySearchDomainEnum;
     yamlTemplate?: Blob;
+}
+
+export interface NgsiemApiCreateScheduledReportRequest {
+    body: ApiCreateScheduledReportRequestV1;
 }
 
 export interface NgsiemApiDeleteDashboardRequest {
@@ -304,9 +482,19 @@ export interface NgsiemApiDeleteParserRequest {
     repository?: DeleteParserRepositoryEnum;
 }
 
+export interface NgsiemApiDeletePersistedAggregationRequest {
+    ids: Array<string>;
+    searchDomain: string;
+}
+
 export interface NgsiemApiDeleteSavedQueryRequest {
     ids?: Array<string>;
     searchDomain?: DeleteSavedQuerySearchDomainEnum;
+}
+
+export interface NgsiemApiDeleteScheduledReportRequest {
+    ids?: Array<string>;
+    searchDomain?: string;
 }
 
 export interface NgsiemApiExternalCreateConnectorConfigRequest {
@@ -408,14 +596,28 @@ export interface NgsiemApiGetParserRequest {
     repository?: GetParserRepositoryEnum;
 }
 
+export interface NgsiemApiGetParserRollbackOptionsRequest {
+    parserId: string;
+}
+
 export interface NgsiemApiGetParserTemplateRequest {
     ids?: string;
     repository?: GetParserTemplateRepositoryEnum;
 }
 
+export interface NgsiemApiGetPersistedAggregationRequest {
+    ids: string;
+    searchDomain: string;
+}
+
 export interface NgsiemApiGetSavedQueryTemplateRequest {
     ids?: Array<string>;
     searchDomain?: GetSavedQueryTemplateSearchDomainEnum;
+}
+
+export interface NgsiemApiGetScheduledReportRequest {
+    ids?: Array<string>;
+    searchDomain?: string;
 }
 
 export interface NgsiemApiGetSearchStatusV1Request {
@@ -450,11 +652,41 @@ export interface NgsiemApiListParsersRequest {
     parserType?: ListParsersParserTypeEnum;
 }
 
+export interface NgsiemApiListPersistedAggregationsRequest {
+    searchDomain: string;
+    limit?: string;
+    offset?: string;
+    filter?: string;
+}
+
 export interface NgsiemApiListSavedQueriesRequest {
     limit?: string;
     offset?: string;
     filter?: string;
     searchDomain?: ListSavedQueriesSearchDomainEnum;
+}
+
+export interface NgsiemApiListScheduledReportsRequest {
+    limit?: string;
+    offset?: string;
+    filter?: string;
+    viewName?: string;
+}
+
+export interface NgsiemApiRemoveDashboardLabelsRequest {
+    body: ApiRemoveDashboardLabelsRequestV1;
+}
+
+export interface NgsiemApiRemoveFileLabelsRequest {
+    body: ApiRemoveFileLabelsRequestV1;
+}
+
+export interface NgsiemApiRemoveSavedQueryLabelsRequest {
+    body: ApiRemoveSavedQueryLabelsRequestV1;
+}
+
+export interface NgsiemApiRollbackParserRequest {
+    body: ApiRollbackParserRequestV1;
 }
 
 export interface NgsiemApiStartSearchV1Request {
@@ -476,6 +708,14 @@ export interface NgsiemApiUpdateDashboardFromTemplateRequest {
     searchDomain?: UpdateDashboardFromTemplateSearchDomainEnum;
     ids?: string;
     yamlTemplate?: Blob;
+}
+
+export interface NgsiemApiUpdateDashboardLabelsRequest {
+    body: ApiUpdateDashboardLabelsRequestV1;
+}
+
+export interface NgsiemApiUpdateFileLabelsRequest {
+    body: ApiUpdateFileLabelsRequestV1;
 }
 
 export interface NgsiemApiUpdateLookupFileRequest {
@@ -511,10 +751,22 @@ export interface NgsiemApiUpdateParserFromTemplateRequest {
     yamlTemplate?: Blob;
 }
 
+export interface NgsiemApiUpdatePersistedAggregationRequest {
+    body: ApiUpdatePersistedAggregationRequestV1;
+}
+
 export interface NgsiemApiUpdateSavedQueryFromTemplateRequest {
     searchDomain?: UpdateSavedQueryFromTemplateSearchDomainEnum;
     ids?: string;
     yamlTemplate?: Blob;
+}
+
+export interface NgsiemApiUpdateSavedQueryLabelsRequest {
+    body: ApiUpdateSavedQueryLabelsRequestV1;
+}
+
+export interface NgsiemApiUpdateScheduledReportRequest {
+    body: ApiUpdateScheduledReportRequestV1;
 }
 
 export interface NgsiemApiUploadLookupV1Request {
@@ -526,6 +778,261 @@ export interface NgsiemApiUploadLookupV1Request {
  *
  */
 export class NgsiemApi extends runtime.BaseAPI {
+    /**
+     * Add multiple labels to a single dashboard
+     */
+    async addDashboardLabelsRaw(requestParameters: NgsiemApiAddDashboardLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling addDashboardLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/dashboard-labels/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiAddDashboardLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Add multiple labels to a single dashboard
+     */
+    async addDashboardLabels(body: ApiAddDashboardLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLabelResponseV1> {
+        const response = await this.addDashboardLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Add multiple labels to a single file
+     */
+    async addFileLabelsRaw(requestParameters: NgsiemApiAddFileLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiFileLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling addFileLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/lookupfile-labels/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiAddFileLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiFileLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Add multiple labels to a single file
+     */
+    async addFileLabels(body: ApiAddFileLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiFileLabelResponseV1> {
+        const response = await this.addFileLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Add multiple labels to a saved query
+     */
+    async addSavedQueryLabelsRaw(requestParameters: NgsiemApiAddSavedQueryLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling addSavedQueryLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/savedquery-labels/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiAddSavedQueryLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Add multiple labels to a saved query
+     */
+    async addSavedQueryLabels(body: ApiAddSavedQueryLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLabelResponseV1> {
+        const response = await this.addSavedQueryLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Add labels to multiple dashboards (max 100 items, non-transactional)
+     */
+    async bulkAddDashboardLabelsRaw(
+        requestParameters: NgsiemApiBulkAddDashboardLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkDashboardLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkAddDashboardLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-dashboard-labels-add/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkDashboardLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkDashboardLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Add labels to multiple dashboards (max 100 items, non-transactional)
+     */
+    async bulkAddDashboardLabels(body: ApiBulkDashboardLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkDashboardLabelsResponseV1> {
+        const response = await this.bulkAddDashboardLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Add labels to multiple lookup files (max 100 items, non-transactional)
+     */
+    async bulkAddLookupFileLabelsRaw(
+        requestParameters: NgsiemApiBulkAddLookupFileLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkLookupFileLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkAddLookupFileLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-lookupfile-labels-add/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkLookupFileLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkLookupFileLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Add labels to multiple lookup files (max 100 items, non-transactional)
+     */
+    async bulkAddLookupFileLabels(body: ApiBulkLookupFileLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkLookupFileLabelsResponseV1> {
+        const response = await this.bulkAddLookupFileLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Add labels to multiple saved queries (max 100 items, non-transactional)
+     */
+    async bulkAddSavedQueryLabelsRaw(
+        requestParameters: NgsiemApiBulkAddSavedQueryLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkSavedQueryLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkAddSavedQueryLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-savedquery-labels-add/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkSavedQueryLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkSavedQueryLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Add labels to multiple saved queries (max 100 items, non-transactional)
+     */
+    async bulkAddSavedQueryLabels(body: ApiBulkSavedQueryLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkSavedQueryLabelsResponseV1> {
+        const response = await this.bulkAddSavedQueryLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Create Multiple Dashboards from YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
      */
@@ -614,6 +1121,53 @@ export class NgsiemApi extends runtime.BaseAPI {
      */
     async bulkCreateLookupFiles(body: ApiBulkCreateLookupFilesRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkCreateLookupFilesResponseV1> {
         const response = await this.bulkCreateLookupFilesRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create Multiple Persisted Aggregations. Processes all items and returns per-item success/failure results
+     */
+    async bulkCreatePersistedAggregationsRaw(
+        requestParameters: NgsiemApiBulkCreatePersistedAggregationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkCreatePersistedAggregationsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkCreatePersistedAggregations().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-persisted-aggregations:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-persisted-aggregations/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkCreatePersistedAggregationsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkCreatePersistedAggregationsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create Multiple Persisted Aggregations. Processes all items and returns per-item success/failure results
+     */
+    async bulkCreatePersistedAggregations(
+        body: ApiBulkCreatePersistedAggregationsRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiBulkCreatePersistedAggregationsResponseV1> {
+        const response = await this.bulkCreatePersistedAggregationsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -762,6 +1316,182 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Remove labels from multiple dashboards (max 100 items, non-transactional)
+     */
+    async bulkRemoveDashboardLabelsRaw(
+        requestParameters: NgsiemApiBulkRemoveDashboardLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkDashboardLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkRemoveDashboardLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-dashboard-labels-remove/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkDashboardLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkDashboardLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Remove labels from multiple dashboards (max 100 items, non-transactional)
+     */
+    async bulkRemoveDashboardLabels(body: ApiBulkDashboardLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkDashboardLabelsResponseV1> {
+        const response = await this.bulkRemoveDashboardLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Remove labels from multiple lookup files (max 100 items, non-transactional)
+     */
+    async bulkRemoveLookupFileLabelsRaw(
+        requestParameters: NgsiemApiBulkRemoveLookupFileLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkLookupFileLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkRemoveLookupFileLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-lookupfile-labels-remove/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkLookupFileLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkLookupFileLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Remove labels from multiple lookup files (max 100 items, non-transactional)
+     */
+    async bulkRemoveLookupFileLabels(body: ApiBulkLookupFileLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkLookupFileLabelsResponseV1> {
+        const response = await this.bulkRemoveLookupFileLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Remove labels from multiple saved queries (max 100 items, non-transactional)
+     */
+    async bulkRemoveSavedQueryLabelsRaw(
+        requestParameters: NgsiemApiBulkRemoveSavedQueryLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkSavedQueryLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkRemoveSavedQueryLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-savedquery-labels-remove/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkSavedQueryLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkSavedQueryLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Remove labels from multiple saved queries (max 100 items, non-transactional)
+     */
+    async bulkRemoveSavedQueryLabels(body: ApiBulkSavedQueryLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkSavedQueryLabelsResponseV1> {
+        const response = await this.bulkRemoveSavedQueryLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Replace all labels on multiple dashboards (max 100 items, non-transactional)
+     */
+    async bulkUpdateDashboardLabelsRaw(
+        requestParameters: NgsiemApiBulkUpdateDashboardLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkDashboardLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkUpdateDashboardLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-dashboard-labels-replace/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkDashboardLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkDashboardLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Replace all labels on multiple dashboards (max 100 items, non-transactional)
+     */
+    async bulkUpdateDashboardLabels(body: ApiBulkDashboardLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkDashboardLabelsResponseV1> {
+        const response = await this.bulkUpdateDashboardLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Update Multiple Dashboards from YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
      */
     async bulkUpdateDashboardsFromTemplateRaw(
@@ -805,6 +1535,50 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiBulkUpdateDashboardsFromTemplateResponseV1> {
         const response = await this.bulkUpdateDashboardsFromTemplateRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Replace all labels on multiple lookup files (max 100 items, non-transactional)
+     */
+    async bulkUpdateLookupFileLabelsRaw(
+        requestParameters: NgsiemApiBulkUpdateLookupFileLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkLookupFileLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkUpdateLookupFileLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-lookupfile-labels-replace/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkLookupFileLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkLookupFileLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Replace all labels on multiple lookup files (max 100 items, non-transactional)
+     */
+    async bulkUpdateLookupFileLabels(body: ApiBulkLookupFileLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkLookupFileLabelsResponseV1> {
+        const response = await this.bulkUpdateLookupFileLabelsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -853,6 +1627,53 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Update Multiple Persisted Aggregations. Processes all items and returns per-item success/failure results
+     */
+    async bulkUpdatePersistedAggregationsRaw(
+        requestParameters: NgsiemApiBulkUpdatePersistedAggregationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkUpdatePersistedAggregationsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkUpdatePersistedAggregations().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-persisted-aggregations:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-persisted-aggregations/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkUpdatePersistedAggregationsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkUpdatePersistedAggregationsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update Multiple Persisted Aggregations. Processes all items and returns per-item success/failure results
+     */
+    async bulkUpdatePersistedAggregations(
+        body: ApiBulkUpdatePersistedAggregationsRequestV1,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiBulkUpdatePersistedAggregationsResponseV1> {
+        const response = await this.bulkUpdatePersistedAggregationsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Update Multiple Saved Queries from LogScale YAML Templates. Processes all items and returns per-item success/failure results. Failed items are included in the errors array with appropriate HTTP status codes.
      */
     async bulkUpdateSavedQueriesFromTemplateRaw(
@@ -896,6 +1717,50 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiBulkUpdateSavedQueriesFromTemplateResponseV1> {
         const response = await this.bulkUpdateSavedQueriesFromTemplateRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Replace all labels on multiple saved queries (max 100 items, non-transactional)
+     */
+    async bulkUpdateSavedQueryLabelsRaw(
+        requestParameters: NgsiemApiBulkUpdateSavedQueryLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiBulkSavedQueryLabelsResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling bulkUpdateSavedQueryLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/bulk-savedquery-labels-replace/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiBulkSavedQueryLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiBulkSavedQueryLabelsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Replace all labels on multiple saved queries (max 100 items, non-transactional)
+     */
+    async bulkUpdateSavedQueryLabels(body: ApiBulkSavedQueryLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiBulkSavedQueryLabelsResponseV1> {
+        const response = await this.bulkUpdateSavedQueryLabelsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -1230,6 +2095,50 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create a Persisted Aggregation in LogScale
+     */
+    async createPersistedAggregationRaw(
+        requestParameters: NgsiemApiCreatePersistedAggregationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreatePersistedAggregationResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPersistedAggregation().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-persisted-aggregations:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/persisted-aggregations/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiCreatePersistedAggregationRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreatePersistedAggregationResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create a Persisted Aggregation in LogScale
+     */
+    async createPersistedAggregation(body: ApiCreatePersistedAggregationRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCreatePersistedAggregationResponseV1> {
+        const response = await this.createPersistedAggregationRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Create Saved Query from LogScale YAML Template in NGSIEM
      */
     async createSavedQueryRaw(
@@ -1286,6 +2195,50 @@ export class NgsiemApi extends runtime.BaseAPI {
      */
     async createSavedQuery(searchDomain?: CreateSavedQuerySearchDomainEnum, yamlTemplate?: Blob, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCreateSavedQueryResponseV1> {
         const response = await this.createSavedQueryRaw({ searchDomain: searchDomain, yamlTemplate: yamlTemplate }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Create a Scheduled Report in LogScale
+     */
+    async createScheduledReportRaw(
+        requestParameters: NgsiemApiCreateScheduledReportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiCreateScheduledReportResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createScheduledReport().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-scheduled-reports:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/scheduled-reports/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiCreateScheduledReportRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiCreateScheduledReportResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Create a Scheduled Report in LogScale
+     */
+    async createScheduledReport(body: ApiCreateScheduledReportRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiCreateScheduledReportResponseV1> {
+        const response = await this.createScheduledReportRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -1426,6 +2379,59 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Delete one or more Persisted Aggregations by ID
+     */
+    async deletePersistedAggregationRaw(
+        requestParameters: NgsiemApiDeletePersistedAggregationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDeletePersistedAggregationResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling deletePersistedAggregation().');
+        }
+
+        if (requestParameters["searchDomain"] == null) {
+            throw new runtime.RequiredError("searchDomain", 'Required parameter "searchDomain" was null or undefined when calling deletePersistedAggregation().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["searchDomain"] != null) {
+            queryParameters["search_domain"] = requestParameters["searchDomain"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-persisted-aggregations:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/persisted-aggregations/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeletePersistedAggregationResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Delete one or more Persisted Aggregations by ID
+     */
+    async deletePersistedAggregation(ids: Array<string>, searchDomain: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeletePersistedAggregationResponseV1> {
+        const response = await this.deletePersistedAggregationRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Delete Saved Query in NGSIEM
      */
     async deleteSavedQueryRaw(
@@ -1467,6 +2473,51 @@ export class NgsiemApi extends runtime.BaseAPI {
      */
     async deleteSavedQuery(ids?: Array<string>, searchDomain?: DeleteSavedQuerySearchDomainEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeleteSavedQueryResponseV1> {
         const response = await this.deleteSavedQueryRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete Scheduled Report(s) in LogScale
+     */
+    async deleteScheduledReportRaw(
+        requestParameters: NgsiemApiDeleteScheduledReportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiDeleteScheduledReportResponseV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["searchDomain"] != null) {
+            queryParameters["search_domain"] = requestParameters["searchDomain"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-scheduled-reports:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/scheduled-reports/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiDeleteScheduledReportResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Delete Scheduled Report(s) in LogScale
+     */
+    async deleteScheduledReport(ids?: Array<string>, searchDomain?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiDeleteScheduledReportResponseV1> {
+        const response = await this.deleteScheduledReportRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
         return await response.value();
     }
 
@@ -2455,6 +3506,51 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Retrieve available rollback versions for a parser. Returns a list of previous versions that the parser can be rolled back to, including version metadata, changelog, and author information.
+     */
+    async getParserRollbackOptionsRaw(
+        requestParameters: NgsiemApiGetParserRollbackOptionsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetParserRollbackOptionsResponseV1>> {
+        if (requestParameters["parserId"] == null) {
+            throw new runtime.RequiredError("parserId", 'Required parameter "parserId" was null or undefined when calling getParserRollbackOptions().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["parserId"] != null) {
+            queryParameters["parser_id"] = requestParameters["parserId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers-rollback/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetParserRollbackOptionsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Retrieve available rollback versions for a parser. Returns a list of previous versions that the parser can be rolled back to, including version metadata, changelog, and author information.
+     */
+    async getParserRollbackOptions(parserId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiGetParserRollbackOptionsResponseV1> {
+        const response = await this.getParserRollbackOptionsRaw({ parserId: parserId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Retrieve Parser in NGSIEM as LogScale YAML Template
      */
     async getParserTemplateRaw(
@@ -2496,6 +3592,59 @@ export class NgsiemApi extends runtime.BaseAPI {
      */
     async getParserTemplate(ids?: string, repository?: GetParserTemplateRepositoryEnum, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiGetParserTemplateResponseV1> {
         const response = await this.getParserTemplateRaw({ ids: ids, repository: repository }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a persisted aggregation by ID
+     */
+    async getPersistedAggregationRaw(
+        requestParameters: NgsiemApiGetPersistedAggregationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetPersistedAggregationResponseV1>> {
+        if (requestParameters["ids"] == null) {
+            throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getPersistedAggregation().');
+        }
+
+        if (requestParameters["searchDomain"] == null) {
+            throw new runtime.RequiredError("searchDomain", 'Required parameter "searchDomain" was null or undefined when calling getPersistedAggregation().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"];
+        }
+
+        if (requestParameters["searchDomain"] != null) {
+            queryParameters["search_domain"] = requestParameters["searchDomain"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-persisted-aggregations:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/persisted-aggregations/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetPersistedAggregationResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get a persisted aggregation by ID
+     */
+    async getPersistedAggregation(ids: string, searchDomain: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiGetPersistedAggregationResponseV1> {
+        const response = await this.getPersistedAggregationRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
         return await response.value();
     }
 
@@ -2545,6 +3694,51 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiGetSavedQueryResponseV1> {
         const response = await this.getSavedQueryTemplateRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Scheduled Report(s) in LogScale
+     */
+    async getScheduledReportRaw(
+        requestParameters: NgsiemApiGetScheduledReportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiGetScheduledReportResponseV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["ids"] != null) {
+            queryParameters["ids"] = requestParameters["ids"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        if (requestParameters["searchDomain"] != null) {
+            queryParameters["search_domain"] = requestParameters["searchDomain"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-scheduled-reports:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/scheduled-reports/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiGetScheduledReportResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Get Scheduled Report(s) in LogScale
+     */
+    async getScheduledReport(ids?: Array<string>, searchDomain?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiGetScheduledReportResponseV1> {
+        const response = await this.getScheduledReportRaw({ ids: ids, searchDomain: searchDomain }, initOverrides);
         return await response.value();
     }
 
@@ -2815,6 +4009,69 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * List persisted aggregations in a search domain with pagination
+     */
+    async listPersistedAggregationsRaw(
+        requestParameters: NgsiemApiListPersistedAggregationsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiListPersistedAggregationsResponseV1>> {
+        if (requestParameters["searchDomain"] == null) {
+            throw new runtime.RequiredError("searchDomain", 'Required parameter "searchDomain" was null or undefined when calling listPersistedAggregations().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["searchDomain"] != null) {
+            queryParameters["search_domain"] = requestParameters["searchDomain"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-persisted-aggregations:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/queries/persisted-aggregations/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiListPersistedAggregationsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * List persisted aggregations in a search domain with pagination
+     */
+    async listPersistedAggregations(
+        searchDomain: string,
+        limit?: string,
+        offset?: string,
+        filter?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiListPersistedAggregationsResponseV1> {
+        const response = await this.listPersistedAggregationsRaw({ searchDomain: searchDomain, limit: limit, offset: offset, filter: filter }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * List Saved Queries in NGSIEM with Pagination and Filtering. Supports bulk listing with pagination (default limit: 50) and optional name filtering.
      */
     async listSavedQueriesRaw(
@@ -2870,6 +4127,235 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiListSavedQueriesResponseV1> {
         const response = await this.listSavedQueriesRaw({ limit: limit, offset: offset, filter: filter, searchDomain: searchDomain }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List Scheduled Reports in a view with Pagination and Filtering. Returns scheduled report details. Supports pagination (default limit: 50) and optional name filtering.
+     */
+    async listScheduledReportsRaw(
+        requestParameters: NgsiemApiListScheduledReportsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiListScheduledReportsResponseV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["filter"] != null) {
+            queryParameters["filter"] = requestParameters["filter"];
+        }
+
+        if (requestParameters["viewName"] != null) {
+            queryParameters["view_name"] = requestParameters["viewName"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-scheduled-reports:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/queries/scheduled-reports/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiListScheduledReportsResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * List Scheduled Reports in a view with Pagination and Filtering. Returns scheduled report details. Supports pagination (default limit: 50) and optional name filtering.
+     */
+    async listScheduledReports(
+        limit?: string,
+        offset?: string,
+        filter?: string,
+        viewName?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<ApiListScheduledReportsResponseV1> {
+        const response = await this.listScheduledReportsRaw({ limit: limit, offset: offset, filter: filter, viewName: viewName }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Remove multiple labels from a single dashboard
+     */
+    async removeDashboardLabelsRaw(
+        requestParameters: NgsiemApiRemoveDashboardLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling removeDashboardLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/dashboard-labels/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiRemoveDashboardLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Remove multiple labels from a single dashboard
+     */
+    async removeDashboardLabels(body: ApiRemoveDashboardLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLabelResponseV1> {
+        const response = await this.removeDashboardLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Remove multiple labels from a single file
+     */
+    async removeFileLabelsRaw(requestParameters: NgsiemApiRemoveFileLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiFileLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling removeFileLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/lookupfile-labels/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiRemoveFileLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiFileLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Remove multiple labels from a single file
+     */
+    async removeFileLabels(body: ApiRemoveFileLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiFileLabelResponseV1> {
+        const response = await this.removeFileLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Remove multiple labels from a saved query
+     */
+    async removeSavedQueryLabelsRaw(
+        requestParameters: NgsiemApiRemoveSavedQueryLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling removeSavedQueryLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/savedquery-labels/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiRemoveSavedQueryLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Remove multiple labels from a saved query
+     */
+    async removeSavedQueryLabels(body: ApiRemoveSavedQueryLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLabelResponseV1> {
+        const response = await this.removeSavedQueryLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Rollback a parser to a previously installed version. This operation changes the active parser version to a specified earlier version. The rollback is recorded in audit logs with the initiator\'s identity. Requires parser_id and target_version in the request body.
+     */
+    async rollbackParserRaw(requestParameters: NgsiemApiRollbackParserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiRollbackParserResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling rollbackParser().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-parsers:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/parsers-rollback/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiRollbackParserRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiRollbackParserResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Rollback a parser to a previously installed version. This operation changes the active parser version to a specified earlier version. The rollback is recorded in audit logs with the initiator\'s identity. Requires parser_id and target_version in the request body.
+     */
+    async rollbackParser(body: ApiRollbackParserRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiRollbackParserResponseV1> {
+        const response = await this.rollbackParserRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -3087,6 +4573,91 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiUpdateDashboardFromTemplateResponseV1> {
         const response = await this.updateDashboardFromTemplateRaw({ searchDomain: searchDomain, ids: ids, yamlTemplate: yamlTemplate }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Replace all labels on a single dashboard
+     */
+    async updateDashboardLabelsRaw(
+        requestParameters: NgsiemApiUpdateDashboardLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDashboardLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-dashboards:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/dashboard-labels/v1`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiUpdateDashboardLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Replace all labels on a single dashboard
+     */
+    async updateDashboardLabels(body: ApiUpdateDashboardLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLabelResponseV1> {
+        const response = await this.updateDashboardLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Replace all labels on a single file
+     */
+    async updateFileLabelsRaw(requestParameters: NgsiemApiUpdateFileLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ApiFileLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateFileLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-lookup-files:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/lookupfile-labels/v1`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiUpdateFileLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiFileLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Replace all labels on a single file
+     */
+    async updateFileLabels(body: ApiUpdateFileLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiFileLabelResponseV1> {
+        const response = await this.updateFileLabelsRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -3447,6 +5018,50 @@ export class NgsiemApi extends runtime.BaseAPI {
     }
 
     /**
+     * Update a Persisted Aggregation. Supports renaming via currentName → newName
+     */
+    async updatePersistedAggregationRaw(
+        requestParameters: NgsiemApiUpdatePersistedAggregationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdatePersistedAggregationResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updatePersistedAggregation().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-persisted-aggregations:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/persisted-aggregations/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiUpdatePersistedAggregationRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdatePersistedAggregationResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update a Persisted Aggregation. Supports renaming via currentName → newName
+     */
+    async updatePersistedAggregation(body: ApiUpdatePersistedAggregationRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUpdatePersistedAggregationResponseV1> {
+        const response = await this.updatePersistedAggregationRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Update Saved Query from LogScale YAML Template in NGSIEM.
      */
     async updateSavedQueryFromTemplateRaw(
@@ -3512,6 +5127,94 @@ export class NgsiemApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiUpdateSavedQueryResponseV1> {
         const response = await this.updateSavedQueryFromTemplateRaw({ searchDomain: searchDomain, ids: ids, yamlTemplate: yamlTemplate }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Replace all labels on a single saved query
+     */
+    async updateSavedQueryLabelsRaw(
+        requestParameters: NgsiemApiUpdateSavedQueryLabelsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiLabelResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateSavedQueryLabels().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-saved-queries:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/savedquery-labels/v1`,
+                method: "PUT",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiUpdateSavedQueryLabelsRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiLabelResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Replace all labels on a single saved query
+     */
+    async updateSavedQueryLabels(body: ApiUpdateSavedQueryLabelsRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiLabelResponseV1> {
+        const response = await this.updateSavedQueryLabelsRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update a Scheduled Report in LogScale
+     */
+    async updateScheduledReportRaw(
+        requestParameters: NgsiemApiUpdateScheduledReportRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiUpdateScheduledReportResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateScheduledReport().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["ngsiem-scheduled-reports:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/ngsiem-content/entities/scheduled-reports/v1`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiUpdateScheduledReportRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiUpdateScheduledReportResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Update a Scheduled Report in LogScale
+     */
+    async updateScheduledReport(body: ApiUpdateScheduledReportRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiUpdateScheduledReportResponseV1> {
+        const response = await this.updateScheduledReportRaw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -3585,6 +5288,7 @@ export const BulkGetLookupFilesSearchDomainEnum = {
     ThirdParty: "third-party",
     Dashboards: "dashboards",
     ParsersRepository: "parsers-repository",
+    QueryAudit: "query-audit",
 } as const;
 export type BulkGetLookupFilesSearchDomainEnum = (typeof BulkGetLookupFilesSearchDomainEnum)[keyof typeof BulkGetLookupFilesSearchDomainEnum];
 /**
@@ -3594,6 +5298,7 @@ export const CreateDashboardFromTemplateSearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
     ThirdParty: "third-party",
+    QueryAudit: "query-audit",
 } as const;
 export type CreateDashboardFromTemplateSearchDomainEnum = (typeof CreateDashboardFromTemplateSearchDomainEnum)[keyof typeof CreateDashboardFromTemplateSearchDomainEnum];
 /**
@@ -3621,6 +5326,7 @@ export const CreateSavedQuerySearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
     ThirdParty: "third-party",
+    QueryAudit: "query-audit",
 } as const;
 export type CreateSavedQuerySearchDomainEnum = (typeof CreateSavedQuerySearchDomainEnum)[keyof typeof CreateSavedQuerySearchDomainEnum];
 /**
@@ -3630,6 +5336,7 @@ export const DeleteDashboardSearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
     ThirdParty: "third-party",
+    QueryAudit: "query-audit",
 } as const;
 export type DeleteDashboardSearchDomainEnum = (typeof DeleteDashboardSearchDomainEnum)[keyof typeof DeleteDashboardSearchDomainEnum];
 /**
@@ -3640,6 +5347,7 @@ export const DeleteLookupFileSearchDomainEnum = {
     Falcon: "falcon",
     ThirdParty: "third-party",
     ParsersRepository: "parsers-repository",
+    QueryAudit: "query-audit",
 } as const;
 export type DeleteLookupFileSearchDomainEnum = (typeof DeleteLookupFileSearchDomainEnum)[keyof typeof DeleteLookupFileSearchDomainEnum];
 /**
@@ -3656,6 +5364,7 @@ export const DeleteSavedQuerySearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
     ThirdParty: "third-party",
+    QueryAudit: "query-audit",
 } as const;
 export type DeleteSavedQuerySearchDomainEnum = (typeof DeleteSavedQuerySearchDomainEnum)[keyof typeof DeleteSavedQuerySearchDomainEnum];
 /**
@@ -3666,6 +5375,7 @@ export const GetDashboardTemplateSearchDomainEnum = {
     Falcon: "falcon",
     ThirdParty: "third-party",
     Dashboards: "dashboards",
+    QueryAudit: "query-audit",
 } as const;
 export type GetDashboardTemplateSearchDomainEnum = (typeof GetDashboardTemplateSearchDomainEnum)[keyof typeof GetDashboardTemplateSearchDomainEnum];
 /**
@@ -3677,6 +5387,7 @@ export const GetLookupFileSearchDomainEnum = {
     ThirdParty: "third-party",
     Dashboards: "dashboards",
     ParsersRepository: "parsers-repository",
+    QueryAudit: "query-audit",
 } as const;
 export type GetLookupFileSearchDomainEnum = (typeof GetLookupFileSearchDomainEnum)[keyof typeof GetLookupFileSearchDomainEnum];
 /**
@@ -3701,6 +5412,7 @@ export const GetSavedQueryTemplateSearchDomainEnum = {
     Falcon: "falcon",
     ThirdParty: "third-party",
     Dashboards: "dashboards",
+    QueryAudit: "query-audit",
 } as const;
 export type GetSavedQueryTemplateSearchDomainEnum = (typeof GetSavedQueryTemplateSearchDomainEnum)[keyof typeof GetSavedQueryTemplateSearchDomainEnum];
 /**
@@ -3711,6 +5423,7 @@ export const ListDashboardsSearchDomainEnum = {
     Falcon: "falcon",
     ThirdParty: "third-party",
     Dashboards: "dashboards",
+    QueryAudit: "query-audit",
 } as const;
 export type ListDashboardsSearchDomainEnum = (typeof ListDashboardsSearchDomainEnum)[keyof typeof ListDashboardsSearchDomainEnum];
 /**
@@ -3722,6 +5435,7 @@ export const ListLookupFilesSearchDomainEnum = {
     ThirdParty: "third-party",
     Dashboards: "dashboards",
     ParsersRepository: "parsers-repository",
+    QueryAudit: "query-audit",
 } as const;
 export type ListLookupFilesSearchDomainEnum = (typeof ListLookupFilesSearchDomainEnum)[keyof typeof ListLookupFilesSearchDomainEnum];
 /**
@@ -3756,6 +5470,7 @@ export const ListSavedQueriesSearchDomainEnum = {
     Falcon: "falcon",
     ThirdParty: "third-party",
     Dashboards: "dashboards",
+    QueryAudit: "query-audit",
 } as const;
 export type ListSavedQueriesSearchDomainEnum = (typeof ListSavedQueriesSearchDomainEnum)[keyof typeof ListSavedQueriesSearchDomainEnum];
 /**
@@ -3765,6 +5480,7 @@ export const UpdateDashboardFromTemplateSearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
     ThirdParty: "third-party",
+    QueryAudit: "query-audit",
 } as const;
 export type UpdateDashboardFromTemplateSearchDomainEnum = (typeof UpdateDashboardFromTemplateSearchDomainEnum)[keyof typeof UpdateDashboardFromTemplateSearchDomainEnum];
 /**
@@ -3776,6 +5492,7 @@ export const UpdateLookupFileSearchDomainEnum = {
     FalconForIt: "falcon-for-it",
     ThirdParty: "third-party",
     ParsersRepository: "parsers-repository",
+    QueryAudit: "query-audit",
 } as const;
 export type UpdateLookupFileSearchDomainEnum = (typeof UpdateLookupFileSearchDomainEnum)[keyof typeof UpdateLookupFileSearchDomainEnum];
 /**
@@ -3786,6 +5503,7 @@ export const UpdateLookupFileEntriesSearchDomainEnum = {
     Falcon: "falcon",
     ThirdParty: "third-party",
     ParsersRepository: "parsers-repository",
+    QueryAudit: "query-audit",
 } as const;
 export type UpdateLookupFileEntriesSearchDomainEnum = (typeof UpdateLookupFileEntriesSearchDomainEnum)[keyof typeof UpdateLookupFileEntriesSearchDomainEnum];
 /**
@@ -3818,5 +5536,6 @@ export const UpdateSavedQueryFromTemplateSearchDomainEnum = {
     All: "all",
     Falcon: "falcon",
     ThirdParty: "third-party",
+    QueryAudit: "query-audit",
 } as const;
 export type UpdateSavedQueryFromTemplateSearchDomainEnum = (typeof UpdateSavedQueryFromTemplateSearchDomainEnum)[keyof typeof UpdateSavedQueryFromTemplateSearchDomainEnum];

@@ -135,6 +135,12 @@ export interface MessagesCase {
      * @type {string}
      * @memberof MessagesCase
      */
+    resolutionTime?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesCase
+     */
     rfiId: string;
     /**
      *
@@ -209,6 +215,7 @@ export function MessagesCaseFromJSONTyped(json: any, ignoreDiscriminator: boolea
         malwareSubmissionId: json["malware_submission_id"],
         malwareSubmissionUrl: json["malware_submission_url"],
         reconRuleType: json["recon_rule_type"],
+        resolutionTime: json["resolution_time"] == null ? undefined : json["resolution_time"],
         rfiId: json["rfi_id"],
         status: json["status"],
         title: json["title"],
@@ -238,6 +245,7 @@ export function MessagesCaseToJSON(value?: MessagesCase | null): any {
         malware_submission_id: value["malwareSubmissionId"],
         malware_submission_url: value["malwareSubmissionUrl"],
         recon_rule_type: value["reconRuleType"],
+        resolution_time: value["resolutionTime"],
         rfi_id: value["rfiId"],
         status: value["status"],
         title: value["title"],

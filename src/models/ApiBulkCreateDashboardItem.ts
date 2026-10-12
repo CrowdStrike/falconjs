@@ -20,6 +20,12 @@ import { mapValues } from "../runtime";
  */
 export interface ApiBulkCreateDashboardItem {
     /**
+     * Optional labels to apply to the dashboard (max 10 labels, max 60 chars each)
+     * @type {Array<string>}
+     * @memberof ApiBulkCreateDashboardItem
+     */
+    labels?: Array<string>;
+    /**
      * The name of the dashboard
      * @type {string}
      * @memberof ApiBulkCreateDashboardItem
@@ -51,6 +57,7 @@ export function ApiBulkCreateDashboardItemFromJSONTyped(json: any, ignoreDiscrim
         return json;
     }
     return {
+        labels: json["labels"] == null ? undefined : json["labels"],
         name: json["name"],
         yamlTemplate: json["yaml_template"],
     };
@@ -61,6 +68,7 @@ export function ApiBulkCreateDashboardItemToJSON(value?: ApiBulkCreateDashboardI
         return value;
     }
     return {
+        labels: value["labels"],
         name: value["name"],
         yaml_template: value["yamlTemplate"],
     };

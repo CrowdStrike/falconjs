@@ -45,10 +45,10 @@ export interface QuickscanproArtifactNode {
     malwareFamily?: string;
     /**
      *
-     * @type {{ [key: string]: string; }}
+     * @type {object}
      * @memberof QuickscanproArtifactNode
      */
-    properties?: { [key: string]: string };
+    properties?: object;
     /**
      *
      * @type {string}

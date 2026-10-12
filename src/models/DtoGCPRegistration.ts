@@ -214,6 +214,12 @@ export interface DtoGCPRegistration {
     vulnerabilityScanningSettings?: GcpAgentlessScanningSettings;
     /**
      *
+     * @type {string}
+     * @memberof DtoGCPRegistration
+     */
+    wifPoolRegistrationId?: string;
+    /**
+     *
      * @type {DtoWIFProperties}
      * @memberof DtoGCPRegistration
      */
@@ -267,6 +273,7 @@ export function DtoGCPRegistrationFromJSONTyped(json: any, ignoreDiscriminator: 
         tags: json["tags"] == null ? undefined : json["tags"],
         updated: json["updated"] == null ? undefined : new Date(json["updated"]),
         vulnerabilityScanningSettings: json["vulnerability_scanning_settings"] == null ? undefined : GcpAgentlessScanningSettingsFromJSON(json["vulnerability_scanning_settings"]),
+        wifPoolRegistrationId: json["wif_pool_registration_id"] == null ? undefined : json["wif_pool_registration_id"],
         wifProperties: json["wif_properties"] == null ? undefined : DtoWIFPropertiesFromJSON(json["wif_properties"]),
     };
 }
@@ -305,6 +312,7 @@ export function DtoGCPRegistrationToJSON(value?: DtoGCPRegistration | null): any
         tags: value["tags"],
         updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
         vulnerability_scanning_settings: GcpAgentlessScanningSettingsToJSON(value["vulnerabilityScanningSettings"]),
+        wif_pool_registration_id: value["wifPoolRegistrationId"],
         wif_properties: DtoWIFPropertiesToJSON(value["wifProperties"]),
     };
 }

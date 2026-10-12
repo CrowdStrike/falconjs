@@ -38,6 +38,12 @@ export interface OperationsCaseFieldChanges {
     accessTags?: Array<SdkCaseAccessTag>;
     /**
      *
+     * @type {Array<string>}
+     * @memberof OperationsCaseFieldChanges
+     */
+    assignedToGroupIds: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof OperationsCaseFieldChanges
      */
@@ -77,6 +83,12 @@ export interface OperationsCaseFieldChanges {
      * @type {boolean}
      * @memberof OperationsCaseFieldChanges
      */
+    removeGroupAssignment: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof OperationsCaseFieldChanges
+     */
     removeUserAssignment: boolean;
     /**
      *
@@ -110,6 +122,12 @@ export interface OperationsCaseFieldChanges {
     template?: SdkTemplateSelector;
     /**
      *
+     * @type {Array<SdkTemplateSelector>}
+     * @memberof OperationsCaseFieldChanges
+     */
+    templates?: Array<SdkTemplateSelector>;
+    /**
+     *
      * @type {Array<SdkWorkflow>}
      * @memberof OperationsCaseFieldChanges
      */
@@ -120,10 +138,12 @@ export interface OperationsCaseFieldChanges {
  * Check if a given object implements the OperationsCaseFieldChanges interface.
  */
 export function instanceOfOperationsCaseFieldChanges(value: object): value is OperationsCaseFieldChanges {
+    if (!("assignedToGroupIds" in value) || value["assignedToGroupIds"] === undefined) return false;
     if (!("assignedToUserUuid" in value) || value["assignedToUserUuid"] === undefined) return false;
     if (!("customFields" in value) || value["customFields"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("removeGroupAssignment" in value) || value["removeGroupAssignment"] === undefined) return false;
     if (!("removeUserAssignment" in value) || value["removeUserAssignment"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
     if (!("severityInfo" in value) || value["severityInfo"] === undefined) return false;
@@ -142,18 +162,21 @@ export function OperationsCaseFieldChangesFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         accessTags: json["access_tags"] == null ? undefined : (json["access_tags"] as Array<any>).map(SdkCaseAccessTagFromJSON),
+        assignedToGroupIds: json["assigned_to_group_ids"],
         assignedToUserUuid: json["assigned_to_user_uuid"],
         customFields: (json["custom_fields"] as Array<any>).map(SdkCustomFieldFromJSON),
         description: json["description"],
         descriptionFormat: json["description_format"] == null ? undefined : json["description_format"],
         descriptionTaggedUsers: json["description_tagged_users"] == null ? undefined : json["description_tagged_users"],
         name: json["name"],
+        removeGroupAssignment: json["remove_group_assignment"],
         removeUserAssignment: json["remove_user_assignment"],
         severity: json["severity"],
         severityInfo: SdkCaseSeverityInfoUpdateFromJSON(json["severity_info"]),
         slasActive: json["slas_active"],
         status: json["status"],
         template: json["template"] == null ? undefined : SdkTemplateSelectorFromJSON(json["template"]),
+        templates: json["templates"] == null ? undefined : (json["templates"] as Array<any>).map(SdkTemplateSelectorFromJSON),
         workflows: json["workflows"] == null ? undefined : (json["workflows"] as Array<any>).map(SdkWorkflowFromJSON),
     };
 }
@@ -164,18 +187,21 @@ export function OperationsCaseFieldChangesToJSON(value?: OperationsCaseFieldChan
     }
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(SdkCaseAccessTagToJSON),
+        assigned_to_group_ids: value["assignedToGroupIds"],
         assigned_to_user_uuid: value["assignedToUserUuid"],
         custom_fields: (value["customFields"] as Array<any>).map(SdkCustomFieldToJSON),
         description: value["description"],
         description_format: value["descriptionFormat"],
         description_tagged_users: value["descriptionTaggedUsers"],
         name: value["name"],
+        remove_group_assignment: value["removeGroupAssignment"],
         remove_user_assignment: value["removeUserAssignment"],
         severity: value["severity"],
         severity_info: SdkCaseSeverityInfoUpdateToJSON(value["severityInfo"]),
         slas_active: value["slasActive"],
         status: value["status"],
         template: SdkTemplateSelectorToJSON(value["template"]),
+        templates: value["templates"] == null ? undefined : (value["templates"] as Array<any>).map(SdkTemplateSelectorToJSON),
         workflows: value["workflows"] == null ? undefined : (value["workflows"] as Array<any>).map(SdkWorkflowToJSON),
     };
 }

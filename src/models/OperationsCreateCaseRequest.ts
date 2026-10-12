@@ -17,6 +17,8 @@ import type { SdkCaseSeverityInfoAssignment } from "./SdkCaseSeverityInfoAssignm
 import { SdkCaseSeverityInfoAssignmentFromJSON, SdkCaseSeverityInfoAssignmentFromJSONTyped, SdkCaseSeverityInfoAssignmentToJSON } from "./SdkCaseSeverityInfoAssignment";
 import type { OperationsCreateCaseRequestEvidence } from "./OperationsCreateCaseRequestEvidence";
 import { OperationsCreateCaseRequestEvidenceFromJSON, OperationsCreateCaseRequestEvidenceFromJSONTyped, OperationsCreateCaseRequestEvidenceToJSON } from "./OperationsCreateCaseRequestEvidence";
+import type { SdkCustomField } from "./SdkCustomField";
+import { SdkCustomFieldFromJSON, SdkCustomFieldFromJSONTyped, SdkCustomFieldToJSON } from "./SdkCustomField";
 import type { SdkCaseAccessTag } from "./SdkCaseAccessTag";
 import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON } from "./SdkCaseAccessTag";
 import type { SdkTemplateSelector } from "./SdkTemplateSelector";
@@ -36,10 +38,22 @@ export interface OperationsCreateCaseRequest {
     accessTags?: Array<SdkCaseAccessTag>;
     /**
      *
+     * @type {Array<string>}
+     * @memberof OperationsCreateCaseRequest
+     */
+    assignedToGroupIds: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof OperationsCreateCaseRequest
      */
     assignedToUserUuid: string;
+    /**
+     *
+     * @type {Array<SdkCustomField>}
+     * @memberof OperationsCreateCaseRequest
+     */
+    customFields?: Array<SdkCustomField>;
     /**
      *
      * @type {string}
@@ -100,12 +114,19 @@ export interface OperationsCreateCaseRequest {
      * @memberof OperationsCreateCaseRequest
      */
     template?: SdkTemplateSelector;
+    /**
+     *
+     * @type {Array<SdkTemplateSelector>}
+     * @memberof OperationsCreateCaseRequest
+     */
+    templates?: Array<SdkTemplateSelector>;
 }
 
 /**
  * Check if a given object implements the OperationsCreateCaseRequest interface.
  */
 export function instanceOfOperationsCreateCaseRequest(value: object): value is OperationsCreateCaseRequest {
+    if (!("assignedToGroupIds" in value) || value["assignedToGroupIds"] === undefined) return false;
     if (!("assignedToUserUuid" in value) || value["assignedToUserUuid"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
     if (!("evidence" in value) || value["evidence"] === undefined) return false;
@@ -126,7 +147,9 @@ export function OperationsCreateCaseRequestFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         accessTags: json["access_tags"] == null ? undefined : (json["access_tags"] as Array<any>).map(SdkCaseAccessTagFromJSON),
+        assignedToGroupIds: json["assigned_to_group_ids"],
         assignedToUserUuid: json["assigned_to_user_uuid"],
+        customFields: json["custom_fields"] == null ? undefined : (json["custom_fields"] as Array<any>).map(SdkCustomFieldFromJSON),
         description: json["description"],
         descriptionFormat: json["description_format"] == null ? undefined : json["description_format"],
         descriptionTaggedUsers: json["description_tagged_users"] == null ? undefined : json["description_tagged_users"],
@@ -137,6 +160,7 @@ export function OperationsCreateCaseRequestFromJSONTyped(json: any, ignoreDiscri
         status: json["status"],
         tags: json["tags"] == null ? undefined : json["tags"],
         template: json["template"] == null ? undefined : SdkTemplateSelectorFromJSON(json["template"]),
+        templates: json["templates"] == null ? undefined : (json["templates"] as Array<any>).map(SdkTemplateSelectorFromJSON),
     };
 }
 
@@ -146,7 +170,9 @@ export function OperationsCreateCaseRequestToJSON(value?: OperationsCreateCaseRe
     }
     return {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(SdkCaseAccessTagToJSON),
+        assigned_to_group_ids: value["assignedToGroupIds"],
         assigned_to_user_uuid: value["assignedToUserUuid"],
+        custom_fields: value["customFields"] == null ? undefined : (value["customFields"] as Array<any>).map(SdkCustomFieldToJSON),
         description: value["description"],
         description_format: value["descriptionFormat"],
         description_tagged_users: value["descriptionTaggedUsers"],
@@ -157,5 +183,6 @@ export function OperationsCreateCaseRequestToJSON(value?: OperationsCreateCaseRe
         status: value["status"],
         tags: value["tags"],
         template: SdkTemplateSelectorToJSON(value["template"]),
+        templates: value["templates"] == null ? undefined : (value["templates"] as Array<any>).map(SdkTemplateSelectorToJSON),
     };
 }

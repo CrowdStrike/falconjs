@@ -24,6 +24,12 @@ export interface NswipScanFlags {
      * @type {boolean}
      * @memberof NswipScanFlags
      */
+    defeatIcmpRatelimit?: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof NswipScanFlags
+     */
     defeatRstRatelimit?: boolean;
     /**
      *
@@ -121,6 +127,7 @@ export function NswipScanFlagsFromJSONTyped(json: any, ignoreDiscriminator: bool
         return json;
     }
     return {
+        defeatIcmpRatelimit: json["defeat_icmp_ratelimit"] == null ? undefined : json["defeat_icmp_ratelimit"],
         defeatRstRatelimit: json["defeat_rst_ratelimit"] == null ? undefined : json["defeat_rst_ratelimit"],
         hostTimeout: json["host_timeout"] == null ? undefined : json["host_timeout"],
         ignoreTcpResets: json["ignore_tcp_resets"] == null ? undefined : json["ignore_tcp_resets"],
@@ -143,6 +150,7 @@ export function NswipScanFlagsToJSON(value?: NswipScanFlags | null): any {
         return value;
     }
     return {
+        defeat_icmp_ratelimit: value["defeatIcmpRatelimit"],
         defeat_rst_ratelimit: value["defeatRstRatelimit"],
         host_timeout: value["hostTimeout"],
         ignore_tcp_resets: value["ignoreTcpResets"],

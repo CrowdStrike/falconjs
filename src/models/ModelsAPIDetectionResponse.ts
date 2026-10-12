@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { ModelsModuleRemediation } from "./ModelsModuleRemediation";
+import { ModelsModuleRemediationFromJSON, ModelsModuleRemediationFromJSONTyped, ModelsModuleRemediationToJSON } from "./ModelsModuleRemediation";
 import type { Remediation } from "./Remediation";
 import { RemediationFromJSON, RemediationFromJSONTyped, RemediationToJSON } from "./Remediation";
 import type { Rule } from "./Rule";
@@ -38,6 +40,12 @@ export interface ModelsAPIDetectionResponse {
     fileName: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ModelsAPIDetectionResponse
+     */
+    isFromModule: boolean;
+    /**
+     *
      * @type {Date}
      * @memberof ModelsAPIDetectionResponse
      */
@@ -48,6 +56,30 @@ export interface ModelsAPIDetectionResponse {
      * @memberof ModelsAPIDetectionResponse
      */
     misconfiguredLine: number;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIDetectionResponse
+     */
+    modulePath?: string;
+    /**
+     *
+     * @type {ModelsModuleRemediation}
+     * @memberof ModelsAPIDetectionResponse
+     */
+    moduleRemediation?: ModelsModuleRemediation;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIDetectionResponse
+     */
+    moduleSource?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ModelsAPIDetectionResponse
+     */
+    moduleVersion?: string;
     /**
      *
      * @type {string}
@@ -98,6 +130,7 @@ export interface ModelsAPIDetectionResponse {
 export function instanceOfModelsAPIDetectionResponse(value: object): value is ModelsAPIDetectionResponse {
     if (!("detectionUuid" in value) || value["detectionUuid"] === undefined) return false;
     if (!("fileName" in value) || value["fileName"] === undefined) return false;
+    if (!("isFromModule" in value) || value["isFromModule"] === undefined) return false;
     if (!("lastDetected" in value) || value["lastDetected"] === undefined) return false;
     if (!("misconfiguredLine" in value) || value["misconfiguredLine"] === undefined) return false;
     if (!("projectName" in value) || value["projectName"] === undefined) return false;
@@ -121,8 +154,13 @@ export function ModelsAPIDetectionResponseFromJSONTyped(json: any, ignoreDiscrim
     return {
         detectionUuid: json["detection_uuid"],
         fileName: json["file_name"],
+        isFromModule: json["is_from_module"],
         lastDetected: new Date(json["last_detected"]),
         misconfiguredLine: json["misconfigured_line"],
+        modulePath: json["module_path"] == null ? undefined : json["module_path"],
+        moduleRemediation: json["module_remediation"] == null ? undefined : ModelsModuleRemediationFromJSON(json["module_remediation"]),
+        moduleSource: json["module_source"] == null ? undefined : json["module_source"],
+        moduleVersion: json["module_version"] == null ? undefined : json["module_version"],
         projectName: json["project_name"],
         projectOwners: json["project_owners"],
         projectRef: json["project_ref"],
@@ -140,8 +178,13 @@ export function ModelsAPIDetectionResponseToJSON(value?: ModelsAPIDetectionRespo
     return {
         detection_uuid: value["detectionUuid"],
         file_name: value["fileName"],
+        is_from_module: value["isFromModule"],
         last_detected: value["lastDetected"].toISOString(),
         misconfigured_line: value["misconfiguredLine"],
+        module_path: value["modulePath"],
+        module_remediation: ModelsModuleRemediationToJSON(value["moduleRemediation"]),
+        module_source: value["moduleSource"],
+        module_version: value["moduleVersion"],
         project_name: value["projectName"],
         project_owners: value["projectOwners"],
         project_ref: value["projectRef"],

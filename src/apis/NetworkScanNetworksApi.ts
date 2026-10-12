@@ -14,22 +14,16 @@
 
 import * as runtime from "../runtime";
 import type {
-    DomainNetworkCreateRequest,
-    DomainNetworkEntitiesResponse,
-    DomainNetworkUpdateRequest,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     MsaspecResponseFields,
+    NvaapiNetworkCreateRequest,
+    NvaapiNetworkEntitiesResponse,
+    NvaapiNetworkUpdateRequest,
 } from "../models/index";
 import {
-    DomainNetworkCreateRequestFromJSON,
-    DomainNetworkCreateRequestToJSON,
-    DomainNetworkEntitiesResponseFromJSON,
-    DomainNetworkEntitiesResponseToJSON,
-    DomainNetworkUpdateRequestFromJSON,
-    DomainNetworkUpdateRequestToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -40,6 +34,12 @@ import {
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    NvaapiNetworkCreateRequestFromJSON,
+    NvaapiNetworkCreateRequestToJSON,
+    NvaapiNetworkEntitiesResponseFromJSON,
+    NvaapiNetworkEntitiesResponseToJSON,
+    NvaapiNetworkUpdateRequestFromJSON,
+    NvaapiNetworkUpdateRequestToJSON,
 } from "../models/index";
 
 export interface NetworkScanNetworksApiAggregateNetworksRequest {
@@ -48,7 +48,7 @@ export interface NetworkScanNetworksApiAggregateNetworksRequest {
 }
 
 export interface NetworkScanNetworksApiCreateNetworksRequest {
-    body: Array<DomainNetworkCreateRequest>;
+    body: Array<NvaapiNetworkCreateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -71,7 +71,7 @@ export interface NetworkScanNetworksApiQueryNetworksRequest {
 }
 
 export interface NetworkScanNetworksApiUpdateNetworksRequest {
-    body: Array<DomainNetworkUpdateRequest>;
+    body: Array<NvaapiNetworkUpdateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -133,7 +133,7 @@ export class NetworkScanNetworksApi extends runtime.BaseAPI {
     async createNetworksRaw(
         requestParameters: NetworkScanNetworksApiCreateNetworksRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNetworkEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiNetworkEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createNetworks().');
         }
@@ -159,18 +159,18 @@ export class NetworkScanNetworksApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainNetworkCreateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiNetworkCreateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainNetworkEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiNetworkEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Create \"networks\" using provided specifications
      */
-    async createNetworks(body: Array<DomainNetworkCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNetworkEntitiesResponse> {
+    async createNetworks(body: Array<NvaapiNetworkCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiNetworkEntitiesResponse> {
         const response = await this.createNetworksRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -230,7 +230,7 @@ export class NetworkScanNetworksApi extends runtime.BaseAPI {
     async getNetworksRaw(
         requestParameters: NetworkScanNetworksApiGetNetworksRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNetworkEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiNetworkEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getNetworks().');
         }
@@ -262,13 +262,13 @@ export class NetworkScanNetworksApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainNetworkEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiNetworkEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get \"networks\" by their IDs
      */
-    async getNetworks(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNetworkEntitiesResponse> {
+    async getNetworks(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiNetworkEntitiesResponse> {
         const response = await this.getNetworksRaw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -343,7 +343,7 @@ export class NetworkScanNetworksApi extends runtime.BaseAPI {
     async updateNetworksRaw(
         requestParameters: NetworkScanNetworksApiUpdateNetworksRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainNetworkEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiNetworkEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateNetworks().');
         }
@@ -369,18 +369,18 @@ export class NetworkScanNetworksApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainNetworkUpdateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiNetworkUpdateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainNetworkEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiNetworkEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Update \"networks\" using provided specifications
      */
-    async updateNetworks(body: Array<DomainNetworkUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainNetworkEntitiesResponse> {
+    async updateNetworks(body: Array<NvaapiNetworkUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiNetworkEntitiesResponse> {
         const response = await this.updateNetworksRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }

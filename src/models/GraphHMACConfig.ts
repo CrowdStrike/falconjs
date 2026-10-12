@@ -44,11 +44,23 @@ export interface GraphHMACConfig {
      */
     messageIdHeaderName?: string;
     /**
+     * The message ids key in a compound header for HMAC authentication (e.g. 'm' for 'm=<message_id>,v1=<signature>').
+     * @type {string}
+     * @memberof GraphHMACConfig
+     */
+    messageIdKey?: string;
+    /**
      * Secret key for HMAC signing
      * @type {string}
      * @memberof GraphHMACConfig
      */
     secret?: string;
+    /**
+     * Encoding of the shared secret before use as HMAC key material (raw|base64). Defaults to raw.
+     * @type {string}
+     * @memberof GraphHMACConfig
+     */
+    secretEncoding?: string;
     /**
      * Encoding format for the signature
      * @type {string}
@@ -62,17 +74,35 @@ export interface GraphHMACConfig {
      */
     signatureHeaderName?: string;
     /**
+     * The signatures key in a compound header for HMAC authentication (e.g. 'v1' for 't=<timestamp>,v1=<signature>')
+     * @type {string}
+     * @memberof GraphHMACConfig
+     */
+    signatureKey?: string;
+    /**
      * Prefix of the HMAC signature which defines the signature format
      * @type {string}
      * @memberof GraphHMACConfig
      */
     signaturePrefix?: string;
     /**
-     * Name of the header containing the timestamp
+     * Name of the header containing the timestamp. Mutually exclusive with timestamp_prefix.
      * @type {string}
      * @memberof GraphHMACConfig
      */
     timestampHeaderName?: string;
+    /**
+     * The timestamps key in a compound header for HMAC authentication (e.g. 't' for 't=<timestamp>,v1=<signature>').
+     * @type {string}
+     * @memberof GraphHMACConfig
+     */
+    timestampKey?: string;
+    /**
+     * Using a compound header searches the HMAC signature header for message_id and timestamp values using given
+     * @type {boolean}
+     * @memberof GraphHMACConfig
+     */
+    useCompoundHeader?: boolean;
 }
 
 /**
@@ -95,11 +125,16 @@ export function GraphHMACConfigFromJSONTyped(json: any, ignoreDiscriminator: boo
         fields: json["fields"] == null ? undefined : json["fields"],
         hashFunction: json["hash_function"] == null ? undefined : json["hash_function"],
         messageIdHeaderName: json["message_id_header_name"] == null ? undefined : json["message_id_header_name"],
+        messageIdKey: json["message_id_key"] == null ? undefined : json["message_id_key"],
         secret: json["secret"] == null ? undefined : json["secret"],
+        secretEncoding: json["secret_encoding"] == null ? undefined : json["secret_encoding"],
         signatureEncoding: json["signature_encoding"] == null ? undefined : json["signature_encoding"],
         signatureHeaderName: json["signature_header_name"] == null ? undefined : json["signature_header_name"],
+        signatureKey: json["signature_key"] == null ? undefined : json["signature_key"],
         signaturePrefix: json["signature_prefix"] == null ? undefined : json["signature_prefix"],
         timestampHeaderName: json["timestamp_header_name"] == null ? undefined : json["timestamp_header_name"],
+        timestampKey: json["timestamp_key"] == null ? undefined : json["timestamp_key"],
+        useCompoundHeader: json["use_compound_header"] == null ? undefined : json["use_compound_header"],
     };
 }
 
@@ -112,10 +147,15 @@ export function GraphHMACConfigToJSON(value?: GraphHMACConfig | null): any {
         fields: value["fields"],
         hash_function: value["hashFunction"],
         message_id_header_name: value["messageIdHeaderName"],
+        message_id_key: value["messageIdKey"],
         secret: value["secret"],
+        secret_encoding: value["secretEncoding"],
         signature_encoding: value["signatureEncoding"],
         signature_header_name: value["signatureHeaderName"],
+        signature_key: value["signatureKey"],
         signature_prefix: value["signaturePrefix"],
         timestamp_header_name: value["timestampHeaderName"],
+        timestamp_key: value["timestampKey"],
+        use_compound_header: value["useCompoundHeader"],
     };
 }

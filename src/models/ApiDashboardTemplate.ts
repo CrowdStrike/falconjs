@@ -26,6 +26,12 @@ export interface ApiDashboardTemplate {
      */
     id: string;
     /**
+     * Labels associated with the dashboard
+     * @type {Array<string>}
+     * @memberof ApiDashboardTemplate
+     */
+    labels: Array<string>;
+    /**
      * The dashboard's name
      * @type {string}
      * @memberof ApiDashboardTemplate
@@ -44,6 +50,7 @@ export interface ApiDashboardTemplate {
  */
 export function instanceOfApiDashboardTemplate(value: object): value is ApiDashboardTemplate {
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("labels" in value) || value["labels"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("yamlTemplate" in value) || value["yamlTemplate"] === undefined) return false;
     return true;
@@ -59,6 +66,7 @@ export function ApiDashboardTemplateFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         id: json["id"],
+        labels: json["labels"],
         name: json["name"],
         yamlTemplate: json["yaml_template"],
     };
@@ -70,6 +78,7 @@ export function ApiDashboardTemplateToJSON(value?: ApiDashboardTemplate | null):
     }
     return {
         id: value["id"],
+        labels: value["labels"],
         name: value["name"],
         yaml_template: value["yamlTemplate"],
     };

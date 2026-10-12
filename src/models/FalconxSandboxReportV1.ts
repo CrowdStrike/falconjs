@@ -362,6 +362,12 @@ export interface FalconxSandboxReportV1 {
     processes?: Array<FalconxProcess>;
     /**
      *
+     * @type {string}
+     * @memberof FalconxSandboxReportV1
+     */
+    reportId?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof FalconxSandboxReportV1
      */
@@ -549,6 +555,7 @@ export function FalconxSandboxReportV1FromJSONTyped(json: any, ignoreDiscriminat
         packer: json["packer"] == null ? undefined : json["packer"],
         pcapReportArtifactId: json["pcap_report_artifact_id"] == null ? undefined : json["pcap_report_artifact_id"],
         processes: json["processes"] == null ? undefined : (json["processes"] as Array<any>).map(FalconxProcessFromJSON),
+        reportId: json["report_id"] == null ? undefined : json["report_id"],
         sampleFlags: json["sample_flags"] == null ? undefined : json["sample_flags"],
         screenshotsArtifactIds: json["screenshots_artifact_ids"] == null ? undefined : json["screenshots_artifact_ids"],
         sha256: json["sha256"] == null ? undefined : json["sha256"],
@@ -627,6 +634,7 @@ export function FalconxSandboxReportV1ToJSON(value?: FalconxSandboxReportV1 | nu
         packer: value["packer"],
         pcap_report_artifact_id: value["pcapReportArtifactId"],
         processes: value["processes"] == null ? undefined : (value["processes"] as Array<any>).map(FalconxProcessToJSON),
+        report_id: value["reportId"],
         sample_flags: value["sampleFlags"],
         screenshots_artifact_ids: value["screenshotsArtifactIds"],
         sha256: value["sha256"],

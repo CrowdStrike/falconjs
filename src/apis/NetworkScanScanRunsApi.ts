@@ -14,22 +14,16 @@
 
 import * as runtime from "../runtime";
 import type {
-    DomainScanRunCreateRequest,
-    DomainScanRunEntitiesResponse,
-    DomainScanRunUpdateRequest,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     MsaspecResponseFields,
+    NvaapiScanRunCreateRequest,
+    NvaapiScanRunEntitiesResponse,
+    NvaapiScanRunUpdateRequest,
 } from "../models/index";
 import {
-    DomainScanRunCreateRequestFromJSON,
-    DomainScanRunCreateRequestToJSON,
-    DomainScanRunEntitiesResponseFromJSON,
-    DomainScanRunEntitiesResponseToJSON,
-    DomainScanRunUpdateRequestFromJSON,
-    DomainScanRunUpdateRequestToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -40,6 +34,12 @@ import {
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    NvaapiScanRunCreateRequestFromJSON,
+    NvaapiScanRunCreateRequestToJSON,
+    NvaapiScanRunEntitiesResponseFromJSON,
+    NvaapiScanRunEntitiesResponseToJSON,
+    NvaapiScanRunUpdateRequestFromJSON,
+    NvaapiScanRunUpdateRequestToJSON,
 } from "../models/index";
 
 export interface NetworkScanScanRunsApiAggregateScanRunsRequest {
@@ -48,7 +48,7 @@ export interface NetworkScanScanRunsApiAggregateScanRunsRequest {
 }
 
 export interface NetworkScanScanRunsApiCreateScanRunsRequest {
-    body: Array<DomainScanRunCreateRequest>;
+    body: Array<NvaapiScanRunCreateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -66,7 +66,7 @@ export interface NetworkScanScanRunsApiQueryScanRunsRequest {
 }
 
 export interface NetworkScanScanRunsApiUpdateScanRunsRequest {
-    body: Array<DomainScanRunUpdateRequest>;
+    body: Array<NvaapiScanRunUpdateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -128,7 +128,7 @@ export class NetworkScanScanRunsApi extends runtime.BaseAPI {
     async createScanRunsRaw(
         requestParameters: NetworkScanScanRunsApiCreateScanRunsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScanRunEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiScanRunEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createScanRuns().');
         }
@@ -154,18 +154,18 @@ export class NetworkScanScanRunsApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainScanRunCreateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiScanRunCreateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScanRunEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScanRunEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Create \"scan-runs\" using provided specifications
      */
-    async createScanRuns(body: Array<DomainScanRunCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScanRunEntitiesResponse> {
+    async createScanRuns(body: Array<NvaapiScanRunCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScanRunEntitiesResponse> {
         const response = await this.createScanRunsRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -176,7 +176,7 @@ export class NetworkScanScanRunsApi extends runtime.BaseAPI {
     async getScanRunsRaw(
         requestParameters: NetworkScanScanRunsApiGetScanRunsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScanRunEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiScanRunEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScanRuns().');
         }
@@ -208,13 +208,13 @@ export class NetworkScanScanRunsApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScanRunEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScanRunEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get \"scan-runs\" by their IDs
      */
-    async getScanRuns(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScanRunEntitiesResponse> {
+    async getScanRuns(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScanRunEntitiesResponse> {
         const response = await this.getScanRunsRaw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -289,7 +289,7 @@ export class NetworkScanScanRunsApi extends runtime.BaseAPI {
     async updateScanRunsRaw(
         requestParameters: NetworkScanScanRunsApiUpdateScanRunsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScanRunEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiScanRunEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateScanRuns().');
         }
@@ -315,18 +315,18 @@ export class NetworkScanScanRunsApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainScanRunUpdateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiScanRunUpdateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScanRunEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScanRunEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Update \"scan-runs\" using provided specifications
      */
-    async updateScanRuns(body: Array<DomainScanRunUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScanRunEntitiesResponse> {
+    async updateScanRuns(body: Array<NvaapiScanRunUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScanRunEntitiesResponse> {
         const response = await this.updateScanRunsRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }

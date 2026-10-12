@@ -13,9 +13,6 @@
  */
 
 import { mapValues } from "../runtime";
-import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
-
 /**
  *
  * @export
@@ -29,17 +26,17 @@ export interface GraphInlineActivityConfig {
      */
     config?: object;
     /**
-     *
-     * @type {JsonschemaSchema}
+     * Input JSON Schema defining parameters required by an inline action.
+     * @type {string}
      * @memberof GraphInlineActivityConfig
      */
-    inputSchema?: JsonschemaSchema;
+    inputSchema?: string;
     /**
-     *
-     * @type {JsonschemaSchema}
+     * Output JSON Schema defining parameters returns from an inline action.
+     * @type {string}
      * @memberof GraphInlineActivityConfig
      */
-    outputSchema?: JsonschemaSchema;
+    outputSchema?: string;
 }
 
 /**
@@ -59,8 +56,8 @@ export function GraphInlineActivityConfigFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         config: json["config"] == null ? undefined : json["config"],
-        inputSchema: json["input_schema"] == null ? undefined : JsonschemaSchemaFromJSON(json["input_schema"]),
-        outputSchema: json["output_schema"] == null ? undefined : JsonschemaSchemaFromJSON(json["output_schema"]),
+        inputSchema: json["input_schema"] == null ? undefined : json["input_schema"],
+        outputSchema: json["output_schema"] == null ? undefined : json["output_schema"],
     };
 }
 
@@ -70,7 +67,7 @@ export function GraphInlineActivityConfigToJSON(value?: GraphInlineActivityConfi
     }
     return {
         config: value["config"],
-        input_schema: JsonschemaSchemaToJSON(value["inputSchema"]),
-        output_schema: JsonschemaSchemaToJSON(value["outputSchema"]),
+        input_schema: value["inputSchema"],
+        output_schema: value["outputSchema"],
     };
 }

@@ -33,6 +33,12 @@ export interface SdkTemplateVM {
     name: string;
     /**
      *
+     * @type {Array<string>}
+     * @memberof SdkTemplateVM
+     */
+    ownerGroupIds?: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof SdkTemplateVM
      */
@@ -67,6 +73,7 @@ export function SdkTemplateVMFromJSONTyped(json: any, ignoreDiscriminator: boole
     return {
         id: json["id"],
         name: json["name"],
+        ownerGroupIds: json["owner_group_ids"] == null ? undefined : json["owner_group_ids"],
         snapshotId: json["snapshot_id"],
         version: json["version"],
     };
@@ -79,6 +86,7 @@ export function SdkTemplateVMToJSON(value?: SdkTemplateVM | null): any {
     return {
         id: value["id"],
         name: value["name"],
+        owner_group_ids: value["ownerGroupIds"],
         snapshot_id: value["snapshotId"],
         version: value["version"],
     };

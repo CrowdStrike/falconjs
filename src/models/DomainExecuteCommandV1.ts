@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { DomainConfigData } from "./DomainConfigData";
 import { DomainConfigDataFromJSON, DomainConfigDataFromJSONTyped, DomainConfigDataToJSON } from "./DomainConfigData";
+import type { DomainRedirect } from "./DomainRedirect";
+import { DomainRedirectFromJSON, DomainRedirectFromJSONTyped, DomainRedirectToJSON } from "./DomainRedirect";
 import type { DomainRequest } from "./DomainRequest";
 import { DomainRequestFromJSON, DomainRequestFromJSONTyped, DomainRequestToJSON } from "./DomainRequest";
 
@@ -62,6 +64,12 @@ export interface DomainExecuteCommandV1 {
     operationId: string;
     /**
      *
+     * @type {DomainRedirect}
+     * @memberof DomainExecuteCommandV1
+     */
+    redirect?: DomainRedirect;
+    /**
+     *
      * @type {DomainRequest}
      * @memberof DomainExecuteCommandV1
      */
@@ -103,6 +111,7 @@ export function DomainExecuteCommandV1FromJSONTyped(json: any, ignoreDiscriminat
         definitionId: json["definition_id"],
         id: json["id"],
         operationId: json["operation_id"],
+        redirect: json["redirect"] == null ? undefined : DomainRedirectFromJSON(json["redirect"]),
         request: DomainRequestFromJSON(json["request"]),
         version: json["version"],
     };
@@ -119,6 +128,7 @@ export function DomainExecuteCommandV1ToJSON(value?: DomainExecuteCommandV1 | nu
         definition_id: value["definitionId"],
         id: value["id"],
         operation_id: value["operationId"],
+        redirect: DomainRedirectToJSON(value["redirect"]),
         request: DomainRequestToJSON(value["request"]),
         version: value["version"],
     };

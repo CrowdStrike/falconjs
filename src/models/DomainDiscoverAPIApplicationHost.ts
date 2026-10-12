@@ -38,6 +38,12 @@ export interface DomainDiscoverAPIApplicationHost {
      */
     country?: string;
     /**
+     * The criticality of the asset.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplicationHost
+     */
+    criticality?: string;
+    /**
      * The last seen MAC address of the asset.
      * @type {string}
      * @memberof DomainDiscoverAPIApplicationHost
@@ -85,6 +91,12 @@ export interface DomainDiscoverAPIApplicationHost {
      * @memberof DomainDiscoverAPIApplicationHost
      */
     kernelVersion?: string;
+    /**
+     * The date the asset was last seen.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplicationHost
+     */
+    lastSeenDate?: string;
     /**
      * The domain name the asset is currently joined to.
      * @type {string}
@@ -134,6 +146,12 @@ export interface DomainDiscoverAPIApplicationHost {
      */
     systemManufacturer?: string;
     /**
+     * The asset's system serial number.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplicationHost
+     */
+    systemSerialNumber?: string;
+    /**
      * The sensor and cloud tags of the asset.
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIApplicationHost
@@ -161,6 +179,7 @@ export function DomainDiscoverAPIApplicationHostFromJSONTyped(json: any, ignoreD
         agentVersion: json["agent_version"] == null ? undefined : json["agent_version"],
         aid: json["aid"] == null ? undefined : json["aid"],
         country: json["country"] == null ? undefined : json["country"],
+        criticality: json["criticality"] == null ? undefined : json["criticality"],
         currentMacAddress: json["current_mac_address"] == null ? undefined : json["current_mac_address"],
         currentNetworkPrefix: json["current_network_prefix"] == null ? undefined : json["current_network_prefix"],
         externalIp: json["external_ip"] == null ? undefined : json["external_ip"],
@@ -169,6 +188,7 @@ export function DomainDiscoverAPIApplicationHostFromJSONTyped(json: any, ignoreD
         id: json["id"],
         internetExposure: json["internet_exposure"] == null ? undefined : json["internet_exposure"],
         kernelVersion: json["kernel_version"] == null ? undefined : json["kernel_version"],
+        lastSeenDate: json["last_seen_date"] == null ? undefined : json["last_seen_date"],
         machineDomain: json["machine_domain"] == null ? undefined : json["machine_domain"],
         osVersion: json["os_version"] == null ? undefined : json["os_version"],
         ou: json["ou"] == null ? undefined : json["ou"],
@@ -177,6 +197,7 @@ export function DomainDiscoverAPIApplicationHostFromJSONTyped(json: any, ignoreD
         productTypeDesc: json["product_type_desc"] == null ? undefined : json["product_type_desc"],
         siteName: json["site_name"] == null ? undefined : json["site_name"],
         systemManufacturer: json["system_manufacturer"] == null ? undefined : json["system_manufacturer"],
+        systemSerialNumber: json["system_serial_number"] == null ? undefined : json["system_serial_number"],
         tags: json["tags"] == null ? undefined : json["tags"],
     };
 }
@@ -189,6 +210,7 @@ export function DomainDiscoverAPIApplicationHostToJSON(value?: DomainDiscoverAPI
         agent_version: value["agentVersion"],
         aid: value["aid"],
         country: value["country"],
+        criticality: value["criticality"],
         current_mac_address: value["currentMacAddress"],
         current_network_prefix: value["currentNetworkPrefix"],
         external_ip: value["externalIp"],
@@ -197,6 +219,7 @@ export function DomainDiscoverAPIApplicationHostToJSON(value?: DomainDiscoverAPI
         id: value["id"],
         internet_exposure: value["internetExposure"],
         kernel_version: value["kernelVersion"],
+        last_seen_date: value["lastSeenDate"],
         machine_domain: value["machineDomain"],
         os_version: value["osVersion"],
         ou: value["ou"],
@@ -205,6 +228,7 @@ export function DomainDiscoverAPIApplicationHostToJSON(value?: DomainDiscoverAPI
         product_type_desc: value["productTypeDesc"],
         site_name: value["siteName"],
         system_manufacturer: value["systemManufacturer"],
+        system_serial_number: value["systemSerialNumber"],
         tags: value["tags"],
     };
 }

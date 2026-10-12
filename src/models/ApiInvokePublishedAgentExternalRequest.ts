@@ -46,6 +46,12 @@ export interface ApiInvokePublishedAgentExternalRequest {
      * @memberof ApiInvokePublishedAgentExternalRequest
      */
     messages: Array<ApiMessage>;
+    /**
+     *
+     * @type {string}
+     * @memberof ApiInvokePublishedAgentExternalRequest
+     */
+    projectId?: string;
 }
 
 /**
@@ -70,6 +76,7 @@ export function ApiInvokePublishedAgentExternalRequestFromJSONTyped(json: any, i
         deadlineSeconds: json["deadline_seconds"] == null ? undefined : json["deadline_seconds"],
         id: json["id"],
         messages: (json["messages"] as Array<any>).map(ApiMessageFromJSON),
+        projectId: json["project_id"] == null ? undefined : json["project_id"],
     };
 }
 
@@ -82,5 +89,6 @@ export function ApiInvokePublishedAgentExternalRequestToJSON(value?: ApiInvokePu
         deadline_seconds: value["deadlineSeconds"],
         id: value["id"],
         messages: (value["messages"] as Array<any>).map(ApiMessageToJSON),
+        project_id: value["projectId"],
     };
 }

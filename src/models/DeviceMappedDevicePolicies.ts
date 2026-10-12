@@ -63,6 +63,12 @@ export interface DeviceMappedDevicePolicies {
      * @type {DeviceDevicePolicy}
      * @memberof DeviceMappedDevicePolicies
      */
+    cloudContainerWorkload?: DeviceDevicePolicy;
+    /**
+     *
+     * @type {DeviceDevicePolicy}
+     * @memberof DeviceMappedDevicePolicies
+     */
     cloudMl?: DeviceDevicePolicy;
     /**
      *
@@ -256,6 +262,7 @@ export function DeviceMappedDevicePoliciesFromJSONTyped(json: any, ignoreDiscrim
         automox: json["automox"] == null ? undefined : DeviceDevicePolicyFromJSON(json["automox"]),
         awsVerifiedAccess: json["aws-verified-access"] == null ? undefined : DeviceDevicePolicyFromJSON(json["aws-verified-access"]),
         browserExtension: json["browser-extension"] == null ? undefined : DeviceDevicePolicyFromJSON(json["browser-extension"]),
+        cloudContainerWorkload: json["cloud-container-workload"] == null ? undefined : DeviceDevicePolicyFromJSON(json["cloud-container-workload"]),
         cloudMl: json["cloud-ml"] == null ? undefined : DeviceDevicePolicyFromJSON(json["cloud-ml"]),
         consumerSubscription: json["consumer-subscription"] == null ? undefined : DeviceDevicePolicyFromJSON(json["consumer-subscription"]),
         contentUpdate: json["content-update"] == null ? undefined : DeviceDevicePolicyFromJSON(json["content-update"]),
@@ -299,6 +306,7 @@ export function DeviceMappedDevicePoliciesToJSON(value?: DeviceMappedDevicePolic
         automox: DeviceDevicePolicyToJSON(value["automox"]),
         "aws-verified-access": DeviceDevicePolicyToJSON(value["awsVerifiedAccess"]),
         "browser-extension": DeviceDevicePolicyToJSON(value["browserExtension"]),
+        "cloud-container-workload": DeviceDevicePolicyToJSON(value["cloudContainerWorkload"]),
         "cloud-ml": DeviceDevicePolicyToJSON(value["cloudMl"]),
         "consumer-subscription": DeviceDevicePolicyToJSON(value["consumerSubscription"]),
         "content-update": DeviceDevicePolicyToJSON(value["contentUpdate"]),

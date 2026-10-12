@@ -43,6 +43,12 @@ export interface SdkWorkflow {
      * @memberof SdkWorkflow
      */
     status: string;
+    /**
+     *
+     * @type {string}
+     * @memberof SdkWorkflow
+     */
+    templateId?: string;
 }
 
 /**
@@ -69,6 +75,7 @@ export function SdkWorkflowFromJSONTyped(json: any, ignoreDiscriminator: boolean
         id: json["id"],
         name: json["name"],
         status: json["status"],
+        templateId: json["template_id"] == null ? undefined : json["template_id"],
     };
 }
 
@@ -81,5 +88,6 @@ export function SdkWorkflowToJSON(value?: SdkWorkflow | null): any {
         id: value["id"],
         name: value["name"],
         status: value["status"],
+        template_id: value["templateId"],
     };
 }

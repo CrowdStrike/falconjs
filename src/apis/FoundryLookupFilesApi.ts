@@ -72,6 +72,11 @@ export class FoundryLookupFilesApi extends runtime.BaseAPI {
             headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
         }
 
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
+        }
+
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];
         // @ts-ignore: canConsumeForm may be unused
         const canConsumeForm = runtime.canConsumeForm(consumes);
@@ -158,6 +163,11 @@ export class FoundryLookupFilesApi extends runtime.BaseAPI {
 
         if (requestParameters["xCSUSERUUID"] != null) {
             headerParameters["X-CS-USERUUID"] = String(requestParameters["xCSUSERUUID"]);
+        }
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["app-logs:write"]);
         }
 
         const consumes: runtime.Consume[] = [{ contentType: "multipart/form-data" }];

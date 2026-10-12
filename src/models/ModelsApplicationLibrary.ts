@@ -13,6 +13,9 @@
  */
 
 import { mapValues } from "../runtime";
+import type { ModelsPathInfo } from "./ModelsPathInfo";
+import { ModelsPathInfoFromJSON, ModelsPathInfoFromJSONTyped, ModelsPathInfoToJSON } from "./ModelsPathInfo";
+
 /**
  *
  * @export
@@ -57,6 +60,12 @@ export interface ModelsApplicationLibrary {
     path?: string;
     /**
      *
+     * @type {Array<ModelsPathInfo>}
+     * @memberof ModelsApplicationLibrary
+     */
+    paths?: Array<ModelsPathInfo>;
+    /**
+     *
      * @type {string}
      * @memberof ModelsApplicationLibrary
      */
@@ -92,6 +101,7 @@ export function ModelsApplicationLibraryFromJSONTyped(json: any, ignoreDiscrimin
         license: json["License"] == null ? undefined : json["License"],
         name: json["Name"] == null ? undefined : json["Name"],
         path: json["Path"] == null ? undefined : json["Path"],
+        paths: json["Paths"] == null ? undefined : (json["Paths"] as Array<any>).map(ModelsPathInfoFromJSON),
         version: json["Version"] == null ? undefined : json["Version"],
         aiRelated: json["ai_related"] == null ? undefined : json["ai_related"],
     };
@@ -108,6 +118,7 @@ export function ModelsApplicationLibraryToJSON(value?: ModelsApplicationLibrary 
         License: value["license"],
         Name: value["name"],
         Path: value["path"],
+        Paths: value["paths"] == null ? undefined : (value["paths"] as Array<any>).map(ModelsPathInfoToJSON),
         Version: value["version"],
         ai_related: value["aiRelated"],
     };

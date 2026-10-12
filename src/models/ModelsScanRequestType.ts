@@ -106,6 +106,12 @@ export interface ModelsScanRequestType {
      * @memberof ModelsScanRequestType
      */
     scanRequestS3Key: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ModelsScanRequestType
+     */
+    shouldPreservePaths?: boolean;
 }
 
 /**
@@ -146,6 +152,7 @@ export function ModelsScanRequestTypeFromJSONTyped(json: any, ignoreDiscriminato
         layerInventoryS3Key: json["layer_inventory_s3_key"],
         scanReportS3Key: json["scan_report_s3_key"],
         scanRequestS3Key: json["scan_request_s3_key"],
+        shouldPreservePaths: json["should_preserve_paths"] == null ? undefined : json["should_preserve_paths"],
     };
 }
 
@@ -166,5 +173,6 @@ export function ModelsScanRequestTypeToJSON(value?: ModelsScanRequestType | null
         layer_inventory_s3_key: value["layerInventoryS3Key"],
         scan_report_s3_key: value["scanReportS3Key"],
         scan_request_s3_key: value["scanRequestS3Key"],
+        should_preserve_paths: value["shouldPreservePaths"],
     };
 }

@@ -27,6 +27,12 @@ export interface ApiClientRequest {
     description: string;
     /**
      *
+     * @type {boolean}
+     * @memberof ApiClientRequest
+     */
+    isConfidential: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ApiClientRequest
      */
@@ -36,7 +42,19 @@ export interface ApiClientRequest {
      * @type {Array<string>}
      * @memberof ApiClientRequest
      */
+    redirectUris: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof ApiClientRequest
+     */
     scopes: Array<string>;
+    /**
+     *
+     * @type {string}
+     * @memberof ApiClientRequest
+     */
+    type: string;
 }
 
 /**
@@ -44,8 +62,11 @@ export interface ApiClientRequest {
  */
 export function instanceOfApiClientRequest(value: object): value is ApiClientRequest {
     if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("isConfidential" in value) || value["isConfidential"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("redirectUris" in value) || value["redirectUris"] === undefined) return false;
     if (!("scopes" in value) || value["scopes"] === undefined) return false;
+    if (!("type" in value) || value["type"] === undefined) return false;
     return true;
 }
 
@@ -59,8 +80,11 @@ export function ApiClientRequestFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         description: json["description"],
+        isConfidential: json["is_confidential"],
         name: json["name"],
+        redirectUris: json["redirect_uris"],
         scopes: json["scopes"],
+        type: json["type"],
     };
 }
 
@@ -70,7 +94,10 @@ export function ApiClientRequestToJSON(value?: ApiClientRequest | null): any {
     }
     return {
         description: value["description"],
+        is_confidential: value["isConfidential"],
         name: value["name"],
+        redirect_uris: value["redirectUris"],
         scopes: value["scopes"],
+        type: value["type"],
     };
 }

@@ -14,22 +14,16 @@
 
 import * as runtime from "../runtime";
 import type {
-    DomainZoneCreateRequest,
-    DomainZoneEntitiesResponse,
-    DomainZoneUpdateRequest,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     MsaspecResponseFields,
+    NvaapiZoneCreateRequest,
+    NvaapiZoneEntitiesResponse,
+    NvaapiZoneUpdateRequest,
 } from "../models/index";
 import {
-    DomainZoneCreateRequestFromJSON,
-    DomainZoneCreateRequestToJSON,
-    DomainZoneEntitiesResponseFromJSON,
-    DomainZoneEntitiesResponseToJSON,
-    DomainZoneUpdateRequestFromJSON,
-    DomainZoneUpdateRequestToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -40,6 +34,12 @@ import {
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    NvaapiZoneCreateRequestFromJSON,
+    NvaapiZoneCreateRequestToJSON,
+    NvaapiZoneEntitiesResponseFromJSON,
+    NvaapiZoneEntitiesResponseToJSON,
+    NvaapiZoneUpdateRequestFromJSON,
+    NvaapiZoneUpdateRequestToJSON,
 } from "../models/index";
 
 export interface NetworkScanZonesApiAggregateZonesRequest {
@@ -56,7 +56,7 @@ export interface NetworkScanZonesApiCombinedZonesRequest {
 }
 
 export interface NetworkScanZonesApiCreateZonesRequest {
-    body: Array<DomainZoneCreateRequest>;
+    body: Array<NvaapiZoneCreateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -79,7 +79,7 @@ export interface NetworkScanZonesApiQueryZonesRequest {
 }
 
 export interface NetworkScanZonesApiUpdateZonesRequest {
-    body: Array<DomainZoneUpdateRequest>;
+    body: Array<NvaapiZoneUpdateRequest>;
     xCSUSERUUID?: string;
 }
 
@@ -141,7 +141,7 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
     async combinedZonesRaw(
         requestParameters: NetworkScanZonesApiCombinedZonesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainZoneEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiZoneEntitiesResponse>> {
         const queryParameters: any = {};
 
         if (requestParameters["offset"] != null) {
@@ -181,7 +181,7 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainZoneEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiZoneEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
@@ -194,7 +194,7 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<DomainZoneEntitiesResponse> {
+    ): Promise<NvaapiZoneEntitiesResponse> {
         const response = await this.combinedZonesRaw({ xCSUSERUUID: xCSUSERUUID, offset: offset, limit: limit, sort: sort, filter: filter }, initOverrides);
         return await response.value();
     }
@@ -205,7 +205,7 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
     async createZonesRaw(
         requestParameters: NetworkScanZonesApiCreateZonesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainZoneEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiZoneEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createZones().');
         }
@@ -231,18 +231,18 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
                 method: "POST",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainZoneCreateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiZoneCreateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainZoneEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiZoneEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Create \"zones\" using provided specifications
      */
-    async createZones(body: Array<DomainZoneCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainZoneEntitiesResponse> {
+    async createZones(body: Array<NvaapiZoneCreateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiZoneEntitiesResponse> {
         const response = await this.createZonesRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -296,7 +296,7 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
     /**
      * Get \"zones\" by their IDs
      */
-    async getZonesRaw(requestParameters: NetworkScanZonesApiGetZonesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DomainZoneEntitiesResponse>> {
+    async getZonesRaw(requestParameters: NetworkScanZonesApiGetZonesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<NvaapiZoneEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getZones().');
         }
@@ -328,13 +328,13 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainZoneEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiZoneEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get \"zones\" by their IDs
      */
-    async getZones(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainZoneEntitiesResponse> {
+    async getZones(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiZoneEntitiesResponse> {
         const response = await this.getZonesRaw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -399,7 +399,7 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
     async updateZonesRaw(
         requestParameters: NetworkScanZonesApiUpdateZonesRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainZoneEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiZoneEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateZones().');
         }
@@ -425,18 +425,18 @@ export class NetworkScanZonesApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: requestParameters["body"]!.map(DomainZoneUpdateRequestToJSON),
+                body: requestParameters["body"]!.map(NvaapiZoneUpdateRequestToJSON),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainZoneEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiZoneEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Update \"zones\" using provided specifications
      */
-    async updateZones(body: Array<DomainZoneUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainZoneEntitiesResponse> {
+    async updateZones(body: Array<NvaapiZoneUpdateRequest>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiZoneEntitiesResponse> {
         const response = await this.updateZonesRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }

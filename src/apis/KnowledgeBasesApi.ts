@@ -13,15 +13,7 @@
  */
 
 import * as runtime from "../runtime";
-import type {
-    ApiErrorResponse,
-    DomainKnowledgeBase,
-    DomainReplyEntitiesKnowledgeBasesResponse,
-    DomainReplyQueryKnowledgeBasesResponse,
-    MsaAggregateQueryRequest,
-    MsaAggregatesResponse,
-    MsaReplyMetaOnly,
-} from "../models/index";
+import type { ApiErrorResponse, DomainKnowledgeBase, DomainReplyEntitiesKnowledgeBasesResponse, DomainReplyQueryKnowledgeBasesResponse, MsaReplyMetaOnly } from "../models/index";
 import {
     ApiErrorResponseFromJSON,
     ApiErrorResponseToJSON,
@@ -31,18 +23,9 @@ import {
     DomainReplyEntitiesKnowledgeBasesResponseToJSON,
     DomainReplyQueryKnowledgeBasesResponseFromJSON,
     DomainReplyQueryKnowledgeBasesResponseToJSON,
-    MsaAggregateQueryRequestFromJSON,
-    MsaAggregateQueryRequestToJSON,
-    MsaAggregatesResponseFromJSON,
-    MsaAggregatesResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
 } from "../models/index";
-
-export interface KnowledgeBasesApiAggregatesKnowledgeBasesV1Request {
-    body: Array<MsaAggregateQueryRequest>;
-    includeDeleted?: boolean;
-}
 
 export interface KnowledgeBasesApiCombinedKnowledgeBasesV1Request {
     offset?: number;
@@ -50,6 +33,7 @@ export interface KnowledgeBasesApiCombinedKnowledgeBasesV1Request {
     sort?: string;
     filter?: string;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 export interface KnowledgeBasesApiEntitiesKnowledgeBasesCreateV1Request {
@@ -58,11 +42,13 @@ export interface KnowledgeBasesApiEntitiesKnowledgeBasesCreateV1Request {
 
 export interface KnowledgeBasesApiEntitiesKnowledgeBasesUpdateV1Request {
     body: DomainKnowledgeBase;
+    projectId?: string;
 }
 
 export interface KnowledgeBasesApiEntitiesKnowledgeBasesV1Request {
     ids: Array<string>;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 export interface KnowledgeBasesApiQueriesKnowledgeBasesV1Request {
@@ -71,60 +57,13 @@ export interface KnowledgeBasesApiQueriesKnowledgeBasesV1Request {
     sort?: string;
     filter?: string;
     includeDeleted?: boolean;
+    projectId?: string;
 }
 
 /**
  *
  */
 export class KnowledgeBasesApi extends runtime.BaseAPI {
-    /**
-     * Aggregate knowledge bases based on the provided msa criteria.
-     */
-    async aggregatesKnowledgeBasesV1Raw(
-        requestParameters: KnowledgeBasesApiAggregatesKnowledgeBasesV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaAggregatesResponse>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling aggregatesKnowledgeBasesV1().');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters["includeDeleted"] != null) {
-            queryParameters["include_deleted"] = requestParameters["includeDeleted"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:read"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/agentic-studio/aggregates/knowledge_bases/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"]!.map(MsaAggregateQueryRequestToJSON),
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaAggregatesResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Aggregate knowledge bases based on the provided msa criteria.
-     */
-    async aggregatesKnowledgeBasesV1(body: Array<MsaAggregateQueryRequest>, includeDeleted?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaAggregatesResponse> {
-        const response = await this.aggregatesKnowledgeBasesV1Raw({ body: body, includeDeleted: includeDeleted }, initOverrides);
-        return await response.value();
-    }
-
     /**
      * Search for knowledge bases with filtering and return full entity details in a single response.
      */
@@ -152,6 +91,10 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
 
         if (requestParameters["includeDeleted"] != null) {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
+        }
+
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -183,14 +126,15 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         includeDeleted?: boolean,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyEntitiesKnowledgeBasesResponse> {
-        const response = await this.combinedKnowledgeBasesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted }, initOverrides);
+        const response = await this.combinedKnowledgeBasesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
     /**
-     * Create or update a knowledge base. For deletion, provide knowledge base with IsDeleted=true.
+     * Create or update a knowledge base. To delete a knowledge base, set is_deleted to true.
      */
     async entitiesKnowledgeBasesCreateV1Raw(
         requestParameters: KnowledgeBasesApiEntitiesKnowledgeBasesCreateV1Request,
@@ -226,7 +170,7 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create or update a knowledge base. For deletion, provide knowledge base with IsDeleted=true.
+     * Create or update a knowledge base. To delete a knowledge base, set is_deleted to true.
      */
     async entitiesKnowledgeBasesCreateV1(body: DomainKnowledgeBase, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainReplyEntitiesKnowledgeBasesResponse> {
         const response = await this.entitiesKnowledgeBasesCreateV1Raw({ body: body }, initOverrides);
@@ -245,6 +189,10 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
         }
 
         const queryParameters: any = {};
+
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -272,8 +220,12 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
     /**
      * Update an existing knowledge base.
      */
-    async entitiesKnowledgeBasesUpdateV1(body: DomainKnowledgeBase, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainReplyEntitiesKnowledgeBasesResponse> {
-        const response = await this.entitiesKnowledgeBasesUpdateV1Raw({ body: body }, initOverrides);
+    async entitiesKnowledgeBasesUpdateV1(
+        body: DomainKnowledgeBase,
+        projectId?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DomainReplyEntitiesKnowledgeBasesResponse> {
+        const response = await this.entitiesKnowledgeBasesUpdateV1Raw({ body: body, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
@@ -296,6 +248,10 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
 
         if (requestParameters["includeDeleted"] != null) {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
+        }
+
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -321,8 +277,13 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
     /**
      * Retrieve knowledge base entities for the provided id.
      */
-    async entitiesKnowledgeBasesV1(ids: Array<string>, includeDeleted?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainReplyEntitiesKnowledgeBasesResponse> {
-        const response = await this.entitiesKnowledgeBasesV1Raw({ ids: ids, includeDeleted: includeDeleted }, initOverrides);
+    async entitiesKnowledgeBasesV1(
+        ids: Array<string>,
+        includeDeleted?: boolean,
+        projectId?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DomainReplyEntitiesKnowledgeBasesResponse> {
+        const response = await this.entitiesKnowledgeBasesV1Raw({ ids: ids, includeDeleted: includeDeleted, projectId: projectId }, initOverrides);
         return await response.value();
     }
 
@@ -355,6 +316,10 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
             queryParameters["include_deleted"] = requestParameters["includeDeleted"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -384,9 +349,10 @@ export class KnowledgeBasesApi extends runtime.BaseAPI {
         sort?: string,
         filter?: string,
         includeDeleted?: boolean,
+        projectId?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DomainReplyQueryKnowledgeBasesResponse> {
-        const response = await this.queriesKnowledgeBasesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted }, initOverrides);
+        const response = await this.queriesKnowledgeBasesV1Raw({ offset: offset, limit: limit, sort: sort, filter: filter, includeDeleted: includeDeleted, projectId: projectId }, initOverrides);
         return await response.value();
     }
 }

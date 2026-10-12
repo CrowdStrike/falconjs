@@ -3,10 +3,17 @@ import {
     AccessScopesApi,
     AdmissionControlPoliciesApi,
     AgentInvocationApi,
+    AgentTemplatesApi,
+    AgentVersionsApi,
+    AgentsApi,
+    AidrEventsApi,
     AlertsApi,
     ApiClientsApi,
     ApiIntegrationsApi,
+    ApplicationAbuseExclusionsApi,
     AspmApi,
+    AspmapiApi,
+    AuditApi,
     CaoHuntingApi,
     CaseFilesApi,
     CaseManagementApi,
@@ -25,6 +32,8 @@ import {
     CloudSecurityRegistrationCombinedApi,
     CloudSecurityRisksApi,
     CloudSnapshotsApi,
+    CodeSecurityScmIntegrationApi,
+    CodeSecurityScmInventoryApi,
     ConfigurationAssessmentApi,
     ConfigurationAssessmentEvaluationLogicApi,
     ContainerAlertsApi,
@@ -33,6 +42,7 @@ import {
     ContainerImagesApi,
     ContainerPackagesApi,
     ContainerVulnerabilitiesApi,
+    ContainmentAllowlistRulesApi,
     ContentUpdatePoliciesApi,
     CorrelationRulesAdminApi,
     CorrelationRulesApi,
@@ -44,15 +54,21 @@ import {
     DataProtectionConfigurationApi,
     DefaultApi,
     DeliverySettingsApi,
+    DeploymentConfigsApi,
+    DeploymentExecutionsApi,
     DeploymentsApi,
     DetectsApi,
     DeviceContentApi,
     DeviceControlPoliciesApi,
-    DeviceControlWithBluetoothApi,
     DiscoverApi,
     DiscoverIotApi,
     DownloadsApiApi,
     DriftIndicatorsApi,
+    EvalCasesApi,
+    EvalDatasetEntriesApi,
+    EvalDatasetsApi,
+    EvalEvaluatorsApi,
+    EvalRunsApi,
     EventSchemaApi,
     EventStreamsApi,
     ExecutionApi,
@@ -70,13 +86,14 @@ import {
     FirewallPoliciesApi,
     FoundryLogscaleApi,
     FoundryLookupFilesApi,
+    HostDeploymentPatchesApi,
+    HostDeploymentsApi,
     HostGroupApi,
     HostMigrationApi,
     HostsApi,
     IdentityEntitiesApi,
     IdentityProtectionApi,
     ImageAssessmentPoliciesApi,
-    IncidentsApi,
     InstallationTokensApi,
     InstallationTokensSettingsApi,
     IntelApi,
@@ -96,7 +113,9 @@ import {
     MessageCenterApi,
     MlExclusionsApi,
     MobileEnrollmentApi,
+    ModelsApi,
     MsspApi,
+    NetworkScanDetectionsApi,
     NetworkScanGlobalConfigsApi,
     NetworkScanNetworksApi,
     NetworkScanScanRunReportsApi,
@@ -108,6 +127,7 @@ import {
     NgsiemApi,
     Oauth2Api,
     OdsApi,
+    PatchMgmtApi,
     PreventionPoliciesApi,
     ProfileGroupsApi,
     QuarantineApi,
@@ -130,8 +150,11 @@ import {
     SensorUpdatePoliciesApi,
     SensorUsageApiApi,
     SensorVisibilityExclusionsApi,
+    SeraphicEnterpriseBrowserApi,
     ServerlessExportsApi,
     ServerlessVulnerabilitiesApi,
+    SkillsApi,
+    SpansApi,
     SpotlightEvaluationLogicApi,
     SpotlightSupportedEvaluationApi,
     SpotlightVulnerabilitiesApi,
@@ -139,6 +162,7 @@ import {
     StreamApi,
     TailoredIntelligenceApi,
     ThreatgraphApi,
+    ToolsApi,
     UnidentifiedContainersApi,
     UserManagementApi,
     WorkflowsApi,
@@ -176,10 +200,17 @@ export class FalconClient {
     accessScopes: AccessScopesApi;
     admissionControlPolicies: AdmissionControlPoliciesApi;
     agentInvocation: AgentInvocationApi;
+    agentTemplates: AgentTemplatesApi;
+    agentVersions: AgentVersionsApi;
+    agents: AgentsApi;
+    aidrEvents: AidrEventsApi;
     alerts: AlertsApi;
     apiClients: ApiClientsApi;
     apiIntegrations: ApiIntegrationsApi;
+    applicationAbuseExclusions: ApplicationAbuseExclusionsApi;
     aspm: AspmApi;
+    aspmapi: AspmapiApi;
+    audit: AuditApi;
     caoHunting: CaoHuntingApi;
     caseFiles: CaseFilesApi;
     caseManagement: CaseManagementApi;
@@ -198,6 +229,8 @@ export class FalconClient {
     cloudSecurityRegistrationCombined: CloudSecurityRegistrationCombinedApi;
     cloudSecurityRisks: CloudSecurityRisksApi;
     cloudSnapshots: CloudSnapshotsApi;
+    codeSecurityScmIntegration: CodeSecurityScmIntegrationApi;
+    codeSecurityScmInventory: CodeSecurityScmInventoryApi;
     configurationAssessment: ConfigurationAssessmentApi;
     configurationAssessmentEvaluationLogic: ConfigurationAssessmentEvaluationLogicApi;
     containerAlerts: ContainerAlertsApi;
@@ -206,6 +239,7 @@ export class FalconClient {
     containerImages: ContainerImagesApi;
     containerPackages: ContainerPackagesApi;
     containerVulnerabilities: ContainerVulnerabilitiesApi;
+    containmentAllowlistRules: ContainmentAllowlistRulesApi;
     contentUpdatePolicies: ContentUpdatePoliciesApi;
     correlationRulesAdmin: CorrelationRulesAdminApi;
     correlationRules: CorrelationRulesApi;
@@ -217,15 +251,21 @@ export class FalconClient {
     dataProtectionConfiguration: DataProtectionConfigurationApi;
     default: DefaultApi;
     deliverySettings: DeliverySettingsApi;
+    deploymentConfigs: DeploymentConfigsApi;
+    deploymentExecutions: DeploymentExecutionsApi;
     deployments: DeploymentsApi;
     detects: DetectsApi;
     deviceContent: DeviceContentApi;
     deviceControlPolicies: DeviceControlPoliciesApi;
-    deviceControlWithBluetooth: DeviceControlWithBluetoothApi;
     discover: DiscoverApi;
     discoverIot: DiscoverIotApi;
     downloadsApi: DownloadsApiApi;
     driftIndicators: DriftIndicatorsApi;
+    evalCases: EvalCasesApi;
+    evalDatasetEntries: EvalDatasetEntriesApi;
+    evalDatasets: EvalDatasetsApi;
+    evalEvaluators: EvalEvaluatorsApi;
+    evalRuns: EvalRunsApi;
     eventSchema: EventSchemaApi;
     eventStreams: EventStreamsApi;
     execution: ExecutionApi;
@@ -243,13 +283,14 @@ export class FalconClient {
     firewallPolicies: FirewallPoliciesApi;
     foundryLogscale: FoundryLogscaleApi;
     foundryLookupFiles: FoundryLookupFilesApi;
+    hostDeploymentPatches: HostDeploymentPatchesApi;
+    hostDeployments: HostDeploymentsApi;
     hostGroup: HostGroupApi;
     hostMigration: HostMigrationApi;
     hosts: HostsApi;
     identityEntities: IdentityEntitiesApi;
     identityProtection: IdentityProtectionApi;
     imageAssessmentPolicies: ImageAssessmentPoliciesApi;
-    incidents: IncidentsApi;
     installationTokens: InstallationTokensApi;
     installationTokensSettings: InstallationTokensSettingsApi;
     intel: IntelApi;
@@ -269,7 +310,9 @@ export class FalconClient {
     messageCenter: MessageCenterApi;
     mlExclusions: MlExclusionsApi;
     mobileEnrollment: MobileEnrollmentApi;
+    models: ModelsApi;
     mssp: MsspApi;
+    networkScanDetections: NetworkScanDetectionsApi;
     networkScanGlobalConfigs: NetworkScanGlobalConfigsApi;
     networkScanNetworks: NetworkScanNetworksApi;
     networkScanScanRunReports: NetworkScanScanRunReportsApi;
@@ -281,6 +324,7 @@ export class FalconClient {
     ngsiem: NgsiemApi;
     oauth2: Oauth2Api;
     ods: OdsApi;
+    patchMgmt: PatchMgmtApi;
     preventionPolicies: PreventionPoliciesApi;
     profileGroups: ProfileGroupsApi;
     quarantine: QuarantineApi;
@@ -303,8 +347,11 @@ export class FalconClient {
     sensorUpdatePolicies: SensorUpdatePoliciesApi;
     sensorUsageApi: SensorUsageApiApi;
     sensorVisibilityExclusions: SensorVisibilityExclusionsApi;
+    seraphicEnterpriseBrowser: SeraphicEnterpriseBrowserApi;
     serverlessExports: ServerlessExportsApi;
     serverlessVulnerabilities: ServerlessVulnerabilitiesApi;
+    skills: SkillsApi;
+    spans: SpansApi;
     spotlightEvaluationLogic: SpotlightEvaluationLogicApi;
     spotlightSupportedEvaluation: SpotlightSupportedEvaluationApi;
     spotlightVulnerabilities: SpotlightVulnerabilitiesApi;
@@ -312,6 +359,7 @@ export class FalconClient {
     stream: StreamApi;
     tailoredIntelligence: TailoredIntelligenceApi;
     threatgraph: ThreatgraphApi;
+    tools: ToolsApi;
     unidentifiedContainers: UnidentifiedContainersApi;
     userManagement: UserManagementApi;
     workflows: WorkflowsApi;
@@ -338,10 +386,17 @@ export class FalconClient {
         this.accessScopes = new AccessScopesApi(this.config);
         this.admissionControlPolicies = new AdmissionControlPoliciesApi(this.config);
         this.agentInvocation = new AgentInvocationApi(this.config);
+        this.agentTemplates = new AgentTemplatesApi(this.config);
+        this.agentVersions = new AgentVersionsApi(this.config);
+        this.agents = new AgentsApi(this.config);
+        this.aidrEvents = new AidrEventsApi(this.config);
         this.alerts = new AlertsApi(this.config);
         this.apiClients = new ApiClientsApi(this.config);
         this.apiIntegrations = new ApiIntegrationsApi(this.config);
+        this.applicationAbuseExclusions = new ApplicationAbuseExclusionsApi(this.config);
         this.aspm = new AspmApi(this.config);
+        this.aspmapi = new AspmapiApi(this.config);
+        this.audit = new AuditApi(this.config);
         this.caoHunting = new CaoHuntingApi(this.config);
         this.caseFiles = new CaseFilesApi(this.config);
         this.caseManagement = new CaseManagementApi(this.config);
@@ -360,6 +415,8 @@ export class FalconClient {
         this.cloudSecurityRegistrationCombined = new CloudSecurityRegistrationCombinedApi(this.config);
         this.cloudSecurityRisks = new CloudSecurityRisksApi(this.config);
         this.cloudSnapshots = new CloudSnapshotsApi(this.config);
+        this.codeSecurityScmIntegration = new CodeSecurityScmIntegrationApi(this.config);
+        this.codeSecurityScmInventory = new CodeSecurityScmInventoryApi(this.config);
         this.configurationAssessment = new ConfigurationAssessmentApi(this.config);
         this.configurationAssessmentEvaluationLogic = new ConfigurationAssessmentEvaluationLogicApi(this.config);
         this.containerAlerts = new ContainerAlertsApi(this.config);
@@ -368,6 +425,7 @@ export class FalconClient {
         this.containerImages = new ContainerImagesApi(this.config);
         this.containerPackages = new ContainerPackagesApi(this.config);
         this.containerVulnerabilities = new ContainerVulnerabilitiesApi(this.config);
+        this.containmentAllowlistRules = new ContainmentAllowlistRulesApi(this.config);
         this.contentUpdatePolicies = new ContentUpdatePoliciesApi(this.config);
         this.correlationRulesAdmin = new CorrelationRulesAdminApi(this.config);
         this.correlationRules = new CorrelationRulesApi(this.config);
@@ -379,15 +437,21 @@ export class FalconClient {
         this.dataProtectionConfiguration = new DataProtectionConfigurationApi(this.config);
         this.default = new DefaultApi(this.config);
         this.deliverySettings = new DeliverySettingsApi(this.config);
+        this.deploymentConfigs = new DeploymentConfigsApi(this.config);
+        this.deploymentExecutions = new DeploymentExecutionsApi(this.config);
         this.deployments = new DeploymentsApi(this.config);
         this.detects = new DetectsApi(this.config);
         this.deviceContent = new DeviceContentApi(this.config);
         this.deviceControlPolicies = new DeviceControlPoliciesApi(this.config);
-        this.deviceControlWithBluetooth = new DeviceControlWithBluetoothApi(this.config);
         this.discover = new DiscoverApi(this.config);
         this.discoverIot = new DiscoverIotApi(this.config);
         this.downloadsApi = new DownloadsApiApi(this.config);
         this.driftIndicators = new DriftIndicatorsApi(this.config);
+        this.evalCases = new EvalCasesApi(this.config);
+        this.evalDatasetEntries = new EvalDatasetEntriesApi(this.config);
+        this.evalDatasets = new EvalDatasetsApi(this.config);
+        this.evalEvaluators = new EvalEvaluatorsApi(this.config);
+        this.evalRuns = new EvalRunsApi(this.config);
         this.eventSchema = new EventSchemaApi(this.config);
         this.eventStreams = new EventStreamsApi(this.config);
         this.execution = new ExecutionApi(this.config);
@@ -405,13 +469,14 @@ export class FalconClient {
         this.firewallPolicies = new FirewallPoliciesApi(this.config);
         this.foundryLogscale = new FoundryLogscaleApi(this.config);
         this.foundryLookupFiles = new FoundryLookupFilesApi(this.config);
+        this.hostDeploymentPatches = new HostDeploymentPatchesApi(this.config);
+        this.hostDeployments = new HostDeploymentsApi(this.config);
         this.hostGroup = new HostGroupApi(this.config);
         this.hostMigration = new HostMigrationApi(this.config);
         this.hosts = new HostsApi(this.config);
         this.identityEntities = new IdentityEntitiesApi(this.config);
         this.identityProtection = new IdentityProtectionApi(this.config);
         this.imageAssessmentPolicies = new ImageAssessmentPoliciesApi(this.config);
-        this.incidents = new IncidentsApi(this.config);
         this.installationTokens = new InstallationTokensApi(this.config);
         this.installationTokensSettings = new InstallationTokensSettingsApi(this.config);
         this.intel = new IntelApi(this.config);
@@ -431,7 +496,9 @@ export class FalconClient {
         this.messageCenter = new MessageCenterApi(this.config);
         this.mlExclusions = new MlExclusionsApi(this.config);
         this.mobileEnrollment = new MobileEnrollmentApi(this.config);
+        this.models = new ModelsApi(this.config);
         this.mssp = new MsspApi(this.config);
+        this.networkScanDetections = new NetworkScanDetectionsApi(this.config);
         this.networkScanGlobalConfigs = new NetworkScanGlobalConfigsApi(this.config);
         this.networkScanNetworks = new NetworkScanNetworksApi(this.config);
         this.networkScanScanRunReports = new NetworkScanScanRunReportsApi(this.config);
@@ -443,6 +510,7 @@ export class FalconClient {
         this.ngsiem = new NgsiemApi(this.config);
         this.oauth2 = new Oauth2Api(this.config);
         this.ods = new OdsApi(this.config);
+        this.patchMgmt = new PatchMgmtApi(this.config);
         this.preventionPolicies = new PreventionPoliciesApi(this.config);
         this.profileGroups = new ProfileGroupsApi(this.config);
         this.quarantine = new QuarantineApi(this.config);
@@ -465,8 +533,11 @@ export class FalconClient {
         this.sensorUpdatePolicies = new SensorUpdatePoliciesApi(this.config);
         this.sensorUsageApi = new SensorUsageApiApi(this.config);
         this.sensorVisibilityExclusions = new SensorVisibilityExclusionsApi(this.config);
+        this.seraphicEnterpriseBrowser = new SeraphicEnterpriseBrowserApi(this.config);
         this.serverlessExports = new ServerlessExportsApi(this.config);
         this.serverlessVulnerabilities = new ServerlessVulnerabilitiesApi(this.config);
+        this.skills = new SkillsApi(this.config);
+        this.spans = new SpansApi(this.config);
         this.spotlightEvaluationLogic = new SpotlightEvaluationLogicApi(this.config);
         this.spotlightSupportedEvaluation = new SpotlightSupportedEvaluationApi(this.config);
         this.spotlightVulnerabilities = new SpotlightVulnerabilitiesApi(this.config);
@@ -474,6 +545,7 @@ export class FalconClient {
         this.stream = new StreamApi(this.config);
         this.tailoredIntelligence = new TailoredIntelligenceApi(this.config);
         this.threatgraph = new ThreatgraphApi(this.config);
+        this.tools = new ToolsApi(this.config);
         this.unidentifiedContainers = new UnidentifiedContainersApi(this.config);
         this.userManagement = new UserManagementApi(this.config);
         this.workflows = new WorkflowsApi(this.config);

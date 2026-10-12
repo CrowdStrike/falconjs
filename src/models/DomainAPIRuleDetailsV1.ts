@@ -69,6 +69,12 @@ export interface DomainAPIRuleDetailsV1 {
      * @type {string}
      * @memberof DomainAPIRuleDetailsV1
      */
+    createdBy?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIRuleDetailsV1
+     */
     description: string;
     /**
      *
@@ -82,6 +88,12 @@ export interface DomainAPIRuleDetailsV1 {
      * @memberof DomainAPIRuleDetailsV1
      */
     impactStatement: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIRuleDetailsV1
+     */
+    modifiedBy?: string;
     /**
      *
      * @type {string}
@@ -112,6 +124,18 @@ export interface DomainAPIRuleDetailsV1 {
      * @memberof DomainAPIRuleDetailsV1
      */
     remediationProcedure: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIRuleDetailsV1
+     */
+    ruleType?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIRuleDetailsV1
+     */
+    scriptUuid?: string;
     /**
      *
      * @type {string}
@@ -157,14 +181,18 @@ export function DomainAPIRuleDetailsV1FromJSONTyped(json: any, ignoreDiscriminat
         authority: json["authority"],
         benchmarkTitle: json["benchmark_title"],
         complianceMappings: json["compliance_mappings"] == null ? undefined : (json["compliance_mappings"] as Array<any>).map(DomainAPIComplianceMappingV1FromJSON),
+        createdBy: json["created_by"] == null ? undefined : json["created_by"],
         description: json["description"],
         id: json["id"],
         impactStatement: json["impact_statement"],
+        modifiedBy: json["modified_by"] == null ? undefined : json["modified_by"],
         platform: json["platform"],
         rationaleStatement: json["rationale_statement"],
         recommendationId: json["recommendation_id"],
         references: json["references"] == null ? undefined : json["references"],
         remediationProcedure: json["remediation_procedure"],
+        ruleType: json["rule_type"] == null ? undefined : json["rule_type"],
+        scriptUuid: json["script_uuid"] == null ? undefined : json["script_uuid"],
         title: json["title"],
     };
 }
@@ -181,14 +209,18 @@ export function DomainAPIRuleDetailsV1ToJSON(value?: DomainAPIRuleDetailsV1 | nu
         authority: value["authority"],
         benchmark_title: value["benchmarkTitle"],
         compliance_mappings: value["complianceMappings"] == null ? undefined : (value["complianceMappings"] as Array<any>).map(DomainAPIComplianceMappingV1ToJSON),
+        created_by: value["createdBy"],
         description: value["description"],
         id: value["id"],
         impact_statement: value["impactStatement"],
+        modified_by: value["modifiedBy"],
         platform: value["platform"],
         rationale_statement: value["rationaleStatement"],
         recommendation_id: value["recommendationId"],
         references: value["references"],
         remediation_procedure: value["remediationProcedure"],
+        rule_type: value["ruleType"],
+        script_uuid: value["scriptUuid"],
         title: value["title"],
     };
 }

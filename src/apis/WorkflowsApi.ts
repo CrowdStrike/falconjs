@@ -167,17 +167,6 @@ export interface WorkflowsApiWorkflowDefinitionsUpdateRequest {
     validateOnly?: boolean;
 }
 
-export interface WorkflowsApiWorkflowExecuteInternalRequest {
-    body: object;
-    executionCid?: Array<string>;
-    definitionId?: Array<string>;
-    name?: string;
-    key?: string;
-    depth?: number;
-    batchSize?: number;
-    sourceEventUrl?: string;
-}
-
 export interface WorkflowsApiWorkflowExecuteSingleNodeV1Request {
     body: ModelsSingleNodeExecutionCreateRequestV1;
     executionCid?: Array<string>;
@@ -192,6 +181,7 @@ export interface WorkflowsApiWorkflowExecutionsCombinedRequest {
     offset?: string;
     limit?: number;
     sort?: string;
+    skipFields?: Array<string>;
 }
 
 export interface WorkflowsApiWorkflowGetHumanInputV1Request {
@@ -1053,91 +1043,6 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Executes an on-demand Workflow - internal workflows permitted, the body is JSON used to trigger the execution, the response the execution ID(s)
-     */
-    async workflowExecuteInternalRaw(
-        requestParameters: WorkflowsApiWorkflowExecuteInternalRequest,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<ApiResourceIDsResponse>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling workflowExecuteInternal().');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters["executionCid"] != null) {
-            queryParameters["execution_cid"] = requestParameters["executionCid"]!.join(runtime.COLLECTION_FORMATS["csv"]);
-        }
-
-        if (requestParameters["definitionId"] != null) {
-            queryParameters["definition_id"] = requestParameters["definitionId"]!.join(runtime.COLLECTION_FORMATS["csv"]);
-        }
-
-        if (requestParameters["name"] != null) {
-            queryParameters["name"] = requestParameters["name"];
-        }
-
-        if (requestParameters["key"] != null) {
-            queryParameters["key"] = requestParameters["key"];
-        }
-
-        if (requestParameters["depth"] != null) {
-            queryParameters["depth"] = requestParameters["depth"];
-        }
-
-        if (requestParameters["batchSize"] != null) {
-            queryParameters["batch_size"] = requestParameters["batchSize"];
-        }
-
-        if (requestParameters["sourceEventUrl"] != null) {
-            queryParameters["source_event_url"] = requestParameters["sourceEventUrl"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["workflow:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/workflows/entities/execute/internal/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: requestParameters["body"] as any,
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ApiResourceIDsResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Executes an on-demand Workflow - internal workflows permitted, the body is JSON used to trigger the execution, the response the execution ID(s)
-     */
-    async workflowExecuteInternal(
-        body: object,
-        executionCid?: Array<string>,
-        definitionId?: Array<string>,
-        name?: string,
-        key?: string,
-        depth?: number,
-        batchSize?: number,
-        sourceEventUrl?: string,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<ApiResourceIDsResponse> {
-        const response = await this.workflowExecuteInternalRaw(
-            { body: body, executionCid: executionCid, definitionId: definitionId, name: name, key: key, depth: depth, batchSize: batchSize, sourceEventUrl: sourceEventUrl },
-            initOverrides,
-        );
-        return await response.value();
-    }
-
-    /**
      * Executes a single activity node, resulting in an execution where test_mode=true and single_node_execution=true, associated with a definition ID if provided
      */
     async workflowExecuteSingleNodeV1Raw(
@@ -1210,7 +1115,7 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search workflow executions based on the provided filter
+     * Search workflow executions based on the provided filter. Note: the \'entity\' filter matches associated entity values (e.g. hostnames, IPs, emails, detection IDs) by exact match; only the first 1024 characters of each entity value are indexed for filtering.
      */
     async workflowExecutionsCombinedRaw(
         requestParameters: WorkflowsApiWorkflowExecutionsCombinedRequest,
@@ -1234,6 +1139,10 @@ export class WorkflowsApi extends runtime.BaseAPI {
             queryParameters["sort"] = requestParameters["sort"];
         }
 
+        if (requestParameters["skipFields"] != null) {
+            queryParameters["skip_fields"] = requestParameters["skipFields"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -1255,16 +1164,17 @@ export class WorkflowsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Search workflow executions based on the provided filter
+     * Search workflow executions based on the provided filter. Note: the \'entity\' filter matches associated entity values (e.g. hostnames, IPs, emails, detection IDs) by exact match; only the first 1024 characters of each entity value are indexed for filtering.
      */
     async workflowExecutionsCombined(
         filter?: string,
         offset?: string,
         limit?: number,
         sort?: string,
+        skipFields?: Array<string>,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<ApiExecutionResultsResponse> {
-        const response = await this.workflowExecutionsCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort }, initOverrides);
+        const response = await this.workflowExecutionsCombinedRaw({ filter: filter, offset: offset, limit: limit, sort: sort, skipFields: skipFields }, initOverrides);
         return await response.value();
     }
 

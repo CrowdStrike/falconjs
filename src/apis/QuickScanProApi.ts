@@ -70,6 +70,7 @@ export interface QuickScanProApiUploadFileQuickScanProRequest {
     fileName?: string;
     xFilePassword?: string;
     scan?: boolean;
+    scanMode?: UploadFileQuickScanProScanModeEnum;
     password?: string;
 }
 
@@ -357,6 +358,10 @@ export class QuickScanProApi extends runtime.BaseAPI {
             formParams.append("scan", requestParameters["scan"] as any);
         }
 
+        if (requestParameters["scanMode"] != null) {
+            formParams.append("scan_mode", requestParameters["scanMode"] as any);
+        }
+
         if (requestParameters["password"] != null) {
             formParams.append("password", requestParameters["password"] as any);
         }
@@ -383,10 +388,21 @@ export class QuickScanProApi extends runtime.BaseAPI {
         fileName?: string,
         xFilePassword?: string,
         scan?: boolean,
+        scanMode?: UploadFileQuickScanProScanModeEnum,
         password?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<QuickscanproFileUploadResponse> {
-        const response = await this.uploadFileQuickScanProRaw({ file: file, fileName: fileName, xFilePassword: xFilePassword, scan: scan, password: password }, initOverrides);
+        const response = await this.uploadFileQuickScanProRaw({ file: file, fileName: fileName, xFilePassword: xFilePassword, scan: scan, scanMode: scanMode, password: password }, initOverrides);
         return await response.value();
     }
 }
+
+/**
+ * @export
+ */
+export const UploadFileQuickScanProScanModeEnum = {
+    Fast: "fast",
+    Standard: "standard",
+    Deep: "deep",
+} as const;
+export type UploadFileQuickScanProScanModeEnum = (typeof UploadFileQuickScanProScanModeEnum)[keyof typeof UploadFileQuickScanProScanModeEnum];

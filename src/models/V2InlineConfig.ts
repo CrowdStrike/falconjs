@@ -13,9 +13,6 @@
  */
 
 import { mapValues } from "../runtime";
-import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
-
 /**
  *
  * @export
@@ -30,16 +27,16 @@ export interface V2InlineConfig {
     config?: object;
     /**
      *
-     * @type {JsonschemaSchema}
+     * @type {string}
      * @memberof V2InlineConfig
      */
-    inputSchema?: JsonschemaSchema;
+    inputSchema?: string;
     /**
      *
-     * @type {JsonschemaSchema}
+     * @type {string}
      * @memberof V2InlineConfig
      */
-    outputSchema?: JsonschemaSchema;
+    outputSchema?: string;
 }
 
 /**
@@ -59,8 +56,8 @@ export function V2InlineConfigFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         config: json["config"] == null ? undefined : json["config"],
-        inputSchema: json["input_schema"] == null ? undefined : JsonschemaSchemaFromJSON(json["input_schema"]),
-        outputSchema: json["output_schema"] == null ? undefined : JsonschemaSchemaFromJSON(json["output_schema"]),
+        inputSchema: json["input_schema"] == null ? undefined : json["input_schema"],
+        outputSchema: json["output_schema"] == null ? undefined : json["output_schema"],
     };
 }
 
@@ -70,7 +67,7 @@ export function V2InlineConfigToJSON(value?: V2InlineConfig | null): any {
     }
     return {
         config: value["config"],
-        input_schema: JsonschemaSchemaToJSON(value["inputSchema"]),
-        output_schema: JsonschemaSchemaToJSON(value["outputSchema"]),
+        input_schema: value["inputSchema"],
+        output_schema: value["outputSchema"],
     };
 }

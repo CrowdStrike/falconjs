@@ -33,10 +33,34 @@ export interface SecurityCheckWithComplianceGetSecurityChecks {
     affected: number;
     /**
      *
+     * @type {number}
+     * @memberof SecurityCheckWithComplianceGetSecurityChecks
+     */
+    affectedImpactPercentage: number | null;
+    /**
+     *
+     * @type {number}
+     * @memberof SecurityCheckWithComplianceGetSecurityChecks
+     */
+    affectedImpactTotal: number | null;
+    /**
+     *
+     * @type {string}
+     * @memberof SecurityCheckWithComplianceGetSecurityChecks
+     */
+    affectedImpactType: string | null;
+    /**
+     *
      * @type {string}
      * @memberof SecurityCheckWithComplianceGetSecurityChecks
      */
     baseCheckId: string;
+    /**
+     *
+     * @type {Array<{ [key: string]: string | null; }>}
+     * @memberof SecurityCheckWithComplianceGetSecurityChecks
+     */
+    businessOwners: Array<{ [key: string]: string | null }>;
     /**
      *
      * @type {Array<{ [key: string]: string | null; }>}
@@ -117,6 +141,12 @@ export interface SecurityCheckWithComplianceGetSecurityChecks {
     name: string;
     /**
      *
+     * @type {Array<string>}
+     * @memberof SecurityCheckWithComplianceGetSecurityChecks
+     */
+    orgDomains: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof SecurityCheckWithComplianceGetSecurityChecks
      */
@@ -171,7 +201,11 @@ export interface SecurityCheckWithComplianceGetSecurityChecks {
 export function instanceOfSecurityCheckWithComplianceGetSecurityChecks(value: object): value is SecurityCheckWithComplianceGetSecurityChecks {
     if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("affected" in value) || value["affected"] === undefined) return false;
+    if (!("affectedImpactPercentage" in value) || value["affectedImpactPercentage"] === undefined) return false;
+    if (!("affectedImpactTotal" in value) || value["affectedImpactTotal"] === undefined) return false;
+    if (!("affectedImpactType" in value) || value["affectedImpactType"] === undefined) return false;
     if (!("baseCheckId" in value) || value["baseCheckId"] === undefined) return false;
+    if (!("businessOwners" in value) || value["businessOwners"] === undefined) return false;
     if (!("checkTags" in value) || value["checkTags"] === undefined) return false;
     if (!("complianceData" in value) || value["complianceData"] === undefined) return false;
     if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
@@ -185,6 +219,7 @@ export function instanceOfSecurityCheckWithComplianceGetSecurityChecks(value: ob
     if (!("integrationId" in value) || value["integrationId"] === undefined) return false;
     if (!("isGlobal" in value) || value["isGlobal"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("orgDomains" in value) || value["orgDomains"] === undefined) return false;
     if (!("remediationPlan" in value) || value["remediationPlan"] === undefined) return false;
     if (!("saasName" in value) || value["saasName"] === undefined) return false;
     if (!("securityCheckType" in value) || value["securityCheckType"] === undefined) return false;
@@ -207,7 +242,11 @@ export function SecurityCheckWithComplianceGetSecurityChecksFromJSONTyped(json: 
     return {
         accountId: json["account_id"],
         affected: json["affected"],
+        affectedImpactPercentage: json["affected_impact_percentage"],
+        affectedImpactTotal: json["affected_impact_total"],
+        affectedImpactType: json["affected_impact_type"],
         baseCheckId: json["base_check_id"],
+        businessOwners: json["business_owners"],
         checkTags: json["check_tags"],
         complianceData: json["compliance_data"],
         createdBy: json["created_by"],
@@ -221,6 +260,7 @@ export function SecurityCheckWithComplianceGetSecurityChecksFromJSONTyped(json: 
         integrationId: json["integration_id"],
         isGlobal: json["is_global"],
         name: json["name"],
+        orgDomains: json["org_domains"],
         remediationPlan: json["remediation_plan"],
         saasName: json["saas_name"],
         securityCheckType: json["security_check_type"],
@@ -239,7 +279,11 @@ export function SecurityCheckWithComplianceGetSecurityChecksToJSON(value?: Secur
     return {
         account_id: value["accountId"],
         affected: value["affected"],
+        affected_impact_percentage: value["affectedImpactPercentage"],
+        affected_impact_total: value["affectedImpactTotal"],
+        affected_impact_type: value["affectedImpactType"],
         base_check_id: value["baseCheckId"],
+        business_owners: value["businessOwners"],
         check_tags: value["checkTags"],
         compliance_data: value["complianceData"],
         created_by: value["createdBy"],
@@ -253,6 +297,7 @@ export function SecurityCheckWithComplianceGetSecurityChecksToJSON(value?: Secur
         integration_id: value["integrationId"],
         is_global: value["isGlobal"],
         name: value["name"],
+        org_domains: value["orgDomains"],
         remediation_plan: value["remediationPlan"],
         saas_name: value["saasName"],
         security_check_type: value["securityCheckType"],

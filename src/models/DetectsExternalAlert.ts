@@ -174,6 +174,12 @@ export interface DetectsExternalAlert {
      */
     linkedCaseIds: Array<string>;
     /**
+     * Linked Investigation Ids are investigations that are associated with this alert
+     * @type {Array<string>}
+     * @memberof DetectsExternalAlert
+     */
+    linkedInvestigationIds: Array<string>;
+    /**
      * References to MITRE ATT&CK, which is a public framework for tracking and modeling adversary tools techniques and procedures
      * @type {Array<DetectsMitreAttackMapping>}
      * @memberof DetectsExternalAlert
@@ -354,6 +360,7 @@ export function instanceOfDetectsExternalAlert(value: object): value is DetectsE
     if (!("isFalconPlatformIoa" in value) || value["isFalconPlatformIoa"] === undefined) return false;
     if (!("linkedBehavioralDetections" in value) || value["linkedBehavioralDetections"] === undefined) return false;
     if (!("linkedCaseIds" in value) || value["linkedCaseIds"] === undefined) return false;
+    if (!("linkedInvestigationIds" in value) || value["linkedInvestigationIds"] === undefined) return false;
     if (!("mitreAttack" in value) || value["mitreAttack"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("objective" in value) || value["objective"] === undefined) return false;
@@ -417,6 +424,7 @@ export function DetectsExternalAlertFromJSONTyped(json: any, ignoreDiscriminator
         isFalconPlatformIoa: json["is_falcon_platform_ioa"],
         linkedBehavioralDetections: json["linked_behavioral_detections"],
         linkedCaseIds: json["linked_case_ids"],
+        linkedInvestigationIds: json["linked_investigation_ids"],
         mitreAttack: (json["mitre_attack"] as Array<any>).map(DetectsMitreAttackMappingFromJSON),
         name: json["name"],
         objective: json["objective"],
@@ -476,6 +484,7 @@ export function DetectsExternalAlertToJSON(value?: DetectsExternalAlert | null):
         is_falcon_platform_ioa: value["isFalconPlatformIoa"],
         linked_behavioral_detections: value["linkedBehavioralDetections"],
         linked_case_ids: value["linkedCaseIds"],
+        linked_investigation_ids: value["linkedInvestigationIds"],
         mitre_attack: (value["mitreAttack"] as Array<any>).map(DetectsMitreAttackMappingToJSON),
         name: value["name"],
         objective: value["objective"],

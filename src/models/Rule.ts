@@ -13,6 +13,15 @@
  */
 
 import { mapValues } from "../runtime";
+import type { RuleDestination } from "./RuleDestination";
+import { RuleDestinationFromJSON, RuleDestinationFromJSONTyped, RuleDestinationToJSON } from "./RuleDestination";
+import type { RuleCondition } from "./RuleCondition";
+import { RuleConditionFromJSON, RuleConditionFromJSONTyped, RuleConditionToJSON } from "./RuleCondition";
+import type { RuleTarget } from "./RuleTarget";
+import { RuleTargetFromJSON, RuleTargetFromJSONTyped, RuleTargetToJSON } from "./RuleTarget";
+import type { RuleAdvancedSettings } from "./RuleAdvancedSettings";
+import { RuleAdvancedSettingsFromJSON, RuleAdvancedSettingsFromJSONTyped, RuleAdvancedSettingsToJSON } from "./RuleAdvancedSettings";
+
 /**
  *
  * @export
@@ -21,66 +30,256 @@ import { mapValues } from "../runtime";
 export interface Rule {
     /**
      *
-     * @type {string}
+     * @type {RuleAdvancedSettings}
      * @memberof Rule
      */
-    cloudProvider: string;
+    advancedSettings?: RuleAdvancedSettings;
     /**
      *
      * @type {string}
      * @memberof Rule
      */
-    platform: string;
+    alertType?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    anyTarget: boolean;
     /**
      *
      * @type {string}
      * @memberof Rule
      */
-    ruleCategory: string;
+    buttonText?: string;
     /**
      *
      * @type {string}
      * @memberof Rule
      */
-    ruleName: string;
+    category: string;
+    /**
+     *
+     * @type {Array<RuleCondition>}
+     * @memberof Rule
+     */
+    conditions?: Array<RuleCondition>;
     /**
      *
      * @type {string}
      * @memberof Rule
      */
-    ruleType: string;
+    createdAt?: string;
     /**
      *
      * @type {string}
      * @memberof Rule
      */
-    ruleUuid: string;
+    createdBy?: string;
     /**
      *
      * @type {string}
      * @memberof Rule
      */
-    service: string;
+    description?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    descriptionParams?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    displayName?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    enabled?: boolean;
+    /**
+     *
+     * @type {Array<RuleTarget>}
+     * @memberof Rule
+     */
+    excludedTargets?: Array<RuleTarget>;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    hasDestinations: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    hasTwoDestinations: boolean;
     /**
      *
      * @type {number}
      * @memberof Rule
      */
-    severity: number;
+    id: number;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    inputDescription?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    inputType: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    isDefault: boolean;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    isAccumulative: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    message?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    messageTitle?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    name: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    notificationEnabled?: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    notificationText?: string;
+    /**
+     *
+     * @type {number}
+     * @memberof Rule
+     */
+    priority: number;
+    /**
+     *
+     * @type {Array<RuleDestination>}
+     * @memberof Rule
+     */
+    ruleDestinations?: Array<RuleDestination>;
+    /**
+     *
+     * @type {number}
+     * @memberof Rule
+     */
+    ruleOptionId?: number;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    selectedOption?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    severity?: string;
+    /**
+     *
+     * @type {Array<RuleDestination>}
+     * @memberof Rule
+     */
+    sourceRuleDestinations?: Array<RuleDestination>;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    status?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Rule
+     */
+    stopProcessing: boolean;
+    /**
+     *
+     * @type {Array<RuleTarget>}
+     * @memberof Rule
+     */
+    targets?: Array<RuleTarget>;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    updatedAt?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    updatedBy?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof Rule
+     */
+    value?: string;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof Rule
+     */
+    values?: Array<string>;
+    /**
+     *
+     * @type {number}
+     * @memberof Rule
+     */
+    version: number;
 }
 
 /**
  * Check if a given object implements the Rule interface.
  */
 export function instanceOfRule(value: object): value is Rule {
-    if (!("cloudProvider" in value) || value["cloudProvider"] === undefined) return false;
-    if (!("platform" in value) || value["platform"] === undefined) return false;
-    if (!("ruleCategory" in value) || value["ruleCategory"] === undefined) return false;
-    if (!("ruleName" in value) || value["ruleName"] === undefined) return false;
-    if (!("ruleType" in value) || value["ruleType"] === undefined) return false;
-    if (!("ruleUuid" in value) || value["ruleUuid"] === undefined) return false;
-    if (!("service" in value) || value["service"] === undefined) return false;
-    if (!("severity" in value) || value["severity"] === undefined) return false;
+    if (!("anyTarget" in value) || value["anyTarget"] === undefined) return false;
+    if (!("category" in value) || value["category"] === undefined) return false;
+    if (!("hasDestinations" in value) || value["hasDestinations"] === undefined) return false;
+    if (!("hasTwoDestinations" in value) || value["hasTwoDestinations"] === undefined) return false;
+    if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("inputType" in value) || value["inputType"] === undefined) return false;
+    if (!("isDefault" in value) || value["isDefault"] === undefined) return false;
+    if (!("isAccumulative" in value) || value["isAccumulative"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("priority" in value) || value["priority"] === undefined) return false;
+    if (!("stopProcessing" in value) || value["stopProcessing"] === undefined) return false;
+    if (!("version" in value) || value["version"] === undefined) return false;
     return true;
 }
 
@@ -93,14 +292,45 @@ export function RuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): Rule
         return json;
     }
     return {
-        cloudProvider: json["cloud_provider"],
-        platform: json["platform"],
-        ruleCategory: json["rule_category"],
-        ruleName: json["rule_name"],
-        ruleType: json["rule_type"],
-        ruleUuid: json["rule_uuid"],
-        service: json["service"],
-        severity: json["severity"],
+        advancedSettings: json["advanced_settings"] == null ? undefined : RuleAdvancedSettingsFromJSON(json["advanced_settings"]),
+        alertType: json["alertType"] == null ? undefined : json["alertType"],
+        anyTarget: json["anyTarget"],
+        buttonText: json["buttonText"] == null ? undefined : json["buttonText"],
+        category: json["category"],
+        conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(RuleConditionFromJSON),
+        createdAt: json["createdAt"] == null ? undefined : json["createdAt"],
+        createdBy: json["createdBy"] == null ? undefined : json["createdBy"],
+        description: json["description"] == null ? undefined : json["description"],
+        descriptionParams: json["description_params"] == null ? undefined : json["description_params"],
+        displayName: json["displayName"] == null ? undefined : json["displayName"],
+        enabled: json["enabled"] == null ? undefined : json["enabled"],
+        excludedTargets: json["excluded_targets"] == null ? undefined : (json["excluded_targets"] as Array<any>).map(RuleTargetFromJSON),
+        hasDestinations: json["has_destinations"],
+        hasTwoDestinations: json["has_two_destinations"],
+        id: json["id"],
+        inputDescription: json["input_description"] == null ? undefined : json["input_description"],
+        inputType: json["input_type"],
+        isDefault: json["isDefault"],
+        isAccumulative: json["is_accumulative"],
+        message: json["message"] == null ? undefined : json["message"],
+        messageTitle: json["message_title"] == null ? undefined : json["message_title"],
+        name: json["name"],
+        notificationEnabled: json["notification_enabled"] == null ? undefined : json["notification_enabled"],
+        notificationText: json["notification_text"] == null ? undefined : json["notification_text"],
+        priority: json["priority"],
+        ruleDestinations: json["ruleDestinations"] == null ? undefined : (json["ruleDestinations"] as Array<any>).map(RuleDestinationFromJSON),
+        ruleOptionId: json["ruleOptionId"] == null ? undefined : json["ruleOptionId"],
+        selectedOption: json["selected_option"] == null ? undefined : json["selected_option"],
+        severity: json["severity"] == null ? undefined : json["severity"],
+        sourceRuleDestinations: json["sourceRuleDestinations"] == null ? undefined : (json["sourceRuleDestinations"] as Array<any>).map(RuleDestinationFromJSON),
+        status: json["status"] == null ? undefined : json["status"],
+        stopProcessing: json["stop_processing"],
+        targets: json["targets"] == null ? undefined : (json["targets"] as Array<any>).map(RuleTargetFromJSON),
+        updatedAt: json["updatedAt"] == null ? undefined : json["updatedAt"],
+        updatedBy: json["updatedBy"] == null ? undefined : json["updatedBy"],
+        value: json["value"] == null ? undefined : json["value"],
+        values: json["values"] == null ? undefined : json["values"],
+        version: json["version"],
     };
 }
 
@@ -109,13 +339,44 @@ export function RuleToJSON(value?: Rule | null): any {
         return value;
     }
     return {
-        cloud_provider: value["cloudProvider"],
-        platform: value["platform"],
-        rule_category: value["ruleCategory"],
-        rule_name: value["ruleName"],
-        rule_type: value["ruleType"],
-        rule_uuid: value["ruleUuid"],
-        service: value["service"],
+        advanced_settings: RuleAdvancedSettingsToJSON(value["advancedSettings"]),
+        alertType: value["alertType"],
+        anyTarget: value["anyTarget"],
+        buttonText: value["buttonText"],
+        category: value["category"],
+        conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(RuleConditionToJSON),
+        createdAt: value["createdAt"],
+        createdBy: value["createdBy"],
+        description: value["description"],
+        description_params: value["descriptionParams"],
+        displayName: value["displayName"],
+        enabled: value["enabled"],
+        excluded_targets: value["excludedTargets"] == null ? undefined : (value["excludedTargets"] as Array<any>).map(RuleTargetToJSON),
+        has_destinations: value["hasDestinations"],
+        has_two_destinations: value["hasTwoDestinations"],
+        id: value["id"],
+        input_description: value["inputDescription"],
+        input_type: value["inputType"],
+        isDefault: value["isDefault"],
+        is_accumulative: value["isAccumulative"],
+        message: value["message"],
+        message_title: value["messageTitle"],
+        name: value["name"],
+        notification_enabled: value["notificationEnabled"],
+        notification_text: value["notificationText"],
+        priority: value["priority"],
+        ruleDestinations: value["ruleDestinations"] == null ? undefined : (value["ruleDestinations"] as Array<any>).map(RuleDestinationToJSON),
+        ruleOptionId: value["ruleOptionId"],
+        selected_option: value["selectedOption"],
         severity: value["severity"],
+        sourceRuleDestinations: value["sourceRuleDestinations"] == null ? undefined : (value["sourceRuleDestinations"] as Array<any>).map(RuleDestinationToJSON),
+        status: value["status"],
+        stop_processing: value["stopProcessing"],
+        targets: value["targets"] == null ? undefined : (value["targets"] as Array<any>).map(RuleTargetToJSON),
+        updatedAt: value["updatedAt"],
+        updatedBy: value["updatedBy"],
+        value: value["value"],
+        values: value["values"],
+        version: value["version"],
     };
 }

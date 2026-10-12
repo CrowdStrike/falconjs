@@ -39,6 +39,12 @@ export interface QuickscanproScanMetadata {
      * @type {string}
      * @memberof QuickscanproScanMetadata
      */
+    mode?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof QuickscanproScanMetadata
+     */
     sha256: string;
     /**
      *
@@ -76,6 +82,7 @@ export function QuickscanproScanMetadataFromJSONTyped(json: any, ignoreDiscrimin
     return {
         createdTimestamp: new Date(json["created_timestamp"]),
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(QuickscanproErrorFromJSON),
+        mode: json["mode"] == null ? undefined : json["mode"],
         sha256: json["sha256"],
         status: json["status"],
         updatedTimestamp: new Date(json["updated_timestamp"]),
@@ -89,6 +96,7 @@ export function QuickscanproScanMetadataToJSON(value?: QuickscanproScanMetadata 
     return {
         created_timestamp: value["createdTimestamp"].toISOString(),
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(QuickscanproErrorToJSON),
+        mode: value["mode"],
         sha256: value["sha256"],
         status: value["status"],
         updated_timestamp: value["updatedTimestamp"].toISOString(),

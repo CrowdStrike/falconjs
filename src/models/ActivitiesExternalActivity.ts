@@ -15,8 +15,6 @@
 import { mapValues } from "../runtime";
 import type { ActivitiesActivityExtField } from "./ActivitiesActivityExtField";
 import { ActivitiesActivityExtFieldFromJSON, ActivitiesActivityExtFieldFromJSONTyped, ActivitiesActivityExtFieldToJSON } from "./ActivitiesActivityExtField";
-import type { JsonschemaSchema } from "./JsonschemaSchema";
-import { JsonschemaSchemaFromJSON, JsonschemaSchemaFromJSONTyped, JsonschemaSchemaToJSON } from "./JsonschemaSchema";
 import type { ActivitiesDependency } from "./ActivitiesDependency";
 import { ActivitiesDependencyFromJSON, ActivitiesDependencyFromJSONTyped, ActivitiesDependencyToJSON } from "./ActivitiesDependency";
 
@@ -93,11 +91,11 @@ export interface ActivitiesExternalActivity {
      */
     inputFields?: Array<ActivitiesActivityExtField>;
     /**
-     *
-     * @type {JsonschemaSchema}
+     * JSON Schema describing the structured input of the activity for execution
+     * @type {string}
      * @memberof ActivitiesExternalActivity
      */
-    inputSchema?: JsonschemaSchema;
+    inputSchema?: string;
     /**
      * Legacy namespace for the activity.
      * @type {string}
@@ -129,11 +127,11 @@ export interface ActivitiesExternalActivity {
      */
     outputFields?: Array<ActivitiesActivityExtField>;
     /**
-     *
-     * @type {JsonschemaSchema}
+     * JSON Schema describing the structured output of the activity once executed
+     * @type {string}
      * @memberof ActivitiesExternalActivity
      */
-    outputSchema?: JsonschemaSchema;
+    outputSchema?: string;
     /**
      * Activity semantic version
      * @type {string}
@@ -199,13 +197,13 @@ export function ActivitiesExternalActivityFromJSONTyped(json: any, ignoreDiscrim
         hasPermission: json["has_permission"],
         id: json["id"],
         inputFields: json["input_fields"] == null ? undefined : (json["input_fields"] as Array<any>).map(ActivitiesActivityExtFieldFromJSON),
-        inputSchema: json["input_schema"] == null ? undefined : JsonschemaSchemaFromJSON(json["input_schema"]),
+        inputSchema: json["input_schema"] == null ? undefined : json["input_schema"],
         legacyNamespace: json["legacy_namespace"] == null ? undefined : json["legacy_namespace"],
         mockOutput: json["mock_output"] == null ? undefined : json["mock_output"],
         name: json["name"],
         namespace: json["namespace"] == null ? undefined : json["namespace"],
         outputFields: json["output_fields"] == null ? undefined : (json["output_fields"] as Array<any>).map(ActivitiesActivityExtFieldFromJSON),
-        outputSchema: json["output_schema"] == null ? undefined : JsonschemaSchemaFromJSON(json["output_schema"]),
+        outputSchema: json["output_schema"] == null ? undefined : json["output_schema"],
         semanticVersion: json["semantic_version"] == null ? undefined : json["semantic_version"],
         updated: json["updated"] == null ? undefined : new Date(json["updated"]),
         useCases: json["use_cases"] == null ? undefined : json["use_cases"],
@@ -230,13 +228,13 @@ export function ActivitiesExternalActivityToJSON(value?: ActivitiesExternalActiv
         has_permission: value["hasPermission"],
         id: value["id"],
         input_fields: value["inputFields"] == null ? undefined : (value["inputFields"] as Array<any>).map(ActivitiesActivityExtFieldToJSON),
-        input_schema: JsonschemaSchemaToJSON(value["inputSchema"]),
+        input_schema: value["inputSchema"],
         legacy_namespace: value["legacyNamespace"],
         mock_output: value["mockOutput"],
         name: value["name"],
         namespace: value["namespace"],
         output_fields: value["outputFields"] == null ? undefined : (value["outputFields"] as Array<any>).map(ActivitiesActivityExtFieldToJSON),
-        output_schema: JsonschemaSchemaToJSON(value["outputSchema"]),
+        output_schema: value["outputSchema"],
         semantic_version: value["semanticVersion"],
         updated: value["updated"] == null ? undefined : value["updated"].toISOString(),
         use_cases: value["useCases"],

@@ -14,22 +14,16 @@
 
 import * as runtime from "../runtime";
 import type {
-    DomainScannerEntitiesResponse,
-    DomainScannersUpdateRequest,
-    DomainScannersUpdateResponse,
     MsaAggregateQueryRequest,
     MsaAggregatesResponse,
     MsaReplyMetaOnly,
     MsaspecQueryResponse,
     MsaspecResponseFields,
+    NvaapiScannerEntitiesResponse,
+    NvaapiScannersUpdateRequest,
+    NvaapiScannersUpdateResponse,
 } from "../models/index";
 import {
-    DomainScannerEntitiesResponseFromJSON,
-    DomainScannerEntitiesResponseToJSON,
-    DomainScannersUpdateRequestFromJSON,
-    DomainScannersUpdateRequestToJSON,
-    DomainScannersUpdateResponseFromJSON,
-    DomainScannersUpdateResponseToJSON,
     MsaAggregateQueryRequestFromJSON,
     MsaAggregateQueryRequestToJSON,
     MsaAggregatesResponseFromJSON,
@@ -40,6 +34,12 @@ import {
     MsaspecQueryResponseToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    NvaapiScannerEntitiesResponseFromJSON,
+    NvaapiScannerEntitiesResponseToJSON,
+    NvaapiScannersUpdateRequestFromJSON,
+    NvaapiScannersUpdateRequestToJSON,
+    NvaapiScannersUpdateResponseFromJSON,
+    NvaapiScannersUpdateResponseToJSON,
 } from "../models/index";
 
 export interface NetworkScanScannersApiAggregateScannersRequest {
@@ -61,7 +61,7 @@ export interface NetworkScanScannersApiQueryScannersRequest {
 }
 
 export interface NetworkScanScannersApiUpdateScannersRequest {
-    body: DomainScannersUpdateRequest;
+    body: NvaapiScannersUpdateRequest;
     xCSUSERUUID?: string;
 }
 
@@ -123,7 +123,7 @@ export class NetworkScanScannersApi extends runtime.BaseAPI {
     async getScannersRaw(
         requestParameters: NetworkScanScannersApiGetScannersRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScannerEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiScannerEntitiesResponse>> {
         if (requestParameters["ids"] == null) {
             throw new runtime.RequiredError("ids", 'Required parameter "ids" was null or undefined when calling getScanners().');
         }
@@ -155,13 +155,13 @@ export class NetworkScanScannersApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScannerEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScannerEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get \"scanners\" by their IDs
      */
-    async getScanners(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScannerEntitiesResponse> {
+    async getScanners(ids: Array<string>, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScannerEntitiesResponse> {
         const response = await this.getScannersRaw({ ids: ids, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -236,7 +236,7 @@ export class NetworkScanScannersApi extends runtime.BaseAPI {
     async updateScannersRaw(
         requestParameters: NetworkScanScannersApiUpdateScannersRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainScannersUpdateResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiScannersUpdateResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateScanners().');
         }
@@ -262,18 +262,18 @@ export class NetworkScanScannersApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainScannersUpdateRequestToJSON(requestParameters["body"]),
+                body: NvaapiScannersUpdateRequestToJSON(requestParameters["body"]),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainScannersUpdateResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiScannersUpdateResponseFromJSON(jsonValue));
     }
 
     /**
      * Update \"scanners\" using provided specifications
      */
-    async updateScanners(body: DomainScannersUpdateRequest, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainScannersUpdateResponse> {
+    async updateScanners(body: NvaapiScannersUpdateRequest, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiScannersUpdateResponse> {
         const response = await this.updateScannersRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }

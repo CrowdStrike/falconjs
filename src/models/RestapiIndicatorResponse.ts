@@ -13,10 +13,10 @@
  */
 
 import { mapValues } from "../runtime";
+import type { RestapiIndicator } from "./RestapiIndicator";
+import { RestapiIndicatorFromJSON, RestapiIndicatorFromJSONTyped, RestapiIndicatorToJSON } from "./RestapiIndicator";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import type { FigapiIndicator } from "./FigapiIndicator";
-import { FigapiIndicatorFromJSON, FigapiIndicatorFromJSONTyped, FigapiIndicatorToJSON } from "./FigapiIndicator";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
@@ -40,10 +40,10 @@ export interface RestapiIndicatorResponse {
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<FigapiIndicator>}
+     * @type {Array<RestapiIndicator>}
      * @memberof RestapiIndicatorResponse
      */
-    resources: Array<FigapiIndicator>;
+    resources: Array<RestapiIndicator>;
 }
 
 /**
@@ -67,7 +67,7 @@ export function RestapiIndicatorResponseFromJSONTyped(json: any, ignoreDiscrimin
     return {
         errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(FigapiIndicatorFromJSON),
+        resources: (json["resources"] as Array<any>).map(RestapiIndicatorFromJSON),
     };
 }
 
@@ -78,6 +78,6 @@ export function RestapiIndicatorResponseToJSON(value?: RestapiIndicatorResponse 
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(FigapiIndicatorToJSON),
+        resources: (value["resources"] as Array<any>).map(RestapiIndicatorToJSON),
     };
 }

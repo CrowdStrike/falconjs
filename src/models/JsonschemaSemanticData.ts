@@ -26,6 +26,12 @@ export interface JsonschemaSemanticData {
      */
     dataFrame?: string;
     /**
+     * The semantic type to use when formatting the field value for display (e.g. system.semantic.DateTime)
+     * @type {string}
+     * @memberof JsonschemaSemanticData
+     */
+    displayFormat?: string;
+    /**
      * The field name in an entity
      * @type {string}
      * @memberof JsonschemaSemanticData
@@ -56,6 +62,7 @@ export function JsonschemaSemanticDataFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         dataFrame: json["data_frame"] == null ? undefined : json["data_frame"],
+        displayFormat: json["display_format"] == null ? undefined : json["display_format"],
         fieldName: json["field_name"] == null ? undefined : json["field_name"],
         type: json["type"] == null ? undefined : json["type"],
     };
@@ -67,6 +74,7 @@ export function JsonschemaSemanticDataToJSON(value?: JsonschemaSemanticData | nu
     }
     return {
         data_frame: value["dataFrame"],
+        display_format: value["displayFormat"],
         field_name: value["fieldName"],
         type: value["type"],
     };

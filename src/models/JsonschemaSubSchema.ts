@@ -114,10 +114,10 @@ export interface JsonschemaSubSchema {
     description?: string;
     /**
      *
-     * @type {JsonschemaSubSchema}
+     * @type {string}
      * @memberof JsonschemaSubSchema
      */
-    _else?: JsonschemaSubSchema;
+    _else?: string;
     /**
      *
      * @type {Array<object>}
@@ -156,16 +156,16 @@ export interface JsonschemaSubSchema {
     format?: string;
     /**
      *
-     * @type {JsonschemaSubSchema}
+     * @type {string}
      * @memberof JsonschemaSubSchema
      */
-    _if?: JsonschemaSubSchema;
+    _if?: string;
     /**
      *
-     * @type {JsonschemaSubSchema}
+     * @type {string}
      * @memberof JsonschemaSubSchema
      */
-    items?: JsonschemaSubSchema;
+    items?: string;
     /**
      *
      * @type {number}
@@ -192,10 +192,10 @@ export interface JsonschemaSubSchema {
     maximum?: number;
     /**
      *
-     * @type {JsonschemaSubSchema}
+     * @type {string}
      * @memberof JsonschemaSubSchema
      */
-    media?: JsonschemaSubSchema;
+    media?: string;
     /**
      *
      * @type {number}
@@ -228,10 +228,10 @@ export interface JsonschemaSubSchema {
     multipleOf?: number;
     /**
      *
-     * @type {JsonschemaSubSchema}
+     * @type {string}
      * @memberof JsonschemaSubSchema
      */
-    not?: JsonschemaSubSchema;
+    not?: string;
     /**
      *
      * @type {Array<JsonschemaSubSchema>}
@@ -264,10 +264,10 @@ export interface JsonschemaSubSchema {
     required?: Array<string>;
     /**
      *
-     * @type {JsonschemaSubSchema}
+     * @type {string}
      * @memberof JsonschemaSubSchema
      */
-    then?: JsonschemaSubSchema;
+    then?: string;
     /**
      *
      * @type {string}
@@ -318,6 +318,12 @@ export interface JsonschemaSubSchema {
     xCsDefaultTableColumn?: boolean;
     /**
      *
+     * @type {Array<string>}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsDependsOn?: Array<string>;
+    /**
+     *
      * @type {boolean}
      * @memberof JsonschemaSubSchema
      */
@@ -328,6 +334,12 @@ export interface JsonschemaSubSchema {
      * @memberof JsonschemaSubSchema
      */
     xCsErrorMessage?: { [key: string]: string };
+    /**
+     *
+     * @type {Array<object>}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsExtensibleEnum?: Array<object>;
     /**
      *
      * @type {boolean}
@@ -432,6 +444,18 @@ export interface JsonschemaSubSchema {
     xCsUclCidSpecific?: boolean;
     /**
      *
+     * @type {boolean}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsUclKeyValueDisplay?: boolean;
+    /**
+     *
+     * @type {number}
+     * @memberof JsonschemaSubSchema
+     */
+    xCsUclKeyValueDisplayOrder?: number;
+    /**
+     *
      * @type {JsonschemaUIExtensions}
      * @memberof JsonschemaSubSchema
      */
@@ -472,32 +496,32 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
         dependencies: json["dependencies"] == null ? undefined : mapValues(json["dependencies"], JsonschemaSubSchemaFromJSON),
         deprecated: json["deprecated"] == null ? undefined : json["deprecated"],
         description: json["description"] == null ? undefined : json["description"],
-        _else: json["else"] == null ? undefined : JsonschemaSubSchemaFromJSON(json["else"]),
+        _else: json["else"] == null ? undefined : json["else"],
         _enum: json["enum"] == null ? undefined : json["enum"],
         errorMessage: json["errorMessage"] == null ? undefined : json["errorMessage"],
         examples: json["examples"] == null ? undefined : json["examples"],
         exclusiveMaximum: json["exclusiveMaximum"] == null ? undefined : json["exclusiveMaximum"],
         exclusiveMinimum: json["exclusiveMinimum"] == null ? undefined : json["exclusiveMinimum"],
         format: json["format"] == null ? undefined : json["format"],
-        _if: json["if"] == null ? undefined : JsonschemaSubSchemaFromJSON(json["if"]),
-        items: json["items"] == null ? undefined : JsonschemaSubSchemaFromJSON(json["items"]),
+        _if: json["if"] == null ? undefined : json["if"],
+        items: json["items"] == null ? undefined : json["items"],
         maxItems: json["maxItems"] == null ? undefined : json["maxItems"],
         maxLength: json["maxLength"] == null ? undefined : json["maxLength"],
         maxProperties: json["maxProperties"] == null ? undefined : json["maxProperties"],
         maximum: json["maximum"] == null ? undefined : json["maximum"],
-        media: json["media"] == null ? undefined : JsonschemaSubSchemaFromJSON(json["media"]),
+        media: json["media"] == null ? undefined : json["media"],
         minItems: json["minItems"] == null ? undefined : json["minItems"],
         minLength: json["minLength"] == null ? undefined : json["minLength"],
         minProperties: json["minProperties"] == null ? undefined : json["minProperties"],
         minimum: json["minimum"] == null ? undefined : json["minimum"],
         multipleOf: json["multipleOf"] == null ? undefined : json["multipleOf"],
-        not: json["not"] == null ? undefined : JsonschemaSubSchemaFromJSON(json["not"]),
+        not: json["not"] == null ? undefined : json["not"],
         oneOf: json["oneOf"] == null ? undefined : (json["oneOf"] as Array<any>).map(JsonschemaSubSchemaFromJSON),
         pattern: json["pattern"] == null ? undefined : json["pattern"],
         patternProperties: json["patternProperties"] == null ? undefined : mapValues(json["patternProperties"], JsonschemaSubSchemaFromJSON),
         properties: json["properties"] == null ? undefined : mapValues(json["properties"], JsonschemaSubSchemaFromJSON),
         required: json["required"] == null ? undefined : json["required"],
-        then: json["then"] == null ? undefined : JsonschemaSubSchemaFromJSON(json["then"]),
+        then: json["then"] == null ? undefined : json["then"],
         title: json["title"] == null ? undefined : json["title"],
         type: json["type"] == null ? undefined : json["type"],
         uicomponent: json["ui:component"] == null ? undefined : json["ui:component"],
@@ -506,8 +530,10 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
         xCsCanCreate: json["x-cs-can-create"] == null ? undefined : json["x-cs-can-create"],
         xCsConditionGroupFields: json["x-cs-condition-group-fields"] == null ? undefined : JsonschemaConditionGroupFieldsFromJSON(json["x-cs-condition-group-fields"]),
         xCsDefaultTableColumn: json["x-cs-default-table-column"] == null ? undefined : json["x-cs-default-table-column"],
+        xCsDependsOn: json["x-cs-dependsOn"] == null ? undefined : json["x-cs-dependsOn"],
         xCsDoNotHide: json["x-cs-do-not-hide"] == null ? undefined : json["x-cs-do-not-hide"],
         xCsErrorMessage: json["x-cs-errorMessage"] == null ? undefined : json["x-cs-errorMessage"],
+        xCsExtensibleEnum: json["x-cs-extensible-enum"] == null ? undefined : json["x-cs-extensible-enum"],
         xCsImmutable: json["x-cs-immutable"] == null ? undefined : json["x-cs-immutable"],
         xCsIndexable: json["x-cs-indexable"] == null ? undefined : json["x-cs-indexable"],
         xCsIndexableFields: json["x-cs-indexable-fields"] == null ? undefined : (json["x-cs-indexable-fields"] as Array<any>).map(JsonschemaCollectionIndexFieldFromJSON),
@@ -525,6 +551,8 @@ export function JsonschemaSubSchemaFromJSONTyped(json: any, ignoreDiscriminator:
         xCsSignalsSubCategory: json["x-cs-signals-subCategory"] == null ? undefined : json["x-cs-signals-subCategory"],
         xCsTags: json["x-cs-tags"] == null ? undefined : json["x-cs-tags"],
         xCsUclCidSpecific: json["x-cs-ucl-cid-specific"] == null ? undefined : json["x-cs-ucl-cid-specific"],
+        xCsUclKeyValueDisplay: json["x-cs-ucl-key-value-display"] == null ? undefined : json["x-cs-ucl-key-value-display"],
+        xCsUclKeyValueDisplayOrder: json["x-cs-ucl-key-value-display-order"] == null ? undefined : json["x-cs-ucl-key-value-display-order"],
         xCsUi: json["x-cs-ui"] == null ? undefined : JsonschemaUIExtensionsFromJSON(json["x-cs-ui"]),
         xCsWorkflow: json["x-cs-workflow"] == null ? undefined : JsonschemaWorkflowExtensionsFromJSON(json["x-cs-workflow"]),
     };
@@ -547,32 +575,32 @@ export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): a
         dependencies: value["dependencies"] == null ? undefined : mapValues(value["dependencies"], JsonschemaSubSchemaToJSON),
         deprecated: value["deprecated"],
         description: value["description"],
-        else: JsonschemaSubSchemaToJSON(value["_else"]),
+        else: value["_else"],
         enum: value["_enum"],
         errorMessage: value["errorMessage"],
         examples: value["examples"],
         exclusiveMaximum: value["exclusiveMaximum"],
         exclusiveMinimum: value["exclusiveMinimum"],
         format: value["format"],
-        if: JsonschemaSubSchemaToJSON(value["_if"]),
-        items: JsonschemaSubSchemaToJSON(value["items"]),
+        if: value["_if"],
+        items: value["items"],
         maxItems: value["maxItems"],
         maxLength: value["maxLength"],
         maxProperties: value["maxProperties"],
         maximum: value["maximum"],
-        media: JsonschemaSubSchemaToJSON(value["media"]),
+        media: value["media"],
         minItems: value["minItems"],
         minLength: value["minLength"],
         minProperties: value["minProperties"],
         minimum: value["minimum"],
         multipleOf: value["multipleOf"],
-        not: JsonschemaSubSchemaToJSON(value["not"]),
+        not: value["not"],
         oneOf: value["oneOf"] == null ? undefined : (value["oneOf"] as Array<any>).map(JsonschemaSubSchemaToJSON),
         pattern: value["pattern"],
         patternProperties: value["patternProperties"] == null ? undefined : mapValues(value["patternProperties"], JsonschemaSubSchemaToJSON),
         properties: value["properties"] == null ? undefined : mapValues(value["properties"], JsonschemaSubSchemaToJSON),
         required: value["required"],
-        then: JsonschemaSubSchemaToJSON(value["then"]),
+        then: value["then"],
         title: value["title"],
         type: value["type"],
         "ui:component": value["uicomponent"],
@@ -581,8 +609,10 @@ export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): a
         "x-cs-can-create": value["xCsCanCreate"],
         "x-cs-condition-group-fields": JsonschemaConditionGroupFieldsToJSON(value["xCsConditionGroupFields"]),
         "x-cs-default-table-column": value["xCsDefaultTableColumn"],
+        "x-cs-dependsOn": value["xCsDependsOn"],
         "x-cs-do-not-hide": value["xCsDoNotHide"],
         "x-cs-errorMessage": value["xCsErrorMessage"],
+        "x-cs-extensible-enum": value["xCsExtensibleEnum"],
         "x-cs-immutable": value["xCsImmutable"],
         "x-cs-indexable": value["xCsIndexable"],
         "x-cs-indexable-fields": value["xCsIndexableFields"] == null ? undefined : (value["xCsIndexableFields"] as Array<any>).map(JsonschemaCollectionIndexFieldToJSON),
@@ -600,6 +630,8 @@ export function JsonschemaSubSchemaToJSON(value?: JsonschemaSubSchema | null): a
         "x-cs-signals-subCategory": value["xCsSignalsSubCategory"],
         "x-cs-tags": value["xCsTags"],
         "x-cs-ucl-cid-specific": value["xCsUclCidSpecific"],
+        "x-cs-ucl-key-value-display": value["xCsUclKeyValueDisplay"],
+        "x-cs-ucl-key-value-display-order": value["xCsUclKeyValueDisplayOrder"],
         "x-cs-ui": JsonschemaUIExtensionsToJSON(value["xCsUi"]),
         "x-cs-workflow": JsonschemaWorkflowExtensionsToJSON(value["xCsWorkflow"]),
     };

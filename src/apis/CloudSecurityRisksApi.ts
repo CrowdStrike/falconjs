@@ -13,8 +13,15 @@
  */
 
 import * as runtime from "../runtime";
-import type { MsaspecResponseFields, RestGetEnrichedTimelineResponse } from "../models/index";
-import { MsaspecResponseFieldsFromJSON, MsaspecResponseFieldsToJSON, RestGetEnrichedTimelineResponseFromJSON, RestGetEnrichedTimelineResponseToJSON } from "../models/index";
+import type { MsaReplyMetaOnly, MsaspecResponseFields, RestGetEnrichedTimelineResponse } from "../models/index";
+import {
+    MsaReplyMetaOnlyFromJSON,
+    MsaReplyMetaOnlyToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
+    RestGetEnrichedTimelineResponseFromJSON,
+    RestGetEnrichedTimelineResponseToJSON,
+} from "../models/index";
 
 export interface CloudSecurityRisksApiCloudSecurityTimelineRisksEnrichedRequest {
     id: string;

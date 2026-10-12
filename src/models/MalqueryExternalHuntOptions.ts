@@ -32,6 +32,12 @@ export interface MalqueryExternalHuntOptions {
      */
     filterFiletypes?: Array<string>;
     /**
+     * Limit results to files with specific labels. Possible values: clean, malware, pua, unknown
+     * @type {Array<string>}
+     * @memberof MalqueryExternalHuntOptions
+     */
+    filterLabels?: Array<string>;
+    /**
      * Specify a subset of metadata fields to return in the results. Possible values: sha256, md5, type, size, first_seen, label, family
      * @type {Array<string>}
      * @memberof MalqueryExternalHuntOptions
@@ -93,6 +99,7 @@ export function MalqueryExternalHuntOptionsFromJSONTyped(json: any, ignoreDiscri
     return {
         app: json["app"] == null ? undefined : json["app"],
         filterFiletypes: json["filter_filetypes"] == null ? undefined : json["filter_filetypes"],
+        filterLabels: json["filter_labels"] == null ? undefined : json["filter_labels"],
         filterMeta: json["filter_meta"] == null ? undefined : json["filter_meta"],
         limit: json["limit"] == null ? undefined : json["limit"],
         maxDate: json["max_date"] == null ? undefined : json["max_date"],
@@ -110,6 +117,7 @@ export function MalqueryExternalHuntOptionsToJSON(value?: MalqueryExternalHuntOp
     return {
         app: value["app"],
         filter_filetypes: value["filterFiletypes"],
+        filter_labels: value["filterLabels"],
         filter_meta: value["filterMeta"],
         limit: value["limit"],
         max_date: value["maxDate"],

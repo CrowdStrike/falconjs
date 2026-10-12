@@ -30,6 +30,12 @@ export interface MessagesDetection {
      * @type {string}
      * @memberof MessagesDetection
      */
+    kestrelUrl?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesDetection
+     */
     url: string;
 }
 
@@ -52,6 +58,7 @@ export function MessagesDetectionFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         id: json["id"],
+        kestrelUrl: json["kestrel_url"] == null ? undefined : json["kestrel_url"],
         url: json["url"],
     };
 }
@@ -62,6 +69,7 @@ export function MessagesDetectionToJSON(value?: MessagesDetection | null): any {
     }
     return {
         id: value["id"],
+        kestrel_url: value["kestrelUrl"],
         url: value["url"],
     };
 }

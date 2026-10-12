@@ -15,8 +15,8 @@
 import { mapValues } from "../runtime";
 import type { MsaAPIError } from "./MsaAPIError";
 import { MsaAPIErrorFromJSON, MsaAPIErrorFromJSONTyped, MsaAPIErrorToJSON } from "./MsaAPIError";
-import type { FigapiLookupIndicator } from "./FigapiLookupIndicator";
-import { FigapiLookupIndicatorFromJSON, FigapiLookupIndicatorFromJSONTyped, FigapiLookupIndicatorToJSON } from "./FigapiLookupIndicator";
+import type { RestapiLookupIndicator } from "./RestapiLookupIndicator";
+import { RestapiLookupIndicatorFromJSON, RestapiLookupIndicatorFromJSONTyped, RestapiLookupIndicatorToJSON } from "./RestapiLookupIndicator";
 import type { MsaMetaInfo } from "./MsaMetaInfo";
 import { MsaMetaInfoFromJSON, MsaMetaInfoFromJSONTyped, MsaMetaInfoToJSON } from "./MsaMetaInfo";
 
@@ -40,10 +40,10 @@ export interface RestapiLookupIndicatorResponse {
     meta: MsaMetaInfo;
     /**
      *
-     * @type {Array<FigapiLookupIndicator>}
+     * @type {Array<RestapiLookupIndicator>}
      * @memberof RestapiLookupIndicatorResponse
      */
-    resources: Array<FigapiLookupIndicator>;
+    resources: Array<RestapiLookupIndicator>;
 }
 
 /**
@@ -67,7 +67,7 @@ export function RestapiLookupIndicatorResponseFromJSONTyped(json: any, ignoreDis
     return {
         errors: (json["errors"] as Array<any>).map(MsaAPIErrorFromJSON),
         meta: MsaMetaInfoFromJSON(json["meta"]),
-        resources: (json["resources"] as Array<any>).map(FigapiLookupIndicatorFromJSON),
+        resources: (json["resources"] as Array<any>).map(RestapiLookupIndicatorFromJSON),
     };
 }
 
@@ -78,6 +78,6 @@ export function RestapiLookupIndicatorResponseToJSON(value?: RestapiLookupIndica
     return {
         errors: (value["errors"] as Array<any>).map(MsaAPIErrorToJSON),
         meta: MsaMetaInfoToJSON(value["meta"]),
-        resources: (value["resources"] as Array<any>).map(FigapiLookupIndicatorToJSON),
+        resources: (value["resources"] as Array<any>).map(RestapiLookupIndicatorToJSON),
     };
 }

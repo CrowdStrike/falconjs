@@ -24,6 +24,12 @@ export interface MalqueryFuzzyOptions {
      * @type {Array<string>}
      * @memberof MalqueryFuzzyOptions
      */
+    filterLabels?: Array<string>;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof MalqueryFuzzyOptions
+     */
     filterMeta?: Array<string>;
     /**
      *
@@ -49,6 +55,7 @@ export function MalqueryFuzzyOptionsFromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
+        filterLabels: json["filter_labels"] == null ? undefined : json["filter_labels"],
         filterMeta: json["filter_meta"] == null ? undefined : json["filter_meta"],
         limit: json["limit"] == null ? undefined : json["limit"],
     };
@@ -59,6 +66,7 @@ export function MalqueryFuzzyOptionsToJSON(value?: MalqueryFuzzyOptions | null):
         return value;
     }
     return {
+        filter_labels: value["filterLabels"],
         filter_meta: value["filterMeta"],
         limit: value["limit"],
     };

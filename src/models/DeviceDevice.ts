@@ -279,6 +279,12 @@ export interface DeviceDevice {
      * @type {string}
      * @memberof DeviceDevice
      */
+    k8sNodeUid?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DeviceDevice
+     */
     kernelVersion?: string;
     /**
      *
@@ -677,6 +683,7 @@ export function DeviceDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolea
         k8sClusterGitVersion: json["k8s_cluster_git_version"] == null ? undefined : json["k8s_cluster_git_version"],
         k8sClusterId: json["k8s_cluster_id"] == null ? undefined : json["k8s_cluster_id"],
         k8sClusterVersion: json["k8s_cluster_version"] == null ? undefined : json["k8s_cluster_version"],
+        k8sNodeUid: json["k8s_node_uid"] == null ? undefined : json["k8s_node_uid"],
         kernelVersion: json["kernel_version"] == null ? undefined : json["kernel_version"],
         lastLoginTimestamp: json["last_login_timestamp"] == null ? undefined : json["last_login_timestamp"],
         lastLoginUid: json["last_login_uid"] == null ? undefined : json["last_login_uid"],
@@ -783,6 +790,7 @@ export function DeviceDeviceToJSON(value?: DeviceDevice | null): any {
         k8s_cluster_git_version: value["k8sClusterGitVersion"],
         k8s_cluster_id: value["k8sClusterId"],
         k8s_cluster_version: value["k8sClusterVersion"],
+        k8s_node_uid: value["k8sNodeUid"],
         kernel_version: value["kernelVersion"],
         last_login_timestamp: value["lastLoginTimestamp"],
         last_login_uid: value["lastLoginUid"],

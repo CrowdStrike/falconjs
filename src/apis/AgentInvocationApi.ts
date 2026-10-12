@@ -13,24 +13,48 @@
  */
 
 import * as runtime from "../runtime";
-import type { ApiErrorResponse, ApiInvokeAgentResponse, ApiInvokePublishedAgentExternalRequest, MsaReplyMetaOnly } from "../models/index";
+import type {
+    ApiErrorResponse,
+    ApiInvokeAgentResponse,
+    ApiInvokeAgentVersionExternalRequest,
+    ApiInvokePublishedAgentExternalRequest,
+    ApiPatchAgentInvocationRequest,
+    MsaReplyMetaOnly,
+    MsaspecResponseFields,
+} from "../models/index";
 import {
     ApiErrorResponseFromJSON,
     ApiErrorResponseToJSON,
     ApiInvokeAgentResponseFromJSON,
     ApiInvokeAgentResponseToJSON,
+    ApiInvokeAgentVersionExternalRequestFromJSON,
+    ApiInvokeAgentVersionExternalRequestToJSON,
     ApiInvokePublishedAgentExternalRequestFromJSON,
     ApiInvokePublishedAgentExternalRequestToJSON,
+    ApiPatchAgentInvocationRequestFromJSON,
+    ApiPatchAgentInvocationRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    MsaspecResponseFieldsFromJSON,
+    MsaspecResponseFieldsToJSON,
 } from "../models/index";
 
 export interface AgentInvocationApiGetAgentInvocationV3Request {
     id: string;
+    projectId?: string;
+}
+
+export interface AgentInvocationApiInvokeAgentVersionExternalV1Request {
+    body: ApiInvokeAgentVersionExternalRequest;
 }
 
 export interface AgentInvocationApiInvokePublishedAgentExternalV1Request {
     body: ApiInvokePublishedAgentExternalRequest;
+}
+
+export interface AgentInvocationApiPatchAgentInvocationV3Request {
+    body: ApiPatchAgentInvocationRequest;
+    projectId?: string;
 }
 
 /**
@@ -38,7 +62,7 @@ export interface AgentInvocationApiInvokePublishedAgentExternalV1Request {
  */
 export class AgentInvocationApi extends runtime.BaseAPI {
     /**
-     * Retrieves the list of of messages that are resulted from the specified invocation
+     * Get the messages that an invocation produced.
      */
     async getAgentInvocationV3Raw(
         requestParameters: AgentInvocationApiGetAgentInvocationV3Request,
@@ -54,11 +78,15 @@ export class AgentInvocationApi extends runtime.BaseAPI {
             queryParameters["id"] = requestParameters["id"];
         }
 
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:read"]);
         }
 
         const response = await this.request(
@@ -75,10 +103,54 @@ export class AgentInvocationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the list of of messages that are resulted from the specified invocation
+     * Get the messages that an invocation produced.
      */
-    async getAgentInvocationV3(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiInvokeAgentResponse> {
-        const response = await this.getAgentInvocationV3Raw({ id: id }, initOverrides);
+    async getAgentInvocationV3(id: string, projectId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiInvokeAgentResponse> {
+        const response = await this.getAgentInvocationV3Raw({ id: id, projectId: projectId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Invoke a specific agent version by agent ID and version ID with the specified input. Returns the agent\'s completion response.
+     */
+    async invokeAgentVersionExternalV1Raw(
+        requestParameters: AgentInvocationApiInvokeAgentVersionExternalV1Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ApiInvokeAgentResponse>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling invokeAgentVersionExternalV1().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/agentic-studio/entities/agent-version-invocations/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiInvokeAgentVersionExternalRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApiInvokeAgentResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Invoke a specific agent version by agent ID and version ID with the specified input. Returns the agent\'s completion response.
+     */
+    async invokeAgentVersionExternalV1(body: ApiInvokeAgentVersionExternalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiInvokeAgentResponse> {
+        const response = await this.invokeAgentVersionExternalV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -123,6 +195,54 @@ export class AgentInvocationApi extends runtime.BaseAPI {
      */
     async invokePublishedAgentExternalV1(body: ApiInvokePublishedAgentExternalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ApiInvokeAgentResponse> {
         const response = await this.invokePublishedAgentExternalV1Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Modify an in-flight agent invocation. The only accepted status transition is to cancelled, which cancels the invocation; any other status is rejected with 400. Cancelling an invocation that has already reached a terminal state succeeds without changing it.
+     */
+    async patchAgentInvocationV3Raw(
+        requestParameters: AgentInvocationApiPatchAgentInvocationV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling patchAgentInvocationV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["projectId"] != null) {
+            queryParameters["project_id"] = requestParameters["projectId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-definition:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/agentic-studio/entities/agent-invocations/v3`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiPatchAgentInvocationRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
+    }
+
+    /**
+     * Modify an in-flight agent invocation. The only accepted status transition is to cancelled, which cancels the invocation; any other status is rejected with 400. Cancelling an invocation that has already reached a terminal state succeeds without changing it.
+     */
+    async patchAgentInvocationV3(body: ApiPatchAgentInvocationRequest, projectId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
+        const response = await this.patchAgentInvocationV3Raw({ body: body, projectId: projectId }, initOverrides);
         return await response.value();
     }
 }

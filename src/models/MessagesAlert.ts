@@ -30,6 +30,12 @@ export interface MessagesAlert {
      * @type {string}
      * @memberof MessagesAlert
      */
+    kestrelUrl?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof MessagesAlert
+     */
     product: string;
     /**
      *
@@ -59,6 +65,7 @@ export function MessagesAlertFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         id: json["id"],
+        kestrelUrl: json["kestrel_url"] == null ? undefined : json["kestrel_url"],
         product: json["product"],
         url: json["url"],
     };
@@ -70,6 +77,7 @@ export function MessagesAlertToJSON(value?: MessagesAlert | null): any {
     }
     return {
         id: value["id"],
+        kestrel_url: value["kestrelUrl"],
         product: value["product"],
         url: value["url"],
     };

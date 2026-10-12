@@ -14,8 +14,13 @@
 
 import * as runtime from "../runtime";
 import type {
+    AiAgentDetails,
+    AiAgentsInventory,
     AppInventory,
     AppInventoryUsers,
+    CheckTag,
+    CreateAppJournalCommentV3Request,
+    CreateJournal,
     DismissAffected,
     DismissAffectedEntityV3Request,
     DismissSecurityCheck,
@@ -24,10 +29,14 @@ import type {
     GetAffected,
     GetAlertsResponse,
     GetAssetInventory,
+    GetCheckParams,
+    GetCheckTags,
     GetDeviceInventory,
     GetEndTransaction,
     GetIntegrations,
+    GetJournal,
     GetMetrics,
+    GetSecurityCheckChangeLog,
     GetSecurityChecks,
     GetSecurityCompliance,
     GetSupportedSaas,
@@ -36,14 +45,31 @@ import type {
     GetTransactionStatus,
     GetUserInventory,
     MsaReplyMetaOnly,
+    RestoreAffected,
+    RestoreAffectedEntityV3Request,
+    RestoreSecurityCheck,
+    SetCheckImpact,
+    SetCheckImpactV3Request,
+    SetCheckParam,
+    SetCheckParamV3Request,
     UploadDataRequest,
     UploadDataResponse,
 } from "../models/index";
 import {
+    AiAgentDetailsFromJSON,
+    AiAgentDetailsToJSON,
+    AiAgentsInventoryFromJSON,
+    AiAgentsInventoryToJSON,
     AppInventoryFromJSON,
     AppInventoryToJSON,
     AppInventoryUsersFromJSON,
     AppInventoryUsersToJSON,
+    CheckTagFromJSON,
+    CheckTagToJSON,
+    CreateAppJournalCommentV3RequestFromJSON,
+    CreateAppJournalCommentV3RequestToJSON,
+    CreateJournalFromJSON,
+    CreateJournalToJSON,
     DismissAffectedFromJSON,
     DismissAffectedToJSON,
     DismissAffectedEntityV3RequestFromJSON,
@@ -60,14 +86,22 @@ import {
     GetAlertsResponseToJSON,
     GetAssetInventoryFromJSON,
     GetAssetInventoryToJSON,
+    GetCheckParamsFromJSON,
+    GetCheckParamsToJSON,
+    GetCheckTagsFromJSON,
+    GetCheckTagsToJSON,
     GetDeviceInventoryFromJSON,
     GetDeviceInventoryToJSON,
     GetEndTransactionFromJSON,
     GetEndTransactionToJSON,
     GetIntegrationsFromJSON,
     GetIntegrationsToJSON,
+    GetJournalFromJSON,
+    GetJournalToJSON,
     GetMetricsFromJSON,
     GetMetricsToJSON,
+    GetSecurityCheckChangeLogFromJSON,
+    GetSecurityCheckChangeLogToJSON,
     GetSecurityChecksFromJSON,
     GetSecurityChecksToJSON,
     GetSecurityComplianceFromJSON,
@@ -84,11 +118,47 @@ import {
     GetUserInventoryToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
+    RestoreAffectedFromJSON,
+    RestoreAffectedToJSON,
+    RestoreAffectedEntityV3RequestFromJSON,
+    RestoreAffectedEntityV3RequestToJSON,
+    RestoreSecurityCheckFromJSON,
+    RestoreSecurityCheckToJSON,
+    SetCheckImpactFromJSON,
+    SetCheckImpactToJSON,
+    SetCheckImpactV3RequestFromJSON,
+    SetCheckImpactV3RequestToJSON,
+    SetCheckParamFromJSON,
+    SetCheckParamToJSON,
+    SetCheckParamV3RequestFromJSON,
+    SetCheckParamV3RequestToJSON,
     UploadDataRequestFromJSON,
     UploadDataRequestToJSON,
     UploadDataResponseFromJSON,
     UploadDataResponseToJSON,
 } from "../models/index";
+
+export interface SaasSecurityApiConnectCheckTagV3Request {
+    id: string;
+    tagId: string;
+}
+
+export interface SaasSecurityApiCreateAppJournalCommentV3OperationRequest {
+    body: CreateAppJournalCommentV3Request;
+}
+
+export interface SaasSecurityApiCreateCheckJournalCommentV3Request {
+    body: CreateAppJournalCommentV3Request;
+}
+
+export interface SaasSecurityApiCreateUserJournalCommentV3Request {
+    body: CreateAppJournalCommentV3Request;
+}
+
+export interface SaasSecurityApiDisconnectCheckTagV3Request {
+    id: string;
+    tagId: string;
+}
 
 export interface SaasSecurityApiDismissAffectedEntityV3OperationRequest {
     id: string;
@@ -109,6 +179,21 @@ export interface SaasSecurityApiGetActivityMonitorV3Request {
     toDate?: Date;
     limit?: number;
     skip?: number;
+}
+
+export interface SaasSecurityApiGetAiAgentDetailsRequest {
+    id: string;
+}
+
+export interface SaasSecurityApiGetAiAgentsInventoryRequest {
+    name?: string;
+    limit?: number;
+    offset?: number;
+    integrationId?: string;
+    access?: string;
+    agentOwner?: string;
+    toolType?: string;
+    knowledgeSource?: string;
 }
 
 export interface SaasSecurityApiGetAlertsV3Request {
@@ -140,6 +225,13 @@ export interface SaasSecurityApiGetAppInventoryUsersRequest {
     itemId: string;
 }
 
+export interface SaasSecurityApiGetAppJournalV3Request {
+    id: string;
+    limit?: number;
+    offset?: number;
+    author?: string;
+}
+
 export interface SaasSecurityApiGetAssetInventoryV3Request {
     integrationId?: string;
     limit?: number;
@@ -153,6 +245,17 @@ export interface SaasSecurityApiGetAssetInventoryV3Request {
     resourceOwner?: string;
     resourceOwnerEnabled?: boolean;
     unmanagedDomain?: string;
+}
+
+export interface SaasSecurityApiGetCheckJournalV3Request {
+    id: string;
+    limit?: number;
+    offset?: number;
+    author?: string;
+}
+
+export interface SaasSecurityApiGetCheckParamsV3Request {
+    id: string;
 }
 
 export interface SaasSecurityApiGetDeviceInventoryV3Request {
@@ -176,12 +279,26 @@ export interface SaasSecurityApiGetMetricsV3Request {
     impact?: GetMetricsV3ImpactEnum;
     compliance?: boolean;
     checkType?: GetMetricsV3CheckTypeEnum;
+    checkTags?: string;
+    businessOwner?: string;
+    orgDomain?: string;
 }
 
 export interface SaasSecurityApiGetSecurityCheckAffectedV3Request {
     id: string;
     limit?: number;
     offset?: number;
+}
+
+export interface SaasSecurityApiGetSecurityCheckChangeLogV3Request {
+    action?: string;
+    limit?: number;
+    offset?: number;
+    app?: string;
+    checkId?: string;
+    fromDate?: Date;
+    toDate?: Date;
+    totalCount?: boolean;
 }
 
 export interface SaasSecurityApiGetSecurityCheckComplianceV3Request {
@@ -198,6 +315,8 @@ export interface SaasSecurityApiGetSecurityChecksV3Request {
     compliance?: boolean;
     checkType?: GetSecurityChecksV3CheckTypeEnum;
     checkTags?: string;
+    businessOwner?: string;
+    orgDomain?: string;
 }
 
 export interface SaasSecurityApiGetSystemLogsV3Request {
@@ -214,6 +333,13 @@ export interface SaasSecurityApiGetUserInventoryV3Request {
     offset?: number;
     email?: string;
     privilegedOnly?: boolean;
+}
+
+export interface SaasSecurityApiGetUserJournalV3Request {
+    id: string;
+    limit?: number;
+    offset?: number;
+    author?: string;
 }
 
 export interface SaasSecurityApiIntegrationBuilderEndTransactionV3Request {
@@ -234,10 +360,272 @@ export interface SaasSecurityApiIntegrationBuilderUploadV3Request {
     body: UploadDataRequest;
 }
 
+export interface SaasSecurityApiRestoreAffectedEntityV3OperationRequest {
+    id: string;
+    body: RestoreAffectedEntityV3Request;
+}
+
+export interface SaasSecurityApiRestoreSecurityCheckV3Request {
+    id: string;
+    body: object;
+}
+
+export interface SaasSecurityApiSetCheckImpactV3OperationRequest {
+    id: string;
+    body: SetCheckImpactV3Request;
+}
+
+export interface SaasSecurityApiSetCheckParamV3OperationRequest {
+    id: string;
+    body: SetCheckParamV3Request;
+}
+
 /**
  *
  */
 export class SaasSecurityApi extends runtime.BaseAPI {
+    /**
+     * Connect an existing check tag to a security check. Idempotent
+     * POST Connect a Check Tag to a Security Check
+     */
+    async connectCheckTagV3Raw(requestParameters: SaasSecurityApiConnectCheckTagV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CheckTag>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling connectCheckTagV3().');
+        }
+
+        if (requestParameters["tagId"] == null) {
+            throw new runtime.RequiredError("tagId", 'Required parameter "tagId" was null or undefined when calling connectCheckTagV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["tagId"] != null) {
+            queryParameters["tag_id"] = requestParameters["tagId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-tags/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CheckTagFromJSON(jsonValue));
+    }
+
+    /**
+     * Connect an existing check tag to a security check. Idempotent
+     * POST Connect a Check Tag to a Security Check
+     */
+    async connectCheckTagV3(id: string, tagId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CheckTag> {
+        const response = await this.connectCheckTagV3Raw({ id: id, tagId: tagId }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Append a comment to one or more app inventory items
+     * POST App Journal Comment
+     */
+    async createAppJournalCommentV3Raw(
+        requestParameters: SaasSecurityApiCreateAppJournalCommentV3OperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CreateJournal>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createAppJournalCommentV3().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/app-journal/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: CreateAppJournalCommentV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Append a comment to one or more app inventory items
+     * POST App Journal Comment
+     */
+    async createAppJournalCommentV3(body: CreateAppJournalCommentV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateJournal> {
+        const response = await this.createAppJournalCommentV3Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Append a comment to one or more security checks
+     * POST Security Check Journal Comment
+     */
+    async createCheckJournalCommentV3Raw(
+        requestParameters: SaasSecurityApiCreateCheckJournalCommentV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CreateJournal>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createCheckJournalCommentV3().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-journal/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: CreateAppJournalCommentV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Append a comment to one or more security checks
+     * POST Security Check Journal Comment
+     */
+    async createCheckJournalCommentV3(body: CreateAppJournalCommentV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateJournal> {
+        const response = await this.createCheckJournalCommentV3Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Append a comment to one or more user inventory items
+     * POST User Journal Comment
+     */
+    async createUserJournalCommentV3Raw(
+        requestParameters: SaasSecurityApiCreateUserJournalCommentV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CreateJournal>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createUserJournalCommentV3().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/user-journal/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: CreateAppJournalCommentV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Append a comment to one or more user inventory items
+     * POST User Journal Comment
+     */
+    async createUserJournalCommentV3(body: CreateAppJournalCommentV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateJournal> {
+        const response = await this.createUserJournalCommentV3Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Disconnect a check tag from a security check. Idempotent
+     * DELETE Disconnect a Check Tag from a Security Check
+     */
+    async disconnectCheckTagV3Raw(requestParameters: SaasSecurityApiDisconnectCheckTagV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CheckTag>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling disconnectCheckTagV3().');
+        }
+
+        if (requestParameters["tagId"] == null) {
+            throw new runtime.RequiredError("tagId", 'Required parameter "tagId" was null or undefined when calling disconnectCheckTagV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["tagId"] != null) {
+            queryParameters["tag_id"] = requestParameters["tagId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-tags/v3`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CheckTagFromJSON(jsonValue));
+    }
+
+    /**
+     * Disconnect a check tag from a security check. Idempotent
+     * DELETE Disconnect a Check Tag from a Security Check
+     */
+    async disconnectCheckTagV3(id: string, tagId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CheckTag> {
+        const response = await this.disconnectCheckTagV3Raw({ id: id, tagId: tagId }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Preform dismiss to an affected entity in a security check
      * POST Dismiss Affected Entity
@@ -425,6 +813,134 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     ): Promise<GetActivityMonitor> {
         const response = await this.getActivityMonitorV3Raw(
             { integrationId: integrationId, actor: actor, category: category, projection: projection, fromDate: fromDate, toDate: toDate, limit: limit, skip: skip },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Get full details for a single AI agent, including tools and knowledge
+     * GET AI Agent Details
+     */
+    async getAiAgentDetailsRaw(requestParameters: SaasSecurityApiGetAiAgentDetailsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AiAgentDetails>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getAiAgentDetails().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/ai-agent-details/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AiAgentDetailsFromJSON(jsonValue));
+    }
+
+    /**
+     * Get full details for a single AI agent, including tools and knowledge
+     * GET AI Agent Details
+     */
+    async getAiAgentDetails(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AiAgentDetails> {
+        const response = await this.getAiAgentDetailsRaw({ id: id }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a list of all AI agents in the Applications inventory
+     * GET AI Agents Inventory
+     */
+    async getAiAgentsInventoryRaw(
+        requestParameters: SaasSecurityApiGetAiAgentsInventoryRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<AiAgentsInventory>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["integrationId"] != null) {
+            queryParameters["integration_id"] = requestParameters["integrationId"];
+        }
+
+        if (requestParameters["access"] != null) {
+            queryParameters["access"] = requestParameters["access"];
+        }
+
+        if (requestParameters["agentOwner"] != null) {
+            queryParameters["agent_owner"] = requestParameters["agentOwner"];
+        }
+
+        if (requestParameters["toolType"] != null) {
+            queryParameters["tool_type"] = requestParameters["toolType"];
+        }
+
+        if (requestParameters["knowledgeSource"] != null) {
+            queryParameters["knowledge_source"] = requestParameters["knowledgeSource"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/ai-agents/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AiAgentsInventoryFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of all AI agents in the Applications inventory
+     * GET AI Agents Inventory
+     */
+    async getAiAgentsInventory(
+        name?: string,
+        limit?: number,
+        offset?: number,
+        integrationId?: string,
+        access?: string,
+        agentOwner?: string,
+        toolType?: string,
+        knowledgeSource?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<AiAgentsInventory> {
+        const response = await this.getAiAgentsInventoryRaw(
+            { name: name, limit: limit, offset: offset, integrationId: integrationId, access: access, agentOwner: agentOwner, toolType: toolType, knowledgeSource: knowledgeSource },
             initOverrides,
         );
         return await response.value();
@@ -666,6 +1182,62 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get the journal entries for an app inventory item
+     * GET App Journal
+     */
+    async getAppJournalV3Raw(requestParameters: SaasSecurityApiGetAppJournalV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJournal>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getAppJournalV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["author"] != null) {
+            queryParameters["author"] = requestParameters["author"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/app-journal/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the journal entries for an app inventory item
+     * GET App Journal
+     */
+    async getAppJournalV3(id: string, limit?: number, offset?: number, author?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJournal> {
+        const response = await this.getAppJournalV3Raw({ id: id, limit: limit, offset: offset, author: author }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Get a list of all assets in the Data Inventory
      * GET Data Inventory
      */
@@ -779,6 +1351,142 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             },
             initOverrides,
         );
+        return await response.value();
+    }
+
+    /**
+     * Get the journal entries for a security check
+     * GET Security Check Journal
+     */
+    async getCheckJournalV3Raw(requestParameters: SaasSecurityApiGetCheckJournalV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJournal>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getCheckJournalV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["author"] != null) {
+            queryParameters["author"] = requestParameters["author"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-journal/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the journal entries for a security check
+     * GET Security Check Journal
+     */
+    async getCheckJournalV3(id: string, limit?: number, offset?: number, author?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJournal> {
+        const response = await this.getCheckJournalV3Raw({ id: id, limit: limit, offset: offset, author: author }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get every tunable param of a security check, with the value in effect for this instance of it. `edited` says whether that value is a customization or the built-in default
+     * GET List Security Check Params
+     */
+    async getCheckParamsV3Raw(requestParameters: SaasSecurityApiGetCheckParamsV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCheckParams>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getCheckParamsV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-params/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetCheckParamsFromJSON(jsonValue));
+    }
+
+    /**
+     * Get every tunable param of a security check, with the value in effect for this instance of it. `edited` says whether that value is a customization or the built-in default
+     * GET List Security Check Params
+     */
+    async getCheckParamsV3(id: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCheckParams> {
+        const response = await this.getCheckParamsV3Raw({ id: id }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get all the security check tags defined in the account
+     * GET List Check Tags
+     */
+    async getCheckTagsV3Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCheckTags>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-tags/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetCheckTagsFromJSON(jsonValue));
+    }
+
+    /**
+     * Get all the security check tags defined in the account
+     * GET List Check Tags
+     */
+    async getCheckTagsV3(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCheckTags> {
+        const response = await this.getCheckTagsV3Raw(initOverrides);
         return await response.value();
     }
 
@@ -931,6 +1639,18 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             queryParameters["check_type"] = requestParameters["checkType"];
         }
 
+        if (requestParameters["checkTags"] != null) {
+            queryParameters["check_tags"] = requestParameters["checkTags"];
+        }
+
+        if (requestParameters["businessOwner"] != null) {
+            queryParameters["business_owner"] = requestParameters["businessOwner"];
+        }
+
+        if (requestParameters["orgDomain"] != null) {
+            queryParameters["org_domain"] = requestParameters["orgDomain"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -963,10 +1683,24 @@ export class SaasSecurityApi extends runtime.BaseAPI {
         impact?: GetMetricsV3ImpactEnum,
         compliance?: boolean,
         checkType?: GetMetricsV3CheckTypeEnum,
+        checkTags?: string,
+        businessOwner?: string,
+        orgDomain?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<GetMetrics> {
         const response = await this.getMetricsV3Raw(
-            { status: status, limit: limit, offset: offset, integrationId: integrationId, impact: impact, compliance: compliance, checkType: checkType },
+            {
+                status: status,
+                limit: limit,
+                offset: offset,
+                integrationId: integrationId,
+                impact: impact,
+                compliance: compliance,
+                checkType: checkType,
+                checkTags: checkTags,
+                businessOwner: businessOwner,
+                orgDomain: orgDomain,
+            },
             initOverrides,
         );
         return await response.value();
@@ -1024,6 +1758,90 @@ export class SaasSecurityApi extends runtime.BaseAPI {
      */
     async getSecurityCheckAffectedV3(id: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetAffected> {
         const response = await this.getSecurityCheckAffectedV3Raw({ id: id, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the log of CrowdStrike\'s own changes to security checks - detection logic, impact, title and so on. meta.pagination.total is only populated when total_count=true is passed.
+     * GET Security Check Change Log
+     */
+    async getSecurityCheckChangeLogV3Raw(
+        requestParameters: SaasSecurityApiGetSecurityCheckChangeLogV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetSecurityCheckChangeLog>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["action"] != null) {
+            queryParameters["action"] = requestParameters["action"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["app"] != null) {
+            queryParameters["app"] = requestParameters["app"];
+        }
+
+        if (requestParameters["checkId"] != null) {
+            queryParameters["check_id"] = requestParameters["checkId"];
+        }
+
+        if (requestParameters["fromDate"] != null) {
+            queryParameters["from_date"] = (requestParameters["fromDate"] as any).toISOString();
+        }
+
+        if (requestParameters["toDate"] != null) {
+            queryParameters["to_date"] = (requestParameters["toDate"] as any).toISOString();
+        }
+
+        if (requestParameters["totalCount"] != null) {
+            queryParameters["total_count"] = requestParameters["totalCount"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/checks-change-log/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetSecurityCheckChangeLogFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the log of CrowdStrike\'s own changes to security checks - detection logic, impact, title and so on. meta.pagination.total is only populated when total_count=true is passed.
+     * GET Security Check Change Log
+     */
+    async getSecurityCheckChangeLogV3(
+        action?: string,
+        limit?: number,
+        offset?: number,
+        app?: string,
+        checkId?: string,
+        fromDate?: Date,
+        toDate?: Date,
+        totalCount?: boolean,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<GetSecurityCheckChangeLog> {
+        const response = await this.getSecurityCheckChangeLogV3Raw(
+            { action: action, limit: limit, offset: offset, app: app, checkId: checkId, fromDate: fromDate, toDate: toDate, totalCount: totalCount },
+            initOverrides,
+        );
         return await response.value();
     }
 
@@ -1120,6 +1938,14 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             queryParameters["check_tags"] = requestParameters["checkTags"];
         }
 
+        if (requestParameters["businessOwner"] != null) {
+            queryParameters["business_owner"] = requestParameters["businessOwner"];
+        }
+
+        if (requestParameters["orgDomain"] != null) {
+            queryParameters["org_domain"] = requestParameters["orgDomain"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -1154,10 +1980,24 @@ export class SaasSecurityApi extends runtime.BaseAPI {
         compliance?: boolean,
         checkType?: GetSecurityChecksV3CheckTypeEnum,
         checkTags?: string,
+        businessOwner?: string,
+        orgDomain?: string,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<GetSecurityChecks> {
         const response = await this.getSecurityChecksV3Raw(
-            { id: id, limit: limit, offset: offset, status: status, integrationId: integrationId, impact: impact, compliance: compliance, checkType: checkType, checkTags: checkTags },
+            {
+                id: id,
+                limit: limit,
+                offset: offset,
+                status: status,
+                integrationId: integrationId,
+                impact: impact,
+                compliance: compliance,
+                checkType: checkType,
+                checkTags: checkTags,
+                businessOwner: businessOwner,
+                orgDomain: orgDomain,
+            },
             initOverrides,
         );
         return await response.value();
@@ -1354,6 +2194,62 @@ export class SaasSecurityApi extends runtime.BaseAPI {
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<GetUserInventory> {
         const response = await this.getUserInventoryV3Raw({ integrationId: integrationId, limit: limit, offset: offset, email: email, privilegedOnly: privilegedOnly }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the journal entries for a user inventory item
+     * GET User Journal
+     */
+    async getUserJournalV3Raw(requestParameters: SaasSecurityApiGetUserJournalV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetJournal>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getUserJournalV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["author"] != null) {
+            queryParameters["author"] = requestParameters["author"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/user-journal/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the journal entries for a user inventory item
+     * GET User Journal
+     */
+    async getUserJournalV3(id: string, limit?: number, offset?: number, author?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJournal> {
+        const response = await this.getUserJournalV3Raw({ id: id, limit: limit, offset: offset, author: author }, initOverrides);
         return await response.value();
     }
 
@@ -1559,6 +2455,222 @@ export class SaasSecurityApi extends runtime.BaseAPI {
         const response = await this.integrationBuilderUploadV3Raw({ id: id, sourceId: sourceId, body: body }, initOverrides);
         return await response.value();
     }
+
+    /**
+     * Restore dismissed affected entities of a security check
+     * POST Restore Affected Entity
+     */
+    async restoreAffectedEntityV3Raw(
+        requestParameters: SaasSecurityApiRestoreAffectedEntityV3OperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestoreAffected>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling restoreAffectedEntityV3().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling restoreAffectedEntityV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-restore-affected/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: RestoreAffectedEntityV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RestoreAffectedFromJSON(jsonValue));
+    }
+
+    /**
+     * Restore dismissed affected entities of a security check
+     * POST Restore Affected Entity
+     */
+    async restoreAffectedEntityV3(id: string, body: RestoreAffectedEntityV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RestoreAffected> {
+        const response = await this.restoreAffectedEntityV3Raw({ id: id, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Restore a dismissed security check. Does not restore its dismissed affected entities
+     * POST Restore Security Check by ID
+     */
+    async restoreSecurityCheckV3Raw(
+        requestParameters: SaasSecurityApiRestoreSecurityCheckV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<RestoreSecurityCheck>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling restoreSecurityCheckV3().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling restoreSecurityCheckV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-restore/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: requestParameters["body"] as any,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => RestoreSecurityCheckFromJSON(jsonValue));
+    }
+
+    /**
+     * Restore a dismissed security check. Does not restore its dismissed affected entities
+     * POST Restore Security Check by ID
+     */
+    async restoreSecurityCheckV3(id: string, body: object, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<RestoreSecurityCheck> {
+        const response = await this.restoreSecurityCheckV3Raw({ id: id, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Set the impact of one instance of a security check. Set `all_future_instances` to also apply it to instances of the same SaaS connected in the future; it does not change instances that already exist. The check is not re-evaluated, only its impact changes
+     * POST Set a Security Check Impact
+     */
+    async setCheckImpactV3Raw(
+        requestParameters: SaasSecurityApiSetCheckImpactV3OperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SetCheckImpact>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling setCheckImpactV3().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setCheckImpactV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-impact/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: SetCheckImpactV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SetCheckImpactFromJSON(jsonValue));
+    }
+
+    /**
+     * Set the impact of one instance of a security check. Set `all_future_instances` to also apply it to instances of the same SaaS connected in the future; it does not change instances that already exist. The check is not re-evaluated, only its impact changes
+     * POST Set a Security Check Impact
+     */
+    async setCheckImpactV3(id: string, body: SetCheckImpactV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SetCheckImpact> {
+        const response = await this.setCheckImpactV3Raw({ id: id, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Set one param\'s value on one instance of a security check. Set `all_future_instances` to also apply the value to instances of the same SaaS connected in the future; it does not change instances that already exist. Re-evaluates the check, so the result is not reflected immediately
+     * POST Set a Security Check Param
+     */
+    async setCheckParamV3Raw(
+        requestParameters: SaasSecurityApiSetCheckParamV3OperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SetCheckParam>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling setCheckParamV3().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling setCheckParamV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/check-params/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: SetCheckParamV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SetCheckParamFromJSON(jsonValue));
+    }
+
+    /**
+     * Set one param\'s value on one instance of a security check. Set `all_future_instances` to also apply the value to instances of the same SaaS connected in the future; it does not change instances that already exist. Re-evaluates the check, so the result is not reflected immediately
+     * POST Set a Security Check Param
+     */
+    async setCheckParamV3(id: string, body: SetCheckParamV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SetCheckParam> {
+        const response = await this.setCheckParamV3Raw({ id: id, body: body }, initOverrides);
+        return await response.value();
+    }
 }
 
 /**
@@ -1568,7 +2680,7 @@ export const GetAlertsV3TypeEnum = {
     ConfigurationDrift: "configuration_drift",
     CheckDegraded: "check_degraded",
     IntegrationFailure: "integration_failure",
-    Threat: "Threat",
+    Threat: "threat",
 } as const;
 export type GetAlertsV3TypeEnum = (typeof GetAlertsV3TypeEnum)[keyof typeof GetAlertsV3TypeEnum];
 /**
@@ -1585,12 +2697,14 @@ export type GetAppInventoryStatusEnum = (typeof GetAppInventoryStatusEnum)[keyof
  * @export
  */
 export const GetMetricsV3StatusEnum = {
-    Passed: "Passed",
-    Failed: "Failed",
-    Dismissed: "Dismissed",
-    Pending: "Pending",
     CantRun: "Can't Run",
+    Dismissed: "Dismissed",
+    Failed: "Failed",
+    Passed: "Passed",
+    Pending: "Pending",
     Stale: "Stale",
+    Na: "NA",
+    NotAvailable: "Not Available",
 } as const;
 export type GetMetricsV3StatusEnum = (typeof GetMetricsV3StatusEnum)[keyof typeof GetMetricsV3StatusEnum];
 /**
@@ -1611,6 +2725,7 @@ export const GetMetricsV3CheckTypeEnum = {
     Users: "users",
     Assets: "assets",
     Permissions: "permissions",
+    ShadowVendors: "shadow_vendors",
     FalconShieldSecurityCheck: "Falcon Shield Security Check",
     Custom: "custom",
 } as const;
@@ -1619,12 +2734,14 @@ export type GetMetricsV3CheckTypeEnum = (typeof GetMetricsV3CheckTypeEnum)[keyof
  * @export
  */
 export const GetSecurityChecksV3StatusEnum = {
-    Passed: "Passed",
-    Failed: "Failed",
-    Dismissed: "Dismissed",
-    Pending: "Pending",
     CantRun: "Can't Run",
+    Dismissed: "Dismissed",
+    Failed: "Failed",
+    Passed: "Passed",
+    Pending: "Pending",
     Stale: "Stale",
+    Na: "NA",
+    NotAvailable: "Not Available",
 } as const;
 export type GetSecurityChecksV3StatusEnum = (typeof GetSecurityChecksV3StatusEnum)[keyof typeof GetSecurityChecksV3StatusEnum];
 /**
@@ -1645,6 +2762,7 @@ export const GetSecurityChecksV3CheckTypeEnum = {
     Users: "users",
     Assets: "assets",
     Permissions: "permissions",
+    ShadowVendors: "shadow_vendors",
     FalconShieldSecurityCheck: "Falcon Shield Security Check",
     Custom: "custom",
 } as const;

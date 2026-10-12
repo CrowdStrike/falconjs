@@ -120,6 +120,12 @@ export interface DomainAPIFindingRuleV1 {
      * @memberof DomainAPIFindingRuleV1
      */
     severity?: string;
+    /**
+     * Example values: standard, custom
+     * @type {string}
+     * @memberof DomainAPIFindingRuleV1
+     */
+    sourceType?: string;
 }
 
 /**
@@ -156,6 +162,7 @@ export function DomainAPIFindingRuleV1FromJSONTyped(json: any, ignoreDiscriminat
         policyName: json["policy_name"] == null ? undefined : json["policy_name"],
         recommendationId: json["recommendation_id"] == null ? undefined : json["recommendation_id"],
         severity: json["severity"] == null ? undefined : json["severity"],
+        sourceType: json["source_type"] == null ? undefined : json["source_type"],
     };
 }
 
@@ -180,5 +187,6 @@ export function DomainAPIFindingRuleV1ToJSON(value?: DomainAPIFindingRuleV1 | nu
         policy_name: value["policyName"],
         recommendation_id: value["recommendationId"],
         severity: value["severity"],
+        source_type: value["sourceType"],
     };
 }

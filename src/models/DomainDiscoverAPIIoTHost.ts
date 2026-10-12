@@ -19,6 +19,8 @@ import type { DomainDiscoverAPIMountStorageInfo } from "./DomainDiscoverAPIMount
 import { DomainDiscoverAPIMountStorageInfoFromJSON, DomainDiscoverAPIMountStorageInfoFromJSONTyped, DomainDiscoverAPIMountStorageInfoToJSON } from "./DomainDiscoverAPIMountStorageInfo";
 import type { DomainDiscoverAPINetworkInterface } from "./DomainDiscoverAPINetworkInterface";
 import { DomainDiscoverAPINetworkInterfaceFromJSON, DomainDiscoverAPINetworkInterfaceFromJSONTyped, DomainDiscoverAPINetworkInterfaceToJSON } from "./DomainDiscoverAPINetworkInterface";
+import type { DomainDiscoverAPIOtObservation } from "./DomainDiscoverAPIOtObservation";
+import { DomainDiscoverAPIOtObservationFromJSON, DomainDiscoverAPIOtObservationFromJSONTyped, DomainDiscoverAPIOtObservationToJSON } from "./DomainDiscoverAPIOtObservation";
 import type { DomainDiscoverAPIBiosHashesData } from "./DomainDiscoverAPIBiosHashesData";
 import { DomainDiscoverAPIBiosHashesDataFromJSON, DomainDiscoverAPIBiosHashesDataFromJSONTyped, DomainDiscoverAPIBiosHashesDataToJSON } from "./DomainDiscoverAPIBiosHashesData";
 import type { DomainDiscoverAPIFieldMetadata } from "./DomainDiscoverAPIFieldMetadata";
@@ -242,6 +244,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     criticalityDescription?: string;
+    /**
+     * The numerical value for the criticality level (25 = Unassigned, 50 = Noncritical, 75 = High, 100 = Critical).
+     * @type {number}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    criticalityNumerical?: number;
     /**
      * The ID of the criticality rule that has most recently applied to the asset.
      * @type {string}
@@ -471,6 +479,12 @@ export interface DomainDiscoverAPIIoTHost {
      */
     groups?: Array<string>;
     /**
+     * The hardware version of the IoT Asset
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    hardwareVersion?: string;
+    /**
      * The asset's hostname.
      * @type {string}
      * @memberof DomainDiscoverAPIIoTHost
@@ -560,6 +574,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     lastSeenTimestamp?: string;
+    /**
+     * The fieldbus link address of the IoT Asset
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    linkAddress?: string;
     /**
      * The sensor mode of the Linux asset.
      * @type {string}
@@ -705,6 +725,12 @@ export interface DomainDiscoverAPIIoTHost {
      */
     osVersion?: string;
     /**
+     * Protocol behaviour observed on the IoT Asset, grouped by protocol and category
+     * @type {Array<DomainDiscoverAPIOtObservation>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    otBehavioralProfile?: Array<DomainDiscoverAPIOtObservation>;
+    /**
      * A list of sources through which host is discovered
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIIoTHost
@@ -716,6 +742,24 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     otNetworkIds?: Array<string>;
+    /**
+     * Operations observed being performed on or by the IoT Asset, grouped by protocol and category
+     * @type {Array<DomainDiscoverAPIOtObservation>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    otObservedOperations?: Array<DomainDiscoverAPIOtObservation>;
+    /**
+     * The OT platform of the device
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    otPlatform?: string;
+    /**
+     * The OT platform version of the device
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    otPlatformVersion?: string;
     /**
      * A list of ot serial numbers that discovered with host
      * @type {Array<string>}
@@ -758,6 +802,12 @@ export interface DomainDiscoverAPIIoTHost {
      * @memberof DomainDiscoverAPIIoTHost
      */
     ownedBy?: string;
+    /**
+     * The ID of the asset discovered by CrowdStrike passive PCAP collection
+     * @type {string}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    pcapPassiveId?: string;
     /**
      * The number of physical CPU cores available on the system.
      * @type {number}
@@ -1016,6 +1066,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         creationTimestamp: json["creation_timestamp"] == null ? undefined : json["creation_timestamp"],
         criticality: json["criticality"] == null ? undefined : json["criticality"],
         criticalityDescription: json["criticality_description"] == null ? undefined : json["criticality_description"],
+        criticalityNumerical: json["criticality_numerical"] == null ? undefined : json["criticality_numerical"],
         criticalityRuleId: json["criticality_rule_id"] == null ? undefined : json["criticality_rule_id"],
         criticalityTimestamp: json["criticality_timestamp"] == null ? undefined : json["criticality_timestamp"],
         criticalityUsername: json["criticality_username"] == null ? undefined : json["criticality_username"],
@@ -1054,6 +1105,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         formFactor: json["form_factor"] == null ? undefined : json["form_factor"],
         fqdn: json["fqdn"] == null ? undefined : json["fqdn"],
         groups: json["groups"] == null ? undefined : json["groups"],
+        hardwareVersion: json["hardware_version"] == null ? undefined : json["hardware_version"],
         hostname: json["hostname"] == null ? undefined : json["hostname"],
         icsId: json["ics_id"] == null ? undefined : json["ics_id"],
         id: json["id"],
@@ -1069,6 +1121,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         lastDiscovererHostname: json["last_discoverer_hostname"] == null ? undefined : json["last_discoverer_hostname"],
         lastDiscovererIcsCollectorId: json["last_discoverer_ics_collector_id"] == null ? undefined : json["last_discoverer_ics_collector_id"],
         lastSeenTimestamp: json["last_seen_timestamp"] == null ? undefined : json["last_seen_timestamp"],
+        linkAddress: json["link_address"] == null ? undefined : json["link_address"],
         linuxSensorMode: json["linux_sensor_mode"] == null ? undefined : json["linux_sensor_mode"],
         localIpAddresses: json["local_ip_addresses"] == null ? undefined : json["local_ip_addresses"],
         localIpsCount: json["local_ips_count"] == null ? undefined : json["local_ips_count"],
@@ -1093,8 +1146,12 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         osSecurity: json["os_security"] == null ? undefined : DomainDiscoverAPIOsSecurityFromJSON(json["os_security"]),
         osServicePack: json["os_service_pack"] == null ? undefined : json["os_service_pack"],
         osVersion: json["os_version"] == null ? undefined : json["os_version"],
+        otBehavioralProfile: json["ot_behavioral_profile"] == null ? undefined : (json["ot_behavioral_profile"] as Array<any>).map(DomainDiscoverAPIOtObservationFromJSON),
         otInformationSources: json["ot_information_sources"] == null ? undefined : json["ot_information_sources"],
         otNetworkIds: json["ot_network_ids"] == null ? undefined : json["ot_network_ids"],
+        otObservedOperations: json["ot_observed_operations"] == null ? undefined : (json["ot_observed_operations"] as Array<any>).map(DomainDiscoverAPIOtObservationFromJSON),
+        otPlatform: json["ot_platform"] == null ? undefined : json["ot_platform"],
+        otPlatformVersion: json["ot_platform_version"] == null ? undefined : json["ot_platform_version"],
         otSerialNumbers: json["ot_serial_numbers"] == null ? undefined : json["ot_serial_numbers"],
         ou: json["ou"] == null ? undefined : json["ou"],
         ous: json["ous"] == null ? undefined : json["ous"],
@@ -1102,6 +1159,7 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         overrideCriticalityRules: json["override_criticality_rules"] == null ? undefined : json["override_criticality_rules"],
         overrideInternetExposure: json["override_internet_exposure"] == null ? undefined : json["override_internet_exposure"],
         ownedBy: json["owned_by"] == null ? undefined : json["owned_by"],
+        pcapPassiveId: json["pcap_passive_id"] == null ? undefined : json["pcap_passive_id"],
         physicalCoreCount: json["physical_core_count"] == null ? undefined : json["physical_core_count"],
         platformName: json["platform_name"] == null ? undefined : json["platform_name"],
         processorPackageCount: json["processor_package_count"] == null ? undefined : json["processor_package_count"],
@@ -1178,6 +1236,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         creation_timestamp: value["creationTimestamp"],
         criticality: value["criticality"],
         criticality_description: value["criticalityDescription"],
+        criticality_numerical: value["criticalityNumerical"],
         criticality_rule_id: value["criticalityRuleId"],
         criticality_timestamp: value["criticalityTimestamp"],
         criticality_username: value["criticalityUsername"],
@@ -1216,6 +1275,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         form_factor: value["formFactor"],
         fqdn: value["fqdn"],
         groups: value["groups"],
+        hardware_version: value["hardwareVersion"],
         hostname: value["hostname"],
         ics_id: value["icsId"],
         id: value["id"],
@@ -1231,6 +1291,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         last_discoverer_hostname: value["lastDiscovererHostname"],
         last_discoverer_ics_collector_id: value["lastDiscovererIcsCollectorId"],
         last_seen_timestamp: value["lastSeenTimestamp"],
+        link_address: value["linkAddress"],
         linux_sensor_mode: value["linuxSensorMode"],
         local_ip_addresses: value["localIpAddresses"],
         local_ips_count: value["localIpsCount"],
@@ -1255,8 +1316,12 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         os_security: DomainDiscoverAPIOsSecurityToJSON(value["osSecurity"]),
         os_service_pack: value["osServicePack"],
         os_version: value["osVersion"],
+        ot_behavioral_profile: value["otBehavioralProfile"] == null ? undefined : (value["otBehavioralProfile"] as Array<any>).map(DomainDiscoverAPIOtObservationToJSON),
         ot_information_sources: value["otInformationSources"],
         ot_network_ids: value["otNetworkIds"],
+        ot_observed_operations: value["otObservedOperations"] == null ? undefined : (value["otObservedOperations"] as Array<any>).map(DomainDiscoverAPIOtObservationToJSON),
+        ot_platform: value["otPlatform"],
+        ot_platform_version: value["otPlatformVersion"],
         ot_serial_numbers: value["otSerialNumbers"],
         ou: value["ou"],
         ous: value["ous"],
@@ -1264,6 +1329,7 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         override_criticality_rules: value["overrideCriticalityRules"],
         override_internet_exposure: value["overrideInternetExposure"],
         owned_by: value["ownedBy"],
+        pcap_passive_id: value["pcapPassiveId"],
         physical_core_count: value["physicalCoreCount"],
         platform_name: value["platformName"],
         processor_package_count: value["processorPackageCount"],

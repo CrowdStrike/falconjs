@@ -32,6 +32,12 @@ export interface DomainUpdateRuleRequestV1 {
      */
     breachMonitoringEnabled: boolean;
     /**
+     *
+     * @type {string}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    exposedDataMatchType?: string;
+    /**
      * The FQL filter to be used for searching
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
@@ -62,6 +68,12 @@ export interface DomainUpdateRuleRequestV1 {
      */
     permissions: string;
     /**
+     * The PIR(priority intelligence requirement) IDs associated with the rule. One rule can pertain to multiple PIRs
+     * @type {Array<string>}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    pirIds: Array<string>;
+    /**
      * The priority for a given rule. Possible values: [`none`, `low`, `medium`, `high`, `critical`]
      * @type {string}
      * @memberof DomainUpdateRuleRequestV1
@@ -73,6 +85,12 @@ export interface DomainUpdateRuleRequestV1 {
      * @memberof DomainUpdateRuleRequestV1
      */
     substringMatchingEnabled: boolean;
+    /**
+     * The edit distance to be used with the loosely_matches(~) filter operator(eg: typosquatting_term:~'yourdomain') in the context of Typosquatting topic rules. Possible values: [`auto`, `1`, `2`]. Not permitted with other rule topics and/or operators.
+     * @type {string}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    tsqMatchEditDistance?: string;
 }
 
 /**
@@ -86,6 +104,7 @@ export function instanceOfDomainUpdateRuleRequestV1(value: object): value is Dom
     if (!("matchOnTsqResultTypes" in value) || value["matchOnTsqResultTypes"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("permissions" in value) || value["permissions"] === undefined) return false;
+    if (!("pirIds" in value) || value["pirIds"] === undefined) return false;
     if (!("priority" in value) || value["priority"] === undefined) return false;
     if (!("substringMatchingEnabled" in value) || value["substringMatchingEnabled"] === undefined) return false;
     return true;
@@ -102,13 +121,16 @@ export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscrimi
     return {
         breachMonitorOnly: json["breach_monitor_only"],
         breachMonitoringEnabled: json["breach_monitoring_enabled"],
+        exposedDataMatchType: json["exposed_data_match_type"] == null ? undefined : json["exposed_data_match_type"],
         filter: json["filter"],
         id: json["id"],
         matchOnTsqResultTypes: json["match_on_tsq_result_types"],
         name: json["name"],
         permissions: json["permissions"],
+        pirIds: json["pir_ids"],
         priority: json["priority"],
         substringMatchingEnabled: json["substring_matching_enabled"],
+        tsqMatchEditDistance: json["tsq_match_edit_distance"] == null ? undefined : json["tsq_match_edit_distance"],
     };
 }
 
@@ -119,12 +141,15 @@ export function DomainUpdateRuleRequestV1ToJSON(value?: DomainUpdateRuleRequestV
     return {
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],
+        exposed_data_match_type: value["exposedDataMatchType"],
         filter: value["filter"],
         id: value["id"],
         match_on_tsq_result_types: value["matchOnTsqResultTypes"],
         name: value["name"],
         permissions: value["permissions"],
+        pir_ids: value["pirIds"],
         priority: value["priority"],
         substring_matching_enabled: value["substringMatchingEnabled"],
+        tsq_match_edit_distance: value["tsqMatchEditDistance"],
     };
 }

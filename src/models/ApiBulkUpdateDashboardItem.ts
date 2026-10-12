@@ -26,6 +26,12 @@ export interface ApiBulkUpdateDashboardItem {
      */
     id: string;
     /**
+     * Optional labels to replace existing labels (max 10 labels, max 60 chars each)
+     * @type {Array<string>}
+     * @memberof ApiBulkUpdateDashboardItem
+     */
+    labels?: Array<string>;
+    /**
      * The YAML representation of the dashboard to update
      * @type {string}
      * @memberof ApiBulkUpdateDashboardItem
@@ -52,6 +58,7 @@ export function ApiBulkUpdateDashboardItemFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         id: json["id"],
+        labels: json["labels"] == null ? undefined : json["labels"],
         yamlTemplate: json["yaml_template"],
     };
 }
@@ -62,6 +69,7 @@ export function ApiBulkUpdateDashboardItemToJSON(value?: ApiBulkUpdateDashboardI
     }
     return {
         id: value["id"],
+        labels: value["labels"],
         yaml_template: value["yamlTemplate"],
     };
 }

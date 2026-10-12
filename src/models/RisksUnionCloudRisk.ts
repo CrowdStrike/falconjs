@@ -154,6 +154,12 @@ export interface RisksUnionCloudRisk {
     provider: string;
     /**
      *
+     * @type {string}
+     * @memberof RisksUnionCloudRisk
+     */
+    remediationPlan?: string;
+    /**
+     *
      * @type {Date}
      * @memberof RisksUnionCloudRisk
      */
@@ -164,6 +170,12 @@ export interface RisksUnionCloudRisk {
      * @memberof RisksUnionCloudRisk
      */
     riskFactors?: Array<object>;
+    /**
+     *
+     * @type {string}
+     * @memberof RisksUnionCloudRisk
+     */
+    riskSummary?: string;
     /**
      *
      * @type {string}
@@ -272,8 +284,10 @@ export function RisksUnionCloudRiskFromJSONTyped(json: any, ignoreDiscriminator:
         insightCategories: json["insight_categories"] == null ? undefined : json["insight_categories"],
         lastSeen: json["last_seen"] == null ? undefined : new Date(json["last_seen"]),
         provider: json["provider"],
+        remediationPlan: json["remediation_plan"] == null ? undefined : json["remediation_plan"],
         resolvedAt: json["resolved_at"] == null ? undefined : new Date(json["resolved_at"]),
         riskFactors: json["risk_factors"] == null ? undefined : json["risk_factors"],
+        riskSummary: json["risk_summary"] == null ? undefined : json["risk_summary"],
         ruleDescription: json["rule_description"],
         ruleId: json["rule_id"],
         ruleName: json["rule_name"],
@@ -311,8 +325,10 @@ export function RisksUnionCloudRiskToJSON(value?: RisksUnionCloudRisk | null): a
         insight_categories: value["insightCategories"],
         last_seen: value["lastSeen"] == null ? undefined : value["lastSeen"].toISOString(),
         provider: value["provider"],
+        remediation_plan: value["remediationPlan"],
         resolved_at: value["resolvedAt"] == null ? undefined : value["resolvedAt"].toISOString(),
         risk_factors: value["riskFactors"],
+        risk_summary: value["riskSummary"],
         rule_description: value["ruleDescription"],
         rule_id: value["ruleId"],
         rule_name: value["ruleName"],

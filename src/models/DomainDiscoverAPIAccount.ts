@@ -74,6 +74,12 @@ export interface DomainDiscoverAPIAccount {
      */
     lastFailedLoginType?: string;
     /**
+     * The agent ID of the asset on which the account last successfully logged in.
+     * @type {string}
+     * @memberof DomainDiscoverAPIAccount
+     */
+    lastSuccessfulLoginAid?: string;
+    /**
      * The name of the city where the asset is located on which the account last successfully logged in.
      * @type {string}
      * @memberof DomainDiscoverAPIAccount
@@ -168,6 +174,7 @@ export function DomainDiscoverAPIAccountFromJSONTyped(json: any, ignoreDiscrimin
         lastFailedLoginHostname: json["last_failed_login_hostname"] == null ? undefined : json["last_failed_login_hostname"],
         lastFailedLoginTimestamp: json["last_failed_login_timestamp"] == null ? undefined : json["last_failed_login_timestamp"],
         lastFailedLoginType: json["last_failed_login_type"] == null ? undefined : json["last_failed_login_type"],
+        lastSuccessfulLoginAid: json["last_successful_login_aid"] == null ? undefined : json["last_successful_login_aid"],
         lastSuccessfulLoginHostCity: json["last_successful_login_host_city"] == null ? undefined : json["last_successful_login_host_city"],
         lastSuccessfulLoginHostCountry: json["last_successful_login_host_country"] == null ? undefined : json["last_successful_login_host_country"],
         lastSuccessfulLoginHostname: json["last_successful_login_hostname"] == null ? undefined : json["last_successful_login_hostname"],
@@ -196,6 +203,7 @@ export function DomainDiscoverAPIAccountToJSON(value?: DomainDiscoverAPIAccount 
         last_failed_login_hostname: value["lastFailedLoginHostname"],
         last_failed_login_timestamp: value["lastFailedLoginTimestamp"],
         last_failed_login_type: value["lastFailedLoginType"],
+        last_successful_login_aid: value["lastSuccessfulLoginAid"],
         last_successful_login_host_city: value["lastSuccessfulLoginHostCity"],
         last_successful_login_host_country: value["lastSuccessfulLoginHostCountry"],
         last_successful_login_hostname: value["lastSuccessfulLoginHostname"],

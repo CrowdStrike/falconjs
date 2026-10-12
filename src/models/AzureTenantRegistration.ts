@@ -231,6 +231,12 @@ export interface AzureTenantRegistration {
      * @type {string}
      * @memberof AzureTenantRegistration
      */
+    objectId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof AzureTenantRegistration
+     */
     primaryDomain: string;
     /**
      *
@@ -420,6 +426,7 @@ export function AzureTenantRegistrationFromJSONTyped(json: any, ignoreDiscrimina
         managementGroupIds: json["management_group_ids"],
         microsoftGraphPermissionIds: json["microsoft_graph_permission_ids"],
         microsoftGraphPermissionIdsReadonly: json["microsoft_graph_permission_ids_readonly"] == null ? undefined : json["microsoft_graph_permission_ids_readonly"],
+        objectId: json["object_id"] == null ? undefined : json["object_id"],
         primaryDomain: json["primary_domain"],
         products: json["products"] == null ? undefined : (json["products"] as Array<any>).map(DomainProductFeaturesFromJSON),
         registrationDescription: json["registration_description"] == null ? undefined : json["registration_description"],
@@ -482,6 +489,7 @@ export function AzureTenantRegistrationToJSON(value?: AzureTenantRegistration | 
         management_group_ids: value["managementGroupIds"],
         microsoft_graph_permission_ids: value["microsoftGraphPermissionIds"],
         microsoft_graph_permission_ids_readonly: value["microsoftGraphPermissionIdsReadonly"],
+        object_id: value["objectId"],
         primary_domain: value["primaryDomain"],
         products: value["products"] == null ? undefined : (value["products"] as Array<any>).map(DomainProductFeaturesToJSON),
         registration_description: value["registrationDescription"],

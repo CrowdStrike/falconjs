@@ -53,6 +53,12 @@ export interface SadomainRule {
      */
     createdTimestamp: Date;
     /**
+     *
+     * @type {string}
+     * @memberof SadomainRule
+     */
+    exposedDataMatchType?: string;
+    /**
      * The FQL filter contained in a rule and used for searching. Parentheses may be added automatically for clarity
      * @type {string}
      * @memberof SadomainRule
@@ -101,6 +107,12 @@ export interface SadomainRule {
      */
     permissions: string;
     /**
+     * The PIR IDs associated with the rule
+     * @type {Array<string>}
+     * @memberof SadomainRule
+     */
+    pirIds: Array<string>;
+    /**
      * The priority of a given rule
      * @type {string}
      * @memberof SadomainRule
@@ -136,6 +148,12 @@ export interface SadomainRule {
      * @memberof SadomainRule
      */
     topic: string;
+    /**
+     * The edit distance to be used with the loosely_matches(~) filter operator(eg: typosquatting_term:~'yourdomain') in the context of Typosquatting topic rules. Possible values: [`auto`, `1`, `2`]. Not permitted with other rule topics and/or operators.
+     * @type {string}
+     * @memberof SadomainRule
+     */
+    tsqMatchEditDistance?: string;
     /**
      * The last updated time for a given rule
      * @type {Date}
@@ -175,6 +193,7 @@ export function instanceOfSadomainRule(value: object): value is SadomainRule {
     if (!("matchOnTsqResultTypes" in value) || value["matchOnTsqResultTypes"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("permissions" in value) || value["permissions"] === undefined) return false;
+    if (!("pirIds" in value) || value["pirIds"] === undefined) return false;
     if (!("priority" in value) || value["priority"] === undefined) return false;
     if (!("status" in value) || value["status"] === undefined) return false;
     if (!("substringMatchingEnabled" in value) || value["substringMatchingEnabled"] === undefined) return false;
@@ -198,6 +217,7 @@ export function SadomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolea
         cid: json["cid"],
         createdBy: json["created_by"] == null ? undefined : json["created_by"],
         createdTimestamp: new Date(json["created_timestamp"]),
+        exposedDataMatchType: json["exposed_data_match_type"] == null ? undefined : json["exposed_data_match_type"],
         filter: json["filter"],
         id: json["id"],
         lookbackPeriod: json["lookback_period"] == null ? undefined : json["lookback_period"],
@@ -206,12 +226,14 @@ export function SadomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolea
         originatingTemplateId: json["originating_template_id"] == null ? undefined : json["originating_template_id"],
         ownershipAssets: json["ownership_assets"] == null ? undefined : SadomainCustomerAssetsFromJSON(json["ownership_assets"]),
         permissions: json["permissions"],
+        pirIds: json["pir_ids"],
         priority: json["priority"],
         status: json["status"],
         statusMessage: json["status_message"] == null ? undefined : json["status_message"],
         substringMatchingEnabled: json["substring_matching_enabled"],
         templatePriority: json["template_priority"] == null ? undefined : json["template_priority"],
         topic: json["topic"],
+        tsqMatchEditDistance: json["tsq_match_edit_distance"] == null ? undefined : json["tsq_match_edit_distance"],
         updatedTimestamp: new Date(json["updated_timestamp"]),
         userId: json["user_id"] == null ? undefined : json["user_id"],
         userName: json["user_name"] == null ? undefined : json["user_name"],
@@ -229,6 +251,7 @@ export function SadomainRuleToJSON(value?: SadomainRule | null): any {
         cid: value["cid"],
         created_by: value["createdBy"],
         created_timestamp: value["createdTimestamp"].toISOString(),
+        exposed_data_match_type: value["exposedDataMatchType"],
         filter: value["filter"],
         id: value["id"],
         lookback_period: value["lookbackPeriod"],
@@ -237,12 +260,14 @@ export function SadomainRuleToJSON(value?: SadomainRule | null): any {
         originating_template_id: value["originatingTemplateId"],
         ownership_assets: SadomainCustomerAssetsToJSON(value["ownershipAssets"]),
         permissions: value["permissions"],
+        pir_ids: value["pirIds"],
         priority: value["priority"],
         status: value["status"],
         status_message: value["statusMessage"],
         substring_matching_enabled: value["substringMatchingEnabled"],
         template_priority: value["templatePriority"],
         topic: value["topic"],
+        tsq_match_edit_distance: value["tsqMatchEditDistance"],
         updated_timestamp: value["updatedTimestamp"].toISOString(),
         user_id: value["userId"],
         user_name: value["userName"],

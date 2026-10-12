@@ -36,6 +36,12 @@ export interface ApidomainSavedSearchExecuteRequestV1 {
     end?: string;
     /**
      *
+     * @type {{ [key: string]: string; }}
+     * @memberof ApidomainSavedSearchExecuteRequestV1
+     */
+    extraLogFields?: { [key: string]: string };
+    /**
+     *
      * @type {string}
      * @memberof ApidomainSavedSearchExecuteRequestV1
      */
@@ -107,6 +113,7 @@ export function ApidomainSavedSearchExecuteRequestV1FromJSONTyped(json: any, ign
     }
     return {
         end: json["end"] == null ? undefined : json["end"],
+        extraLogFields: json["extra_log_fields"] == null ? undefined : json["extra_log_fields"],
         id: json["id"] == null ? undefined : json["id"],
         mode: json["mode"] == null ? undefined : json["mode"],
         name: json["name"] == null ? undefined : json["name"],
@@ -125,6 +132,7 @@ export function ApidomainSavedSearchExecuteRequestV1ToJSON(value?: ApidomainSave
     }
     return {
         end: value["end"],
+        extra_log_fields: value["extraLogFields"],
         id: value["id"],
         mode: value["mode"],
         name: value["name"],

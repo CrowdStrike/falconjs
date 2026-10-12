@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { JsonschemaFooterAction } from "./JsonschemaFooterAction";
+import { JsonschemaFooterActionFromJSON, JsonschemaFooterActionFromJSONTyped, JsonschemaFooterActionToJSON } from "./JsonschemaFooterAction";
 import type { JsonschemaDurationOption } from "./JsonschemaDurationOption";
 import { JsonschemaDurationOptionFromJSON, JsonschemaDurationOptionFromJSONTyped, JsonschemaDurationOptionToJSON } from "./JsonschemaDurationOption";
 import type { JsonschemaStatement } from "./JsonschemaStatement";
@@ -32,6 +34,12 @@ export interface JsonschemaUIExtensions {
      * @memberof JsonschemaUIExtensions
      */
     accept?: Array<string>;
+    /**
+     * show a create-new button alongside the select dropdown
+     * @type {boolean}
+     * @memberof JsonschemaUIExtensions
+     */
+    addButton?: boolean;
     /**
      *
      * @type {string}
@@ -58,6 +66,12 @@ export interface JsonschemaUIExtensions {
     encoding?: string;
     /**
      *
+     * @type {JsonschemaFooterAction}
+     * @memberof JsonschemaUIExtensions
+     */
+    footerAction?: JsonschemaFooterAction;
+    /**
+     *
      * @type {string}
      * @memberof JsonschemaUIExtensions
      */
@@ -70,10 +84,28 @@ export interface JsonschemaUIExtensions {
     hide?: boolean;
     /**
      *
+     * @type {string}
+     * @memberof JsonschemaUIExtensions
+     */
+    inputType?: string;
+    /**
+     * specify the position of the label relative to its associated element
+     * @type {string}
+     * @memberof JsonschemaUIExtensions
+     */
+    labelPosition?: string;
+    /**
+     *
      * @type {JsonschemaMeta}
      * @memberof JsonschemaUIExtensions
      */
     meta?: JsonschemaMeta;
+    /**
+     * navigate to a specified route after successful action
+     * @type {string}
+     * @memberof JsonschemaUIExtensions
+     */
+    navigateOnSuccess?: string;
     /**
      * placeholder default text for form field
      * @type {string}
@@ -98,6 +130,12 @@ export interface JsonschemaUIExtensions {
      * @memberof JsonschemaUIExtensions
      */
     skip?: boolean;
+    /**
+     * SkyCheck expression controlling whether the field is rendered
+     * @type {string}
+     * @memberof JsonschemaUIExtensions
+     */
+    skyCheck?: string;
     /**
      *
      * @type {JsonschemaStatement}
@@ -135,17 +173,23 @@ export function JsonschemaUIExtensionsFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         accept: json["accept"] == null ? undefined : json["accept"],
+        addButton: json["add-button"] == null ? undefined : json["add-button"],
         component: json["component"] == null ? undefined : json["component"],
         customGroupName: json["customGroupName"] == null ? undefined : json["customGroupName"],
         durationOptions: json["durationOptions"] == null ? undefined : (json["durationOptions"] as Array<any>).map(JsonschemaDurationOptionFromJSON),
         encoding: json["encoding"] == null ? undefined : json["encoding"],
+        footerAction: json["footerAction"] == null ? undefined : JsonschemaFooterActionFromJSON(json["footerAction"]),
         helperText: json["helperText"] == null ? undefined : json["helperText"],
         hide: json["hide"] == null ? undefined : json["hide"],
+        inputType: json["inputType"] == null ? undefined : json["inputType"],
+        labelPosition: json["labelPosition"] == null ? undefined : json["labelPosition"],
         meta: json["meta"] == null ? undefined : JsonschemaMetaFromJSON(json["meta"]),
+        navigateOnSuccess: json["navigateOnSuccess"] == null ? undefined : json["navigateOnSuccess"],
         placeholder: json["placeholder"] == null ? undefined : json["placeholder"],
         readOnly: json["readOnly"] == null ? undefined : json["readOnly"],
         schemaReference: json["schema_reference"] == null ? undefined : json["schema_reference"],
         skip: json["skip"] == null ? undefined : json["skip"],
+        skyCheck: json["skyCheck"] == null ? undefined : json["skyCheck"],
         statement: json["statement"] == null ? undefined : JsonschemaStatementFromJSON(json["statement"]),
         step: json["step"] == null ? undefined : json["step"],
         tooltip: json["tooltip"] == null ? undefined : json["tooltip"],
@@ -158,17 +202,23 @@ export function JsonschemaUIExtensionsToJSON(value?: JsonschemaUIExtensions | nu
     }
     return {
         accept: value["accept"],
+        "add-button": value["addButton"],
         component: value["component"],
         customGroupName: value["customGroupName"],
         durationOptions: value["durationOptions"] == null ? undefined : (value["durationOptions"] as Array<any>).map(JsonschemaDurationOptionToJSON),
         encoding: value["encoding"],
+        footerAction: JsonschemaFooterActionToJSON(value["footerAction"]),
         helperText: value["helperText"],
         hide: value["hide"],
+        inputType: value["inputType"],
+        labelPosition: value["labelPosition"],
         meta: JsonschemaMetaToJSON(value["meta"]),
+        navigateOnSuccess: value["navigateOnSuccess"],
         placeholder: value["placeholder"],
         readOnly: value["readOnly"],
         schema_reference: value["schemaReference"],
         skip: value["skip"],
+        skyCheck: value["skyCheck"],
         statement: JsonschemaStatementToJSON(value["statement"]),
         step: value["step"],
         tooltip: value["tooltip"],

@@ -20,6 +20,12 @@ import { mapValues } from "../runtime";
  */
 export interface DismissSecurityCheckV3Request {
     /**
+     * Snooze the dismiss for this many days (1-365). Omit to dismiss indefinitely
+     * @type {number}
+     * @memberof DismissSecurityCheckV3Request
+     */
+    durationInDays?: number;
+    /**
      * Dismiss reason
      * @type {string}
      * @memberof DismissSecurityCheckV3Request
@@ -43,6 +49,7 @@ export function DismissSecurityCheckV3RequestFromJSONTyped(json: any, ignoreDisc
         return json;
     }
     return {
+        durationInDays: json["duration_in_days"] == null ? undefined : json["duration_in_days"],
         reason: json["reason"] == null ? undefined : json["reason"],
     };
 }
@@ -52,6 +59,7 @@ export function DismissSecurityCheckV3RequestToJSON(value?: DismissSecurityCheck
         return value;
     }
     return {
+        duration_in_days: value["durationInDays"],
         reason: value["reason"],
     };
 }

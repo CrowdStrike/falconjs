@@ -21,16 +21,22 @@ import { mapValues } from "../runtime";
 export interface DomainSearchAfterPaging {
     /**
      *
-     * @type {string}
-     * @memberof DomainSearchAfterPaging
-     */
-    after: string;
-    /**
-     *
      * @type {number}
      * @memberof DomainSearchAfterPaging
      */
     limit: number;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainSearchAfterPaging
+     */
+    next: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainSearchAfterPaging
+     */
+    offset: string;
     /**
      *
      * @type {number}
@@ -43,8 +49,9 @@ export interface DomainSearchAfterPaging {
  * Check if a given object implements the DomainSearchAfterPaging interface.
  */
 export function instanceOfDomainSearchAfterPaging(value: object): value is DomainSearchAfterPaging {
-    if (!("after" in value) || value["after"] === undefined) return false;
     if (!("limit" in value) || value["limit"] === undefined) return false;
+    if (!("next" in value) || value["next"] === undefined) return false;
+    if (!("offset" in value) || value["offset"] === undefined) return false;
     if (!("total" in value) || value["total"] === undefined) return false;
     return true;
 }
@@ -58,8 +65,9 @@ export function DomainSearchAfterPagingFromJSONTyped(json: any, ignoreDiscrimina
         return json;
     }
     return {
-        after: json["after"],
         limit: json["limit"],
+        next: json["next"],
+        offset: json["offset"],
         total: json["total"],
     };
 }
@@ -69,8 +77,9 @@ export function DomainSearchAfterPagingToJSON(value?: DomainSearchAfterPaging | 
         return value;
     }
     return {
-        after: value["after"],
         limit: value["limit"],
+        next: value["next"],
+        offset: value["offset"],
         total: value["total"],
     };
 }

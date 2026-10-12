@@ -398,7 +398,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -555,7 +555,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -643,7 +643,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
         const response = await this.request(
@@ -687,7 +687,7 @@ export class IoaExclusionsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:write"]);
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["self-service-ioa-exclusions:read"]);
         }
 
         const response = await this.request(

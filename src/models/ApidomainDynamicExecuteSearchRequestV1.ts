@@ -27,6 +27,12 @@ export interface ApidomainDynamicExecuteSearchRequestV1 {
     end?: string;
     /**
      *
+     * @type {{ [key: string]: string; }}
+     * @memberof ApidomainDynamicExecuteSearchRequestV1
+     */
+    extraLogFields?: { [key: string]: string };
+    /**
+     *
      * @type {string}
      * @memberof ApidomainDynamicExecuteSearchRequestV1
      */
@@ -71,6 +77,7 @@ export function ApidomainDynamicExecuteSearchRequestV1FromJSONTyped(json: any, i
     }
     return {
         end: json["end"] == null ? undefined : json["end"],
+        extraLogFields: json["extra_log_fields"] == null ? undefined : json["extra_log_fields"],
         repoOrView: json["repo_or_view"],
         searchQuery: json["search_query"],
         searchQueryArgs: json["search_query_args"],
@@ -84,6 +91,7 @@ export function ApidomainDynamicExecuteSearchRequestV1ToJSON(value?: ApidomainDy
     }
     return {
         end: value["end"],
+        extra_log_fields: value["extraLogFields"],
         repo_or_view: value["repoOrView"],
         search_query: value["searchQuery"],
         search_query_args: value["searchQueryArgs"],

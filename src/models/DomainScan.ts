@@ -275,6 +275,12 @@ export interface DomainScan {
      * @type {number}
      * @memberof DomainScan
      */
+    rollupCompleteAtVersion?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof DomainScan
+     */
     rollupVersion?: number;
     /**
      *
@@ -408,6 +414,7 @@ export function DomainScanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         preemptionPriority: json["preemption_priority"] == null ? undefined : json["preemption_priority"],
         profileId: json["profile_id"] == null ? undefined : json["profile_id"],
         quarantine: json["quarantine"] == null ? undefined : json["quarantine"],
+        rollupCompleteAtVersion: json["rollup_complete_at_version"] == null ? undefined : json["rollup_complete_at_version"],
         rollupVersion: json["rollup_version"] == null ? undefined : json["rollup_version"],
         scanCompletedOn: json["scan_completed_on"] == null ? undefined : new Date(json["scan_completed_on"]),
         scanExclusions: json["scan_exclusions"] == null ? undefined : json["scan_exclusions"],
@@ -470,6 +477,7 @@ export function DomainScanToJSON(value?: DomainScan | null): any {
         preemption_priority: value["preemptionPriority"],
         profile_id: value["profileId"],
         quarantine: value["quarantine"],
+        rollup_complete_at_version: value["rollupCompleteAtVersion"],
         rollup_version: value["rollupVersion"],
         scan_completed_on: value["scanCompletedOn"] == null ? undefined : value["scanCompletedOn"].toISOString(),
         scan_exclusions: value["scanExclusions"],

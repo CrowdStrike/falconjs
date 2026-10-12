@@ -39,6 +39,24 @@ import {
  */
 export interface DomainDiscoverAPIApplication {
     /**
+     * The name of the account that last used this application.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    accountName?: string;
+    /**
+     * The type of the account (Local or Domain).
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    accountType?: string;
+    /**
+     * Whether the account has admin privileges (Yes, No, or Unknown).
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    adminPrivileges?: string;
+    /**
      * Represents the application architectures (x86 / x64).
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIApplication
@@ -69,6 +87,12 @@ export interface DomainDiscoverAPIApplication {
      */
     devPackage?: DomainDiscoverAPIApplicationPackage;
     /**
+     * The methods used to discover this application.
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    discoveryMethods?: Array<string>;
+    /**
      * The unique identifier for the extension.
      * @type {string}
      * @memberof DomainDiscoverAPIApplication
@@ -98,6 +122,12 @@ export interface DomainDiscoverAPIApplication {
      * @memberof DomainDiscoverAPIApplication
      */
     host?: DomainDiscoverAPIApplicationHost;
+    /**
+     * The host application for this application.
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    hostApplication?: string;
     /**
      * The unique ID for the application.
      * @type {string}
@@ -176,6 +206,12 @@ export interface DomainDiscoverAPIApplication {
      * @memberof DomainDiscoverAPIApplication
      */
     lastUsedUserSid?: string;
+    /**
+     * Whether the account has local admin privileges (Yes, No, or Unknown).
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    localAdminPrivileges?: string;
     /**
      * The name of the application.
      * @type {string}
@@ -256,16 +292,21 @@ export function DomainDiscoverAPIApplicationFromJSONTyped(json: any, ignoreDiscr
         return json;
     }
     return {
+        accountName: json["account_name"] == null ? undefined : json["account_name"],
+        accountType: json["account_type"] == null ? undefined : json["account_type"],
+        adminPrivileges: json["admin_privileges"] == null ? undefined : json["admin_privileges"],
         architectures: json["architectures"] == null ? undefined : json["architectures"],
         browserExtension: json["browser_extension"] == null ? undefined : DomainDiscoverAPIApplicationBrowserExtensionFromJSON(json["browser_extension"]),
         category: json["category"] == null ? undefined : json["category"],
         cid: json["cid"],
         devPackage: json["dev_package"] == null ? undefined : DomainDiscoverAPIApplicationPackageFromJSON(json["dev_package"]),
+        discoveryMethods: json["discovery_methods"] == null ? undefined : json["discovery_methods"],
         extensionId: json["extension_id"] == null ? undefined : json["extension_id"],
         firstSeenTimestamp: json["first_seen_timestamp"] == null ? undefined : json["first_seen_timestamp"],
         groups: json["groups"] == null ? undefined : json["groups"],
         homepage: json["homepage"] == null ? undefined : json["homepage"],
         host: json["host"] == null ? undefined : DomainDiscoverAPIApplicationHostFromJSON(json["host"]),
+        hostApplication: json["host_application"] == null ? undefined : json["host_application"],
         id: json["id"],
         ideExtension: json["ide_extension"] == null ? undefined : DomainDiscoverAPIApplicationIDEExtensionFromJSON(json["ide_extension"]),
         installationPaths: json["installation_paths"] == null ? undefined : json["installation_paths"],
@@ -279,6 +320,7 @@ export function DomainDiscoverAPIApplicationFromJSONTyped(json: any, ignoreDiscr
         lastUsedTimestamp: json["last_used_timestamp"] == null ? undefined : json["last_used_timestamp"],
         lastUsedUserName: json["last_used_user_name"] == null ? undefined : json["last_used_user_name"],
         lastUsedUserSid: json["last_used_user_sid"] == null ? undefined : json["last_used_user_sid"],
+        localAdminPrivileges: json["local_admin_privileges"] == null ? undefined : json["local_admin_privileges"],
         name: json["name"] == null ? undefined : json["name"],
         nameVendor: json["name_vendor"] == null ? undefined : json["name_vendor"],
         nameVendorVersion: json["name_vendor_version"] == null ? undefined : json["name_vendor_version"],
@@ -297,16 +339,21 @@ export function DomainDiscoverAPIApplicationToJSON(value?: DomainDiscoverAPIAppl
         return value;
     }
     return {
+        account_name: value["accountName"],
+        account_type: value["accountType"],
+        admin_privileges: value["adminPrivileges"],
         architectures: value["architectures"],
         browser_extension: DomainDiscoverAPIApplicationBrowserExtensionToJSON(value["browserExtension"]),
         category: value["category"],
         cid: value["cid"],
         dev_package: DomainDiscoverAPIApplicationPackageToJSON(value["devPackage"]),
+        discovery_methods: value["discoveryMethods"],
         extension_id: value["extensionId"],
         first_seen_timestamp: value["firstSeenTimestamp"],
         groups: value["groups"],
         homepage: value["homepage"],
         host: DomainDiscoverAPIApplicationHostToJSON(value["host"]),
+        host_application: value["hostApplication"],
         id: value["id"],
         ide_extension: DomainDiscoverAPIApplicationIDEExtensionToJSON(value["ideExtension"]),
         installation_paths: value["installationPaths"],
@@ -320,6 +367,7 @@ export function DomainDiscoverAPIApplicationToJSON(value?: DomainDiscoverAPIAppl
         last_used_timestamp: value["lastUsedTimestamp"],
         last_used_user_name: value["lastUsedUserName"],
         last_used_user_sid: value["lastUsedUserSid"],
+        local_admin_privileges: value["localAdminPrivileges"],
         name: value["name"],
         name_vendor: value["nameVendor"],
         name_vendor_version: value["nameVendorVersion"],

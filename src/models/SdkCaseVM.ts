@@ -13,24 +13,26 @@
  */
 
 import { mapValues } from "../runtime";
-import type { SdkAnalysisResultsVM } from "./SdkAnalysisResultsVM";
-import { SdkAnalysisResultsVMFromJSON, SdkAnalysisResultsVMFromJSONTyped, SdkAnalysisResultsVMToJSON } from "./SdkAnalysisResultsVM";
+import type { SdkAssigneeGroupVM } from "./SdkAssigneeGroupVM";
+import { SdkAssigneeGroupVMFromJSON, SdkAssigneeGroupVMFromJSONTyped, SdkAssigneeGroupVMToJSON } from "./SdkAssigneeGroupVM";
 import type { SdkCaseSeverityInfoVM } from "./SdkCaseSeverityInfoVM";
 import { SdkCaseSeverityInfoVMFromJSON, SdkCaseSeverityInfoVMFromJSONTyped, SdkCaseSeverityInfoVMToJSON } from "./SdkCaseSeverityInfoVM";
 import type { SdkEvidenceVM } from "./SdkEvidenceVM";
 import { SdkEvidenceVMFromJSON, SdkEvidenceVMFromJSONTyped, SdkEvidenceVMToJSON } from "./SdkEvidenceVM";
-import type { SdkActorVM } from "./SdkActorVM";
-import { SdkActorVMFromJSON, SdkActorVMFromJSONTyped, SdkActorVMToJSON } from "./SdkActorVM";
 import type { SdkCustomFieldVM } from "./SdkCustomFieldVM";
 import { SdkCustomFieldVMFromJSON, SdkCustomFieldVMFromJSONTyped, SdkCustomFieldVMToJSON } from "./SdkCustomFieldVM";
 import type { SdkCaseAccessTag } from "./SdkCaseAccessTag";
 import { SdkCaseAccessTagFromJSON, SdkCaseAccessTagFromJSONTyped, SdkCaseAccessTagToJSON } from "./SdkCaseAccessTag";
+import type { SdkTemplateVM } from "./SdkTemplateVM";
+import { SdkTemplateVMFromJSON, SdkTemplateVMFromJSONTyped, SdkTemplateVMToJSON } from "./SdkTemplateVM";
+import type { SdkAnalysisResultsVM } from "./SdkAnalysisResultsVM";
+import { SdkAnalysisResultsVMFromJSON, SdkAnalysisResultsVMFromJSONTyped, SdkAnalysisResultsVMToJSON } from "./SdkAnalysisResultsVM";
+import type { SdkActorVM } from "./SdkActorVM";
+import { SdkActorVMFromJSON, SdkActorVMFromJSONTyped, SdkActorVMToJSON } from "./SdkActorVM";
 import type { SdkSLAVM } from "./SdkSLAVM";
 import { SdkSLAVMFromJSON, SdkSLAVMFromJSONTyped, SdkSLAVMToJSON } from "./SdkSLAVM";
 import type { SdkFalconUserVM } from "./SdkFalconUserVM";
 import { SdkFalconUserVMFromJSON, SdkFalconUserVMFromJSONTyped, SdkFalconUserVMToJSON } from "./SdkFalconUserVM";
-import type { SdkTemplateVM } from "./SdkTemplateVM";
-import { SdkTemplateVMFromJSON, SdkTemplateVMFromJSONTyped, SdkTemplateVMToJSON } from "./SdkTemplateVM";
 import type { SdkConsistencyVM } from "./SdkConsistencyVM";
 import { SdkConsistencyVMFromJSON, SdkConsistencyVMFromJSONTyped, SdkConsistencyVMToJSON } from "./SdkConsistencyVM";
 import type { SdkWorkflowVM } from "./SdkWorkflowVM";
@@ -62,6 +64,12 @@ export interface SdkCaseVM {
      * @memberof SdkCaseVM
      */
     assignedTo: SdkFalconUserVM;
+    /**
+     *
+     * @type {Array<SdkAssigneeGroupVM>}
+     * @memberof SdkCaseVM
+     */
+    assignedToGroups: Array<SdkAssigneeGroupVM>;
     /**
      *
      * @type {string}
@@ -202,6 +210,12 @@ export interface SdkCaseVM {
     template?: SdkTemplateVM;
     /**
      *
+     * @type {Array<SdkTemplateVM>}
+     * @memberof SdkCaseVM
+     */
+    templates?: Array<SdkTemplateVM>;
+    /**
+     *
      * @type {SdkActorVM}
      * @memberof SdkCaseVM
      */
@@ -232,6 +246,7 @@ export interface SdkCaseVM {
 export function instanceOfSdkCaseVM(value: object): value is SdkCaseVM {
     if (!("analysisResults" in value) || value["analysisResults"] === undefined) return false;
     if (!("assignedTo" in value) || value["assignedTo"] === undefined) return false;
+    if (!("assignedToGroups" in value) || value["assignedToGroups"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
     if (!("consistency" in value) || value["consistency"] === undefined) return false;
     if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
@@ -267,6 +282,7 @@ export function SdkCaseVMFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         accessTags: json["access_tags"] == null ? undefined : (json["access_tags"] as Array<any>).map(SdkCaseAccessTagFromJSON),
         analysisResults: SdkAnalysisResultsVMFromJSON(json["analysis_results"]),
         assignedTo: SdkFalconUserVMFromJSON(json["assigned_to"]),
+        assignedToGroups: (json["assigned_to_groups"] as Array<any>).map(SdkAssigneeGroupVMFromJSON),
         cid: json["cid"],
         consistency: SdkConsistencyVMFromJSON(json["consistency"]),
         createdBy: SdkFalconUserVMFromJSON(json["created_by"]),
@@ -290,6 +306,7 @@ export function SdkCaseVMFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         status: json["status"],
         tags: json["tags"] == null ? undefined : json["tags"],
         template: json["template"] == null ? undefined : SdkTemplateVMFromJSON(json["template"]),
+        templates: json["templates"] == null ? undefined : (json["templates"] as Array<any>).map(SdkTemplateVMFromJSON),
         updateActor: SdkActorVMFromJSON(json["update_actor"]),
         updatedTimestamp: new Date(json["updated_timestamp"]),
         version: json["version"],
@@ -305,6 +322,7 @@ export function SdkCaseVMToJSON(value?: SdkCaseVM | null): any {
         access_tags: value["accessTags"] == null ? undefined : (value["accessTags"] as Array<any>).map(SdkCaseAccessTagToJSON),
         analysis_results: SdkAnalysisResultsVMToJSON(value["analysisResults"]),
         assigned_to: SdkFalconUserVMToJSON(value["assignedTo"]),
+        assigned_to_groups: (value["assignedToGroups"] as Array<any>).map(SdkAssigneeGroupVMToJSON),
         cid: value["cid"],
         consistency: SdkConsistencyVMToJSON(value["consistency"]),
         created_by: SdkFalconUserVMToJSON(value["createdBy"]),
@@ -328,6 +346,7 @@ export function SdkCaseVMToJSON(value?: SdkCaseVM | null): any {
         status: value["status"],
         tags: value["tags"],
         template: SdkTemplateVMToJSON(value["template"]),
+        templates: value["templates"] == null ? undefined : (value["templates"] as Array<any>).map(SdkTemplateVMToJSON),
         update_actor: SdkActorVMToJSON(value["updateActor"]),
         updated_timestamp: value["updatedTimestamp"].toISOString(),
         version: value["version"],

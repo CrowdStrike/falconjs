@@ -42,6 +42,12 @@ export interface SdkAnalysisResultsHostRecordVM {
      * @type {string}
      * @memberof SdkAnalysisResultsHostRecordVM
      */
+    deviceIp: string;
+    /**
+     *
+     * @type {string}
+     * @memberof SdkAnalysisResultsHostRecordVM
+     */
     hostname: string;
     /**
      *
@@ -49,6 +55,12 @@ export interface SdkAnalysisResultsHostRecordVM {
      * @memberof SdkAnalysisResultsHostRecordVM
      */
     localIp: string;
+    /**
+     *
+     * @type {string}
+     * @memberof SdkAnalysisResultsHostRecordVM
+     */
+    observedIp: string;
 }
 
 /**
@@ -58,8 +70,10 @@ export function instanceOfSdkAnalysisResultsHostRecordVM(value: object): value i
     if (!("agentIp" in value) || value["agentIp"] === undefined) return false;
     if (!("aid" in value) || value["aid"] === undefined) return false;
     if (!("cloudInstanceId" in value) || value["cloudInstanceId"] === undefined) return false;
+    if (!("deviceIp" in value) || value["deviceIp"] === undefined) return false;
     if (!("hostname" in value) || value["hostname"] === undefined) return false;
     if (!("localIp" in value) || value["localIp"] === undefined) return false;
+    if (!("observedIp" in value) || value["observedIp"] === undefined) return false;
     return true;
 }
 
@@ -75,8 +89,10 @@ export function SdkAnalysisResultsHostRecordVMFromJSONTyped(json: any, ignoreDis
         agentIp: json["agent_ip"],
         aid: json["aid"],
         cloudInstanceId: json["cloud_instance_id"],
+        deviceIp: json["device_ip"],
         hostname: json["hostname"],
         localIp: json["local_ip"],
+        observedIp: json["observed_ip"],
     };
 }
 
@@ -88,7 +104,9 @@ export function SdkAnalysisResultsHostRecordVMToJSON(value?: SdkAnalysisResultsH
         agent_ip: value["agentIp"],
         aid: value["aid"],
         cloud_instance_id: value["cloudInstanceId"],
+        device_ip: value["deviceIp"],
         hostname: value["hostname"],
         local_ip: value["localIp"],
+        observed_ip: value["observedIp"],
     };
 }

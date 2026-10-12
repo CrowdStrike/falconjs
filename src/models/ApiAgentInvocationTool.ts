@@ -13,6 +13,8 @@
  */
 
 import { mapValues } from "../runtime";
+import type { ApiAgentInvocationToolResult } from "./ApiAgentInvocationToolResult";
+import { ApiAgentInvocationToolResultFromJSON, ApiAgentInvocationToolResultFromJSONTyped, ApiAgentInvocationToolResultToJSON } from "./ApiAgentInvocationToolResult";
 import type { ApiAgentInvocationToolCall } from "./ApiAgentInvocationToolCall";
 import { ApiAgentInvocationToolCallFromJSON, ApiAgentInvocationToolCallFromJSONTyped, ApiAgentInvocationToolCallToJSON } from "./ApiAgentInvocationToolCall";
 
@@ -28,6 +30,12 @@ export interface ApiAgentInvocationTool {
      * @memberof ApiAgentInvocationTool
      */
     calls: Array<ApiAgentInvocationToolCall>;
+    /**
+     *
+     * @type {ApiAgentInvocationToolResult}
+     * @memberof ApiAgentInvocationTool
+     */
+    result?: ApiAgentInvocationToolResult;
     /**
      *
      * @type {string}
@@ -55,6 +63,7 @@ export function ApiAgentInvocationToolFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         calls: (json["calls"] as Array<any>).map(ApiAgentInvocationToolCallFromJSON),
+        result: json["result"] == null ? undefined : ApiAgentInvocationToolResultFromJSON(json["result"]),
         toolId: json["tool_id"],
     };
 }
@@ -65,6 +74,7 @@ export function ApiAgentInvocationToolToJSON(value?: ApiAgentInvocationTool | nu
     }
     return {
         calls: (value["calls"] as Array<any>).map(ApiAgentInvocationToolCallToJSON),
+        result: ApiAgentInvocationToolResultToJSON(value["result"]),
         tool_id: value["toolId"],
     };
 }

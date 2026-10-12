@@ -32,6 +32,12 @@ export interface CommonUpdateRuleRequest {
     alertInfo?: string;
     /**
      *
+     * @type {string}
+     * @memberof CommonUpdateRuleRequest
+     */
+    annotationStatus?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof CommonUpdateRuleRequest
      */
@@ -98,6 +104,7 @@ export function CommonUpdateRuleRequestFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         alertInfo: json["alert_info"] == null ? undefined : json["alert_info"],
+        annotationStatus: json["annotation_status"] == null ? undefined : json["annotation_status"],
         attackTypes: json["attack_types"] == null ? undefined : json["attack_types"],
         category: json["category"] == null ? undefined : json["category"],
         controls: json["controls"] == null ? undefined : (json["controls"] as Array<any>).map(ApimodelsControlReferenceFromJSON),
@@ -115,6 +122,7 @@ export function CommonUpdateRuleRequestToJSON(value?: CommonUpdateRuleRequest | 
     }
     return {
         alert_info: value["alertInfo"],
+        annotation_status: value["annotationStatus"],
         attack_types: value["attackTypes"],
         category: value["category"],
         controls: value["controls"] == null ? undefined : (value["controls"] as Array<any>).map(ApimodelsControlReferenceToJSON),

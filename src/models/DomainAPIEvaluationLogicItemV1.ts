@@ -31,6 +31,12 @@ export interface DomainAPIEvaluationLogicItemV1 {
      * @type {string}
      * @memberof DomainAPIEvaluationLogicItemV1
      */
+    assessmentResult?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainAPIEvaluationLogicItemV1
+     */
     comparisonCheck?: string;
     /**
      *
@@ -106,6 +112,7 @@ export function DomainAPIEvaluationLogicItemV1FromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
+        assessmentResult: json["assessment_result"] == null ? undefined : json["assessment_result"],
         comparisonCheck: json["comparison_check"] == null ? undefined : json["comparison_check"],
         comparisons: json["comparisons"] == null ? undefined : DomainAPIEvaluationLogicComparisonsV1FromJSON(json["comparisons"]),
         description: json["description"] == null ? undefined : json["description"],
@@ -124,6 +131,7 @@ export function DomainAPIEvaluationLogicItemV1ToJSON(value?: DomainAPIEvaluation
         return value;
     }
     return {
+        assessment_result: value["assessmentResult"],
         comparison_check: value["comparisonCheck"],
         comparisons: DomainAPIEvaluationLogicComparisonsV1ToJSON(value["comparisons"]),
         description: value["description"],

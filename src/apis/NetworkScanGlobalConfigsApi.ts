@@ -13,16 +13,16 @@
  */
 
 import * as runtime from "../runtime";
-import type { DomainGlobalConfigEntitiesResponse, DomainGlobalConfigUpdateRequest, MsaReplyMetaOnly, MsaspecResponseFields } from "../models/index";
+import type { MsaReplyMetaOnly, MsaspecResponseFields, NvaapiGlobalConfigEntitiesResponse, NvaapiGlobalConfigUpdateRequest } from "../models/index";
 import {
-    DomainGlobalConfigEntitiesResponseFromJSON,
-    DomainGlobalConfigEntitiesResponseToJSON,
-    DomainGlobalConfigUpdateRequestFromJSON,
-    DomainGlobalConfigUpdateRequestToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    NvaapiGlobalConfigEntitiesResponseFromJSON,
+    NvaapiGlobalConfigEntitiesResponseToJSON,
+    NvaapiGlobalConfigUpdateRequestFromJSON,
+    NvaapiGlobalConfigUpdateRequestToJSON,
 } from "../models/index";
 
 export interface NetworkScanGlobalConfigsApiGetGlobalConfigsRequest {
@@ -30,7 +30,7 @@ export interface NetworkScanGlobalConfigsApiGetGlobalConfigsRequest {
 }
 
 export interface NetworkScanGlobalConfigsApiUpdateGlobalConfigsRequest {
-    body: DomainGlobalConfigUpdateRequest;
+    body: NvaapiGlobalConfigUpdateRequest;
     xCSUSERUUID?: string;
 }
 
@@ -44,7 +44,7 @@ export class NetworkScanGlobalConfigsApi extends runtime.BaseAPI {
     async getGlobalConfigsRaw(
         requestParameters: NetworkScanGlobalConfigsApiGetGlobalConfigsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainGlobalConfigEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiGlobalConfigEntitiesResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -68,13 +68,13 @@ export class NetworkScanGlobalConfigsApi extends runtime.BaseAPI {
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainGlobalConfigEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiGlobalConfigEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Get \"global-configs\" for the CID
      */
-    async getGlobalConfigs(xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainGlobalConfigEntitiesResponse> {
+    async getGlobalConfigs(xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiGlobalConfigEntitiesResponse> {
         const response = await this.getGlobalConfigsRaw({ xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }
@@ -85,7 +85,7 @@ export class NetworkScanGlobalConfigsApi extends runtime.BaseAPI {
     async updateGlobalConfigsRaw(
         requestParameters: NetworkScanGlobalConfigsApiUpdateGlobalConfigsRequest,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<DomainGlobalConfigEntitiesResponse>> {
+    ): Promise<runtime.ApiResponse<NvaapiGlobalConfigEntitiesResponse>> {
         if (requestParameters["body"] == null) {
             throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateGlobalConfigs().');
         }
@@ -111,18 +111,18 @@ export class NetworkScanGlobalConfigsApi extends runtime.BaseAPI {
                 method: "PATCH",
                 headers: headerParameters,
                 query: queryParameters,
-                body: DomainGlobalConfigUpdateRequestToJSON(requestParameters["body"]),
+                body: NvaapiGlobalConfigUpdateRequestToJSON(requestParameters["body"]),
             },
             initOverrides,
         );
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => DomainGlobalConfigEntitiesResponseFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => NvaapiGlobalConfigEntitiesResponseFromJSON(jsonValue));
     }
 
     /**
      * Update \"global-configs\" using provided specifications
      */
-    async updateGlobalConfigs(body: DomainGlobalConfigUpdateRequest, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainGlobalConfigEntitiesResponse> {
+    async updateGlobalConfigs(body: NvaapiGlobalConfigUpdateRequest, xCSUSERUUID?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NvaapiGlobalConfigEntitiesResponse> {
         const response = await this.updateGlobalConfigsRaw({ body: body, xCSUSERUUID: xCSUSERUUID }, initOverrides);
         return await response.value();
     }

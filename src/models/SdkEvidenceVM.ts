@@ -13,14 +13,24 @@
  */
 
 import { mapValues } from "../runtime";
+import type { SdkHashEvidenceVM } from "./SdkHashEvidenceVM";
+import { SdkHashEvidenceVMFromJSON, SdkHashEvidenceVMFromJSONTyped, SdkHashEvidenceVMToJSON } from "./SdkHashEvidenceVM";
 import type { SdkEventEvidenceVM } from "./SdkEventEvidenceVM";
 import { SdkEventEvidenceVMFromJSON, SdkEventEvidenceVMFromJSONTyped, SdkEventEvidenceVMToJSON } from "./SdkEventEvidenceVM";
+import type { SdkReportEvidenceVM } from "./SdkReportEvidenceVM";
+import { SdkReportEvidenceVMFromJSON, SdkReportEvidenceVMFromJSONTyped, SdkReportEvidenceVMToJSON } from "./SdkReportEvidenceVM";
 import type { SdkCustomEvidenceVM } from "./SdkCustomEvidenceVM";
 import { SdkCustomEvidenceVMFromJSON, SdkCustomEvidenceVMFromJSONTyped, SdkCustomEvidenceVMToJSON } from "./SdkCustomEvidenceVM";
+import type { SdkAdversaryEvidenceVM } from "./SdkAdversaryEvidenceVM";
+import { SdkAdversaryEvidenceVMFromJSON, SdkAdversaryEvidenceVMFromJSONTyped, SdkAdversaryEvidenceVMToJSON } from "./SdkAdversaryEvidenceVM";
+import type { SdkHostEvidenceVM } from "./SdkHostEvidenceVM";
+import { SdkHostEvidenceVMFromJSON, SdkHostEvidenceVMFromJSONTyped, SdkHostEvidenceVMToJSON } from "./SdkHostEvidenceVM";
 import type { SdkAlertEvidenceVM } from "./SdkAlertEvidenceVM";
 import { SdkAlertEvidenceVMFromJSON, SdkAlertEvidenceVMFromJSONTyped, SdkAlertEvidenceVMToJSON } from "./SdkAlertEvidenceVM";
 import type { SdkUserEvidenceVM } from "./SdkUserEvidenceVM";
 import { SdkUserEvidenceVMFromJSON, SdkUserEvidenceVMFromJSONTyped, SdkUserEvidenceVMToJSON } from "./SdkUserEvidenceVM";
+import type { SdkHostGroupEvidenceVM } from "./SdkHostGroupEvidenceVM";
+import { SdkHostGroupEvidenceVMFromJSON, SdkHostGroupEvidenceVMFromJSONTyped, SdkHostGroupEvidenceVMToJSON } from "./SdkHostGroupEvidenceVM";
 import type { SdkLeadEvidenceVM } from "./SdkLeadEvidenceVM";
 import { SdkLeadEvidenceVMFromJSON, SdkLeadEvidenceVMFromJSONTyped, SdkLeadEvidenceVMToJSON } from "./SdkLeadEvidenceVM";
 
@@ -30,6 +40,12 @@ import { SdkLeadEvidenceVMFromJSON, SdkLeadEvidenceVMFromJSONTyped, SdkLeadEvide
  * @interface SdkEvidenceVM
  */
 export interface SdkEvidenceVM {
+    /**
+     *
+     * @type {SdkAdversaryEvidenceVM}
+     * @memberof SdkEvidenceVM
+     */
+    adversaryEvidence: SdkAdversaryEvidenceVM;
     /**
      *
      * @type {SdkAlertEvidenceVM}
@@ -50,10 +66,34 @@ export interface SdkEvidenceVM {
     events: SdkEventEvidenceVM;
     /**
      *
+     * @type {SdkHashEvidenceVM}
+     * @memberof SdkEvidenceVM
+     */
+    hashEvidence: SdkHashEvidenceVM;
+    /**
+     *
+     * @type {SdkHostEvidenceVM}
+     * @memberof SdkEvidenceVM
+     */
+    hostEvidence: SdkHostEvidenceVM;
+    /**
+     *
+     * @type {SdkHostGroupEvidenceVM}
+     * @memberof SdkEvidenceVM
+     */
+    hostGroupEvidence: SdkHostGroupEvidenceVM;
+    /**
+     *
      * @type {SdkLeadEvidenceVM}
      * @memberof SdkEvidenceVM
      */
     leads: SdkLeadEvidenceVM;
+    /**
+     *
+     * @type {SdkReportEvidenceVM}
+     * @memberof SdkEvidenceVM
+     */
+    reportEvidence: SdkReportEvidenceVM;
     /**
      *
      * @type {SdkUserEvidenceVM}
@@ -66,10 +106,15 @@ export interface SdkEvidenceVM {
  * Check if a given object implements the SdkEvidenceVM interface.
  */
 export function instanceOfSdkEvidenceVM(value: object): value is SdkEvidenceVM {
+    if (!("adversaryEvidence" in value) || value["adversaryEvidence"] === undefined) return false;
     if (!("alerts" in value) || value["alerts"] === undefined) return false;
     if (!("customEvidence" in value) || value["customEvidence"] === undefined) return false;
     if (!("events" in value) || value["events"] === undefined) return false;
+    if (!("hashEvidence" in value) || value["hashEvidence"] === undefined) return false;
+    if (!("hostEvidence" in value) || value["hostEvidence"] === undefined) return false;
+    if (!("hostGroupEvidence" in value) || value["hostGroupEvidence"] === undefined) return false;
     if (!("leads" in value) || value["leads"] === undefined) return false;
+    if (!("reportEvidence" in value) || value["reportEvidence"] === undefined) return false;
     if (!("users" in value) || value["users"] === undefined) return false;
     return true;
 }
@@ -83,10 +128,15 @@ export function SdkEvidenceVMFromJSONTyped(json: any, ignoreDiscriminator: boole
         return json;
     }
     return {
+        adversaryEvidence: SdkAdversaryEvidenceVMFromJSON(json["adversary_evidence"]),
         alerts: SdkAlertEvidenceVMFromJSON(json["alerts"]),
         customEvidence: SdkCustomEvidenceVMFromJSON(json["custom_evidence"]),
         events: SdkEventEvidenceVMFromJSON(json["events"]),
+        hashEvidence: SdkHashEvidenceVMFromJSON(json["hash_evidence"]),
+        hostEvidence: SdkHostEvidenceVMFromJSON(json["host_evidence"]),
+        hostGroupEvidence: SdkHostGroupEvidenceVMFromJSON(json["host_group_evidence"]),
         leads: SdkLeadEvidenceVMFromJSON(json["leads"]),
+        reportEvidence: SdkReportEvidenceVMFromJSON(json["report_evidence"]),
         users: SdkUserEvidenceVMFromJSON(json["users"]),
     };
 }
@@ -96,10 +146,15 @@ export function SdkEvidenceVMToJSON(value?: SdkEvidenceVM | null): any {
         return value;
     }
     return {
+        adversary_evidence: SdkAdversaryEvidenceVMToJSON(value["adversaryEvidence"]),
         alerts: SdkAlertEvidenceVMToJSON(value["alerts"]),
         custom_evidence: SdkCustomEvidenceVMToJSON(value["customEvidence"]),
         events: SdkEventEvidenceVMToJSON(value["events"]),
+        hash_evidence: SdkHashEvidenceVMToJSON(value["hashEvidence"]),
+        host_evidence: SdkHostEvidenceVMToJSON(value["hostEvidence"]),
+        host_group_evidence: SdkHostGroupEvidenceVMToJSON(value["hostGroupEvidence"]),
         leads: SdkLeadEvidenceVMToJSON(value["leads"]),
+        report_evidence: SdkReportEvidenceVMToJSON(value["reportEvidence"]),
         users: SdkUserEvidenceVMToJSON(value["users"]),
     };
 }

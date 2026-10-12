@@ -14,7 +14,9 @@
 
 import * as runtime from "../runtime";
 import type {
+    DtoGCPDeploymentCommandResponseV1,
     DtoGCPEntitiesResponseV1,
+    DtoGCPInfraManagerScriptRequestV1,
     DtoGCPRegistrationCreateRequestExtV1,
     DtoGCPRegistrationResponseExtV1,
     DtoGCPRegistrationUpdateRequestExtV1,
@@ -24,8 +26,12 @@ import type {
     MsaspecResponseFields,
 } from "../models/index";
 import {
+    DtoGCPDeploymentCommandResponseV1FromJSON,
+    DtoGCPDeploymentCommandResponseV1ToJSON,
     DtoGCPEntitiesResponseV1FromJSON,
     DtoGCPEntitiesResponseV1ToJSON,
+    DtoGCPInfraManagerScriptRequestV1FromJSON,
+    DtoGCPInfraManagerScriptRequestV1ToJSON,
     DtoGCPRegistrationCreateRequestExtV1FromJSON,
     DtoGCPRegistrationCreateRequestExtV1ToJSON,
     DtoGCPRegistrationResponseExtV1FromJSON,
@@ -56,10 +62,15 @@ export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetEntitiesR
     sort?: string;
     limit?: number;
     offset?: number;
+    includeAllStatuses?: boolean;
 }
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetRegistrationRequest {
     ids: string;
+}
+
+export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpPostInfraManagerScriptRequest {
+    body: DtoGCPInfraManagerScriptRequestV1;
 }
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpPostTerraformScriptRequest {
@@ -202,6 +213,10 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
             queryParameters["offset"] = requestParameters["offset"];
         }
 
+        if (requestParameters["includeAllStatuses"] != null) {
+            queryParameters["include_all_statuses"] = requestParameters["includeAllStatuses"];
+        }
+
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -232,9 +247,10 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
         sort?: string,
         limit?: number,
         offset?: number,
+        includeAllStatuses?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<DtoGCPEntitiesResponseV1> {
-        const response = await this.cloudRegistrationGcpGetEntitiesRaw({ ids: ids, filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
+        const response = await this.cloudRegistrationGcpGetEntitiesRaw({ ids: ids, filter: filter, sort: sort, limit: limit, offset: offset, includeAllStatuses: includeAllStatuses }, initOverrides);
         return await response.value();
     }
 
@@ -280,6 +296,52 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
      */
     async cloudRegistrationGcpGetRegistration(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DtoGCPRegistrationResponseExtV1> {
         const response = await this.cloudRegistrationGcpGetRegistrationRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Only supports infrastructure-manager deployment method. Returns gcloud infra-manager commands as structured JSON.
+     * Generate Google Cloud Infrastructure Manager deployment commands
+     */
+    async cloudRegistrationGcpPostInfraManagerScriptRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpPostInfraManagerScriptRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoGCPDeploymentCommandResponseV1>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling cloudRegistrationGcpPostInfraManagerScript().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-google-cloud/entities/scripts-infra-manager/v1`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: DtoGCPInfraManagerScriptRequestV1ToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DtoGCPDeploymentCommandResponseV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Only supports infrastructure-manager deployment method. Returns gcloud infra-manager commands as structured JSON.
+     * Generate Google Cloud Infrastructure Manager deployment commands
+     */
+    async cloudRegistrationGcpPostInfraManagerScript(body: DtoGCPInfraManagerScriptRequestV1, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DtoGCPDeploymentCommandResponseV1> {
+        const response = await this.cloudRegistrationGcpPostInfraManagerScriptRaw({ body: body }, initOverrides);
         return await response.value();
     }
 

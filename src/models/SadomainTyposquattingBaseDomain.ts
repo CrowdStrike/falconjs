@@ -15,6 +15,8 @@
 import { mapValues } from "../runtime";
 import type { SadomainWhoisRecord } from "./SadomainWhoisRecord";
 import { SadomainWhoisRecordFromJSON, SadomainWhoisRecordFromJSONTyped, SadomainWhoisRecordToJSON } from "./SadomainWhoisRecord";
+import type { SadomainURLScan } from "./SadomainURLScan";
+import { SadomainURLScanFromJSON, SadomainURLScanFromJSONTyped, SadomainURLScanToJSON } from "./SadomainURLScan";
 import type { SadomainSubmissionInformation } from "./SadomainSubmissionInformation";
 import { SadomainSubmissionInformationFromJSON, SadomainSubmissionInformationFromJSONTyped, SadomainSubmissionInformationToJSON } from "./SadomainSubmissionInformation";
 
@@ -68,6 +70,12 @@ export interface SadomainTyposquattingBaseDomain {
     unicodeFormat: string;
     /**
      *
+     * @type {SadomainURLScan}
+     * @memberof SadomainTyposquattingBaseDomain
+     */
+    urlScan?: SadomainURLScan;
+    /**
+     *
      * @type {SadomainWhoisRecord}
      * @memberof SadomainTyposquattingBaseDomain
      */
@@ -101,6 +109,7 @@ export function SadomainTyposquattingBaseDomainFromJSONTyped(json: any, ignoreDi
         submitForBlockingInfo: json["submit_for_blocking_info"] == null ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_blocking_info"]),
         submitForTakedownInfo: json["submit_for_takedown_info"] == null ? undefined : SadomainSubmissionInformationFromJSON(json["submit_for_takedown_info"]),
         unicodeFormat: json["unicode_format"],
+        urlScan: json["url_scan"] == null ? undefined : SadomainURLScanFromJSON(json["url_scan"]),
         whois: json["whois"] == null ? undefined : SadomainWhoisRecordFromJSON(json["whois"]),
     };
 }
@@ -117,6 +126,7 @@ export function SadomainTyposquattingBaseDomainToJSON(value?: SadomainTyposquatt
         submit_for_blocking_info: SadomainSubmissionInformationToJSON(value["submitForBlockingInfo"]),
         submit_for_takedown_info: SadomainSubmissionInformationToJSON(value["submitForTakedownInfo"]),
         unicode_format: value["unicodeFormat"],
+        url_scan: SadomainURLScanToJSON(value["urlScan"]),
         whois: SadomainWhoisRecordToJSON(value["whois"]),
     };
 }

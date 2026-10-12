@@ -24,10 +24,10 @@ import { JsonschemaSubSchemaFromJSON, JsonschemaSubSchemaFromJSONTyped, Jsonsche
 export interface JsonschemaSchema {
     /**
      *
-     * @type {JsonschemaSubSchema}
+     * @type {string}
      * @memberof JsonschemaSchema
      */
-    subSchema: JsonschemaSubSchema;
+    subSchema: string;
     /**
      *
      * @type {{ [key: string]: JsonschemaSubSchema; }}
@@ -53,7 +53,7 @@ export function JsonschemaSchemaFromJSONTyped(json: any, ignoreDiscriminator: bo
         return json;
     }
     return {
-        subSchema: JsonschemaSubSchemaFromJSON(json["SubSchema"]),
+        subSchema: json["SubSchema"],
         definitions: json["definitions"] == null ? undefined : mapValues(json["definitions"], JsonschemaSubSchemaFromJSON),
     };
 }
@@ -63,7 +63,7 @@ export function JsonschemaSchemaToJSON(value?: JsonschemaSchema | null): any {
         return value;
     }
     return {
-        SubSchema: JsonschemaSubSchemaToJSON(value["subSchema"]),
+        SubSchema: value["subSchema"],
         definitions: value["definitions"] == null ? undefined : mapValues(value["definitions"], JsonschemaSubSchemaToJSON),
     };
 }
