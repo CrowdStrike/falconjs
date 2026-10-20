@@ -1,6 +1,6 @@
 import { FetchParams, RequestContext } from "../runtime";
 
-const DEFAULT_USER_AGENT = "falconjs/0.8.0";
+const DEFAULT_USER_AGENT = "falconjs/0.9.0";
 
 // RFC 9110 §5.6.2 tchar. A User-Agent product is token["/"token] (§10.1.5),
 // and multiple products are separated by a single space.

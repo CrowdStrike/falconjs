@@ -48,7 +48,7 @@ await client.sensorDownload
 ```
 
 When `userAgentOverride` is set, FalconJS sends it before its own identifier. The
-example above produces `example-integration/1.0.0 falconjs/0.8.0`.
+example above produces `example-integration/1.0.0 falconjs/0.9.0`.
 
 ## Documentation
 
