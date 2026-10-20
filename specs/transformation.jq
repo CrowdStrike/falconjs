@@ -290,3 +290,6 @@
   )
 | .definitions."domain.MitreAttackDetection" = .definitions."domain.MitreAttack"
 | del(.definitions."domain.MitreAttack")
+# The 2026-10-20 spec lists sensor update stage's empty value as the two-character string `""` instead
+# of an empty string, which typescript-fetch can't name. Restore the empty string falconjs ships.
+| .definitions."sensor_update.SettingsRespV2".properties.stage.enum |= map(if . == "\"\"" then "" else . end)
