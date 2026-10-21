@@ -293,3 +293,12 @@
 # The 2026-10-20 spec lists sensor update stage's empty value as the two-character string `""` instead
 # of an empty string, which typescript-fetch can't name. Restore the empty string falconjs ships.
 | .definitions."sensor_update.SettingsRespV2".properties.stage.enum |= map(if . == "\"\"" then "" else . end)
+# The 10-20 spec adds grant_type, code, code_verifier, redirect_uri and resource to /oauth2/token ahead of
+# member_cid, for the new authorization-code (PKCE) flow. falconjs passes parameters by position, so a call
+# like oauth2AccessToken(clientId, clientSecret, memberCid) would send memberCid as grant_type. Keep
+# member_cid right after client_secret.
+| .paths."/oauth2/token".post.parameters |= (
+    (map(.name) | index("client_secret")) as $i
+    | map(select(.name == "member_cid")) as $member
+    | map(select(.name != "member_cid")) | .[:$i + 1] + $member + .[$i + 1:]
+  )
