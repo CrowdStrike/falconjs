@@ -31,6 +31,12 @@ export interface CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLog {
      * @memberof CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLog
      */
     integration: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLog
+     */
+    integrationId: string;
 }
 
 /**
@@ -39,6 +45,7 @@ export interface CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLog {
 export function instanceOfCheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLog(value: object): value is CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLog {
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("integration" in value) || value["integration"] === undefined) return false;
+    if (!("integrationId" in value) || value["integrationId"] === undefined) return false;
     return true;
 }
 
@@ -53,6 +60,7 @@ export function CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLogFromJSO
     return {
         id: json["id"],
         integration: json["integration"],
+        integrationId: json["integration_id"],
     };
 }
 
@@ -63,5 +71,6 @@ export function CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLogToJSON(
     return {
         id: value["id"],
         integration: value["integration"],
+        integration_id: value["integrationId"],
     };
 }

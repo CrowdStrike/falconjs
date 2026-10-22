@@ -21,12 +21,6 @@ import { mapValues } from "../runtime";
 export interface SecurityCheckWithComplianceGetSecurityChecks {
     /**
      *
-     * @type {string}
-     * @memberof SecurityCheckWithComplianceGetSecurityChecks
-     */
-    accountId: string;
-    /**
-     *
      * @type {number}
      * @memberof SecurityCheckWithComplianceGetSecurityChecks
      */
@@ -199,7 +193,6 @@ export interface SecurityCheckWithComplianceGetSecurityChecks {
  * Check if a given object implements the SecurityCheckWithComplianceGetSecurityChecks interface.
  */
 export function instanceOfSecurityCheckWithComplianceGetSecurityChecks(value: object): value is SecurityCheckWithComplianceGetSecurityChecks {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("affected" in value) || value["affected"] === undefined) return false;
     if (!("affectedImpactPercentage" in value) || value["affectedImpactPercentage"] === undefined) return false;
     if (!("affectedImpactTotal" in value) || value["affectedImpactTotal"] === undefined) return false;
@@ -240,7 +233,6 @@ export function SecurityCheckWithComplianceGetSecurityChecksFromJSONTyped(json: 
         return json;
     }
     return {
-        accountId: json["account_id"],
         affected: json["affected"],
         affectedImpactPercentage: json["affected_impact_percentage"],
         affectedImpactTotal: json["affected_impact_total"],
@@ -277,7 +269,6 @@ export function SecurityCheckWithComplianceGetSecurityChecksToJSON(value?: Secur
         return value;
     }
     return {
-        account_id: value["accountId"],
         affected: value["affected"],
         affected_impact_percentage: value["affectedImpactPercentage"],
         affected_impact_total: value["affectedImpactTotal"],

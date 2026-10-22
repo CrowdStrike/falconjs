@@ -20,55 +20,55 @@ import { mapValues } from "../runtime";
  */
 export interface ApiLocalApplicationGroup {
     /**
-     *
+     * Customer identifier that owns the local application group
      * @type {string}
      * @memberof ApiLocalApplicationGroup
      */
     cid: string;
     /**
-     *
+     * Timestamp when the local application group was created
      * @type {Date}
      * @memberof ApiLocalApplicationGroup
      */
     createdAt: Date;
     /**
-     *
+     * Whether the local application group is soft-deleted
      * @type {boolean}
      * @memberof ApiLocalApplicationGroup
      */
     deleted: boolean;
     /**
-     *
+     * Timestamp when the local application group was soft-deleted
      * @type {Date}
      * @memberof ApiLocalApplicationGroup
      */
     deletedAt: Date;
     /**
-     *
+     * Description of the local application group
      * @type {string}
      * @memberof ApiLocalApplicationGroup
      */
     description: string;
     /**
-     *
+     * Unique identifier of the local application group
      * @type {string}
      * @memberof ApiLocalApplicationGroup
      */
     id: string;
     /**
-     *
+     * Identifiers of the local applications in this group
      * @type {Array<string>}
      * @memberof ApiLocalApplicationGroup
      */
     localApplicationIds: Array<string>;
     /**
-     *
+     * Name of the local application group
      * @type {string}
      * @memberof ApiLocalApplicationGroup
      */
     name: string;
     /**
-     *
+     * Timestamp when the local application group was last updated
      * @type {Date}
      * @memberof ApiLocalApplicationGroup
      */

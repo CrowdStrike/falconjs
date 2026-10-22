@@ -183,6 +183,12 @@ export interface RestapiIndicator {
      */
     publishDate?: string;
     /**
+     * Whether CAO publishes this indicator
+     * @type {boolean}
+     * @memberof RestapiIndicator
+     */
+    publishedIndicator: boolean;
+    /**
      *
      * @type {Array<RestapiReport>}
      * @memberof RestapiIndicator
@@ -248,6 +254,7 @@ export interface RestapiIndicator {
  * Check if a given object implements the RestapiIndicator interface.
  */
 export function instanceOfRestapiIndicator(value: object): value is RestapiIndicator {
+    if (!("publishedIndicator" in value) || value["publishedIndicator"] === undefined) return false;
     return true;
 }
 
@@ -281,6 +288,7 @@ export function RestapiIndicatorFromJSONTyped(json: any, ignoreDiscriminator: bo
         maliciousConfidence: json["MaliciousConfidence"] == null ? undefined : json["MaliciousConfidence"],
         maliciousConfidenceValidatedTime: json["MaliciousConfidenceValidatedTime"] == null ? undefined : json["MaliciousConfidenceValidatedTime"],
         publishDate: json["PublishDate"] == null ? undefined : json["PublishDate"],
+        publishedIndicator: json["PublishedIndicator"],
         reports: json["Reports"] == null ? undefined : (json["Reports"] as Array<any>).map(RestapiReportFromJSON),
         rootDomainDetails: json["RootDomainDetails"] == null ? undefined : RestapiDomainFromJSON(json["RootDomainDetails"]),
         sectors: json["Sectors"] == null ? undefined : (json["Sectors"] as Array<any>).map(RestapiSectorFromJSON),
@@ -320,6 +328,7 @@ export function RestapiIndicatorToJSON(value?: RestapiIndicator | null): any {
         MaliciousConfidence: value["maliciousConfidence"],
         MaliciousConfidenceValidatedTime: value["maliciousConfidenceValidatedTime"],
         PublishDate: value["publishDate"],
+        PublishedIndicator: value["publishedIndicator"],
         Reports: value["reports"] == null ? undefined : (value["reports"] as Array<any>).map(RestapiReportToJSON),
         RootDomainDetails: RestapiDomainToJSON(value["rootDomainDetails"]),
         Sectors: value["sectors"] == null ? undefined : (value["sectors"] as Array<any>).map(RestapiSectorToJSON),

@@ -33,6 +33,12 @@ export interface CorrelationrulesapiAnomalyV1 {
      * @type {string}
      * @memberof CorrelationrulesapiAnomalyV1
      */
+    eventFieldOperation: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiAnomalyV1
+     */
     lookbackTimeframe: string;
     /**
      *
@@ -59,6 +65,7 @@ export interface CorrelationrulesapiAnomalyV1 {
  */
 export function instanceOfCorrelationrulesapiAnomalyV1(value: object): value is CorrelationrulesapiAnomalyV1 {
     if (!("eventFieldNames" in value) || value["eventFieldNames"] === undefined) return false;
+    if (!("eventFieldOperation" in value) || value["eventFieldOperation"] === undefined) return false;
     if (!("lookbackTimeframe" in value) || value["lookbackTimeframe"] === undefined) return false;
     if (!("scopes" in value) || value["scopes"] === undefined) return false;
     if (!("type" in value) || value["type"] === undefined) return false;
@@ -76,6 +83,7 @@ export function CorrelationrulesapiAnomalyV1FromJSONTyped(json: any, ignoreDiscr
     }
     return {
         eventFieldNames: json["event_field_names"],
+        eventFieldOperation: json["event_field_operation"],
         lookbackTimeframe: json["lookback_timeframe"],
         scopes: (json["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesFromJSON),
         type: json["type"],
@@ -89,6 +97,7 @@ export function CorrelationrulesapiAnomalyV1ToJSON(value?: CorrelationrulesapiAn
     }
     return {
         event_field_names: value["eventFieldNames"],
+        event_field_operation: value["eventFieldOperation"],
         lookback_timeframe: value["lookbackTimeframe"],
         scopes: (value["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesToJSON),
         type: value["type"],

@@ -19,8 +19,8 @@ import type { DomainCloudGroup } from "./DomainCloudGroup";
 import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
 import type { ClassificationLabel } from "./ClassificationLabel";
 import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 import type { ResourcesRelationship } from "./ResourcesRelationship";
 import { ResourcesRelationshipFromJSON, ResourcesRelationshipFromJSONTyped, ResourcesRelationshipToJSON } from "./ResourcesRelationship";
 
@@ -74,10 +74,10 @@ export interface ResourcesCloudResource {
     cloudContext?: ResourcesCloudContext;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof ResourcesCloudResource
      */
-    cloudGroups?: Array<DomainCloudScope>;
+    cloudGroups?: Array<CloudScope>;
     /**
      *
      * @type {Array<DomainCloudGroup>}
@@ -373,7 +373,7 @@ export function ResourcesCloudResourceFromJSONTyped(json: any, ignoreDiscriminat
         category: json["category"] == null ? undefined : json["category"],
         cid: json["cid"] == null ? undefined : json["cid"],
         cloudContext: json["cloud_context"] == null ? undefined : ResourcesCloudContextFromJSON(json["cloud_context"]),
-        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(CloudScopeFromJSON),
         cloudGroupsV2: json["cloud_groups_v2"] == null ? undefined : (json["cloud_groups_v2"] as Array<any>).map(DomainCloudGroupFromJSON),
         cloudLabels: json["cloud_labels"] == null ? undefined : (json["cloud_labels"] as Array<any>).map(ClassificationLabelFromJSON),
         cloudProvider: json["cloud_provider"] == null ? undefined : json["cloud_provider"],
@@ -434,7 +434,7 @@ export function ResourcesCloudResourceToJSON(value?: ResourcesCloudResource | nu
         category: value["category"],
         cid: value["cid"],
         cloud_context: ResourcesCloudContextToJSON(value["cloudContext"]),
-        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(CloudScopeToJSON),
         cloud_groups_v2: value["cloudGroupsV2"] == null ? undefined : (value["cloudGroupsV2"] as Array<any>).map(DomainCloudGroupToJSON),
         cloud_labels: value["cloudLabels"] == null ? undefined : (value["cloudLabels"] as Array<any>).map(ClassificationLabelToJSON),
         cloud_provider: value["cloudProvider"],

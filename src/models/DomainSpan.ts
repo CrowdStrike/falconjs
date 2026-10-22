@@ -77,6 +77,12 @@ export interface DomainSpan {
      * @type {string}
      * @memberof DomainSpan
      */
+    projectId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DomainSpan
+     */
     spanId: string;
     /**
      *
@@ -138,6 +144,7 @@ export function DomainSpanFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         id: json["id"],
         name: json["name"],
         parentSpanId: json["parent_span_id"] == null ? undefined : json["parent_span_id"],
+        projectId: json["project_id"] == null ? undefined : json["project_id"],
         spanId: json["span_id"],
         spanType: json["span_type"],
         startTime: new Date(json["start_time"]),
@@ -159,6 +166,7 @@ export function DomainSpanToJSON(value?: DomainSpan | null): any {
         id: value["id"],
         name: value["name"],
         parent_span_id: value["parentSpanId"],
+        project_id: value["projectId"],
         span_id: value["spanId"],
         span_type: value["spanType"],
         start_time: value["startTime"].toISOString(),

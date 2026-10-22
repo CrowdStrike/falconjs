@@ -839,6 +839,18 @@ export interface DomainDiscoverAPIIoTHost {
      */
     productTypeDesc?: string;
     /**
+     * The list of encrypted drives on the host whose protection is suspended, meaning the volume key is stored in the clear
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    protectionSuspendedDrives?: Array<string>;
+    /**
+     * The count of encrypted drives on the host whose protection is suspended
+     * @type {number}
+     * @memberof DomainDiscoverAPIIoTHost
+     */
+    protectionSuspendedDrivesCount?: number;
+    /**
      * The list of protocols supported by the device
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIIoTHost
@@ -1165,6 +1177,8 @@ export function DomainDiscoverAPIIoTHostFromJSONTyped(json: any, ignoreDiscrimin
         processorPackageCount: json["processor_package_count"] == null ? undefined : json["processor_package_count"],
         productType: json["product_type"] == null ? undefined : json["product_type"],
         productTypeDesc: json["product_type_desc"] == null ? undefined : json["product_type_desc"],
+        protectionSuspendedDrives: json["protection_suspended_drives"] == null ? undefined : json["protection_suspended_drives"],
+        protectionSuspendedDrivesCount: json["protection_suspended_drives_count"] == null ? undefined : json["protection_suspended_drives_count"],
         protocols: json["protocols"] == null ? undefined : json["protocols"],
         purdueLevel: json["purdue_level"] == null ? undefined : json["purdue_level"],
         reducedFunctionalityMode: json["reduced_functionality_mode"] == null ? undefined : json["reduced_functionality_mode"],
@@ -1335,6 +1349,8 @@ export function DomainDiscoverAPIIoTHostToJSON(value?: DomainDiscoverAPIIoTHost 
         processor_package_count: value["processorPackageCount"],
         product_type: value["productType"],
         product_type_desc: value["productTypeDesc"],
+        protection_suspended_drives: value["protectionSuspendedDrives"],
+        protection_suspended_drives_count: value["protectionSuspendedDrivesCount"],
         protocols: value["protocols"],
         purdue_level: value["purdueLevel"],
         reduced_functionality_mode: value["reducedFunctionalityMode"],

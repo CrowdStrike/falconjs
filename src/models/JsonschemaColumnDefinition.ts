@@ -13,58 +13,64 @@
  */
 
 import { mapValues } from "../runtime";
-import type { ApiTotalHits } from "./ApiTotalHits";
-import { ApiTotalHitsFromJSON, ApiTotalHitsFromJSONTyped, ApiTotalHitsToJSON } from "./ApiTotalHits";
-import type { ApiExecutionStats } from "./ApiExecutionStats";
-import { ApiExecutionStatsFromJSON, ApiExecutionStatsFromJSONTyped, ApiExecutionStatsToJSON } from "./ApiExecutionStats";
-
 /**
  *
  * @export
- * @interface ApiQueryStats
+ * @interface JsonschemaColumnDefinition
  */
-export interface ApiQueryStats {
+export interface JsonschemaColumnDefinition {
     /**
-     *
-     * @type {ApiExecutionStats}
-     * @memberof ApiQueryStats
+     * display hidden field
+     * @type {boolean}
+     * @memberof JsonschemaColumnDefinition
      */
-    executionStats?: ApiExecutionStats;
+    hidden: boolean;
     /**
-     *
-     * @type {ApiTotalHits}
-     * @memberof ApiQueryStats
+     * Id or Key for the row
+     * @type {string}
+     * @memberof JsonschemaColumnDefinition
      */
-    totalHits?: ApiTotalHits;
+    key: string;
+    /**
+     * display name for trailing option
+     * @type {string}
+     * @memberof JsonschemaColumnDefinition
+     */
+    title: string;
 }
 
 /**
- * Check if a given object implements the ApiQueryStats interface.
+ * Check if a given object implements the JsonschemaColumnDefinition interface.
  */
-export function instanceOfApiQueryStats(value: object): value is ApiQueryStats {
+export function instanceOfJsonschemaColumnDefinition(value: object): value is JsonschemaColumnDefinition {
+    if (!("hidden" in value) || value["hidden"] === undefined) return false;
+    if (!("key" in value) || value["key"] === undefined) return false;
+    if (!("title" in value) || value["title"] === undefined) return false;
     return true;
 }
 
-export function ApiQueryStatsFromJSON(json: any): ApiQueryStats {
-    return ApiQueryStatsFromJSONTyped(json, false);
+export function JsonschemaColumnDefinitionFromJSON(json: any): JsonschemaColumnDefinition {
+    return JsonschemaColumnDefinitionFromJSONTyped(json, false);
 }
 
-export function ApiQueryStatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiQueryStats {
+export function JsonschemaColumnDefinitionFromJSONTyped(json: any, ignoreDiscriminator: boolean): JsonschemaColumnDefinition {
     if (json == null) {
         return json;
     }
     return {
-        executionStats: json["execution_stats"] == null ? undefined : ApiExecutionStatsFromJSON(json["execution_stats"]),
-        totalHits: json["total_hits"] == null ? undefined : ApiTotalHitsFromJSON(json["total_hits"]),
+        hidden: json["hidden"],
+        key: json["key"],
+        title: json["title"],
     };
 }
 
-export function ApiQueryStatsToJSON(value?: ApiQueryStats | null): any {
+export function JsonschemaColumnDefinitionToJSON(value?: JsonschemaColumnDefinition | null): any {
     if (value == null) {
         return value;
     }
     return {
-        execution_stats: ApiExecutionStatsToJSON(value["executionStats"]),
-        total_hits: ApiTotalHitsToJSON(value["totalHits"]),
+        hidden: value["hidden"],
+        key: value["key"],
+        title: value["title"],
     };
 }

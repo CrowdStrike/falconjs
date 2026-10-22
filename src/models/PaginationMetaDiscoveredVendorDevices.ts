@@ -16,50 +16,74 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ApiPaginationInfo
+ * @interface PaginationMetaDiscoveredVendorDevices
  */
-export interface ApiPaginationInfo {
+export interface PaginationMetaDiscoveredVendorDevices {
     /**
      *
      * @type {number}
-     * @memberof ApiPaginationInfo
+     * @memberof PaginationMetaDiscoveredVendorDevices
      */
-    limit?: number;
+    limit?: number | null;
     /**
      *
-     * @type {object}
-     * @memberof ApiPaginationInfo
+     * @type {string}
+     * @memberof PaginationMetaDiscoveredVendorDevices
      */
-    offset?: object;
+    next?: string | null;
+    /**
+     *
+     * @type {number}
+     * @memberof PaginationMetaDiscoveredVendorDevices
+     */
+    offset?: number | null;
+    /**
+     *
+     * @type {string}
+     * @memberof PaginationMetaDiscoveredVendorDevices
+     */
+    previous?: string | null;
+    /**
+     *
+     * @type {number}
+     * @memberof PaginationMetaDiscoveredVendorDevices
+     */
+    total?: number | null;
 }
 
 /**
- * Check if a given object implements the ApiPaginationInfo interface.
+ * Check if a given object implements the PaginationMetaDiscoveredVendorDevices interface.
  */
-export function instanceOfApiPaginationInfo(value: object): value is ApiPaginationInfo {
+export function instanceOfPaginationMetaDiscoveredVendorDevices(value: object): value is PaginationMetaDiscoveredVendorDevices {
     return true;
 }
 
-export function ApiPaginationInfoFromJSON(json: any): ApiPaginationInfo {
-    return ApiPaginationInfoFromJSONTyped(json, false);
+export function PaginationMetaDiscoveredVendorDevicesFromJSON(json: any): PaginationMetaDiscoveredVendorDevices {
+    return PaginationMetaDiscoveredVendorDevicesFromJSONTyped(json, false);
 }
 
-export function ApiPaginationInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiPaginationInfo {
+export function PaginationMetaDiscoveredVendorDevicesFromJSONTyped(json: any, ignoreDiscriminator: boolean): PaginationMetaDiscoveredVendorDevices {
     if (json == null) {
         return json;
     }
     return {
         limit: json["limit"] == null ? undefined : json["limit"],
+        next: json["next"] == null ? undefined : json["next"],
         offset: json["offset"] == null ? undefined : json["offset"],
+        previous: json["previous"] == null ? undefined : json["previous"],
+        total: json["total"] == null ? undefined : json["total"],
     };
 }
 
-export function ApiPaginationInfoToJSON(value?: ApiPaginationInfo | null): any {
+export function PaginationMetaDiscoveredVendorDevicesToJSON(value?: PaginationMetaDiscoveredVendorDevices | null): any {
     if (value == null) {
         return value;
     }
     return {
         limit: value["limit"],
+        next: value["next"],
         offset: value["offset"],
+        previous: value["previous"],
+        total: value["total"],
     };
 }

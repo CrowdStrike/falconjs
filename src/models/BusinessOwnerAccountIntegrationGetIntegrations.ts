@@ -16,66 +16,52 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ApiExecutionContext
+ * @interface BusinessOwnerAccountIntegrationGetIntegrations
  */
-export interface ApiExecutionContext {
+export interface BusinessOwnerAccountIntegrationGetIntegrations {
     /**
      *
      * @type {string}
-     * @memberof ApiExecutionContext
+     * @memberof BusinessOwnerAccountIntegrationGetIntegrations
      */
-    catalogVersion?: string;
+    email: string | null;
     /**
      *
-     * @type {object}
-     * @memberof ApiExecutionContext
+     * @type {string}
+     * @memberof BusinessOwnerAccountIntegrationGetIntegrations
      */
-    executionOptions?: object;
-    /**
-     *
-     * @type {object}
-     * @memberof ApiExecutionContext
-     */
-    extensions?: object;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof ApiExecutionContext
-     */
-    queriedCids?: Array<string>;
+    name: string | null;
 }
 
 /**
- * Check if a given object implements the ApiExecutionContext interface.
+ * Check if a given object implements the BusinessOwnerAccountIntegrationGetIntegrations interface.
  */
-export function instanceOfApiExecutionContext(value: object): value is ApiExecutionContext {
+export function instanceOfBusinessOwnerAccountIntegrationGetIntegrations(value: object): value is BusinessOwnerAccountIntegrationGetIntegrations {
+    if (!("email" in value) || value["email"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
     return true;
 }
 
-export function ApiExecutionContextFromJSON(json: any): ApiExecutionContext {
-    return ApiExecutionContextFromJSONTyped(json, false);
+export function BusinessOwnerAccountIntegrationGetIntegrationsFromJSON(json: any): BusinessOwnerAccountIntegrationGetIntegrations {
+    return BusinessOwnerAccountIntegrationGetIntegrationsFromJSONTyped(json, false);
 }
 
-export function ApiExecutionContextFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiExecutionContext {
+export function BusinessOwnerAccountIntegrationGetIntegrationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): BusinessOwnerAccountIntegrationGetIntegrations {
     if (json == null) {
         return json;
     }
     return {
-        catalogVersion: json["catalog_version"] == null ? undefined : json["catalog_version"],
-        executionOptions: json["execution_options"] == null ? undefined : json["execution_options"],
-        extensions: json["extensions"] == null ? undefined : json["extensions"],
-        queriedCids: json["queried_cids"] == null ? undefined : json["queried_cids"],
+        email: json["email"],
+        name: json["name"],
     };
 }
 
-export function ApiExecutionContextToJSON(value?: ApiExecutionContext | null): any {
+export function BusinessOwnerAccountIntegrationGetIntegrationsToJSON(value?: BusinessOwnerAccountIntegrationGetIntegrations | null): any {
     if (value == null) {
         return value;
     }
     return {
-        catalog_version: value["catalogVersion"],
-        execution_options: value["executionOptions"],
-        extensions: value["extensions"],
-        queried_cids: value["queriedCids"],
+        email: value["email"],
+        name: value["name"],
     };
 }

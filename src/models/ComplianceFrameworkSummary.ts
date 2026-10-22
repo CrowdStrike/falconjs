@@ -32,6 +32,30 @@ export interface ComplianceFrameworkSummary {
     authority: string;
     /**
      *
+     * @type {Date}
+     * @memberof ComplianceFrameworkSummary
+     */
+    createdAt: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof ComplianceFrameworkSummary
+     */
+    createdBy: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof ComplianceFrameworkSummary
+     */
+    deletedAt?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof ComplianceFrameworkSummary
+     */
+    deletedBy?: string;
+    /**
+     *
      * @type {string}
      * @memberof ComplianceFrameworkSummary
      */
@@ -59,6 +83,24 @@ export interface ComplianceFrameworkSummary {
      * @type {string}
      * @memberof ComplianceFrameworkSummary
      */
+    updateReason?: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof ComplianceFrameworkSummary
+     */
+    updatedAt?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof ComplianceFrameworkSummary
+     */
+    updatedBy?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ComplianceFrameworkSummary
+     */
     version: string;
 }
 
@@ -67,6 +109,8 @@ export interface ComplianceFrameworkSummary {
  */
 export function instanceOfComplianceFrameworkSummary(value: object): value is ComplianceFrameworkSummary {
     if (!("authority" in value) || value["authority"] === undefined) return false;
+    if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
+    if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("posture" in value) || value["posture"] === undefined) return false;
@@ -85,10 +129,17 @@ export function ComplianceFrameworkSummaryFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         authority: json["authority"],
+        createdAt: new Date(json["created_at"]),
+        createdBy: json["created_by"],
+        deletedAt: json["deleted_at"] == null ? undefined : new Date(json["deleted_at"]),
+        deletedBy: json["deleted_by"] == null ? undefined : json["deleted_by"],
         id: json["id"],
         name: json["name"],
         posture: CompliancePostureFromJSON(json["posture"]),
         sections: (json["sections"] as Array<any>).map(ComplianceSectionSummaryFromJSON),
+        updateReason: json["update_reason"] == null ? undefined : json["update_reason"],
+        updatedAt: json["updated_at"] == null ? undefined : new Date(json["updated_at"]),
+        updatedBy: json["updated_by"] == null ? undefined : json["updated_by"],
         version: json["version"],
     };
 }
@@ -99,10 +150,17 @@ export function ComplianceFrameworkSummaryToJSON(value?: ComplianceFrameworkSumm
     }
     return {
         authority: value["authority"],
+        created_at: value["createdAt"].toISOString(),
+        created_by: value["createdBy"],
+        deleted_at: value["deletedAt"] == null ? undefined : value["deletedAt"].toISOString(),
+        deleted_by: value["deletedBy"],
         id: value["id"],
         name: value["name"],
         posture: CompliancePostureToJSON(value["posture"]),
         sections: (value["sections"] as Array<any>).map(ComplianceSectionSummaryToJSON),
+        update_reason: value["updateReason"],
+        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_by: value["updatedBy"],
         version: value["version"],
     };
 }

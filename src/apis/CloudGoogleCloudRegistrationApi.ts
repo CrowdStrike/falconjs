@@ -22,6 +22,8 @@ import type {
     DtoGCPRegistrationUpdateRequestExtV1,
     DtoGCPTerraformScriptRequestV1,
     DtoHealthCheckTriggerResponseExtV1,
+    DtoWorkspaceAvailabilityResponseExtV1,
+    DtoWorkspaceResponseExtV1,
     MsaReplyMetaOnly,
     MsaspecResponseFields,
 } from "../models/index";
@@ -42,11 +44,21 @@ import {
     DtoGCPTerraformScriptRequestV1ToJSON,
     DtoHealthCheckTriggerResponseExtV1FromJSON,
     DtoHealthCheckTriggerResponseExtV1ToJSON,
+    DtoWorkspaceAvailabilityResponseExtV1FromJSON,
+    DtoWorkspaceAvailabilityResponseExtV1ToJSON,
+    DtoWorkspaceResponseExtV1FromJSON,
+    DtoWorkspaceResponseExtV1ToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
 } from "../models/index";
+
+export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpCheckWorkspaceAvailabilityRequest {
+    customerId?: string;
+    organizationId?: string;
+    excludeGcpRegistrationId?: string;
+}
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpCreateRegistrationRequest {
     body: DtoGCPRegistrationCreateRequestExtV1;
@@ -54,6 +66,10 @@ export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpCreateRegist
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpDeleteRegistrationRequest {
     ids: string;
+}
+
+export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpDeleteWorkspaceRegistrationRequest {
+    gcpRegistrationId: string;
 }
 
 export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpGetEntitiesRequest {
@@ -94,6 +110,65 @@ export interface CloudGoogleCloudRegistrationApiCloudRegistrationGcpUpdateRegist
  *
  */
 export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
+    /**
+     * A taken customer ID blocks registration, because it is unique per customer. An organization ID already in use does not block registration: more than one Google Workspace may share one Google Cloud organization. At least one of the two parameters is required.
+     * Report whether a Google Workspace customer ID or organization ID is already registered
+     */
+    async cloudRegistrationGcpCheckWorkspaceAvailabilityRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpCheckWorkspaceAvailabilityRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoWorkspaceAvailabilityResponseExtV1>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["customerId"] != null) {
+            queryParameters["customer_id"] = requestParameters["customerId"];
+        }
+
+        if (requestParameters["organizationId"] != null) {
+            queryParameters["organization_id"] = requestParameters["organizationId"];
+        }
+
+        if (requestParameters["excludeGcpRegistrationId"] != null) {
+            queryParameters["exclude_gcp_registration_id"] = requestParameters["excludeGcpRegistrationId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-google-workspace/entities/availability/v1`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DtoWorkspaceAvailabilityResponseExtV1FromJSON(jsonValue));
+    }
+
+    /**
+     * A taken customer ID blocks registration, because it is unique per customer. An organization ID already in use does not block registration: more than one Google Workspace may share one Google Cloud organization. At least one of the two parameters is required.
+     * Report whether a Google Workspace customer ID or organization ID is already registered
+     */
+    async cloudRegistrationGcpCheckWorkspaceAvailability(
+        customerId?: string,
+        organizationId?: string,
+        excludeGcpRegistrationId?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DtoWorkspaceAvailabilityResponseExtV1> {
+        const response = await this.cloudRegistrationGcpCheckWorkspaceAvailabilityRaw(
+            { customerId: customerId, organizationId: organizationId, excludeGcpRegistrationId: excludeGcpRegistrationId },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
     /**
      * Create a Google Cloud Registration.
      */
@@ -180,6 +255,51 @@ export class CloudGoogleCloudRegistrationApi extends runtime.BaseAPI {
      */
     async cloudRegistrationGcpDeleteRegistration(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DtoGCPRegistrationResponseExtV1> {
         const response = await this.cloudRegistrationGcpDeleteRegistrationRaw({ ids: ids }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Deletes the Google Workspace registration attached to a Google Cloud Registration, and returns the deleted Workspace in the response body. The Google Cloud Registration itself is not affected.
+     */
+    async cloudRegistrationGcpDeleteWorkspaceRegistrationRaw(
+        requestParameters: CloudGoogleCloudRegistrationApiCloudRegistrationGcpDeleteWorkspaceRegistrationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DtoWorkspaceResponseExtV1>> {
+        if (requestParameters["gcpRegistrationId"] == null) {
+            throw new runtime.RequiredError("gcpRegistrationId", 'Required parameter "gcpRegistrationId" was null or undefined when calling cloudRegistrationGcpDeleteWorkspaceRegistration().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["gcpRegistrationId"] != null) {
+            queryParameters["gcp_registration_id"] = requestParameters["gcpRegistrationId"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cloud-google-cloud-registration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/cloud-security-registration-google-workspace/entities/registrations/v1`,
+                method: "DELETE",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DtoWorkspaceResponseExtV1FromJSON(jsonValue));
+    }
+
+    /**
+     * Deletes the Google Workspace registration attached to a Google Cloud Registration, and returns the deleted Workspace in the response body. The Google Cloud Registration itself is not affected.
+     */
+    async cloudRegistrationGcpDeleteWorkspaceRegistration(gcpRegistrationId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DtoWorkspaceResponseExtV1> {
+        const response = await this.cloudRegistrationGcpDeleteWorkspaceRegistrationRaw({ gcpRegistrationId: gcpRegistrationId }, initOverrides);
         return await response.value();
     }
 

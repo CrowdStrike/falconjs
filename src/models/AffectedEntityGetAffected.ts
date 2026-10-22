@@ -24,12 +24,6 @@ import { UsageFromJSON, UsageFromJSONTyped, UsageToJSON } from "./Usage";
 export interface AffectedEntityGetAffected {
     /**
      *
-     * @type {string}
-     * @memberof AffectedEntityGetAffected
-     */
-    accountId: string;
-    /**
-     *
      * @type {Date}
      * @memberof AffectedEntityGetAffected
      */
@@ -82,7 +76,6 @@ export interface AffectedEntityGetAffected {
  * Check if a given object implements the AffectedEntityGetAffected interface.
  */
 export function instanceOfAffectedEntityGetAffected(value: object): value is AffectedEntityGetAffected {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("dismissed" in value) || value["dismissed"] === undefined) return false;
     if (!("entityName" in value) || value["entityName"] === undefined) return false;
     if (!("hasUsage" in value) || value["hasUsage"] === undefined) return false;
@@ -99,7 +92,6 @@ export function AffectedEntityGetAffectedFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
-        accountId: json["account_id"],
         dismissExpirationDate: json["dismiss_expiration_date"] == null ? undefined : new Date(json["dismiss_expiration_date"]),
         dismissed: json["dismissed"],
         dismissedReason: json["dismissed_reason"] == null ? undefined : json["dismissed_reason"],
@@ -116,7 +108,6 @@ export function AffectedEntityGetAffectedToJSON(value?: AffectedEntityGetAffecte
         return value;
     }
     return {
-        account_id: value["accountId"],
         dismiss_expiration_date: value["dismissExpirationDate"] == null ? undefined : (value["dismissExpirationDate"] as any).toISOString(),
         dismissed: value["dismissed"],
         dismissed_reason: value["dismissedReason"],

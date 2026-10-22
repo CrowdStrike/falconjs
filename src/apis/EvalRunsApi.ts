@@ -44,11 +44,6 @@ export interface EvalRunsApiEntitiesEvalRunsDeleteV1Request {
     projectId?: string;
 }
 
-export interface EvalRunsApiEntitiesEvalRunsUpdateV1Request {
-    body: DomainEvaluationRun;
-    projectId?: string;
-}
-
 export interface EvalRunsApiEntitiesEvalRunsV1Request {
     ids: Array<string>;
     projectId?: string;
@@ -208,54 +203,6 @@ export class EvalRunsApi extends runtime.BaseAPI {
      */
     async entitiesEvalRunsDeleteV1(id: string, projectId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
         const response = await this.entitiesEvalRunsDeleteV1Raw({ id: id, projectId: projectId }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Update an existing evaluation run metadata.
-     */
-    async entitiesEvalRunsUpdateV1Raw(
-        requestParameters: EvalRunsApiEntitiesEvalRunsUpdateV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<EvalsEvalRunsResponse>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesEvalRunsUpdateV1().');
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters["projectId"] != null) {
-            queryParameters["project_id"] = requestParameters["projectId"];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["charlotte-ai-agent-evals-run:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/agentic-studio-evals/entities/runs/v1`,
-                method: "PATCH",
-                headers: headerParameters,
-                query: queryParameters,
-                body: DomainEvaluationRunToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EvalsEvalRunsResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Update an existing evaluation run metadata.
-     */
-    async entitiesEvalRunsUpdateV1(body: DomainEvaluationRun, projectId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<EvalsEvalRunsResponse> {
-        const response = await this.entitiesEvalRunsUpdateV1Raw({ body: body, projectId: projectId }, initOverrides);
         return await response.value();
     }
 

@@ -30,12 +30,6 @@ export interface AiAgentAiAgentsInventory {
      * @type {string}
      * @memberof AiAgentAiAgentsInventory
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AiAgentAiAgentsInventory
-     */
     agentId: string | null;
     /**
      *
@@ -110,7 +104,6 @@ export interface AiAgentAiAgentsInventory {
  */
 export function instanceOfAiAgentAiAgentsInventory(value: object): value is AiAgentAiAgentsInventory {
     if (!("access" in value) || value["access"] === undefined) return false;
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("agentId" in value) || value["agentId"] === undefined) return false;
     if (!("agentType" in value) || value["agentType"] === undefined) return false;
     if (!("creationDate" in value) || value["creationDate"] === undefined) return false;
@@ -136,7 +129,6 @@ export function AiAgentAiAgentsInventoryFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         access: json["access"],
-        accountId: json["account_id"],
         agentId: json["agent_id"],
         agentType: json["agent_type"],
         creationDate: json["creation_date"],
@@ -158,7 +150,6 @@ export function AiAgentAiAgentsInventoryToJSON(value?: AiAgentAiAgentsInventory 
     }
     return {
         access: value["access"],
-        account_id: value["accountId"],
         agent_id: value["agentId"],
         agent_type: value["agentType"],
         creation_date: value["creationDate"],

@@ -30,13 +30,43 @@ export interface Oauth2AccessTokenRequest {
      * @type {string}
      * @memberof Oauth2AccessTokenRequest
      */
-    clientSecret: string;
+    clientSecret?: string;
     /**
      * For MSSP Master CIDs, optionally lock the token to act on behalf of this member CID
      * @type {string}
      * @memberof Oauth2AccessTokenRequest
      */
     memberCid?: string;
+    /**
+     * The OAuth2 grant type. Supported values: client_credentials (the default when omitted), authorization_code, refresh_token.
+     * @type {string}
+     * @memberof Oauth2AccessTokenRequest
+     */
+    grantType?: string;
+    /**
+     * The authorization code returned by the /oauth2/auth endpoint. Mandatory for grant_type=authorization_code.
+     * @type {string}
+     * @memberof Oauth2AccessTokenRequest
+     */
+    code?: string;
+    /**
+     * The PKCE code verifier. Mandatory for grant_type=authorization_code.
+     * @type {string}
+     * @memberof Oauth2AccessTokenRequest
+     */
+    codeVerifier?: string;
+    /**
+     * The redirect URI used in the original authorization request. Mandatory for grant_type=authorization_code.
+     * @type {string}
+     * @memberof Oauth2AccessTokenRequest
+     */
+    redirectUri?: string;
+    /**
+     * A URI indicating the target service/resource where the requested token will be used (RFC 8707). Optional; when supplied it must be an absolute URI.
+     * @type {string}
+     * @memberof Oauth2AccessTokenRequest
+     */
+    resource?: string;
 }
 
 /**
@@ -44,7 +74,6 @@ export interface Oauth2AccessTokenRequest {
  */
 export function instanceOfOauth2AccessTokenRequest(value: object): value is Oauth2AccessTokenRequest {
     if (!("clientId" in value) || value["clientId"] === undefined) return false;
-    if (!("clientSecret" in value) || value["clientSecret"] === undefined) return false;
     return true;
 }
 
@@ -58,8 +87,13 @@ export function Oauth2AccessTokenRequestFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         clientId: json["client_id"],
-        clientSecret: json["client_secret"],
+        clientSecret: json["client_secret"] == null ? undefined : json["client_secret"],
         memberCid: json["member_cid"] == null ? undefined : json["member_cid"],
+        grantType: json["grant_type"] == null ? undefined : json["grant_type"],
+        code: json["code"] == null ? undefined : json["code"],
+        codeVerifier: json["code_verifier"] == null ? undefined : json["code_verifier"],
+        redirectUri: json["redirect_uri"] == null ? undefined : json["redirect_uri"],
+        resource: json["resource"] == null ? undefined : json["resource"],
     };
 }
 
@@ -71,5 +105,10 @@ export function Oauth2AccessTokenRequestToJSON(value?: Oauth2AccessTokenRequest 
         client_id: value["clientId"],
         client_secret: value["clientSecret"],
         member_cid: value["memberCid"],
+        grant_type: value["grantType"],
+        code: value["code"],
+        code_verifier: value["codeVerifier"],
+        redirect_uri: value["redirectUri"],
+        resource: value["resource"],
     };
 }

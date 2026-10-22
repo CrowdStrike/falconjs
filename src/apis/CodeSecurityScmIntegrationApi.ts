@@ -13,12 +13,14 @@
  */
 
 import * as runtime from "../runtime";
-import type { ApiBranchConfigGetResponse, ApiExchangeRequest, ModelApiResponse, MsaReplyMetaOnly, ScmintegrationRegisterAppPayload } from "../models/index";
+import type { ApiBranchConfigGetResponse, ApiExchangeRequest, ApiPullJobTriggerRequest, ModelApiResponse, MsaReplyMetaOnly, ScmintegrationRegisterAppPayload } from "../models/index";
 import {
     ApiBranchConfigGetResponseFromJSON,
     ApiBranchConfigGetResponseToJSON,
     ApiExchangeRequestFromJSON,
     ApiExchangeRequestToJSON,
+    ApiPullJobTriggerRequestFromJSON,
+    ApiPullJobTriggerRequestToJSON,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
@@ -26,6 +28,11 @@ import {
     ScmintegrationRegisterAppPayloadFromJSON,
     ScmintegrationRegisterAppPayloadToJSON,
 } from "../models/index";
+
+export interface CodeSecurityScmIntegrationApiCreatePullJobRequest {
+    repositoryId: string;
+    body: ApiPullJobTriggerRequest;
+}
 
 export interface CodeSecurityScmIntegrationApiDeleteBranchConfigRequest {
     ids: string;
@@ -145,7 +152,55 @@ export class CodeSecurityScmIntegrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a branch config, or exclude a specific repository from a connection-level config when repository_id query param is provided
+     * Trigger an on-demand pull of a repository at a ref
+     */
+    async createPullJobRaw(
+        requestParameters: CodeSecurityScmIntegrationApiCreatePullJobRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelApiResponse>> {
+        if (requestParameters["repositoryId"] == null) {
+            throw new runtime.RequiredError("repositoryId", 'Required parameter "repositoryId" was null or undefined when calling createPullJob().');
+        }
+
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createPullJob().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["code-security-scm-integration:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/scm-integration/entities/repositories/v1/{repository_id}/pulls`.replace(`{${"repository_id"}}`, encodeURIComponent(String(requestParameters["repositoryId"]))),
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: ApiPullJobTriggerRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Trigger an on-demand pull of a repository at a ref
+     */
+    async createPullJob(repositoryId: string, body: ApiPullJobTriggerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelApiResponse> {
+        const response = await this.createPullJobRaw({ repositoryId: repositoryId, body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Delete a branch config. With multiple ids, only repository-level configs are deleted; unknown or already-deleted ids are skipped
      */
     async deleteBranchConfigRaw(
         requestParameters: CodeSecurityScmIntegrationApiDeleteBranchConfigRequest,
@@ -182,7 +237,7 @@ export class CodeSecurityScmIntegrationApi extends runtime.BaseAPI {
     }
 
     /**
-     * Delete a branch config, or exclude a specific repository from a connection-level config when repository_id query param is provided
+     * Delete a branch config. With multiple ids, only repository-level configs are deleted; unknown or already-deleted ids are skipped
      */
     async deleteBranchConfig(ids: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelApiResponse> {
         const response = await this.deleteBranchConfigRaw({ ids: ids }, initOverrides);

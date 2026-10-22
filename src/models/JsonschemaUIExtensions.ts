@@ -13,12 +13,16 @@
  */
 
 import { mapValues } from "../runtime";
+import type { JsonschemaColumnDefinition } from "./JsonschemaColumnDefinition";
+import { JsonschemaColumnDefinitionFromJSON, JsonschemaColumnDefinitionFromJSONTyped, JsonschemaColumnDefinitionToJSON } from "./JsonschemaColumnDefinition";
 import type { JsonschemaFooterAction } from "./JsonschemaFooterAction";
 import { JsonschemaFooterActionFromJSON, JsonschemaFooterActionFromJSONTyped, JsonschemaFooterActionToJSON } from "./JsonschemaFooterAction";
 import type { JsonschemaDurationOption } from "./JsonschemaDurationOption";
 import { JsonschemaDurationOptionFromJSON, JsonschemaDurationOptionFromJSONTyped, JsonschemaDurationOptionToJSON } from "./JsonschemaDurationOption";
 import type { JsonschemaStatement } from "./JsonschemaStatement";
 import { JsonschemaStatementFromJSON, JsonschemaStatementFromJSONTyped, JsonschemaStatementToJSON } from "./JsonschemaStatement";
+import type { JsonschemaRowAction } from "./JsonschemaRowAction";
+import { JsonschemaRowActionFromJSON, JsonschemaRowActionFromJSONTyped, JsonschemaRowActionToJSON } from "./JsonschemaRowAction";
 import type { JsonschemaMeta } from "./JsonschemaMeta";
 import { JsonschemaMetaFromJSON, JsonschemaMetaFromJSONTyped, JsonschemaMetaToJSON } from "./JsonschemaMeta";
 
@@ -40,6 +44,12 @@ export interface JsonschemaUIExtensions {
      * @memberof JsonschemaUIExtensions
      */
     addButton?: boolean;
+    /**
+     * column definitions for data-fabric-entity-table component
+     * @type {Array<JsonschemaColumnDefinition>}
+     * @memberof JsonschemaUIExtensions
+     */
+    columns?: Array<JsonschemaColumnDefinition>;
     /**
      *
      * @type {string}
@@ -89,6 +99,12 @@ export interface JsonschemaUIExtensions {
      */
     inputType?: string;
     /**
+     * label for each entry of a group-array input, e.g. Indicator
+     * @type {string}
+     * @memberof JsonschemaUIExtensions
+     */
+    itemLabel?: string;
+    /**
      * specify the position of the label relative to its associated element
      * @type {string}
      * @memberof JsonschemaUIExtensions
@@ -118,6 +134,12 @@ export interface JsonschemaUIExtensions {
      * @memberof JsonschemaUIExtensions
      */
     readOnly?: boolean;
+    /**
+     * column definitions for data-fabric-entity-table component
+     * @type {Array<JsonschemaRowAction>}
+     * @memberof JsonschemaUIExtensions
+     */
+    rowActions?: Array<JsonschemaRowAction>;
     /**
      * local reference to look up the dynamic json schema and mobiledoc card configuration returned in the top-level of api response
      * @type {string}
@@ -174,6 +196,7 @@ export function JsonschemaUIExtensionsFromJSONTyped(json: any, ignoreDiscriminat
     return {
         accept: json["accept"] == null ? undefined : json["accept"],
         addButton: json["add-button"] == null ? undefined : json["add-button"],
+        columns: json["columns"] == null ? undefined : (json["columns"] as Array<any>).map(JsonschemaColumnDefinitionFromJSON),
         component: json["component"] == null ? undefined : json["component"],
         customGroupName: json["customGroupName"] == null ? undefined : json["customGroupName"],
         durationOptions: json["durationOptions"] == null ? undefined : (json["durationOptions"] as Array<any>).map(JsonschemaDurationOptionFromJSON),
@@ -182,11 +205,13 @@ export function JsonschemaUIExtensionsFromJSONTyped(json: any, ignoreDiscriminat
         helperText: json["helperText"] == null ? undefined : json["helperText"],
         hide: json["hide"] == null ? undefined : json["hide"],
         inputType: json["inputType"] == null ? undefined : json["inputType"],
+        itemLabel: json["itemLabel"] == null ? undefined : json["itemLabel"],
         labelPosition: json["labelPosition"] == null ? undefined : json["labelPosition"],
         meta: json["meta"] == null ? undefined : JsonschemaMetaFromJSON(json["meta"]),
         navigateOnSuccess: json["navigateOnSuccess"] == null ? undefined : json["navigateOnSuccess"],
         placeholder: json["placeholder"] == null ? undefined : json["placeholder"],
         readOnly: json["readOnly"] == null ? undefined : json["readOnly"],
+        rowActions: json["rowActions"] == null ? undefined : (json["rowActions"] as Array<any>).map(JsonschemaRowActionFromJSON),
         schemaReference: json["schema_reference"] == null ? undefined : json["schema_reference"],
         skip: json["skip"] == null ? undefined : json["skip"],
         skyCheck: json["skyCheck"] == null ? undefined : json["skyCheck"],
@@ -203,6 +228,7 @@ export function JsonschemaUIExtensionsToJSON(value?: JsonschemaUIExtensions | nu
     return {
         accept: value["accept"],
         "add-button": value["addButton"],
+        columns: value["columns"] == null ? undefined : (value["columns"] as Array<any>).map(JsonschemaColumnDefinitionToJSON),
         component: value["component"],
         customGroupName: value["customGroupName"],
         durationOptions: value["durationOptions"] == null ? undefined : (value["durationOptions"] as Array<any>).map(JsonschemaDurationOptionToJSON),
@@ -211,11 +237,13 @@ export function JsonschemaUIExtensionsToJSON(value?: JsonschemaUIExtensions | nu
         helperText: value["helperText"],
         hide: value["hide"],
         inputType: value["inputType"],
+        itemLabel: value["itemLabel"],
         labelPosition: value["labelPosition"],
         meta: JsonschemaMetaToJSON(value["meta"]),
         navigateOnSuccess: value["navigateOnSuccess"],
         placeholder: value["placeholder"],
         readOnly: value["readOnly"],
+        rowActions: value["rowActions"] == null ? undefined : (value["rowActions"] as Array<any>).map(JsonschemaRowActionToJSON),
         schema_reference: value["schemaReference"],
         skip: value["skip"],
         skyCheck: value["skyCheck"],

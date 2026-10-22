@@ -13,100 +13,100 @@
  */
 
 import { mapValues } from "../runtime";
-import type { DomainCloudAccounts } from "./DomainCloudAccounts";
-import { DomainCloudAccountsFromJSON, DomainCloudAccountsFromJSONTyped, DomainCloudAccountsToJSON } from "./DomainCloudAccounts";
+import type { CloudAccounts } from "./CloudAccounts";
+import { CloudAccountsFromJSON, CloudAccountsFromJSONTyped, CloudAccountsToJSON } from "./CloudAccounts";
 
 /**
  *
  * @export
- * @interface DomainCloudScope
+ * @interface CloudScope
  */
-export interface DomainCloudScope {
+export interface CloudScope {
     /**
      *
-     * @type {Array<DomainCloudAccounts>}
-     * @memberof DomainCloudScope
+     * @type {Array<CloudAccounts>}
+     * @memberof CloudScope
      */
-    accounts?: Array<DomainCloudAccounts>;
+    accounts?: Array<CloudAccounts>;
     /**
      *
      * @type {string}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     businessImpact?: string;
     /**
      *
      * @type {string}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     businessUnit?: string;
     /**
      *
      * @type {string}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     cid?: string;
     /**
      *
      * @type {Date}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     createdAt?: Date;
     /**
      *
      * @type {string}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     description?: string;
     /**
      *
      * @type {number}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     id?: number;
     /**
      *
      * @type {string}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     name?: string;
     /**
      *
      * @type {Array<string>}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     owners?: Array<string>;
     /**
      *
      * @type {number}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     totalAccounts?: number;
     /**
      *
      * @type {Date}
-     * @memberof DomainCloudScope
+     * @memberof CloudScope
      */
     updatedAt?: Date;
 }
 
 /**
- * Check if a given object implements the DomainCloudScope interface.
+ * Check if a given object implements the CloudScope interface.
  */
-export function instanceOfDomainCloudScope(value: object): value is DomainCloudScope {
+export function instanceOfCloudScope(value: object): value is CloudScope {
     return true;
 }
 
-export function DomainCloudScopeFromJSON(json: any): DomainCloudScope {
-    return DomainCloudScopeFromJSONTyped(json, false);
+export function CloudScopeFromJSON(json: any): CloudScope {
+    return CloudScopeFromJSONTyped(json, false);
 }
 
-export function DomainCloudScopeFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainCloudScope {
+export function CloudScopeFromJSONTyped(json: any, ignoreDiscriminator: boolean): CloudScope {
     if (json == null) {
         return json;
     }
     return {
-        accounts: json["accounts"] == null ? undefined : (json["accounts"] as Array<any>).map(DomainCloudAccountsFromJSON),
+        accounts: json["accounts"] == null ? undefined : (json["accounts"] as Array<any>).map(CloudAccountsFromJSON),
         businessImpact: json["business_impact"] == null ? undefined : json["business_impact"],
         businessUnit: json["business_unit"] == null ? undefined : json["business_unit"],
         cid: json["cid"] == null ? undefined : json["cid"],
@@ -120,12 +120,12 @@ export function DomainCloudScopeFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function DomainCloudScopeToJSON(value?: DomainCloudScope | null): any {
+export function CloudScopeToJSON(value?: CloudScope | null): any {
     if (value == null) {
         return value;
     }
     return {
-        accounts: value["accounts"] == null ? undefined : (value["accounts"] as Array<any>).map(DomainCloudAccountsToJSON),
+        accounts: value["accounts"] == null ? undefined : (value["accounts"] as Array<any>).map(CloudAccountsToJSON),
         business_impact: value["businessImpact"],
         business_unit: value["businessUnit"],
         cid: value["cid"],

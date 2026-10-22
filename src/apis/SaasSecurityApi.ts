@@ -21,6 +21,9 @@ import type {
     CheckTag,
     CreateAppJournalCommentV3Request,
     CreateJournal,
+    DiscoveredInstances,
+    DiscoveredVendorDevices,
+    DiscoveredVendors,
     DismissAffected,
     DismissAffectedEntityV3Request,
     DismissSecurityCheck,
@@ -48,12 +51,17 @@ import type {
     RestoreAffected,
     RestoreAffectedEntityV3Request,
     RestoreSecurityCheck,
+    SaveIntegration,
+    SaveIntegrationV3Request,
     SetCheckImpact,
     SetCheckImpactV3Request,
     SetCheckParam,
     SetCheckParamV3Request,
+    UpdateDiscoveredVendorRelevance,
+    UpdateDiscoveredVendorRelevanceRequest,
     UploadDataRequest,
     UploadDataResponse,
+    VendorDetails,
 } from "../models/index";
 import {
     AiAgentDetailsFromJSON,
@@ -70,6 +78,12 @@ import {
     CreateAppJournalCommentV3RequestToJSON,
     CreateJournalFromJSON,
     CreateJournalToJSON,
+    DiscoveredInstancesFromJSON,
+    DiscoveredInstancesToJSON,
+    DiscoveredVendorDevicesFromJSON,
+    DiscoveredVendorDevicesToJSON,
+    DiscoveredVendorsFromJSON,
+    DiscoveredVendorsToJSON,
     DismissAffectedFromJSON,
     DismissAffectedToJSON,
     DismissAffectedEntityV3RequestFromJSON,
@@ -124,6 +138,10 @@ import {
     RestoreAffectedEntityV3RequestToJSON,
     RestoreSecurityCheckFromJSON,
     RestoreSecurityCheckToJSON,
+    SaveIntegrationFromJSON,
+    SaveIntegrationToJSON,
+    SaveIntegrationV3RequestFromJSON,
+    SaveIntegrationV3RequestToJSON,
     SetCheckImpactFromJSON,
     SetCheckImpactToJSON,
     SetCheckImpactV3RequestFromJSON,
@@ -132,10 +150,16 @@ import {
     SetCheckParamToJSON,
     SetCheckParamV3RequestFromJSON,
     SetCheckParamV3RequestToJSON,
+    UpdateDiscoveredVendorRelevanceFromJSON,
+    UpdateDiscoveredVendorRelevanceToJSON,
+    UpdateDiscoveredVendorRelevanceRequestFromJSON,
+    UpdateDiscoveredVendorRelevanceRequestToJSON,
     UploadDataRequestFromJSON,
     UploadDataRequestToJSON,
     UploadDataResponseFromJSON,
     UploadDataResponseToJSON,
+    VendorDetailsFromJSON,
+    VendorDetailsToJSON,
 } from "../models/index";
 
 export interface SaasSecurityApiConnectCheckTagV3Request {
@@ -148,6 +172,10 @@ export interface SaasSecurityApiCreateAppJournalCommentV3OperationRequest {
 }
 
 export interface SaasSecurityApiCreateCheckJournalCommentV3Request {
+    body: CreateAppJournalCommentV3Request;
+}
+
+export interface SaasSecurityApiCreateDiscoveredVendorJournalCommentV3Request {
     body: CreateAppJournalCommentV3Request;
 }
 
@@ -267,8 +295,56 @@ export interface SaasSecurityApiGetDeviceInventoryV3Request {
     unassociatedDevices?: boolean;
 }
 
+export interface SaasSecurityApiGetDiscoveredInstancesRequest {
+    primaryDomain: string;
+    limit?: number;
+    offset?: number;
+    name?: string;
+}
+
+export interface SaasSecurityApiGetDiscoveredVendorDevicesRequest {
+    primaryDomain: string;
+    limit?: number;
+    offset?: number;
+    domain?: string;
+    instances?: string;
+    department?: string;
+}
+
+export interface SaasSecurityApiGetDiscoveredVendorJournalV3Request {
+    id: string;
+    limit?: number;
+    offset?: number;
+    author?: string;
+}
+
+export interface SaasSecurityApiGetDiscoveredVendorsRequest {
+    primaryDomain?: string;
+    limit?: number;
+    offset?: number;
+    vendorName?: string;
+    relevance?: GetDiscoveredVendorsRelevanceEnum;
+    category?: string;
+    includeDepartments?: boolean;
+    department?: string;
+    loginIndicator?: boolean;
+    hasOauthApps?: boolean;
+    hasSigninApps?: boolean;
+    lastSeen?: Date;
+}
+
 export interface SaasSecurityApiGetIntegrationsV3Request {
     saasId?: string;
+    integrationId?: string;
+    saasName?: string;
+    alias?: string;
+    businessOwners?: string;
+    orgDomain?: string;
+    status?: string;
+    enabled?: boolean;
+    isBeta?: boolean;
+    lastRun?: string;
+    integrationProgress?: string;
 }
 
 export interface SaasSecurityApiGetMetricsV3Request {
@@ -298,7 +374,6 @@ export interface SaasSecurityApiGetSecurityCheckChangeLogV3Request {
     checkId?: string;
     fromDate?: Date;
     toDate?: Date;
-    totalCount?: boolean;
 }
 
 export interface SaasSecurityApiGetSecurityCheckComplianceV3Request {
@@ -317,6 +392,11 @@ export interface SaasSecurityApiGetSecurityChecksV3Request {
     checkTags?: string;
     businessOwner?: string;
     orgDomain?: string;
+}
+
+export interface SaasSecurityApiGetSupportedSaasV3Request {
+    id?: string;
+    includeSchema?: boolean;
 }
 
 export interface SaasSecurityApiGetSystemLogsV3Request {
@@ -340,6 +420,12 @@ export interface SaasSecurityApiGetUserJournalV3Request {
     limit?: number;
     offset?: number;
     author?: string;
+}
+
+export interface SaasSecurityApiGetVendorDetailsRequest {
+    primaryDomain: string;
+    limit?: number;
+    offset?: number;
 }
 
 export interface SaasSecurityApiIntegrationBuilderEndTransactionV3Request {
@@ -370,6 +456,10 @@ export interface SaasSecurityApiRestoreSecurityCheckV3Request {
     body: object;
 }
 
+export interface SaasSecurityApiSaveIntegrationV3OperationRequest {
+    body: SaveIntegrationV3Request;
+}
+
 export interface SaasSecurityApiSetCheckImpactV3OperationRequest {
     id: string;
     body: SetCheckImpactV3Request;
@@ -378,6 +468,10 @@ export interface SaasSecurityApiSetCheckImpactV3OperationRequest {
 export interface SaasSecurityApiSetCheckParamV3OperationRequest {
     id: string;
     body: SetCheckParamV3Request;
+}
+
+export interface SaasSecurityApiUpdateDiscoveredVendorRelevanceOperationRequest {
+    body: UpdateDiscoveredVendorRelevanceRequest;
 }
 
 /**
@@ -525,6 +619,52 @@ export class SaasSecurityApi extends runtime.BaseAPI {
      */
     async createCheckJournalCommentV3(body: CreateAppJournalCommentV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateJournal> {
         const response = await this.createCheckJournalCommentV3Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Append a comment to one or more discovered vendors, identified by their primary domains
+     * POST Discovered Vendor Journal Comment
+     */
+    async createDiscoveredVendorJournalCommentV3Raw(
+        requestParameters: SaasSecurityApiCreateDiscoveredVendorJournalCommentV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CreateJournal>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling createDiscoveredVendorJournalCommentV3().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/discovered-vendor-journal/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: CreateAppJournalCommentV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Append a comment to one or more discovered vendors, identified by their primary domains
+     * POST Discovered Vendor Journal Comment
+     */
+    async createDiscoveredVendorJournalCommentV3(body: CreateAppJournalCommentV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateJournal> {
+        const response = await this.createDiscoveredVendorJournalCommentV3Raw({ body: body }, initOverrides);
         return await response.value();
     }
 
@@ -1565,6 +1705,319 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
+     * Get the instances (distinct subdomains or tenants observed in telemetry) of a discovered vendor, per vendor domain, sorted by device count (descending). Returns no resources when the domain isn\'t a discovered vendor
+     * GET Discovered Vendor Instances
+     */
+    async getDiscoveredInstancesRaw(
+        requestParameters: SaasSecurityApiGetDiscoveredInstancesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DiscoveredInstances>> {
+        if (requestParameters["primaryDomain"] == null) {
+            throw new runtime.RequiredError("primaryDomain", 'Required parameter "primaryDomain" was null or undefined when calling getDiscoveredInstances().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["primaryDomain"] != null) {
+            queryParameters["primary_domain"] = requestParameters["primaryDomain"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["name"] != null) {
+            queryParameters["name"] = requestParameters["name"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/discovered-instances/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredInstancesFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the instances (distinct subdomains or tenants observed in telemetry) of a discovered vendor, per vendor domain, sorted by device count (descending). Returns no resources when the domain isn\'t a discovered vendor
+     * GET Discovered Vendor Instances
+     */
+    async getDiscoveredInstances(primaryDomain: string, limit?: number, offset?: number, name?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DiscoveredInstances> {
+        const response = await this.getDiscoveredInstancesRaw({ primaryDomain: primaryDomain, limit: limit, offset: offset, name: name }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the devices observed accessing a discovered vendor in the last 7 days, most recently seen first. Returns no resources when the domain isn\'t a discovered vendor, or when `domain` isn\'t one of its domains
+     * GET Discovered Vendor Devices
+     */
+    async getDiscoveredVendorDevicesRaw(
+        requestParameters: SaasSecurityApiGetDiscoveredVendorDevicesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DiscoveredVendorDevices>> {
+        if (requestParameters["primaryDomain"] == null) {
+            throw new runtime.RequiredError("primaryDomain", 'Required parameter "primaryDomain" was null or undefined when calling getDiscoveredVendorDevices().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["primaryDomain"] != null) {
+            queryParameters["primary_domain"] = requestParameters["primaryDomain"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["domain"] != null) {
+            queryParameters["domain"] = requestParameters["domain"];
+        }
+
+        if (requestParameters["instances"] != null) {
+            queryParameters["instances"] = requestParameters["instances"];
+        }
+
+        if (requestParameters["department"] != null) {
+            queryParameters["department"] = requestParameters["department"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/discovered-vendor-devices/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredVendorDevicesFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the devices observed accessing a discovered vendor in the last 7 days, most recently seen first. Returns no resources when the domain isn\'t a discovered vendor, or when `domain` isn\'t one of its domains
+     * GET Discovered Vendor Devices
+     */
+    async getDiscoveredVendorDevices(
+        primaryDomain: string,
+        limit?: number,
+        offset?: number,
+        domain?: string,
+        instances?: string,
+        department?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DiscoveredVendorDevices> {
+        const response = await this.getDiscoveredVendorDevicesRaw(
+            { primaryDomain: primaryDomain, limit: limit, offset: offset, domain: domain, instances: instances, department: department },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Get the journal entries for a discovered vendor
+     * GET Discovered Vendor Journal
+     */
+    async getDiscoveredVendorJournalV3Raw(
+        requestParameters: SaasSecurityApiGetDiscoveredVendorJournalV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetJournal>> {
+        if (requestParameters["id"] == null) {
+            throw new runtime.RequiredError("id", 'Required parameter "id" was null or undefined when calling getDiscoveredVendorJournalV3().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["author"] != null) {
+            queryParameters["author"] = requestParameters["author"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/discovered-vendor-journal/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetJournalFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the journal entries for a discovered vendor
+     * GET Discovered Vendor Journal
+     */
+    async getDiscoveredVendorJournalV3(id: string, limit?: number, offset?: number, author?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJournal> {
+        const response = await this.getDiscoveredVendorJournalV3Raw({ id: id, limit: limit, offset: offset, author: author }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get a list of SaaS vendors observed across the organization\'s endpoints, aggregated per vendor across all its domains, sorted by device count (descending)
+     * GET Discovered Vendors
+     */
+    async getDiscoveredVendorsRaw(
+        requestParameters: SaasSecurityApiGetDiscoveredVendorsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<DiscoveredVendors>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["primaryDomain"] != null) {
+            queryParameters["primary_domain"] = requestParameters["primaryDomain"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        if (requestParameters["vendorName"] != null) {
+            queryParameters["vendor_name"] = requestParameters["vendorName"];
+        }
+
+        if (requestParameters["relevance"] != null) {
+            queryParameters["relevance"] = requestParameters["relevance"];
+        }
+
+        if (requestParameters["category"] != null) {
+            queryParameters["category"] = requestParameters["category"];
+        }
+
+        if (requestParameters["includeDepartments"] != null) {
+            queryParameters["include_departments"] = requestParameters["includeDepartments"];
+        }
+
+        if (requestParameters["department"] != null) {
+            queryParameters["department"] = requestParameters["department"];
+        }
+
+        if (requestParameters["loginIndicator"] != null) {
+            queryParameters["login_indicator"] = requestParameters["loginIndicator"];
+        }
+
+        if (requestParameters["hasOauthApps"] != null) {
+            queryParameters["has_oauth_apps"] = requestParameters["hasOauthApps"];
+        }
+
+        if (requestParameters["hasSigninApps"] != null) {
+            queryParameters["has_signin_apps"] = requestParameters["hasSigninApps"];
+        }
+
+        if (requestParameters["lastSeen"] != null) {
+            queryParameters["last_seen"] = (requestParameters["lastSeen"] as any).toISOString();
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/discovered-vendors/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredVendorsFromJSON(jsonValue));
+    }
+
+    /**
+     * Get a list of SaaS vendors observed across the organization\'s endpoints, aggregated per vendor across all its domains, sorted by device count (descending)
+     * GET Discovered Vendors
+     */
+    async getDiscoveredVendors(
+        primaryDomain?: string,
+        limit?: number,
+        offset?: number,
+        vendorName?: string,
+        relevance?: GetDiscoveredVendorsRelevanceEnum,
+        category?: string,
+        includeDepartments?: boolean,
+        department?: string,
+        loginIndicator?: boolean,
+        hasOauthApps?: boolean,
+        hasSigninApps?: boolean,
+        lastSeen?: Date,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DiscoveredVendors> {
+        const response = await this.getDiscoveredVendorsRaw(
+            {
+                primaryDomain: primaryDomain,
+                limit: limit,
+                offset: offset,
+                vendorName: vendorName,
+                relevance: relevance,
+                category: category,
+                includeDepartments: includeDepartments,
+                department: department,
+                loginIndicator: loginIndicator,
+                hasOauthApps: hasOauthApps,
+                hasSigninApps: hasSigninApps,
+                lastSeen: lastSeen,
+            },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
      * Get a list of connected integrations in your account
      * GET Integrations
      */
@@ -1573,6 +2026,46 @@ export class SaasSecurityApi extends runtime.BaseAPI {
 
         if (requestParameters["saasId"] != null) {
             queryParameters["saas_id"] = requestParameters["saasId"];
+        }
+
+        if (requestParameters["integrationId"] != null) {
+            queryParameters["integration_id"] = requestParameters["integrationId"];
+        }
+
+        if (requestParameters["saasName"] != null) {
+            queryParameters["saas_name"] = requestParameters["saasName"];
+        }
+
+        if (requestParameters["alias"] != null) {
+            queryParameters["alias"] = requestParameters["alias"];
+        }
+
+        if (requestParameters["businessOwners"] != null) {
+            queryParameters["business_owners"] = requestParameters["businessOwners"];
+        }
+
+        if (requestParameters["orgDomain"] != null) {
+            queryParameters["org_domain"] = requestParameters["orgDomain"];
+        }
+
+        if (requestParameters["status"] != null) {
+            queryParameters["status"] = requestParameters["status"];
+        }
+
+        if (requestParameters["enabled"] != null) {
+            queryParameters["enabled"] = requestParameters["enabled"];
+        }
+
+        if (requestParameters["isBeta"] != null) {
+            queryParameters["is_beta"] = requestParameters["isBeta"];
+        }
+
+        if (requestParameters["lastRun"] != null) {
+            queryParameters["last_run"] = requestParameters["lastRun"];
+        }
+
+        if (requestParameters["integrationProgress"] != null) {
+            queryParameters["integration_progress"] = requestParameters["integrationProgress"];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -1599,8 +2092,36 @@ export class SaasSecurityApi extends runtime.BaseAPI {
      * Get a list of connected integrations in your account
      * GET Integrations
      */
-    async getIntegrationsV3(saasId?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetIntegrations> {
-        const response = await this.getIntegrationsV3Raw({ saasId: saasId }, initOverrides);
+    async getIntegrationsV3(
+        saasId?: string,
+        integrationId?: string,
+        saasName?: string,
+        alias?: string,
+        businessOwners?: string,
+        orgDomain?: string,
+        status?: string,
+        enabled?: boolean,
+        isBeta?: boolean,
+        lastRun?: string,
+        integrationProgress?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<GetIntegrations> {
+        const response = await this.getIntegrationsV3Raw(
+            {
+                saasId: saasId,
+                integrationId: integrationId,
+                saasName: saasName,
+                alias: alias,
+                businessOwners: businessOwners,
+                orgDomain: orgDomain,
+                status: status,
+                enabled: enabled,
+                isBeta: isBeta,
+                lastRun: lastRun,
+                integrationProgress: integrationProgress,
+            },
+            initOverrides,
+        );
         return await response.value();
     }
 
@@ -1762,7 +2283,7 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the log of CrowdStrike\'s own changes to security checks - detection logic, impact, title and so on. meta.pagination.total is only populated when total_count=true is passed.
+     * Get the log of CrowdStrike\'s own changes to security checks - detection logic, impact, title and so on. meta.pagination.limit and offset describe the next page and are null on the last one.
      * GET Security Check Change Log
      */
     async getSecurityCheckChangeLogV3Raw(
@@ -1799,10 +2320,6 @@ export class SaasSecurityApi extends runtime.BaseAPI {
             queryParameters["to_date"] = (requestParameters["toDate"] as any).toISOString();
         }
 
-        if (requestParameters["totalCount"] != null) {
-            queryParameters["total_count"] = requestParameters["totalCount"];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
@@ -1824,7 +2341,7 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the log of CrowdStrike\'s own changes to security checks - detection logic, impact, title and so on. meta.pagination.total is only populated when total_count=true is passed.
+     * Get the log of CrowdStrike\'s own changes to security checks - detection logic, impact, title and so on. meta.pagination.limit and offset describe the next page and are null on the last one.
      * GET Security Check Change Log
      */
     async getSecurityCheckChangeLogV3(
@@ -1835,13 +2352,9 @@ export class SaasSecurityApi extends runtime.BaseAPI {
         checkId?: string,
         fromDate?: Date,
         toDate?: Date,
-        totalCount?: boolean,
         initOverrides?: RequestInit | runtime.InitOverrideFunction,
     ): Promise<GetSecurityCheckChangeLog> {
-        const response = await this.getSecurityCheckChangeLogV3Raw(
-            { action: action, limit: limit, offset: offset, app: app, checkId: checkId, fromDate: fromDate, toDate: toDate, totalCount: totalCount },
-            initOverrides,
-        );
+        const response = await this.getSecurityCheckChangeLogV3Raw({ action: action, limit: limit, offset: offset, app: app, checkId: checkId, fromDate: fromDate, toDate: toDate }, initOverrides);
         return await response.value();
     }
 
@@ -2004,11 +2517,22 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of supported integrations
+     * Get a list of supported integrations. Set `include_schema` to also get, per SaaS, what `POST entities/integrations/v3` needs to create an integration of it
      * GET Supported SaaS
      */
-    async getSupportedSaasV3Raw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSupportedSaas>> {
+    async getSupportedSaasV3Raw(
+        requestParameters: SaasSecurityApiGetSupportedSaasV3Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<GetSupportedSaas>> {
         const queryParameters: any = {};
+
+        if (requestParameters["id"] != null) {
+            queryParameters["id"] = requestParameters["id"];
+        }
+
+        if (requestParameters["includeSchema"] != null) {
+            queryParameters["include_schema"] = requestParameters["includeSchema"];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -2031,11 +2555,11 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get a list of supported integrations
+     * Get a list of supported integrations. Set `include_schema` to also get, per SaaS, what `POST entities/integrations/v3` needs to create an integration of it
      * GET Supported SaaS
      */
-    async getSupportedSaasV3(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSupportedSaas> {
-        const response = await this.getSupportedSaasV3Raw(initOverrides);
+    async getSupportedSaasV3(id?: string, includeSchema?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSupportedSaas> {
+        const response = await this.getSupportedSaasV3Raw({ id: id, includeSchema: includeSchema }, initOverrides);
         return await response.value();
     }
 
@@ -2250,6 +2774,58 @@ export class SaasSecurityApi extends runtime.BaseAPI {
      */
     async getUserJournalV3(id: string, limit?: number, offset?: number, author?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetJournal> {
         const response = await this.getUserJournalV3Raw({ id: id, limit: limit, offset: offset, author: author }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the vendor intelligence of a discovered vendor by its primary domain: name, categories, privacy policy, certifications and security measures. Returns no resources when the domain isn\'t a discovered vendor
+     * GET Vendor Details
+     */
+    async getVendorDetailsRaw(requestParameters: SaasSecurityApiGetVendorDetailsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VendorDetails>> {
+        if (requestParameters["primaryDomain"] == null) {
+            throw new runtime.RequiredError("primaryDomain", 'Required parameter "primaryDomain" was null or undefined when calling getVendorDetails().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["primaryDomain"] != null) {
+            queryParameters["primary_domain"] = requestParameters["primaryDomain"];
+        }
+
+        if (requestParameters["limit"] != null) {
+            queryParameters["limit"] = requestParameters["limit"];
+        }
+
+        if (requestParameters["offset"] != null) {
+            queryParameters["offset"] = requestParameters["offset"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/vendor-details/v3`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => VendorDetailsFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the vendor intelligence of a discovered vendor by its primary domain: name, categories, privacy policy, certifications and security measures. Returns no resources when the domain isn\'t a discovered vendor
+     * GET Vendor Details
+     */
+    async getVendorDetails(primaryDomain: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VendorDetails> {
+        const response = await this.getVendorDetailsRaw({ primaryDomain: primaryDomain, limit: limit, offset: offset }, initOverrides);
         return await response.value();
     }
 
@@ -2565,6 +3141,52 @@ export class SaasSecurityApi extends runtime.BaseAPI {
     }
 
     /**
+     * With `id`: replace the integration\'s `business_owners` and/or `org_domains`. For an instance of a multi-instance integration the change applies to all its instances. Without `id`: create an integration of `saas_id`, per the `creation_schema` of GET entities/supported-saas/v3. When `additional_steps` is returned, the integration was created disabled and must be completed in the Falcon UI. For a multi-instance SaaS the returned id is the parent integration: GET with `integration_id=<id>` returns it, and its instances are listed with their own ids once selected in the UI
+     * POST Update or Create an Integration
+     */
+    async saveIntegrationV3Raw(
+        requestParameters: SaasSecurityApiSaveIntegrationV3OperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<SaveIntegration>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling saveIntegrationV3().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/integrations/v3`,
+                method: "POST",
+                headers: headerParameters,
+                query: queryParameters,
+                body: SaveIntegrationV3RequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SaveIntegrationFromJSON(jsonValue));
+    }
+
+    /**
+     * With `id`: replace the integration\'s `business_owners` and/or `org_domains`. For an instance of a multi-instance integration the change applies to all its instances. Without `id`: create an integration of `saas_id`, per the `creation_schema` of GET entities/supported-saas/v3. When `additional_steps` is returned, the integration was created disabled and must be completed in the Falcon UI. For a multi-instance SaaS the returned id is the parent integration: GET with `integration_id=<id>` returns it, and its instances are listed with their own ids once selected in the UI
+     * POST Update or Create an Integration
+     */
+    async saveIntegrationV3(body: SaveIntegrationV3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SaveIntegration> {
+        const response = await this.saveIntegrationV3Raw({ body: body }, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Set the impact of one instance of a security check. Set `all_future_instances` to also apply it to instances of the same SaaS connected in the future; it does not change instances that already exist. The check is not re-evaluated, only its impact changes
      * POST Set a Security Check Impact
      */
@@ -2671,6 +3293,52 @@ export class SaasSecurityApi extends runtime.BaseAPI {
         const response = await this.setCheckParamV3Raw({ id: id, body: body }, initOverrides);
         return await response.value();
     }
+
+    /**
+     * Update the relevance of a discovered vendor. Relevance is the only customer-managed attribute of a vendor; setting the same relevance again changes nothing, including its reason
+     * PATCH Update Discovered Vendor Relevance
+     */
+    async updateDiscoveredVendorRelevanceRaw(
+        requestParameters: SaasSecurityApiUpdateDiscoveredVendorRelevanceOperationRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<UpdateDiscoveredVendorRelevance>> {
+        if (requestParameters["body"] == null) {
+            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling updateDiscoveredVendorRelevance().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters["Content-Type"] = "application/json";
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["saas-security:write"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/saas-security/entities/discovered-vendors/v3`,
+                method: "PATCH",
+                headers: headerParameters,
+                query: queryParameters,
+                body: UpdateDiscoveredVendorRelevanceRequestToJSON(requestParameters["body"]),
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UpdateDiscoveredVendorRelevanceFromJSON(jsonValue));
+    }
+
+    /**
+     * Update the relevance of a discovered vendor. Relevance is the only customer-managed attribute of a vendor; setting the same relevance again changes nothing, including its reason
+     * PATCH Update Discovered Vendor Relevance
+     */
+    async updateDiscoveredVendorRelevance(body: UpdateDiscoveredVendorRelevanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdateDiscoveredVendorRelevance> {
+        const response = await this.updateDiscoveredVendorRelevanceRaw({ body: body }, initOverrides);
+        return await response.value();
+    }
 }
 
 /**
@@ -2693,6 +3361,16 @@ export const GetAppInventoryStatusEnum = {
     Unclassified: "unclassified",
 } as const;
 export type GetAppInventoryStatusEnum = (typeof GetAppInventoryStatusEnum)[keyof typeof GetAppInventoryStatusEnum];
+/**
+ * @export
+ */
+export const GetDiscoveredVendorsRelevanceEnum = {
+    High: "high",
+    Medium: "medium",
+    Low: "low",
+    None: "none",
+} as const;
+export type GetDiscoveredVendorsRelevanceEnum = (typeof GetDiscoveredVendorsRelevanceEnum)[keyof typeof GetDiscoveredVendorsRelevanceEnum];
 /**
  * @export
  */

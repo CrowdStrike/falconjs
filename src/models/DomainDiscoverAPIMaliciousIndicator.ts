@@ -16,52 +16,52 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ApiTotalHits
+ * @interface DomainDiscoverAPIMaliciousIndicator
  */
-export interface ApiTotalHits {
+export interface DomainDiscoverAPIMaliciousIndicator {
     /**
-     *
+     * A description of the indicator
      * @type {string}
-     * @memberof ApiTotalHits
+     * @memberof DomainDiscoverAPIMaliciousIndicator
      */
-    relation: string;
+    description: string;
     /**
-     *
-     * @type {number}
-     * @memberof ApiTotalHits
+     * The malicious indicator name
+     * @type {string}
+     * @memberof DomainDiscoverAPIMaliciousIndicator
      */
-    total: number;
+    name: string;
 }
 
 /**
- * Check if a given object implements the ApiTotalHits interface.
+ * Check if a given object implements the DomainDiscoverAPIMaliciousIndicator interface.
  */
-export function instanceOfApiTotalHits(value: object): value is ApiTotalHits {
-    if (!("relation" in value) || value["relation"] === undefined) return false;
-    if (!("total" in value) || value["total"] === undefined) return false;
+export function instanceOfDomainDiscoverAPIMaliciousIndicator(value: object): value is DomainDiscoverAPIMaliciousIndicator {
+    if (!("description" in value) || value["description"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
     return true;
 }
 
-export function ApiTotalHitsFromJSON(json: any): ApiTotalHits {
-    return ApiTotalHitsFromJSONTyped(json, false);
+export function DomainDiscoverAPIMaliciousIndicatorFromJSON(json: any): DomainDiscoverAPIMaliciousIndicator {
+    return DomainDiscoverAPIMaliciousIndicatorFromJSONTyped(json, false);
 }
 
-export function ApiTotalHitsFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiTotalHits {
+export function DomainDiscoverAPIMaliciousIndicatorFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainDiscoverAPIMaliciousIndicator {
     if (json == null) {
         return json;
     }
     return {
-        relation: json["relation"],
-        total: json["total"],
+        description: json["description"],
+        name: json["name"],
     };
 }
 
-export function ApiTotalHitsToJSON(value?: ApiTotalHits | null): any {
+export function DomainDiscoverAPIMaliciousIndicatorToJSON(value?: DomainDiscoverAPIMaliciousIndicator | null): any {
     if (value == null) {
         return value;
     }
     return {
-        relation: value["relation"],
-        total: value["total"],
+        description: value["description"],
+        name: value["name"],
     };
 }

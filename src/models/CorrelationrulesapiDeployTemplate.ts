@@ -31,6 +31,8 @@ import {
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
+import type { CorrelationrulesapiAnomalyV1 } from "./CorrelationrulesapiAnomalyV1";
+import { CorrelationrulesapiAnomalyV1FromJSON, CorrelationrulesapiAnomalyV1FromJSONTyped, CorrelationrulesapiAnomalyV1ToJSON } from "./CorrelationrulesapiAnomalyV1";
 import type { CorrelationrulesapiRuleSearchDeployTemplateV1 } from "./CorrelationrulesapiRuleSearchDeployTemplateV1";
 import {
     CorrelationrulesapiRuleSearchDeployTemplateV1FromJSON,
@@ -44,6 +46,12 @@ import {
  * @interface CorrelationrulesapiDeployTemplate
  */
 export interface CorrelationrulesapiDeployTemplate {
+    /**
+     *
+     * @type {CorrelationrulesapiAnomalyV1}
+     * @memberof CorrelationrulesapiDeployTemplate
+     */
+    anomaly?: CorrelationrulesapiAnomalyV1;
     /**
      *
      * @type {string}
@@ -140,6 +148,7 @@ export function CorrelationrulesapiDeployTemplateFromJSONTyped(json: any, ignore
         return json;
     }
     return {
+        anomaly: json["anomaly"] == null ? undefined : CorrelationrulesapiAnomalyV1FromJSON(json["anomaly"]),
         comment: json["comment"] == null ? undefined : json["comment"],
         description: json["description"] == null ? undefined : json["description"],
         guardrailNotifications: json["guardrail_notifications"] == null ? undefined : (json["guardrail_notifications"] as Array<any>).map(CorrelationrulesapiCreateRuleNotificationsFromJSON),
@@ -160,6 +169,7 @@ export function CorrelationrulesapiDeployTemplateToJSON(value?: Correlationrules
         return value;
     }
     return {
+        anomaly: CorrelationrulesapiAnomalyV1ToJSON(value["anomaly"]),
         comment: value["comment"],
         description: value["description"],
         guardrail_notifications: value["guardrailNotifications"] == null ? undefined : (value["guardrailNotifications"] as Array<any>).map(CorrelationrulesapiCreateRuleNotificationsToJSON),

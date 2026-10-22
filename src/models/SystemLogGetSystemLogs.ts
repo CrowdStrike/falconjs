@@ -24,12 +24,6 @@ export interface SystemLogGetSystemLogs {
      * @type {string}
      * @memberof SystemLogGetSystemLogs
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof SystemLogGetSystemLogs
-     */
     action: string;
     /**
      *
@@ -85,7 +79,6 @@ export interface SystemLogGetSystemLogs {
  * Check if a given object implements the SystemLogGetSystemLogs interface.
  */
 export function instanceOfSystemLogGetSystemLogs(value: object): value is SystemLogGetSystemLogs {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("action" in value) || value["action"] === undefined) return false;
     if (!("eventTime" in value) || value["eventTime"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
@@ -107,7 +100,6 @@ export function SystemLogGetSystemLogsFromJSONTyped(json: any, ignoreDiscriminat
         return json;
     }
     return {
-        accountId: json["account_id"],
         action: json["action"],
         eventTime: new Date(json["event_time"]),
         id: json["id"],
@@ -125,7 +117,6 @@ export function SystemLogGetSystemLogsToJSON(value?: SystemLogGetSystemLogs | nu
         return value;
     }
     return {
-        account_id: value["accountId"],
         action: value["action"],
         event_time: value["eventTime"].toISOString(),
         id: value["id"],

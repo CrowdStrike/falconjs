@@ -1113,6 +1113,7 @@ export type QueryCombinedSensorUpdateBuildsPlatformEnum = (typeof QueryCombinedS
 export const QueryCombinedSensorUpdateBuildsStageEnum = {
     Prod: "prod",
     EarlyAdopter: "early_adopter",
+    Ltv: "ltv",
 } as const;
 export type QueryCombinedSensorUpdateBuildsStageEnum = (typeof QueryCombinedSensorUpdateBuildsStageEnum)[keyof typeof QueryCombinedSensorUpdateBuildsStageEnum];
 /**

@@ -43,6 +43,12 @@ export interface SensorUpdateSettingsReqV2 {
      */
     showEarlyAdopterBuilds?: boolean;
     /**
+     * If true, LTV builds will be visible on the sensor update policy page
+     * @type {boolean}
+     * @memberof SensorUpdateSettingsReqV2
+     */
+    showLtvBuilds?: boolean;
+    /**
      * The uninstall protection state to apply to the policy
      * @type {string}
      * @memberof SensorUpdateSettingsReqV2
@@ -89,6 +95,7 @@ export function SensorUpdateSettingsReqV2FromJSONTyped(json: any, ignoreDiscrimi
         build: json["build"] == null ? undefined : json["build"],
         scheduler: PolicySensorUpdateSchedulerFromJSON(json["scheduler"]),
         showEarlyAdopterBuilds: json["show_early_adopter_builds"] == null ? undefined : json["show_early_adopter_builds"],
+        showLtvBuilds: json["show_ltv_builds"] == null ? undefined : json["show_ltv_builds"],
         uninstallProtection: json["uninstall_protection"] == null ? undefined : json["uninstall_protection"],
         variants: (json["variants"] as Array<any>).map(SensorUpdateBuildReqV1FromJSON),
     };
@@ -102,6 +109,7 @@ export function SensorUpdateSettingsReqV2ToJSON(value?: SensorUpdateSettingsReqV
         build: value["build"],
         scheduler: PolicySensorUpdateSchedulerToJSON(value["scheduler"]),
         show_early_adopter_builds: value["showEarlyAdopterBuilds"],
+        show_ltv_builds: value["showLtvBuilds"],
         uninstall_protection: value["uninstallProtection"],
         variants: (value["variants"] as Array<any>).map(SensorUpdateBuildReqV1ToJSON),
     };

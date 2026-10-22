@@ -30,12 +30,6 @@ export interface AssetGetAssetInventory {
      * @type {string}
      * @memberof AssetGetAssetInventory
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AssetGetAssetInventory
-     */
     created: string;
     /**
      *
@@ -145,7 +139,6 @@ export interface AssetGetAssetInventory {
  * Check if a given object implements the AssetGetAssetInventory interface.
  */
 export function instanceOfAssetGetAssetInventory(value: object): value is AssetGetAssetInventory {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("created" in value) || value["created"] === undefined) return false;
     if (!("integrationAlias" in value) || value["integrationAlias"] === undefined) return false;
     if (!("integrationId" in value) || value["integrationId"] === undefined) return false;
@@ -171,7 +164,6 @@ export function AssetGetAssetInventoryFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         accessLevel: json["access_level"] == null ? undefined : json["access_level"],
-        accountId: json["account_id"],
         created: json["created"],
         drive: json["drive"] == null ? undefined : json["drive"],
         driveId: json["drive_id"] == null ? undefined : json["drive_id"],
@@ -199,7 +191,6 @@ export function AssetGetAssetInventoryToJSON(value?: AssetGetAssetInventory | nu
     }
     return {
         access_level: value["accessLevel"],
-        account_id: value["accountId"],
         created: value["created"],
         drive: value["drive"],
         drive_id: value["driveId"],

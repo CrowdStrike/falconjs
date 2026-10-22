@@ -17,6 +17,8 @@ import type { DomainDiscoverAPIApplicationHost } from "./DomainDiscoverAPIApplic
 import { DomainDiscoverAPIApplicationHostFromJSON, DomainDiscoverAPIApplicationHostFromJSONTyped, DomainDiscoverAPIApplicationHostToJSON } from "./DomainDiscoverAPIApplicationHost";
 import type { DomainDiscoverAPIApplicationPackage } from "./DomainDiscoverAPIApplicationPackage";
 import { DomainDiscoverAPIApplicationPackageFromJSON, DomainDiscoverAPIApplicationPackageFromJSONTyped, DomainDiscoverAPIApplicationPackageToJSON } from "./DomainDiscoverAPIApplicationPackage";
+import type { DomainDiscoverAPIMaliciousIndicator } from "./DomainDiscoverAPIMaliciousIndicator";
+import { DomainDiscoverAPIMaliciousIndicatorFromJSON, DomainDiscoverAPIMaliciousIndicatorFromJSONTyped, DomainDiscoverAPIMaliciousIndicatorToJSON } from "./DomainDiscoverAPIMaliciousIndicator";
 import type { DomainDiscoverAPISuspiciousIndicator } from "./DomainDiscoverAPISuspiciousIndicator";
 import { DomainDiscoverAPISuspiciousIndicatorFromJSON, DomainDiscoverAPISuspiciousIndicatorFromJSONTyped, DomainDiscoverAPISuspiciousIndicatorToJSON } from "./DomainDiscoverAPISuspiciousIndicator";
 import type { DomainDiscoverAPIApplicationBrowserExtension } from "./DomainDiscoverAPIApplicationBrowserExtension";
@@ -153,6 +155,12 @@ export interface DomainDiscoverAPIApplication {
      */
     installationTimestamp?: string;
     /**
+     * Whether or not the application is malicious
+     * @type {boolean}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    isMalicious?: boolean;
+    /**
      * Whether or not the application is normalized
      * @type {boolean}
      * @memberof DomainDiscoverAPIApplication
@@ -213,6 +221,12 @@ export interface DomainDiscoverAPIApplication {
      */
     localAdminPrivileges?: string;
     /**
+     * List of malicious risk indicators for this application
+     * @type {Array<DomainDiscoverAPIMaliciousIndicator>}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    maliciousIndicators?: Array<DomainDiscoverAPIMaliciousIndicator>;
+    /**
      * The name of the application.
      * @type {string}
      * @memberof DomainDiscoverAPIApplication
@@ -230,6 +244,12 @@ export interface DomainDiscoverAPIApplication {
      * @memberof DomainDiscoverAPIApplication
      */
     nameVendorVersion?: string;
+    /**
+     * The latest available stable version of the application
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    registryLatestVersionAvailable?: string;
     /**
      * The type of software of the application. Types are application, browser_extension, dev_package, ide_extension
      * @type {string}
@@ -254,6 +274,12 @@ export interface DomainDiscoverAPIApplication {
      * @memberof DomainDiscoverAPIApplication
      */
     suspiciousIndicators?: Array<DomainDiscoverAPISuspiciousIndicator>;
+    /**
+     * The threat verdict for the application (Malicious, No verdict).
+     * @type {string}
+     * @memberof DomainDiscoverAPIApplication
+     */
+    threatLevel?: string;
     /**
      * The name the application's vendor.
      * @type {string}
@@ -311,6 +337,7 @@ export function DomainDiscoverAPIApplicationFromJSONTyped(json: any, ignoreDiscr
         ideExtension: json["ide_extension"] == null ? undefined : DomainDiscoverAPIApplicationIDEExtensionFromJSON(json["ide_extension"]),
         installationPaths: json["installation_paths"] == null ? undefined : json["installation_paths"],
         installationTimestamp: json["installation_timestamp"] == null ? undefined : json["installation_timestamp"],
+        isMalicious: json["is_malicious"] == null ? undefined : json["is_malicious"],
         isNormalized: json["is_normalized"] == null ? undefined : json["is_normalized"],
         isSuspicious: json["is_suspicious"] == null ? undefined : json["is_suspicious"],
         lastPublished: json["last_published"] == null ? undefined : json["last_published"],
@@ -321,13 +348,16 @@ export function DomainDiscoverAPIApplicationFromJSONTyped(json: any, ignoreDiscr
         lastUsedUserName: json["last_used_user_name"] == null ? undefined : json["last_used_user_name"],
         lastUsedUserSid: json["last_used_user_sid"] == null ? undefined : json["last_used_user_sid"],
         localAdminPrivileges: json["local_admin_privileges"] == null ? undefined : json["local_admin_privileges"],
+        maliciousIndicators: json["malicious_indicators"] == null ? undefined : (json["malicious_indicators"] as Array<any>).map(DomainDiscoverAPIMaliciousIndicatorFromJSON),
         name: json["name"] == null ? undefined : json["name"],
         nameVendor: json["name_vendor"] == null ? undefined : json["name_vendor"],
         nameVendorVersion: json["name_vendor_version"] == null ? undefined : json["name_vendor_version"],
+        registryLatestVersionAvailable: json["registry_latest_version_available"] == null ? undefined : json["registry_latest_version_available"],
         softwareType: json["software_type"] == null ? undefined : json["software_type"],
         storeListing: json["store_listing"] == null ? undefined : json["store_listing"],
         storeListingStatus: json["store_listing_status"] == null ? undefined : json["store_listing_status"],
         suspiciousIndicators: json["suspicious_indicators"] == null ? undefined : (json["suspicious_indicators"] as Array<any>).map(DomainDiscoverAPISuspiciousIndicatorFromJSON),
+        threatLevel: json["threat_level"] == null ? undefined : json["threat_level"],
         vendor: json["vendor"] == null ? undefined : json["vendor"],
         version: json["version"] == null ? undefined : json["version"],
         versioningScheme: json["versioning_scheme"] == null ? undefined : json["versioning_scheme"],
@@ -358,6 +388,7 @@ export function DomainDiscoverAPIApplicationToJSON(value?: DomainDiscoverAPIAppl
         ide_extension: DomainDiscoverAPIApplicationIDEExtensionToJSON(value["ideExtension"]),
         installation_paths: value["installationPaths"],
         installation_timestamp: value["installationTimestamp"],
+        is_malicious: value["isMalicious"],
         is_normalized: value["isNormalized"],
         is_suspicious: value["isSuspicious"],
         last_published: value["lastPublished"],
@@ -368,13 +399,16 @@ export function DomainDiscoverAPIApplicationToJSON(value?: DomainDiscoverAPIAppl
         last_used_user_name: value["lastUsedUserName"],
         last_used_user_sid: value["lastUsedUserSid"],
         local_admin_privileges: value["localAdminPrivileges"],
+        malicious_indicators: value["maliciousIndicators"] == null ? undefined : (value["maliciousIndicators"] as Array<any>).map(DomainDiscoverAPIMaliciousIndicatorToJSON),
         name: value["name"],
         name_vendor: value["nameVendor"],
         name_vendor_version: value["nameVendorVersion"],
+        registry_latest_version_available: value["registryLatestVersionAvailable"],
         software_type: value["softwareType"],
         store_listing: value["storeListing"],
         store_listing_status: value["storeListingStatus"],
         suspicious_indicators: value["suspiciousIndicators"] == null ? undefined : (value["suspiciousIndicators"] as Array<any>).map(DomainDiscoverAPISuspiciousIndicatorToJSON),
+        threat_level: value["threatLevel"],
         vendor: value["vendor"],
         version: value["version"],
         versioning_scheme: value["versioningScheme"],

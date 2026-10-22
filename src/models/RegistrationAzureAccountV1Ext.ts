@@ -17,8 +17,8 @@ import type { AzureDBRoleAssignment } from "./AzureDBRoleAssignment";
 import { AzureDBRoleAssignmentFromJSON, AzureDBRoleAssignmentFromJSONTyped, AzureDBRoleAssignmentToJSON } from "./AzureDBRoleAssignment";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
 import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 import type { DomainPermission } from "./DomainPermission";
 import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
 
@@ -78,10 +78,10 @@ export interface RegistrationAzureAccountV1Ext {
     clientId?: string;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof RegistrationAzureAccountV1Ext
      */
-    cloudScopes?: Array<DomainCloudScope>;
+    cloudScopes?: Array<CloudScope>;
     /**
      *
      * @type {Array<StatemgmtCondition>}
@@ -249,7 +249,7 @@ export function RegistrationAzureAccountV1ExtFromJSONTyped(json: any, ignoreDisc
         azurePermissionsStatus: (json["azure_permissions_status"] as Array<any>).map(DomainPermissionFromJSON),
         cid: json["cid"],
         clientId: json["client_id"] == null ? undefined : json["client_id"],
-        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(CloudScopeFromJSON),
         conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         credentialsEndDate: json["credentials_end_date"] == null ? undefined : new Date(json["credentials_end_date"]),
         credentialsType: json["credentials_type"] == null ? undefined : json["credentials_type"],
@@ -288,7 +288,7 @@ export function RegistrationAzureAccountV1ExtToJSON(value?: RegistrationAzureAcc
         azure_permissions_status: (value["azurePermissionsStatus"] as Array<any>).map(DomainPermissionToJSON),
         cid: value["cid"],
         client_id: value["clientId"],
-        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(CloudScopeToJSON),
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         credentials_end_date: value["credentialsEndDate"] == null ? undefined : value["credentialsEndDate"].toISOString(),
         credentials_type: value["credentialsType"],

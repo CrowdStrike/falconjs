@@ -17,8 +17,8 @@ import type { ClassificationCloudScopeRule } from "./ClassificationCloudScopeRul
 import { ClassificationCloudScopeRuleFromJSON, ClassificationCloudScopeRuleFromJSONTyped, ClassificationCloudScopeRuleToJSON } from "./ClassificationCloudScopeRule";
 import type { ClassificationLabel } from "./ClassificationLabel";
 import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 
 /**
  *
@@ -34,10 +34,10 @@ export interface EvaluationsEvaluationResource {
     captured?: Date;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof EvaluationsEvaluationResource
      */
-    cloudGroups?: Array<DomainCloudScope>;
+    cloudGroups?: Array<CloudScope>;
     /**
      *
      * @type {Array<ClassificationLabel>}
@@ -68,6 +68,12 @@ export interface EvaluationsEvaluationResource {
      * @memberof EvaluationsEvaluationResource
      */
     id?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof EvaluationsEvaluationResource
+     */
+    namespace?: string;
     /**
      *
      * @type {string}
@@ -141,12 +147,13 @@ export function EvaluationsEvaluationResourceFromJSONTyped(json: any, ignoreDisc
     }
     return {
         captured: json["captured"] == null ? undefined : new Date(json["captured"]),
-        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(CloudScopeFromJSON),
         cloudLabels: json["cloud_labels"] == null ? undefined : (json["cloud_labels"] as Array<any>).map(ClassificationLabelFromJSON),
         cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(ClassificationCloudScopeRuleFromJSON),
         creationTime: json["creation_time"] == null ? undefined : new Date(json["creation_time"]),
         gcrn: json["gcrn"] == null ? undefined : json["gcrn"],
         id: json["id"] == null ? undefined : json["id"],
+        namespace: json["namespace"] == null ? undefined : json["namespace"],
         resourceId: json["resource_id"] == null ? undefined : json["resource_id"],
         resourceName: json["resource_name"] == null ? undefined : json["resource_name"],
         resourceType: json["resource_type"] == null ? undefined : json["resource_type"],
@@ -165,12 +172,13 @@ export function EvaluationsEvaluationResourceToJSON(value?: EvaluationsEvaluatio
     }
     return {
         captured: value["captured"] == null ? undefined : value["captured"].toISOString(),
-        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(CloudScopeToJSON),
         cloud_labels: value["cloudLabels"] == null ? undefined : (value["cloudLabels"] as Array<any>).map(ClassificationLabelToJSON),
         cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(ClassificationCloudScopeRuleToJSON),
         creation_time: value["creationTime"] == null ? undefined : value["creationTime"].toISOString(),
         gcrn: value["gcrn"],
         id: value["id"],
+        namespace: value["namespace"],
         resource_id: value["resourceId"],
         resource_name: value["resourceName"],
         resource_type: value["resourceType"],

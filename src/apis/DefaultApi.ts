@@ -1766,6 +1766,8 @@ export const GetCollectorsV1SortEnum = {
     PlatformDesc: "platform|desc",
     ModifiedTimestampAsc: "modified_timestamp|asc",
     ModifiedTimestampDesc: "modified_timestamp|desc",
+    SeenTimestampAsc: "seen_timestamp|asc",
+    SeenTimestampDesc: "seen_timestamp|desc",
     StateAsc: "state|asc",
     StateDesc: "state|desc",
 } as const;
@@ -1799,6 +1801,8 @@ export const GetCombinedCollectorsV1SortEnum = {
     PlatformDesc: "platform|desc",
     ModifiedTimestampAsc: "modified_timestamp|asc",
     ModifiedTimestampDesc: "modified_timestamp|desc",
+    SeenTimestampAsc: "seen_timestamp|asc",
+    SeenTimestampDesc: "seen_timestamp|desc",
     StateAsc: "state|asc",
     StateDesc: "state|desc",
 } as const;
@@ -1875,6 +1879,8 @@ export const SearchCollectorsV1SortEnum = {
     PlatformDesc: "platform|desc",
     ModifiedTimestampAsc: "modified_timestamp|asc",
     ModifiedTimestampDesc: "modified_timestamp|desc",
+    SeenTimestampAsc: "seen_timestamp|asc",
+    SeenTimestampDesc: "seen_timestamp|desc",
 } as const;
 export type SearchCollectorsV1SortEnum = (typeof SearchCollectorsV1SortEnum)[keyof typeof SearchCollectorsV1SortEnum];
 /**

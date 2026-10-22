@@ -13,12 +13,16 @@
  */
 
 import { mapValues } from "../runtime";
-import type { SupportedIntegrationGetSupportedSaas } from "./SupportedIntegrationGetSupportedSaas";
-import { SupportedIntegrationGetSupportedSaasFromJSON, SupportedIntegrationGetSupportedSaasFromJSONTyped, SupportedIntegrationGetSupportedSaasToJSON } from "./SupportedIntegrationGetSupportedSaas";
 import type { ErrorGetSupportedSaas } from "./ErrorGetSupportedSaas";
 import { ErrorGetSupportedSaasFromJSON, ErrorGetSupportedSaasFromJSONTyped, ErrorGetSupportedSaasToJSON } from "./ErrorGetSupportedSaas";
 import type { MetaGetSupportedSaas } from "./MetaGetSupportedSaas";
 import { MetaGetSupportedSaasFromJSON, MetaGetSupportedSaasFromJSONTyped, MetaGetSupportedSaasToJSON } from "./MetaGetSupportedSaas";
+import type { SupportedIntegrationWithCreationSchemaGetSupportedSaas } from "./SupportedIntegrationWithCreationSchemaGetSupportedSaas";
+import {
+    SupportedIntegrationWithCreationSchemaGetSupportedSaasFromJSON,
+    SupportedIntegrationWithCreationSchemaGetSupportedSaasFromJSONTyped,
+    SupportedIntegrationWithCreationSchemaGetSupportedSaasToJSON,
+} from "./SupportedIntegrationWithCreationSchemaGetSupportedSaas";
 
 /**
  *
@@ -40,10 +44,10 @@ export interface GetSupportedSaas {
     meta?: MetaGetSupportedSaas | null;
     /**
      *
-     * @type {Array<SupportedIntegrationGetSupportedSaas>}
+     * @type {Array<SupportedIntegrationWithCreationSchemaGetSupportedSaas>}
      * @memberof GetSupportedSaas
      */
-    resources?: Array<SupportedIntegrationGetSupportedSaas> | null;
+    resources?: Array<SupportedIntegrationWithCreationSchemaGetSupportedSaas> | null;
 }
 
 /**
@@ -64,7 +68,7 @@ export function GetSupportedSaasFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(ErrorGetSupportedSaasFromJSON),
         meta: json["meta"] == null ? undefined : MetaGetSupportedSaasFromJSON(json["meta"]),
-        resources: json["resources"] == null ? undefined : (json["resources"] as Array<any>).map(SupportedIntegrationGetSupportedSaasFromJSON),
+        resources: json["resources"] == null ? undefined : (json["resources"] as Array<any>).map(SupportedIntegrationWithCreationSchemaGetSupportedSaasFromJSON),
     };
 }
 
@@ -75,6 +79,6 @@ export function GetSupportedSaasToJSON(value?: GetSupportedSaas | null): any {
     return {
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(ErrorGetSupportedSaasToJSON),
         meta: MetaGetSupportedSaasToJSON(value["meta"]),
-        resources: value["resources"] == null ? undefined : (value["resources"] as Array<any>).map(SupportedIntegrationGetSupportedSaasToJSON),
+        resources: value["resources"] == null ? undefined : (value["resources"] as Array<any>).map(SupportedIntegrationWithCreationSchemaGetSupportedSaasToJSON),
     };
 }

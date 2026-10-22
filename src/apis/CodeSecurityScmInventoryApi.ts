@@ -16,6 +16,10 @@ import * as runtime from "../runtime";
 import type { ModelApiResponse, MsaReplyMetaOnly } from "../models/index";
 import { ModelApiResponseFromJSON, ModelApiResponseToJSON, MsaReplyMetaOnlyFromJSON, MsaReplyMetaOnlyToJSON } from "../models/index";
 
+export interface CodeSecurityScmInventoryApiGetPullJobRequest {
+    pullJobId: string;
+}
+
 export interface CodeSecurityScmInventoryApiGetSCMRepositoryAggregatesRequest {
     field: string;
     filter?: string;
@@ -28,10 +32,52 @@ export interface CodeSecurityScmInventoryApiListSCMRepositoriesRequest {
     offset?: number;
 }
 
+export interface CodeSecurityScmInventoryApiListSCMRepositoryBranchesRequest {
+    repositoryId: string;
+}
+
 /**
  *
  */
 export class CodeSecurityScmInventoryApi extends runtime.BaseAPI {
+    /**
+     * Get the status/artifact of an on-demand pull job
+     */
+    async getPullJobRaw(requestParameters: CodeSecurityScmInventoryApiGetPullJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelApiResponse>> {
+        if (requestParameters["pullJobId"] == null) {
+            throw new runtime.RequiredError("pullJobId", 'Required parameter "pullJobId" was null or undefined when calling getPullJob().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["code-security-scm-inventory:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/scm-integration/entities/pulls/v1/{pull_job_id}`.replace(`{${"pull_job_id"}}`, encodeURIComponent(String(requestParameters["pullJobId"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the status/artifact of an on-demand pull job
+     */
+    async getPullJob(pullJobId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelApiResponse> {
+        const response = await this.getPullJobRaw({ pullJobId: pullJobId }, initOverrides);
+        return await response.value();
+    }
+
     /**
      * Get distinct values with counts for a repository field
      */
@@ -131,6 +177,47 @@ export class CodeSecurityScmInventoryApi extends runtime.BaseAPI {
      */
     async listSCMRepositories(filter?: string, sort?: string, limit?: number, offset?: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelApiResponse> {
         const response = await this.listSCMRepositoriesRaw({ filter: filter, sort: sort, limit: limit, offset: offset }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * List branches for a repository
+     */
+    async listSCMRepositoryBranchesRaw(
+        requestParameters: CodeSecurityScmInventoryApiListSCMRepositoryBranchesRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<ModelApiResponse>> {
+        if (requestParameters["repositoryId"] == null) {
+            throw new runtime.RequiredError("repositoryId", 'Required parameter "repositoryId" was null or undefined when calling listSCMRepositoryBranches().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["code-security-scm-inventory:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/scm-integration/entities/repositories/v1/{repository_id}/branches`.replace(`{${"repository_id"}}`, encodeURIComponent(String(requestParameters["repositoryId"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelApiResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * List branches for a repository
+     */
+    async listSCMRepositoryBranches(repositoryId: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelApiResponse> {
+        const response = await this.listSCMRepositoryBranchesRaw({ repositoryId: repositoryId }, initOverrides);
         return await response.value();
     }
 }

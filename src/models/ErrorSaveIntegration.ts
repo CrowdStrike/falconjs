@@ -16,61 +16,51 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface SupportedIntegrationGetSupportedSaas
+ * @interface ErrorSaveIntegration
  */
-export interface SupportedIntegrationGetSupportedSaas {
+export interface ErrorSaveIntegration {
     /**
      *
      * @type {string}
-     * @memberof SupportedIntegrationGetSupportedSaas
+     * @memberof ErrorSaveIntegration
      */
-    accountId: string;
+    code: string;
     /**
      *
      * @type {string}
-     * @memberof SupportedIntegrationGetSupportedSaas
+     * @memberof ErrorSaveIntegration
      */
-    id: string;
-    /**
-     *
-     * @type {string}
-     * @memberof SupportedIntegrationGetSupportedSaas
-     */
-    name: string;
+    message?: string | null;
 }
 
 /**
- * Check if a given object implements the SupportedIntegrationGetSupportedSaas interface.
+ * Check if a given object implements the ErrorSaveIntegration interface.
  */
-export function instanceOfSupportedIntegrationGetSupportedSaas(value: object): value is SupportedIntegrationGetSupportedSaas {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
-    if (!("id" in value) || value["id"] === undefined) return false;
-    if (!("name" in value) || value["name"] === undefined) return false;
+export function instanceOfErrorSaveIntegration(value: object): value is ErrorSaveIntegration {
+    if (!("code" in value) || value["code"] === undefined) return false;
     return true;
 }
 
-export function SupportedIntegrationGetSupportedSaasFromJSON(json: any): SupportedIntegrationGetSupportedSaas {
-    return SupportedIntegrationGetSupportedSaasFromJSONTyped(json, false);
+export function ErrorSaveIntegrationFromJSON(json: any): ErrorSaveIntegration {
+    return ErrorSaveIntegrationFromJSONTyped(json, false);
 }
 
-export function SupportedIntegrationGetSupportedSaasFromJSONTyped(json: any, ignoreDiscriminator: boolean): SupportedIntegrationGetSupportedSaas {
+export function ErrorSaveIntegrationFromJSONTyped(json: any, ignoreDiscriminator: boolean): ErrorSaveIntegration {
     if (json == null) {
         return json;
     }
     return {
-        accountId: json["account_id"],
-        id: json["id"],
-        name: json["name"],
+        code: json["code"],
+        message: json["message"] == null ? undefined : json["message"],
     };
 }
 
-export function SupportedIntegrationGetSupportedSaasToJSON(value?: SupportedIntegrationGetSupportedSaas | null): any {
+export function ErrorSaveIntegrationToJSON(value?: ErrorSaveIntegration | null): any {
     if (value == null) {
         return value;
     }
     return {
-        account_id: value["accountId"],
-        id: value["id"],
-        name: value["name"],
+        code: value["code"],
+        message: value["message"],
     };
 }

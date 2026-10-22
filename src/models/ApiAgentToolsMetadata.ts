@@ -25,6 +25,18 @@ export interface ApiAgentToolsMetadata {
      * @memberof ApiAgentToolsMetadata
      */
     enabled: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof ApiAgentToolsMetadata
+     */
+    instructionToAgents?: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ApiAgentToolsMetadata
+     */
+    requireHumanApproval?: boolean;
 }
 
 /**
@@ -45,6 +57,8 @@ export function ApiAgentToolsMetadataFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         enabled: json["enabled"],
+        instructionToAgents: json["instruction_to_agents"] == null ? undefined : json["instruction_to_agents"],
+        requireHumanApproval: json["require_human_approval"] == null ? undefined : json["require_human_approval"],
     };
 }
 
@@ -54,5 +68,7 @@ export function ApiAgentToolsMetadataToJSON(value?: ApiAgentToolsMetadata | null
     }
     return {
         enabled: value["enabled"],
+        instruction_to_agents: value["instructionToAgents"],
+        require_human_approval: value["requireHumanApproval"],
     };
 }

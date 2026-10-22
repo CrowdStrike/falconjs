@@ -30,12 +30,6 @@ export interface AiAgentDetailsAiAgentDetails {
      * @type {string}
      * @memberof AiAgentDetailsAiAgentDetails
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AiAgentDetailsAiAgentDetails
-     */
     agentId: string | null;
     /**
      *
@@ -140,7 +134,6 @@ export interface AiAgentDetailsAiAgentDetails {
  */
 export function instanceOfAiAgentDetailsAiAgentDetails(value: object): value is AiAgentDetailsAiAgentDetails {
     if (!("access" in value) || value["access"] === undefined) return false;
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("agentId" in value) || value["agentId"] === undefined) return false;
     if (!("agentType" in value) || value["agentType"] === undefined) return false;
     if (!("creationDate" in value) || value["creationDate"] === undefined) return false;
@@ -169,7 +162,6 @@ export function AiAgentDetailsAiAgentDetailsFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         access: json["access"],
-        accountId: json["account_id"],
         agentId: json["agent_id"],
         agentType: json["agent_type"],
         aiModel: json["ai_model"] == null ? undefined : json["ai_model"],
@@ -196,7 +188,6 @@ export function AiAgentDetailsAiAgentDetailsToJSON(value?: AiAgentDetailsAiAgent
     }
     return {
         access: value["access"],
-        account_id: value["accountId"],
         agent_id: value["agentId"],
         agent_type: value["agentType"],
         ai_model: value["aiModel"],

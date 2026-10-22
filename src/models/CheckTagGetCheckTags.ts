@@ -24,12 +24,6 @@ export interface CheckTagGetCheckTags {
      * @type {string}
      * @memberof CheckTagGetCheckTags
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof CheckTagGetCheckTags
-     */
     color: string;
     /**
      *
@@ -49,7 +43,6 @@ export interface CheckTagGetCheckTags {
  * Check if a given object implements the CheckTagGetCheckTags interface.
  */
 export function instanceOfCheckTagGetCheckTags(value: object): value is CheckTagGetCheckTags {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("color" in value) || value["color"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
@@ -65,7 +58,6 @@ export function CheckTagGetCheckTagsFromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
-        accountId: json["account_id"],
         color: json["color"],
         id: json["id"],
         name: json["name"],
@@ -77,7 +69,6 @@ export function CheckTagGetCheckTagsToJSON(value?: CheckTagGetCheckTags | null):
         return value;
     }
     return {
-        account_id: value["accountId"],
         color: value["color"],
         id: value["id"],
         name: value["name"],

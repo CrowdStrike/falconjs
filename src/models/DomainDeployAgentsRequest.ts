@@ -43,6 +43,12 @@ export interface DomainDeployAgentsRequest {
      * @memberof DomainDeployAgentsRequest
      */
     proxyPort?: number;
+    /**
+     *
+     * @type {boolean}
+     * @memberof DomainDeployAgentsRequest
+     */
+    queueOffline: boolean;
 }
 
 /**
@@ -50,6 +56,7 @@ export interface DomainDeployAgentsRequest {
  */
 export function instanceOfDomainDeployAgentsRequest(value: object): value is DomainDeployAgentsRequest {
     if (!("aids" in value) || value["aids"] === undefined) return false;
+    if (!("queueOffline" in value) || value["queueOffline"] === undefined) return false;
     return true;
 }
 
@@ -66,6 +73,7 @@ export function DomainDeployAgentsRequestFromJSONTyped(json: any, ignoreDiscrimi
         noProxy: json["no_proxy"] == null ? undefined : json["no_proxy"],
         proxyHost: json["proxy_host"] == null ? undefined : json["proxy_host"],
         proxyPort: json["proxy_port"] == null ? undefined : json["proxy_port"],
+        queueOffline: json["queue_offline"],
     };
 }
 
@@ -78,5 +86,6 @@ export function DomainDeployAgentsRequestToJSON(value?: DomainDeployAgentsReques
         no_proxy: value["noProxy"],
         proxy_host: value["proxyHost"],
         proxy_port: value["proxyPort"],
+        queue_offline: value["queueOffline"],
     };
 }

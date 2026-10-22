@@ -21,10 +21,10 @@ import type { EvaluationsEvaluationResource } from "./EvaluationsEvaluationResou
 import { EvaluationsEvaluationResourceFromJSON, EvaluationsEvaluationResourceFromJSONTyped, EvaluationsEvaluationResourceToJSON } from "./EvaluationsEvaluationResource";
 import type { ClassificationLabel } from "./ClassificationLabel";
 import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 import type { EvaluationsEvaluationDoc } from "./EvaluationsEvaluationDoc";
 import { EvaluationsEvaluationDocFromJSON, EvaluationsEvaluationDocFromJSONTyped, EvaluationsEvaluationDocToJSON } from "./EvaluationsEvaluationDoc";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
 
 /**
  *
@@ -52,10 +52,10 @@ export interface EvaluationsEvaluation {
     cloud?: EvaluationsEvaluationCloud;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof EvaluationsEvaluation
      */
-    cloudGroups?: Array<DomainCloudScope>;
+    cloudGroups?: Array<CloudScope>;
     /**
      *
      * @type {Array<DomainCloudGroup>}
@@ -119,7 +119,7 @@ export function EvaluationsEvaluationFromJSONTyped(json: any, ignoreDiscriminato
         businessImpact: json["business_impact"] == null ? undefined : json["business_impact"],
         cid: json["cid"] == null ? undefined : json["cid"],
         cloud: json["cloud"] == null ? undefined : EvaluationsEvaluationCloudFromJSON(json["cloud"]),
-        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(CloudScopeFromJSON),
         cloudGroupsV2: json["cloud_groups_v2"] == null ? undefined : (json["cloud_groups_v2"] as Array<any>).map(DomainCloudGroupFromJSON),
         cloudLabels: json["cloud_labels"] == null ? undefined : (json["cloud_labels"] as Array<any>).map(ClassificationLabelFromJSON),
         environment: json["environment"] == null ? undefined : json["environment"],
@@ -138,7 +138,7 @@ export function EvaluationsEvaluationToJSON(value?: EvaluationsEvaluation | null
         business_impact: value["businessImpact"],
         cid: value["cid"],
         cloud: EvaluationsEvaluationCloudToJSON(value["cloud"]),
-        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(CloudScopeToJSON),
         cloud_groups_v2: value["cloudGroupsV2"] == null ? undefined : (value["cloudGroupsV2"] as Array<any>).map(DomainCloudGroupToJSON),
         cloud_labels: value["cloudLabels"] == null ? undefined : (value["cloudLabels"] as Array<any>).map(ClassificationLabelToJSON),
         environment: value["environment"],

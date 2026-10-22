@@ -55,6 +55,12 @@ export interface SensorUpdateSettingsRespV2 {
      */
     showEarlyAdopterBuilds: boolean;
     /**
+     * If true, LTV builds will be visible on the sensor update policy page
+     * @type {boolean}
+     * @memberof SensorUpdateSettingsRespV2
+     */
+    showLtvBuilds: boolean;
+    /**
      * The release stage this build is in
      * @type {string}
      * @memberof SensorUpdateSettingsRespV2
@@ -80,6 +86,7 @@ export interface SensorUpdateSettingsRespV2 {
 export const SensorUpdateSettingsRespV2StageEnum = {
     Prod: "prod",
     EarlyAdopter: "early_adopter",
+    Ltv: "ltv",
     Empty: "",
 } as const;
 export type SensorUpdateSettingsRespV2StageEnum = (typeof SensorUpdateSettingsRespV2StageEnum)[keyof typeof SensorUpdateSettingsRespV2StageEnum];
@@ -105,6 +112,7 @@ export function instanceOfSensorUpdateSettingsRespV2(value: object): value is Se
     if (!("scheduler" in value) || value["scheduler"] === undefined) return false;
     if (!("sensorVersion" in value) || value["sensorVersion"] === undefined) return false;
     if (!("showEarlyAdopterBuilds" in value) || value["showEarlyAdopterBuilds"] === undefined) return false;
+    if (!("showLtvBuilds" in value) || value["showLtvBuilds"] === undefined) return false;
     if (!("stage" in value) || value["stage"] === undefined) return false;
     if (!("uninstallProtection" in value) || value["uninstallProtection"] === undefined) return false;
     if (!("variants" in value) || value["variants"] === undefined) return false;
@@ -125,6 +133,7 @@ export function SensorUpdateSettingsRespV2FromJSONTyped(json: any, ignoreDiscrim
         scheduler: PolicySensorUpdateSchedulerFromJSON(json["scheduler"]),
         sensorVersion: json["sensor_version"],
         showEarlyAdopterBuilds: json["show_early_adopter_builds"],
+        showLtvBuilds: json["show_ltv_builds"],
         stage: json["stage"],
         uninstallProtection: json["uninstall_protection"],
         variants: (json["variants"] as Array<any>).map(SensorUpdateBuildRespV1FromJSON),
@@ -141,6 +150,7 @@ export function SensorUpdateSettingsRespV2ToJSON(value?: SensorUpdateSettingsRes
         scheduler: PolicySensorUpdateSchedulerToJSON(value["scheduler"]),
         sensor_version: value["sensorVersion"],
         show_early_adopter_builds: value["showEarlyAdopterBuilds"],
+        show_ltv_builds: value["showLtvBuilds"],
         stage: value["stage"],
         uninstall_protection: value["uninstallProtection"],
         variants: (value["variants"] as Array<any>).map(SensorUpdateBuildRespV1ToJSON),

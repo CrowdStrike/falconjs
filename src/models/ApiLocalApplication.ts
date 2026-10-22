@@ -20,73 +20,85 @@ import { mapValues } from "../runtime";
  */
 export interface ApiLocalApplication {
     /**
-     *
+     * Whether rules for this application also apply to its child processes
      * @type {boolean}
      * @memberof ApiLocalApplication
      */
     applyRulesForChildrenProcesses: boolean;
     /**
-     *
+     * Customer identifier that owns the local application
      * @type {string}
      * @memberof ApiLocalApplication
      */
     cid: string;
     /**
-     *
+     * Timestamp when the local application was created
      * @type {Date}
      * @memberof ApiLocalApplication
      */
     createdAt: Date;
     /**
-     *
+     * Whether the local application is soft-deleted
      * @type {boolean}
      * @memberof ApiLocalApplication
      */
     deleted: boolean;
     /**
-     *
+     * Timestamp when the local application was soft-deleted
      * @type {Date}
      * @memberof ApiLocalApplication
      */
     deletedAt: Date;
     /**
-     *
+     * Whether to emit only events that match a rule
      * @type {boolean}
      * @memberof ApiLocalApplication
      */
     emitRuleMatchedEventsOnly: boolean;
     /**
-     *
+     * Whether executable rename detection is enabled
      * @type {boolean}
      * @memberof ApiLocalApplication
      */
     enableRenameDetection: boolean;
     /**
-     *
+     * Name of the executable used to identify the local application
      * @type {string}
      * @memberof ApiLocalApplication
      */
     executableName: string;
     /**
-     *
+     * Identifiers of the local application groups that contain this application
      * @type {Array<string>}
      * @memberof ApiLocalApplication
      */
     groupIds: Array<string>;
     /**
-     *
+     * Unique identifier of the local application
      * @type {string}
      * @memberof ApiLocalApplication
      */
     id: string;
     /**
-     *
+     * Mac only. Whether to block application activity when inspection times out. Defaults is false
+     * @type {boolean}
+     * @memberof ApiLocalApplication
+     */
+    macBlockOnTimeout: boolean;
+    /**
+     * Display name of the local application
      * @type {string}
      * @memberof ApiLocalApplication
      */
     name: string;
     /**
-     *
+     * Operating system platform of the local application; accepts 'win' or 'mac'
+     * @type {string}
+     * @memberof ApiLocalApplication
+     */
+    platform: string;
+    /**
+     * Timestamp when the local application was last updated
      * @type {Date}
      * @memberof ApiLocalApplication
      */
@@ -107,7 +119,9 @@ export function instanceOfApiLocalApplication(value: object): value is ApiLocalA
     if (!("executableName" in value) || value["executableName"] === undefined) return false;
     if (!("groupIds" in value) || value["groupIds"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("macBlockOnTimeout" in value) || value["macBlockOnTimeout"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("platform" in value) || value["platform"] === undefined) return false;
     if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
     return true;
 }
@@ -131,7 +145,9 @@ export function ApiLocalApplicationFromJSONTyped(json: any, ignoreDiscriminator:
         executableName: json["executable_name"],
         groupIds: json["group_ids"],
         id: json["id"],
+        macBlockOnTimeout: json["mac_block_on_timeout"],
         name: json["name"],
+        platform: json["platform"],
         updatedAt: new Date(json["updated_at"]),
     };
 }
@@ -151,7 +167,9 @@ export function ApiLocalApplicationToJSON(value?: ApiLocalApplication | null): a
         executable_name: value["executableName"],
         group_ids: value["groupIds"],
         id: value["id"],
+        mac_block_on_timeout: value["macBlockOnTimeout"],
         name: value["name"],
+        platform: value["platform"],
         updated_at: value["updatedAt"].toISOString(),
     };
 }

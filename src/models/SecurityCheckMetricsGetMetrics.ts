@@ -28,12 +28,6 @@ import {
 export interface SecurityCheckMetricsGetMetrics {
     /**
      *
-     * @type {string}
-     * @memberof SecurityCheckMetricsGetMetrics
-     */
-    accountId: string;
-    /**
-     *
      * @type {number}
      * @memberof SecurityCheckMetricsGetMetrics
      */
@@ -68,7 +62,6 @@ export interface SecurityCheckMetricsGetMetrics {
  * Check if a given object implements the SecurityCheckMetricsGetMetrics interface.
  */
 export function instanceOfSecurityCheckMetricsGetMetrics(value: object): value is SecurityCheckMetricsGetMetrics {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("integrationsCount" in value) || value["integrationsCount"] === undefined) return false;
     if (!("securityDomainCount" in value) || value["securityDomainCount"] === undefined) return false;
     if (!("statusBreakdown" in value) || value["statusBreakdown"] === undefined) return false;
@@ -86,7 +79,6 @@ export function SecurityCheckMetricsGetMetricsFromJSONTyped(json: any, ignoreDis
         return json;
     }
     return {
-        accountId: json["account_id"],
         integrationsCount: json["integrations_count"],
         securityDomainCount: json["security_domain_count"],
         statusBreakdown: StatusBreakdownSecurityCheckMetricsGetMetricsFromJSON(json["status_breakdown"]),
@@ -100,7 +92,6 @@ export function SecurityCheckMetricsGetMetricsToJSON(value?: SecurityCheckMetric
         return value;
     }
     return {
-        account_id: value["accountId"],
         integrations_count: value["integrationsCount"],
         security_domain_count: value["securityDomainCount"],
         status_breakdown: StatusBreakdownSecurityCheckMetricsGetMetricsToJSON(value["statusBreakdown"]),

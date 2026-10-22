@@ -29,12 +29,6 @@ export interface UserGetUserInventory {
      * @type {string}
      * @memberof UserGetUserInventory
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof UserGetUserInventory
-     */
     company: string;
     /**
      *
@@ -132,7 +126,6 @@ export interface UserGetUserInventory {
  * Check if a given object implements the UserGetUserInventory interface.
  */
 export function instanceOfUserGetUserInventory(value: object): value is UserGetUserInventory {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("company" in value) || value["company"] === undefined) return false;
     if (!("country" in value) || value["country"] === undefined) return false;
     if (!("department" in value) || value["department"] === undefined) return false;
@@ -161,7 +154,6 @@ export function UserGetUserInventoryFromJSONTyped(json: any, ignoreDiscriminator
         return json;
     }
     return {
-        accountId: json["account_id"],
         company: json["company"],
         country: json["country"],
         department: json["department"],
@@ -186,7 +178,6 @@ export function UserGetUserInventoryToJSON(value?: UserGetUserInventory | null):
         return value;
     }
     return {
-        account_id: value["accountId"],
         company: value["company"],
         country: value["country"],
         department: value["department"],

@@ -31,31 +31,19 @@ export interface SecurityCheckChangeLogEntryGetSecurityCheckChangeLog {
      * @type {string}
      * @memberof SecurityCheckChangeLogEntryGetSecurityCheckChangeLog
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof SecurityCheckChangeLogEntryGetSecurityCheckChangeLog
-     */
     action: string;
     /**
      *
      * @type {string}
      * @memberof SecurityCheckChangeLogEntryGetSecurityCheckChangeLog
      */
-    appDisplayName: string | null;
+    app: string | null;
     /**
      *
      * @type {Date}
      * @memberof SecurityCheckChangeLogEntryGetSecurityCheckChangeLog
      */
     changedAt: Date;
-    /**
-     *
-     * @type {string}
-     * @memberof SecurityCheckChangeLogEntryGetSecurityCheckChangeLog
-     */
-    checkId: string;
     /**
      *
      * @type {string}
@@ -104,23 +92,15 @@ export interface SecurityCheckChangeLogEntryGetSecurityCheckChangeLog {
      * @memberof SecurityCheckChangeLogEntryGetSecurityCheckChangeLog
      */
     previousValue: string | null;
-    /**
-     *
-     * @type {string}
-     * @memberof SecurityCheckChangeLogEntryGetSecurityCheckChangeLog
-     */
-    saasName: string | null;
 }
 
 /**
  * Check if a given object implements the SecurityCheckChangeLogEntryGetSecurityCheckChangeLog interface.
  */
 export function instanceOfSecurityCheckChangeLogEntryGetSecurityCheckChangeLog(value: object): value is SecurityCheckChangeLogEntryGetSecurityCheckChangeLog {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("action" in value) || value["action"] === undefined) return false;
-    if (!("appDisplayName" in value) || value["appDisplayName"] === undefined) return false;
+    if (!("app" in value) || value["app"] === undefined) return false;
     if (!("changedAt" in value) || value["changedAt"] === undefined) return false;
-    if (!("checkId" in value) || value["checkId"] === undefined) return false;
     if (!("checkTitle" in value) || value["checkTitle"] === undefined) return false;
     if (!("checks" in value) || value["checks"] === undefined) return false;
     if (!("explanationBody" in value) || value["explanationBody"] === undefined) return false;
@@ -129,7 +109,6 @@ export function instanceOfSecurityCheckChangeLogEntryGetSecurityCheckChangeLog(v
     if (!("integrationSupportedId" in value) || value["integrationSupportedId"] === undefined) return false;
     if (!("newValue" in value) || value["newValue"] === undefined) return false;
     if (!("previousValue" in value) || value["previousValue"] === undefined) return false;
-    if (!("saasName" in value) || value["saasName"] === undefined) return false;
     return true;
 }
 
@@ -142,11 +121,9 @@ export function SecurityCheckChangeLogEntryGetSecurityCheckChangeLogFromJSONType
         return json;
     }
     return {
-        accountId: json["account_id"],
         action: json["action"],
-        appDisplayName: json["app_display_name"],
+        app: json["app"],
         changedAt: new Date(json["changed_at"]),
-        checkId: json["check_id"],
         checkTitle: json["check_title"],
         checks: (json["checks"] as Array<any>).map(CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLogFromJSON),
         explanationBody: json["explanation_body"],
@@ -155,7 +132,6 @@ export function SecurityCheckChangeLogEntryGetSecurityCheckChangeLogFromJSONType
         integrationSupportedId: json["integration_supported_id"],
         newValue: json["new_value"],
         previousValue: json["previous_value"],
-        saasName: json["saas_name"],
     };
 }
 
@@ -164,11 +140,9 @@ export function SecurityCheckChangeLogEntryGetSecurityCheckChangeLogToJSON(value
         return value;
     }
     return {
-        account_id: value["accountId"],
         action: value["action"],
-        app_display_name: value["appDisplayName"],
+        app: value["app"],
         changed_at: value["changedAt"].toISOString(),
-        check_id: value["checkId"],
         check_title: value["checkTitle"],
         checks: (value["checks"] as Array<any>).map(CheckSecurityCheckChangeLogEntryGetSecurityCheckChangeLogToJSON),
         explanation_body: value["explanationBody"],
@@ -177,6 +151,5 @@ export function SecurityCheckChangeLogEntryGetSecurityCheckChangeLogToJSON(value
         integration_supported_id: value["integrationSupportedId"],
         new_value: value["newValue"],
         previous_value: value["previousValue"],
-        saas_name: value["saasName"],
     };
 }

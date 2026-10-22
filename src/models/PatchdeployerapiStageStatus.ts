@@ -30,51 +30,69 @@ export interface PatchdeployerapiStageStatus {
      * @type {string}
      * @memberof PatchdeployerapiStageStatus
      */
-    failureReason?: string;
-    /**
-     *
-     * @type {Date}
-     * @memberof PatchdeployerapiStageStatus
-     */
-    initiatedAt: Date;
-    /**
-     *
-     * @type {string}
-     * @memberof PatchdeployerapiStageStatus
-     */
-    stageName: string;
+    error?: string;
     /**
      *
      * @type {number}
      * @memberof PatchdeployerapiStageStatus
      */
-    stageOrder: number;
+    errorCode?: number;
     /**
      *
      * @type {string}
      * @memberof PatchdeployerapiStageStatus
      */
-    stageStatus: PatchdeployerapiStageStatusStageStatusEnum;
+    errorOutput?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof PatchdeployerapiStageStatus
+     */
+    name: string;
+    /**
+     *
+     * @type {number}
+     * @memberof PatchdeployerapiStageStatus
+     */
+    order: number;
+    /**
+     *
+     * @type {string}
+     * @memberof PatchdeployerapiStageStatus
+     */
+    output?: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof PatchdeployerapiStageStatus
+     */
+    startedAt?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof PatchdeployerapiStageStatus
+     */
+    status: PatchdeployerapiStageStatusStatusEnum;
 }
 
 /**
  * @export
  */
-export const PatchdeployerapiStageStatusStageStatusEnum = {
+export const PatchdeployerapiStageStatusStatusEnum = {
+    Pending: "Pending",
     Running: "Running",
     Completed: "Completed",
     Failed: "Failed",
 } as const;
-export type PatchdeployerapiStageStatusStageStatusEnum = (typeof PatchdeployerapiStageStatusStageStatusEnum)[keyof typeof PatchdeployerapiStageStatusStageStatusEnum];
+export type PatchdeployerapiStageStatusStatusEnum = (typeof PatchdeployerapiStageStatusStatusEnum)[keyof typeof PatchdeployerapiStageStatusStatusEnum];
 
 /**
  * Check if a given object implements the PatchdeployerapiStageStatus interface.
  */
 export function instanceOfPatchdeployerapiStageStatus(value: object): value is PatchdeployerapiStageStatus {
-    if (!("initiatedAt" in value) || value["initiatedAt"] === undefined) return false;
-    if (!("stageName" in value) || value["stageName"] === undefined) return false;
-    if (!("stageOrder" in value) || value["stageOrder"] === undefined) return false;
-    if (!("stageStatus" in value) || value["stageStatus"] === undefined) return false;
+    if (!("name" in value) || value["name"] === undefined) return false;
+    if (!("order" in value) || value["order"] === undefined) return false;
+    if (!("status" in value) || value["status"] === undefined) return false;
     return true;
 }
 
@@ -88,11 +106,14 @@ export function PatchdeployerapiStageStatusFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         completedAt: json["completed_at"] == null ? undefined : new Date(json["completed_at"]),
-        failureReason: json["failure_reason"] == null ? undefined : json["failure_reason"],
-        initiatedAt: new Date(json["initiated_at"]),
-        stageName: json["stage_name"],
-        stageOrder: json["stage_order"],
-        stageStatus: json["stage_status"],
+        error: json["error"] == null ? undefined : json["error"],
+        errorCode: json["error_code"] == null ? undefined : json["error_code"],
+        errorOutput: json["error_output"] == null ? undefined : json["error_output"],
+        name: json["name"],
+        order: json["order"],
+        output: json["output"] == null ? undefined : json["output"],
+        startedAt: json["started_at"] == null ? undefined : new Date(json["started_at"]),
+        status: json["status"],
     };
 }
 
@@ -102,10 +123,13 @@ export function PatchdeployerapiStageStatusToJSON(value?: PatchdeployerapiStageS
     }
     return {
         completed_at: value["completedAt"] == null ? undefined : value["completedAt"].toISOString(),
-        failure_reason: value["failureReason"],
-        initiated_at: value["initiatedAt"].toISOString(),
-        stage_name: value["stageName"],
-        stage_order: value["stageOrder"],
-        stage_status: value["stageStatus"],
+        error: value["error"],
+        error_code: value["errorCode"],
+        error_output: value["errorOutput"],
+        name: value["name"],
+        order: value["order"],
+        output: value["output"],
+        started_at: value["startedAt"] == null ? undefined : value["startedAt"].toISOString(),
+        status: value["status"],
     };
 }

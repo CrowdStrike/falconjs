@@ -903,6 +903,18 @@ export interface DomainDiscoverAPIHost {
      */
     productTypeDesc?: string;
     /**
+     * The list of encrypted drives on the host whose protection is suspended, meaning the volume key is stored in the clear
+     * @type {Array<string>}
+     * @memberof DomainDiscoverAPIHost
+     */
+    protectionSuspendedDrives?: Array<string>;
+    /**
+     * The count of encrypted drives on the host whose protection is suspended
+     * @type {number}
+     * @memberof DomainDiscoverAPIHost
+     */
+    protectionSuspendedDrivesCount?: number;
+    /**
      * The list of protocols supported by the device
      * @type {Array<string>}
      * @memberof DomainDiscoverAPIHost
@@ -1269,6 +1281,8 @@ export function DomainDiscoverAPIHostFromJSONTyped(json: any, ignoreDiscriminato
         processorPackageCount: json["processor_package_count"] == null ? undefined : json["processor_package_count"],
         productType: json["product_type"] == null ? undefined : json["product_type"],
         productTypeDesc: json["product_type_desc"] == null ? undefined : json["product_type_desc"],
+        protectionSuspendedDrives: json["protection_suspended_drives"] == null ? undefined : json["protection_suspended_drives"],
+        protectionSuspendedDrivesCount: json["protection_suspended_drives_count"] == null ? undefined : json["protection_suspended_drives_count"],
         protocols: json["protocols"] == null ? undefined : json["protocols"],
         purdueLevel: json["purdue_level"] == null ? undefined : json["purdue_level"],
         qualysId: json["qualys_id"] == null ? undefined : json["qualys_id"],
@@ -1454,6 +1468,8 @@ export function DomainDiscoverAPIHostToJSON(value?: DomainDiscoverAPIHost | null
         processor_package_count: value["processorPackageCount"],
         product_type: value["productType"],
         product_type_desc: value["productTypeDesc"],
+        protection_suspended_drives: value["protectionSuspendedDrives"],
+        protection_suspended_drives_count: value["protectionSuspendedDrivesCount"],
         protocols: value["protocols"],
         purdue_level: value["purdueLevel"],
         qualys_id: value["qualysId"],

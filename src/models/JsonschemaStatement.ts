@@ -31,6 +31,12 @@ export interface JsonschemaStatement {
      * @memberof JsonschemaStatement
      */
     severity: string;
+    /**
+     *
+     * @type {string}
+     * @memberof JsonschemaStatement
+     */
+    title: string;
 }
 
 /**
@@ -39,6 +45,7 @@ export interface JsonschemaStatement {
 export function instanceOfJsonschemaStatement(value: object): value is JsonschemaStatement {
     if (!("description" in value) || value["description"] === undefined) return false;
     if (!("severity" in value) || value["severity"] === undefined) return false;
+    if (!("title" in value) || value["title"] === undefined) return false;
     return true;
 }
 
@@ -53,6 +60,7 @@ export function JsonschemaStatementFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         description: json["description"],
         severity: json["severity"],
+        title: json["title"],
     };
 }
 
@@ -63,5 +71,6 @@ export function JsonschemaStatementToJSON(value?: JsonschemaStatement | null): a
     return {
         description: value["description"],
         severity: value["severity"],
+        title: value["title"],
     };
 }

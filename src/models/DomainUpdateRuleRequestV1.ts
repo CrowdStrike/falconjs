@@ -20,6 +20,12 @@ import { mapValues } from "../runtime";
  */
 export interface DomainUpdateRuleRequestV1 {
     /**
+     * The minimum risk score threshold at or above which AI summaries are generated for matches. `off` excludes the rule from AI summarization. Possible values: [`off`, `auto`, `low`, `medium`, `high`, `critical`].
+     * @type {string}
+     * @memberof DomainUpdateRuleRequestV1
+     */
+    aiSummariesRiskScoreThreshold?: string;
+    /**
      * Monitor only for exposed data. Must be accompanied by breach_monitoring_enabled:true.
      * @type {boolean}
      * @memberof DomainUpdateRuleRequestV1
@@ -119,6 +125,7 @@ export function DomainUpdateRuleRequestV1FromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
+        aiSummariesRiskScoreThreshold: json["ai_summaries_risk_score_threshold"] == null ? undefined : json["ai_summaries_risk_score_threshold"],
         breachMonitorOnly: json["breach_monitor_only"],
         breachMonitoringEnabled: json["breach_monitoring_enabled"],
         exposedDataMatchType: json["exposed_data_match_type"] == null ? undefined : json["exposed_data_match_type"],
@@ -139,6 +146,7 @@ export function DomainUpdateRuleRequestV1ToJSON(value?: DomainUpdateRuleRequestV
         return value;
     }
     return {
+        ai_summaries_risk_score_threshold: value["aiSummariesRiskScoreThreshold"],
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],
         exposed_data_match_type: value["exposedDataMatchType"],
