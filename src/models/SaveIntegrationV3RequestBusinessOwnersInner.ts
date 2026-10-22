@@ -16,52 +16,50 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface OperationsMergeCasesRequest
+ * @interface SaveIntegrationV3RequestBusinessOwnersInner
  */
-export interface OperationsMergeCasesRequest {
+export interface SaveIntegrationV3RequestBusinessOwnersInner {
     /**
      *
      * @type {string}
-     * @memberof OperationsMergeCasesRequest
+     * @memberof SaveIntegrationV3RequestBusinessOwnersInner
      */
-    destinationId: string;
+    email?: string;
     /**
      *
      * @type {string}
-     * @memberof OperationsMergeCasesRequest
+     * @memberof SaveIntegrationV3RequestBusinessOwnersInner
      */
-    sourceId: string;
+    name?: string;
 }
 
 /**
- * Check if a given object implements the OperationsMergeCasesRequest interface.
+ * Check if a given object implements the SaveIntegrationV3RequestBusinessOwnersInner interface.
  */
-export function instanceOfOperationsMergeCasesRequest(value: object): value is OperationsMergeCasesRequest {
-    if (!("destinationId" in value) || value["destinationId"] === undefined) return false;
-    if (!("sourceId" in value) || value["sourceId"] === undefined) return false;
+export function instanceOfSaveIntegrationV3RequestBusinessOwnersInner(value: object): value is SaveIntegrationV3RequestBusinessOwnersInner {
     return true;
 }
 
-export function OperationsMergeCasesRequestFromJSON(json: any): OperationsMergeCasesRequest {
-    return OperationsMergeCasesRequestFromJSONTyped(json, false);
+export function SaveIntegrationV3RequestBusinessOwnersInnerFromJSON(json: any): SaveIntegrationV3RequestBusinessOwnersInner {
+    return SaveIntegrationV3RequestBusinessOwnersInnerFromJSONTyped(json, false);
 }
 
-export function OperationsMergeCasesRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): OperationsMergeCasesRequest {
+export function SaveIntegrationV3RequestBusinessOwnersInnerFromJSONTyped(json: any, ignoreDiscriminator: boolean): SaveIntegrationV3RequestBusinessOwnersInner {
     if (json == null) {
         return json;
     }
     return {
-        destinationId: json["destination_id"],
-        sourceId: json["source_id"],
+        email: json["email"] == null ? undefined : json["email"],
+        name: json["name"] == null ? undefined : json["name"],
     };
 }
 
-export function OperationsMergeCasesRequestToJSON(value?: OperationsMergeCasesRequest | null): any {
+export function SaveIntegrationV3RequestBusinessOwnersInnerToJSON(value?: SaveIntegrationV3RequestBusinessOwnersInner | null): any {
     if (value == null) {
         return value;
     }
     return {
-        destination_id: value["destinationId"],
-        source_id: value["sourceId"],
+        email: value["email"],
+        name: value["name"],
     };
 }

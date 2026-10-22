@@ -16,50 +16,51 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface DomainCloudAccounts
+ * @interface ErrorDiscoveredVendors
  */
-export interface DomainCloudAccounts {
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof DomainCloudAccounts
-     */
-    ids?: Array<string>;
+export interface ErrorDiscoveredVendors {
     /**
      *
      * @type {string}
-     * @memberof DomainCloudAccounts
+     * @memberof ErrorDiscoveredVendors
      */
-    provider?: string;
+    code: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ErrorDiscoveredVendors
+     */
+    message?: string | null;
 }
 
 /**
- * Check if a given object implements the DomainCloudAccounts interface.
+ * Check if a given object implements the ErrorDiscoveredVendors interface.
  */
-export function instanceOfDomainCloudAccounts(value: object): value is DomainCloudAccounts {
+export function instanceOfErrorDiscoveredVendors(value: object): value is ErrorDiscoveredVendors {
+    if (!("code" in value) || value["code"] === undefined) return false;
     return true;
 }
 
-export function DomainCloudAccountsFromJSON(json: any): DomainCloudAccounts {
-    return DomainCloudAccountsFromJSONTyped(json, false);
+export function ErrorDiscoveredVendorsFromJSON(json: any): ErrorDiscoveredVendors {
+    return ErrorDiscoveredVendorsFromJSONTyped(json, false);
 }
 
-export function DomainCloudAccountsFromJSONTyped(json: any, ignoreDiscriminator: boolean): DomainCloudAccounts {
+export function ErrorDiscoveredVendorsFromJSONTyped(json: any, ignoreDiscriminator: boolean): ErrorDiscoveredVendors {
     if (json == null) {
         return json;
     }
     return {
-        ids: json["ids"] == null ? undefined : json["ids"],
-        provider: json["provider"] == null ? undefined : json["provider"],
+        code: json["code"],
+        message: json["message"] == null ? undefined : json["message"],
     };
 }
 
-export function DomainCloudAccountsToJSON(value?: DomainCloudAccounts | null): any {
+export function ErrorDiscoveredVendorsToJSON(value?: ErrorDiscoveredVendors | null): any {
     if (value == null) {
         return value;
     }
     return {
-        ids: value["ids"],
-        provider: value["provider"],
+        code: value["code"],
+        message: value["message"],
     };
 }

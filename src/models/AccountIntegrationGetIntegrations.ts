@@ -13,6 +13,12 @@
  */
 
 import { mapValues } from "../runtime";
+import type { BusinessOwnerAccountIntegrationGetIntegrations } from "./BusinessOwnerAccountIntegrationGetIntegrations";
+import {
+    BusinessOwnerAccountIntegrationGetIntegrationsFromJSON,
+    BusinessOwnerAccountIntegrationGetIntegrationsFromJSONTyped,
+    BusinessOwnerAccountIntegrationGetIntegrationsToJSON,
+} from "./BusinessOwnerAccountIntegrationGetIntegrations";
 import type { IssueAccountIntegrationGetIntegrations } from "./IssueAccountIntegrationGetIntegrations";
 import {
     IssueAccountIntegrationGetIntegrationsFromJSON,
@@ -31,13 +37,13 @@ export interface AccountIntegrationGetIntegrations {
      * @type {string}
      * @memberof AccountIntegrationGetIntegrations
      */
-    accountId: string;
+    alias: string;
     /**
      *
-     * @type {string}
+     * @type {Array<BusinessOwnerAccountIntegrationGetIntegrations>}
      * @memberof AccountIntegrationGetIntegrations
      */
-    alias: string;
+    businessOwners: Array<BusinessOwnerAccountIntegrationGetIntegrations>;
     /**
      *
      * @type {Date}
@@ -58,10 +64,22 @@ export interface AccountIntegrationGetIntegrations {
     id: string;
     /**
      *
+     * @type {number}
+     * @memberof AccountIntegrationGetIntegrations
+     */
+    integrationProgress: number | null;
+    /**
+     *
      * @type {string}
      * @memberof AccountIntegrationGetIntegrations
      */
     integrationStatus: string;
+    /**
+     *
+     * @type {boolean}
+     * @memberof AccountIntegrationGetIntegrations
+     */
+    isBeta: boolean;
     /**
      *
      * @type {Array<IssueAccountIntegrationGetIntegrations>}
@@ -74,6 +92,12 @@ export interface AccountIntegrationGetIntegrations {
      * @memberof AccountIntegrationGetIntegrations
      */
     lastRun: Date;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof AccountIntegrationGetIntegrations
+     */
+    orgDomains: Array<string>;
     /**
      *
      * @type {string}
@@ -92,14 +116,17 @@ export interface AccountIntegrationGetIntegrations {
  * Check if a given object implements the AccountIntegrationGetIntegrations interface.
  */
 export function instanceOfAccountIntegrationGetIntegrations(value: object): value is AccountIntegrationGetIntegrations {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("alias" in value) || value["alias"] === undefined) return false;
+    if (!("businessOwners" in value) || value["businessOwners"] === undefined) return false;
     if (!("createdTime" in value) || value["createdTime"] === undefined) return false;
     if (!("enabled" in value) || value["enabled"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
+    if (!("integrationProgress" in value) || value["integrationProgress"] === undefined) return false;
     if (!("integrationStatus" in value) || value["integrationStatus"] === undefined) return false;
+    if (!("isBeta" in value) || value["isBeta"] === undefined) return false;
     if (!("issues" in value) || value["issues"] === undefined) return false;
     if (!("lastRun" in value) || value["lastRun"] === undefined) return false;
+    if (!("orgDomains" in value) || value["orgDomains"] === undefined) return false;
     if (!("saasId" in value) || value["saasId"] === undefined) return false;
     if (!("saasName" in value) || value["saasName"] === undefined) return false;
     return true;
@@ -114,14 +141,17 @@ export function AccountIntegrationGetIntegrationsFromJSONTyped(json: any, ignore
         return json;
     }
     return {
-        accountId: json["account_id"],
         alias: json["alias"],
+        businessOwners: (json["business_owners"] as Array<any>).map(BusinessOwnerAccountIntegrationGetIntegrationsFromJSON),
         createdTime: new Date(json["created_time"]),
         enabled: json["enabled"],
         id: json["id"],
+        integrationProgress: json["integration_progress"],
         integrationStatus: json["integration_status"],
+        isBeta: json["is_beta"],
         issues: (json["issues"] as Array<any>).map(IssueAccountIntegrationGetIntegrationsFromJSON),
         lastRun: new Date(json["last_run"]),
+        orgDomains: json["org_domains"],
         saasId: json["saas_id"],
         saasName: json["saas_name"],
     };
@@ -132,14 +162,17 @@ export function AccountIntegrationGetIntegrationsToJSON(value?: AccountIntegrati
         return value;
     }
     return {
-        account_id: value["accountId"],
         alias: value["alias"],
+        business_owners: (value["businessOwners"] as Array<any>).map(BusinessOwnerAccountIntegrationGetIntegrationsToJSON),
         created_time: value["createdTime"].toISOString(),
         enabled: value["enabled"],
         id: value["id"],
+        integration_progress: value["integrationProgress"],
         integration_status: value["integrationStatus"],
+        is_beta: value["isBeta"],
         issues: (value["issues"] as Array<any>).map(IssueAccountIntegrationGetIntegrationsToJSON),
         last_run: value["lastRun"].toISOString(),
+        org_domains: value["orgDomains"],
         saas_id: value["saasId"],
         saas_name: value["saasName"],
     };

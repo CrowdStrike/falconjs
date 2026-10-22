@@ -33,6 +33,30 @@ export interface ApimodelsSecurityFramework {
     authority: string;
     /**
      *
+     * @type {Date}
+     * @memberof ApimodelsSecurityFramework
+     */
+    createdAt: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof ApimodelsSecurityFramework
+     */
+    createdBy: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof ApimodelsSecurityFramework
+     */
+    deletedAt?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof ApimodelsSecurityFramework
+     */
+    deletedBy?: string;
+    /**
+     *
      * @type {string}
      * @memberof ApimodelsSecurityFramework
      */
@@ -43,6 +67,24 @@ export interface ApimodelsSecurityFramework {
      * @memberof ApimodelsSecurityFramework
      */
     name: string;
+    /**
+     *
+     * @type {string}
+     * @memberof ApimodelsSecurityFramework
+     */
+    updateReason?: string;
+    /**
+     *
+     * @type {Date}
+     * @memberof ApimodelsSecurityFramework
+     */
+    updatedAt?: Date;
+    /**
+     *
+     * @type {string}
+     * @memberof ApimodelsSecurityFramework
+     */
+    updatedBy?: string;
     /**
      *
      * @type {string}
@@ -62,6 +104,8 @@ export interface ApimodelsSecurityFramework {
  */
 export function instanceOfApimodelsSecurityFramework(value: object): value is ApimodelsSecurityFramework {
     if (!("authority" in value) || value["authority"] === undefined) return false;
+    if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
+    if (!("createdBy" in value) || value["createdBy"] === undefined) return false;
     if (!("name" in value) || value["name"] === undefined) return false;
     if (!("version" in value) || value["version"] === undefined) return false;
     return true;
@@ -78,8 +122,15 @@ export function ApimodelsSecurityFrameworkFromJSONTyped(json: any, ignoreDiscrim
     return {
         active: json["active"] == null ? undefined : json["active"],
         authority: json["authority"],
+        createdAt: new Date(json["created_at"]),
+        createdBy: json["created_by"],
+        deletedAt: json["deleted_at"] == null ? undefined : new Date(json["deleted_at"]),
+        deletedBy: json["deleted_by"] == null ? undefined : json["deleted_by"],
         description: json["description"] == null ? undefined : json["description"],
         name: json["name"],
+        updateReason: json["update_reason"] == null ? undefined : json["update_reason"],
+        updatedAt: json["updated_at"] == null ? undefined : new Date(json["updated_at"]),
+        updatedBy: json["updated_by"] == null ? undefined : json["updated_by"],
         uuid: json["uuid"] == null ? undefined : json["uuid"],
         version: json["version"],
     };
@@ -92,8 +143,15 @@ export function ApimodelsSecurityFrameworkToJSON(value?: ApimodelsSecurityFramew
     return {
         active: value["active"],
         authority: value["authority"],
+        created_at: value["createdAt"].toISOString(),
+        created_by: value["createdBy"],
+        deleted_at: value["deletedAt"] == null ? undefined : value["deletedAt"].toISOString(),
+        deleted_by: value["deletedBy"],
         description: value["description"],
         name: value["name"],
+        update_reason: value["updateReason"],
+        updated_at: value["updatedAt"] == null ? undefined : value["updatedAt"].toISOString(),
+        updated_by: value["updatedBy"],
         uuid: value["uuid"],
         version: value["version"],
     };

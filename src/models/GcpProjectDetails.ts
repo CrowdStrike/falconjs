@@ -39,6 +39,12 @@ export interface GcpProjectDetails {
     dspmStatus?: string;
     /**
      *
+     * @type {string}
+     * @memberof GcpProjectDetails
+     */
+    googleWorkspaceStatus?: string;
+    /**
+     *
      * @type {Array<string>}
      * @memberof GcpProjectDetails
      */
@@ -178,6 +184,7 @@ export function GcpProjectDetailsFromJSONTyped(json: any, ignoreDiscriminator: b
         created: json["created"] == null ? undefined : new Date(json["created"]),
         deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
         dspmStatus: json["dspm_status"] == null ? undefined : json["dspm_status"],
+        googleWorkspaceStatus: json["google_workspace_status"] == null ? undefined : json["google_workspace_status"],
         ioaFailedPermissions: json["ioa_failed_permissions"] == null ? undefined : json["ioa_failed_permissions"],
         ioaPassedPermissions: json["ioa_passed_permissions"] == null ? undefined : json["ioa_passed_permissions"],
         ioaStatus: json["ioa_status"] == null ? undefined : json["ioa_status"],
@@ -209,6 +216,7 @@ export function GcpProjectDetailsToJSON(value?: GcpProjectDetails | null): any {
         created: value["created"] == null ? undefined : value["created"].toISOString(),
         deployment_method: value["deploymentMethod"],
         dspm_status: value["dspmStatus"],
+        google_workspace_status: value["googleWorkspaceStatus"],
         ioa_failed_permissions: value["ioaFailedPermissions"],
         ioa_passed_permissions: value["ioaPassedPermissions"],
         ioa_status: value["ioaStatus"],

@@ -79,7 +79,7 @@ export interface NvaapiScanScheduling {
  * @export
  */
 export const NvaapiScanSchedulingFrequencyEnum = {
-    Oncedailyweeklymonthly: "once,daily,weekly,monthly",
+    Oncedailyweeklybiweeklymonthly: "once,daily,weekly,biweekly,monthly",
 } as const;
 export type NvaapiScanSchedulingFrequencyEnum = (typeof NvaapiScanSchedulingFrequencyEnum)[keyof typeof NvaapiScanSchedulingFrequencyEnum];
 

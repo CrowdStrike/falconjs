@@ -25,6 +25,8 @@ import {
     CorrelationrulesapiMitreAttackMappingV1FromJSONTyped,
     CorrelationrulesapiMitreAttackMappingV1ToJSON,
 } from "./CorrelationrulesapiMitreAttackMappingV1";
+import type { CorrelationrulesapiAnomalyV1 } from "./CorrelationrulesapiAnomalyV1";
+import { CorrelationrulesapiAnomalyV1FromJSON, CorrelationrulesapiAnomalyV1FromJSONTyped, CorrelationrulesapiAnomalyV1ToJSON } from "./CorrelationrulesapiAnomalyV1";
 
 /**
  *
@@ -32,6 +34,12 @@ import {
  * @interface CorrelationrulesapiTemplateV1
  */
 export interface CorrelationrulesapiTemplateV1 {
+    /**
+     *
+     * @type {CorrelationrulesapiAnomalyV1}
+     * @memberof CorrelationrulesapiTemplateV1
+     */
+    anomaly?: CorrelationrulesapiAnomalyV1;
     /**
      *
      * @type {string}
@@ -50,6 +58,12 @@ export interface CorrelationrulesapiTemplateV1 {
      * @memberof CorrelationrulesapiTemplateV1
      */
     description: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiTemplateV1
+     */
+    executionMode?: string;
     /**
      *
      * @type {string}
@@ -141,9 +155,11 @@ export function CorrelationrulesapiTemplateV1FromJSONTyped(json: any, ignoreDisc
         return json;
     }
     return {
+        anomaly: json["anomaly"] == null ? undefined : CorrelationrulesapiAnomalyV1FromJSON(json["anomaly"]),
         author: json["author"],
         createdOn: new Date(json["created_on"]),
         description: json["description"],
+        executionMode: json["execution_mode"] == null ? undefined : json["execution_mode"],
         id: json["id"],
         lastUpdatedOn: new Date(json["last_updated_on"]),
         licenseDetails: CorrelationrulesapiLicenseDetailsFromJSON(json["license_details"]),
@@ -162,9 +178,11 @@ export function CorrelationrulesapiTemplateV1ToJSON(value?: Omit<Correlationrule
         return value;
     }
     return {
+        anomaly: CorrelationrulesapiAnomalyV1ToJSON(value["anomaly"]),
         author: value["author"],
         created_on: value["createdOn"].toISOString(),
         description: value["description"],
+        execution_mode: value["executionMode"],
         id: value["id"],
         last_updated_on: value["lastUpdatedOn"].toISOString(),
         license_details: CorrelationrulesapiLicenseDetailsToJSON(value["licenseDetails"]),

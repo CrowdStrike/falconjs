@@ -17,8 +17,8 @@ import type { DomainCloudGroup } from "./DomainCloudGroup";
 import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
 import type { ClassificationLabel } from "./ClassificationLabel";
 import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 import type { ResourceCounts } from "./ResourceCounts";
 import { ResourceCountsFromJSON, ResourceCountsFromJSONTyped, ResourceCountsToJSON } from "./ResourceCounts";
 import type { ResourcesControlInfo } from "./ResourcesControlInfo";
@@ -52,10 +52,10 @@ export interface ResourcesComplianceControl {
     assessmentId: string;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof ResourcesComplianceControl
      */
-    cloudGroups?: Array<DomainCloudScope>;
+    cloudGroups?: Array<CloudScope>;
     /**
      *
      * @type {Array<DomainCloudGroup>}
@@ -194,7 +194,7 @@ export function ResourcesComplianceControlFromJSONTyped(json: any, ignoreDiscrim
         accountId: json["account_id"],
         accountName: json["account_name"],
         assessmentId: json["assessment_id"],
-        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudGroups: json["cloud_groups"] == null ? undefined : (json["cloud_groups"] as Array<any>).map(CloudScopeFromJSON),
         cloudGroupsV2: json["cloud_groups_v2"] == null ? undefined : (json["cloud_groups_v2"] as Array<any>).map(DomainCloudGroupFromJSON),
         cloudLabels: json["cloud_labels"] == null ? undefined : (json["cloud_labels"] as Array<any>).map(ClassificationLabelFromJSON),
         cloudProvider: json["cloud_provider"],
@@ -223,7 +223,7 @@ export function ResourcesComplianceControlToJSON(value?: ResourcesComplianceCont
         account_id: value["accountId"],
         account_name: value["accountName"],
         assessment_id: value["assessmentId"],
-        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_groups: value["cloudGroups"] == null ? undefined : (value["cloudGroups"] as Array<any>).map(CloudScopeToJSON),
         cloud_groups_v2: value["cloudGroupsV2"] == null ? undefined : (value["cloudGroupsV2"] as Array<any>).map(DomainCloudGroupToJSON),
         cloud_labels: value["cloudLabels"] == null ? undefined : (value["cloudLabels"] as Array<any>).map(ClassificationLabelToJSON),
         cloud_provider: value["cloudProvider"],

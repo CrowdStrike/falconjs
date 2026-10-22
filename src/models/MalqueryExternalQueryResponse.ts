@@ -44,6 +44,12 @@ export interface MalqueryExternalQueryResponse {
      * @memberof MalqueryExternalQueryResponse
      */
     resources: Array<MalqueryExternalResource>;
+    /**
+     *
+     * @type {string}
+     * @memberof MalqueryExternalQueryResponse
+     */
+    shadowId?: string;
 }
 
 /**
@@ -67,6 +73,7 @@ export function MalqueryExternalQueryResponseFromJSONTyped(json: any, ignoreDisc
         errors: json["errors"] == null ? undefined : (json["errors"] as Array<any>).map(MalqueryQueryErrorFromJSON),
         meta: MalqueryQueryMetaInfoFromJSON(json["meta"]),
         resources: (json["resources"] as Array<any>).map(MalqueryExternalResourceFromJSON),
+        shadowId: json["shadow_id"] == null ? undefined : json["shadow_id"],
     };
 }
 
@@ -78,5 +85,6 @@ export function MalqueryExternalQueryResponseToJSON(value?: MalqueryExternalQuer
         errors: value["errors"] == null ? undefined : (value["errors"] as Array<any>).map(MalqueryQueryErrorToJSON),
         meta: MalqueryQueryMetaInfoToJSON(value["meta"]),
         resources: (value["resources"] as Array<any>).map(MalqueryExternalResourceToJSON),
+        shadow_id: value["shadowId"],
     };
 }

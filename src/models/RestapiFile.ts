@@ -82,12 +82,6 @@ export interface RestapiFile {
      * @memberof RestapiFile
      */
     vendor?: Array<RestapiVendor>;
-    /**
-     * Clean-file record version from CAO Labs
-     * @type {number}
-     * @memberof RestapiFile
-     */
-    version?: number;
 }
 
 /**
@@ -116,7 +110,6 @@ export function RestapiFileFromJSONTyped(json: any, ignoreDiscriminator: boolean
         sHA1: json["SHA1"] == null ? undefined : json["SHA1"],
         sHA256: json["SHA256"] == null ? undefined : json["SHA256"],
         vendor: json["Vendor"] == null ? undefined : (json["Vendor"] as Array<any>).map(RestapiVendorFromJSON),
-        version: json["Version"] == null ? undefined : json["Version"],
     };
 }
 
@@ -135,6 +128,5 @@ export function RestapiFileToJSON(value?: RestapiFile | null): any {
         SHA1: value["sHA1"],
         SHA256: value["sHA256"],
         Vendor: value["vendor"] == null ? undefined : (value["vendor"] as Array<any>).map(RestapiVendorToJSON),
-        Version: value["version"],
     };
 }

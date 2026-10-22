@@ -51,6 +51,12 @@ export interface ApiLocalApplicationUpdateRequestV1 {
     groupIds: Array<string>;
     /**
      *
+     * @type {boolean}
+     * @memberof ApiLocalApplicationUpdateRequestV1
+     */
+    macBlockOnTimeout: boolean;
+    /**
+     *
      * @type {string}
      * @memberof ApiLocalApplicationUpdateRequestV1
      */
@@ -66,6 +72,7 @@ export function instanceOfApiLocalApplicationUpdateRequestV1(value: object): val
     if (!("enableRenameDetection" in value) || value["enableRenameDetection"] === undefined) return false;
     if (!("executableName" in value) || value["executableName"] === undefined) return false;
     if (!("groupIds" in value) || value["groupIds"] === undefined) return false;
+    if (!("macBlockOnTimeout" in value) || value["macBlockOnTimeout"] === undefined) return false;
     return true;
 }
 
@@ -83,6 +90,7 @@ export function ApiLocalApplicationUpdateRequestV1FromJSONTyped(json: any, ignor
         enableRenameDetection: json["enable_rename_detection"],
         executableName: json["executable_name"],
         groupIds: json["group_ids"],
+        macBlockOnTimeout: json["mac_block_on_timeout"],
         name: json["name"] == null ? undefined : json["name"],
     };
 }
@@ -97,6 +105,7 @@ export function ApiLocalApplicationUpdateRequestV1ToJSON(value?: ApiLocalApplica
         enable_rename_detection: value["enableRenameDetection"],
         executable_name: value["executableName"],
         group_ids: value["groupIds"],
+        mac_block_on_timeout: value["macBlockOnTimeout"],
         name: value["name"],
     };
 }

@@ -30,12 +30,6 @@ export interface AppAppInventory {
      * @type {string}
      * @memberof AppAppInventory
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AppAppInventory
-     */
     appId: string;
     /**
      *
@@ -116,7 +110,6 @@ export interface AppAppInventory {
  */
 export function instanceOfAppAppInventory(value: object): value is AppAppInventory {
     if (!("accessLevel" in value) || value["accessLevel"] === undefined) return false;
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("appId" in value) || value["appId"] === undefined) return false;
     if (!("appName" in value) || value["appName"] === undefined) return false;
     if (!("appType" in value) || value["appType"] === undefined) return false;
@@ -143,7 +136,6 @@ export function AppAppInventoryFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         accessLevel: json["access_level"],
-        accountId: json["account_id"],
         appId: json["app_id"],
         appName: json["app_name"],
         appType: json["app_type"],
@@ -166,7 +158,6 @@ export function AppAppInventoryToJSON(value?: AppAppInventory | null): any {
     }
     return {
         access_level: value["accessLevel"],
-        account_id: value["accountId"],
         app_id: value["appId"],
         app_name: value["appName"],
         app_type: value["appType"],

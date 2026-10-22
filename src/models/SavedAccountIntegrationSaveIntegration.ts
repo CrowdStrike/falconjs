@@ -13,77 +13,55 @@
  */
 
 import { mapValues } from "../runtime";
-import type { ApiControlInfo } from "./ApiControlInfo";
-import { ApiControlInfoFromJSON, ApiControlInfoFromJSONTyped, ApiControlInfoToJSON } from "./ApiControlInfo";
-import type { ApiDataFrame } from "./ApiDataFrame";
-import { ApiDataFrameFromJSON, ApiDataFrameFromJSONTyped, ApiDataFrameToJSON } from "./ApiDataFrame";
-
 /**
  *
  * @export
- * @interface ApiSdmfQuery
+ * @interface SavedAccountIntegrationSaveIntegration
  */
-export interface ApiSdmfQuery {
+export interface SavedAccountIntegrationSaveIntegration {
     /**
      *
-     * @type {ApiControlInfo}
-     * @memberof ApiSdmfQuery
+     * @type {Array<string>}
+     * @memberof SavedAccountIntegrationSaveIntegration
      */
-    controlInfo?: ApiControlInfo;
+    additionalSteps: Array<string>;
     /**
      *
      * @type {string}
-     * @memberof ApiSdmfQuery
+     * @memberof SavedAccountIntegrationSaveIntegration
      */
     id: string;
-    /**
-     *
-     * @type {Array<ApiDataFrame>}
-     * @memberof ApiSdmfQuery
-     */
-    nodes: Array<ApiDataFrame>;
-    /**
-     *
-     * @type {string}
-     * @memberof ApiSdmfQuery
-     */
-    resId: string;
 }
 
 /**
- * Check if a given object implements the ApiSdmfQuery interface.
+ * Check if a given object implements the SavedAccountIntegrationSaveIntegration interface.
  */
-export function instanceOfApiSdmfQuery(value: object): value is ApiSdmfQuery {
+export function instanceOfSavedAccountIntegrationSaveIntegration(value: object): value is SavedAccountIntegrationSaveIntegration {
+    if (!("additionalSteps" in value) || value["additionalSteps"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
-    if (!("nodes" in value) || value["nodes"] === undefined) return false;
-    if (!("resId" in value) || value["resId"] === undefined) return false;
     return true;
 }
 
-export function ApiSdmfQueryFromJSON(json: any): ApiSdmfQuery {
-    return ApiSdmfQueryFromJSONTyped(json, false);
+export function SavedAccountIntegrationSaveIntegrationFromJSON(json: any): SavedAccountIntegrationSaveIntegration {
+    return SavedAccountIntegrationSaveIntegrationFromJSONTyped(json, false);
 }
 
-export function ApiSdmfQueryFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiSdmfQuery {
+export function SavedAccountIntegrationSaveIntegrationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SavedAccountIntegrationSaveIntegration {
     if (json == null) {
         return json;
     }
     return {
-        controlInfo: json["control_info"] == null ? undefined : ApiControlInfoFromJSON(json["control_info"]),
+        additionalSteps: json["additional_steps"],
         id: json["id"],
-        nodes: (json["nodes"] as Array<any>).map(ApiDataFrameFromJSON),
-        resId: json["res_id"],
     };
 }
 
-export function ApiSdmfQueryToJSON(value?: ApiSdmfQuery | null): any {
+export function SavedAccountIntegrationSaveIntegrationToJSON(value?: SavedAccountIntegrationSaveIntegration | null): any {
     if (value == null) {
         return value;
     }
     return {
-        control_info: ApiControlInfoToJSON(value["controlInfo"]),
+        additional_steps: value["additionalSteps"],
         id: value["id"],
-        nodes: (value["nodes"] as Array<any>).map(ApiDataFrameToJSON),
-        res_id: value["resId"],
     };
 }

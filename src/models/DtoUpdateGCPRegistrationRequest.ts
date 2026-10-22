@@ -17,6 +17,8 @@ import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
 import type { GcpAgentlessScanningSettings } from "./GcpAgentlessScanningSettings";
 import { GcpAgentlessScanningSettingsFromJSON, GcpAgentlessScanningSettingsFromJSONTyped, GcpAgentlessScanningSettingsToJSON } from "./GcpAgentlessScanningSettings";
+import type { DtoWorkspaceRequest } from "./DtoWorkspaceRequest";
+import { DtoWorkspaceRequestFromJSON, DtoWorkspaceRequestFromJSONTyped, DtoWorkspaceRequestToJSON } from "./DtoWorkspaceRequest";
 
 /**
  *
@@ -66,6 +68,12 @@ export interface DtoUpdateGCPRegistrationRequest {
      * @memberof DtoUpdateGCPRegistrationRequest
      */
     falconClientKeyType?: string;
+    /**
+     *
+     * @type {DtoWorkspaceRequest}
+     * @memberof DtoUpdateGCPRegistrationRequest
+     */
+    googleWorkspace?: DtoWorkspaceRequest;
     /**
      *
      * @type {string}
@@ -199,6 +207,7 @@ export function DtoUpdateGCPRegistrationRequestFromJSONTyped(json: any, ignoreDi
         excludedProjectPatterns: json["excluded_project_patterns"] == null ? undefined : json["excluded_project_patterns"],
         falconClientKeyId: json["falcon_client_key_id"] == null ? undefined : json["falcon_client_key_id"],
         falconClientKeyType: json["falcon_client_key_type"] == null ? undefined : json["falcon_client_key_type"],
+        googleWorkspace: json["google_workspace"] == null ? undefined : DtoWorkspaceRequestFromJSON(json["google_workspace"]),
         infraManagerRegion: json["infra_manager_region"] == null ? undefined : json["infra_manager_region"],
         infraProjectId: json["infra_project_id"] == null ? undefined : json["infra_project_id"],
         labels: json["labels"] == null ? undefined : json["labels"],
@@ -232,6 +241,7 @@ export function DtoUpdateGCPRegistrationRequestToJSON(value?: DtoUpdateGCPRegist
         excluded_project_patterns: value["excludedProjectPatterns"],
         falcon_client_key_id: value["falconClientKeyId"],
         falcon_client_key_type: value["falconClientKeyType"],
+        google_workspace: DtoWorkspaceRequestToJSON(value["googleWorkspace"]),
         infra_manager_region: value["infraManagerRegion"],
         infra_project_id: value["infraProjectId"],
         labels: value["labels"],

@@ -74,6 +74,12 @@ export interface DomainSkill {
     name: string;
     /**
      *
+     * @type {string}
+     * @memberof DomainSkill
+     */
+    projectId?: string;
+    /**
+     *
      * @type {Date}
      * @memberof DomainSkill
      */
@@ -118,6 +124,7 @@ export function DomainSkillFromJSONTyped(json: any, ignoreDiscriminator: boolean
         isDeleted: json["is_deleted"],
         metadata: json["metadata"] == null ? undefined : json["metadata"],
         name: json["name"],
+        projectId: json["project_id"] == null ? undefined : json["project_id"],
         updatedAt: new Date(json["updated_at"]),
         updatedBy: DomainUserFromJSON(json["updated_by"]),
     };
@@ -136,6 +143,7 @@ export function DomainSkillToJSON(value?: DomainSkill | null): any {
         is_deleted: value["isDeleted"],
         metadata: value["metadata"],
         name: value["name"],
+        project_id: value["projectId"],
         updated_at: value["updatedAt"].toISOString(),
         updated_by: DomainUserToJSON(value["updatedBy"]),
     };

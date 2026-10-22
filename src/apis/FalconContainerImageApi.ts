@@ -87,6 +87,38 @@ export interface FalconContainerImageApiGetReportByScanIDRequest {
     reportFormat?: string;
 }
 
+export interface FalconContainerImageApiHandleGetReportByReferenceRequest {
+    repository?: string;
+    tag?: string;
+    imageId?: string;
+    digest?: string;
+    architecture?: string;
+}
+
+export interface FalconContainerImageApiHandleGetReportByReferenceV2Request {
+    repository?: string;
+    tag?: string;
+    imageId?: string;
+    digest?: string;
+    architecture?: string;
+}
+
+export interface FalconContainerImageApiHandleGetReportByScanIDRequest {
+    uuid: string;
+}
+
+export interface FalconContainerImageApiHandleGetReportByScanIDV2Request {
+    uuid: string;
+    reportFormat?: string;
+}
+
+export interface FalconContainerImageApiHandlePolicyCheckRequest {
+    policyType: string;
+    repository: string;
+    tag: string;
+    registry?: string;
+}
+
 export interface FalconContainerImageApiLaunchExportJobRequest {
     body: ExportsLaunchExportRequest;
 }
@@ -383,6 +415,279 @@ export class FalconContainerImageApi extends runtime.BaseAPI {
     async getReportByScanID(uuid: string, reportFormat?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CoreEntitiesResponse> {
         const response = await this.getReportByScanIDRaw({ uuid: uuid, reportFormat: reportFormat }, initOverrides);
         return await response.value();
+    }
+
+    /**
+     */
+    async handleGetReportByReferenceRaw(
+        requestParameters: FalconContainerImageApiHandleGetReportByReferenceRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["repository"] != null) {
+            queryParameters["repository"] = requestParameters["repository"];
+        }
+
+        if (requestParameters["tag"] != null) {
+            queryParameters["tag"] = requestParameters["tag"];
+        }
+
+        if (requestParameters["imageId"] != null) {
+            queryParameters["image_id"] = requestParameters["imageId"];
+        }
+
+        if (requestParameters["digest"] != null) {
+            queryParameters["digest"] = requestParameters["digest"];
+        }
+
+        if (requestParameters["architecture"] != null) {
+            queryParameters["architecture"] = requestParameters["architecture"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/reports`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async handleGetReportByReference(
+        repository?: string,
+        tag?: string,
+        imageId?: string,
+        digest?: string,
+        architecture?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<void> {
+        await this.handleGetReportByReferenceRaw({ repository: repository, tag: tag, imageId: imageId, digest: digest, architecture: architecture }, initOverrides);
+    }
+
+    /**
+     * Get scan report by image reference v2. (DEPRECATED: Use the equivalent scan report endpoint in the image scan API instead)
+     * @deprecated
+     */
+    async handleGetReportByReferenceV2Raw(
+        requestParameters: FalconContainerImageApiHandleGetReportByReferenceV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        if (requestParameters["repository"] != null) {
+            queryParameters["repository"] = requestParameters["repository"];
+        }
+
+        if (requestParameters["tag"] != null) {
+            queryParameters["tag"] = requestParameters["tag"];
+        }
+
+        if (requestParameters["imageId"] != null) {
+            queryParameters["image_id"] = requestParameters["imageId"];
+        }
+
+        if (requestParameters["digest"] != null) {
+            queryParameters["digest"] = requestParameters["digest"];
+        }
+
+        if (requestParameters["architecture"] != null) {
+            queryParameters["architecture"] = requestParameters["architecture"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/reports/v2`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Get scan report by image reference v2. (DEPRECATED: Use the equivalent scan report endpoint in the image scan API instead)
+     * @deprecated
+     */
+    async handleGetReportByReferenceV2(
+        repository?: string,
+        tag?: string,
+        imageId?: string,
+        digest?: string,
+        architecture?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<void> {
+        await this.handleGetReportByReferenceV2Raw({ repository: repository, tag: tag, imageId: imageId, digest: digest, architecture: architecture }, initOverrides);
+    }
+
+    /**
+     */
+    async handleGetReportByScanIDRaw(
+        requestParameters: FalconContainerImageApiHandleGetReportByScanIDRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["uuid"] == null) {
+            throw new runtime.RequiredError("uuid", 'Required parameter "uuid" was null or undefined when calling handleGetReportByScanID().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/reports/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters["uuid"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async handleGetReportByScanID(uuid: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.handleGetReportByScanIDRaw({ uuid: uuid }, initOverrides);
+    }
+
+    /**
+     * Get scan report by scan ID v2 (DEPRECATED: Use the equivalent scan report endpoint in the image scan API instead)
+     * @deprecated
+     */
+    async handleGetReportByScanIDV2Raw(
+        requestParameters: FalconContainerImageApiHandleGetReportByScanIDV2Request,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["uuid"] == null) {
+            throw new runtime.RequiredError("uuid", 'Required parameter "uuid" was null or undefined when calling handleGetReportByScanIDV2().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["reportFormat"] != null) {
+            queryParameters["report_format"] = requestParameters["reportFormat"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/reports/v2/{uuid}`.replace(`{${"uuid"}}`, encodeURIComponent(String(requestParameters["uuid"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Get scan report by scan ID v2 (DEPRECATED: Use the equivalent scan report endpoint in the image scan API instead)
+     * @deprecated
+     */
+    async handleGetReportByScanIDV2(uuid: string, reportFormat?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.handleGetReportByScanIDV2Raw({ uuid: uuid, reportFormat: reportFormat }, initOverrides);
+    }
+
+    /**
+     * Check image assessment policy. (DEPRECATED: Use the equivalent scan report endpoint in the image scan API instead)
+     * @deprecated
+     */
+    async handlePolicyCheckRaw(requestParameters: FalconContainerImageApiHandlePolicyCheckRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["policyType"] == null) {
+            throw new runtime.RequiredError("policyType", 'Required parameter "policyType" was null or undefined when calling handlePolicyCheck().');
+        }
+
+        if (requestParameters["repository"] == null) {
+            throw new runtime.RequiredError("repository", 'Required parameter "repository" was null or undefined when calling handlePolicyCheck().');
+        }
+
+        if (requestParameters["tag"] == null) {
+            throw new runtime.RequiredError("tag", 'Required parameter "tag" was null or undefined when calling handlePolicyCheck().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["policyType"] != null) {
+            queryParameters["policy_type"] = requestParameters["policyType"];
+        }
+
+        if (requestParameters["registry"] != null) {
+            queryParameters["registry"] = requestParameters["registry"];
+        }
+
+        if (requestParameters["repository"] != null) {
+            queryParameters["repository"] = requestParameters["repository"];
+        }
+
+        if (requestParameters["tag"] != null) {
+            queryParameters["tag"] = requestParameters["tag"];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["falcon-container-image:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/policy-checks`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Check image assessment policy. (DEPRECATED: Use the equivalent scan report endpoint in the image scan API instead)
+     * @deprecated
+     */
+    async handlePolicyCheck(policyType: string, repository: string, tag: string, registry?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.handlePolicyCheckRaw({ policyType: policyType, repository: repository, tag: tag, registry: registry }, initOverrides);
     }
 
     /**

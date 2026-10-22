@@ -16,59 +16,51 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ApiSdmError
+ * @interface ErrorVendorDetails
  */
-export interface ApiSdmError {
-    /**
-     *
-     * @type {object}
-     * @memberof ApiSdmError
-     */
-    extensions?: object;
+export interface ErrorVendorDetails {
     /**
      *
      * @type {string}
-     * @memberof ApiSdmError
+     * @memberof ErrorVendorDetails
      */
-    message: string;
+    code: string;
     /**
      *
-     * @type {Array<object>}
-     * @memberof ApiSdmError
+     * @type {string}
+     * @memberof ErrorVendorDetails
      */
-    paths?: Array<object>;
+    message?: string | null;
 }
 
 /**
- * Check if a given object implements the ApiSdmError interface.
+ * Check if a given object implements the ErrorVendorDetails interface.
  */
-export function instanceOfApiSdmError(value: object): value is ApiSdmError {
-    if (!("message" in value) || value["message"] === undefined) return false;
+export function instanceOfErrorVendorDetails(value: object): value is ErrorVendorDetails {
+    if (!("code" in value) || value["code"] === undefined) return false;
     return true;
 }
 
-export function ApiSdmErrorFromJSON(json: any): ApiSdmError {
-    return ApiSdmErrorFromJSONTyped(json, false);
+export function ErrorVendorDetailsFromJSON(json: any): ErrorVendorDetails {
+    return ErrorVendorDetailsFromJSONTyped(json, false);
 }
 
-export function ApiSdmErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiSdmError {
+export function ErrorVendorDetailsFromJSONTyped(json: any, ignoreDiscriminator: boolean): ErrorVendorDetails {
     if (json == null) {
         return json;
     }
     return {
-        extensions: json["extensions"] == null ? undefined : json["extensions"],
-        message: json["message"],
-        paths: json["paths"] == null ? undefined : json["paths"],
+        code: json["code"],
+        message: json["message"] == null ? undefined : json["message"],
     };
 }
 
-export function ApiSdmErrorToJSON(value?: ApiSdmError | null): any {
+export function ErrorVendorDetailsToJSON(value?: ErrorVendorDetails | null): any {
     if (value == null) {
         return value;
     }
     return {
-        extensions: value["extensions"],
+        code: value["code"],
         message: value["message"],
-        paths: value["paths"],
     };
 }

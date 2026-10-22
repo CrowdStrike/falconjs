@@ -21,12 +21,6 @@ import { mapValues } from "../runtime";
 export interface AlertGetAlertsResponse {
     /**
      *
-     * @type {string}
-     * @memberof AlertGetAlertsResponse
-     */
-    accountId: string;
-    /**
-     *
      * @type {Array<string>}
      * @memberof AlertGetAlertsResponse
      */
@@ -109,7 +103,6 @@ export interface AlertGetAlertsResponse {
  * Check if a given object implements the AlertGetAlertsResponse interface.
  */
 export function instanceOfAlertGetAlertsResponse(value: object): value is AlertGetAlertsResponse {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("affectedDiff" in value) || value["affectedDiff"] === undefined) return false;
     if (!("alertType" in value) || value["alertType"] === undefined) return false;
     if (!("description" in value) || value["description"] === undefined) return false;
@@ -135,7 +128,6 @@ export function AlertGetAlertsResponseFromJSONTyped(json: any, ignoreDiscriminat
         return json;
     }
     return {
-        accountId: json["account_id"],
         affectedDiff: json["affected_diff"],
         alertType: json["alert_type"],
         description: json["description"],
@@ -157,7 +149,6 @@ export function AlertGetAlertsResponseToJSON(value?: AlertGetAlertsResponse | nu
         return value;
     }
     return {
-        account_id: value["accountId"],
         affected_diff: value["affectedDiff"],
         alert_type: value["alertType"],
         description: value["description"],

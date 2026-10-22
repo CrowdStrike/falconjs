@@ -21,12 +21,6 @@ import { mapValues } from "../runtime";
 export interface SystemUserGetSystemUsers {
     /**
      *
-     * @type {string}
-     * @memberof SystemUserGetSystemUsers
-     */
-    accountId: string;
-    /**
-     *
      * @type {boolean}
      * @memberof SystemUserGetSystemUsers
      */
@@ -103,7 +97,6 @@ export interface SystemUserGetSystemUsers {
  * Check if a given object implements the SystemUserGetSystemUsers interface.
  */
 export function instanceOfSystemUserGetSystemUsers(value: object): value is SystemUserGetSystemUsers {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("bypassSso" in value) || value["bypassSso"] === undefined) return false;
     if (!("createDate" in value) || value["createDate"] === undefined) return false;
     if (!("email" in value) || value["email"] === undefined) return false;
@@ -128,7 +121,6 @@ export function SystemUserGetSystemUsersFromJSONTyped(json: any, ignoreDiscrimin
         return json;
     }
     return {
-        accountId: json["account_id"],
         bypassSso: json["bypass_sso"],
         createDate: new Date(json["create_date"]),
         email: json["email"],
@@ -149,7 +141,6 @@ export function SystemUserGetSystemUsersToJSON(value?: SystemUserGetSystemUsers 
         return value;
     }
     return {
-        account_id: value["accountId"],
         bypass_sso: value["bypassSso"],
         create_date: value["createDate"].toISOString(),
         email: value["email"],

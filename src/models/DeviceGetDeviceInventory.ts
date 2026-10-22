@@ -21,12 +21,6 @@ import { mapValues } from "../runtime";
 export interface DeviceGetDeviceInventory {
     /**
      *
-     * @type {string}
-     * @memberof DeviceGetDeviceInventory
-     */
-    accountId: string;
-    /**
-     *
      * @type {number}
      * @memberof DeviceGetDeviceInventory
      */
@@ -127,7 +121,6 @@ export interface DeviceGetDeviceInventory {
  * Check if a given object implements the DeviceGetDeviceInventory interface.
  */
 export function instanceOfDeviceGetDeviceInventory(value: object): value is DeviceGetDeviceInventory {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("appsCount" in value) || value["appsCount"] === undefined) return false;
     if (!("deviceName" in value) || value["deviceName"] === undefined) return false;
     if (!("globallyCompliant" in value) || value["globallyCompliant"] === undefined) return false;
@@ -156,7 +149,6 @@ export function DeviceGetDeviceInventoryFromJSONTyped(json: any, ignoreDiscrimin
         return json;
     }
     return {
-        accountId: json["account_id"],
         appsCount: json["apps_count"],
         deviceName: json["device_name"],
         globallyCompliant: json["globally_compliant"],
@@ -181,7 +173,6 @@ export function DeviceGetDeviceInventoryToJSON(value?: DeviceGetDeviceInventory 
         return value;
     }
     return {
-        account_id: value["accountId"],
         apps_count: value["appsCount"],
         device_name: value["deviceName"],
         globally_compliant: value["globallyCompliant"],

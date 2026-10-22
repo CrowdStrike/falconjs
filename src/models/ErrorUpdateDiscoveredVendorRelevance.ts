@@ -16,52 +16,51 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ApiExecutionStats
+ * @interface ErrorUpdateDiscoveredVendorRelevance
  */
-export interface ApiExecutionStats {
+export interface ErrorUpdateDiscoveredVendorRelevance {
     /**
      *
-     * @type {number}
-     * @memberof ApiExecutionStats
+     * @type {string}
+     * @memberof ErrorUpdateDiscoveredVendorRelevance
      */
-    visitedEntities: number;
+    code: string;
     /**
      *
-     * @type {number}
-     * @memberof ApiExecutionStats
+     * @type {string}
+     * @memberof ErrorUpdateDiscoveredVendorRelevance
      */
-    visitedRelationships: number;
+    message?: string | null;
 }
 
 /**
- * Check if a given object implements the ApiExecutionStats interface.
+ * Check if a given object implements the ErrorUpdateDiscoveredVendorRelevance interface.
  */
-export function instanceOfApiExecutionStats(value: object): value is ApiExecutionStats {
-    if (!("visitedEntities" in value) || value["visitedEntities"] === undefined) return false;
-    if (!("visitedRelationships" in value) || value["visitedRelationships"] === undefined) return false;
+export function instanceOfErrorUpdateDiscoveredVendorRelevance(value: object): value is ErrorUpdateDiscoveredVendorRelevance {
+    if (!("code" in value) || value["code"] === undefined) return false;
     return true;
 }
 
-export function ApiExecutionStatsFromJSON(json: any): ApiExecutionStats {
-    return ApiExecutionStatsFromJSONTyped(json, false);
+export function ErrorUpdateDiscoveredVendorRelevanceFromJSON(json: any): ErrorUpdateDiscoveredVendorRelevance {
+    return ErrorUpdateDiscoveredVendorRelevanceFromJSONTyped(json, false);
 }
 
-export function ApiExecutionStatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiExecutionStats {
+export function ErrorUpdateDiscoveredVendorRelevanceFromJSONTyped(json: any, ignoreDiscriminator: boolean): ErrorUpdateDiscoveredVendorRelevance {
     if (json == null) {
         return json;
     }
     return {
-        visitedEntities: json["visited_entities"],
-        visitedRelationships: json["visited_relationships"],
+        code: json["code"],
+        message: json["message"] == null ? undefined : json["message"],
     };
 }
 
-export function ApiExecutionStatsToJSON(value?: ApiExecutionStats | null): any {
+export function ErrorUpdateDiscoveredVendorRelevanceToJSON(value?: ErrorUpdateDiscoveredVendorRelevance | null): any {
     if (value == null) {
         return value;
     }
     return {
-        visited_entities: value["visitedEntities"],
-        visited_relationships: value["visitedRelationships"],
+        code: value["code"],
+        message: value["message"],
     };
 }

@@ -31,12 +31,6 @@ export interface DataTransactionResponseDtoUploadDataResponse {
      * @type {string}
      * @memberof DataTransactionResponseDtoUploadDataResponse
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof DataTransactionResponseDtoUploadDataResponse
-     */
     accountIntegrationId: string;
     /**
      *
@@ -75,7 +69,6 @@ export type DataTransactionResponseDtoUploadDataResponseStatusEnum =
  * Check if a given object implements the DataTransactionResponseDtoUploadDataResponse interface.
  */
 export function instanceOfDataTransactionResponseDtoUploadDataResponse(value: object): value is DataTransactionResponseDtoUploadDataResponse {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("accountIntegrationId" in value) || value["accountIntegrationId"] === undefined) return false;
     if (!("lastUpdate" in value) || value["lastUpdate"] === undefined) return false;
     if (!("sources" in value) || value["sources"] === undefined) return false;
@@ -92,7 +85,6 @@ export function DataTransactionResponseDtoUploadDataResponseFromJSONTyped(json: 
         return json;
     }
     return {
-        accountId: json["account_id"],
         accountIntegrationId: json["account_integration_id"],
         lastUpdate: json["last_update"] == null ? null : new Date(json["last_update"]),
         sources: (json["sources"] as Array<any>).map(SourceDataTransactionResponseDtoUploadDataResponseFromJSON),
@@ -105,7 +97,6 @@ export function DataTransactionResponseDtoUploadDataResponseToJSON(value?: DataT
         return value;
     }
     return {
-        account_id: value["accountId"],
         account_integration_id: value["accountIntegrationId"],
         last_update: value["lastUpdate"] == null ? null : (value["lastUpdate"] as any).toISOString(),
         sources: (value["sources"] as Array<any>).map(SourceDataTransactionResponseDtoUploadDataResponseToJSON),

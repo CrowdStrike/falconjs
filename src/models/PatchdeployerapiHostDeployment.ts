@@ -30,6 +30,12 @@ export interface PatchdeployerapiHostDeployment {
     aid: string;
     /**
      *
+     * @type {Date}
+     * @memberof PatchdeployerapiHostDeployment
+     */
+    completedAt?: Date;
+    /**
+     *
      * @type {string}
      * @memberof PatchdeployerapiHostDeployment
      */
@@ -108,6 +114,12 @@ export interface PatchdeployerapiHostDeployment {
     stages: Array<PatchdeployerapiStageStatus>;
     /**
      *
+     * @type {Date}
+     * @memberof PatchdeployerapiHostDeployment
+     */
+    startedAt?: Date;
+    /**
+     *
      * @type {string}
      * @memberof PatchdeployerapiHostDeployment
      */
@@ -156,6 +168,7 @@ export function PatchdeployerapiHostDeploymentFromJSONTyped(json: any, ignoreDis
     }
     return {
         aid: json["aid"],
+        completedAt: json["completed_at"] == null ? undefined : new Date(json["completed_at"]),
         country: json["country"],
         deploymentExecutionId: json["deployment_execution_id"],
         description: json["description"] == null ? undefined : json["description"],
@@ -169,6 +182,7 @@ export function PatchdeployerapiHostDeploymentFromJSONTyped(json: any, ignoreDis
         osVersion: json["os_version"],
         stage: json["stage"],
         stages: (json["stages"] as Array<any>).map(PatchdeployerapiStageStatusFromJSON),
+        startedAt: json["started_at"] == null ? undefined : new Date(json["started_at"]),
         status: json["status"],
         tags: json["tags"],
         totalPatches: json["total_patches"] == null ? undefined : json["total_patches"],
@@ -181,6 +195,7 @@ export function PatchdeployerapiHostDeploymentToJSON(value?: PatchdeployerapiHos
     }
     return {
         aid: value["aid"],
+        completed_at: value["completedAt"] == null ? undefined : value["completedAt"].toISOString(),
         country: value["country"],
         deployment_execution_id: value["deploymentExecutionId"],
         description: value["description"],
@@ -194,6 +209,7 @@ export function PatchdeployerapiHostDeploymentToJSON(value?: PatchdeployerapiHos
         os_version: value["osVersion"],
         stage: value["stage"],
         stages: (value["stages"] as Array<any>).map(PatchdeployerapiStageStatusToJSON),
+        started_at: value["startedAt"] == null ? undefined : value["startedAt"].toISOString(),
         status: value["status"],
         tags: value["tags"],
         total_patches: value["totalPatches"],

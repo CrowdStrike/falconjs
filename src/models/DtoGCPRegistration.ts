@@ -31,6 +31,8 @@ import type { DtoFolder } from "./DtoFolder";
 import { DtoFolderFromJSON, DtoFolderFromJSONTyped, DtoFolderToJSON } from "./DtoFolder";
 import type { DtoServiceAccountProperties } from "./DtoServiceAccountProperties";
 import { DtoServiceAccountPropertiesFromJSON, DtoServiceAccountPropertiesFromJSONTyped, DtoServiceAccountPropertiesToJSON } from "./DtoServiceAccountProperties";
+import type { DtoWorkspaceProperties } from "./DtoWorkspaceProperties";
+import { DtoWorkspacePropertiesFromJSON, DtoWorkspacePropertiesFromJSONTyped, DtoWorkspacePropertiesToJSON } from "./DtoWorkspaceProperties";
 
 /**
  *
@@ -50,6 +52,18 @@ export interface DtoGCPRegistration {
      * @memberof DtoGCPRegistration
      */
     cloudRegistrationEnabled: boolean;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoGCPRegistration
+     */
+    connectedThroughRegistrationId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoGCPRegistration
+     */
+    connectedThroughRegistrationName?: string;
     /**
      *
      * @type {Date}
@@ -98,6 +112,12 @@ export interface DtoGCPRegistration {
      * @memberof DtoGCPRegistration
      */
     folders?: Array<DtoFolder>;
+    /**
+     *
+     * @type {DtoWorkspaceProperties}
+     * @memberof DtoGCPRegistration
+     */
+    googleWorkspace?: DtoWorkspaceProperties;
     /**
      *
      * @type {DtoInfraManagerProperties}
@@ -246,6 +266,8 @@ export function DtoGCPRegistrationFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         additionalProperties: json["additional_properties"] == null ? undefined : json["additional_properties"],
         cloudRegistrationEnabled: json["cloud_registration_enabled"],
+        connectedThroughRegistrationId: json["connected_through_registration_id"] == null ? undefined : json["connected_through_registration_id"],
+        connectedThroughRegistrationName: json["connected_through_registration_name"] == null ? undefined : json["connected_through_registration_name"],
         created: json["created"] == null ? undefined : new Date(json["created"]),
         cspmEnabled: json["cspm_enabled"],
         deploymentMethod: json["deployment_method"] == null ? undefined : json["deployment_method"],
@@ -254,6 +276,7 @@ export function DtoGCPRegistrationFromJSONTyped(json: any, ignoreDiscriminator: 
         falconClientKeyId: json["falcon_client_key_id"] == null ? undefined : json["falcon_client_key_id"],
         falconClientKeyType: json["falcon_client_key_type"] == null ? undefined : json["falcon_client_key_type"],
         folders: json["folders"] == null ? undefined : (json["folders"] as Array<any>).map(DtoFolderFromJSON),
+        googleWorkspace: json["google_workspace"] == null ? undefined : DtoWorkspacePropertiesFromJSON(json["google_workspace"]),
         infraManagerProperties: json["infra_manager_properties"] == null ? undefined : DtoInfraManagerPropertiesFromJSON(json["infra_manager_properties"]),
         infraProjectId: json["infra_project_id"] == null ? undefined : json["infra_project_id"],
         labels: json["labels"] == null ? undefined : json["labels"],
@@ -285,6 +308,8 @@ export function DtoGCPRegistrationToJSON(value?: DtoGCPRegistration | null): any
     return {
         additional_properties: value["additionalProperties"],
         cloud_registration_enabled: value["cloudRegistrationEnabled"],
+        connected_through_registration_id: value["connectedThroughRegistrationId"],
+        connected_through_registration_name: value["connectedThroughRegistrationName"],
         created: value["created"] == null ? undefined : value["created"].toISOString(),
         cspm_enabled: value["cspmEnabled"],
         deployment_method: value["deploymentMethod"],
@@ -293,6 +318,7 @@ export function DtoGCPRegistrationToJSON(value?: DtoGCPRegistration | null): any
         falcon_client_key_id: value["falconClientKeyId"],
         falcon_client_key_type: value["falconClientKeyType"],
         folders: value["folders"] == null ? undefined : (value["folders"] as Array<any>).map(DtoFolderToJSON),
+        google_workspace: DtoWorkspacePropertiesToJSON(value["googleWorkspace"]),
         infra_manager_properties: DtoInfraManagerPropertiesToJSON(value["infraManagerProperties"]),
         infra_project_id: value["infraProjectId"],
         labels: value["labels"],

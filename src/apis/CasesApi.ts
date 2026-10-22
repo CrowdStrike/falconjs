@@ -16,7 +16,6 @@ import * as runtime from "../runtime";
 import type {
     CasesapiGetQueriesCasesV1Response,
     MsaReplyMetaOnly,
-    MsaspecResponseFields,
     OperationsAddAccessTagsToCaseRequest,
     OperationsAddAlertsToCaseRequest,
     OperationsAddAlertsToCaseRequestV2,
@@ -31,7 +30,6 @@ import type {
     OperationsCreateCaseResponseVM,
     OperationsGetCasesByIDsRequest,
     OperationsGetCasesByIDsResponseVM,
-    OperationsMergeCasesRequest,
     OperationsUpdateCaseRequest,
     OperationsUpdateCaseResponseVM,
 } from "../models/index";
@@ -40,8 +38,6 @@ import {
     CasesapiGetQueriesCasesV1ResponseToJSON,
     MsaReplyMetaOnlyFromJSON,
     MsaReplyMetaOnlyToJSON,
-    MsaspecResponseFieldsFromJSON,
-    MsaspecResponseFieldsToJSON,
     OperationsAddAccessTagsToCaseRequestFromJSON,
     OperationsAddAccessTagsToCaseRequestToJSON,
     OperationsAddAlertsToCaseRequestFromJSON,
@@ -70,8 +66,6 @@ import {
     OperationsGetCasesByIDsRequestToJSON,
     OperationsGetCasesByIDsResponseVMFromJSON,
     OperationsGetCasesByIDsResponseVMToJSON,
-    OperationsMergeCasesRequestFromJSON,
-    OperationsMergeCasesRequestToJSON,
     OperationsUpdateCaseRequestFromJSON,
     OperationsUpdateCaseRequestToJSON,
     OperationsUpdateCaseResponseVMFromJSON,
@@ -122,10 +116,6 @@ export interface CasesApiEntitiesCustomEvidencePostV1Request {
 
 export interface CasesApiEntitiesEventEvidencePostV1Request {
     body: OperationsAddEventsToCaseRequest;
-}
-
-export interface CasesApiEntitiesMergePostV1Request {
-    body: OperationsMergeCasesRequest;
 }
 
 export interface CasesApiEntitiesUserEvidencePostV1Request {
@@ -639,50 +629,6 @@ export class CasesApi extends runtime.BaseAPI {
      */
     async entitiesEventEvidencePostV1(body: OperationsAddEventsToCaseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OperationsUpdateCaseResponseVM> {
         const response = await this.entitiesEventEvidencePostV1Raw({ body: body }, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Merges a source case into a destination case.
-     */
-    async entitiesMergePostV1Raw(
-        requestParameters: CasesApiEntitiesMergePostV1Request,
-        initOverrides?: RequestInit | runtime.InitOverrideFunction,
-    ): Promise<runtime.ApiResponse<MsaspecResponseFields>> {
-        if (requestParameters["body"] == null) {
-            throw new runtime.RequiredError("body", 'Required parameter "body" was null or undefined when calling entitiesMergePostV1().');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters["Content-Type"] = "application/json";
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["cases:write"]);
-        }
-
-        const response = await this.request(
-            {
-                path: `/cases/entities/merge/v1`,
-                method: "POST",
-                headers: headerParameters,
-                query: queryParameters,
-                body: OperationsMergeCasesRequestToJSON(requestParameters["body"]),
-            },
-            initOverrides,
-        );
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => MsaspecResponseFieldsFromJSON(jsonValue));
-    }
-
-    /**
-     * Merges a source case into a destination case.
-     */
-    async entitiesMergePostV1(body: OperationsMergeCasesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<MsaspecResponseFields> {
-        const response = await this.entitiesMergePostV1Raw({ body: body }, initOverrides);
         return await response.value();
     }
 

@@ -21,6 +21,12 @@ import { mapValues } from "../runtime";
 export interface ScmintegrationAPIBranchConfig {
     /**
      *
+     * @type {Array<string>}
+     * @memberof ScmintegrationAPIBranchConfig
+     */
+    branches: Array<string>;
+    /**
+     *
      * @type {string}
      * @memberof ScmintegrationAPIBranchConfig
      */
@@ -45,12 +51,6 @@ export interface ScmintegrationAPIBranchConfig {
     mode: string;
     /**
      *
-     * @type {Array<string>}
-     * @memberof ScmintegrationAPIBranchConfig
-     */
-    patterns: Array<string>;
-    /**
-     *
      * @type {string}
      * @memberof ScmintegrationAPIBranchConfig
      */
@@ -67,11 +67,11 @@ export interface ScmintegrationAPIBranchConfig {
  * Check if a given object implements the ScmintegrationAPIBranchConfig interface.
  */
 export function instanceOfScmintegrationAPIBranchConfig(value: object): value is ScmintegrationAPIBranchConfig {
+    if (!("branches" in value) || value["branches"] === undefined) return false;
     if (!("connectionId" in value) || value["connectionId"] === undefined) return false;
     if (!("createdAt" in value) || value["createdAt"] === undefined) return false;
     if (!("id" in value) || value["id"] === undefined) return false;
     if (!("mode" in value) || value["mode"] === undefined) return false;
-    if (!("patterns" in value) || value["patterns"] === undefined) return false;
     if (!("updatedAt" in value) || value["updatedAt"] === undefined) return false;
     return true;
 }
@@ -85,11 +85,11 @@ export function ScmintegrationAPIBranchConfigFromJSONTyped(json: any, ignoreDisc
         return json;
     }
     return {
+        branches: json["branches"],
         connectionId: json["connection_id"],
         createdAt: new Date(json["created_at"]),
         id: json["id"],
         mode: json["mode"],
-        patterns: json["patterns"],
         repositoryId: json["repository_id"] == null ? undefined : json["repository_id"],
         updatedAt: new Date(json["updated_at"]),
     };
@@ -100,11 +100,11 @@ export function ScmintegrationAPIBranchConfigToJSON(value?: ScmintegrationAPIBra
         return value;
     }
     return {
+        branches: value["branches"],
         connection_id: value["connectionId"],
         created_at: value["createdAt"].toISOString(),
         id: value["id"],
         mode: value["mode"],
-        patterns: value["patterns"],
         repository_id: value["repositoryId"],
         updated_at: value["updatedAt"].toISOString(),
     };

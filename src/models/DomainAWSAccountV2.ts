@@ -17,10 +17,10 @@ import type { DomainProductFeatures } from "./DomainProductFeatures";
 import { DomainProductFeaturesFromJSON, DomainProductFeaturesFromJSONTyped, DomainProductFeaturesToJSON } from "./DomainProductFeatures";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
 import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 import type { DomainAWSD4CAccountV1 } from "./DomainAWSD4CAccountV1";
 import { DomainAWSD4CAccountV1FromJSON, DomainAWSD4CAccountV1FromJSONTyped, DomainAWSD4CAccountV1ToJSON } from "./DomainAWSD4CAccountV1";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
 import type { DomainPermission } from "./DomainPermission";
 import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
 import type { DomainAWSInventoryFilterSetting } from "./DomainAWSInventoryFilterSetting";
@@ -124,10 +124,10 @@ export interface DomainAWSAccountV2 {
     cloudRegistrationEnabled?: boolean;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof DomainAWSAccountV2
      */
-    cloudScopes?: Array<DomainCloudScope>;
+    cloudScopes?: Array<CloudScope>;
     /**
      *
      * @type {string}
@@ -433,7 +433,7 @@ export function DomainAWSAccountV2FromJSONTyped(json: any, ignoreDiscriminator: 
         behaviorAssessmentEnabled: json["behavior_assessment_enabled"] == null ? undefined : json["behavior_assessment_enabled"],
         cid: json["cid"] == null ? undefined : json["cid"],
         cloudRegistrationEnabled: json["cloud_registration_enabled"] == null ? undefined : json["cloud_registration_enabled"],
-        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(CloudScopeFromJSON),
         cloudformationRootStackArn: json["cloudformation_root_stack_arn"] == null ? undefined : json["cloudformation_root_stack_arn"],
         cloudformationUpdateUrl: json["cloudformation_update_url"] == null ? undefined : json["cloudformation_update_url"],
         cloudformationUrl: json["cloudformation_url"] == null ? undefined : json["cloudformation_url"],
@@ -501,7 +501,7 @@ export function DomainAWSAccountV2ToJSON(value?: DomainAWSAccountV2 | null): any
         behavior_assessment_enabled: value["behaviorAssessmentEnabled"],
         cid: value["cid"],
         cloud_registration_enabled: value["cloudRegistrationEnabled"],
-        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(CloudScopeToJSON),
         cloudformation_root_stack_arn: value["cloudformationRootStackArn"],
         cloudformation_update_url: value["cloudformationUpdateUrl"],
         cloudformation_url: value["cloudformationUrl"],

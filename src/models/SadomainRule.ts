@@ -23,6 +23,12 @@ import { SadomainCustomerAssetsFromJSON, SadomainCustomerAssetsFromJSONTyped, Sa
  */
 export interface SadomainRule {
     /**
+     * The minimum risk score threshold at or above which AI summaries are generated for matches. `off` excludes the rule from AI summarization. Possible values: [`off`, `auto`, `low`, `medium`, `high`, `critical`].
+     * @type {string}
+     * @memberof SadomainRule
+     */
+    aiSummariesRiskScoreThreshold: string;
+    /**
      * Monitor only for exposed data. Must be accompanied by breach_monitoring_enabled:true.
      * @type {boolean}
      * @memberof SadomainRule
@@ -184,6 +190,7 @@ export interface SadomainRule {
  * Check if a given object implements the SadomainRule interface.
  */
 export function instanceOfSadomainRule(value: object): value is SadomainRule {
+    if (!("aiSummariesRiskScoreThreshold" in value) || value["aiSummariesRiskScoreThreshold"] === undefined) return false;
     if (!("breachMonitorOnly" in value) || value["breachMonitorOnly"] === undefined) return false;
     if (!("breachMonitoringEnabled" in value) || value["breachMonitoringEnabled"] === undefined) return false;
     if (!("cid" in value) || value["cid"] === undefined) return false;
@@ -212,6 +219,7 @@ export function SadomainRuleFromJSONTyped(json: any, ignoreDiscriminator: boolea
         return json;
     }
     return {
+        aiSummariesRiskScoreThreshold: json["ai_summaries_risk_score_threshold"],
         breachMonitorOnly: json["breach_monitor_only"],
         breachMonitoringEnabled: json["breach_monitoring_enabled"],
         cid: json["cid"],
@@ -246,6 +254,7 @@ export function SadomainRuleToJSON(value?: SadomainRule | null): any {
         return value;
     }
     return {
+        ai_summaries_risk_score_threshold: value["aiSummariesRiskScoreThreshold"],
         breach_monitor_only: value["breachMonitorOnly"],
         breach_monitoring_enabled: value["breachMonitoringEnabled"],
         cid: value["cid"],

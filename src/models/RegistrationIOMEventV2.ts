@@ -17,8 +17,8 @@ import type { DomainCloudGroup } from "./DomainCloudGroup";
 import { DomainCloudGroupFromJSON, DomainCloudGroupFromJSONTyped, DomainCloudGroupToJSON } from "./DomainCloudGroup";
 import type { ClassificationLabel } from "./ClassificationLabel";
 import { ClassificationLabelFromJSON, ClassificationLabelFromJSONTyped, ClassificationLabelToJSON } from "./ClassificationLabel";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 
 /**
  *
@@ -76,10 +76,10 @@ export interface RegistrationIOMEventV2 {
     cloudProvider: string;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof RegistrationIOMEventV2
      */
-    cloudScopes?: Array<DomainCloudScope>;
+    cloudScopes?: Array<CloudScope>;
     /**
      *
      * @type {number}
@@ -271,7 +271,7 @@ export function RegistrationIOMEventV2FromJSONTyped(json: any, ignoreDiscriminat
         cloudGroupsV2: json["cloud_groups_v2"] == null ? undefined : (json["cloud_groups_v2"] as Array<any>).map(DomainCloudGroupFromJSON),
         cloudLabels: json["cloud_labels"] == null ? undefined : (json["cloud_labels"] as Array<any>).map(ClassificationLabelFromJSON),
         cloudProvider: json["cloud_provider"],
-        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(CloudScopeFromJSON),
         customPolicyId: json["custom_policy_id"] == null ? undefined : json["custom_policy_id"],
         finding: json["finding"],
         findings: json["findings"],
@@ -312,7 +312,7 @@ export function RegistrationIOMEventV2ToJSON(value?: RegistrationIOMEventV2 | nu
         cloud_groups_v2: value["cloudGroupsV2"] == null ? undefined : (value["cloudGroupsV2"] as Array<any>).map(DomainCloudGroupToJSON),
         cloud_labels: value["cloudLabels"] == null ? undefined : (value["cloudLabels"] as Array<any>).map(ClassificationLabelToJSON),
         cloud_provider: value["cloudProvider"],
-        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(CloudScopeToJSON),
         custom_policy_id: value["customPolicyId"],
         finding: value["finding"],
         findings: value["findings"],

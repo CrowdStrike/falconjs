@@ -16,42 +16,58 @@ import { mapValues } from "../runtime";
 /**
  *
  * @export
- * @interface ApiExecutionDetails
+ * @interface DtoWorkspaceInfraManagerProperties
  */
-export interface ApiExecutionDetails {
+export interface DtoWorkspaceInfraManagerProperties {
     /**
      *
-     * @type {{ [key: string]: number; }}
-     * @memberof ApiExecutionDetails
+     * @type {string}
+     * @memberof DtoWorkspaceInfraManagerProperties
      */
-    driverCalls?: { [key: string]: number };
+    deploymentId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoWorkspaceInfraManagerProperties
+     */
+    region?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof DtoWorkspaceInfraManagerProperties
+     */
+    stackName?: string;
 }
 
 /**
- * Check if a given object implements the ApiExecutionDetails interface.
+ * Check if a given object implements the DtoWorkspaceInfraManagerProperties interface.
  */
-export function instanceOfApiExecutionDetails(value: object): value is ApiExecutionDetails {
+export function instanceOfDtoWorkspaceInfraManagerProperties(value: object): value is DtoWorkspaceInfraManagerProperties {
     return true;
 }
 
-export function ApiExecutionDetailsFromJSON(json: any): ApiExecutionDetails {
-    return ApiExecutionDetailsFromJSONTyped(json, false);
+export function DtoWorkspaceInfraManagerPropertiesFromJSON(json: any): DtoWorkspaceInfraManagerProperties {
+    return DtoWorkspaceInfraManagerPropertiesFromJSONTyped(json, false);
 }
 
-export function ApiExecutionDetailsFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiExecutionDetails {
+export function DtoWorkspaceInfraManagerPropertiesFromJSONTyped(json: any, ignoreDiscriminator: boolean): DtoWorkspaceInfraManagerProperties {
     if (json == null) {
         return json;
     }
     return {
-        driverCalls: json["driver_calls"] == null ? undefined : json["driver_calls"],
+        deploymentId: json["deployment_id"] == null ? undefined : json["deployment_id"],
+        region: json["region"] == null ? undefined : json["region"],
+        stackName: json["stack_name"] == null ? undefined : json["stack_name"],
     };
 }
 
-export function ApiExecutionDetailsToJSON(value?: ApiExecutionDetails | null): any {
+export function DtoWorkspaceInfraManagerPropertiesToJSON(value?: DtoWorkspaceInfraManagerProperties | null): any {
     if (value == null) {
         return value;
     }
     return {
-        driver_calls: value["driverCalls"],
+        deployment_id: value["deploymentId"],
+        region: value["region"],
+        stack_name: value["stackName"],
     };
 }

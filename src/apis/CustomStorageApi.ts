@@ -13,7 +13,7 @@
  */
 
 import * as runtime from "../runtime";
-import type { CustomStorageObjectKeys, CustomStorageResponse, CustomType1942251022, CustomType4161059146, MsaReplyMetaOnly } from "../models/index";
+import type { CustomStorageObjectKeys, CustomStorageResponse, CustomType1942251022, CustomType2728568081, CustomType4161059146, MsaReplyMetaOnly } from "../models/index";
 import {
     CustomStorageObjectKeysFromJSON,
     CustomStorageObjectKeysToJSON,
@@ -21,6 +21,8 @@ import {
     CustomStorageResponseToJSON,
     CustomType1942251022FromJSON,
     CustomType1942251022ToJSON,
+    CustomType2728568081FromJSON,
+    CustomType2728568081ToJSON,
     CustomType4161059146FromJSON,
     CustomType4161059146ToJSON,
     MsaReplyMetaOnlyFromJSON,
@@ -31,6 +33,17 @@ export interface CustomStorageApiDeleteRequest {
     collectionName: string;
     objectKey: string;
     dryRun?: boolean;
+}
+
+export interface CustomStorageApiBatchGetObjectsRequest {
+    collectionName: string;
+    objectKeys: Array<string>;
+}
+
+export interface CustomStorageApiBatchGetObjectsByVersionRequest {
+    collectionName: string;
+    collectionVersion: string;
+    objectKeys: Array<string>;
 }
 
 export interface CustomStorageApiDeleteVersionedObjectRequest {
@@ -190,6 +203,115 @@ export class CustomStorageApi extends runtime.BaseAPI {
      */
     async _delete(collectionName: string, objectKey: string, dryRun?: boolean, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomStorageResponse> {
         const response = await this._deleteRaw({ collectionName: collectionName, objectKey: objectKey, dryRun: dryRun }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Fetch 1–100 objects by key in a single request. Duplicate keys are deduped so fewer items may be returned than requested. When the response would exceed max configured limit the result is truncated: the object that crosses the budget is always included, and omitted keys are reported in the errors array (worst-case response size is the budget plus one maximum object size). Keys are passed as repeated object_keys query parameters; very long keys can hit ingress URL-length limits.
+     */
+    async batchGetObjectsRaw(
+        requestParameters: CustomStorageApiBatchGetObjectsRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType2728568081>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling batchGetObjects().');
+        }
+
+        if (requestParameters["objectKeys"] == null) {
+            throw new runtime.RequiredError("objectKeys", 'Required parameter "objectKeys" was null or undefined when calling batchGetObjects().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["objectKeys"] != null) {
+            queryParameters["object_keys"] = requestParameters["objectKeys"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/objects-batch`.replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType2728568081FromJSON(jsonValue));
+    }
+
+    /**
+     * Fetch 1–100 objects by key in a single request. Duplicate keys are deduped so fewer items may be returned than requested. When the response would exceed max configured limit the result is truncated: the object that crosses the budget is always included, and omitted keys are reported in the errors array (worst-case response size is the budget plus one maximum object size). Keys are passed as repeated object_keys query parameters; very long keys can hit ingress URL-length limits.
+     */
+    async batchGetObjects(collectionName: string, objectKeys: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomType2728568081> {
+        const response = await this.batchGetObjectsRaw({ collectionName: collectionName, objectKeys: objectKeys }, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Fetch 1–100 objects by key in a single request. Duplicate keys are deduped so fewer items may be returned than requested. When the response would exceed max configured limit the result is truncated: the object that crosses the budget is always included, and omitted keys are reported in the errors array (worst-case response size is the budget plus one maximum object size). Keys are passed as repeated object_keys query parameters; very long keys can hit ingress URL-length limits.
+     */
+    async batchGetObjectsByVersionRaw(
+        requestParameters: CustomStorageApiBatchGetObjectsByVersionRequest,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<runtime.ApiResponse<CustomType2728568081>> {
+        if (requestParameters["collectionName"] == null) {
+            throw new runtime.RequiredError("collectionName", 'Required parameter "collectionName" was null or undefined when calling batchGetObjectsByVersion().');
+        }
+
+        if (requestParameters["collectionVersion"] == null) {
+            throw new runtime.RequiredError("collectionVersion", 'Required parameter "collectionVersion" was null or undefined when calling batchGetObjectsByVersion().');
+        }
+
+        if (requestParameters["objectKeys"] == null) {
+            throw new runtime.RequiredError("objectKeys", 'Required parameter "objectKeys" was null or undefined when calling batchGetObjectsByVersion().');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters["objectKeys"] != null) {
+            queryParameters["object_keys"] = requestParameters["objectKeys"]!.join(runtime.COLLECTION_FORMATS["csv"]);
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["custom-storage:read"]);
+        }
+
+        const response = await this.request(
+            {
+                path: `/customobjects/v1/collections/{collection_name}/{collection_version}/objects-batch`
+                    .replace(`{${"collection_name"}}`, encodeURIComponent(String(requestParameters["collectionName"])))
+                    .replace(`{${"collection_version"}}`, encodeURIComponent(String(requestParameters["collectionVersion"]))),
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CustomType2728568081FromJSON(jsonValue));
+    }
+
+    /**
+     * Fetch 1–100 objects by key in a single request. Duplicate keys are deduped so fewer items may be returned than requested. When the response would exceed max configured limit the result is truncated: the object that crosses the budget is always included, and omitted keys are reported in the errors array (worst-case response size is the budget plus one maximum object size). Keys are passed as repeated object_keys query parameters; very long keys can hit ingress URL-length limits.
+     */
+    async batchGetObjectsByVersion(
+        collectionName: string,
+        collectionVersion: string,
+        objectKeys: Array<string>,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<CustomType2728568081> {
+        const response = await this.batchGetObjectsByVersionRaw({ collectionName: collectionName, collectionVersion: collectionVersion, objectKeys: objectKeys }, initOverrides);
         return await response.value();
     }
 

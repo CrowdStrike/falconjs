@@ -33,6 +33,12 @@ export interface CorrelationrulesapiPatchAnomalyV1 {
      * @type {string}
      * @memberof CorrelationrulesapiPatchAnomalyV1
      */
+    eventFieldOperation?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof CorrelationrulesapiPatchAnomalyV1
+     */
     lookbackTimeframe?: string;
     /**
      *
@@ -71,6 +77,7 @@ export function CorrelationrulesapiPatchAnomalyV1FromJSONTyped(json: any, ignore
     }
     return {
         eventFieldNames: json["event_field_names"] == null ? undefined : json["event_field_names"],
+        eventFieldOperation: json["event_field_operation"] == null ? undefined : json["event_field_operation"],
         lookbackTimeframe: json["lookback_timeframe"] == null ? undefined : json["lookback_timeframe"],
         scopes: json["scopes"] == null ? undefined : (json["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesFromJSON),
         type: json["type"] == null ? undefined : json["type"],
@@ -84,6 +91,7 @@ export function CorrelationrulesapiPatchAnomalyV1ToJSON(value?: Correlationrules
     }
     return {
         event_field_names: value["eventFieldNames"],
+        event_field_operation: value["eventFieldOperation"],
         lookback_timeframe: value["lookbackTimeframe"],
         scopes: value["scopes"] == null ? undefined : (value["scopes"] as Array<any>).map(CorrelationrulesapiAnomalyScopesToJSON),
         type: value["type"],

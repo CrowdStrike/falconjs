@@ -36,6 +36,24 @@ export interface EvaluationsEvaluationCloud {
      * @type {string}
      * @memberof EvaluationsEvaluationCloud
      */
+    clusterId?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof EvaluationsEvaluationCloud
+     */
+    clusterName?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof EvaluationsEvaluationCloud
+     */
+    infrastructureProvider?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof EvaluationsEvaluationCloud
+     */
     provider?: string;
     /**
      *
@@ -43,6 +61,12 @@ export interface EvaluationsEvaluationCloud {
      * @memberof EvaluationsEvaluationCloud
      */
     region?: string;
+    /**
+     *
+     * @type {string}
+     * @memberof EvaluationsEvaluationCloud
+     */
+    serviceName?: string;
 }
 
 /**
@@ -63,8 +87,12 @@ export function EvaluationsEvaluationCloudFromJSONTyped(json: any, ignoreDiscrim
     return {
         accountId: json["account_id"] == null ? undefined : json["account_id"],
         accountName: json["account_name"] == null ? undefined : json["account_name"],
+        clusterId: json["cluster_id"] == null ? undefined : json["cluster_id"],
+        clusterName: json["cluster_name"] == null ? undefined : json["cluster_name"],
+        infrastructureProvider: json["infrastructure_provider"] == null ? undefined : json["infrastructure_provider"],
         provider: json["provider"] == null ? undefined : json["provider"],
         region: json["region"] == null ? undefined : json["region"],
+        serviceName: json["service_name"] == null ? undefined : json["service_name"],
     };
 }
 
@@ -75,7 +103,11 @@ export function EvaluationsEvaluationCloudToJSON(value?: EvaluationsEvaluationCl
     return {
         account_id: value["accountId"],
         account_name: value["accountName"],
+        cluster_id: value["clusterId"],
+        cluster_name: value["clusterName"],
+        infrastructure_provider: value["infrastructureProvider"],
         provider: value["provider"],
         region: value["region"],
+        service_name: value["serviceName"],
     };
 }

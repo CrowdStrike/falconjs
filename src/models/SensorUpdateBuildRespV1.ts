@@ -57,6 +57,7 @@ export interface SensorUpdateBuildRespV1 {
 export const SensorUpdateBuildRespV1StageEnum = {
     Prod: "prod",
     EarlyAdopter: "early_adopter",
+    Ltv: "ltv",
 } as const;
 export type SensorUpdateBuildRespV1StageEnum = (typeof SensorUpdateBuildRespV1StageEnum)[keyof typeof SensorUpdateBuildRespV1StageEnum];
 

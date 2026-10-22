@@ -13,73 +13,53 @@
  */
 
 import { mapValues } from "../runtime";
-import type { ApiEntityField } from "./ApiEntityField";
-import { ApiEntityFieldFromJSON, ApiEntityFieldFromJSONTyped, ApiEntityFieldToJSON } from "./ApiEntityField";
-
 /**
  *
  * @export
- * @interface ApiEntityType
+ * @interface CloudAccounts
  */
-export interface ApiEntityType {
+export interface CloudAccounts {
     /**
      *
      * @type {Array<string>}
-     * @memberof ApiEntityType
+     * @memberof CloudAccounts
      */
-    base?: Array<string>;
-    /**
-     *
-     * @type {Array<object>}
-     * @memberof ApiEntityType
-     */
-    facets?: Array<object>;
-    /**
-     *
-     * @type {Array<ApiEntityField>}
-     * @memberof ApiEntityType
-     */
-    fields?: Array<ApiEntityField>;
+    ids?: Array<string>;
     /**
      *
      * @type {string}
-     * @memberof ApiEntityType
+     * @memberof CloudAccounts
      */
-    resId: string;
+    provider?: string;
 }
 
 /**
- * Check if a given object implements the ApiEntityType interface.
+ * Check if a given object implements the CloudAccounts interface.
  */
-export function instanceOfApiEntityType(value: object): value is ApiEntityType {
-    if (!("resId" in value) || value["resId"] === undefined) return false;
+export function instanceOfCloudAccounts(value: object): value is CloudAccounts {
     return true;
 }
 
-export function ApiEntityTypeFromJSON(json: any): ApiEntityType {
-    return ApiEntityTypeFromJSONTyped(json, false);
+export function CloudAccountsFromJSON(json: any): CloudAccounts {
+    return CloudAccountsFromJSONTyped(json, false);
 }
 
-export function ApiEntityTypeFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApiEntityType {
+export function CloudAccountsFromJSONTyped(json: any, ignoreDiscriminator: boolean): CloudAccounts {
     if (json == null) {
         return json;
     }
     return {
-        base: json["base"] == null ? undefined : json["base"],
-        facets: json["facets"] == null ? undefined : json["facets"],
-        fields: json["fields"] == null ? undefined : (json["fields"] as Array<any>).map(ApiEntityFieldFromJSON),
-        resId: json["res_id"],
+        ids: json["ids"] == null ? undefined : json["ids"],
+        provider: json["provider"] == null ? undefined : json["provider"],
     };
 }
 
-export function ApiEntityTypeToJSON(value?: ApiEntityType | null): any {
+export function CloudAccountsToJSON(value?: CloudAccounts | null): any {
     if (value == null) {
         return value;
     }
     return {
-        base: value["base"],
-        facets: value["facets"],
-        fields: value["fields"] == null ? undefined : (value["fields"] as Array<any>).map(ApiEntityFieldToJSON),
-        res_id: value["resId"],
+        ids: value["ids"],
+        provider: value["provider"],
     };
 }

@@ -15,8 +15,8 @@
 import { mapValues } from "../runtime";
 import type { StatemgmtCondition } from "./StatemgmtCondition";
 import { StatemgmtConditionFromJSON, StatemgmtConditionFromJSONTyped, StatemgmtConditionToJSON } from "./StatemgmtCondition";
-import type { DomainCloudScope } from "./DomainCloudScope";
-import { DomainCloudScopeFromJSON, DomainCloudScopeFromJSONTyped, DomainCloudScopeToJSON } from "./DomainCloudScope";
+import type { CloudScope } from "./CloudScope";
+import { CloudScopeFromJSON, CloudScopeFromJSONTyped, CloudScopeToJSON } from "./CloudScope";
 import type { DomainPermission } from "./DomainPermission";
 import { DomainPermissionFromJSON, DomainPermissionFromJSONTyped, DomainPermissionToJSON } from "./DomainPermission";
 
@@ -64,10 +64,10 @@ export interface DomainGCPAccountV1 {
     cloudRegistrationEnabled: boolean;
     /**
      *
-     * @type {Array<DomainCloudScope>}
+     * @type {Array<CloudScope>}
      * @memberof DomainGCPAccountV1
      */
-    cloudScopes?: Array<DomainCloudScope>;
+    cloudScopes?: Array<CloudScope>;
     /**
      *
      * @type {Array<StatemgmtCondition>}
@@ -216,7 +216,7 @@ export function DomainGCPAccountV1FromJSONTyped(json: any, ignoreDiscriminator: 
         updatedAt: new Date(json["UpdatedAt"]),
         cid: json["cid"],
         cloudRegistrationEnabled: json["cloud_registration_enabled"],
-        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(DomainCloudScopeFromJSON),
+        cloudScopes: json["cloud_scopes"] == null ? undefined : (json["cloud_scopes"] as Array<any>).map(CloudScopeFromJSON),
         conditions: json["conditions"] == null ? undefined : (json["conditions"] as Array<any>).map(StatemgmtConditionFromJSON),
         cspmEnabled: json["cspm_enabled"],
         displayName: json["display_name"] == null ? undefined : json["display_name"],
@@ -250,7 +250,7 @@ export function DomainGCPAccountV1ToJSON(value?: DomainGCPAccountV1 | null): any
         UpdatedAt: value["updatedAt"].toISOString(),
         cid: value["cid"],
         cloud_registration_enabled: value["cloudRegistrationEnabled"],
-        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(DomainCloudScopeToJSON),
+        cloud_scopes: value["cloudScopes"] == null ? undefined : (value["cloudScopes"] as Array<any>).map(CloudScopeToJSON),
         conditions: value["conditions"] == null ? undefined : (value["conditions"] as Array<any>).map(StatemgmtConditionToJSON),
         cspm_enabled: value["cspmEnabled"],
         display_name: value["displayName"],

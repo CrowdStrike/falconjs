@@ -13,7 +13,7 @@
  */
 
 import * as runtime from "../runtime";
-import type { DomainAccessTokenResponseV1, MsaReplyMetaOnly, MsaspecResponseFields } from "../models/index";
+import type { DomainAccessTokenResponseV1, MsaReplyMetaOnly, MsaspecResponseFields, Oauth2AuthorizationServerMetadata } from "../models/index";
 import {
     DomainAccessTokenResponseV1FromJSON,
     DomainAccessTokenResponseV1ToJSON,
@@ -21,12 +21,31 @@ import {
     MsaReplyMetaOnlyToJSON,
     MsaspecResponseFieldsFromJSON,
     MsaspecResponseFieldsToJSON,
+    Oauth2AuthorizationServerMetadataFromJSON,
+    Oauth2AuthorizationServerMetadataToJSON,
 } from "../models/index";
 
 export interface Oauth2ApiOauth2AccessTokenRequest {
     clientId: string;
-    clientSecret: string;
+    clientSecret?: string;
     memberCid?: string;
+    grantType?: string;
+    code?: string;
+    codeVerifier?: string;
+    redirectUri?: string;
+    resource?: string;
+}
+
+export interface Oauth2ApiOauth2AuthRequest {
+    clientId: string;
+    responseType: string;
+    redirectUri: string;
+    codeChallenge: string;
+    clientSecret?: string;
+    scope?: string;
+    state?: string;
+    codeChallengeMethod?: string;
+    resource?: string;
 }
 
 export interface Oauth2ApiOauth2RevokeTokenRequest {
@@ -47,10 +66,6 @@ export class Oauth2Api extends runtime.BaseAPI {
     ): Promise<runtime.ApiResponse<DomainAccessTokenResponseV1>> {
         if (requestParameters["clientId"] == null) {
             throw new runtime.RequiredError("clientId", 'Required parameter "clientId" was null or undefined when calling oauth2AccessToken().');
-        }
-
-        if (requestParameters["clientSecret"] == null) {
-            throw new runtime.RequiredError("clientSecret", 'Required parameter "clientSecret" was null or undefined when calling oauth2AccessToken().');
         }
 
         const queryParameters: any = {};
@@ -81,6 +96,26 @@ export class Oauth2Api extends runtime.BaseAPI {
             formParams.append("member_cid", requestParameters["memberCid"] as any);
         }
 
+        if (requestParameters["grantType"] != null) {
+            formParams.append("grant_type", requestParameters["grantType"] as any);
+        }
+
+        if (requestParameters["code"] != null) {
+            formParams.append("code", requestParameters["code"] as any);
+        }
+
+        if (requestParameters["codeVerifier"] != null) {
+            formParams.append("code_verifier", requestParameters["codeVerifier"] as any);
+        }
+
+        if (requestParameters["redirectUri"] != null) {
+            formParams.append("redirect_uri", requestParameters["redirectUri"] as any);
+        }
+
+        if (requestParameters["resource"] != null) {
+            formParams.append("resource", requestParameters["resource"] as any);
+        }
+
         const response = await this.request(
             {
                 path: `/oauth2/token`,
@@ -98,8 +133,165 @@ export class Oauth2Api extends runtime.BaseAPI {
     /**
      * Generate an OAuth2 access token
      */
-    async oauth2AccessToken(clientId: string, clientSecret: string, memberCid?: string, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DomainAccessTokenResponseV1> {
-        const response = await this.oauth2AccessTokenRaw({ clientId: clientId, clientSecret: clientSecret, memberCid: memberCid }, initOverrides);
+    async oauth2AccessToken(
+        clientId: string,
+        clientSecret?: string,
+        memberCid?: string,
+        grantType?: string,
+        code?: string,
+        codeVerifier?: string,
+        redirectUri?: string,
+        resource?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<DomainAccessTokenResponseV1> {
+        const response = await this.oauth2AccessTokenRaw(
+            { clientId: clientId, clientSecret: clientSecret, memberCid: memberCid, grantType: grantType, code: code, codeVerifier: codeVerifier, redirectUri: redirectUri, resource: resource },
+            initOverrides,
+        );
+        return await response.value();
+    }
+
+    /**
+     * Begins the OAuth2 authorization code grant
+     */
+    async oauth2AuthRaw(requestParameters: Oauth2ApiOauth2AuthRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters["clientId"] == null) {
+            throw new runtime.RequiredError("clientId", 'Required parameter "clientId" was null or undefined when calling oauth2Auth().');
+        }
+
+        if (requestParameters["responseType"] == null) {
+            throw new runtime.RequiredError("responseType", 'Required parameter "responseType" was null or undefined when calling oauth2Auth().');
+        }
+
+        if (requestParameters["redirectUri"] == null) {
+            throw new runtime.RequiredError("redirectUri", 'Required parameter "redirectUri" was null or undefined when calling oauth2Auth().');
+        }
+
+        if (requestParameters["codeChallenge"] == null) {
+            throw new runtime.RequiredError("codeChallenge", 'Required parameter "codeChallenge" was null or undefined when calling oauth2Auth().');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const consumes: runtime.Consume[] = [{ contentType: "application/x-www-form-urlencoded" }, { contentType: "text/html" }];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters["clientId"] != null) {
+            formParams.append("client_id", requestParameters["clientId"] as any);
+        }
+
+        if (requestParameters["clientSecret"] != null) {
+            formParams.append("client_secret", requestParameters["clientSecret"] as any);
+        }
+
+        if (requestParameters["responseType"] != null) {
+            formParams.append("response_type", requestParameters["responseType"] as any);
+        }
+
+        if (requestParameters["scope"] != null) {
+            formParams.append("scope", requestParameters["scope"] as any);
+        }
+
+        if (requestParameters["state"] != null) {
+            formParams.append("state", requestParameters["state"] as any);
+        }
+
+        if (requestParameters["redirectUri"] != null) {
+            formParams.append("redirect_uri", requestParameters["redirectUri"] as any);
+        }
+
+        if (requestParameters["codeChallenge"] != null) {
+            formParams.append("code_challenge", requestParameters["codeChallenge"] as any);
+        }
+
+        if (requestParameters["codeChallengeMethod"] != null) {
+            formParams.append("code_challenge_method", requestParameters["codeChallengeMethod"] as any);
+        }
+
+        if (requestParameters["resource"] != null) {
+            formParams.append("resource", requestParameters["resource"] as any);
+        }
+
+        const response = await this.request(
+            {
+                path: `/oauth2/auth`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+                body: formParams,
+            },
+            initOverrides,
+        );
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Begins the OAuth2 authorization code grant
+     */
+    async oauth2Auth(
+        clientId: string,
+        responseType: string,
+        redirectUri: string,
+        codeChallenge: string,
+        clientSecret?: string,
+        scope?: string,
+        state?: string,
+        codeChallengeMethod?: string,
+        resource?: string,
+        initOverrides?: RequestInit | runtime.InitOverrideFunction,
+    ): Promise<void> {
+        await this.oauth2AuthRaw(
+            {
+                clientId: clientId,
+                responseType: responseType,
+                redirectUri: redirectUri,
+                codeChallenge: codeChallenge,
+                clientSecret: clientSecret,
+                scope: scope,
+                state: state,
+                codeChallengeMethod: codeChallengeMethod,
+                resource: resource,
+            },
+            initOverrides,
+        );
+    }
+
+    /**
+     */
+    async oauth2AuthorizationServerMetadataRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Oauth2AuthorizationServerMetadata>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request(
+            {
+                path: `/.well-known/oauth-authorization-server`,
+                method: "GET",
+                headers: headerParameters,
+                query: queryParameters,
+            },
+            initOverrides,
+        );
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => Oauth2AuthorizationServerMetadataFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async oauth2AuthorizationServerMetadata(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Oauth2AuthorizationServerMetadata> {
+        const response = await this.oauth2AuthorizationServerMetadataRaw(initOverrides);
         return await response.value();
     }
 

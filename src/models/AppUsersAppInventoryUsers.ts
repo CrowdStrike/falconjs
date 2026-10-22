@@ -24,12 +24,6 @@ export interface AppUsersAppInventoryUsers {
      * @type {string}
      * @memberof AppUsersAppInventoryUsers
      */
-    accountId: string;
-    /**
-     *
-     * @type {string}
-     * @memberof AppUsersAppInventoryUsers
-     */
     itemId: string;
     /**
      *
@@ -43,7 +37,6 @@ export interface AppUsersAppInventoryUsers {
  * Check if a given object implements the AppUsersAppInventoryUsers interface.
  */
 export function instanceOfAppUsersAppInventoryUsers(value: object): value is AppUsersAppInventoryUsers {
-    if (!("accountId" in value) || value["accountId"] === undefined) return false;
     if (!("itemId" in value) || value["itemId"] === undefined) return false;
     if (!("users" in value) || value["users"] === undefined) return false;
     return true;
@@ -58,7 +51,6 @@ export function AppUsersAppInventoryUsersFromJSONTyped(json: any, ignoreDiscrimi
         return json;
     }
     return {
-        accountId: json["account_id"],
         itemId: json["item_id"],
         users: json["users"],
     };
@@ -69,7 +61,6 @@ export function AppUsersAppInventoryUsersToJSON(value?: AppUsersAppInventoryUser
         return value;
     }
     return {
-        account_id: value["accountId"],
         item_id: value["itemId"],
         users: value["users"],
     };

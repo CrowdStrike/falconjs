@@ -1791,6 +1791,7 @@ export const GetEvaluationResultCloudProviderEnum = {
     Azure: "azure",
     Gcp: "gcp",
     Oci: "oci",
+    Gws: "gws",
 } as const;
 export type GetEvaluationResultCloudProviderEnum = (typeof GetEvaluationResultCloudProviderEnum)[keyof typeof GetEvaluationResultCloudProviderEnum];
 /**
@@ -1801,5 +1802,6 @@ export const GetRuleInputSchemaCloudProviderEnum = {
     Azure: "azure",
     Gcp: "gcp",
     Oci: "oci",
+    Gws: "gws",
 } as const;
 export type GetRuleInputSchemaCloudProviderEnum = (typeof GetRuleInputSchemaCloudProviderEnum)[keyof typeof GetRuleInputSchemaCloudProviderEnum];
